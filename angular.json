@@ -26,6 +26,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
+            "preserveSymlinks": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -100,15 +101,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
             ]
           }
         },
@@ -122,6 +119,80 @@
             "production": {
               "devServerTarget": "golden-sample-app:serve:production"
             }
+          }
+        }
+      }
+    },
+    "heroes-journey": {
+      "projectType": "library",
+      "root": "projects/heroes-journey",
+      "sourceRoot": "projects/heroes-journey/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/heroes-journey/tsconfig.lib.json",
+            "project": "projects/heroes-journey/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/heroes-journey/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/heroes-journey/src/test.ts",
+            "tsConfig": "projects/heroes-journey/tsconfig.spec.json",
+            "karmaConfig": "projects/heroes-journey/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/heroes-journey/**/*.ts",
+              "projects/heroes-journey/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "todo-journey": {
+      "projectType": "library",
+      "root": "projects/todo-journey",
+      "sourceRoot": "projects/todo-journey/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/todo-journey/tsconfig.lib.json",
+            "project": "projects/todo-journey/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/todo-journey/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/todo-journey/src/test.ts",
+            "tsConfig": "projects/todo-journey/tsconfig.spec.json",
+            "karmaConfig": "projects/todo-journey/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/todo-journey/**/*.ts",
+              "projects/todo-journey/**/*.html"
+            ]
           }
         }
       }

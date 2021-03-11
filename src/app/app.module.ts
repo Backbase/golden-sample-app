@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
+import { environment } from '../environments/environment';
+import { AvatarModule, DropdownMenuModule, IconModule } from '@backbase/ui-ang';
 
 @NgModule({
   declarations: [
@@ -10,9 +13,14 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    WebSdkModule.forRoot({ ...environment, staticResourcesRoot: '', locale: '' }),
+    DropdownMenuModule,
+    AvatarModule,
+    IconModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {
+}
