@@ -6,7 +6,12 @@ import { AppComponent } from './app.component';
 import { AvatarModule, DropdownMenuModule, IconModule } from '@backbase/ui-ang';
 import {EntitlementsModule} from '@backbase/foundation-ang/entitlements';
 import {RouterModule} from '@angular/router';
-import {BackbaseCoreModule} from '@backbase/foundation-ang/core';
+import {BackbaseCoreModule, ItemModel} from '@backbase/foundation-ang/core';
+import {of} from 'rxjs';
+
+const itemModelValue = new ItemModel('golden-sample', {
+  classId: ''
+}, of({}));
 
 @NgModule({
   declarations: [
@@ -21,6 +26,12 @@ import {BackbaseCoreModule} from '@backbase/foundation-ang/core';
     IconModule,
     BackbaseCoreModule.forRoot({}),
     RouterModule.forRoot([], { initialNavigation: 'disabled', useHash: true, relativeLinkResolution: 'legacy' }),
+  ],
+  providers: [
+    {
+      provide: ItemModel,
+      useValue: itemModelValue
+    }
   ],
   bootstrap: [ AppComponent ]
 })
