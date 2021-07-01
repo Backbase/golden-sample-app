@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@backbase/foundation-ang/web-sdk';
+// import { AuthService } from '@backbase/foundation-ang/web-sdk';
 
 @Component({
   selector: 'app-login-page',
@@ -8,12 +8,13 @@ import { AuthService } from '@backbase/foundation-ang/web-sdk';
 })
 export class LoginPageComponent implements OnInit {
   constructor(
-    private readonly auth: AuthService,
+    // private readonly auth: AuthService,
   ) { }
 
   ngOnInit(): void {}
 
   login(): void {
-    this.auth.goToLoginPage(window.location.origin + '/user');
+    console.log('login');
+    // this.auth.goToLoginPage(window.location.origin + '/user');
   }
 }

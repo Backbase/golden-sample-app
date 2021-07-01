@@ -1,0 +1,40 @@
+<div class="bb-heading-widget bb-heading-widget--de-elevated heading-widget">
+  <bb-header-ui
+    heading-classes="bb-heading-widget__heading"
+    heading-type="h1"
+    heading="Positive Pay">
+      <h1 data-role="headings"
+          ng-class="bb-heading-widget__heading"
+          class="bb-heading-widget__heading">
+        Positive Pay
+      </h1>
+  </bb-header-ui>
+
+  <button
+    class="bb-heading-widget__button btn btn-primary upload-batch-button"
+    ng-class="btn btn-primary upload-batch-b">
+    <i aria-hidden="true" class="bb-icon bb-icon-add"></i>
+    <span>Enter check</span>
+  </button>
+</div>
+
+<div class="container-fluid container--drag-up">
+
+  <div class="bb-tab--inverse">
+    <nav class="bb-tab-container__tabs nav nav-tabs">
+
+      <bb-tab-list class="bb-tab-container__tabs nav nav-tabs" role="tablist" [tabs]="tabs"></bb-tab-list>
+
+    </nav>
+  </div>
+
+  <div class="bb-tab-container__content tab-content">
+    <div class="card">
+      <div class="card-body">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+
+</div>
+

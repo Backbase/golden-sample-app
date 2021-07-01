@@ -196,6 +196,37 @@
           }
         }
       }
+    },
+    "positive-pay-journey": {
+      "projectType": "library",
+      "root": "projects/positive-pay-journey",
+      "sourceRoot": "projects/positive-pay-journey/src",
+      "prefix": "bb",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/positive-pay-journey/test.ts",
+            "karmaConfig": "projects/positive-pay-journey/karma.conf.js",
+            "polyfills": "apps/positive-pay/src/polyfills.ts",
+            "tsConfig": "./tsconfig.spec.json",
+            "codeCoverage": true,
+            "codeCoverageExclude": [
+              "test.ts",
+              "**/polyfills.ts"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/positive-pay-journey/**/*.ts",
+              "projects/positive-pay-journey/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "golden-sample-app"

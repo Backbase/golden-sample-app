@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
-import { environment } from '../environments/environment';
 import { AvatarModule, DropdownMenuModule, IconModule } from '@backbase/ui-ang';
+import {EntitlementsModule} from '@backbase/foundation-ang/entitlements';
+import {RouterModule} from '@angular/router';
+import {BackbaseCoreModule} from '@backbase/foundation-ang/core';
 
 @NgModule({
   declarations: [
@@ -14,12 +15,13 @@ import { AvatarModule, DropdownMenuModule, IconModule } from '@backbase/ui-ang';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    WebSdkModule.forRoot({ ...environment, staticResourcesRoot: '', locale: '' }),
+    EntitlementsModule,
     DropdownMenuModule,
     AvatarModule,
     IconModule,
+    BackbaseCoreModule.forRoot({}),
+    RouterModule.forRoot([], { initialNavigation: 'disabled', useHash: true, relativeLinkResolution: 'legacy' }),
   ],
-  providers: [],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {
