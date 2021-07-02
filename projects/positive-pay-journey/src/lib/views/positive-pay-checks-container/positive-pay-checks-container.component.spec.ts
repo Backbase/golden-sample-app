@@ -8,9 +8,8 @@ describe('PositivePayChecksContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PositivePayChecksContainerComponent ]
-    })
-    .compileComponents();
+      declarations: [PositivePayChecksContainerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

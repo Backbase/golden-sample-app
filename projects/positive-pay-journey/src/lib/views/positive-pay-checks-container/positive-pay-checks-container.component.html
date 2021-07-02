@@ -1,19 +1,15 @@
 <div class="bb-heading-widget bb-heading-widget--de-elevated heading-widget">
   <bb-header-ui
-    heading-classes="bb-heading-widget__heading"
-    heading-type="h1"
+    headingClasses="bb-heading-widget__heading"
+    headingType="h1"
     heading="Positive Pay">
-      <h1 data-role="headings"
-          ng-class="bb-heading-widget__heading"
-          class="bb-heading-widget__heading">
-        Positive Pay
-      </h1>
   </bb-header-ui>
 
   <button
-    class="bb-heading-widget__button btn btn-primary upload-batch-button"
-    ng-class="btn btn-primary upload-batch-b">
-    <i aria-hidden="true" class="bb-icon bb-icon-add"></i>
+    bbButton
+    class="bb-heading-widget__button upload-batch-button upload-batch-b"
+  >
+    <bb-icon-ui name="add"></bb-icon-ui>
     <span>Enter check</span>
   </button>
 </div>
@@ -23,7 +19,17 @@
   <div class="bb-tab--inverse">
     <nav class="bb-tab-container__tabs nav nav-tabs">
 
-      <bb-tab-list class="bb-tab-container__tabs nav nav-tabs" role="tablist" [tabs]="tabs"></bb-tab-list>
+      <div class="nav-item" *ngFor="let tab of tabs">
+        <a
+          class="nav-link bb-stack"
+          [routerLink]="tab.route"
+          routerLinkActive="active"
+          [attr.aria-current]="rla.isActive ? 'page' : null"
+          #rla="routerLinkActive"
+        >
+          <span class="bb-stack__item bb-stack__item--spacing-xs">{{ tab.title }}</span>
+        </a>
+      </div>
 
     </nav>
   </div>
@@ -38,3 +44,4 @@
 
 </div>
 
+ß

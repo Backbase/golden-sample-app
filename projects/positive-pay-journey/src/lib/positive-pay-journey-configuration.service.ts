@@ -1,10 +1,10 @@
-import {Inject, Injectable, InjectionToken, Optional} from '@angular/core';
-import {PositivePayJourneyConfiguration} from './models/positive-pay-journey-configuration.model';
-import {defaultArrangementSubscriptionsConfig} from './constants/default-arrangement-subscriptions';
-import {PaginationType} from './models/pagination-type.model';
-import {combineLatest, Observable, of} from 'rxjs';
-import {ArrangementSubscriptions} from './models/arrangement-subscriptions.model';
-import {map} from 'rxjs/operators';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { PositivePayJourneyConfiguration } from './models/positive-pay-journey-configuration.model';
+import { defaultArrangementSubscriptionsConfig } from './constants/accounts.constant';
+import { PaginationType } from './models/pagination-type.model';
+import { combineLatest, Observable, of } from 'rxjs';
+import { ArrangementSubscriptions } from './models/arrangement-subscriptions.model';
+import { map } from 'rxjs/operators';
 
 /**
  * Injection token to override the journey configurations.
@@ -45,16 +45,15 @@ const defaultConfiguration: Partial<PositivePayJourneyConfiguration> = {
  */
 @Injectable()
 export class PositivePayJourneyConfigurationService {
-
   /** Property containing configuration for the journey */
   private staticConfig: PositivePayJourneyConfiguration;
 
   constructor(
     @Optional()
     @Inject(POSITIVE_PAY_JOURNEY_CONFIGURATION_TOKEN)
-      staticConfigOverrides: PositivePayJourneyConfiguration,
+    staticConfigOverrides: PositivePayJourneyConfiguration,
   ) {
-    this.staticConfig = {...defaultConfiguration, ...staticConfigOverrides};
+    this.staticConfig = { ...defaultConfiguration, ...staticConfigOverrides };
   }
 
   get journeyConfiguration$(): Observable<PositivePayJourneyConfiguration> {
@@ -64,26 +63,26 @@ export class PositivePayJourneyConfigurationService {
       this.paginationType$,
       this.pageSize$,
       this.maxNavPages$,
-      this.arrangementSubscriptions$
-    ])
-      .pipe(
-        map(([
-               headingType,
-               notificationDismissTimeout,
-               paginationType,
-               pageSize,
-               maxNavPages,
-               arrangementSubscriptions,
-             ]) => ({
-            headingType,
-            notificationDismissTimeout,
-            paginationType,
-            pageSize,
-            maxNavPages,
-            arrangementSubscriptions,
-          })
-        )
-      );
+      this.arrangementSubscriptions$,
+    ]).pipe(
+      map(
+        ([
+          headingType,
+          notificationDismissTimeout,
+          paginationType,
+          pageSize,
+          maxNavPages,
+          arrangementSubscriptions,
+        ]) => ({
+          headingType,
+          notificationDismissTimeout,
+          paginationType,
+          pageSize,
+          maxNavPages,
+          arrangementSubscriptions,
+        }),
+      ),
+    );
   }
 
   /**

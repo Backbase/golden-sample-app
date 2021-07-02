@@ -6,36 +6,35 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+    loadChildren: () => import('./login/login.module').then((m) => m.LoginModule),
   },
   {
     path: 'user',
-    loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
     // canActivate: [ EntitlementsGuard ]
   },
   {
     path: 'todo',
-    loadChildren: () => import('todo-journey').then(m => m.TodoJourneyModule),
+    loadChildren: () => import('todo-journey').then((m) => m.TodoJourneyModule),
     // canActivate: [ AuthGuard ]
   },
   {
     path: 'heroes',
-    loadChildren: () => import('heroes-journey').then(m => m.HeroesJourneyModule),
+    loadChildren: () => import('heroes-journey').then((m) => m.HeroesJourneyModule),
     // canActivate: [ AuthGuard ]
   },
   {
     path: 'positive-pay',
-    loadChildren: () => import('./bundles/positive-pay-bundle.module').then(m => m.PositivePayJourneyBundleModule)
+    loadChildren: () => import('./bundles/positive-pay-bundle.module').then((m) => m.PositivePayJourneyBundleModule),
   },
   {
     path: '**',
-    redirectTo: 'login'
-  }
-
+    redirectTo: 'login',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

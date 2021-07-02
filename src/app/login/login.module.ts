@@ -4,11 +4,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginRoutingModule } from './login-routing.module';
 
 @NgModule({
-  declarations: [ LoginPageComponent ],
-  imports: [
-    CommonModule,
-    LoginRoutingModule
-  ]
+  declarations: [LoginPageComponent],
+  imports: [CommonModule, LoginRoutingModule],
 })
-export class LoginModule {
-}
+export class LoginModule {}

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import {PositivePayJourneyModule} from 'positive-pay-journey';
+import { PositivePayJourneyModule } from 'positive-pay-journey';
 
 @NgModule({
   imports: [PositivePayJourneyModule.forRoot()],

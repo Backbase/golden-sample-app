@@ -8,9 +8,8 @@ describe('PositivePayJourneyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PositivePayJourneyComponent ]
-    })
-    .compileComponents();
+      declarations: [PositivePayJourneyComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

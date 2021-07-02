@@ -1,5 +1,5 @@
-import {PaginationType} from './pagination-type.model';
-import {ArrangementSubscriptions} from './arrangement-subscriptions.model';
+import { PaginationType } from './pagination-type.model';
+import { ArrangementSubscriptions } from './arrangement-subscriptions.model';
 
 /**
  * Configuration model for the positive pay journey

@@ -8,9 +8,8 @@ describe('PositivePayViewChecksComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PositivePayViewChecksComponent ]
-    })
-    .compileComponents();
+      declarations: [PositivePayViewChecksComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

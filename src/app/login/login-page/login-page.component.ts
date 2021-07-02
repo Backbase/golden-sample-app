@@ -4,12 +4,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.sass']
+  styleUrls: ['./login-page.component.sass'],
 })
 export class LoginPageComponent implements OnInit {
-  constructor(
-    // private readonly auth: AuthService,
-  ) { }
+  constructor() {} // private readonly auth: AuthService,
 
   ngOnInit(): void {}
 

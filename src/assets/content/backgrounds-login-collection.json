@@ -1,0 +1,11 @@
+{
+  "backgrounds": [
+    {
+      "image": "rel:backgrounds-login-2x.jpg",
+      "size": "cover",
+      "positionX": "center",
+      "positionY": "center",
+      "repeat": "no-repeat"
+    }
+  ]
+}

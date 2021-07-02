@@ -3,7 +3,7 @@
  *
  * @public
  * */
-export enum PaginationType {
+export enum PaginationType { // eslint-disable-line no-shadow
   /** Default will allow user to change the pagination type according to the viewport size */
   default = 'DEFAULT',
   /** Pagination will override the pagination type to pagination irrespective of the viewport size */

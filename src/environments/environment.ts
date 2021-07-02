@@ -10,7 +10,7 @@ export const environment = {
     realm: 'backbase',
     clientId: 'bb-web-client',
     scope: 'openid',
-  }
+  },
 };
 
 /*
