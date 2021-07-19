@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:docker": "docker build -t golden-sample-app:latest .",
-    "start:docker": "docker run -p 4300:4300 golden-sample-app",
+    "start:docker": "docker run -p 8080:8080 golden-sample-app",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
