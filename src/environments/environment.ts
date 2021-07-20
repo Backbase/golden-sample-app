@@ -3,7 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiRoot: 'https://app.stable.retail.backbasecloud.com/api',
+  auth: {
+    authUrl: 'https://identity-latest-universal.retail.backbase.eu/auth',
+    realm: 'backbase',
+    clientId: 'bb-web-client',
+    scope: 'openid',
+  }
 };
 
 /*
