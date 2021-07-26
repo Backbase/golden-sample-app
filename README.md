@@ -1,6 +1,6 @@
 # Golden Sample Angular App
 
-This example project is a reference implementation to showcase a number of best practices to use when building a new Angular SPA that leverages Backbase components and libraries. The project is regularly updated, so come back regularly to check new improvements.
+This example project is a reference implementation to showcase a number of best practices to use when building a new Angular SPA that leverages Backbase components and libraries. The project is regularly updated, so come back often to check for new improvements.
 
 ## Development server
 
