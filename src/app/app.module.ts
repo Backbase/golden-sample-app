@@ -13,6 +13,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule } from '@angular/common/http';
 
+// mocks
+import { PositivePayHttpService, PositivePayHttpServiceMocksProvider } from '@backbase/data-ang/positive-pay-v1';
+import { ProductSummaryHttpService, ProductSummaryHttpServiceMocksProvider } from '@backbase/data-ang/arrangements';
+import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
+import { entitlementsMock } from '../mocks/entitlements.mock';
+
 const itemModelValue = new ItemModel(
   'golden-sample',
   {
@@ -44,6 +50,18 @@ const itemModelValue = new ItemModel(
     {
       provide: ItemModel,
       useValue: itemModelValue,
+    },
+    {
+      provide: PositivePayHttpService,
+      useValue: PositivePayHttpServiceMocksProvider,
+    },
+    {
+      provide: ProductSummaryHttpService,
+      useValue: ProductSummaryHttpServiceMocksProvider,
+    },
+    {
+      provide: CONDITIONS,
+      useValue: entitlementsMock,
     },
   ],
   bootstrap: [AppComponent],
