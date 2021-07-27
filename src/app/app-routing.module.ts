@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '@backbase/foundation-ang/web-sdk';
+import { AuthGuard } from '@backbase/foundation-ang/auth';
+
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
     path: 'heroes',
     loadChildren: () => import('heroes-journey').then(m => m.HeroesJourneyModule),
     canActivate: [ AuthGuard ]
+  },
+  {
+    path: "transfer",
+    loadChildren: () => import('./bundles/transfer-journey-bundle.module').then(m => m.TransferJourneyBundleModule),
   },
   {
     path: '**',

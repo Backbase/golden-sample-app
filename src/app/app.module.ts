@@ -14,7 +14,7 @@ import { AvatarModule, DropdownMenuModule, IconModule } from '@backbase/ui-ang';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    WebSdkModule.forRoot({ ...environment, staticResourcesRoot: '', locale: '' }),
+    WebSdkModule.forRoot({ ...environment, staticResourcesRoot: '' }),
     DropdownMenuModule,
     AvatarModule,
     IconModule,
