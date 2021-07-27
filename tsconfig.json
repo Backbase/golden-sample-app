@@ -25,11 +25,6 @@
         "dist/heroes-journey",
         "projects/heroes-journey/src/public-api.ts"
       ],
-      "positive-pay-journey": [
-        "dist/positive-pay-journey/positive-pay-journey",
-        "dist/positive-pay-journey",
-        "projects/positive-pay-journey/src/public-api.ts"
-      ],
       "todo-journey": [
         "dist/todo-journey/todo-journey",
         "dist/todo-journey",

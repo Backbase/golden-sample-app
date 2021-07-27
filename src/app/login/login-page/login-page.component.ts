@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "@backbase/foundation-ang/auth";
+import { AuthService } from '@backbase/foundation-ang/auth';
 
 @Component({
   selector: 'app-login-page',
@@ -7,12 +7,11 @@ import {AuthService} from "@backbase/foundation-ang/auth";
   styleUrls: ['./login-page.component.sass'],
 })
 export class LoginPageComponent implements OnInit {
-  constructor(private readonly auth: AuthService,) {}
+  constructor(private readonly auth: AuthService) {}
 
   ngOnInit(): void {}
 
   login(): void {
-    console.log('login');
     this.auth.login({ redirectUri: window.location.origin + '/user' });
   }
 }
