@@ -6,6 +6,7 @@ import { provideRoutes, Route, RouterModule } from '@angular/router';
 import { AccountSelectorModule, ButtonModule, CurrencyInputModule, InputValidationMessageModule, ModalModule } from '@backbase/ui-ang';
 import { MakeTransferFormComponent } from './components/make-transfer-form.component';
 import { MakeTransferSummaryComponent } from './components/make-transfer-summary.component';
+import { TRANSLATIONS } from './constants/dynamic-translations';
 import { TransferJourneyComponent } from './transfer-journey.component';
 import { MakeTransferComponent } from './views/make-transfer.component';
 
@@ -21,6 +22,9 @@ const defaultRoute: Route = {
     {
       path: 'make-transfer',
       component: MakeTransferComponent,
+      data: {
+        title: TRANSLATIONS.makeTransferTitle,
+      }
     }
   ]
 }

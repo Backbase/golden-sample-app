@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Inject, Input, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { CONDITIONS, PropertyResolver } from "@backbase/foundation-ang/web-sdk";
 import { Account, Transfer } from "../model/Account";
 
 @Component({
@@ -8,6 +9,8 @@ import { Account, Transfer } from "../model/Account";
 })
 export class MakeTransferFormComponent implements OnInit {
   @Input() account: Account | undefined;
+  @Input() showMaksIndicator: boolean = true;
+
   makeTransferForm!: FormGroup;
   transferInQuestion: Transfer | undefined;
   showSummary = false;
@@ -57,7 +60,7 @@ export class MakeTransferFormComponent implements OnInit {
 
   confirmTransfer() {
     this.makeTransferForm.reset({
-      fromAccount: `${this.account?.name}: €${this.account?.amount}`,
+      fromAccount: `${this.showMaksIndicator ? '*****' : this.account?.name}: €${this.account?.amount}`,
       toAccount: '',
       amount: {
         amount: '',
@@ -72,7 +75,7 @@ export class MakeTransferFormComponent implements OnInit {
   ngOnInit() {
     this.makeTransferForm = this.fb.group({
         fromAccount: [{
-          value: `${this.account?.name}: €${this.account?.amount}`,
+          value: `${this.showMaksIndicator ? '*****' : this.account?.name}: €${this.account?.amount}`,
           disabled: true
         }],
         toAccount: ['', Validators.required],

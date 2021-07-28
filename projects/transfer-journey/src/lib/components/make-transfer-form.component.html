@@ -1,15 +1,22 @@
 <form [formGroup]="makeTransferForm" (ngSubmit)="transfer()">
     <div class="bb-block bb-block--xl">
         <div class="form-group">
-            <label>From account</label>
+            <label i18n="from account label@@transfer.form.fromAccount.label">From account</label>
             <input type="text" class="form-control" formControlName="fromAccount" [disabled]="true"/>
           </div>
           <div class="form-group">
-            <label>To Account</label>
-            <input type="text" class="form-control" formControlName="toAccount"  placeholder="type an account name"/>
+            <label i18n="to account label@@transfer.form.fromAccount.label">To Account</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="toAccount"  
+              i18n-placeholder="from account placeholder@@transfer.form.toAccount.placeholder"
+              placeholder="type an account name"
+            />
             <div bbValidationMessage>
                 <bb-input-validation-message-ui [showErrors]="isInvalidControl('toAccount')">
                     <span
+                      i18n="to account required error@@transfer.form.toAccount.error.required"
                       *ngIf="hasError('toAccount', 'required')"
                     >
                       Required field
@@ -19,23 +26,23 @@
           </div>
 
           <div class="form-group">
-            <label>Amount</label>
+            <label i18n="amount label@@transfer.form.amount.label">Amount</label>
             <bb-currency-input-ui
              [currencyLabel]="'Amount'"
              formControlName="amount"
              [currencies]="['EUR']"
-             [aria-labelledby]="'currency-input-with-decimals-label'"
-             [currencyListAriaLabel]="'Currency'"
             >
               <div bbValidationMessage>
                 <bb-input-validation-message-ui [showErrors]="isInvalidControl('amount')">
                     <span
                       *ngIf="hasError('amount', 'required')"
+                      i18n="amount required error@@transfer.form.amount.error.required"
                     >
                       Required field
                   </span>
                   <span
                       *ngIf="hasError('amount', 'max')"
+                      i18n="amount not enough balance error@@transfer.form.amount.error.max"
                     >
                       There is not enough balance
                   </span>
@@ -46,7 +53,7 @@
     </div>
     
     <div class="bb-button-bar"> 
-      <button bbButton type="submit">Submit</button>
+      <button bbButton type="submit" i18n="submit button@@transfer.form.submit.text">Submit</button>
     </div>
   </form>
 

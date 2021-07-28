@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@backbase/foundation-ang/auth';
+import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
 
 
 const routes: Routes = [
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: "transfer",
     loadChildren: () => import('./bundles/transfer-journey-bundle.module').then(m => m.TransferJourneyBundleModule),
+    canActivate: [ EntitlementsGuard ],
+    data: {
+      entitlements: 'Transfers.make.view'
+    }
   },
   {
     path: '**',
