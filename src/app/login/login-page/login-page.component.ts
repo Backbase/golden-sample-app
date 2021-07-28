@@ -12,6 +12,6 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {}
 
   login(): void {
-    this.auth.login({ redirectUri: window.location.origin + '/user' });
+    this.auth.login();
   }
 }
