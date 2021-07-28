@@ -3,3 +3,9 @@ export interface Account {
   name: string;
   amount: number;
 }
+
+export interface Transfer {
+  fromAccount: string;
+  toAccount: string;
+  amount: number;
+}

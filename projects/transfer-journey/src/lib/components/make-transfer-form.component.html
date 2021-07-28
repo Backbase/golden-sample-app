@@ -17,6 +17,7 @@
                 </bb-input-validation-message-ui>
               </div>
           </div>
+
           <div class="form-group">
             <label>Amount</label>
             <bb-currency-input-ui
@@ -33,6 +34,11 @@
                     >
                       Required field
                   </span>
+                  <span
+                      *ngIf="hasError('amount', 'max')"
+                    >
+                      There is not enough balance
+                  </span>
                 </bb-input-validation-message-ui>
               </div>
             </bb-currency-input-ui>
@@ -43,3 +49,9 @@
       <button bbButton type="submit">Submit</button>
     </div>
   </form>
+
+  <bb-make-transfer-summary 
+    [transfer]="transferInQuestion"
+    [(showSummary)]="showSummary"
+    (confirmTransfer)="confirmTransfer()"
+  ></bb-make-transfer-summary>

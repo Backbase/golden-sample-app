@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideRoutes, Route, RouterModule } from '@angular/router';
-import { AccountSelectorModule, ButtonModule, CurrencyInputModule, InputValidationMessageModule } from '@backbase/ui-ang';
+import { AccountSelectorModule, ButtonModule, CurrencyInputModule, InputValidationMessageModule, ModalModule } from '@backbase/ui-ang';
 import { MakeTransferFormComponent } from './components/make-transfer-form.component';
+import { MakeTransferSummaryComponent } from './components/make-transfer-summary.component';
 import { TransferJourneyComponent } from './transfer-journey.component';
 import { MakeTransferComponent } from './views/make-transfer.component';
 
@@ -25,11 +26,12 @@ const defaultRoute: Route = {
 }
 
 @NgModule({
-  declarations: [TransferJourneyComponent, MakeTransferComponent, MakeTransferFormComponent],
+  declarations: [TransferJourneyComponent, MakeTransferComponent, MakeTransferFormComponent, MakeTransferSummaryComponent],
   imports: [
     CommonModule,
     RouterModule,
     ButtonModule,
+    ModalModule,
     CurrencyInputModule,
     AccountSelectorModule,
     InputValidationMessageModule,

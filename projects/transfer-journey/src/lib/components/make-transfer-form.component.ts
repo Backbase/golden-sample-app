@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Account } from "../model/Account";
+import { Account, Transfer } from "../model/Account";
 
 @Component({
   selector: 'bb-make-transfer-form',
@@ -9,14 +9,35 @@ import { Account } from "../model/Account";
 export class MakeTransferFormComponent implements OnInit {
   @Input() account: Account | undefined;
   makeTransferForm!: FormGroup;
+  transferInQuestion: Transfer | undefined;
+  showSummary = false;
 
   private getControl(field: string): AbstractControl | undefined {
     return this.makeTransferForm.controls[field];
   }
 
+  private validateAmount(value: number) {
+    return (control: AbstractControl) => {
+      const amount = control.value.amount as number;
+      console.log(amount);
+      if(amount > value) {
+        return {
+          max: 'value is too high',
+        }
+      }
+
+      return null;
+    }
+  }
+
   transfer() {
     if (this.makeTransferForm.valid) {
-      
+      this.transferInQuestion = {
+        fromAccount: this.makeTransferForm.value.fromAccount,
+        toAccount: this.makeTransferForm.value.toAccount,
+        amount: this.makeTransferForm.value.amount.amount,
+      }
+      this.showSummary = true;
     } else {
       this.makeTransferForm.markAllAsTouched();
     }
@@ -34,6 +55,18 @@ export class MakeTransferFormComponent implements OnInit {
     return !!control && control.touched && control.invalid;
   }
 
+  confirmTransfer() {
+    this.makeTransferForm.reset({
+      fromAccount: `${this.account?.name}: €${this.account?.amount}`,
+      toAccount: '',
+      amount: {
+        amount: '',
+        currency: 'EUR'
+      },
+    });
+    this.transferInQuestion = undefined;
+  }
+
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
@@ -43,7 +76,7 @@ export class MakeTransferFormComponent implements OnInit {
           disabled: true
         }],
         toAccount: ['', Validators.required],
-        amount: ['', Validators.required],
+        amount: ['', [Validators.required, this.validateAmount(this.account?.amount || 0)]],
     });
   }
 }
