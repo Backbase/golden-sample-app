@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { TransferJourneyModule } from "projects/transfer-journey/src/public-api";
+import { TransferJourneyModule } from "transfer-journey";
 import { MakeTransferConfigProvider } from "../config.providers";
 
 @NgModule({

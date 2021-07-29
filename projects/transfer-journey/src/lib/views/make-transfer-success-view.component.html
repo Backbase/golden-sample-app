@@ -1,0 +1,13 @@
+<h1>{{title}}</h1>
+<div *ngIf="(transferStore.transfer | async)! as transfer">
+  you have transfered <strong>{{transfer?.amount}}</strong> to  <strong>{{transfer?.toAccount}}</strong>
+</div>
+
+<div class="bb-button-bar">
+  <button 
+    bbButton
+    class="bb-button-bar__button"
+    color="secondary" 
+    (click)="close()"
+  >Close</button>
+</div>

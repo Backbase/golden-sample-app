@@ -1,38 +1,25 @@
-<bb-modal-ui [isOpen]="showSummary" (cancel)="closeSummary()" (confirm)="finishTransfer()">
-    <bb-modal-header-ui title="Review transfer"></bb-modal-header-ui>
-    <bb-modal-body-ui>
-      <ng-template bbCustomModalBody> 
-        <div *ngIf="!showSuccessMessage; else successMessage">
-            <p>Are you sure to send out this transfer?</p>
-            <strong>it will be send to account:</strong>
-            <br />
-            {{transfer?.toAccount}}
-            <br />
-            <strong>With amount of:</strong>
-            <br />
-            {{transfer?.amount}}
-          </div>
-        <ng-template #successMessage>
-          you have transfered <strong>{{transfer?.amount}}</strong> to  <strong>{{transfer?.toAccount}}</strong>
-        </ng-template>
-      </ng-template>
-    </bb-modal-body-ui>
-    <bb-modal-footer-ui  #footerRef>
-      <ng-template bbCustomModalFooter>
-        <div class="bb-button-bar">
-          <button bbButton class="bb-button-bar__button" (click)="finishTransfer()" *ngIf="!showSuccessMessage">
-            Make transfer
-          </button>
-          <button
-            bbButton
-            class="bb-button-bar__button"
-            (click)="closeSummary()"
-            color="secondary"
-            data-role="cancel"
-          >
-            Close
-          </button>
-        </div>
-      </ng-template>
-    </bb-modal-footer-ui>
-  </bb-modal-ui>
+<div>
+  <p>Are you sure to send out this transfer?</p>
+  <strong>it will be send to account:</strong>
+  <br />
+  {{transfer?.toAccount}}
+  <br />
+  <strong>With amount of:</strong>
+  <br />
+  {{transfer?.amount}}
+</div>
+<div class="bb-button-bar">
+  <button 
+    bbButton
+    class="bb-button-bar__button"
+    i18n="submit button@@transfer.form.submit.text"
+    (click)="submit()"
+  >Submit</button>
+  <button 
+    bbButton
+    class="bb-button-bar__button"
+    color="secondary" 
+    i18n="close button@@transfer.form.close.text"
+    (click)="close()"
+  >Close</button>
+</div>

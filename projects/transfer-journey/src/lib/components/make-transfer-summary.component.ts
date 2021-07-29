@@ -7,23 +7,14 @@ import { Transfer } from "../model/Account";
 })
 export class MakeTransferSummaryComponent {
   @Input() transfer: Transfer | undefined;
-  @Output() confirmTransfer = new EventEmitter<void>();
+  @Output() submitTransfer = new EventEmitter<void>();
+  @Output() closeTransfer = new EventEmitter<void>();
 
-  @Input() showSummary = false;
-  @Output() showSummaryChange = new EventEmitter<boolean>();
-  showSuccessMessage = false;
-
-
-  closeSummary() {
-    if (this.showSuccessMessage) {
-      this.confirmTransfer.emit();
-    }
-    this.showSummary = false;
-    this.showSuccessMessage = false;
-    this.showSummaryChange.emit(false);
+  submit() {
+    this.submitTransfer.emit();
   }
 
-  finishTransfer() {
-      this.showSuccessMessage = true;
+  close() {
+    this.closeTransfer.emit();
   }
 }

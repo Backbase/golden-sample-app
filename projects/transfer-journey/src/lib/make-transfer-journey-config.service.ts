@@ -10,7 +10,6 @@ const configDefaults: MakeTransferJourneyConfiguration = {
   maskIndicator: true,
 }
 
-
 @Injectable()
 export class MakeTransferJourneyConfigService {
   private _config: MakeTransferJourneyConfiguration;

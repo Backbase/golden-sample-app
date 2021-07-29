@@ -8,7 +8,9 @@ import { MakeTransferFormComponent } from './components/make-transfer-form.compo
 import { MakeTransferSummaryComponent } from './components/make-transfer-summary.component';
 import { TRANSLATIONS } from './constants/dynamic-translations';
 import { TransferJourneyComponent } from './transfer-journey.component';
-import { MakeTransferComponent } from './views/make-transfer.component';
+import { MakeTransferSuccessViewComponent } from './views/make-transfer-success-view.component';
+import { MakeTransferSummaryViewComponent } from './views/make-transfer-summary-view.component';
+import { MakeTransferViewComponent } from './views/make-transfer-view.component';
 
 const defaultRoute: Route = {
   path: '',
@@ -21,7 +23,21 @@ const defaultRoute: Route = {
     },
     {
       path: 'make-transfer',
-      component: MakeTransferComponent,
+      component: MakeTransferViewComponent,
+      data: {
+        title: TRANSLATIONS.makeTransferTitle,
+      }
+    },
+    {
+      path: 'make-transfer-summary',
+      component: MakeTransferSummaryViewComponent,
+      data: {
+        title: TRANSLATIONS.makeTransferTitle,
+      }
+    },
+    {
+      path: 'make-transfer-success',
+      component: MakeTransferSuccessViewComponent,
       data: {
         title: TRANSLATIONS.makeTransferTitle,
       }
@@ -30,12 +46,18 @@ const defaultRoute: Route = {
 }
 
 @NgModule({
-  declarations: [TransferJourneyComponent, MakeTransferComponent, MakeTransferFormComponent, MakeTransferSummaryComponent],
+  declarations: [
+    TransferJourneyComponent, 
+    MakeTransferViewComponent, 
+    MakeTransferFormComponent, 
+    MakeTransferSummaryComponent, 
+    MakeTransferSummaryViewComponent,
+    MakeTransferSuccessViewComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
     ButtonModule,
-    ModalModule,
     CurrencyInputModule,
     AccountSelectorModule,
     InputValidationMessageModule,
@@ -44,7 +66,7 @@ const defaultRoute: Route = {
   exports: [TransferJourneyComponent]
 })
 export class TransferJourneyModule {
-  static forRoot(data: { [key: string]: any; route: Route } = { route: defaultRoute }) {
+  static forRoot(data: { [key: string]: unknown; route: Route } = { route: defaultRoute }) {
     return {
       ngModule: TransferJourneyModule,
       providers: [provideRoutes([data.route])],

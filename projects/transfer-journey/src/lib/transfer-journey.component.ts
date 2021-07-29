@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { MakeTransferJourneyConfigService } from './make-transfer-journey-config.service';
+import { MakeTransferJourneyState } from './make-transfer-journey-state.service';
 
 @Component({
-  selector: 'lib-transfer-journey',
+  selector: 'bb-transfer-journey',
   templateUrl: 'transfer-journey.component.html',
-  providers: [MakeTransferJourneyConfigService]
+  providers: [MakeTransferJourneyConfigService, MakeTransferJourneyState]
 })
 export class TransferJourneyComponent {
 }

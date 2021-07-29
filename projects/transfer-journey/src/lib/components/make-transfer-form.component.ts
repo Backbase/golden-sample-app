@@ -1,6 +1,5 @@
-import { Component, Inject, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { CONDITIONS, PropertyResolver } from "@backbase/foundation-ang/web-sdk";
 import { Account, Transfer } from "../model/Account";
 
 @Component({
@@ -11,9 +10,8 @@ export class MakeTransferFormComponent implements OnInit {
   @Input() account: Account | undefined;
   @Input() showMaksIndicator: boolean = true;
 
+  @Output() submitTransfer = new EventEmitter<Transfer>();
   makeTransferForm!: FormGroup;
-  transferInQuestion: Transfer | undefined;
-  showSummary = false;
 
   private getControl(field: string): AbstractControl | undefined {
     return this.makeTransferForm.controls[field];
@@ -22,7 +20,7 @@ export class MakeTransferFormComponent implements OnInit {
   private validateAmount(value: number) {
     return (control: AbstractControl) => {
       const amount = control.value.amount as number;
-      console.log(amount);
+
       if(amount > value) {
         return {
           max: 'value is too high',
@@ -34,13 +32,12 @@ export class MakeTransferFormComponent implements OnInit {
   }
 
   transfer() {
-    if (this.makeTransferForm.valid) {
-      this.transferInQuestion = {
+    if (this.makeTransferForm.valid) {    
+      this.submitTransfer.emit({
         fromAccount: this.makeTransferForm.value.fromAccount,
         toAccount: this.makeTransferForm.value.toAccount,
         amount: this.makeTransferForm.value.amount.amount,
-      }
-      this.showSummary = true;
+      })
     } else {
       this.makeTransferForm.markAllAsTouched();
     }
@@ -56,18 +53,6 @@ export class MakeTransferFormComponent implements OnInit {
     const control = this.getControl(field);
 
     return !!control && control.touched && control.invalid;
-  }
-
-  confirmTransfer() {
-    this.makeTransferForm.reset({
-      fromAccount: `${this.showMaksIndicator ? '*****' : this.account?.name}: €${this.account?.amount}`,
-      toAccount: '',
-      amount: {
-        amount: '',
-        currency: 'EUR'
-      },
-    });
-    this.transferInQuestion = undefined;
   }
 
   constructor(private fb: FormBuilder) {}
