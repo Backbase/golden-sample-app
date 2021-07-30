@@ -22,7 +22,7 @@ export class MakeTransferViewComponent {
   }
 
   constructor(
-    private readonly route:ActivatedRoute,
+    private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly transferStore: MakeTransferJourneyState,
     public readonly config: MakeTransferJourneyConfigService

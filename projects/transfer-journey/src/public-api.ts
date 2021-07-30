@@ -12,3 +12,4 @@ export * from './lib/model/Account';
 export * from './lib/constants/dynamic-translations';
 export * from './lib/make-transfer-journey-state.service';
 export * from './lib/views/make-transfer-success-view.component';
+export * from './lib/make-transfer-journey-store-guard';
