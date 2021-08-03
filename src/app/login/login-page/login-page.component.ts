@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@backbase/foundation-ang/auth';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 
 @Component({
@@ -9,12 +10,12 @@ import { AuthService } from '@backbase/foundation-ang/auth';
 })
 export class LoginPageComponent implements OnInit {
   constructor(
-    private readonly auth: AuthService,
+    private readonly oAuthService: OAuthService,
   ) { }
 
   ngOnInit(): void {}
 
   login(): void {
-    this.auth.login();
+    this.oAuthService.initLoginFlow();
   }
 }
