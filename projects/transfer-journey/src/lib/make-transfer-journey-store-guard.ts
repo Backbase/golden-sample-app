@@ -1,11 +1,12 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRoute, CanActivate, Router } from "@angular/router";
-import { map, tap } from "rxjs/operators";
-import { MakeTransferJourneyState } from "./make-transfer-journey-state.service";
+import { Injectable } from '@angular/core';
+import { ActivatedRoute, CanActivate, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { MakeTransferJourneyState } from './make-transfer-journey-state.service';
 
 @Injectable()
 export class MakeTransferJourneyStoreGuard implements CanActivate {
-  canActivate() {
+  canActivate(): Observable<boolean> {
     return this.transferStore.transfer
       .pipe(
         tap((data) => {
@@ -17,7 +18,7 @@ export class MakeTransferJourneyStoreGuard implements CanActivate {
     );
   }
   constructor(
-    public readonly transferStore: MakeTransferJourneyState, 
+    public readonly transferStore: MakeTransferJourneyState,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
   ) {}

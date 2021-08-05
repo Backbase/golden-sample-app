@@ -1,6 +1,6 @@
-import { Injectable, OnDestroy } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
-import { Transfer } from "./model/Account";
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Transfer } from './model/Account';
 
 @Injectable()
 export class MakeTransferJourneyState implements OnDestroy {
@@ -8,11 +8,11 @@ export class MakeTransferJourneyState implements OnDestroy {
 
   transfer = this.store$.asObservable();
 
-  next(transfer: Transfer) {
+  next(transfer: Transfer): void {
     this.store$.next(transfer);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.store$.complete();
   }
 }

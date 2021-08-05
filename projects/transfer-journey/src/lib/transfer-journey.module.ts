@@ -1,6 +1,6 @@
 
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideRoutes, Route, RouterModule } from '@angular/router';
 import { AccountSelectorModule, ButtonModule, CurrencyInputModule, InputValidationMessageModule, ModalModule } from '@backbase/ui-ang';
@@ -47,14 +47,14 @@ const defaultRoute: Route = {
       canActivate: [MakeTransferJourneyStoreGuard]
     }
   ]
-}
+};
 
 @NgModule({
   declarations: [
-    TransferJourneyComponent, 
-    MakeTransferViewComponent, 
-    MakeTransferFormComponent, 
-    MakeTransferSummaryComponent, 
+    TransferJourneyComponent,
+    MakeTransferViewComponent,
+    MakeTransferFormComponent,
+    MakeTransferSummaryComponent,
     MakeTransferSummaryViewComponent,
     MakeTransferSuccessViewComponent,
   ],

@@ -1,4 +1,4 @@
-import { Inject, Injectable, InjectionToken, Optional } from "@angular/core";
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 
 export interface MakeTransferJourneyConfiguration {
   maskIndicator: boolean;
@@ -8,14 +8,14 @@ export const MakeTransferJourneyConfigurationToken = new InjectionToken<MakeTran
 
 const configDefaults: MakeTransferJourneyConfiguration = {
   maskIndicator: true,
-}
+};
 
 @Injectable()
 export class MakeTransferJourneyConfigService {
-  private _config: MakeTransferJourneyConfiguration;
-  
+  private config: MakeTransferJourneyConfiguration;
+
   constructor(@Optional() @Inject(MakeTransferJourneyConfigurationToken) config: MakeTransferJourneyConfiguration ) {
-    this._config = { ...configDefaults, ...config };
+    this.config = { ...configDefaults, ...config };
   }
 
   get defaults(): MakeTransferJourneyConfiguration {
@@ -23,6 +23,6 @@ export class MakeTransferJourneyConfigService {
   }
 
   get maskIndicator(): boolean {
-    return this._config.maskIndicator;
+    return this.config.maskIndicator;
   }
 }

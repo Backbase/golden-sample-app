@@ -1,18 +1,18 @@
-import { Component } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { MakeTransferJourneyState } from "../make-transfer-journey-state.service";
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MakeTransferJourneyState } from '../make-transfer-journey-state.service';
 
 @Component({
   templateUrl: 'make-transfer-summary-view.component.html'
 })
 export class MakeTransferSummaryViewComponent {
-  title = this.route.snapshot.data['title'];
+  title = this.route.snapshot.data.title;
 
-  submit() {
+  submit(): void {
     this.router.navigate(['../make-transfer-success'], { relativeTo: this.route });
   }
 
-  close() {
+  close(): void {
     this.router.navigate(['../make-transfer'], { relativeTo: this.route });
   }
 

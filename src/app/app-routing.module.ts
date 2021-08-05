@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: 'transfer',
     loadChildren: () => import('./transfer/transfer-journey-bundle.module').then(m => m.TransferJourneyBundleModule),
-    canActivate: [ EntitlementsGuard ],
+    canActivate: [ AuthGuard, EntitlementsGuard ],
     data: {
       entitlements: 'Transfers.make.view'
     }

@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
-import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Account, Transfer } from "../model/Account";
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Account, Transfer } from '../model/Account';
 
 @Component({
   selector: 'bb-make-transfer-form',
@@ -8,7 +8,7 @@ import { Account, Transfer } from "../model/Account";
 })
 export class MakeTransferFormComponent implements OnInit {
   @Input() account: Account | undefined;
-  @Input() showMaksIndicator: boolean = true;
+  @Input() showMaskIndicator = true;
 
   @Output() submitTransfer = new EventEmitter<Transfer>();
   makeTransferForm!: FormGroup;
@@ -17,33 +17,33 @@ export class MakeTransferFormComponent implements OnInit {
     return this.makeTransferForm.controls[field];
   }
 
-  private validateAmount(value: number) {
+  private validateAmount(value: number): (control: AbstractControl) => unknown {
     return (control: AbstractControl) => {
       const amount = control.value.amount as number;
 
-      if(amount > value) {
+      if (amount > value) {
         return {
           max: 'value is too high',
-        }
+        };
       }
 
       return null;
-    }
+    };
   }
 
-  transfer() {
-    if (this.makeTransferForm.valid) {    
+  transfer(): void {
+    if (this.makeTransferForm.valid) {
       this.submitTransfer.emit({
         fromAccount: this.makeTransferForm.value.fromAccount,
         toAccount: this.makeTransferForm.value.toAccount,
         amount: this.makeTransferForm.value.amount.amount,
-      })
+      });
     } else {
       this.makeTransferForm.markAllAsTouched();
     }
   }
 
-  hasError(field: string, type: string) {
+  hasError(field: string, type: string): boolean {
     const control = this.getControl(field);
 
     return control && control.errors && control.errors[type];
@@ -57,10 +57,10 @@ export class MakeTransferFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.makeTransferForm = this.fb.group({
         fromAccount: [{
-          value: `${this.showMaksIndicator ? '*****' : this.account?.name}: €${this.account?.amount}`,
+          value: `${this.showMaskIndicator ? '*****' : this.account?.name}: €${this.account?.amount}`,
           disabled: true
         }],
         toAccount: ['', Validators.required],

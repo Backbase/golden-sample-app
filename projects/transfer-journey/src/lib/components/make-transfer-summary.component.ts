@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { Transfer } from "../model/Account";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Transfer } from '../model/Account';
 
 @Component({
   selector: 'bb-make-transfer-summary',
@@ -10,11 +10,11 @@ export class MakeTransferSummaryComponent {
   @Output() submitTransfer = new EventEmitter<void>();
   @Output() closeTransfer = new EventEmitter<void>();
 
-  submit() {
+  submit(): void {
     this.submitTransfer.emit();
   }
 
-  close() {
+  close(): void {
     this.closeTransfer.emit();
   }
 }
