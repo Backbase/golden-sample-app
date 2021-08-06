@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { authCodeFlowConfig } from '../environments/environment';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'golden-sample-app';
+
+  constructor(oAuthService: OAuthService) {
+    oAuthService.configure(authCodeFlowConfig);
+    oAuthService.loadDiscoveryDocumentAndTryLogin();
+  }
+
+
 }

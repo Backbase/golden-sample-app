@@ -3,9 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
 import { environment } from '../environments/environment';
 import { AvatarModule, DropdownMenuModule, IconModule } from '@backbase/ui-ang';
+import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -14,12 +17,19 @@ import { AvatarModule, DropdownMenuModule, IconModule } from '@backbase/ui-ang';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    WebSdkModule.forRoot({ ...environment, staticResourcesRoot: '', locale: '' }),
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: [ 'http://www.angular.at/api' ],
+        sendAccessToken: true,
+      },
+    }),
+    HttpClientModule,
+    EntitlementsModule,
     DropdownMenuModule,
     AvatarModule,
     IconModule,
   ],
-  providers: [],
+  providers: [ ...environment.mockProviders ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {
