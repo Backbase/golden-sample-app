@@ -2,6 +2,18 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { Provider } from '@angular/core';
+import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
+
+const mockProviders: Provider[] = [
+  {
+    provide: CONDITIONS,
+    useValue: {
+      resolveEntitlements: (triplet: string) => Promise.resolve(true)
+    },
+  }
+];
+
 export const environment = {
   production: false,
   apiRoot: 'https://app.stable.retail.backbasecloud.com/api',
@@ -10,7 +22,8 @@ export const environment = {
     realm: 'backbase',
     clientId: 'bb-web-client',
     scope: 'openid',
-  }
+  },
+  mockProviders
 };
 
 /*

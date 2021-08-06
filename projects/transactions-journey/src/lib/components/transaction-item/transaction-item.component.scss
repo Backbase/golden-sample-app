@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  align-items: center;
+}
+
+:host > * {
+  padding: 10px 15px;
+}
+
+.categoryCode {
+  width: 5px;
+  align-self: stretch;
+  padding: 0;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.transactionType {
+  font-size: .8rem;
+  color: gray;
+}
+
+.amount {
+  &.negative {
+    color: rgb(209, 76, 76);
+  }
+}

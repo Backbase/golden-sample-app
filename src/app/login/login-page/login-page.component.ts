@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@backbase/foundation-ang/web-sdk';
+import { AuthService } from '@backbase/foundation-ang/auth';
 
 @Component({
   selector: 'app-login-page',
@@ -14,6 +14,6 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {}
 
   login(): void {
-    this.auth.goToLoginPage(window.location.origin + '/user');
+    this.auth.login({redirectUri: window.location.origin + '/user'});
   }
 }

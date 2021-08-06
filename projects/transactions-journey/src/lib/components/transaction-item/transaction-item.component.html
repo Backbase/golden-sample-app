@@ -1,0 +1,15 @@
+<span class="categoryCode" [ngStyle]="{'background-color': transaction.categoryCode}"></span>
+<span class="date">{{ transaction.dates.valueDate | date: 'MMM. d' }}</span>
+<span class="description">
+  <span class="merchant">{{ transaction.merchant.name }}</span>
+  <span class="transactionType">{{ transaction.transaction.type }}</span>
+</span>
+<span class="amount" [ngClass]="{'negative': amount < 0}">
+  <bb-amount-ui
+    [currency]="transaction.transaction.amountCurrency.currencyCode"
+    [amount]="amount"
+    [mapCurrency]="true"
+    [showPlusSign]="false"
+    [abbreviate]="false">
+  </bb-amount-ui>
+</span>

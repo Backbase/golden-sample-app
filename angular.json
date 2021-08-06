@@ -32,7 +32,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass"
+              "src/styles.sass",
+              "node_modules/@backbase/backbase-theme/scss/main.scss"
             ],
             "scripts": []
           },
@@ -192,6 +193,46 @@
             "lintFilePatterns": [
               "projects/todo-journey/**/*.ts",
               "projects/todo-journey/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "transactions-journey": {
+      "projectType": "library",
+      "root": "projects/transactions-journey",
+      "sourceRoot": "projects/transactions-journey/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/transactions-journey/tsconfig.lib.json",
+            "project": "projects/transactions-journey/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/transactions-journey/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/transactions-journey/src/test.ts",
+            "tsConfig": "projects/transactions-journey/tsconfig.spec.json",
+            "karmaConfig": "projects/transactions-journey/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/transactions-journey/tsconfig.lib.json",
+              "projects/transactions-journey/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
             ]
           }
         }

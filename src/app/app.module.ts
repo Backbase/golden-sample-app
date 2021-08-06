@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
 import { environment } from '../environments/environment';
 import { AvatarModule, DropdownMenuModule, IconModule } from '@backbase/ui-ang';
+import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
 
 @NgModule({
   declarations: [
@@ -14,13 +15,14 @@ import { AvatarModule, DropdownMenuModule, IconModule } from '@backbase/ui-ang';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    WebSdkModule.forRoot({ ...environment, staticResourcesRoot: '', locale: '' }),
+    WebSdkModule.forRoot({ ...environment, staticResourcesRoot: '', locales: [''] }),
+    EntitlementsModule,
     DropdownMenuModule,
     AvatarModule,
     IconModule,
   ],
-  providers: [],
-  bootstrap: [ AppComponent ]
+  providers: [...environment.mockProviders],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
