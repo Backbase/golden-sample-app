@@ -1,15 +1,24 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
-import { AuthGuard } from '@backbase/foundation-ang/auth';
+import { AuthGuard } from './auth.guard';
+
 
 const routes: Routes = [
   {
-    path: 'transactions',
-    loadChildren: () => import('./transactions/transactions-journey-bundle.module').then(m => m.TransactionsJourneyBundleModule),
-    canActivate: [ EntitlementsGuard ],
+    path: 'transfer',
+    loadChildren: () => import('./transfer/transfer-journey-bundle.module').then(m => m.TransferJourneyBundleModule),
+    canActivate: [ AuthGuard, EntitlementsGuard ],
     data: {
       entitlements: 'Transfers.make.view'
+    }
+  },
+  {
+    path: 'transactions',
+    loadChildren: () => import('./transactions/transactions-journey-bundle.module').then(m => m.TransactionsJourneyBundleModule),
+    canActivate: [ AuthGuard, EntitlementsGuard ],
+    data: {
+      entitlements: 'Transactions.view'
     }
   },
   {
@@ -40,6 +49,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+  providers: [AuthGuard],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

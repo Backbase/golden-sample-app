@@ -198,6 +198,46 @@
         }
       }
     },
+    "transfer-journey": {
+      "projectType": "library",
+      "root": "projects/transfer-journey",
+      "sourceRoot": "projects/transfer-journey/src",
+      "prefix": "bb",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/transfer-journey/tsconfig.lib.json",
+            "project": "projects/transfer-journey/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/transfer-journey/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/transfer-journey/src/test.ts",
+            "tsConfig": "projects/transfer-journey/tsconfig.spec.json",
+            "karmaConfig": "projects/transfer-journey/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/transfer-journey/tsconfig.lib.json",
+              "projects/transfer-journey/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
     "transactions-journey": {
       "projectType": "library",
       "root": "projects/transactions-journey",

@@ -1,0 +1,58 @@
+<form [formGroup]="makeTransferForm" (ngSubmit)="transfer()">
+    <div class="bb-block bb-block--xl">
+        <div class="form-group">
+            <label i18n="from account label@@transfer.form.fromAccount.label">From account</label>
+            <input type="text" class="form-control" formControlName="fromAccount" [disabled]="true"/>
+          </div>
+          <div class="form-group">
+            <label i18n="to account label@@transfer.form.fromAccount.label">To Account</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="toAccount"  
+              i18n-placeholder="from account placeholder@@transfer.form.toAccount.placeholder"
+              placeholder="type an account name"
+            />
+            <div bbValidationMessage>
+                <bb-input-validation-message-ui [showErrors]="isInvalidControl('toAccount')">
+                    <span
+                      i18n="to account required error@@transfer.form.toAccount.error.required"
+                      *ngIf="hasError('toAccount', 'required')"
+                    >
+                      Required field
+                  </span>
+                </bb-input-validation-message-ui>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <label i18n="amount label@@transfer.form.amount.label">Amount</label>
+            <bb-currency-input-ui
+             [currencyLabel]="'Amount'"
+             formControlName="amount"
+             [currencies]="['EUR']"
+            >
+              <div bbValidationMessage>
+                <bb-input-validation-message-ui [showErrors]="isInvalidControl('amount')">
+                    <span
+                      *ngIf="hasError('amount', 'required')"
+                      i18n="amount required error@@transfer.form.amount.error.required"
+                    >
+                      Required field
+                  </span>
+                  <span
+                      *ngIf="hasError('amount', 'max')"
+                      i18n="amount not enough balance error@@transfer.form.amount.error.max"
+                    >
+                      There is not enough balance
+                  </span>
+                </bb-input-validation-message-ui>
+              </div>
+            </bb-currency-input-ui>
+          </div>
+    </div>
+    
+    <div class="bb-button-bar"> 
+      <button bbButton type="submit" i18n="submit button@@transfer.form.submit.text">Submit</button>
+    </div>
+  </form>
