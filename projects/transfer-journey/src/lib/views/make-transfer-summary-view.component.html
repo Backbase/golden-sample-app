@@ -1,0 +1,6 @@
+<h1>{{title}}</h1>
+<bb-make-transfer-summary
+  [transfer]="(transferStore.transfer | async)!"
+  (submitTransfer)="submit()"
+  (closeTransfer)="close()"
+></bb-make-transfer-summary>

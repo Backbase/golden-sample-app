@@ -8,8 +8,9 @@ describe('HeroesJourneyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HeroesJourneyComponent],
-    }).compileComponents();
+      declarations: [ HeroesJourneyComponent ]
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {

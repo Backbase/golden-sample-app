@@ -22,13 +22,15 @@
     "paths": {
       "heroes-journey": [
         "dist/heroes-journey/heroes-journey",
-        "dist/heroes-journey",
-        "projects/heroes-journey/src/public-api.ts"
+        "dist/heroes-journey"
       ],
       "todo-journey": [
         "dist/todo-journey/todo-journey",
-        "dist/todo-journey",
-        "projects/todo-journey/src/public-api.ts"
+        "dist/todo-journey"
+      ],
+      "transfer-journey": [
+        "dist/transfer-journey/transfer-journey",
+        "dist/transfer-journey"
       ]
     }
   },

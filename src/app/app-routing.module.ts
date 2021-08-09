@@ -1,27 +1,36 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '@backbase/foundation-ang/auth';
 import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
+import { AuthGuard } from './auth.guard';
+
 
 const routes: Routes = [
   {
+    path: 'transfer',
+    loadChildren: () => import('./transfer/transfer-journey-bundle.module').then(m => m.TransferJourneyBundleModule),
+    canActivate: [ AuthGuard, EntitlementsGuard ],
+    data: {
+      entitlements: 'Transfers.make.view'
+    }
+  },
+  {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then((m) => m.LoginModule),
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
   {
     path: 'user',
-    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
-    canActivate: [EntitlementsGuard],
+    loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'todo',
-    loadChildren: () => import('todo-journey').then((m) => m.TodoJourneyModule),
-    canActivate: [AuthGuard],
+    loadChildren: () => import('todo-journey').then(m => m.TodoJourneyModule),
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'heroes',
-    loadChildren: () => import('heroes-journey').then((m) => m.HeroesJourneyModule),
-    canActivate: [AuthGuard],
+    loadChildren: () => import('heroes-journey').then(m => m.HeroesJourneyModule),
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'positive-pay',
@@ -29,12 +38,14 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'login',
-  },
+    redirectTo: 'login'
+  }
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  providers: [AuthGuard],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -8,8 +8,9 @@ describe('TodoJourneyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TodoJourneyComponent],
-    }).compileComponents();
+      declarations: [ TodoJourneyComponent ]
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {
