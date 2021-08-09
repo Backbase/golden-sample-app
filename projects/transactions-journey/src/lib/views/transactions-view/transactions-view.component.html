@@ -3,7 +3,7 @@
     <div class="bb-card__body">
       <h1>{{title}}</h1>
       <bb-text-filter (textChange)="filter = $event || ''"></bb-text-filter>
-      <ul>
+      <ul *ngIf="transactions | async as items">
         <li *ngFor="let item of items | filterTransactions: filter">
           <bb-transaction-item [transaction]="item"></bb-transaction-item>
         </li>

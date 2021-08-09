@@ -12,10 +12,10 @@ const configDefaults: TransactionsJourneyConfiguration = {
 
 @Injectable()
 export class TransactionsJourneyConfigService {
-  private _config: TransactionsJourneyConfiguration;
+  private config: TransactionsJourneyConfiguration;
 
   constructor(@Optional() @Inject(TransactionsJourneyConfigurationToken) config: TransactionsJourneyConfiguration ) {
-    this._config = { ...configDefaults, ...config };
+    this.config = { ...configDefaults, ...config };
   }
 
   get defaults(): TransactionsJourneyConfiguration {
@@ -23,6 +23,6 @@ export class TransactionsJourneyConfigService {
   }
 
   get pageSize(): number {
-    return this._config.pageSize;
+    return this.config.pageSize;
   }
 }

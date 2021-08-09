@@ -242,7 +242,7 @@
       "projectType": "library",
       "root": "projects/transactions-journey",
       "sourceRoot": "projects/transactions-journey/src",
-      "prefix": "lib",
+      "prefix": "bb",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",

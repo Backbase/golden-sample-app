@@ -17,6 +17,6 @@ export class TransactionsViewComponent {
 
 
   title = this.route.snapshot.data.title;
-  items = this.transactionsService.getTransactions(0, this.config.pageSize);
+  transactions = this.transactionsService.getTransactions(0, this.config.pageSize);
   filter = '';
 }
