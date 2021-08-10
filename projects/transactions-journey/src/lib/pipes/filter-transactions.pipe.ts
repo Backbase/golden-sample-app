@@ -11,11 +11,11 @@ export class FilterTransactionsPipe implements PipeTransform {
       return value;
     }
 
-    text = text.toLocaleLowerCase();
+    const lowerCaseText = text.toLocaleLowerCase();
 
-    return value.filter(x =>
-      x.merchant.name.toLocaleLowerCase().includes(text) ||
-      x.transaction.type.toLocaleLowerCase().includes(text));
+    return value.filter(({ merchant, transaction }: Transaction) =>
+      merchant.name.toLocaleLowerCase().includes(lowerCaseText) ||
+      transaction.type.toLocaleLowerCase().includes(lowerCaseText));
   }
 
 }
