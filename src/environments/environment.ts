@@ -19,7 +19,7 @@ const mockProviders: Provider[] = [
     provide: HTTP_INTERCEPTORS,
     useClass: TransactionsInterceptor,
     multi: true,
-  }
+  },
 ];
 
 export const environment = {
