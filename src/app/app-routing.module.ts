@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
 import { AuthGuard } from './auth.guard';
 
 
@@ -8,18 +7,14 @@ const routes: Routes = [
   {
     path: 'transfer',
     loadChildren: () => import('./transfer/transfer-journey-bundle.module').then(m => m.TransferJourneyBundleModule),
-    canActivate: [ AuthGuard, EntitlementsGuard ],
-    data: {
-      entitlements: 'Transfers.make.view'
-    }
+    canActivate: [ AuthGuard ],
+
   },
   {
     path: 'transactions',
     loadChildren: () => import('./transactions/transactions-journey-bundle.module').then(m => m.TransactionsJourneyBundleModule),
-    canActivate: [ AuthGuard, EntitlementsGuard ],
-    data: {
-      entitlements: 'Transactions.view'
-    }
+    canActivate: [ AuthGuard ],
+
   },
   {
     path: 'login',
@@ -31,16 +26,6 @@ const routes: Routes = [
     canActivate: [ AuthGuard ]
   },
   {
-    path: 'todo',
-    loadChildren: () => import('todo-journey').then(m => m.TodoJourneyModule),
-    canActivate: [ AuthGuard ]
-  },
-  {
-    path: 'heroes',
-    loadChildren: () => import('heroes-journey').then(m => m.HeroesJourneyModule),
-    canActivate: [ AuthGuard ]
-  },
-  {
     path: '**',
     redirectTo: 'login'
   }
@@ -49,7 +34,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  providers: [AuthGuard],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

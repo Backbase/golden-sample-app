@@ -8,6 +8,8 @@ import { AvatarModule, DropdownMenuModule, IconModule } from '@backbase/ui-ang';
 import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './auth.guard';
+import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,16 @@ import { HttpClientModule } from '@angular/common/http';
     EntitlementsModule,
     DropdownMenuModule,
     AvatarModule,
+    WebSdkModule.forRoot(<any>{
+      cx: {
+        entitlementsEnable: true,
+        entitlementsUri: '/entitlements'
+
+      }
+    }),
     IconModule,
   ],
-  providers: [ ...environment.mockProviders ],
+  providers: [ ...environment.mockProviders, AuthGuard ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {

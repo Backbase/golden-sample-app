@@ -13,6 +13,7 @@ import { TransferJourneyComponent } from './transfer-journey.component';
 import { MakeTransferSuccessViewComponent } from './views/make-transfer-success-view.component';
 import { MakeTransferSummaryViewComponent } from './views/make-transfer-summary-view.component';
 import { MakeTransferViewComponent } from './views/make-transfer-view.component';
+import { EntitlementsGuard, EntitlementsModule } from '@backbase/foundation-ang/entitlements';
 
 const defaultRoute: Route = {
   path: '',
@@ -35,8 +36,9 @@ const defaultRoute: Route = {
       component: MakeTransferSummaryViewComponent,
       data: {
         title: TRANSLATIONS.makeTransferTitle,
+        entitlements: 'Payments.ACHCreditTransfer.view',
       },
-      canActivate: [MakeTransferJourneyStoreGuard]
+      canActivate: [MakeTransferJourneyStoreGuard, EntitlementsGuard]
     },
     {
       path: 'make-transfer-success',
@@ -66,6 +68,7 @@ const defaultRoute: Route = {
     AccountSelectorModule,
     InputValidationMessageModule,
     ReactiveFormsModule,
+    EntitlementsModule,
   ],
   providers: [MakeTransferJourneyStoreGuard, MakeTransferJourneyState],
   exports: [TransferJourneyComponent]
