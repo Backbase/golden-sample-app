@@ -14,6 +14,14 @@ const routes: Routes = [
     }
   },
   {
+    path: 'transactions',
+    loadChildren: () => import('./transactions/transactions-journey-bundle.module').then(m => m.TransactionsJourneyBundleModule),
+    canActivate: [ AuthGuard, EntitlementsGuard ],
+    data: {
+      entitlements: 'Transactions.view'
+    }
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },

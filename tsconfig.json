@@ -28,6 +28,10 @@
         "dist/todo-journey/todo-journey",
         "dist/todo-journey"
       ],
+      "transactions-journey": [
+        "dist/transactions-journey/transactions-journey",
+        "dist/transactions-journey"
+      ],
       "transfer-journey": [
         "dist/transfer-journey/transfer-journey",
         "dist/transfer-journey"

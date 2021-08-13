@@ -9,7 +9,6 @@ import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @NgModule({
   declarations: [
     AppComponent

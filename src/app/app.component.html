@@ -27,6 +27,14 @@
             <span class="bb-mega-menu__item-description ng-star-inserted">Make a transfer</span>
           </a>
         </li>
+
+        <li class="bb-mega-menu__item ng-star-inserted" *bbIfEntitlements="'Transactions.view'">
+          <a routerLink="/transactions" routerLinkActive="bb-mega-menu__link--active"
+            class="bb-mega-menu__link ng-star-inserted">
+            <span class="bb-mega-menu__item-description ng-star-inserted">Transactions</span>
+          </a>
+        </li>
+
         <li class="bb-mega-menu__item ng-star-inserted">
           <a routerLink="/todo" routerLinkActive="bb-mega-menu__link--active"
              class="bb-mega-menu__link ng-star-inserted">
@@ -280,6 +288,6 @@
     </div>
   </div>
 </div>
-<div class="ml-4">
+<div class="ml-4 main-content">
   <router-outlet></router-outlet>
 </div>
