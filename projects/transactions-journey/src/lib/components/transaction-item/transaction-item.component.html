@@ -1,10 +1,10 @@
-<span class="categoryCode" [ngStyle]="{'background-color': transaction.categoryCode}"></span>
-<span class="date">{{ transaction.dates.valueDate | date: 'MMM. d' }}</span>
-<span class="description">
-  <span class="merchant">{{ transaction.merchant.name }}</span>
-  <span class="transactionType">{{ transaction.transaction.type }}</span>
+<span class="transactions-item__categoryCode" [ngStyle]="{'background-color': transaction.categoryCode}"></span>
+<span class="transactions-item__date">{{ transaction.dates.valueDate | date: 'MMM. d' }}</span>
+<span class="transactions-item__description">
+  <span class="transactions-item__merchant">{{ transaction.merchant.name }}</span>
+  <span class="transactions-item__transactionType">{{ transaction.transaction.type }}</span>
 </span>
-<span class="amount" [ngClass]="{'negative': amount < 0}">
+<span class="transactions-item__amount" [ngClass]="{'negative': amount < 0}">
   <bb-amount-ui
     [currency]="transaction.transaction.amountCurrency.currencyCode"
     [amount]="amount"
@@ -13,3 +13,4 @@
     [abbreviate]="false">
   </bb-amount-ui>
 </span>
+

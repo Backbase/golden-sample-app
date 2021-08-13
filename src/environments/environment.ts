@@ -6,7 +6,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Provider } from '@angular/core';
 import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
 import { AuthConfig } from 'angular-oauth2-oidc';
-import { TransactionsInterceptor } from 'src/app/services/transactions-interceptor';
+import { TransactionsInterceptor } from '../app/services/transactions-interceptor';
 
 const mockProviders: Provider[] = [
   {
@@ -14,7 +14,7 @@ const mockProviders: Provider[] = [
     useValue: {
       resolveEntitlements: (triplet: string) => Promise.resolve(true)
     },
-  }, 
+  },
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TransactionsInterceptor,

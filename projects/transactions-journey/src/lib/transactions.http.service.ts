@@ -11,8 +11,8 @@ export class TransactionsHttpService {
 
   getTransactions(page: number, pageSize: number): Observable<Transaction[]> {
     const params = new HttpParams()
-      .append('page', page + '')
-      .append('pageSize', pageSize + '');
+      .append('page', String(page))
+      .append('pageSize', String(pageSize));
 
     return this.http.get<Transaction[]>('/api/transactions', { params });
   }

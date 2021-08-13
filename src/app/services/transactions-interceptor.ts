@@ -8,14 +8,14 @@ import { Observable, of } from 'rxjs';
 export class TransactionsInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req.url.endsWith('api/transactions')) {
-      const page = req.params.get('page') || 0;
-      const pageSize = req.params.get('pageSize') || 0;
+      const page = Number(req.params.get('page')) || 0;
+      const pageSize = Number(req.params.get('pageSize')) || 0;
 
-      return of(new HttpResponse({ 
+      return of(new HttpResponse({
         status: 200,
         body: mocks.data
           .sort((a: Transaction, b: Transaction) => b.dates.valueDate - a.dates.valueDate)
-          .slice(page as number, pageSize as number)
+          .slice(page, pageSize)
       }));
     }
     return next.handle(req);

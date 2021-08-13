@@ -7,24 +7,25 @@
   padding: 10px 15px;
 }
 
-.categoryCode {
+.transactions-item {}
+.transactions-item__categoryCode {
   width: 5px;
   align-self: stretch;
   padding: 0;
 }
 
-.description {
+.transactions-item__description {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.transactionType {
+.transactions-item__transactionType {
   font-size: .8rem;
   color: gray;
 }
 
-.amount {
+.transactions-item__amount {
   &.negative {
     color: rgb(209, 76, 76);
   }
