@@ -31,8 +31,9 @@ import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
     WebSdkModule.forRoot(<any>{
       cx: {
         entitlementsEnable: true,
-        entitlementsUri: '/entitlements'
-
+        entitlementsUri: '/entitlements',
+        clientId: 'client',
+        realm: 'realm'
       }
     }),
     IconModule,

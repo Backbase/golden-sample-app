@@ -1,0 +1,12 @@
+{
+    "/api/entitlements": {
+        "target": "http://localhost:4200/assets/entitlements.json",
+        "secure": false,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "pathRewrite": {
+            "^/api/entitlements": ""
+          }
+      }
+}
