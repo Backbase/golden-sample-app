@@ -36,9 +36,8 @@ const defaultRoute: Route = {
       component: MakeTransferSummaryViewComponent,
       data: {
         title: TRANSLATIONS.makeTransferTitle,
-        entitlements: 'Payments.ACHCreditTransfer.view',
       },
-      canActivate: [MakeTransferJourneyStoreGuard, EntitlementsGuard]
+      canActivate: [MakeTransferJourneyStoreGuard]
     },
     {
       path: 'make-transfer-success',
@@ -68,7 +67,6 @@ const defaultRoute: Route = {
     AccountSelectorModule,
     InputValidationMessageModule,
     ReactiveFormsModule,
-    EntitlementsModule,
   ],
   providers: [MakeTransferJourneyStoreGuard, MakeTransferJourneyState],
   exports: [TransferJourneyComponent]

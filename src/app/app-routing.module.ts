@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
 import { AuthGuard } from './auth.guard';
 
 
@@ -7,7 +8,10 @@ const routes: Routes = [
   {
     path: 'transfer',
     loadChildren: () => import('./transfer/transfer-journey-bundle.module').then(m => m.TransferJourneyBundleModule),
-    canActivate: [ AuthGuard ],
+    data: {
+      entitlements: 'Payments.ACHCreditTransfer.view',
+    },
+    canActivate: [ AuthGuard, EntitlementsGuard ],
 
   },
   {

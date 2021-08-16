@@ -55,6 +55,8 @@ export const authCodeFlowConfig: AuthConfig = {
   requireHttps: false,
 
   showDebugInformation: true,
+
+  logoutUrl: window.location.origin + '/login',
 };
 /*
  * For easier debugging in development mode, you can import the following file

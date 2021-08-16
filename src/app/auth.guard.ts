@@ -15,12 +15,13 @@ export class AuthGuard implements CanActivate {
     _next: ActivatedRouteSnapshot,
     _state: RouterStateSnapshot
   ): boolean {
+    // TODO: Uncomment out when login is ready see ticket WF-343
+    // if (this.oauthService.hasValidAccessToken()) {
+    //   return true;
+    // }
 
-    if (this.oauthService.hasValidAccessToken()) {
-      return true;
-    }
-
-    this.router.navigate(['login']);
-    return false;
+    // this.router.navigate(['login']);
+    // return false;
+    return true
   }
 }

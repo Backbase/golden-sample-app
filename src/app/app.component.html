@@ -40,7 +40,7 @@
   <ul
     class="bb-layout__horizontal-nav"
   >
-    <li class="bb-layout__horizontal-nav-item">
+    <li class="bb-layout__horizontal-nav-item" *bbIfEntitlements="'Payments.ACHCreditTransfer.view'">
       <a class="bb-layout__horizontal-nav-link"
         routerLink="/transfer"
         routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"          

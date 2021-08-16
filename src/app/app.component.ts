@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { authCodeFlowConfig } from '../environments/environment';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { LayoutService } from '@backbase/ui-ang';
-import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,7 +12,6 @@ export class AppComponent {
 
   constructor(
     private oAuthService: OAuthService,
-    private router: Router,
     public layoutService: LayoutService,
   ) {
     oAuthService.configure(authCodeFlowConfig);
@@ -22,6 +19,6 @@ export class AppComponent {
   }
 
   logout(): void {
-    this.oAuthService.revokeTokenAndLogout().then(() => this.router.navigate(['login']));
+    this.oAuthService.logOut();
   }
 }
