@@ -1,55 +1,98 @@
-<div class="bb-topbar">
-  <button aria-label="skip to content" class="bb-page-layout__skip-to-content"> Skip to Content</button>
-  <button aria-label="Toggle sidebar" class="bb-topbar__nav-expand-marker bb-topbar__nav-expand-marker--horizontal-nav"
-    aria-expanded="true"><span class="bb-icon"></span></button>
-  <div class="bb-topbar__branding-area">
-    <div class="d-block px-4">
-      <img
-        src="https://app.stable.retail.backbasecloud.com/api/contentservices/api/contentstream-id/portalRepository/fb747fc6be3f2dcb55ccc2598c3f3dd1"
-        class="img-fluid">
-    </div>
-  </div>
-  <div class="bb-topbar__navigation-area" data-chrome="bb-panel-container-ang-_-731ab39984bf">
-    <nav aria-label="Main Menu"
-      class="bb-mega-menu bb-mega-menu--default-breakpoints bb-mega-menu--mobile-sidebar bb-mega-menu--sidebar-visible bb-mega-menu--submenu-hidden"
-      tabindex="-1" aria-busy="true">
-      <ul class="bb-mega-menu__items">
-        <li class="bb-mega-menu__item ng-star-inserted">
-          <a routerLink="/user" routerLinkActive="bb-mega-menu__link--active"
-            class="bb-mega-menu__link ng-star-inserted">
-            <span class="bb-mega-menu__item-description ng-star-inserted">My account</span>
-          </a>
-        </li>
+<div class="bb-layout bb-layout--horizontal-nav"
+[ngClass]="{
+  'bb-layout--nav-expanded': layoutService.navigationExpanded$ | async,   
+  'bb-layout--high-resolution-view': layoutService.isHighResolutionView$ | async
+  }"
+>
+<!-- Topbar Area -->
+<nav class="bb-layout__topbar">
+  <!-- Skip to content -->
+  <button
+    i18n-aria-label="
+      Move focus to beginning of content|Value for aria-label saying that this button will move the focus to the
+      beginning of the content
+    "
+    aria-label="skip to content"
+    class="bb-layout__skip-to-content"
+    (click)="$any($event).view?.window?.document?.querySelector('[role=\'main\']')?.focus()"
+    i18n="Skip to content|Text to enforce the user to click to put focus on the main content section"
+  >
+    Skip to Content
+  </button>
 
-        <li class="bb-mega-menu__item ng-star-inserted">
-          <a routerLink="/transfer" routerLinkActive="bb-mega-menu__link--active"
-            class="bb-mega-menu__link ng-star-inserted">
-            <span class="bb-mega-menu__item-description ng-star-inserted">Make a transfer</span>
-          </a>
-        </li>
+  <!-- Hamburger -->
+  <button
+    class="bb-layout__nav-expand-marker"
+    aria-label="Toggle sidebar"
+    i18n-aria-label="Sidebar Toggler|Button for toggling sidebar state@@bb-layout.sidebar_toggler"
+    [attr.aria-expanded]="layoutService.navigationExpanded$ | async"
+    (click)="layoutService.toggleNav()"
+  >
+    <span class="bb-icon"></span>
+  </button>
 
-        <li class="bb-mega-menu__item ng-star-inserted">
-          <a routerLink="/transactions" routerLinkActive="bb-mega-menu__link--active"
-            class="bb-mega-menu__link ng-star-inserted">
-            <span class="bb-mega-menu__item-description ng-star-inserted">Transactions</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+  <!-- Logo -->
+  <div class="bb-layout__branding-area">
+    <bb-logo-ui type="emblem" class="mx-4"></bb-logo-ui>
   </div>
-  <div class="bb-topbar__content-area" data-chrome="bb-panel-container-ang-_-3d30bb506ee2">
-    <div class="row">
-      <div class="col align-self-center">
-        <div data-chrome="bb-panel-container-ang-_-164433bc52dc">
-          <div data-chrome="bb-routing-container-ang-_-25daa37eb4db">
-          </div>
-        </div>
+
+  <!-- Navigation Items-->
+  <ul
+    class="bb-layout__horizontal-nav"
+  >
+    <li class="bb-layout__horizontal-nav-item">
+      <a class="bb-layout__horizontal-nav-link"
+        routerLink="/transfer"
+        routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"          
+        [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
+        role="link"
+      >
+        <span class="bb-layout__horizontal-nav-item-description">
+          Make transfer
+        </span>
+      </a>
+    </li>
+    <li class="bb-layout__horizontal-nav-item">
+      <a class="bb-layout__horizontal-nav-link"
+        routerLink="/transactions"
+        routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"          
+        [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
+        role="link"
+      >
+        <span class="bb-layout__horizontal-nav-item-description">
+          Transactions List
+        </span>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Topbar Content Area (a.k.a. Right Topbar Area) -->
+  <div class="bb-layout__topbar-content-area">
+      <div>
+        <bb-icon-ui color="secondary" data-role="notifications-icon" name="notifications" size="lg"></bb-icon-ui>
       </div>
-      <div class="col">
+  </div>
+</nav>
+
+<!-- Backdrop-->
+<div
+  class="bb-layout__nav-backdrop"
+  (click)="layoutService.toggleNav()"
+></div>
+
+<!--Main content area-->
+<div class="bb-layout__main">
+  <div class="bb-layout__sidebar"></div>
+  <div class="bb-layout__content">
+    <div class=" bb-layout__container container-fluid d-block container bb-block--xl">
+      <!--Header Area-->
+      <div class="bb-layout__main-content-header" aria-live="polite"></div>
+
+      <!-- Main Content Area -->
+      <div class="bb-layout__main-content-area">
+        <router-outlet></router-outlet>
       </div>
     </div>
   </div>
 </div>
-<div class="ml-4 main-content">
-  <router-outlet></router-outlet>
 </div>
