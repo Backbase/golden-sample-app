@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { authCodeFlowConfig } from '../environments/environment';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { LayoutService } from '@backbase/ui-ang';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +12,16 @@ import { LayoutService } from '@backbase/ui-ang';
 export class AppComponent {
   title = 'golden-sample-app';
 
-  constructor(oAuthService: OAuthService, public layoutService: LayoutService) {
+  constructor(
+    private oAuthService: OAuthService,
+    private router: Router,
+    public layoutService: LayoutService,
+  ) {
     oAuthService.configure(authCodeFlowConfig);
     oAuthService.loadDiscoveryDocumentAndTryLogin();
   }
 
-
+  logout(): void {
+    this.oAuthService.revokeTokenAndLogout().then(() => this.router.navigate(['login']));
+  }
 }

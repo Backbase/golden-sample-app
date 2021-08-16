@@ -47,7 +47,7 @@
         [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
         role="link"
       >
-        <span class="bb-layout__horizontal-nav-item-description">
+        <span class="bb-layout__horizontal-nav-item-description" i18n="make transfer link@@main.transfer.link.text">
           Make transfer
         </span>
       </a>
@@ -59,7 +59,7 @@
         [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
         role="link"
       >
-        <span class="bb-layout__horizontal-nav-item-description">
+        <span class="bb-layout__horizontal-nav-item-description" i18n="transactions list link@@main.transactions.link.text">
           Transactions List
         </span>
       </a>
@@ -69,7 +69,13 @@
   <!-- Topbar Content Area (a.k.a. Right Topbar Area) -->
   <div class="bb-layout__topbar-content-area">
       <div>
-        <bb-icon-ui color="secondary" data-role="notifications-icon" name="notifications" size="lg"></bb-icon-ui>
+        <a
+          href="#"
+          (click)="logout()"
+          role="link"
+        >
+          <bb-icon-ui color="secondary" data-role="notifications-icon" name="user" size="lg"></bb-icon-ui>
+      </a>
       </div>
   </div>
 </nav>
@@ -86,7 +92,7 @@
   <div class="bb-layout__content">
     <div class=" bb-layout__container container-fluid d-block container bb-block--xl">
       <!--Header Area-->
-      <div class="bb-layout__main-content-header" aria-live="polite"></div>
+      <div class="bb-layout__main-content-header bb-block bb-block--xl" aria-live="polite"></div>
 
       <!-- Main Content Area -->
       <div class="bb-layout__main-content-area">

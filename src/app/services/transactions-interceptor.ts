@@ -17,7 +17,7 @@ export class TransactionsInterceptor implements HttpInterceptor {
           .slice(page, pageSize)
       }));
     }
-    
+
     return next.handle(req);
   }
 }

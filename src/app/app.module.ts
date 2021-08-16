@@ -33,14 +33,14 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     LogoModule,
     NgbDropdownModule,
     AvatarModule,
-    WebSdkModule.forRoot(<any>{
-      cx: {
+    WebSdkModule.forRoot({
+      cx: { // TODO: this is a hack to get entitlements work using websdk
         entitlementsEnable: true,
         entitlementsUri: '/entitlements',
         clientId: 'client',
         realm: 'realm'
       }
-    }),
+    } as any),
   ],
   providers: [ ...environment.mockProviders, AuthGuard ],
   bootstrap: [ AppComponent ]

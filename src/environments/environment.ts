@@ -32,7 +32,7 @@ export const authCodeFlowConfig: AuthConfig = {
   issuer: 'https://identity-latest-universal.retail.backbase.eu/auth/realms/backbase',
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: window.location.origin + '/index.html',
+  redirectUri: window.location.origin + '/transactions',
 
   // The SPA's id. The SPA is registerd with this id at the auth-server
   // clientId: 'server.code',

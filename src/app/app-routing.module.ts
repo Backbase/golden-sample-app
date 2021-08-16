@@ -14,16 +14,10 @@ const routes: Routes = [
     path: 'transactions',
     loadChildren: () => import('./transactions/transactions-journey-bundle.module').then(m => m.TransactionsJourneyBundleModule),
     canActivate: [ AuthGuard ],
-
   },
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
-  },
-  {
-    path: 'user',
-    loadChildren: () => import('./user/user.module').then(m => m.UserModule),
-    canActivate: [ AuthGuard ]
   },
   {
     path: '**',
