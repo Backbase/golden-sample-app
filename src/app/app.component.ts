@@ -8,8 +8,6 @@ import { LayoutService } from '@backbase/ui-ang';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'golden-sample-app';
-
   constructor(
     private oAuthService: OAuthService,
     public layoutService: LayoutService,
@@ -20,5 +18,10 @@ export class AppComponent {
 
   logout(): void {
     this.oAuthService.logOut();
+  }
+
+  focusMainContainer(event: MouseEvent) {
+    const element = event.view?.window?.document?.querySelector('[role=\'main\']') as HTMLElement | undefined;
+    element?.focus();
   }
 }

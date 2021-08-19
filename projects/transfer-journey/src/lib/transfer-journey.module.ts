@@ -1,9 +1,9 @@
 
 import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideRoutes, Route, RouterModule } from '@angular/router';
-import { AccountSelectorModule, ButtonModule, CurrencyInputModule, InputValidationMessageModule, ModalModule } from '@backbase/ui-ang';
+import { AccountSelectorModule, ButtonModule, CurrencyInputModule, InputValidationMessageModule } from '@backbase/ui-ang';
 import { MakeTransferJourneyState } from './make-transfer-journey-state.service';
 import { MakeTransferFormComponent } from './components/make-transfer-form.component';
 import { MakeTransferSummaryComponent } from './components/make-transfer-summary.component';
@@ -13,7 +13,6 @@ import { TransferJourneyComponent } from './transfer-journey.component';
 import { MakeTransferSuccessViewComponent } from './views/make-transfer-success-view.component';
 import { MakeTransferSummaryViewComponent } from './views/make-transfer-summary-view.component';
 import { MakeTransferViewComponent } from './views/make-transfer-view.component';
-import { EntitlementsGuard, EntitlementsModule } from '@backbase/foundation-ang/entitlements';
 
 const defaultRoute: Route = {
   path: '',
