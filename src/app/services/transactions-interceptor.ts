@@ -3,7 +3,6 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } fr
 import * as mocks from '../mock-data/transactions.json';
 import { Transaction } from 'transactions-journey';
 import { Observable, of } from 'rxjs';
-
 @Injectable()
 export class TransactionsInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -18,6 +17,7 @@ export class TransactionsInterceptor implements HttpInterceptor {
           .slice(page, pageSize)
       }));
     }
+
     return next.handle(req);
   }
 }

@@ -4,22 +4,15 @@
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Provider } from '@angular/core';
-import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { TransactionsInterceptor } from '../app/services/transactions-interceptor';
 
 const mockProviders: Provider[] = [
   {
-    provide: CONDITIONS,
-    useValue: {
-      resolveEntitlements: (triplet: string) => Promise.resolve(true)
-    },
-  },
-  {
     provide: HTTP_INTERCEPTORS,
     useClass: TransactionsInterceptor,
     multi: true,
-  }
+  },
 ];
 
 export const environment = {
@@ -39,7 +32,7 @@ export const authCodeFlowConfig: AuthConfig = {
   issuer: 'https://identity-latest-universal.retail.backbase.eu/auth/realms/backbase',
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: window.location.origin + '/index.html',
+  redirectUri: window.location.origin + '/transactions',
 
   // The SPA's id. The SPA is registerd with this id at the auth-server
   // clientId: 'server.code',
@@ -62,6 +55,8 @@ export const authCodeFlowConfig: AuthConfig = {
   requireHttps: false,
 
   showDebugInformation: true,
+
+  logoutUrl: window.location.origin + '/login',
 };
 /*
  * For easier debugging in development mode, you can import the following file
