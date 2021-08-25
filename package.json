@@ -9,8 +9,7 @@
     "start:docker": "docker run -p 8080:8080 golden-sample-app",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "format": "prettier --write \"{src,projects}/**/*.ts\""
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -25,11 +24,8 @@
     "@angular/platform-browser-dynamic": "~11.2.5",
     "@angular/router": "~11.2.5",
     "@backbase/backbase-theme": "^2.263.0",
-    "@backbase/data-ang": "^3.10.1",
-    "@backbase/foundation-ang": "^6.13.1",
-    "@backbase/positive-pay-journey-ang": "^0.25.0",
+    "@backbase/foundation-ang": "^6.13.2",
     "@backbase/ui-ang": "^6.21.0",
-    "@backbase/universal-ang": "^7.1.0",
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
     "@ng-select/ng-select": "^6.1.0",
     "@ngrx/effects": "^11.0.1",

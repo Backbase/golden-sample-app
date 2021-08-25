@@ -20,13 +20,9 @@
       "dom"
     ],
     "paths": {
-      "heroes-journey": [
-        "dist/heroes-journey/heroes-journey",
-        "dist/heroes-journey"
-      ],
-      "todo-journey": [
-        "dist/todo-journey/todo-journey",
-        "dist/todo-journey"
+      "transactions-journey": [
+        "dist/transactions-journey/transactions-journey",
+        "dist/transactions-journey"
       ],
       "transfer-journey": [
         "dist/transfer-journey/transfer-journey",

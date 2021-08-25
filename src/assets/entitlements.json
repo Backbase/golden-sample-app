@@ -1,0 +1,15 @@
+[
+    {
+        "additions": {},
+        "resource": "Payments",
+        "function": "ACH Credit Transfer",
+        "permissions": {
+            "cancel": true,
+            "view": true,
+            "edit": true,
+            "approve": true,
+            "create": true,
+            "delete": true
+        }
+    }
+]
