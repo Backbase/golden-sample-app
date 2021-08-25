@@ -12,7 +12,6 @@ const routes: Routes = [
       entitlements: 'Payments.ACHCreditTransfer.view',
     },
     canActivate: [ AuthGuard, EntitlementsGuard ],
-
   },
   {
     path: 'transactions',
