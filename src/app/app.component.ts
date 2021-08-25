@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { authCodeFlowConfig } from '../environments/environment';
+import { authConfig } from '../environments/environment';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { LayoutService } from '@backbase/ui-ang';
 @Component({
@@ -12,7 +12,7 @@ export class AppComponent {
     private oAuthService: OAuthService,
     public layoutService: LayoutService,
   ) {
-    oAuthService.configure(authCodeFlowConfig);
+    oAuthService.configure(authConfig);
     oAuthService.loadDiscoveryDocumentAndTryLogin();
   }
 
