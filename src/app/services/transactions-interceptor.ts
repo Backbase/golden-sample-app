@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
-import * as mocks from '../mock-data/transactions.json';
+import mocks from '../mock-data/transactions.json';
 import { Transaction } from 'transactions-journey';
 import { Observable, of } from 'rxjs';
+
 @Injectable()
 export class TransactionsInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -12,7 +13,7 @@ export class TransactionsInterceptor implements HttpInterceptor {
 
       return of(new HttpResponse({
         status: 200,
-        body: mocks.data
+        body: [...mocks.data]
           .sort((a: Transaction, b: Transaction) => b.dates.valueDate - a.dates.valueDate)
           .slice(page, pageSize)
       }));
