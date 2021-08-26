@@ -15,6 +15,12 @@ const routes: Routes = [
 
   },
   {
+    path: 'positive-pay',
+    loadChildren: () => import('./positive-pay/positive-pay-journey-bundle.module').then(m => m.PositivePayJourneyBundleModule),
+    canActivate: [ AuthGuard ],
+
+  },
+  {
     path: 'transactions',
     loadChildren: () => import('./transactions/transactions-journey-bundle.module').then(m => m.TransactionsJourneyBundleModule),
     canActivate: [ AuthGuard ],
@@ -22,10 +28,6 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
-  },
-  {
-    path: 'positive-pay',
-    loadChildren: () => import('@backbase/positive-pay-journey-ang').then((m) => m.PositivePayJourneyModule),
   },
   {
     path: '**',

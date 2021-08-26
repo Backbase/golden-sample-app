@@ -1,6 +1,6 @@
 <div class="bb-layout bb-layout--horizontal-nav"
   [ngClass]="{
-    'bb-layout--nav-expanded': layoutService.navigationExpanded$ | async,   
+    'bb-layout--nav-expanded': layoutService.navigationExpanded$ | async,
     'bb-layout--high-resolution-view': layoutService.isHighResolutionView$ | async
     }"
   >
@@ -43,7 +43,7 @@
       <li class="bb-layout__horizontal-nav-item" *bbIfEntitlements="'Payments.ACHCreditTransfer.view'">
         <a class="bb-layout__horizontal-nav-link"
           routerLink="/transfer"
-          routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"          
+          routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"
           [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
           role="link"
         >
@@ -55,12 +55,24 @@
       <li class="bb-layout__horizontal-nav-item">
         <a class="bb-layout__horizontal-nav-link"
           routerLink="/transactions"
-          routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"          
+          routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"
           [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
           role="link"
         >
           <span class="bb-layout__horizontal-nav-item-description" i18n="transactions list link@@main.transactions.link.text">
             Transactions List
+          </span>
+        </a>
+      </li>
+      <li class="bb-layout__horizontal-nav-item">
+        <a class="bb-layout__horizontal-nav-link"
+          routerLink="/positive-pay"
+          routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"
+          [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
+          role="link"
+        >
+          <span class="bb-layout__horizontal-nav-item-description" i18n="Positive pay link@@main.positive-pay.link.text">
+            Positive Pay
           </span>
         </a>
       </li>
