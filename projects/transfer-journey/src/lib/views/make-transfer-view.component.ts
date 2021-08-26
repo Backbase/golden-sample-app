@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MakeTransferJourneyConfigService } from '../make-transfer-journey-config.service';
+import { MakeTransferJourneyConfiguration } from '../make-transfer-journey-config.service';
 import { MakeTransferJourneyState } from '../make-transfer-journey-state.service';
 import { Account, Transfer } from '../model/Account';
 
@@ -18,13 +18,14 @@ export class MakeTransferViewComponent {
 
   submitTransfer(transfer: Transfer): void {
     this.transferStore.next(transfer);
-    this.router.navigate(['../make-transfer-summary'], { relativeTo: this.route });
+    this.router.navigate([ '../make-transfer-summary' ], { relativeTo: this.route });
   }
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly transferStore: MakeTransferJourneyState,
-    public readonly config: MakeTransferJourneyConfigService
-  ) {}
+    public readonly config: MakeTransferJourneyConfiguration
+  ) {
+  }
 }
