@@ -17,6 +17,7 @@ import { TransferJourneyComponent } from './transfer-journey.component';
 import { MakeTransferSuccessViewComponent } from './views/make-transfer-success-view.component';
 import { MakeTransferSummaryViewComponent } from './views/make-transfer-summary-view.component';
 import { MakeTransferViewComponent } from './views/make-transfer-view.component';
+import { MakeTransferJourneyConfiguration } from "./make-transfer-journey-config.service";
 
 const defaultRoute: Route = {
   path: '',
@@ -71,7 +72,7 @@ const defaultRoute: Route = {
     InputValidationMessageModule,
     ReactiveFormsModule,
   ],
-  providers: [ MakeTransferJourneyStoreGuard, MakeTransferJourneyState ],
+  providers: [ MakeTransferJourneyStoreGuard, MakeTransferJourneyState, MakeTransferJourneyConfiguration ],
   exports: [ TransferJourneyComponent ]
 })
 export class TransferJourneyModule {
