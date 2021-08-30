@@ -11,5 +11,18 @@
             "create": true,
             "delete": true
         }
+    },
+  {
+        "additions": {},
+        "resource": "Payments",
+        "function": "ManagePositivePay",
+        "permissions": {
+            "cancel": true,
+            "view": true,
+            "edit": true,
+            "approve": true,
+            "create": true,
+            "delete": true
+        }
     }
 ]

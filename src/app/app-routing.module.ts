@@ -14,6 +14,12 @@ const routes: Routes = [
     canActivate: [ AuthGuard, EntitlementsGuard ],
   },
   {
+    path: 'positive-pay',
+    loadChildren: () => import('./positive-pay/positive-pay-journey-bundle.module').then(m => m.PositivePayJourneyBundleModule),
+    canActivate: [ AuthGuard ],
+
+  },
+  {
     path: 'transactions',
     loadChildren: () => import('./transactions/transactions-journey-bundle.module').then(m => m.TransactionsJourneyBundleModule),
     canActivate: [ AuthGuard ],

@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
 import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import {StoreModule} from "@ngrx/store";
+import {EffectsModule} from "@ngrx/effects";
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
         realm: 'realm'
       }
     } as any),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
   ],
   providers: [ ...environment.mockProviders, AuthGuard ],
   bootstrap: [ AppComponent ]
