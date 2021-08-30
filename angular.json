@@ -157,14 +157,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/transfer-journey/tsconfig.lib.json",
-              "projects/transfer-journey/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/transfer-journey/**/*.ts",
+              "projects/transfer-journey/**/*.html"
             ]
           }
         }
@@ -197,19 +194,19 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/transactions-journey/tsconfig.lib.json",
-              "projects/transactions-journey/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/transactions-journey/**/*.ts",
+              "projects/transactions-journey/**/*.html"
             ]
           }
         }
       }
     }
   },
-  "defaultProject": "golden-sample-app"
+  "defaultProject": "golden-sample-app",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
