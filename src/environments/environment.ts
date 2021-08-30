@@ -18,30 +18,23 @@ const mockProviders: Provider[] = [
 export const environment = {
   production: false,
   apiRoot: 'https://app.stable.retail.backbasecloud.com/api',
-  auth: {
-    authUrl: 'https://identity-latest-universal.retail.backbase.eu/auth',
-    realm: 'backbase',
-    clientId: 'bb-web-client',
-    scope: 'openid',
-  },
   mockProviders,
 };
 
-export const authCodeFlowConfig: AuthConfig = {
+export const authConfig: AuthConfig = {
   // Url of the Identity Provider
   issuer: 'https://identity-latest-universal.retail.backbase.eu/auth/realms/backbase',
 
   // URL of the SPA to redirect the user to after login
   redirectUri: window.location.origin + '/transactions',
 
-  // The SPA's id. The SPA is registerd with this id at the auth-server
-  // clientId: 'server.code',
+  // The SPA's id. The SPA is registered with this id at the auth-server
   clientId: 'bb-web-client',
 
   // Just needed if your auth server demands a secret. In general, this
   // is a sign that the auth server is not configured with SPAs in mind
   // and it might not enforce further best practices vital for security
-  // such applications.
+  // such applications. (IE: does not support PKCE)
   // dummyClientSecret: 'secret',
 
   responseType: 'code',
@@ -49,7 +42,6 @@ export const authCodeFlowConfig: AuthConfig = {
   // set the scope for the permissions the client should request
   // The first four are defined by OIDC.
   // Important: Request offline_access to get a refresh token
-  // The api scope is a usecase specific one
   scope: 'openid profile email',
 
   requireHttps: false,
@@ -58,6 +50,7 @@ export const authCodeFlowConfig: AuthConfig = {
 
   logoutUrl: window.location.origin + '/login',
 };
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
@@ -65,4 +58,4 @@ export const authCodeFlowConfig: AuthConfig = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.

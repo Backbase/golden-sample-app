@@ -8,6 +8,7 @@ import { AmountModule, InputTextModule } from '@backbase/ui-ang';
 import { TransactionItemComponent } from './components/transaction-item/transaction-item.component';
 import { TextFilterComponent } from './components/text-filter/text-filter.component';
 import { FilterTransactionsPipe } from './pipes/filter-transactions.pipe';
+import { TransactionsJourneyConfiguration } from './transactions-journey-config.service';
 
 const defaultRoute: Route = {
   path: '',
@@ -19,6 +20,7 @@ const defaultRoute: Route = {
 
 @NgModule({
   declarations: [TransactionsViewComponent, TransactionItemComponent, TextFilterComponent, FilterTransactionsPipe],
+  providers: [TransactionsJourneyConfiguration],
   imports: [
     CommonModule,
     RouterModule,

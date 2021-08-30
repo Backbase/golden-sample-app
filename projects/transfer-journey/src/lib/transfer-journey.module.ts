@@ -1,9 +1,13 @@
-
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideRoutes, Route, RouterModule } from '@angular/router';
-import { AccountSelectorModule, ButtonModule, CurrencyInputModule, InputValidationMessageModule } from '@backbase/ui-ang';
+import {
+  AccountSelectorModule,
+  ButtonModule,
+  CurrencyInputModule,
+  InputValidationMessageModule
+} from '@backbase/ui-ang';
 import { MakeTransferJourneyState } from './make-transfer-journey-state.service';
 import { MakeTransferFormComponent } from './components/make-transfer-form.component';
 import { MakeTransferSummaryComponent } from './components/make-transfer-summary.component';
@@ -13,6 +17,7 @@ import { TransferJourneyComponent } from './transfer-journey.component';
 import { MakeTransferSuccessViewComponent } from './views/make-transfer-success-view.component';
 import { MakeTransferSummaryViewComponent } from './views/make-transfer-summary-view.component';
 import { MakeTransferViewComponent } from './views/make-transfer-view.component';
+import { MakeTransferJourneyConfiguration } from './make-transfer-journey-config.service';
 
 const defaultRoute: Route = {
   path: '',
@@ -36,7 +41,7 @@ const defaultRoute: Route = {
       data: {
         title: TRANSLATIONS.makeTransferTitle,
       },
-      canActivate: [MakeTransferJourneyStoreGuard]
+      canActivate: [ MakeTransferJourneyStoreGuard ]
     },
     {
       path: 'make-transfer-success',
@@ -44,7 +49,7 @@ const defaultRoute: Route = {
       data: {
         title: TRANSLATIONS.makeTransferTitle,
       },
-      canActivate: [MakeTransferJourneyStoreGuard]
+      canActivate: [ MakeTransferJourneyStoreGuard ]
     }
   ]
 };
@@ -67,14 +72,14 @@ const defaultRoute: Route = {
     InputValidationMessageModule,
     ReactiveFormsModule,
   ],
-  providers: [MakeTransferJourneyStoreGuard, MakeTransferJourneyState],
-  exports: [TransferJourneyComponent]
+  providers: [ MakeTransferJourneyStoreGuard, MakeTransferJourneyState, MakeTransferJourneyConfiguration ],
+  exports: [ TransferJourneyComponent ]
 })
 export class TransferJourneyModule {
-  static forRoot(data: { [key: string]: unknown; route: Route } = { route: defaultRoute }) {
+  static forRoot(data: { [key: string]: unknown; route: Route } = { route: defaultRoute }): ModuleWithProviders<TransferJourneyModule> {
     return {
       ngModule: TransferJourneyModule,
-      providers: [provideRoutes([data.route])],
+      providers: [ provideRoutes([ data.route ]) ],
     };
   }
- }
+}
