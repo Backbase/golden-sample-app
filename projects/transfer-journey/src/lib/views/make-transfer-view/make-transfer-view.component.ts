@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Optional } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MakeTransferJourneyConfiguration } from '../../services/make-transfer-journey-config.service';
 import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
 import { Account, Transfer } from '../../model/Account';
+import { MakeTransferCommunicationService } from '../../services/make-transfer-communication.service';
 
 @Component({
   templateUrl: 'make-transfer-view.component.html'
@@ -18,14 +19,17 @@ export class MakeTransferViewComponent {
 
   submitTransfer(transfer: Transfer): void {
     this.transferStore.next(transfer);
-    this.router.navigate([ '../make-transfer-summary' ], { relativeTo: this.route });
+    
+    if (this.externalCommunicationService) {
+      this.externalCommunicationService.makeTransfer(transfer);
+    }
   }
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly router: Router,
     private readonly transferStore: MakeTransferJourneyState,
-    public readonly config: MakeTransferJourneyConfiguration
+    public readonly config: MakeTransferJourneyConfiguration,
+    @Optional() private externalCommunicationService: MakeTransferCommunicationService,
   ) {
   }
 }
