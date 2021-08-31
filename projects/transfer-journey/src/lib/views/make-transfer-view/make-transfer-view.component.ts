@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MakeTransferJourneyConfiguration } from '../make-transfer-journey-config.service';
-import { MakeTransferJourneyState } from '../make-transfer-journey-state.service';
-import { Account, Transfer } from '../model/Account';
+import { MakeTransferJourneyConfiguration } from '../../services/make-transfer-journey-config.service';
+import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
+import { Account, Transfer } from '../../model/Account';
 
 @Component({
   templateUrl: 'make-transfer-view.component.html'
