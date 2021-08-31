@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@backbase/backbase-theme/scss/main";
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+// Use TwoTone
+// @font-face {
+//   font-family: 'Material Icons Two Tone';
+//   font-style: normal;
+//   font-weight: 400;
+//   src: url("assets/MaterialIconsTwoTone-Regular.otf") format("opentype");
+// }
+
+// .bb-icon {
+//   font-family: 'Material Icons Two Tone' !important;
+// }
+
+
+// IconMoon for all icons
+// free version https://icomoon.io/icons-icomoon.html
+// @font-face {
+//   font-family: 'Icon Moon';
+//   font-style: normal;
+//   font-weight: 400;
+//   src: url("assets/IcoMoon-Free.ttf") format("truetype");
+// }
+
+// .bb-icon {
+//   font-family: 'Icon Moon' !important;
+// }
+
+// .bb-icon-directions-car::before {
+//   content: "bullhorn" !important;
+// }
+
+
+// IconMoon for some icons
+// free version https://icomoon.io/icons-icomoon.html
+@font-face {
+  font-family: 'Icon Moon';
+  font-style: normal;
+  font-weight: 400;
+  src: url("assets/IcoMoon-Free.ttf") format("truetype");
+}
+
+.bb-icon-directions-car {
+  font-family: 'Icon Moon' !important;
+  &::before {
+    content: "bullhorn" !important;
+  }
+}

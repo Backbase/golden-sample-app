@@ -11,10 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
 import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { IconsComponent } from './icons/icons.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    IconsComponent
   ],
   imports: [
     BrowserModule,

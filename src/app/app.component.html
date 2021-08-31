@@ -64,6 +64,18 @@
           </span>
         </a>
       </li>
+      <li class="bb-layout__horizontal-nav-item">
+        <a class="bb-layout__horizontal-nav-link"
+          routerLink="/icons"
+          routerLinkActive="bb-layout__horizontal-nav-link--active" #iconsRouterLink="routerLinkActive"          
+          [attr.aria-current]="iconsRouterLink.isActive ? 'page' : undefined"
+          role="link"
+        >
+          <span class="bb-layout__horizontal-nav-item-description">
+            Icons
+          </span>
+        </a>
+      </li>      
     </ul>
 
     <!-- Topbar Content Area (a.k.a. Right Topbar Area) -->
