@@ -8,16 +8,16 @@ import {
   CurrencyInputModule,
   InputValidationMessageModule
 } from '@backbase/ui-ang';
-import { MakeTransferJourneyState } from './make-transfer-journey-state.service';
-import { MakeTransferFormComponent } from './components/make-transfer-form.component';
-import { MakeTransferSummaryComponent } from './components/make-transfer-summary.component';
+import { MakeTransferJourneyState } from './services/make-transfer-journey-state.service';
+import { MakeTransferFormComponent } from './components/make-transfer-form/make-transfer-form.component';
+import { MakeTransferSummaryComponent } from './components/make-transfer-summary/make-transfer-summary.component';
 import { TRANSLATIONS } from './constants/dynamic-translations';
 import { MakeTransferJourneyStoreGuard } from './make-transfer-journey-store-guard';
 import { TransferJourneyComponent } from './transfer-journey.component';
-import { MakeTransferSuccessViewComponent } from './views/make-transfer-success-view.component';
-import { MakeTransferSummaryViewComponent } from './views/make-transfer-summary-view.component';
-import { MakeTransferViewComponent } from './views/make-transfer-view.component';
-import { MakeTransferJourneyConfiguration } from './make-transfer-journey-config.service';
+import { MakeTransferSuccessViewComponent } from './views/make-transfer-success-view/make-transfer-success-view.component';
+import { MakeTransferSummaryViewComponent } from './views/make-transfer-summary-view/make-transfer-summary-view.component';
+import { MakeTransferViewComponent } from './views/make-transfer-view/make-transfer-view.component';
+import { MakeTransferJourneyConfiguration } from './services/make-transfer-journey-config.service';
 
 const defaultRoute: Route = {
   path: '',
