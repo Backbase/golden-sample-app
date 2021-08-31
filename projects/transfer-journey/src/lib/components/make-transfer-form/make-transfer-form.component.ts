@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Account, Transfer } from '../model/Account';
+import { Account, Transfer } from '../../model/Account';
 
 @Component({
   selector: 'bb-make-transfer-form',
