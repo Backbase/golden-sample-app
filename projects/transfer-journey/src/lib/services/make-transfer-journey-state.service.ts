@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Transfer } from './model/Account';
+import { Transfer } from '../model/Account';
 
 @Injectable()
 export class MakeTransferJourneyState implements OnDestroy {
