@@ -2,17 +2,15 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, ActivatedRouteSnapshot, Data } from '@angular/router';
-import { Transfer } from '../../model/Account';
 import { MakeTransferCommunicationService } from '../../services/make-transfer-communication.service';
-import { MakeTransferJourneyConfiguration } from '../../services/make-transfer-journey-config.service';
 import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
-import { MakeTransferViewComponent } from './make-transfer-view.component';
+import { MakeTransferSummaryViewComponent } from './make-transfer-summary-view.component';
+import { Transfer } from '../../model/Account';
 
-describe('MakeTransferViewComponent', () => {
-  let fixture: ComponentFixture<MakeTransferViewComponent>;
+describe('MakeTransferSymmaryViewComponent', () => {
+  let fixture: ComponentFixture<MakeTransferSummaryViewComponent>;
 
   let transferStoreStub: jasmine.SpyObj<MakeTransferJourneyState>;
-  let configServiceStub: jasmine.SpyObj<MakeTransferJourneyConfiguration>;
   let externalCommunicationServiceStub: jasmine.SpyObj<MakeTransferCommunicationService>;
 
   const activatedRouteStub = {
@@ -29,11 +27,10 @@ describe('MakeTransferViewComponent', () => {
 
   beforeEach(() => {
     transferStoreStub = jasmine.createSpyObj<MakeTransferJourneyState>(['next']);
-    configServiceStub = jasmine.createSpyObj<MakeTransferJourneyConfiguration>(['maskIndicator']);
     externalCommunicationServiceStub = jasmine.createSpyObj<MakeTransferCommunicationService>(['makeTransfer']);
 
     TestBed.configureTestingModule({
-      declarations: [MakeTransferViewComponent],
+      declarations: [MakeTransferSummaryViewComponent],
       providers: [
         {
           provide: ActivatedRoute,
@@ -44,10 +41,6 @@ describe('MakeTransferViewComponent', () => {
           useValue: transferStoreStub,
         },
         {
-          provide: MakeTransferJourneyConfiguration,
-          useValue: configServiceStub,
-        },
-        {
           provide: MakeTransferCommunicationService,
           useValue: externalCommunicationServiceStub,
         },
@@ -55,7 +48,7 @@ describe('MakeTransferViewComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     });
 
-    fixture = TestBed.createComponent(MakeTransferViewComponent);
+    fixture = TestBed.createComponent(MakeTransferSummaryViewComponent);
   });
 
   it('should call external communication service when transfer is submitted', () => {
