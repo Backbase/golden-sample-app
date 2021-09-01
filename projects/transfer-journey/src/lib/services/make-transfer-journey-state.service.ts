@@ -8,6 +8,10 @@ export class MakeTransferJourneyState implements OnDestroy {
 
   transfer = this.store$.asObservable();
 
+  get currentValue(): Transfer | undefined {
+    return this.store$.getValue();
+  }
+
   next(transfer: Transfer): void {
     this.store$.next(transfer);
   }
