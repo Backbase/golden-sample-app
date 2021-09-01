@@ -11,7 +11,10 @@
     "start:docker": "docker run -p 8080:8080 golden-sample-app",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build:journeys": "ng build transactions-journey && ng build transfer-journey",
+    "test:transfer:watch": "ng test transfer-journey --watch",
+    "test:transactions:watch": "ng test transactions-journey --watch"
   },
   "private": true,
   "dependencies": {
