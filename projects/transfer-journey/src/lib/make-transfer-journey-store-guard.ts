@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { MakeTransferJourneyState } from './make-transfer-journey-state.service';
+import { MakeTransferJourneyState } from './services/make-transfer-journey-state.service';
 
 @Injectable()
 export class MakeTransferJourneyStoreGuard implements CanActivate {

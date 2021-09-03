@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Transfer } from '../model/Account';
+import { Transfer } from '../../model/Account';
 
 @Component({
   selector: 'bb-make-transfer-summary',

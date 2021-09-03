@@ -8,7 +8,8 @@ import { AmountModule, InputTextModule } from '@backbase/ui-ang';
 import { TransactionItemComponent } from './components/transaction-item/transaction-item.component';
 import { TextFilterComponent } from './components/text-filter/text-filter.component';
 import { FilterTransactionsPipe } from './pipes/filter-transactions.pipe';
-import { TransactionsJourneyConfiguration } from './transactions-journey-config.service';
+import { TransactionsHttpService } from './services/transactions.http.service';
+import { TransactionsJourneyConfiguration } from './services/transactions-journey-config.service';
 
 const defaultRoute: Route = {
   path: '',
@@ -20,18 +21,12 @@ const defaultRoute: Route = {
 
 @NgModule({
   declarations: [TransactionsViewComponent, TransactionItemComponent, TextFilterComponent, FilterTransactionsPipe],
-  providers: [TransactionsJourneyConfiguration],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    AmountModule,
-    InputTextModule,
-  ],
+  imports: [CommonModule, RouterModule, FormsModule, AmountModule, InputTextModule],
+  providers: [TransactionsHttpService, TransactionsJourneyConfiguration],
 })
 export class TransactionsJourneyModule {
-
-  static forRoot(data: { [key: string]: unknown; route: Route } = { route: defaultRoute }
+  static forRoot(
+    data: { [key: string]: unknown; route: Route } = { route: defaultRoute },
   ): ModuleWithProviders<TransactionsJourneyModule> {
     return {
       ngModule: TransactionsJourneyModule,
