@@ -7,10 +7,10 @@ import { map, switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class TransactionsHttpService {
-  constructor(private http: HttpClient, private readonly configurationService: TransactionsJourneyConfiguration) {}
-
   public transactions$ = of(this.configurationService.pageSize).pipe(
     map((pageSize) => new HttpParams().append('page', String(0)).append('pageSize', String(pageSize))),
     switchMap((params) => this.http.get<Transaction[]>('/api/transactions', { params })),
   );
+
+  constructor(private http: HttpClient, private readonly configurationService: TransactionsJourneyConfiguration) {}
 }

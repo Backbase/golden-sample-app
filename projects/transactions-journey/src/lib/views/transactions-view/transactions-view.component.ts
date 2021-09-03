@@ -17,9 +17,9 @@ export class TransactionsViewComponent {
     this.transactionsService.transactions$,
     this.externalCommunicationService?.latestTransaction$ || of(undefined),
   ]).pipe(
-    map(([transactions, latestTransaction]) => {
-      return latestTransaction ? [latestTransaction, ...transactions] : transactions;
-    }),
+    map(([transactions, latestTransaction]) =>
+      latestTransaction ? [latestTransaction, ...transactions] : transactions,
+    ),
   );
 
   constructor(
