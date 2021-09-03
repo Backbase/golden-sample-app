@@ -5,9 +5,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { TransactionsJourneyConfiguration } from './transactions-journey-config.service';
 import { map, switchMap } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class TransactionsHttpService {
   constructor(private http: HttpClient, private readonly configurationService: TransactionsJourneyConfiguration) {}
 
