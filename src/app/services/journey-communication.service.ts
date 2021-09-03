@@ -16,8 +16,8 @@ export class JourneyCommunicationService implements MakeTransferCommunicationSer
 
   constructor(private router: Router) {}
 
-  public makeTransfer({ toAccount, amount }: Transfer): void {
-    this.latestTransaction$$.next({
+  private mapTransferToTransaction({ toAccount, amount }: Transfer): Transaction {
+    return {
       categoryCode: this.categoryCodeForTransfer,
       dates: {
         valueDate: new Date().getTime(),
@@ -34,7 +34,11 @@ export class JourneyCommunicationService implements MakeTransferCommunicationSer
         name: toAccount,
         accountNumber: toAccount,
       },
-    });
+    };
+  }
+
+  public makeTransfer(transfer: Transfer): void {
+    this.latestTransaction$$.next(this.mapTransferToTransaction(transfer));
     this.router.navigate(['transactions']);
   }
 }
