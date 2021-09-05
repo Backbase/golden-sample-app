@@ -1,0 +1,15 @@
+@import "./styles";
+@import "~@backbase/backbase-theme/scss/main";
+
+// If the new font's symbol names fully match the names from "Material Icon" font, then it's possible to replace
+// the entire font just by changing the font-family
+@font-face {
+  font-family: "Material Icons Rounded";  
+  font-style: normal;
+  font-weight: 400;
+  src: url("assets/custom-icons/MaterialIconsRound-Regular.otf") format("opentype");
+}
+
+.bb-icon {
+  font-family: "Material Icons Rounded";
+}

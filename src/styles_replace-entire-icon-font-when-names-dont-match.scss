@@ -1,0 +1,22 @@
+@import "./styles";
+@import "~@backbase/backbase-theme/scss/main";
+
+// If the new font's symbol names don't match the names from "Material Icon" font, then we need 
+// to change the font-family for .bb-icon and "content" property for every icon to map the names
+
+// IconMoon for all icons
+// free version https://icomoon.io/icons-icomoon.html
+@font-face {
+  font-family: "Icon Moon";
+  font-style: normal;
+  font-weight: 400;
+  src: url("assets/custom-icons/IcoMoon-Free.ttf") format("truetype");
+}
+
+.bb-icon {
+  font-family: "Icon Moon";
+}
+
+.bb-icon-transactions::before {
+  content: "credit-card";
+}

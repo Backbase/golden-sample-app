@@ -1,0 +1,27 @@
+@import "./styles";
+@import "~@backbase/backbase-theme/scss/main";
+
+// Overriding the icon
+.bb-icon-transactions {
+  background-image: url('assets/custom-icons/swap_horiz_black_24dp.svg');
+  display: block;
+  background-size: contain;  
+  background-repeat: no-repeat;
+  &::before {
+    content: '';
+  }
+}
+
+// Custom sizing for <bb-icon-ui size="md"></bb-icon-ui>
+.bb-icon-transactions.bb-icon--md {
+  width: map-get($icon-size-map, md);
+  height: map-get($icon-size-map, md);
+}
+
+// Custom coloring 
+.bb-layout__horizontal-nav-link--active,
+.bb-layout__horizontal-nav-link--expanded {
+  .bb-icon-transactions {
+    background-image: url('assets/custom-icons/swap_horiz_black_24dp_color_primary.svg');
+  }
+}

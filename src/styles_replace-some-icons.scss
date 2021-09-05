@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./styles";
+@import "~@backbase/backbase-theme/scss/main";
+
+// If the new font's symbol names don't match the names from "Material Icon" font, then we need 
+// to change the "font-family" and the "content" property for the icon we want to update
+
+// IconMoon for all icons
+// free version https://icomoon.io/icons-icomoon.html
+@font-face {
+  font-family: "Icon Moon";
+  font-style: normal;
+  font-weight: 400;
+  src: url("assets/custom-icons/IcoMoon-Free.ttf") format("truetype");
+}
+
+.bb-icon-transactions {
+  font-family: 'Icon Moon';
+  &::before {
+    content: "coin-euro";
+  }
+}
