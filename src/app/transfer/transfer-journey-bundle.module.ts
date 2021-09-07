@@ -10,6 +10,7 @@ import {
     provide: MakeTransferJourneyConfiguration,
     useValue: {
       maskIndicator: false,
+      maxTransactionAmount: 100,
     } as MakeTransferJourneyConfiguration
   } ],
 })

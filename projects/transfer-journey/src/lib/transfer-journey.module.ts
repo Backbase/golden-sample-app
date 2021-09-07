@@ -6,7 +6,8 @@ import {
   AccountSelectorModule,
   ButtonModule,
   CurrencyInputModule,
-  InputValidationMessageModule
+  InputValidationMessageModule,
+  LoadingIndicatorModule
 } from '@backbase/ui-ang';
 import { MakeTransferJourneyState } from './services/make-transfer-journey-state.service';
 import { MakeTransferFormComponent } from './components/make-transfer-form/make-transfer-form.component';
@@ -18,6 +19,8 @@ import { MakeTransferSuccessViewComponent } from './views/make-transfer-success-
 import { MakeTransferSummaryViewComponent } from './views/make-transfer-summary-view/make-transfer-summary-view.component';
 import { MakeTransferViewComponent } from './views/make-transfer-view/make-transfer-view.component';
 import { MakeTransferJourneyConfiguration } from './services/make-transfer-journey-config.service';
+import { MakeTransferPermissionsService } from './services/make-transfer-permissions.service';
+import { MakeTransferAccountHttpService } from './services/make-transfer-accounts.http.service';
 
 const defaultRoute: Route = {
   path: '',
@@ -71,8 +74,15 @@ const defaultRoute: Route = {
     AccountSelectorModule,
     InputValidationMessageModule,
     ReactiveFormsModule,
+    LoadingIndicatorModule,
   ],
-  providers: [ MakeTransferJourneyStoreGuard, MakeTransferJourneyState, MakeTransferJourneyConfiguration ],
+  providers: [ 
+    MakeTransferJourneyStoreGuard, 
+    MakeTransferJourneyState, 
+    MakeTransferJourneyConfiguration, 
+    MakeTransferPermissionsService,
+    MakeTransferAccountHttpService,
+  ],
   exports: [ TransferJourneyComponent ]
 })
 export class TransferJourneyModule {
