@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { LayoutService } from '@backbase/ui-ang';
 import { AppAuthService } from './services/app-auth.service';
-
-import { TRIPLETS } from './services/entitlementsTriplets';
+import { triplets } from './services/entitlementsTriplets';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  TRIPLETS = TRIPLETS;  
+  triplets = triplets; 
   constructor(private authService: AppAuthService, public layoutService: LayoutService) {
     /**
      * This call of initial set up is valid only for golder-sample-application,
