@@ -9,7 +9,7 @@ const routes: Routes = [
     path: 'transfer',
     loadChildren: () => import('./transfer/transfer-journey-bundle.module').then(m => m.TransferJourneyBundleModule),
     data: {
-      entitlements: 'Payments.ACHCreditTransfer.view',
+      entitlements: 'Payments.transfer.view',
     },
     canActivate: [ AuthGuard, EntitlementsGuard ],
   },

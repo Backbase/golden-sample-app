@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TRANSLATIONS } from '../../constants/dynamic-translations';
 import { Account, Transfer } from '../../model/Account';
 
 @Component({
@@ -9,6 +10,7 @@ import { Account, Transfer } from '../../model/Account';
 export class MakeTransferFormComponent implements OnInit {
   @Input() account: Account | undefined;
   @Input() showMaskIndicator = true;
+  @Input() maxLimit: number = 0;
 
   @Output() submitTransfer = new EventEmitter<Transfer>();
   makeTransferForm!: FormGroup;
@@ -17,13 +19,13 @@ export class MakeTransferFormComponent implements OnInit {
     return this.makeTransferForm.controls[field];
   }
 
-  private validateAmount(value: number): (control: AbstractControl) => unknown {
+  private validateAmount(value: number, description: string): (control: AbstractControl) => unknown {
     return (control: AbstractControl) => {
       const amount = control.value.amount as number;
 
       if (amount > value) {
         return {
-          max: 'value is too high',
+          max: description,
         };
       }
 
@@ -43,7 +45,7 @@ export class MakeTransferFormComponent implements OnInit {
     }
   }
 
-  hasError(field: string, type: string): boolean {
+  getError(field: string, type: string): string {
     const control = this.getControl(field);
 
     return control && control.errors && control.errors[type];
@@ -64,7 +66,11 @@ export class MakeTransferFormComponent implements OnInit {
           disabled: true
         }],
         toAccount: ['', Validators.required],
-        amount: ['', [Validators.required, this.validateAmount(this.account?.amount || 0)]],
+        amount: ['', [
+          Validators.required, 
+          this.validateAmount(this.account?.amount || 0, TRANSLATIONS.maxError),
+          ...(this.maxLimit > 0 ? [this.validateAmount(this.maxLimit, TRANSLATIONS.limitError(this.maxLimit))] : [])
+        ]],
     });
   }
 }

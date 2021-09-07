@@ -9,7 +9,7 @@ import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
-import { WebSdkApiModule, WebSdkModule } from '@backbase/foundation-ang/web-sdk';
+import { WebSdkApiModule } from '@backbase/foundation-ang/web-sdk';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
