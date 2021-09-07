@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
 import { AuthGuard } from './auth.guard';
+import { TRIPLETS } from './services/entitlementsTriplets';
 
 
 const routes: Routes = [
@@ -9,7 +10,7 @@ const routes: Routes = [
     path: 'transfer',
     loadChildren: () => import('./transfer/transfer-journey-bundle.module').then(m => m.TransferJourneyBundleModule),
     data: {
-      entitlements: 'Payments.transfer.view',
+      entitlements: TRIPLETS.canViewTransfer,
     },
     canActivate: [ AuthGuard, EntitlementsGuard ],
   },
@@ -22,7 +23,10 @@ const routes: Routes = [
   {
     path: 'transactions',
     loadChildren: () => import('./transactions/transactions-journey-bundle.module').then(m => m.TransactionsJourneyBundleModule),
-    canActivate: [ AuthGuard ],
+    data: {
+      entitlements: TRIPLETS.canViewTransactions,
+    },
+    canActivate: [ AuthGuard, EntitlementsGuard ],
   },
   {
     path: 'login',

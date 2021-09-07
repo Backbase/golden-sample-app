@@ -7,6 +7,7 @@ import { Provider } from '@angular/core';
 import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { AccountsInterceptor } from 'src/app/services/accounts-interceptor';
+import { TRIPLETS } from 'src/app/services/entitlementsTriplets';
 import { TransactionsInterceptor } from '../app/services/transactions-interceptor';
 
 const mockProviders: Provider[] = [
@@ -14,11 +15,15 @@ const mockProviders: Provider[] = [
     provide: CONDITIONS,
     useValue: {
       resolveEntitlements(triplet: string) {
-        if(triplet === 'Payments.transfer.limitless') { // placeholder to allow switch off/on
+        if(triplet === TRIPLETS.canMakeLimitlessAmountTransfer) { // placeholder to allow switch off/on
           return Promise.resolve(false);
         }
 
-        if(triplet === 'Payments.transfer.view') { // placeholder to allow switch off/on
+        if(triplet === TRIPLETS.canViewTransfer) { // placeholder to allow switch off/on
+          return Promise.resolve(true);
+        }
+
+        if(triplet === TRIPLETS.canViewTransactions) { // placeholder to allow switch off/on
           return Promise.resolve(true);
         }
 
