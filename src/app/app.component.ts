@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { authConfig } from '../environments/environment';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { LayoutService } from '@backbase/ui-ang';
-import { TRIPLETS } from './services/entitlementsTriplets';
+import { triplets } from './services/entitlementsTriplets';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  TRIPLETS = TRIPLETS;
+  triplets = triplets;
   constructor(
     private oAuthService: OAuthService,
     public layoutService: LayoutService,
