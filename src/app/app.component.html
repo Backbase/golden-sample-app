@@ -38,6 +38,7 @@
 
     <!-- Navigation Items-->
     <ul
+      *ngIf="isAuthenticated$ | async"
       class="bb-layout__horizontal-nav"
     >
       <li class="bb-layout__horizontal-nav-item" *bbIfEntitlements="'Payments.ACHCreditTransfer.view'">

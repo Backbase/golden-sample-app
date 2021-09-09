@@ -10,6 +10,8 @@ import { AppAuthService } from './services/app-auth.service';
 export class AppComponent {
   constructor(private authService: AppAuthService, public layoutService: LayoutService) {}
 
+  public isAuthenticated$ = this.authService.isAuthenticated$;
+
   logout(): void {
     this.authService.logout();
   }
