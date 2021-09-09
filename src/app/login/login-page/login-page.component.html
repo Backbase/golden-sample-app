@@ -1,8 +1,22 @@
-<form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-	<div style="display: flex; flex-direction: column;">
-		<label>Login</label>
-		<input class="mb-2" type="text" placeholder="login" [(ngModel)]="login" name="login" required #loginCtrl="ngModel" />
-		<input class="mb-2" type="password" placeholder="password"/>
-		<button type="submit">login</button>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+	<div class="col-lg-6">
+		<bb-input-validation-message-ui
+			[showErrors]="loginForm.controls.login.invalid && loginForm.controls.login.touched"
+		>
+            <span i18n="login is required and minimu leanth is 4 characters validation error">
+                Required field and should be at least 4 characters
+            </span>
+        </bb-input-validation-message-ui>
+		<bb-input-text-ui
+			inputClassName="mb-2"
+    		label="Username or email"
+    		formControlName="login"
+    		[required]="true"
+  		></bb-input-text-ui>
+		<bb-input-text-ui
+			inputClassName="mb-2"
+    		label="Password"
+  		></bb-input-text-ui>
+		<button bbButton type="submit" aria-label="submit">submit</button>
 	</div>
 </form>
