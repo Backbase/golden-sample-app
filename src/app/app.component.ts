@@ -1,27 +1,21 @@
 import { Component } from '@angular/core';
-import { authConfig } from '../environments/environment';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { LayoutService } from '@backbase/ui-ang';
+import { AppAuthService } from './services/app-auth.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(
-    private oAuthService: OAuthService,
-    public layoutService: LayoutService,
-  ) {
-    oAuthService.configure(authConfig);
-    oAuthService.loadDiscoveryDocumentAndTryLogin();
-  }
+  constructor(private authService: AppAuthService, public layoutService: LayoutService) {}
 
   logout(): void {
-    this.oAuthService.logOut();
+    this.authService.logout();
   }
 
   focusMainContainer(event: MouseEvent) {
-    const element = event.view?.window?.document?.querySelector('[role=\'main\']') as HTMLElement | undefined;
+    const element = event.view?.window?.document?.querySelector("[role='main']") as HTMLElement | undefined;
     element?.focus();
   }
 }
