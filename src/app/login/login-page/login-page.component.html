@@ -1,5 +1,6 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
 	<div class="col-lg-6">
+		<bb-header-ui headingType="h1" heading="Welcome to golden sample application"></bb-header-ui>
 		<bb-input-validation-message-ui
 			[showErrors]="loginForm.controls.login.invalid && loginForm.controls.login.touched"
 		>
