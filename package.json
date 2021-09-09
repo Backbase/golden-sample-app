@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start:custom_icons:styles_replace-entire-icon-font-when-names-match": "ng serve --configuration=styles_replace-entire-icon-font-when-names-match",
-    "start:custom_icons:replace-entire-icon-font-when-names-dont-match": "ng serve --configuration=styles_replace-entire-icon-font-when-names-dont-match",
+    "start:custom_icons:styles_replace-entire-icon-font-when-icon-names-match": "ng serve --configuration=styles_replace-entire-icon-font-when-icon-names-match",
+    "start:custom_icons:replace-entire-icon-font-when-icon-names-dont-match": "ng serve --configuration=styles_replace-entire-icon-font-when-icon-names-dont-match",
     "start:custom_icons:replace-some-icons": "ng serve --configuration=styles_replace-some-icons",
     "start:custom_icons:replace-icon-with-svg": "ng serve --configuration=styles_replace-icon-with-svg",
     "build": "ng build",

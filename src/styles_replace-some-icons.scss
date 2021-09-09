@@ -8,14 +8,14 @@
 // IconMoon for all icons
 // free version https://icomoon.io/icons-icomoon.html
 @font-face {
-  font-family: "Icon Moon";
+  font-family: "IcoMoon";
   font-style: normal;
   font-weight: 400;
   src: url("assets/custom-icons/IcoMoon-Free.ttf") format("truetype");
 }
 
 .bb-icon-transactions {
-  font-family: 'Icon Moon';
+  font-family: 'IcoMoon';
   &::before {
     content: "coin-euro";
   }

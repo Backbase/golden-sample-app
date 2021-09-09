@@ -7,16 +7,20 @@
 // IconMoon for all icons
 // free version https://icomoon.io/icons-icomoon.html
 @font-face {
-  font-family: "Icon Moon";
+  font-family: "IcoMoon";
   font-style: normal;
   font-weight: 400;
   src: url("assets/custom-icons/IcoMoon-Free.ttf") format("truetype");
 }
 
 .bb-icon {
-  font-family: "Icon Moon";
+  font-family: "IcoMoon";
 }
 
 .bb-icon-transactions::before {
   content: "credit-card";
+}
+
+.bb-icon-user::before {
+  content: "user";
 }

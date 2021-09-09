@@ -69,14 +69,14 @@
                 }
               ]
             },
-            "styles_replace-entire-icon-font-when-names-match": {
+            "styles_replace-entire-icon-font-when-icon-names-match": {
               "styles": [
-                "src/styles_replace-entire-icon-font-when-names-match.scss"                
+                "src/styles_replace-entire-icon-font-when-icon-names-match.scss"                
               ],
             },
-            "styles_replace-entire-icon-font-when-names-dont-match": {
+            "styles_replace-entire-icon-font-when-icon-names-dont-match": {
               "styles": [
-                "src/styles_replace-entire-icon-font-when-names-dont-match.scss"
+                "src/styles_replace-entire-icon-font-when-icon-names-dont-match.scss"
               ],
             },
             "styles_replace-some-icons": {
@@ -102,11 +102,11 @@
             "production": {
               "browserTarget": "golden-sample-app:build:production"
             },
-            "styles_replace-entire-icon-font-when-names-match": {
-              "browserTarget": "golden-sample-app:build:styles_replace-entire-icon-font-when-names-match"
+            "styles_replace-entire-icon-font-when-icon-names-match": {
+              "browserTarget": "golden-sample-app:build:styles_replace-entire-icon-font-when-icon-names-match"
             },
-            "styles_replace-entire-icon-font-when-names-dont-match": {
-              "browserTarget": "golden-sample-app:build:styles_replace-entire-icon-font-when-names-dont-match"
+            "styles_replace-entire-icon-font-when-icon-names-dont-match": {
+              "browserTarget": "golden-sample-app:build:styles_replace-entire-icon-font-when-icon-names-dont-match"
             },
             "styles_replace-some-icons": {
               "browserTarget": "golden-sample-app:build:styles_replace-some-icons"
