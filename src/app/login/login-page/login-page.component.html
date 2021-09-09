@@ -1,2 +1,8 @@
-<p>login-page works!</p>
-<button (click)="login()">login</button>
+<form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+	<div style="display: flex; flex-direction: column;">
+		<label>Login</label>
+		<input class="mb-2" type="text" placeholder="login" [(ngModel)]="login" name="login" required #loginCtrl="ngModel" />
+		<input class="mb-2" type="password" placeholder="password"/>
+		<button type="submit">login</button>
+	</div>
+</form>
