@@ -52,7 +52,7 @@ export class AppAuthInterceptor extends AuthInterceptor {
             status: 200,
             body: {
               id: '00002',
-              name: 'michael',
+              name: 'michael knight',
               amount: 5690.76,
             },
           }),
@@ -64,7 +64,7 @@ export class AppAuthInterceptor extends AuthInterceptor {
             status: 200,
             body: {
               id: '00003',
-              name: 'jacques',
+              name: 'jacques cousteau',
               amount: 5690.76,
             },
           }),
