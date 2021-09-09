@@ -21,6 +21,7 @@ export class AppAuthService {
   private isAuthenticated$$ = new BehaviorSubject<boolean>(false);
 
   private currentUser$$ = new BehaviorSubject<User | null>(null);
+  public currentUser$ = this.currentUser$$.asObservable();
 
   /**
    * In the production version of auth service it should be like

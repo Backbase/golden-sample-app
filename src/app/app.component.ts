@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LayoutService } from '@backbase/ui-ang';
+import { map } from 'rxjs/operators';
 import { AppAuthService } from './services/app-auth.service';
 
 @Component({
@@ -11,6 +12,7 @@ export class AppComponent {
   constructor(private authService: AppAuthService, public layoutService: LayoutService) {}
 
   public isAuthenticated$ = this.authService.isAuthenticated$;
+  public currentUserName$ = this.authService.currentUser$.pipe(map((user) => user?.name));
 
   logout(): void {
     this.authService.logout();
