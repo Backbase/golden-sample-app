@@ -5,12 +5,18 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Provider } from '@angular/core';
 import { AuthConfig } from 'angular-oauth2-oidc';
+import { AppAuthInterceptor } from 'src/app/interceptors/auth.interceptor';
 import { TransactionsInterceptor } from '../app/services/transactions-interceptor';
 
 const mockProviders: Provider[] = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TransactionsInterceptor,
+    multi: true,
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AppAuthInterceptor,
     multi: true,
   },
 ];

@@ -1,42 +1,41 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
-import { AuthGuard } from './auth.guard';
-
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'transfer',
-    loadChildren: () => import('./transfer/transfer-journey-bundle.module').then(m => m.TransferJourneyBundleModule),
+    loadChildren: () => import('./transfer/transfer-journey-bundle.module').then((m) => m.TransferJourneyBundleModule),
     data: {
       entitlements: 'Payments.ACHCreditTransfer.view',
     },
-    canActivate: [ AuthGuard, EntitlementsGuard ],
+    canActivate: [AuthGuard, EntitlementsGuard],
   },
   {
     path: 'positive-pay',
-    loadChildren: () => import('./positive-pay/positive-pay-journey-bundle.module').then(m => m.PositivePayJourneyBundleModule),
-    canActivate: [ AuthGuard ],
-
+    loadChildren: () =>
+      import('./positive-pay/positive-pay-journey-bundle.module').then((m) => m.PositivePayJourneyBundleModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'transactions',
-    loadChildren: () => import('./transactions/transactions-journey-bundle.module').then(m => m.TransactionsJourneyBundleModule),
-    canActivate: [ AuthGuard ],
+    loadChildren: () =>
+      import('./transactions/transactions-journey-bundle.module').then((m) => m.TransactionsJourneyBundleModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+    loadChildren: () => import('./login/login.module').then((m) => m.LoginModule),
   },
   {
     path: '**',
-    redirectTo: 'login'
-  }
-
+    redirectTo: 'login',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
