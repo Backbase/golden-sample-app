@@ -37,7 +37,8 @@ export class AppAuthService {
 
   /**
    * In the production version only `redirectUri` is needed to be provided as an argument for
-   * this.authServiceFromFoundation.login({ redirectUri }) method call
+   * this.authServiceFromFoundation.login({ redirectUri }) method call,
+   * and the authentication request will be handled by identity provided from the settings
    */
   login({ login, redirectUri }: { login: string; redirectUri: string }): void {
     this.http
