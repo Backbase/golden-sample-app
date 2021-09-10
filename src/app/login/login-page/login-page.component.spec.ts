@@ -8,7 +8,7 @@ import { LoginPageComponent } from './login-page.component';
 
 import { InputTextModule, InputValidationMessageModule } from '@backbase/ui-ang';
 
-describe('LoginPageComponent', () => {
+fdescribe('LoginPageComponent', () => {
   let component: LoginPageComponent;
   let fixture: ComponentFixture<LoginPageComponent>;
 
@@ -37,7 +37,6 @@ describe('LoginPageComponent', () => {
 
     fixture = TestBed.createComponent(LoginPageComponent);
     component = fixture.componentInstance;
-    component.ngOnInit();
     fixture.detectChanges();
   });
 

@@ -1,21 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { AppAuthService } from '../../services/app-auth.service';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
 })
-export class LoginPageComponent implements OnInit {
-  loginForm!: FormGroup;
+export class LoginPageComponent {
+  loginForm = this.formBuilder.group({
+    login: ['', [Validators.required, Validators.minLength(4)]],
+  });
 
   constructor(private authService: AppAuthService, private formBuilder: FormBuilder) {}
-
-  ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      login: ['', [Validators.required, Validators.minLength(4)]],
-    });
-  }
 
   onSubmit() {
     if (this.loginForm.valid) {
