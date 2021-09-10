@@ -1,14 +1,6 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate data-role="login-form">
 	<div class="col-lg-6">
 		<bb-header-ui headingType="h1" heading="Welcome to golden sample application"></bb-header-ui>
-		<bb-input-validation-message-ui
-			[showErrors]="loginForm.controls.login.invalid && loginForm.controls.login.touched"
-			data-role="login-validation-message"
-		>
-            <span i18n="login is required and minimu leanth is 4 characters validation error">
-                Required field and should be at least 4 characters
-            </span>
-        </bb-input-validation-message-ui>
 		<bb-input-text-ui
 			inputClassName="mb-2"
     		label="Username or email"
@@ -17,6 +9,14 @@
     		[required]="true"
 			data-role="login-input"
   		></bb-input-text-ui>
+		<bb-input-validation-message-ui
+			[showErrors]="loginForm.controls.login.invalid && loginForm.controls.login.touched"
+			data-role="login-validation-message"
+		>
+            <span i18n="login is required and minimu leanth is 4 characters validation error">
+                Required field and should be at least 4 characters
+            </span>
+        </bb-input-validation-message-ui>
 		<bb-input-password-ui
 			inputClassName="mb-2"
       		label="Password"
