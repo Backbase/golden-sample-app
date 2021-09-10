@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AppAuthService } from '../services/app-auth.service';
 import { AuthGuard } from './auth.guard';
@@ -22,7 +22,7 @@ describe('AuthGuard', () => {
 
   describe('if the user is unauthenticated', () => {
     it('should NOT activate route', (done: DoneFn) => {
-      authGuard.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot).subscribe((received) => {
+      authGuard.canActivate().subscribe((received) => {
         expect(received).toBeFalse();
         expect(routerStub.navigate).toHaveBeenCalledWith(['login']);
         done();
@@ -33,7 +33,7 @@ describe('AuthGuard', () => {
   describe('if user is authenticated', () => {
     it('should activate route', (done: DoneFn) => {
       isAuthenticated$$.next(true);
-      authGuard.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot).subscribe((received) => {
+      authGuard.canActivate().subscribe((received) => {
         expect(received).toBeTrue();
         done();
       });
