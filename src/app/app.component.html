@@ -81,12 +81,8 @@
 
     <!-- Topbar Content Area (a.k.a. Right Topbar Area) -->
     <div class="bb-layout__topbar-content-area">
-        <div class="mx-4 bb-stack">
-          <div class="mr-1 bb-stack__item">
-            {{ currentUserName$ | async }}
-          </div>
+        <div class="mx-4">
           <a
-            class="bb-stack__item"
             href="#"
             (click)="logout()"
             role="link"
