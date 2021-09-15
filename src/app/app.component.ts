@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { LayoutService } from '@backbase/ui-ang';
-import { map } from 'rxjs/operators';
 import { AppAuthService } from './services/app-auth.service';
 
 @Component({
@@ -9,10 +8,15 @@ import { AppAuthService } from './services/app-auth.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private authService: AppAuthService, public layoutService: LayoutService) {}
+  constructor(private authService: AppAuthService, public layoutService: LayoutService) {
+    /**
+     * This call of initial set up is valid only for golder-sample-application,
+     * because of the `angular-oauth2-oidc` library inner structure
+     */
+    this.authService.runInitialLoginSequence();
+  }
 
   public isAuthenticated$ = this.authService.isAuthenticated$;
-  public currentUserName$ = this.authService.currentUser$.pipe(map((user) => user?.name));
 
   logout(): void {
     this.authService.logout();
