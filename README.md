@@ -12,24 +12,7 @@ This example project is a reference implementation to showcase a number of best 
 The code that is used for authentication is not for production purposes, this is the example to understand the concepts lying under the hood.
 Do not copy-paste anything related to the authentication to your banking application.
 
-### Users in current application
-
-1. John Doe
-
-- login: `john`
-- can make any payments
-
-2. Michael Knight
-
-- login: `michael`
-- can make payments with limit of 100 EUR
-
-3. Jacques Cousteau
-
-- login: `jacques`
-- can not  make any payments
-
-### How to implement authentication
+### How to add authentication to your app
 
 1. Import `WebSdkModule.forRoot()` to the app module and add the auth config.
 2. Create `AppAuthService` that will use `AuthService` from `@backbase/foundation-ang/auth`.
