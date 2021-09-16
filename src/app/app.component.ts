@@ -8,7 +8,9 @@ import { triplets } from './services/entitlementsTriplets';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  triplets = triplets; 
+  triplets = triplets;
+  public isAuthenticated$ = this.authService.isAuthenticated$;
+
   constructor(private authService: AppAuthService, public layoutService: LayoutService) {
     /**
      * This call of initial set up is valid only for golder-sample-application,
@@ -17,14 +19,12 @@ export class AppComponent {
     this.authService.runInitialLoginSequence();
   }
 
-  public isAuthenticated$ = this.authService.isAuthenticated$;
-
   logout(): void {
     this.authService.logout();
   }
 
   focusMainContainer(event: MouseEvent) {
-    const element = event.view?.window?.document?.querySelector("[role='main']") as HTMLElement | undefined;
+    const element = event.view?.window?.document?.querySelector('[role=\'main\']') as HTMLElement | undefined;
     element?.focus();
   }
 }

@@ -11,7 +11,7 @@ import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
 import { triplets } from '../app/services/entitlementsTriplets';
 
 
-function buildEntitlementsByUser(userPermissions: Record<string, boolean>) : (triplet: string) => Promise<boolean> {
+const buildEntitlementsByUser = (userPermissions: Record<string, boolean>) : (triplet: string) => Promise<boolean> => {
   return (triplet: string) => new Promise((resolve) => {
     Object.keys(userPermissions).forEach((key) => {
       if (triplet === key) {

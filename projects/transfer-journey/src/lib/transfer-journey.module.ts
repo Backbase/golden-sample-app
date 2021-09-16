@@ -76,10 +76,10 @@ const defaultRoute: Route = {
     ReactiveFormsModule,
     LoadingIndicatorModule,
   ],
-  providers: [ 
-    MakeTransferJourneyStoreGuard, 
-    MakeTransferJourneyState, 
-    MakeTransferJourneyConfiguration, 
+  providers: [
+    MakeTransferJourneyStoreGuard,
+    MakeTransferJourneyState,
+    MakeTransferJourneyConfiguration,
     MakeTransferPermissionsService,
     MakeTransferAccountHttpService,
   ],
