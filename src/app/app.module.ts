@@ -34,16 +34,11 @@ import { AuthConfig, OAuthModule, OAuthModuleConfig, OAuthStorage } from 'angula
     NgbDropdownModule,
     AvatarModule,
     WebSdkModule.forRoot({
-      cx: {
-        // TODO: this is a hack to get entitlements work using websdk
-        entitlementsEnable: true,
-        entitlementsUri: '/entitlements',
+      features: {
         clientId: 'client',
         realm: 'realm',
-      },
-      // this is the place to provide actual auth config
-      // auth: {}
-    } as WebSdkConfig),
+      }
+    }),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     OAuthModule.forRoot(),

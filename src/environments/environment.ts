@@ -7,30 +7,33 @@ import { Provider } from '@angular/core';
 import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
-import { AccountsInterceptor } from '../app/services/accounts-interceptor';
-import { triplets } from 'src/app/services/entitlementsTriplets';
+import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
+import { triplets } from '../app/services/entitlementsTriplets';
 
+
+function buildEntitlementsByUser(userPermissions: Record<string, boolean>) : (triplet: string) => Promise<boolean> {
+  return (triplet: string) => new Promise((resolve) => {
+    Object.keys(userPermissions).forEach((key) => {
+      if (triplet === key) {
+        resolve(userPermissions[key]);
+      }
+    });
+  });
+}
 
 const mockProviders: Provider[] = [
   {
     provide: CONDITIONS,
-    useValue: {
+    useFactory: () => ({
       resolveEntitlements(triplet: string) {
-        if(triplet === triplets.canMakeLimitlessAmountTransfer) { // placeholder to allow switch off/on
-          return Promise.resolve(false);
-        }
-
-        if(triplet === triplets.canViewTransfer) { // placeholder to allow switch off/on
-          return Promise.resolve(true);
-        }
-
-        if(triplet === triplets.canViewTransactions) { // placeholder to allow switch off/on
-          return Promise.resolve(true);
-        }
-
-        return Promise.resolve(true);
-      }
-    }
+        return buildEntitlementsByUser({
+          [triplets.canMakeLimitlessAmountTransfer]: true,
+          [triplets.canViewTransactions]: true,
+          [triplets.canViewTransfer]: true,
+        })(triplet);
+      },
+    }),
+    deps: []
   },
   {
     provide: HTTP_INTERCEPTORS,
