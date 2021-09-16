@@ -5,7 +5,7 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Provider } from '@angular/core';
 import { AuthConfig } from 'angular-oauth2-oidc';
-import { TransactionsInterceptor } from '../app/services/transactions-interceptor';
+import { TransactionsInterceptor } from 'src/app/interceptors/transactions.interceptor';
 
 const mockProviders: Provider[] = [
   {
@@ -49,6 +49,11 @@ export const authConfig: AuthConfig = {
   showDebugInformation: true,
 
   logoutUrl: window.location.origin + '/login',
+
+  // Explicitly add flag to make possible refresh of the token
+  // without going through login flow
+  useSilentRefresh: true,
+  silentRefreshTimeout: 5000,
 };
 
 /*

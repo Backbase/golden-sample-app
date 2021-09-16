@@ -3,13 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { environment } from '../environments/environment';
+import { authConfig, environment } from '../environments/environment';
 import { AvatarModule, DropdownMenuModule, IconModule, LayoutModule, LogoModule } from '@backbase/ui-ang';
 import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
-import { OAuthModule } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthGuard } from './auth.guard';
-import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
+import { AuthGuard } from './guards/auth.guard';
+import { WebSdkConfig, WebSdkModule } from '@backbase/foundation-ang/web-sdk';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -19,17 +18,13 @@ import { TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE } from 'transactions-journey
 
 import { JourneyCommunicationService } from './services/journey-communication.service';
 
+import { AuthConfig, OAuthModule, OAuthModuleConfig, OAuthStorage } from 'angular-oauth2-oidc';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    OAuthModule.forRoot({
-      resourceServer: {
-        allowedUrls: ['http://www.angular.at/api'],
-        sendAccessToken: true,
-      },
-    }),
     HttpClientModule,
     EntitlementsModule,
     DropdownMenuModule,
@@ -46,9 +41,12 @@ import { JourneyCommunicationService } from './services/journey-communication.se
         clientId: 'client',
         realm: 'realm',
       },
-    } as any),
+      // this is the place to provide actual auth config
+      // auth: {}
+    } as WebSdkConfig),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
+    OAuthModule.forRoot(),
   ],
   providers: [
     ...environment.mockProviders,
@@ -61,6 +59,17 @@ import { JourneyCommunicationService } from './services/journey-communication.se
       provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
       useExisting: JourneyCommunicationService,
     },
+    { provide: AuthConfig, useValue: authConfig },
+    {
+      provide: OAuthModuleConfig,
+      useValue: {
+        resourceServer: {
+          allowedUrls: ['http://www.angular.at/api'],
+          sendAccessToken: true,
+        },
+      },
+    },
+    { provide: OAuthStorage, useFactory: () => localStorage },
   ],
   bootstrap: [AppComponent],
 })

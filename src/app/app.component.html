@@ -38,6 +38,7 @@
 
     <!-- Navigation Items-->
     <ul
+      *ngIf="isAuthenticated$ | async"
       class="bb-layout__horizontal-nav"
     >
       <li class="bb-layout__horizontal-nav-item" *bbIfEntitlements="'Payments.ACHCreditTransfer.view'">
@@ -80,7 +81,7 @@
 
     <!-- Topbar Content Area (a.k.a. Right Topbar Area) -->
     <div class="bb-layout__topbar-content-area">
-        <div>
+        <div class="mx-4">
           <a
             href="#"
             (click)="logout()"

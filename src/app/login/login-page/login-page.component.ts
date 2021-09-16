@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { Component } from '@angular/core';
+import { AppAuthService } from '../../services/app-auth.service';
 
 @Component({
   selector: 'app-login-page',
-  templateUrl: './login-page.component.html'
+  templateUrl: './login-page.component.html',
 })
 export class LoginPageComponent {
-  constructor(
-    private readonly oAuthService: OAuthService,
-  ) { }
+  constructor(private authService: AppAuthService) {}
 
   login(): void {
-    this.oAuthService.initLoginFlow();
+    this.authService.login();
   }
 }
