@@ -16,6 +16,11 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "locales": {
+          "nl-NL": "src/locale/messages.nl-NL.xlf"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -31,7 +36,8 @@
             ],
             "styles": [
               "src/styles.sass",
-              "node_modules/@backbase/backbase-theme/scss/main.scss"
+              "node_modules/@backbase/backbase-theme/scss/main.scss",
+              "src/styles_theme-overrides.scss"
             ],
             "scripts": [],
             "vendorChunk": true,
@@ -67,7 +73,8 @@
                   "maximumWarning": "2kb",
                   "maximumError": "4kb"
                 }
-              ]
+              ],
+              "localize": true
             }
           },
           "defaultConfiguration": ""
