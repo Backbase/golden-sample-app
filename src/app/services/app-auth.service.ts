@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuthErrorEvent, OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 /**
  *
@@ -14,7 +15,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AppAuthService {
   private isAuthenticated$$ = new BehaviorSubject<boolean>(false);
-  public isAuthenticated$ = this.isAuthenticated$$.asObservable();
+  public isAuthenticated$ = this.oauthService.events.pipe(map(() => this.oauthService.hasValidAccessToken()));
 
   private isDoneLoading$$ = new BehaviorSubject<boolean>(false);
   public isDoneLoading$ = this.isDoneLoading$$.asObservable();
@@ -33,7 +34,7 @@ export class AppAuthService {
     });
 
     /**
-     * After successful auh and the `token_received` event
+     * After successful auth and the `token_received` event
      * it will updated isAuthenticated$ to activate the routes
      */
     this.oauthService.events.subscribe((_) => {
