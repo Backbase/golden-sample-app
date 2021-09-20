@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuthErrorEvent, OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, shareReplay, startWith } from 'rxjs/operators';
 
 /**
  *
@@ -14,8 +14,13 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AppAuthService {
-  private isAuthenticated$$ = new BehaviorSubject<boolean>(false);
-  public isAuthenticated$ = this.oauthService.events.pipe(map(() => this.oauthService.hasValidAccessToken()));
+  public isAuthenticated$ = this.oauthService.events.pipe(
+    map(() => this.oauthService.hasValidAccessToken()),
+    shareReplay({
+      refCount: true,
+      bufferSize: 1,
+    }),
+  );
 
   private isDoneLoading$$ = new BehaviorSubject<boolean>(false);
   public isDoneLoading$ = this.isDoneLoading$$.asObservable();
@@ -31,14 +36,6 @@ export class AppAuthService {
       } else {
         console.warn('OAuthEvent Object:', event);
       }
-    });
-
-    /**
-     * After successful auth and the `token_received` event
-     * it will updated isAuthenticated$ to activate the routes
-     */
-    this.oauthService.events.subscribe((_) => {
-      this.isAuthenticated$$.next(this.oauthService.hasValidAccessToken());
     });
 
     /**
