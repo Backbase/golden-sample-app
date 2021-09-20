@@ -40,7 +40,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 ## Package as a runnable Docker container
 
-Run `ng build:docker` after a successful build to create a Docker image). Start a new container with `npm run start:docker`.
+Run `ng build:docker` (after a successful build with `ng build`) to create a Docker image. Start a new container with `npm run start:docker`.
 
 ## Further help
 
