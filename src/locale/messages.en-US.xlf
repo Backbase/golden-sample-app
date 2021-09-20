@@ -1,0 +1,1751 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template" target-language="en-US">
+    <body>
+      <trans-unit id="ngb.alert.close" datatype="html">
+        <source>Close</source><target state="final">Close</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/alert/alert.ts</context>
+          <context context-type="linenumber">58,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.slide-number" datatype="html">
+        <source> Slide <x id="INTERPOLATION" equiv-text="cused$ = new Be"/> of <x id="INTERPOLATION_1" equiv-text="private _pau"/> </source><target state="final"> Slide <x id="INTERPOLATION" equiv-text="cused$ = new Be"/> of <x id="INTERPOLATION_1" equiv-text="private _pau"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/carousel/carousel.ts</context>
+          <context context-type="linenumber">113,117</context>
+        </context-group>
+        <note priority="1" from="description">Currently selected slide number read by screen reader</note>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.previous" datatype="html">
+        <source>Previous</source><target state="final">Previous</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/carousel/carousel.ts</context>
+          <context context-type="linenumber">130,132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.next" datatype="html">
+        <source>Next</source><target state="final">Next</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/carousel/carousel.ts</context>
+          <context context-type="linenumber">146,147</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.select-month" datatype="html">
+        <source>Select month</source><target state="final">Select month</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/datepicker/datepicker-navigation-select.ts</context>
+          <context context-type="linenumber">43,47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/datepicker/datepicker-navigation-select.ts</context>
+          <context context-type="linenumber">47,50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.select-year" datatype="html">
+        <source>Select year</source><target state="final">Select year</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/datepicker/datepicker-navigation-select.ts</context>
+          <context context-type="linenumber">59,62</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/datepicker/datepicker-navigation-select.ts</context>
+          <context context-type="linenumber">69,74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.previous-month" datatype="html">
+        <source>Previous month</source><target state="final">Previous month</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/datepicker/datepicker-navigation.ts</context>
+          <context context-type="linenumber">24,27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/datepicker/datepicker-navigation.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.next-month" datatype="html">
+        <source>Next month</source><target state="final">Next month</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/datepicker/datepicker-navigation.ts</context>
+          <context context-type="linenumber">44,48</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/datepicker/datepicker-navigation.ts</context>
+          <context context-type="linenumber">57,61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.first" datatype="html">
+        <source>««</source><target state="final">««</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">181,182</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.previous" datatype="html">
+        <source>«</source><target state="final">«</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">186,188</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.next" datatype="html">
+        <source>»</source><target state="final">»</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">193,195</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.last" datatype="html">
+        <source>»»</source><target state="final">»»</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">201,203</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.first-aria" datatype="html">
+        <source>First</source><target state="final">First</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">207,208</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.previous-aria" datatype="html">
+        <source>Previous</source><target state="final">Previous</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">214,215</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.next-aria" datatype="html">
+        <source>Next</source><target state="final">Next</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">224,228</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.last-aria" datatype="html">
+        <source>Last</source><target state="final">Last</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">231,232</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.progressbar.value" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="(): number { re"/></source><target state="final"><x id="INTERPOLATION" equiv-text="(): number { re"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/progressbar/progressbar.ts</context>
+          <context context-type="linenumber">31,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.HH" datatype="html">
+        <source>HH</source><target state="final">HH</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">40,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.hours" datatype="html">
+        <source>Hours</source><target state="final">Hours</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.MM" datatype="html">
+        <source>MM</source><target state="final">MM</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">50,53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.minutes" datatype="html">
+        <source>Minutes</source><target state="final">Minutes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">58,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-hours" datatype="html">
+        <source>Increment hours</source><target state="final">Increment hours</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">63,64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-hours" datatype="html">
+        <source>Decrement hours</source><target state="final">Decrement hours</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">68,70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-minutes" datatype="html">
+        <source>Increment minutes</source><target state="final">Increment minutes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">76,77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-minutes" datatype="html">
+        <source>Decrement minutes</source><target state="final">Decrement minutes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">82,84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.SS" datatype="html">
+        <source>SS</source><target state="final">SS</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">86,87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.seconds" datatype="html">
+        <source>Seconds</source><target state="final">Seconds</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">92,93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-seconds" datatype="html">
+        <source>Increment seconds</source><target state="final">Increment seconds</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">98,100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-seconds" datatype="html">
+        <source>Decrement seconds</source><target state="final">Decrement seconds</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">105,106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.PM" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="number;
+  priv"/></source><target state="final"><x id="INTERPOLATION" equiv-text="number;
+  priv"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">118,123</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.AM" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="ssor,
+    OnCh"/></source><target state="final"><x id="INTERPOLATION" equiv-text="ssor,
+    OnCh"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">141,116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.toast.close-aria" datatype="html">
+        <source>Close</source><target state="final">Close</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/src/toast/toast.ts</context>
+          <context context-type="linenumber">76,82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="positive-pay.pagination-type.load-more" datatype="html">
+        <source>Load more</source><target state="final">Load more</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-common-ang/src/components/positive-pay-pagination/positive-pay-pagination.component.ts</context>
+          <context context-type="linenumber">67,77</context>
+        </context-group>
+        <note priority="1" from="description">Load More button text</note>
+        <note priority="1" from="meaning">Load more</note>
+      </trans-unit>
+      <trans-unit id="positive-pay.load-more.sr-only-text" datatype="html">
+        <source> Results <x id="INTERPOLATION" equiv-text="when load-more"/> to <x id="INTERPOLATION_1" equiv-text="dMore: EventEmi"/> </source><target state="final"> Results <x id="INTERPOLATION" equiv-text="when load-more"/> to <x id="INTERPOLATION_1" equiv-text="dMore: EventEmi"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-common-ang/src/components/positive-pay-pagination/positive-pay-pagination.component.ts</context>
+          <context context-type="linenumber">109,117</context>
+        </context-group>
+        <note priority="1" from="description">Load More result text read by screen reader</note>
+        <note priority="1" from="meaning">A11y Load More Result</note>
+      </trans-unit>
+      <trans-unit id="positive-pay.pagination.sr-only-text" datatype="html">
+        <source> Results Pagination - Page <x id="INTERPOLATION" equiv-text="new EventEmitt"/> </source><target state="final"> Results Pagination - Page <x id="INTERPOLATION" equiv-text="new EventEmitt"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-common-ang/src/components/positive-pay-pagination/positive-pay-pagination.component.ts</context>
+          <context context-type="linenumber">110,119</context>
+        </context-group>
+        <note priority="1" from="description">Pagination result text read by screen reader</note>
+        <note priority="1" from="meaning">A11y Pagination Result</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.heading.title-without-button" datatype="html">
+        <source>Positive Pay</source><target state="final">Positive Pay</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/positive-pay-journey.component.ts</context>
+          <context context-type="linenumber">62,66</context>
+        </context-group>
+        <note priority="1" from="description">Title for the journey heading without 'New check' button</note>
+        <note priority="1" from="meaning">Positive Pay checks title</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.success-notification.header" datatype="html">
+        <source>Success</source><target state="final">Success</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/positive-pay-journey.component.ts</context>
+          <context context-type="linenumber">84,89</context>
+        </context-group>
+        <note priority="1" from="description">success</note>
+        <note priority="1" from="meaning">Success notification header for check submission</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.heading.title" datatype="html">
+        <source>Positive Pay</source><target state="final">Positive Pay</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/positive-pay-journey.component.ts</context>
+          <context context-type="linenumber">99,104</context>
+        </context-group>
+        <note priority="1" from="description">Title for the journey heading</note>
+        <note priority="1" from="meaning">Positive Pay checks title</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.success-notification.message" datatype="html">
+        <source>Check was submitted successfully</source><target state="final">Check was submitted successfully</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/positive-pay-journey.component.ts</context>
+          <context context-type="linenumber">101,107</context>
+        </context-group>
+        <note priority="1" from="description">Check submitted successfully</note>
+        <note priority="1" from="meaning">Success notification message for check submission</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.heading.button-text" datatype="html">
+        <source>Enter check</source><target state="final">Enter check</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/positive-pay-journey.component.ts</context>
+          <context context-type="linenumber">118,124</context>
+        </context-group>
+        <note priority="1" from="description">Title for button that opens modal with form</note>
+        <note priority="1" from="meaning">Enter check</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.tabs.all-checks" datatype="html">
+        <source>All checks</source><target state="final">All checks</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/positive-pay-journey.component.ts</context>
+          <context context-type="linenumber">136,138</context>
+        </context-group>
+        <note priority="1" from="description">Tab label for all checks view</note>
+        <note priority="1" from="meaning">All checks</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.submit-button" datatype="html">
+        <source> Submit </source><target state="final"> Submit </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">96,98</context>
+        </context-group>
+        <note priority="1" from="description">Button test for submitting new check</note>
+        <note priority="1" from="meaning">Submit form</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.title" datatype="html">
+        <source>Enter Check</source><target state="final">Enter Check</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">125,135</context>
+        </context-group>
+        <note priority="1" from="description">Title of the Enter Check form in modal</note>
+        <note priority="1" from="meaning">Enter Check</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.cancel-button" datatype="html">
+        <source> Cancel </source><target state="final"> Cancel </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">128,136</context>
+        </context-group>
+        <note priority="1" from="description">Button test for canceling entry of new check</note>
+        <note priority="1" from="meaning">Cancel</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.void-checkbox" datatype="html">
+        <source>Void this check</source><target state="final">Void this check</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">157,164</context>
+        </context-group>
+        <note priority="1" from="description">Label for checkbox to mark new check as void</note>
+        <note priority="1" from="meaning">Void this check</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.error.duplicate.check.title" datatype="html">
+        <source>Duplicated check</source><target state="final">Duplicated check</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">160,167</context>
+        </context-group>
+        <note priority="1" from="description">Message that is displayed when server throws duplicate check error</note>
+        <note priority="1" from="meaning">Duplicate check Error</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.checking-account" datatype="html">
+        <source> Checking Account </source><target state="final"> Checking Account </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">186,193</context>
+        </context-group>
+        <note priority="1" from="description">Label for Checking account selector field</note>
+        <note priority="1" from="meaning">Checking Account label</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.error.payee-missing.title" datatype="html">
+        <source>This account has Positive Pay with Payee match subscription. Payee name is mandatory.</source><target state="final">This account has Positive Pay with Payee match subscription. Payee name is mandatory.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">194,209</context>
+        </context-group>
+        <note priority="1" from="description">Message that is displayed when server throws error that payee is mandatory</note>
+        <note priority="1" from="meaning">Payee name is mandatory Error</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.account-selector-placeholder" datatype="html">
+        <source>Select account</source><target state="final">Select account</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">220,227</context>
+        </context-group>
+        <note priority="1" from="description">Text displayed on empty Account Selector</note>
+        <note priority="1" from="meaning">Select account placeholder</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.error.multiple-subscriptions.title" datatype="html">
+        <source>This account has more than one Positive Pay subscription for checks enabled. Please contact your system administrator.</source><target state="final">This account has more than one Positive Pay subscription for checks enabled. Please contact your system administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">238,257</context>
+        </context-group>
+        <note priority="1" from="description">Message that is displayed when server throws error for multiple subscriptions for given arrangements</note>
+        <note priority="1" from="meaning">Mutiple Positive Pay subscriptions error</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.checking-account.required-error" datatype="html">
+        <source> Checking account is required. </source><target state="final"> Checking account is required. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">254,267</context>
+        </context-group>
+        <note priority="1" from="description">Error message when checking account is missing</note>
+        <note priority="1" from="meaning">Checking account is required.</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.error.title" datatype="html">
+        <source>Unknown error occurred. Try to submit the form again.</source><target state="final">Unknown error occurred. Try to submit the form again.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">279,287</context>
+        </context-group>
+        <note priority="1" from="description">Message that is displayed when server throws error</note>
+        <note priority="1" from="meaning">Server Error</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.check-number" datatype="html">
+        <source>Number</source><target state="final">Number</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">282,292</context>
+        </context-group>
+        <note priority="1" from="description">Label for check number field</note>
+        <note priority="1" from="meaning">Check number</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.check-number.required-error" datatype="html">
+        <source> Number is required. </source><target state="final"> Number is required. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">306,310</context>
+        </context-group>
+        <note priority="1" from="description">Error message when check number is missing</note>
+        <note priority="1" from="meaning">Number is required.</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.check-number.pattern-error" datatype="html">
+        <source> Only numerical values allowed. </source><target state="final"> Only numerical values allowed. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">310</context>
+        </context-group>
+        <note priority="1" from="description">Error message when check number is not number</note>
+        <note priority="1" from="meaning">Number pattern validation.</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.check-number.minLength-error" datatype="html">
+        <source> Minimum <x id="INTERPOLATION"/> digits required. </source><target state="final"> Minimum <x id="INTERPOLATION"/> digits required. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">310</context>
+        </context-group>
+        <note priority="1" from="description">Error message when check number does not match min length validation</note>
+        <note priority="1" from="meaning">Minimum required number.</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.check-number.maxLength-error" datatype="html">
+        <source> Maximum <x id="INTERPOLATION"/> digits allowed. </source><target state="final"> Maximum <x id="INTERPOLATION"/> digits allowed. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">310</context>
+        </context-group>
+        <note priority="1" from="description">Error message when check number does not match max length validation length</note>
+        <note priority="1" from="meaning">Maximum required number.</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.issue-date" datatype="html">
+        <source>Issue date</source><target state="final">Issue date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">310</context>
+        </context-group>
+        <note priority="1" from="description">Label for issue date field</note>
+        <note priority="1" from="meaning">Issue date</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.issue-date.required-error" datatype="html">
+        <source> Issue date is required. </source><target state="final"> Issue date is required. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">310</context>
+        </context-group>
+        <note priority="1" from="description">Error message when issue date is missing</note>
+        <note priority="1" from="meaning">Issue date is required.</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.issue-date.invalid-date-error" datatype="html">
+        <source> Invalid date. </source><target state="final"> Invalid date. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">310</context>
+        </context-group>
+        <note priority="1" from="description">Error message when issue date is invalid date format</note>
+        <note priority="1" from="meaning">Invalid date.</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.payee-label" datatype="html">
+        <source> Payee </source><target state="final"> Payee </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">310</context>
+        </context-group>
+        <note priority="1" from="description">Label for check's payee field</note>
+        <note priority="1" from="meaning">Payee</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.payee-placeholder" datatype="html">
+        <source>Enter payee name</source><target state="final">Enter payee name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">310</context>
+        </context-group>
+        <note priority="1" from="description">Placeholder for the Payee input field</note>
+        <note priority="1" from="meaning">Enter name or select payee placeholder</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.amount" datatype="html">
+        <source>Amount</source><target state="final">Amount</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">310</context>
+        </context-group>
+        <note priority="1" from="description">Label for amount field</note>
+        <note priority="1" from="meaning">Amount</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.new-check.amount.required-error" datatype="html">
+        <source> Amount is required. </source><target state="final"> Amount is required. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
+          <context context-type="linenumber">310,83</context>
+        </context-group>
+        <note priority="1" from="description">Error message when amount is missing</note>
+        <note priority="1" from="meaning">Amount is required.</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.status.saved" datatype="html">
+        <source>Saved</source><target state="final">Saved</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-badge/positive-pay-view-checks-badge.component.ts</context>
+          <context context-type="linenumber">20,25</context>
+        </context-group>
+        <note priority="1" from="description">Status that check is saved</note>
+        <note priority="1" from="meaning">Saved</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.status.submitted" datatype="html">
+        <source>Submitted</source><target state="final">Submitted</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-badge/positive-pay-view-checks-badge.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <note priority="1" from="description">Status that check is submitted to bank core</note>
+        <note priority="1" from="meaning">Submitted</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.list.action.voided" datatype="html">
+        <source>Voided check #<x id="INTERPOLATION" equiv-text="[];
+
+  /**
+   *"/></source><target state="final">Voided check #<x id="INTERPOLATION" equiv-text="[];
+
+  /**
+   *"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-list/positive-pay-view-checks-list.component.ts</context>
+          <context context-type="linenumber">45,55</context>
+        </context-group>
+        <note priority="1" from="description">Type of check and check number</note>
+        <note priority="1" from="meaning">Voided check #123</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.list.action.issued" datatype="html">
+        <source>Issued check #<x id="INTERPOLATION" equiv-text=";
+        },"/></source><target state="final">Issued check #<x id="INTERPOLATION" equiv-text=";
+        },"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-list/positive-pay-view-checks-list.component.ts</context>
+          <context context-type="linenumber">87,95</context>
+        </context-group>
+        <note priority="1" from="description">Type of check and check number</note>
+        <note priority="1" from="meaning">Issued check #123</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.list.payee" datatype="html">
+        <source> Payee: <x id="INTERPOLATION" equiv-text="param check ins"/> </source><target state="final"> Payee: <x id="INTERPOLATION" equiv-text="param check ins"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-list/positive-pay-view-checks-list.component.ts</context>
+          <context context-type="linenumber">90,100</context>
+        </context-group>
+        <note priority="1" from="description">Label for payee name in check list</note>
+        <note priority="1" from="meaning">Payee</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.list.issue-date" datatype="html">
+        <source> Issued: <x id="INTERPOLATION"/> </source><target state="final"> Issued: <x id="INTERPOLATION"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-list/positive-pay-view-checks-list.component.ts</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+        <note priority="1" from="description">Label for issue date of check in check list</note>
+        <note priority="1" from="meaning">Issued</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.list.entry-date" datatype="html">
+        <source> Entered: <x id="INTERPOLATION"/> </source><target state="final"> Entered: <x id="INTERPOLATION"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-list/positive-pay-view-checks-list.component.ts</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+        <note priority="1" from="description">Label for entry date of check in check list</note>
+        <note priority="1" from="meaning">Entered</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.column.type" datatype="html">
+        <source>Type</source><target state="final">Type</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-table/positive-pay-view-checks-table.component.ts</context>
+          <context context-type="linenumber">31,37</context>
+        </context-group>
+        <note priority="1" from="description">Column name to show if check is void or issued</note>
+        <note priority="1" from="meaning">Type</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.column.entry-date" datatype="html">
+        <source>Entry date</source><target state="final">Entry date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-table/positive-pay-view-checks-table.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Column name for entry date of check</note>
+        <note priority="1" from="meaning">Entry date</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.table.caption" datatype="html">
+        <source>List of checks</source><target state="final">List of checks</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-table/positive-pay-view-checks-table.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Description for checks table</note>
+        <note priority="1" from="meaning">List of checks</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.column.status" datatype="html">
+        <source>Status</source><target state="final">Status</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-table/positive-pay-view-checks-table.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Column name for check status</note>
+        <note priority="1" from="meaning">Status</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.column.issue-date" datatype="html">
+        <source>Issue date</source><target state="final">Issue date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-table/positive-pay-view-checks-table.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Column name for issue date of check</note>
+        <note priority="1" from="meaning">Issue date</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.column.payee" datatype="html">
+        <source>Payee</source><target state="final">Payee</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-table/positive-pay-view-checks-table.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Column name for payee name</note>
+        <note priority="1" from="meaning">Payee</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.table.action.voided" datatype="html">
+        <source>Voided</source><target state="final">Voided</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-table/positive-pay-view-checks-table.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Type of check</note>
+        <note priority="1" from="meaning">Voided</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.column.check-number" datatype="html">
+        <source>Check #</source><target state="final">Check #</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-table/positive-pay-view-checks-table.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Column name for check number</note>
+        <note priority="1" from="meaning">Check number</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.table.action.issued" datatype="html">
+        <source>Issued</source><target state="final">Issued</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-table/positive-pay-view-checks-table.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Type of check</note>
+        <note priority="1" from="meaning">Issued</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.column.amount" datatype="html">
+        <source>Amount</source><target state="final">Amount</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks-table/positive-pay-view-checks-table.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Column name for amount on check</note>
+        <note priority="1" from="meaning">Amount</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.account-selector-placeholder" datatype="html">
+        <source>Select account</source><target state="final">Select account</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks.component.ts</context>
+          <context context-type="linenumber">73,79</context>
+        </context-group>
+        <note priority="1" from="description">Text displayed on empty Account Selector</note>
+        <note priority="1" from="meaning">Select account placeholder</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.loading.sr-only-text" datatype="html">
+        <source>Loading</source><target state="final">Loading</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks.component.ts</context>
+          <context context-type="linenumber">94,97</context>
+        </context-group>
+        <note priority="1" from="description">Loading text read by screen reader</note>
+        <note priority="1" from="meaning">A11y Loading Text</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.account-list.error-state.subtitle" datatype="html">
+        <source>Try to reload the page or contact the system administrator.</source><target state="final">Try to reload the page or contact the system administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks.component.ts</context>
+          <context context-type="linenumber">124,127</context>
+        </context-group>
+        <note priority="1" from="description">Subtitle for error state accounts</note>
+        <note priority="1" from="meaning">Account list error state Subtitle</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.account-list.error-state.title" datatype="html">
+        <source>Unknown Error</source><target state="final">Unknown Error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks.component.ts</context>
+          <context context-type="linenumber">143,150</context>
+        </context-group>
+        <note priority="1" from="description">Title for error state accounts</note>
+        <note priority="1" from="meaning">Account list error state Title</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.accounts.emptyState.title" datatype="html">
+        <source>No Checks</source><target state="final">No Checks</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks.component.ts</context>
+          <context context-type="linenumber">169,180</context>
+        </context-group>
+        <note priority="1" from="description">Title for accounts list empty state</note>
+        <note priority="1" from="meaning">Accounts list empty state title</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.accounts.emptyState.subtitle" datatype="html">
+        <source>You don't have any checks to be displayed.</source><target state="final">You don't have any checks to be displayed.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks.component.ts</context>
+          <context context-type="linenumber">193,198</context>
+        </context-group>
+        <note priority="1" from="description">Subtitle for accounts list empty state</note>
+        <note priority="1" from="meaning">Accounts list empty state subtitle</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.error-state.subtitle" datatype="html">
+        <source>Try to reload the page or contact the system administrator.</source><target state="final">Try to reload the page or contact the system administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks.component.ts</context>
+          <context context-type="linenumber">211,222</context>
+        </context-group>
+        <note priority="1" from="description">Subtitle for check list error state</note>
+        <note priority="1" from="meaning">Check list error state subtitle</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.error-state.title" datatype="html">
+        <source>Unknown Error</source><target state="final">Unknown Error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks.component.ts</context>
+          <context context-type="linenumber">238,245</context>
+        </context-group>
+        <note priority="1" from="description">Title for check list error state</note>
+        <note priority="1" from="meaning">Check list error state title</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.emptyState.title" datatype="html">
+        <source>No Checks</source><target state="final">No Checks</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks.component.ts</context>
+          <context context-type="linenumber">246</context>
+        </context-group>
+        <note priority="1" from="description">Empty state title when no checks available for the selected account</note>
+        <note priority="1" from="meaning">Empty state checklist title</note>
+      </trans-unit>
+      <trans-unit id="positive-pay-journey.view-checks.emptyState.subtitle" datatype="html">
+        <source>You don't have any checks for selected account.</source><target state="final">You don't have any checks for selected account.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks.component.ts</context>
+          <context context-type="linenumber">246,51</context>
+        </context-group>
+        <note priority="1" from="description">Empty state subtitle when no checks available for the selected account</note>
+        <note priority="1" from="meaning">Empty state checklist subtitle</note>
+      </trans-unit>
+      <trans-unit id="7cf422b1852d1e91380599417fe8c06e3362ff39" datatype="html">
+        <source>{VAR_PLURAL, plural, =1 {1 account selected} other {<x id="INTERPOLATION"/> accounts selected}}</source><target state="final">{VAR_PLURAL, plural, =1 {1 account selected} other {<x id="INTERPOLATION"/> accounts selected}}</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-account-selector-ui/account-selector.component.ts</context>
+          <context context-type="linenumber">170,174</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bb-account-selector-ui.multi.label" datatype="html">
+        <source> <x id="ICU" equiv-text=".
+   */"/> </source><target state="final"> <x id="ICU" equiv-text=".
+   */"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-account-selector-ui/account-selector.component.ts</context>
+          <context context-type="linenumber">197,203</context>
+        </context-group>
+        <note priority="1" from="description">Selected Accounts multi label </note>
+        <note priority="1" from="meaning">Selected Accounts</note>
+      </trans-unit>
+      <trans-unit id="bb-account-selector-ui.allSelectedAccounts.label" datatype="html">
+        <source> accounts </source><target state="final"> accounts </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-account-selector-ui/account-selector.component.ts</context>
+          <context context-type="linenumber">225,233</context>
+        </context-group>
+        <note priority="1" from="description">All Selected Accounts label </note>
+        <note priority="1" from="meaning">All Selected Accounts</note>
+      </trans-unit>
+      <trans-unit id="bb-account-selector-ui.filter.placeholder" datatype="html">
+        <source>Filter</source><target state="final">Filter</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-account-selector-ui/account-selector.component.ts</context>
+          <context context-type="linenumber">253,256</context>
+        </context-group>
+        <note priority="1" from="description">Filter placeholder</note>
+        <note priority="1" from="meaning">Filter</note>
+      </trans-unit>
+      <trans-unit id="bb-account-selector-ui.search.placeholder" datatype="html">
+        <source>Search</source><target state="final">Search</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-account-selector-ui/account-selector.component.ts</context>
+          <context context-type="linenumber">274,278</context>
+        </context-group>
+        <note priority="1" from="description">Search placeholder</note>
+        <note priority="1" from="meaning">Search</note>
+      </trans-unit>
+      <trans-unit id="bb-account-selector-ui.options.count" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="if (!this.dis"/> options </source><target state="final"> <x id="INTERPOLATION" equiv-text="if (!this.dis"/> options </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-account-selector-ui/account-selector.component.ts</context>
+          <context context-type="linenumber">300,314</context>
+        </context-group>
+        <note priority="1" from="description">Screen reader description of the number of options after filtering the
+          combobox</note>
+        <note priority="1" from="meaning">Number of options</note>
+      </trans-unit>
+      <trans-unit id="bb-account-selector-ui.select.all.text" datatype="html">
+        <source> Select all </source><target state="final"> Select all </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-account-selector-ui/account-selector.component.ts</context>
+          <context context-type="linenumber">341,346</context>
+        </context-group>
+        <note priority="1" from="description">Select all text</note>
+        <note priority="1" from="meaning">Select all</note>
+      </trans-unit>
+      <trans-unit id="bb-account-selector-ui.unselect.all.text" datatype="html">
+        <source> Unselect all </source><target state="final"> Unselect all </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-account-selector-ui/account-selector.component.ts</context>
+          <context context-type="linenumber">357,358</context>
+        </context-group>
+        <note priority="1" from="description">Unselect all text</note>
+        <note priority="1" from="meaning">Unselect all</note>
+      </trans-unit>
+      <trans-unit id="bb-account-selector-ui.groupBy.all.label" datatype="html">
+        <source>All</source><target state="final">All</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-account-selector-ui/account-selector.component.ts</context>
+          <context context-type="linenumber">368,371</context>
+        </context-group>
+        <note priority="1" from="description">All group By label </note>
+        <note priority="1" from="meaning">All</note>
+      </trans-unit>
+      <trans-unit id="bb-account-selector-ui.groupBy.default.label" datatype="html">
+        <source> Favorite </source><target state="final"> Favorite </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-account-selector-ui/account-selector.component.ts</context>
+          <context context-type="linenumber">387,394</context>
+        </context-group>
+        <note priority="1" from="description">Favorite group By label </note>
+        <note priority="1" from="meaning">Favorite</note>
+      </trans-unit>
+      <trans-unit id="bb-account-selector-ui.loading.accounts" datatype="html">
+        <source>Loading Accounts</source><target state="final">Loading Accounts</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-account-selector-ui/account-selector.component.ts</context>
+          <context context-type="linenumber">406,412</context>
+        </context-group>
+        <note priority="1" from="description">Loading Accounts label </note>
+        <note priority="1" from="meaning">Loading Accounts</note>
+      </trans-unit>
+      <trans-unit id="bb-amount-input-ui.currency-description" datatype="html">
+        <source>Currency</source><target state="final">Currency</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-amount-input-ui/amount-input.component.ts</context>
+          <context context-type="linenumber">47,54</context>
+        </context-group>
+        <note priority="1" from="description">Text to explain that currency will be read by screen reader</note>
+        <note priority="1" from="meaning">Currency</note>
+      </trans-unit>
+      <trans-unit id="bb-amount-ui.abbr.long" datatype="html">
+        <source>{VAR_SELECT, select, K {Thousand} M {Million} B {Billion} T {Trillion}}</source><target state="final">{VAR_SELECT, select, K {Thousand} M {Million} B {Billion} T {Trillion}}</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-amount-ui/amount.component.ts</context>
+          <context context-type="linenumber">307</context>
+        </context-group>
+        <note priority="1" from="description">Amount abbreviation long suffix</note>
+      </trans-unit>
+      <trans-unit id="bb-amount-ui.abbr.short" datatype="html">
+        <source>{VAR_SELECT, select, K {K} M {M} B {B} T {T}}</source><target state="final">{VAR_SELECT, select, K {K} M {M} B {B} T {T}}</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-amount-ui/amount.component.ts</context>
+          <context context-type="linenumber">307</context>
+        </context-group>
+        <note priority="1" from="description">Amount abbreviation short suffix</note>
+      </trans-unit>
+      <trans-unit id="bb-char-counter-ui.pre-max-length-warning" datatype="html">
+        <source> You can type only <x id="INTERPOLATION" equiv-text=": string | unde"/> more characters in this field. </source><target state="final"> You can type only <x id="INTERPOLATION" equiv-text=": string | unde"/> more characters in this field. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-char-counter-ui/char-counter.component.ts</context>
+          <context context-type="linenumber">13,20</context>
+        </context-group>
+        <note priority="1" from="description">String is almost has 'maxLength' characters.
+        </note>
+        <note priority="1" from="meaning">Above to reach Max Length Error</note>
+      </trans-unit>
+      <trans-unit id="bb-char-counter-ui.max-length-warning" datatype="html">
+        <source> Limit reached. You can only use <x id="INTERPOLATION" equiv-text="ngOnInit()"/> characters in this field. </source><target state="final"> Limit reached. You can only use <x id="INTERPOLATION" equiv-text="ngOnInit()"/> characters in this field. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-char-counter-ui/char-counter.component.ts</context>
+          <context context-type="linenumber">39,49</context>
+        </context-group>
+        <note priority="1" from="description">String is more than 'maxLength' characters. </note>
+        <note priority="1" from="meaning">Max Length Error</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unauthorized.title" datatype="html">
+        <source>Unauthorized error</source><target state="final">Unauthorized error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-common-error-state-ui/common-error-state.component.ts</context>
+          <context context-type="linenumber">16,19</context>
+        </context-group>
+        <note priority="1" from="description">Unauthorized error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unauthorized.message" datatype="html">
+        <source>You must authenticate yourself to get the requested response.</source><target state="final">You must authenticate yourself to get the requested response.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-common-error-state-ui/common-error-state.component.ts</context>
+          <context context-type="linenumber">33,39</context>
+        </context-group>
+        <note priority="1" from="description">Unauthorized error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.forbidden.title" datatype="html">
+        <source>Forbidden error</source><target state="final">Forbidden error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-common-error-state-ui/common-error-state.component.ts</context>
+          <context context-type="linenumber">49,52</context>
+        </context-group>
+        <note priority="1" from="description">Forbidden error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.badRequest.title" datatype="html">
+        <source>Bad request error</source><target state="final">Bad request error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-common-error-state-ui/common-error-state.component.ts</context>
+          <context context-type="linenumber">65,70</context>
+        </context-group>
+        <note priority="1" from="description">User action error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.forbidden.message" datatype="html">
+        <source>You do not have access rights to the content.</source><target state="final">You do not have access rights to the content.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-common-error-state-ui/common-error-state.component.ts</context>
+          <context context-type="linenumber">67,73</context>
+        </context-group>
+        <note priority="1" from="description">Forbidden error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.badRequest.message" datatype="html">
+        <source>There is a problem with the action you are trying to perform.</source><target state="final">There is a problem with the action you are trying to perform.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-common-error-state-ui/common-error-state.component.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+        <note priority="1" from="description">User action error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.notFound.title" datatype="html">
+        <source>Not found error</source><target state="final">Not found error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-common-error-state-ui/common-error-state.component.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+        <note priority="1" from="description">Not found error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.notFound.message" datatype="html">
+        <source>No data was found.</source><target state="final">No data was found.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-common-error-state-ui/common-error-state.component.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+        <note priority="1" from="description">Not found error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.connectivity.title" datatype="html">
+        <source>Internet connection error</source><target state="final">Internet connection error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-common-error-state-ui/common-error-state.component.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+        <note priority="1" from="description">Internet connection error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.connectivity.message" datatype="html">
+        <source>Are you connected to the internet? Please check your connection and try again.</source><target state="final">Are you connected to the internet? Please check your connection and try again.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-common-error-state-ui/common-error-state.component.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+        <note priority="1" from="description">Internet connection error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unexpected.title" datatype="html">
+        <source>Unexpected error</source><target state="final">Unexpected error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-common-error-state-ui/common-error-state.component.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+        <note priority="1" from="description">Unexpected error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unexpected.message" datatype="html">
+        <source>Something's gone wrong with our server. Please try again later.</source><target state="final">Something's gone wrong with our server. Please try again later.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-common-error-state-ui/common-error-state.component.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+        <note priority="1" from="description">Unexpected error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unknown.title" datatype="html">
+        <source>Unknown error</source><target state="final">Unknown error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-common-error-state-ui/common-error-state.component.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+        <note priority="1" from="description">Unknown error title</note>
+      </trans-unit>
+      <trans-unit id="validation-form-invalid-error" datatype="html">
+        <source>Field is invalid</source><target state="final">Field is invalid</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-control-error-handler/control-error-handler.const.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="validation-form-required-error" datatype="html">
+        <source>Field is required</source><target state="final">Field is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-control-error-handler/control-error-handler.const.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="validation-form-minlength-error-single" datatype="html">
+        <source>
+    Must be shorter then <x id="PH" equiv-text="requiredLength"/> character</source><target state="final">
+    Must be shorter then <x id="PH" equiv-text="requiredLength"/> character</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-control-error-handler/control-error-handler.const.ts</context>
+          <context context-type="linenumber">35,36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-control-error-handler/control-error-handler.const.ts</context>
+          <context context-type="linenumber">43,44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="validation-form-minlength-error-multiple" datatype="html">
+        <source>
+    Must be shorter then <x id="PH" equiv-text="requiredLength"/> characters</source><target state="final">
+    Must be shorter then <x id="PH" equiv-text="requiredLength"/> characters</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-control-error-handler/control-error-handler.const.ts</context>
+          <context context-type="linenumber">37,38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-control-error-handler/control-error-handler.const.ts</context>
+          <context context-type="linenumber">45,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="validation-form-min-error" datatype="html">
+        <source>Expect value to be bigger than <x id="PH" equiv-text="min"/></source><target state="final">Expect value to be bigger than <x id="PH" equiv-text="min"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-control-error-handler/control-error-handler.const.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="validation-form-max-error" datatype="html">
+        <source>Expect value to be less than <x id="PH" equiv-text="max"/></source><target state="final">Expect value to be less than <x id="PH" equiv-text="max"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-control-error-handler/control-error-handler.const.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="validation-form-email-error" datatype="html">
+        <source>Not a valid email</source><target state="final">Not a valid email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-control-error-handler/control-error-handler.const.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bb-currency-input-ui.currency-input-label" datatype="html">
+        <source>Currency</source><target state="final">Currency</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-currency-input-ui/currency-input.component.ts</context>
+          <context context-type="linenumber">113,123</context>
+        </context-group>
+        <note priority="1" from="description"> Label for currency code dropdown of the Currency Input component
+              </note>
+        <note priority="1" from="meaning">Currency label </note>
+      </trans-unit>
+      <trans-unit id="bb-currency-input-ui.integer-input-label" datatype="html">
+        <source>Integer</source><target state="final">Integer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-currency-input-ui/currency-input.component.ts</context>
+          <context context-type="linenumber">148,154</context>
+        </context-group>
+        <note priority="1" from="description"> Label for integer part of the monetary amount of the Currency Input component
+              </note>
+        <note priority="1" from="meaning">Integer label </note>
+      </trans-unit>
+      <trans-unit id="bb-currency-input-ui.decimal-input-label" datatype="html">
+        <source> Decimals </source><target state="final"> Decimals </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-currency-input-ui/currency-input.component.ts</context>
+          <context context-type="linenumber">167,176</context>
+        </context-group>
+        <note priority="1" from="description"> Label for decimal part of the monetary amount of the Currency Input component
+              </note>
+        <note priority="1" from="meaning">Decimal label </note>
+      </trans-unit>
+      <trans-unit id="dropdown-multiple-select.clear-selection.button" datatype="html">
+        <source> Clear selection </source><target state="final"> Clear selection </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-dropdown-multi-select-ui/dropdown-multi-select.component.ts</context>
+          <context context-type="linenumber">126,131</context>
+        </context-group>
+        <note priority="1" from="description">Clear selection button text</note>
+      </trans-unit>
+      <trans-unit id="fileAttachment.fileSize" datatype="html">
+        <source>{VAR_SELECT, select, Bytes {Bytes} KB {KB} MB {MB} GB {GB} TB {TB}}</source><target state="final">{VAR_SELECT, select, Bytes {Bytes} KB {KB} MB {MB} GB {GB} TB {TB}}</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-file-attachment-ui/file-attachment.component.ts</context>
+          <context context-type="linenumber">75,80</context>
+        </context-group>
+        <note priority="1" from="description">Attachment file size in units</note>
+        <note priority="1" from="meaning">File size</note>
+      </trans-unit>
+      <trans-unit id="fileAttachment.deleteButton.ariaLabel" datatype="html">
+        <source>Delete file</source><target state="final">Delete file</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-file-attachment-ui/file-attachment.component.ts</context>
+          <context context-type="linenumber">109,111</context>
+        </context-group>
+        <note priority="1" from="description">Delete file button</note>
+      </trans-unit>
+      <trans-unit id="fileAttachment.loadingIndicator.ariaLabel" datatype="html">
+        <source>Loading</source><target state="final">Loading</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-file-attachment-ui/file-attachment.component.ts</context>
+          <context context-type="linenumber">127,35</context>
+        </context-group>
+        <note priority="1" from="description">File attachment loading indicator</note>
+        <note priority="1" from="meaning">Loading</note>
+      </trans-unit>
+      <trans-unit id="defaultSelectingState.with.i18n.support" datatype="html">
+        <source>Selecting date: <x id="INTERPOLATION" equiv-text="fined;
+
+  get p"/></source><target state="final">Selecting date: <x id="INTERPOLATION" equiv-text="fined;
+
+  get p"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-datepicker-ui/input-datepicker.component.ts</context>
+          <context context-type="linenumber">244,253</context>
+        </context-group>
+        <note priority="1" from="description">Default selecting date state i18n message</note>
+      </trans-unit>
+      <trans-unit id="defaultSelectedState.with.i18n.support" datatype="html">
+        <source>Selected date is<x id="INTERPOLATION" equiv-text="t')
+  set overr"/>.</source><target state="final">Selected date is<x id="INTERPOLATION" equiv-text="t')
+  set overr"/>.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-datepicker-ui/input-datepicker.component.ts</context>
+          <context context-type="linenumber">271,276</context>
+        </context-group>
+        <note priority="1" from="description">Default selected date state i18n message</note>
+      </trans-unit>
+      <trans-unit id="fileInputButton.text" datatype="html">
+        <source>Attach file</source><target state="final">Attach file</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-file-ui/input-file.component.ts</context>
+          <context context-type="linenumber">32,36</context>
+        </context-group>
+        <note priority="1" from="description">Attach file</note>
+      </trans-unit>
+      <trans-unit id="input-inline-edit-ui.maxLengthError" datatype="html">
+        <source> Insert max <x id="INTERPOLATION" equiv-text="ariaLabelAccep"/> characters </source><target state="final"> Insert max <x id="INTERPOLATION" equiv-text="ariaLabelAccep"/> characters </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-inline-edit-ui/input-inline-edit.component.ts</context>
+          <context context-type="linenumber">128,137</context>
+        </context-group>
+        <note priority="1" from="description">String is more than 'maxLength' characters </note>
+        <note priority="1" from="meaning">Max Length Error</note>
+      </trans-unit>
+      <trans-unit id="input-inline-edit-ui.minLengthError" datatype="html">
+        <source> Insert min <x id="INTERPOLATION" equiv-text="geDetectorRef,"/> characters </source><target state="final"> Insert min <x id="INTERPOLATION" equiv-text="geDetectorRef,"/> characters </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-inline-edit-ui/input-inline-edit.component.ts</context>
+          <context context-type="linenumber">164,175</context>
+        </context-group>
+        <note priority="1" from="description">String is less than 'minLength' characters </note>
+        <note priority="1" from="meaning">Min Length Error</note>
+      </trans-unit>
+      <trans-unit id="input-inline-edit-ui.minValueError" datatype="html">
+        <source> Insert min <x id="INTERPOLATION" equiv-text="p({
+      input"/> </source><target state="final"> Insert min <x id="INTERPOLATION" equiv-text="p({
+      input"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-inline-edit-ui/input-inline-edit.component.ts</context>
+          <context context-type="linenumber">193,201</context>
+        </context-group>
+        <note priority="1" from="description">Number is less than 'minValue' </note>
+        <note priority="1" from="meaning">Min value Error</note>
+      </trans-unit>
+      <trans-unit id="input-inline-edit-ui.maxValueError" datatype="html">
+        <source> Insert max <x id="INTERPOLATION" equiv-text=";
+  }
+
+  get ed"/> </source><target state="final"> Insert max <x id="INTERPOLATION" equiv-text=";
+  }
+
+  get ed"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-inline-edit-ui/input-inline-edit.component.ts</context>
+          <context context-type="linenumber">224,232</context>
+        </context-group>
+        <note priority="1" from="description">Number is more than 'maxValue' </note>
+        <note priority="1" from="meaning">Max value Error</note>
+      </trans-unit>
+      <trans-unit id="input-inline-edit-ui.formatValueError" datatype="html">
+        <source> Input value provided is invalid </source><target state="final"> Input value provided is invalid </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-inline-edit-ui/input-inline-edit.component.ts</context>
+          <context context-type="linenumber">249,253</context>
+        </context-group>
+        <note priority="1" from="description">Format value is invalid </note>
+        <note priority="1" from="meaning">Format value error</note>
+      </trans-unit>
+      <trans-unit id="input-inline-edit-ui.requiredError" datatype="html">
+        <source> Field is required </source><target state="final"> Field is required </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-inline-edit-ui/input-inline-edit.component.ts</context>
+          <context context-type="linenumber">269,277</context>
+        </context-group>
+        <note priority="1" from="description">String is required </note>
+        <note priority="1" from="meaning">Required error</note>
+      </trans-unit>
+      <trans-unit id="input-inline-edit-ui.button.aria-label.accept" datatype="html">
+        <source>Accept</source><target state="final">Accept</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-inline-edit-ui/input-inline-edit.model.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">Aria label for accept button</note>
+      </trans-unit>
+      <trans-unit id="input-inline-edit-ui.button.aria-label.edit" datatype="html">
+        <source>Edit</source><target state="final">Edit</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-inline-edit-ui/input-inline-edit.model.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">Aria label for edit button</note>
+      </trans-unit>
+      <trans-unit id="input-inline-edit-ui.button.aria-label.cancel" datatype="html">
+        <source>Cancel</source><target state="final">Cancel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-inline-edit-ui/input-inline-edit.model.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <note priority="1" from="description">Aria label for cancel button</note>
+      </trans-unit>
+      <trans-unit id="item-log-approved-by.label" datatype="html">
+        <source> by <x id="INTERPOLATION" equiv-text="g?: ItemLogReco"/></source><target state="final"> by <x id="INTERPOLATION" equiv-text="g?: ItemLogReco"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-item-log-ui/item-log.component.ts</context>
+          <context context-type="linenumber">20,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="item.log.details.created.at" datatype="html">
+        <source> at</source><target state="final"> at</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-item-log-ui/item-log.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="item-log-waiting-for-approvals.label" datatype="html">
+        <source> Waiting for further approval(s) </source><target state="final"> Waiting for further approval(s) </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-item-log-ui/item-log.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5f36efa0bf2e6be4e7bc0dbf8ee9aa7afa6f3a83" datatype="html">
+        <source>{VAR_SELECT, select, REJECTED {Rejected} APPROVED {Approved} other {}}</source><target state="final">{VAR_SELECT, select, REJECTED {Rejected} APPROVED {Approved} other {}}</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-item-log-ui/item-log.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="item-log-waiting-for-approvals.status" datatype="html">
+        <source> <x id="ICU"/> </source><target state="final"> <x id="ICU"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-item-log-ui/item-log.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bb-loading-indicator-ui.indicator" datatype="html">
+        <source>Loading indicator</source><target state="final">Loading indicator</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-loading-indicator-ui/loading-indicator.component.ts</context>
+          <context context-type="linenumber">40,48</context>
+        </context-group>
+        <note priority="1" from="description"> Label for the loading indicator </note>
+        <note priority="1" from="meaning">Loading indicator</note>
+      </trans-unit>
+      <trans-unit id="bb-dialog-ui.no" datatype="html">
+        <source> Cancel </source><target state="final"> Cancel </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-modal-ui/modal-templates/modal-footer.component.ts</context>
+          <context context-type="linenumber">24,28</context>
+        </context-group>
+        <note priority="1" from="description">Do not agree with the message presented in the dialog </note>
+        <note priority="1" from="meaning">Reject</note>
+      </trans-unit>
+      <trans-unit id="bb-dialog-ui.yes" datatype="html">
+        <source> Confirm </source><target state="final"> Confirm </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-modal-ui/modal-templates/modal-footer.component.ts</context>
+          <context context-type="linenumber">40,49</context>
+        </context-group>
+        <note priority="1" from="description">Agree with the message presented in the dialog </note>
+        <note priority="1" from="meaning">Accept</note>
+      </trans-unit>
+      <trans-unit id="bb-notification-ui.close" datatype="html">
+        <source>Close</source><target state="final">Close</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-notification-ui/notification.component.ts</context>
+          <context context-type="linenumber">107,111</context>
+        </context-group>
+        <note priority="1" from="description"> Text for the close notification button </note>
+        <note priority="1" from="meaning">Close notification button</note>
+      </trans-unit>
+      <trans-unit id="bb-pagination-ui.pagination.link.number" datatype="html">
+        <source>page <x id="INTERPOLATION" equiv-text="the newly selec"/></source><target state="final">page <x id="INTERPOLATION" equiv-text="the newly selec"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-pagination-ui/pagination.component.ts</context>
+          <context context-type="linenumber">46,50</context>
+        </context-group>
+        <note priority="1" from="description">Link Label for Screen Reader</note>
+      </trans-unit>
+      <trans-unit id="paymentCard.expirationDateLabel" datatype="html">
+        <source> VALID THRU </source><target state="final"> VALID THRU </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-payment-card-ui/payment-card.component.ts</context>
+          <context context-type="linenumber">59,62</context>
+        </context-group>
+        <note priority="1" from="description">Expiration date label</note>
+      </trans-unit>
+      <trans-unit id="product-item-base-account.status.closed" datatype="html">
+        <source> Closed </source><target state="final"> Closed </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-product-item-basic-account-ui/product-item-basic-account.component.ts</context>
+          <context context-type="linenumber">81,86</context>
+        </context-group>
+        <note priority="1" from="description">Account closed status</note>
+      </trans-unit>
+      <trans-unit id="product-item-base-account.status.inactive" datatype="html">
+        <source> Inactive </source><target state="final"> Inactive </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-product-item-basic-account-ui/product-item-basic-account.component.ts</context>
+          <context context-type="linenumber">103,105</context>
+        </context-group>
+        <note priority="1" from="description">Account closed status</note>
+      </trans-unit>
+      <trans-unit id="product-item-base-account.accountNumber.label" datatype="html">
+        <source> ; Account number: </source><target state="final"> ; Account number: </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-product-item-basic-account-ui/product-item-basic-account.component.ts</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+        <note priority="1" from="description">Account number screen reader label</note>
+      </trans-unit>
+      <trans-unit id="product-item-base-account.bankBranchCode.label" datatype="html">
+        <source> ; Bank branch code: </source><target state="final"> ; Bank branch code: </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-product-item-basic-account-ui/product-item-basic-account.component.ts</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+        <note priority="1" from="description">Bank branch code screen reader label</note>
+      </trans-unit>
+      <trans-unit id="product-item-base-account.balance.label" datatype="html">
+        <source>; Balance:</source><target state="final">; Balance:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-product-item-basic-account-ui/product-item-basic-account.component.ts</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+        <note priority="1" from="description">Balance screen reader label</note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.rich-text-editor-actions-title.bold" datatype="html">
+        <source>Bold</source><target state="final">Bold</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/bb-rich-text-editor-actions/rich-text-editor-bold-action/rich-text-editor-bold-action.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">Title for bold action </note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.rich-text-editor-actions-title.code" datatype="html">
+        <source>Code</source><target state="final">Code</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/bb-rich-text-editor-actions/rich-text-editor-code-action/rich-text-editor-code-action.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">Title for code action </note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.rich-text-editor-actions-title.image" datatype="html">
+        <source>Image</source><target state="final">Image</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/bb-rich-text-editor-actions/rich-text-editor-image-action/rich-text-editor-image-action.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <note priority="1" from="description">Title for image action </note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.rich-text-editor-actions-title.italic" datatype="html">
+        <source>Italic</source><target state="final">Italic</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/bb-rich-text-editor-actions/rich-text-editor-italic-action/rich-text-editor-italic-action.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">Title for italic action </note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.rich-text-editor-link-modal.save-button" datatype="html">
+        <source> Save Link </source><target state="final"> Save Link </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/bb-rich-text-editor-actions/rich-text-editor-link-action/rich-text-editor-link-action.component.ts</context>
+          <context context-type="linenumber">41,50</context>
+        </context-group>
+        <note priority="1" from="description">Save a link button</note>
+        <note priority="1" from="meaning">Save a link</note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.rich-text-editor-actions-title.link" datatype="html">
+        <source>Link</source><target state="final">Link</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/bb-rich-text-editor-actions/rich-text-editor-link-action/rich-text-editor-link-action.component.ts</context>
+          <context context-type="linenumber">51,52</context>
+        </context-group>
+        <note priority="1" from="description">Title for link action </note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.rich-text-editor-link-modal.cancel-button" datatype="html">
+        <source> Cancel </source><target state="final"> Cancel </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/bb-rich-text-editor-actions/rich-text-editor-link-action/rich-text-editor-link-action.component.ts</context>
+          <context context-type="linenumber">65,79</context>
+        </context-group>
+        <note priority="1" from="description">Cancel button</note>
+        <note priority="1" from="meaning">Cancel</note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.rich-text-editor-link-modal.title" datatype="html">
+        <source>Add link</source><target state="final">Add link</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/bb-rich-text-editor-actions/rich-text-editor-link-action/rich-text-editor-link-action.component.ts</context>
+          <context context-type="linenumber">79,85</context>
+        </context-group>
+        <note priority="1" from="description">Add link title</note>
+        <note priority="1" from="meaning">Add link</note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.rich-text-editor-link-modal.input-label" datatype="html">
+        <source> Enter the URL Link </source><target state="final"> Enter the URL Link </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/bb-rich-text-editor-actions/rich-text-editor-link-action/rich-text-editor-link-action.component.ts</context>
+          <context context-type="linenumber">103,18</context>
+        </context-group>
+        <note priority="1" from="description">Enter the link title</note>
+        <note priority="1" from="meaning">Enter the link</note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.rich-text-editor-actions-title.olist" datatype="html">
+        <source>Ordered List</source><target state="final">Ordered List</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/bb-rich-text-editor-actions/rich-text-editor-olist-action/rich-text-editor-olist-action.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">Title for olist action </note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.rich-text-editor-actions-title.paragraph" datatype="html">
+        <source>Paragraph</source><target state="final">Paragraph</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/bb-rich-text-editor-actions/rich-text-editor-paragraph-action/rich-text-editor-paragraph-action.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">Title for paragraph action </note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.rich-text-editor-actions-title.strikethrough" datatype="html">
+        <source>Strike-through</source><target state="final">Strike-through</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/bb-rich-text-editor-actions/rich-text-editor-strikethrough-action/rich-text-editor-strikethrough-action.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">Title for strikethrough action </note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.rich-text-editor-actions-title.ulist" datatype="html">
+        <source>Unordered List</source><target state="final">Unordered List</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/bb-rich-text-editor-actions/rich-text-editor-ulist-action/rich-text-editor-ulist-action.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">Title for ulist action </note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.rich-text-editor-actions-title.underline" datatype="html">
+        <source>Underline</source><target state="final">Underline</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/bb-rich-text-editor-actions/rich-text-editor-underline-action/rich-text-editor-underline-action.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">Title for underline action </note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.length-warning" datatype="html">
+        <source>You typed <x id="INTERPOLATION" equiv-text="): ValidationEr"/> of <x id="INTERPOLATION_1" equiv-text="t value = contr"/> allowed characters in this field.</source><target state="final">You typed <x id="INTERPOLATION" equiv-text="): ValidationEr"/> of <x id="INTERPOLATION_1" equiv-text="t value = contr"/> allowed characters in this field.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/rich-text-editor.component.ts</context>
+          <context context-type="linenumber">135,142</context>
+        </context-group>
+        <note priority="1" from="description">String above to reached 'maxLength' characters.
+            </note>
+        <note priority="1" from="meaning">Char counter Length Warning</note>
+      </trans-unit>
+      <trans-unit id="bb-rich-text-editor-ui.limitExceeded" datatype="html">
+        <source>, limit exceeded</source><target state="final">, limit exceeded</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/rich-text-editor.component.ts</context>
+          <context context-type="linenumber">160,170</context>
+        </context-group>
+        <note priority="1" from="description">Limit exceeded text error</note>
+      </trans-unit>
+      <trans-unit id="value-diff-current-value-label" datatype="html">
+        <source>Current value:</source><target state="final">Current value:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-value-diff/bb-value-diff.model.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="value-diff-previous-value-label" datatype="html">
+        <source>Previous value:</source><target state="final">Previous value:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-value-diff/bb-value-diff.model.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="transaction.form.filter.placeholder" datatype="html">
+        <source>filter transactions</source><target state="final">filter transactions</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transactions-journey/src/lib/components/text-filter/text-filter.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description">filter transaction placeholder</note>
+      </trans-unit>
+      <trans-unit id="transactions-journey.header.text" datatype="html">
+        <source>Transactions List</source><target state="final">Transactions List</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transactions-journey/src/lib/constants/dynamic-translations.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">header of the page</note>
+        <note priority="1" from="meaning">transactions title</note>
+      </trans-unit>
+      <trans-unit id="transfer.form.fromAccount.label" datatype="html">
+        <source>From account</source><target state="final">From account</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description">from account label</note>
+      </trans-unit>
+      <trans-unit id="transfer.form.toAccount.placeholder" datatype="html">
+        <source>type an account name</source><target state="final">type an account name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">from account placeholder</note>
+      </trans-unit>
+      <trans-unit id="transfer.form.toAccount.error.required" datatype="html">
+        <source> Required field </source><target state="final"> Required field </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+        <note priority="1" from="description">to account required error</note>
+      </trans-unit>
+      <trans-unit id="transfer.form.amount.label" datatype="html">
+        <source>Amount</source><target state="final">Amount</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <note priority="1" from="description">amount label</note>
+      </trans-unit>
+      <trans-unit id="transfer.form.amount.error.required" datatype="html">
+        <source> Required field </source><target state="final"> Required field </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
+          <context context-type="linenumber">41,42</context>
+        </context-group>
+        <note priority="1" from="description">amount required error</note>
+      </trans-unit>
+      <trans-unit id="transfer.form.submit.text" datatype="html">
+        <source>Submit</source><target state="final">Submit</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+        <note priority="1" from="description">submit button</note>
+      </trans-unit>
+      <trans-unit id="transfer.summary.heading.label" datatype="html">
+        <source>Are you sure to send out this transfer?</source><target state="final">Are you sure to send out this transfer?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/components/make-transfer-summary/make-transfer-summary.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description">summary heading label</note>
+      </trans-unit>
+      <trans-unit id="transfer.summary.account.description.label" datatype="html">
+        <source>it will be send to account:</source><target state="final">it will be send to account:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/components/make-transfer-summary/make-transfer-summary.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">summary account description label</note>
+      </trans-unit>
+      <trans-unit id="transfer.summary.amount.description.label" datatype="html">
+        <source>With amount of:</source><target state="final">With amount of:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/components/make-transfer-summary/make-transfer-summary.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <note priority="1" from="description">summary amount description label</note>
+      </trans-unit>
+      <trans-unit id="transfer.summary.submit.text" datatype="html">
+        <source>Submit</source><target state="final">Submit</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/components/make-transfer-summary/make-transfer-summary.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <note priority="1" from="description">submit button</note>
+      </trans-unit>
+      <trans-unit id="transfer.summary.close.text" datatype="html">
+        <source>Close</source><target state="final">Close</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/components/make-transfer-summary/make-transfer-summary.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <note priority="1" from="description">close button</note>
+      </trans-unit>
+      <trans-unit id="make-transfer-journey.header.text" datatype="html">
+        <source>Make a transfer</source><target state="final">Make a transfer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/constants/dynamic-translations.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">header of the page</note>
+        <note priority="1" from="meaning">make transfer title</note>
+      </trans-unit>
+      <trans-unit id="transfer.form.maxError" datatype="html">
+        <source>There is not enough balance</source><target state="final">There is not enough balance</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/constants/dynamic-translations.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">max value error form</note>
+        <note priority="1" from="meaning">make transfer form max validation error</note>
+      </trans-unit>
+      <trans-unit id="transfer.form.limitError" datatype="html">
+        <source>You cannot make a transfer greater than <x id="PH" equiv-text="maxLimit"/></source><target state="final">You cannot make a transfer greater than <x id="PH" equiv-text="maxLimit"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/constants/dynamic-translations.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <note priority="1" from="description">limit value error form</note>
+        <note priority="1" from="meaning">make transfer form limit validation error</note>
+      </trans-unit>
+      <trans-unit id="transfer.success.close.text" datatype="html">
+        <source>Close</source><target state="final">Close</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/transfer-journey/src/lib/views/make-transfer-success-view/make-transfer-success-view.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <note priority="1" from="description">close button</note>
+      </trans-unit>
+      <trans-unit id="c35b1c54676d7d7d3a36458cf45b57a07e63d9fa" datatype="html">
+        <source>skip to content</source><target state="final">skip to content</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <note priority="1" from="description">Value for aria-label saying that this button will move the focus to the
+        beginning of the content</note>
+        <note priority="1" from="meaning">Move focus to beginning of content</note>
+      </trans-unit>
+      <trans-unit id="dfa8d25a9c2593f5fb3072227896f471a5b6da14" datatype="html">
+        <source> Skip to Content </source><target state="final"> Skip to Content </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+        <note priority="1" from="description">Text to enforce the user to click to put focus on the main content section</note>
+        <note priority="1" from="meaning">Skip to content</note>
+      </trans-unit>
+      <trans-unit id="bb-layout.sidebar_toggler" datatype="html">
+        <source>Toggle sidebar</source><target state="final">Toggle sidebar</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <note priority="1" from="description">Button for toggling sidebar state</note>
+        <note priority="1" from="meaning">Sidebar Toggler</note>
+      </trans-unit>
+      <trans-unit id="main.transfer.link.text" datatype="html">
+        <source> Make transfer </source><target state="final"> Make transfer </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">52,53</context>
+        </context-group>
+        <note priority="1" from="description">make transfer link</note>
+      </trans-unit>
+      <trans-unit id="main.transactions.link.text" datatype="html">
+        <source> Transactions List </source><target state="final"> Transactions List </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">64,65</context>
+        </context-group>
+        <note priority="1" from="description">transactions list link</note>
+      </trans-unit>
+      <trans-unit id="main.positive-pay.link.text" datatype="html">
+        <source> Positive Pay </source><target state="final"> Positive Pay </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">76,77</context>
+        </context-group>
+        <note priority="1" from="description">Positive pay link</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
