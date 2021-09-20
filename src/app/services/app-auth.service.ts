@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuthErrorEvent, OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject } from 'rxjs';
-import { map, shareReplay, startWith } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
 /**
  *
