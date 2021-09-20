@@ -31,7 +31,8 @@
             ],
             "styles": [
               "src/styles.sass",
-              "node_modules/@backbase/backbase-theme/scss/main.scss"
+              "node_modules/@backbase/backbase-theme/scss/main.scss",
+              "src/styles_theme-overrides.scss"
             ],
             "scripts": [],
             "vendorChunk": true,
