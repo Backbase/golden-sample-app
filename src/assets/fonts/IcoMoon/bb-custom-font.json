@@ -1,8 +1,8 @@
 {
   "metadata": {
     "name": "bb-custom-font",
-    "lastOpened": 1631629036968,
-    "created": 1631628686250
+    "lastOpened": 0,
+    "created": 1632146863068
   },
   "iconSets": [
     {
@@ -41929,7 +41929,8 @@
     "gridSize": 16,
     "quickUsageToken": {
       "bb-custom-font": "N2NmNmE5NTQ5ZDYyODU1ZGYzNDQ1Y2JkN2E3NDBhYjgjMSMxNjMxNjI5MDgxIyMj"
-    }
+    },
+    "showLiga": true
   },
   "uid": -1
 }
