@@ -41929,8 +41929,12 @@
     "gridSize": 16,
     "quickUsageToken": {
       "bb-custom-font": "N2NmNmE5NTQ5ZDYyODU1ZGYzNDQ1Y2JkN2E3NDBhYjgjMSMxNjMxNjI5MDgxIyMj"
+<<<<<<< HEAD
     },
     "showLiga": true
+=======
+    }
+>>>>>>> master
   },
   "uid": -1
 }
