@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+  <file source-language="nl-NL" datatype="plaintext" original="ng2.template">
     <body>
       <trans-unit id="ngb.alert.close" datatype="html">
         <source>Close</source>
@@ -278,7 +278,7 @@
           <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/positive-pay-journey.component.ts</context>
           <context context-type="linenumber">62,66</context>
         </context-group>
-        <note priority="1" from="description">Title for the journey heading without &apos;New check&apos; button</note>
+        <note priority="1" from="description">Title for the journey heading without 'New check' button</note>
         <note priority="1" from="meaning">Positive Pay checks title</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.success-notification.header" datatype="html">
@@ -503,7 +503,7 @@
           <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-create-check-modal/positive-pay-create-check-modal.component.ts</context>
           <context context-type="linenumber">310</context>
         </context-group>
-        <note priority="1" from="description">Label for check&apos;s payee field</note>
+        <note priority="1" from="description">Label for check's payee field</note>
         <note priority="1" from="meaning">Payee</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.new-check.payee-placeholder" datatype="html">
@@ -736,7 +736,7 @@
         <note priority="1" from="meaning">Accounts list empty state title</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.accounts.emptyState.subtitle" datatype="html">
-        <source>You don&apos;t have any checks to be displayed.</source>
+        <source>You don't have any checks to be displayed.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks.component.ts</context>
           <context context-type="linenumber">193,198</context>
@@ -772,7 +772,7 @@
         <note priority="1" from="meaning">Empty state checklist title</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.view-checks.emptyState.subtitle" datatype="html">
-        <source>You don&apos;t have any checks for selected account.</source>
+        <source>You don't have any checks for selected account.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/libs/positive-pay-journey/src/views/positive-pay-view-checks/positive-pay-view-checks.component.ts</context>
           <context context-type="linenumber">246,51</context>
@@ -910,7 +910,7 @@
           <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-char-counter-ui/char-counter.component.ts</context>
           <context context-type="linenumber">13,20</context>
         </context-group>
-        <note priority="1" from="description">String is almost has &apos;maxLength&apos; characters.
+        <note priority="1" from="description">String is almost has 'maxLength' characters.
         </note>
         <note priority="1" from="meaning">Above to reach Max Length Error</note>
       </trans-unit>
@@ -920,7 +920,7 @@
           <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-char-counter-ui/char-counter.component.ts</context>
           <context context-type="linenumber">39,49</context>
         </context-group>
-        <note priority="1" from="description">String is more than &apos;maxLength&apos; characters. </note>
+        <note priority="1" from="description">String is more than 'maxLength' characters. </note>
         <note priority="1" from="meaning">Max Length Error</note>
       </trans-unit>
       <trans-unit id="errorCommonState.error.unauthorized.title" datatype="html">
@@ -1012,7 +1012,7 @@
         <note priority="1" from="description">Unexpected error title</note>
       </trans-unit>
       <trans-unit id="errorCommonState.error.unexpected.message" datatype="html">
-        <source>Something&apos;s gone wrong with our server. Please try again later.</source>
+        <source>Something's gone wrong with our server. Please try again later.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-common-error-state-ui/common-error-state.component.ts</context>
           <context context-type="linenumber">88</context>
@@ -1161,7 +1161,7 @@
         <note priority="1" from="description">Default selecting date state i18n message</note>
       </trans-unit>
       <trans-unit id="defaultSelectedState.with.i18n.support" datatype="html">
-        <source>Selected date is<x id="INTERPOLATION" equiv-text="t&apos;)
+        <source>Selected date is<x id="INTERPOLATION" equiv-text="t')
   set overr"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-datepicker-ui/input-datepicker.component.ts</context>
@@ -1183,7 +1183,7 @@
           <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-inline-edit-ui/input-inline-edit.component.ts</context>
           <context context-type="linenumber">128,137</context>
         </context-group>
-        <note priority="1" from="description">String is more than &apos;maxLength&apos; characters </note>
+        <note priority="1" from="description">String is more than 'maxLength' characters </note>
         <note priority="1" from="meaning">Max Length Error</note>
       </trans-unit>
       <trans-unit id="input-inline-edit-ui.minLengthError" datatype="html">
@@ -1192,7 +1192,7 @@
           <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-inline-edit-ui/input-inline-edit.component.ts</context>
           <context context-type="linenumber">164,175</context>
         </context-group>
-        <note priority="1" from="description">String is less than &apos;minLength&apos; characters </note>
+        <note priority="1" from="description">String is less than 'minLength' characters </note>
         <note priority="1" from="meaning">Min Length Error</note>
       </trans-unit>
       <trans-unit id="input-inline-edit-ui.minValueError" datatype="html">
@@ -1202,7 +1202,7 @@
           <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-inline-edit-ui/input-inline-edit.component.ts</context>
           <context context-type="linenumber">193,201</context>
         </context-group>
-        <note priority="1" from="description">Number is less than &apos;minValue&apos; </note>
+        <note priority="1" from="description">Number is less than 'minValue' </note>
         <note priority="1" from="meaning">Min value Error</note>
       </trans-unit>
       <trans-unit id="input-inline-edit-ui.maxValueError" datatype="html">
@@ -1214,7 +1214,7 @@
           <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-input-inline-edit-ui/input-inline-edit.component.ts</context>
           <context context-type="linenumber">224,232</context>
         </context-group>
-        <note priority="1" from="description">Number is more than &apos;maxValue&apos; </note>
+        <note priority="1" from="description">Number is more than 'maxValue' </note>
         <note priority="1" from="meaning">Max value Error</note>
       </trans-unit>
       <trans-unit id="input-inline-edit-ui.formatValueError" datatype="html">
@@ -1508,7 +1508,7 @@
           <context context-type="sourcefile">node_modules/libs/ui-ang/src/bb-rich-text-editor-ui/rich-text-editor.component.ts</context>
           <context context-type="linenumber">135,142</context>
         </context-group>
-        <note priority="1" from="description">String above to reached &apos;maxLength&apos; characters.
+        <note priority="1" from="description">String above to reached 'maxLength' characters.
             </note>
         <note priority="1" from="meaning">Char counter Length Warning</note>
       </trans-unit>
