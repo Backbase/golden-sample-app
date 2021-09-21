@@ -17,7 +17,7 @@
                 <bb-input-validation-message-ui [showErrors]="isInvalidControl('toAccount')">
                     <span
                       i18n="to account required error@@transfer.form.toAccount.error.required"
-                      *ngIf="hasError('toAccount', 'required')"
+                      *ngIf="getError('toAccount', 'required')"
                     >
                       Required field
                   </span>
@@ -35,16 +35,13 @@
               <div bbValidationMessage>
                 <bb-input-validation-message-ui [showErrors]="isInvalidControl('amount')">
                     <span
-                      *ngIf="hasError('amount', 'required')"
+                      *ngIf="getError('amount', 'required')"
                       i18n="amount required error@@transfer.form.amount.error.required"
                     >
                       Required field
                   </span>
-                  <span
-                      *ngIf="hasError('amount', 'max')"
-                      i18n="amount not enough balance error@@transfer.form.amount.error.max"
-                    >
-                      There is not enough balance
+                  <span *ngIf="getError('amount', 'max') as error">
+                    {{error}}
                   </span>
                 </bb-input-validation-message-ui>
               </div>

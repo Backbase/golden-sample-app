@@ -41,7 +41,7 @@
       *ngIf="isAuthenticated$ | async"
       class="bb-layout__horizontal-nav"
     >
-      <li class="bb-layout__horizontal-nav-item" *bbIfEntitlements="'Payments.ACHCreditTransfer.view'">
+      <li class="bb-layout__horizontal-nav-item" *bbIfEntitlements="triplets.canViewTransfer">
         <a class="bb-layout__horizontal-nav-link"
           routerLink="/transfer"
           routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"
@@ -53,7 +53,7 @@
           </span>
         </a>
       </li>
-      <li class="bb-layout__horizontal-nav-item">
+      <li class="bb-layout__horizontal-nav-item" *bbIfEntitlements="triplets.canViewTransactions">
         <a class="bb-layout__horizontal-nav-link"
           routerLink="/transactions"
           routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"

@@ -1718,7 +1718,7 @@
         <source> Transactions List </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">64,65</context>
+          <context context-type="linenumber">65,66</context>
         </context-group>
         <note priority="1" from="description">transactions list link</note>
       </trans-unit>
@@ -1726,7 +1726,7 @@
         <source> Positive Pay </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">76,77</context>
+          <context context-type="linenumber">77,78</context>
         </context-group>
         <note priority="1" from="description">Positive pay link</note>
       </trans-unit>

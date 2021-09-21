@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuthErrorEvent, OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 /**
@@ -15,8 +16,13 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class AppAuthService {
-  private isAuthenticated$$ = new BehaviorSubject<boolean>(false);
-  public isAuthenticated$ = this.isAuthenticated$$.asObservable();
+  public isAuthenticated$ = this.oauthService.events.pipe(
+    map(() => this.oauthService.hasValidAccessToken()),
+    shareReplay({
+      refCount: true,
+      bufferSize: 1,
+    }),
+  );
 
   private isDoneLoading$$ = new BehaviorSubject<boolean>(false);
   public isDoneLoading$ = this.isDoneLoading$$.asObservable();
@@ -36,14 +42,8 @@ export class AppAuthService {
     }
 
     /**
-     * Update the isAuthenticated observable on every authentication event
-     */
-    this.oauthService.events.subscribe((_) => {
-      this.isAuthenticated$$.next(this.oauthService.hasValidAccessToken());
-    });
-
-    /**
-     * Setup silent refresh of the access token
+     * Without this setup the silent refresh request
+     * will always end up unsunsuccessfully
      */
     this.oauthService.setupAutomaticSilentRefresh();
   }

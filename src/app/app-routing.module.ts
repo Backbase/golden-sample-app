@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
 import { AuthGuard } from './guards/auth.guard';
+import { triplets } from './services/entitlementsTriplets';
+
 
 const routes: Routes = [
   {
     path: 'transfer',
     loadChildren: () => import('./transfer/transfer-journey-bundle.module').then((m) => m.TransferJourneyBundleModule),
     data: {
-      entitlements: 'Payments.ACHCreditTransfer.view',
+      entitlements: triplets.canViewTransfer,
     },
     canActivate: [AuthGuard, EntitlementsGuard],
   },
@@ -20,9 +22,11 @@ const routes: Routes = [
   },
   {
     path: 'transactions',
-    loadChildren: () =>
-      import('./transactions/transactions-journey-bundle.module').then((m) => m.TransactionsJourneyBundleModule),
-    canActivate: [AuthGuard],
+    loadChildren: () => import('./transactions/transactions-journey-bundle.module').then(m => m.TransactionsJourneyBundleModule),
+    data: {
+      entitlements: triplets.canViewTransactions,
+    },
+    canActivate: [ AuthGuard, EntitlementsGuard ],
   },
   {
     path: 'login',
