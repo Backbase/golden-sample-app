@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuthErrorEvent, OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 /**
  *
- * This service is build with external OIDC compliant OAuthService
- * for demonstration purposes, be careful and read all of the comments
+ * This service is build around an external OIDC compliant library (https://www.npmjs.com/package/angular-oauth2-oidc)
+ * For demonstration purposes, the setup is needlessly verbose and exemplifies several advanced aspects of the OIDC flow,
+ * be careful and read all the comments.
  *
  */
 @Injectable({
@@ -20,29 +22,28 @@ export class AppAuthService {
   public isDoneLoading$ = this.isDoneLoading$$.asObservable();
 
   constructor(private router: Router, private oauthService: OAuthService) {
-    /**
-     * This is needed only for developer purposes
-     * to explore all of the Oauth events
-     */
-    this.oauthService.events.subscribe((event) => {
-      if (event instanceof OAuthErrorEvent) {
-        console.error('OAuthErrorEvent Object:', event);
-      } else {
-        console.warn('OAuthEvent Object:', event);
-      }
-    });
+    if(!environment.production){
+      /**
+       * Explore all of the Oauth events in developer mode
+       */
+      this.oauthService.events.subscribe((event) => {
+        if (event instanceof OAuthErrorEvent) {
+          console.error('OAuthErrorEvent Object:', event);
+        } else {
+          console.debug('OAuthEvent Object:', event);
+        }
+      });
+    }
 
     /**
-     * After successful auh and the `token_received` event
-     * it will updated isAuthenticated$ to activate the routes
+     * Update the isAuthenticated observable on every authentication event
      */
     this.oauthService.events.subscribe((_) => {
       this.isAuthenticated$$.next(this.oauthService.hasValidAccessToken());
     });
 
     /**
-     * Without this setup the silent refresh request
-     * will always end up unsunsuccessfully
+     * Setup silent refresh of the access token
      */
     this.oauthService.setupAutomaticSilentRefresh();
   }
@@ -80,11 +81,8 @@ export class AppAuthService {
           return (
             this.oauthService
               .silentRefresh()
-              // .then(() => new Promise<void>((resolve) => setTimeout(() => resolve(), 1000)))
-
               .then(() => Promise.resolve())
               .catch((result) => {
-                // debugger;
                 // Subset of situations from https://openid.net/specs/openid-connect-core-1_0.html#AuthError
                 // Only the ones where it's reasonably sure that sending the
                 // user to the IdServer will help.
@@ -143,7 +141,7 @@ export class AppAuthService {
   }
 
   /**
-   * This method is only needed to incapsulate the auth logic
+   * This method is only needed to encapsulate the auth logic
    */
   public login(): void {
     this.oauthService.initLoginFlow();

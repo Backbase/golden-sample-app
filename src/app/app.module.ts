@@ -44,8 +44,6 @@ import { AuthConfig, OAuthModule, OAuthModuleConfig, OAuthStorage } from 'angula
       // this is the place to provide actual auth config
       // auth: {}
     } as WebSdkConfig),
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
     OAuthModule.forRoot(),
   ],
   providers: [

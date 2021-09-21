@@ -23,7 +23,7 @@ export class AppComponent {
   }
 
   focusMainContainer(event: MouseEvent) {
-    const element = event.view?.window?.document?.querySelector("[role='main']") as HTMLElement | undefined;
+    const element = event.view?.window?.document?.querySelector('[role=\'main\']') as HTMLElement | undefined;
     element?.focus();
   }
 }
