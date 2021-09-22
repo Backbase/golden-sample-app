@@ -6,6 +6,7 @@ import { MakeTransferCommunicationService } from '../../services/make-transfer-c
 import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
 import { MakeTransferSummaryViewComponent } from './make-transfer-summary-view.component';
 import { Transfer } from '../../model/Account';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MakeTransferSymmaryViewComponent', () => {
   let fixture: ComponentFixture<MakeTransferSummaryViewComponent>;
@@ -31,6 +32,7 @@ describe('MakeTransferSymmaryViewComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [MakeTransferSummaryViewComponent],
+      imports: [RouterTestingModule],
       providers: [
         {
           provide: ActivatedRoute,

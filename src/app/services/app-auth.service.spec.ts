@@ -42,7 +42,7 @@ describe('AuthService', () => {
 
     beforeEach(() => {
       httpClientStub.post.and.returnValue(of({}));
-      service.login({ login: 'login', redirectUri: redirectUriMock });
+      service.login();
     });
 
     it('isAuthenticated should be true', (done: DoneFn) => {
