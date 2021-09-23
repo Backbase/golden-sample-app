@@ -11,15 +11,13 @@ import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
 import { triplets } from '../app/services/entitlementsTriplets';
 
 
-const buildEntitlementsByUser = (userPermissions: Record<string, boolean>) : (triplet: string) => Promise<boolean> => {
-  return (triplet: string) => new Promise((resolve) => {
+const buildEntitlementsByUser = (userPermissions: Record<string, boolean>): (triplet: string) => Promise<boolean> => (triplet: string) => new Promise((resolve) => {
     Object.keys(userPermissions).forEach((key) => {
       if (triplet === key) {
         resolve(userPermissions[key]);
       }
     });
   });
-}
 
 const mockProviders: Provider[] = [
   {
@@ -55,7 +53,8 @@ export const environment = {
 
 export const authConfig: AuthConfig = {
   // Url of the Identity Provider
-  issuer: 'https://identity-latest-universal.retail.backbase.eu/auth/realms/backbase',
+  issuer: 'https://identity.dev.ref.live.backbaseservices.com/auth/realms/retail',
+  // issuer: 'https://identity-latest-universal.retail.backbase.eu/auth/realms/backbase',
 
   // URL of the SPA to redirect the user to after login
   redirectUri: window.location.origin + '/transactions',
@@ -69,7 +68,7 @@ export const authConfig: AuthConfig = {
   // such applications. (IE: does not support PKCE)
   // dummyClientSecret: 'secret',
 
-  responseType: 'code',
+  responseType: 'code token',
 
   // set the scope for the permissions the client should request
   // The first four are defined by OIDC.

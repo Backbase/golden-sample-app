@@ -10,7 +10,7 @@ import { Account, Transfer } from '../../model/Account';
 export class MakeTransferFormComponent implements OnInit {
   @Input() account: Account | undefined;
   @Input() showMaskIndicator = true;
-  @Input() maxLimit: number = 0;
+  @Input() maxLimit = 0;
 
   @Output() submitTransfer = new EventEmitter<Transfer>();
   makeTransferForm!: FormGroup;
@@ -67,7 +67,7 @@ export class MakeTransferFormComponent implements OnInit {
         }],
         toAccount: ['', Validators.required],
         amount: ['', [
-          Validators.required, 
+          Validators.required,
           this.validateAmount(this.account?.amount || 0, TRANSLATIONS.maxError),
           ...(this.maxLimit > 0 ? [this.validateAmount(this.maxLimit, TRANSLATIONS.limitError(this.maxLimit))] : [])
         ]],
