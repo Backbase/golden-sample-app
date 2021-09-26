@@ -21,6 +21,7 @@ import { MakeTransferViewComponent } from './views/make-transfer-view/make-trans
 import { MakeTransferJourneyConfiguration } from './services/make-transfer-journey-config.service';
 import { MakeTransferPermissionsService } from './services/make-transfer-permissions.service';
 import { MakeTransferAccountHttpService } from './services/make-transfer-accounts.http.service';
+import { JourneyContentModule } from 'journey-content';
 
 const defaultRoute: Route = {
   path: '',
@@ -75,6 +76,7 @@ const defaultRoute: Route = {
     InputValidationMessageModule,
     ReactiveFormsModule,
     LoadingIndicatorModule,
+    JourneyContentModule,
   ],
   providers: [
     MakeTransferJourneyStoreGuard,

@@ -1,0 +1,24 @@
+<!-- If itemTemplate is provided then it's used -->
+<ng-container *ngIf="itemTemplate">
+    <ng-container *ngTemplateOutlet="itemTemplate; context: { data: templateData }">
+    </ng-container>    
+</ng-container>
+
+
+<!-- If itemTemplate is undefined or has not been passed to the component then it renders default or defined wrapper -->
+<ng-container *ngIf="!itemTemplate">
+    <ng-container *ngTemplateOutlet="wrapper; context: {$implicit: body, data: templateData}"></ng-container>
+</ng-container>
+
+<!-- Body is used to render the content passing data -->
+<ng-template #body let-data="data">
+  <ng-content></ng-content>
+</ng-template>
+
+<!-- Default wrapper if no one was passed through content -->
+<ng-template #defaultWrapper let-content let-data="data">
+  <div class="default-wrapper">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </div>
+</ng-template>
+

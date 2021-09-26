@@ -20,6 +20,11 @@
       "dom"
     ],
     "paths": {
+      "journey-content": [
+        "dist/journey-content/journey-content",
+        "dist/journey-content",
+        "projects/journey-content/src/public-api.ts"
+      ],
       "transactions-journey": [
         "dist/transactions-journey/transactions-journey",
         "dist/transactions-journey",

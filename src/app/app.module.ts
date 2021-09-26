@@ -8,7 +8,7 @@ import { AvatarModule, DropdownMenuModule, IconModule, LayoutModule, LogoModule 
 import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './guards/auth.guard';
-import { WebSdkConfig, WebSdkModule } from '@backbase/foundation-ang/web-sdk';
+import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -19,6 +19,9 @@ import { TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE } from 'transactions-journey
 import { JourneyCommunicationService } from './services/journey-communication.service';
 
 import { AuthConfig, OAuthModule, OAuthModuleConfig, OAuthStorage } from 'angular-oauth2-oidc';
+
+import { JourneyContentConfigProvider } from './config.providers';
+import { JourneyContentModule } from 'journey-content';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,9 +45,11 @@ import { AuthConfig, OAuthModule, OAuthModuleConfig, OAuthStorage } from 'angula
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     OAuthModule.forRoot(),
+    JourneyContentModule,
   ],
   providers: [
     ...environment.mockProviders,
+    JourneyContentConfigProvider,
     AuthGuard,
     {
       provide: MakeTransferCommunicationService,

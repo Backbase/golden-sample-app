@@ -7,6 +7,7 @@ import { combineLatest, concat, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MakeTransferPermissionsService } from '../../services/make-transfer-permissions.service';
 import { MakeTransferAccountHttpService } from '../../services/make-transfer-accounts.http.service';
+import { TemplateStorageService } from 'journey-content';
 
 @Component({
   templateUrl: 'make-transfer-view.component.html',
@@ -39,5 +40,6 @@ export class MakeTransferViewComponent {
     private readonly permissions: MakeTransferPermissionsService,
     private readonly accounts: MakeTransferAccountHttpService,
     public readonly config: MakeTransferJourneyConfiguration,
+    public readonly templateStorageService: TemplateStorageService,
   ) {}
 }
