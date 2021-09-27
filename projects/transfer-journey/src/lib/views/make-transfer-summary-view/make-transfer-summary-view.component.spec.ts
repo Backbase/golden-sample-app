@@ -1,17 +1,29 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, EventEmitter, Input, NO_ERRORS_SCHEMA, Output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, ActivatedRouteSnapshot, Data } from '@angular/router';
 import { MakeTransferCommunicationService } from '../../services/make-transfer-communication.service';
 import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
 import { MakeTransferSummaryViewComponent } from './make-transfer-summary-view.component';
-import { Transfer } from '../../model/Account';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Transfer } from '../../model/Account';
+import { of } from 'rxjs';
+
+
+@Component({
+  selector: 'bb-make-transfer-summary',
+  template: '<div>my fake component</div>'
+})
+class MakeTransferSummaryFakeComponent {
+  @Input() transfer: Transfer | undefined;
+  @Output() submitTransfer = new EventEmitter<void>();
+  @Output() closeTransfer = new EventEmitter<void>();
+}
 
 describe('MakeTransferSymmaryViewComponent', () => {
   let fixture: ComponentFixture<MakeTransferSummaryViewComponent>;
 
-  let transferStoreStub: jasmine.SpyObj<MakeTransferJourneyState>;
+  let transferStoreStub: Pick<MakeTransferJourneyState, 'transfer' | 'currentValue'>;
   let externalCommunicationServiceStub: jasmine.SpyObj<MakeTransferCommunicationService>;
 
   const activatedRouteStub = {
@@ -22,16 +34,26 @@ describe('MakeTransferSymmaryViewComponent', () => {
     } as ActivatedRouteSnapshot,
   };
 
+  const accountMock = {
+    amount: 100,
+    fromAccount: '001',
+    toAccount: '002'
+  };
+
   const getComponent = {
-    transferForm: () => fixture.debugElement.query(By.css('bb-make-transfer-form')),
+    transferForm: () => fixture.debugElement.query(By.directive(MakeTransferSummaryFakeComponent)),
   };
 
   beforeEach(() => {
-    transferStoreStub = jasmine.createSpyObj<MakeTransferJourneyState>(['next']);
+    transferStoreStub = {
+      currentValue: accountMock,
+      transfer: of(accountMock),
+    };
+
     externalCommunicationServiceStub = jasmine.createSpyObj<MakeTransferCommunicationService>(['makeTransfer']);
 
     TestBed.configureTestingModule({
-      declarations: [MakeTransferSummaryViewComponent],
+      declarations: [MakeTransferSummaryViewComponent, MakeTransferSummaryFakeComponent],
       imports: [RouterTestingModule],
       providers: [
         {
@@ -54,11 +76,10 @@ describe('MakeTransferSymmaryViewComponent', () => {
   });
 
   it('should call external communication service when transfer is submitted', () => {
-    const mockSubmittedTransfer = {} as Transfer;
-    const transferForm = getComponent.transferForm();
+    const transferForm = getComponent.transferForm().componentInstance as MakeTransferSummaryFakeComponent;
 
-    transferForm.triggerEventHandler('submitTransfer', mockSubmittedTransfer);
+    transferForm.submitTransfer.emit();
 
-    expect(externalCommunicationServiceStub.makeTransfer).toHaveBeenCalledWith(mockSubmittedTransfer);
+    expect(externalCommunicationServiceStub.makeTransfer).toHaveBeenCalledWith(accountMock);
   });
 });

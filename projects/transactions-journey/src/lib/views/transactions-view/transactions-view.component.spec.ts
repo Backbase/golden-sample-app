@@ -4,9 +4,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { Transaction, TransactionsViewComponent, TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE } from 'transactions-journey';
+import { TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE } from '../../communication';
+import { Transaction } from '../../model/transaction';
+
 import { FilterTransactionsPipe } from '../../pipes/filter-transactions.pipe';
 import { TransactionsHttpService } from '../../services/transactions.http.service';
+import { TransactionsViewComponent } from './transactions-view.component';
 
 @Component({
   selector: 'bb-transaction-item',
