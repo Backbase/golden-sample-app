@@ -1,0 +1,924 @@
+openapi: 3.0.0
+info:
+  description: Wordpress v2 API
+  version: 0.1.0
+  title: Wordpress v2 API
+paths:
+  '/posts/{id}':
+    get:
+      summary: Get Single Post
+      parameters:
+        - name: id
+          in: path
+          description: Id of object
+          required: true
+          schema:
+            type: string
+        - name: context
+          in: query
+          description: >-
+            Scope under which the request is made; determines fields present in
+            response.
+          required: false
+          schema:
+            type: string
+            enum:
+              - view
+              - embed
+              - edit
+      responses:
+        '200':
+          description: Post retrieved.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - properties:
+                      date:
+                        type: string
+                        format: date-time
+                        description: >-
+                          The date the object was published, in the site's
+                          timezone.
+                      date_gmt:
+                        type: string
+                        format: date-time
+                        description: 'The date the object was published, as GMT.'
+                      guid:
+                        type: string
+                        description: The globally unique identifier for the object.
+                      id:
+                        type: integer
+                        description: Unique identifier for the object.
+                      link:
+                        type: string
+                        description: URL to the object.
+                      modified:
+                        type: string
+                        format: date-time
+                        description: >-
+                          The date the object was last modified, in the site's
+                          timezone.
+                      modified_gmt:
+                        type: string
+                        format: date-time
+                        description: 'The date the object was last modified, as GMT.'
+                      password:
+                        type: string
+                        description: The A password to protect access to the post.
+                      slug:
+                        type: string
+                        description: >-
+                          An alphanumeric identifier for the object unique to
+                          its type.
+                      status:
+                        type: string
+                        description: A named status for the object.
+                        enum:
+                          - publish
+                          - future
+                          - draft
+                          - pending
+                          - private
+                      type:
+                        type: string
+                        description: Type of Post for the object.
+                      title:
+                        type: string
+                        description: The title for the object.
+                      content:
+                        type: string
+                        description: The content for the object.
+                      author:
+                        type: string
+                        description: The id for the author of the object.
+                      excerpt:
+                        type: string
+                        description: The excerpt for the object
+                      featured_media:
+                        type: string
+                        description: The id of the featured media for the object.
+                      comment_status:
+                        type: string
+                        description: Whether or not comments are open on the object
+                        enum:
+                          - open
+                          - closed
+                      ping_status:
+                        type: string
+                        description: Whether or not the object can be pinged.
+                        enum:
+                          - open
+                          - closed
+                  - type: object
+                    properties:
+                      format:
+                        type: string
+                        description: The format for the object.
+                        enum:
+                          - standard
+                          - aside
+                          - chat
+                          - gallery
+                          - link
+                          - image
+                          - quote
+                          - status
+                          - video
+                          - audio
+                      sticky:
+                        type: boolean
+                        description: Whether or not the object should be treated as sticky.
+                      categories:
+                        type: array
+                        description: >-
+                          The terms assigned to the object in the category
+                          taxonomy.
+                        items:
+                          type: string
+                      tags:
+                        type: array
+                        description: >-
+                          he terms assigned to the object in the post_tag
+                          taxonomy.
+                        items:
+                          type: string
+  '/pages/{id}':
+    get:
+      summary: Get Single Page
+      parameters:
+        - name: id
+          in: path
+          description: Id of object
+          required: true
+          schema:
+            type: string
+        - name: context
+          in: query
+          description: >-
+            Scope under which the request is made; determines fields present in
+            response.
+          required: false
+          schema:
+            type: string
+            enum:
+              - view
+              - embed
+              - edit
+      responses:
+        '200':
+          description: Page retrieved.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - properties:
+                      date:
+                        type: string
+                        format: date-time
+                        description: >-
+                          The date the object was published, in the site's
+                          timezone.
+                      date_gmt:
+                        type: string
+                        format: date-time
+                        description: 'The date the object was published, as GMT.'
+                      guid:
+                        type: string
+                        description: The globally unique identifier for the object.
+                      id:
+                        type: integer
+                        description: Unique identifier for the object.
+                      link:
+                        type: string
+                        description: URL to the object.
+                      modified:
+                        type: string
+                        format: date-time
+                        description: >-
+                          The date the object was last modified, in the site's
+                          timezone.
+                      modified_gmt:
+                        type: string
+                        format: date-time
+                        description: 'The date the object was last modified, as GMT.'
+                      password:
+                        type: string
+                        description: The A password to protect access to the post.
+                      slug:
+                        type: string
+                        description: >-
+                          An alphanumeric identifier for the object unique to
+                          its type.
+                      status:
+                        type: string
+                        description: A named status for the object.
+                        enum:
+                          - publish
+                          - future
+                          - draft
+                          - pending
+                          - private
+                      type:
+                        type: string
+                        description: Type of Post for the object.
+                      title:
+                        type: string
+                        description: The title for the object.
+                      content:
+                        type: string
+                        description: The content for the object.
+                      author:
+                        type: string
+                        description: The id for the author of the object.
+                      excerpt:
+                        type: string
+                        description: The excerpt for the object
+                      featured_media:
+                        type: string
+                        description: The id of the featured media for the object.
+                      comment_status:
+                        type: string
+                        description: Whether or not comments are open on the object
+                        enum:
+                          - open
+                          - closed
+                      ping_status:
+                        type: string
+                        description: Whether or not the object can be pinged.
+                        enum:
+                          - open
+                          - closed
+                  - type: object
+                    properties:
+                      parent:
+                        type: integer
+                        description: The id for the parent of the object.
+                      menu_order:
+                        type: integer
+                        description: >-
+                          The order of the object in relation to other object of
+                          its type.
+                      template:
+                        type: integer
+                        description: The theme file to use to display the object.
+  '/media/{id}':
+    get:
+      summary: Get Single Media
+      parameters:
+        - name: id
+          in: path
+          description: Id of object
+          required: true
+          schema:
+            type: string
+        - name: context
+          in: query
+          description: >-
+            Scope under which the request is made; determines fields present in
+            response.
+          required: false
+          schema:
+            type: string
+            enum:
+              - view
+              - embed
+              - edit
+      responses:
+        '200':
+          description: Page retrieved.
+          content:
+            application/json:
+              schema:
+                properties:
+                  date:
+                    type: string
+                    format: date-time
+                    description: 'The date the object was published, in the site''s timezone.'
+                  date_gmt:
+                    type: string
+                    format: date-time
+                    description: 'The date the object was published, as GMT.'
+                  guid:
+                    type: string
+                    description: The globally unique identifier for the object.
+                  id:
+                    type: integer
+                    description: Unique identifier for the object.
+                  modified:
+                    type: string
+                    format: date-time
+                    description: >-
+                      The date the object was last modified, in the site's
+                      timezone.
+                  modified_gmt:
+                    type: string
+                    format: date-time
+                    description: 'The date the object was last modified, as GMT.'
+                  password:
+                    type: string
+                    description: The A password to protect access to the post.
+                  slug:
+                    type: string
+                    description: >-
+                      An alphanumeric identifier for the object unique to its
+                      type.
+                  status:
+                    type: string
+                    description: A named status for the object.
+                    enum:
+                      - publish
+                      - future
+                      - draft
+                      - pending
+                      - private
+                  type:
+                    type: string
+                    description: Type of Post for the object.
+                  title:
+                    type: string
+                    description: The title for the object.
+                  author:
+                    type: string
+                    description: The id for the author of the object.
+                  comment_status:
+                    type: string
+                    description: Whether or not comments are open on the object
+                    enum:
+                      - open
+                      - closed
+                  ping_status:
+                    type: string
+                    description: Whether or not the object can be pinged.
+                    enum:
+                      - open
+                      - closed
+                  alt_text:
+                    type: string
+                    description: Alternative text to display when resource is not displayed
+                  caption:
+                    type: string
+                    description: The caption for the resource.
+                  description:
+                    type: string
+                    description: The description for the resource.
+                  media_type:
+                    type: string
+                    description: Type of resource.
+                    enum:
+                      - image
+                      - file
+                  mime_type:
+                    type: string
+                    description: Mime type of resource.
+                  media_details:
+                    type: string
+                    description: 'Details about the resource file, specific to its type.'
+                  post:
+                    type: string
+                    description: The id for the associated post of the resource.
+                  source_url:
+                    type: string
+                    description: URL to the original resource file.
+servers:
+  - url: /wp-json/wp/v2
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      description: Id of object
+      required: true
+      schema:
+        type: string
+    force:
+      name: force
+      in: query
+      description: Whether to bypass trash and force deletion.
+      required: false
+      schema:
+        type: boolean
+    context:
+      name: context
+      in: query
+      description: >-
+        Scope under which the request is made; determines fields present in
+        response.
+      required: false
+      schema:
+        type: string
+        enum:
+          - view
+          - embed
+          - edit
+  requestBodies:
+    postMedia:
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              date:
+                description: 'The date the object was published, in the site''s timezone.'
+                type: string
+                format: date-time
+              date_gmt:
+                description: 'The date the object was published, as GMT.'
+                type: string
+                format: date-time
+              password:
+                description: The A password to protect access to the post.
+                type: string
+              slug:
+                description: Limit result set to posts with a specific slug.
+                type: string
+              status:
+                description: >-
+                  Limit result set to posts assigned a specific status.Default
+                  publish
+                type: string
+                enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+              title:
+                description: The title for the object.
+                type: string
+              author:
+                description: Limit result set to posts assigned to specific authors.
+                type: string
+              comment_status:
+                description: Whether or not comments are open on the object
+                type: string
+                enum:
+                  - open
+                  - closed
+              ping_status:
+                description: Whether or not the object can be pinged.
+                type: string
+                enum:
+                  - open
+                  - closed
+              alt_text:
+                description: Alternative text to display when resource is not displayed.
+                type: string
+              caption:
+                description: The caption for the resource.
+                type: string
+              description:
+                description: The description for the resource
+                type: string
+              post:
+                description: The id for the associated post of the resource.
+                type: string
+    getPosts:
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              page:
+                description: Current page of the collection. Default 1
+                type: integer
+              per_page:
+                description: >-
+                  Maximum number of items to be returned in result set. Default
+                  10
+                type: integer
+              search:
+                description: Limit results to those matching a string.
+                type: string
+              after:
+                description: >-
+                  Limit response to resources published after a given ISO8601
+                  compliant date.
+                type: string
+              author:
+                description: Limit result set to posts assigned to specific authors.
+                type: string
+              author_exclude:
+                description: Ensure result set excludes posts assigned to specific authors.
+                type: string
+              before:
+                description: >-
+                  Limit response to resources published before a given ISO8601
+                  compliant date.
+                type: string
+              exclude:
+                description: Ensure result set excludes specific ids.
+                type: string
+              include:
+                description: Ensure result set includes specific ids.
+                type: string
+              offset:
+                description: Offset the result set by a specific number of items.
+                type: string
+              order:
+                description: Order sort attribute ascending or descending. Default desc
+                type: string
+                enum:
+                  - desc
+                  - asc
+              orderby:
+                description: Sort collection by object attribute. Default date
+                type: string
+                enum:
+                  - date
+                  - id
+                  - include
+                  - title
+                  - slug
+              slug:
+                description: Limit result set to posts with a specific slug.
+                type: string
+              status:
+                description: >-
+                  Limit result set to posts assigned a specific status.Default
+                  publish
+                type: string
+                enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+              filter:
+                description: >-
+                  Use WP Query arguments to modify the response; private query
+                  vars require appropriate authorization.
+                type: string
+              categories:
+                description: >-
+                  Limit result set to all items that have the specified term
+                  assigned in the categories taxonomy.
+                type: array
+                items:
+                  type: string
+              tags:
+                description: >-
+                  Limit result set to all items that have the specified term
+                  assigned in the tags taxonomy.
+                type: array
+                items:
+                  type: string
+  securitySchemes:
+    oauth:
+      type: oauth2
+      x-oauth1: true
+      x-accessUrl: /oauth1/access
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth1/authorize
+          tokenUrl: /oauth1/request
+          scopes:
+            basic: >-
+              OAuth authentication uses the OAuth 1.0a specification (published
+              as RFC5849) and requires installing the OAuth plugin on the site.
+  schemas:
+    media:
+      properties:
+        date:
+          type: string
+          format: date-time
+          description: 'The date the object was published, in the site''s timezone.'
+        date_gmt:
+          type: string
+          format: date-time
+          description: 'The date the object was published, as GMT.'
+        guid:
+          type: string
+          description: The globally unique identifier for the object.
+        id:
+          type: integer
+          description: Unique identifier for the object.
+        modified:
+          type: string
+          format: date-time
+          description: 'The date the object was last modified, in the site''s timezone.'
+        modified_gmt:
+          type: string
+          format: date-time
+          description: 'The date the object was last modified, as GMT.'
+        password:
+          type: string
+          description: The A password to protect access to the post.
+        slug:
+          type: string
+          description: An alphanumeric identifier for the object unique to its type.
+        status:
+          type: string
+          description: A named status for the object.
+          enum:
+            - publish
+            - future
+            - draft
+            - pending
+            - private
+        type:
+          type: string
+          description: Type of Post for the object.
+        title:
+          type: string
+          description: The title for the object.
+        author:
+          type: string
+          description: The id for the author of the object.
+        comment_status:
+          type: string
+          description: Whether or not comments are open on the object
+          enum:
+            - open
+            - closed
+        ping_status:
+          type: string
+          description: Whether or not the object can be pinged.
+          enum:
+            - open
+            - closed
+        alt_text:
+          type: string
+          description: Alternative text to display when resource is not displayed
+        caption:
+          type: string
+          description: The caption for the resource.
+        description:
+          type: string
+          description: The description for the resource.
+        media_type:
+          type: string
+          description: Type of resource.
+          enum:
+            - image
+            - file
+        mime_type:
+          type: string
+          description: Mime type of resource.
+        media_details:
+          type: string
+          description: 'Details about the resource file, specific to its type.'
+        post:
+          type: string
+          description: The id for the associated post of the resource.
+        source_url:
+          type: string
+          description: URL to the original resource file.
+    commonPostPage:
+      properties:
+        date:
+          type: string
+          format: date-time
+          description: 'The date the object was published, in the site''s timezone.'
+        date_gmt:
+          type: string
+          format: date-time
+          description: 'The date the object was published, as GMT.'
+        guid:
+          type: string
+          description: The globally unique identifier for the object.
+        id:
+          type: integer
+          description: Unique identifier for the object.
+        link:
+          type: string
+          description: URL to the object.
+        modified:
+          type: string
+          format: date-time
+          description: 'The date the object was last modified, in the site''s timezone.'
+        modified_gmt:
+          type: string
+          format: date-time
+          description: 'The date the object was last modified, as GMT.'
+        password:
+          type: string
+          description: The A password to protect access to the post.
+        slug:
+          type: string
+          description: An alphanumeric identifier for the object unique to its type.
+        status:
+          type: string
+          description: A named status for the object.
+          enum:
+            - publish
+            - future
+            - draft
+            - pending
+            - private
+        type:
+          type: string
+          description: Type of Post for the object.
+        title:
+          type: string
+          description: The title for the object.
+        content:
+          type: string
+          description: The content for the object.
+        author:
+          type: string
+          description: The id for the author of the object.
+        excerpt:
+          type: string
+          description: The excerpt for the object
+        featured_media:
+          type: string
+          description: The id of the featured media for the object.
+        comment_status:
+          type: string
+          description: Whether or not comments are open on the object
+          enum:
+            - open
+            - closed
+        ping_status:
+          type: string
+          description: Whether or not the object can be pinged.
+          enum:
+            - open
+            - closed
+    post:
+      allOf:
+        - properties:
+            date:
+              type: string
+              format: date-time
+              description: 'The date the object was published, in the site''s timezone.'
+            date_gmt:
+              type: string
+              format: date-time
+              description: 'The date the object was published, as GMT.'
+            guid:
+              type: string
+              description: The globally unique identifier for the object.
+            id:
+              type: integer
+              description: Unique identifier for the object.
+            link:
+              type: string
+              description: URL to the object.
+            modified:
+              type: string
+              format: date-time
+              description: 'The date the object was last modified, in the site''s timezone.'
+            modified_gmt:
+              type: string
+              format: date-time
+              description: 'The date the object was last modified, as GMT.'
+            password:
+              type: string
+              description: The A password to protect access to the post.
+            slug:
+              type: string
+              description: An alphanumeric identifier for the object unique to its type.
+            status:
+              type: string
+              description: A named status for the object.
+              enum:
+                - publish
+                - future
+                - draft
+                - pending
+                - private
+            type:
+              type: string
+              description: Type of Post for the object.
+            title:
+              type: string
+              description: The title for the object.
+            content:
+              type: string
+              description: The content for the object.
+            author:
+              type: string
+              description: The id for the author of the object.
+            excerpt:
+              type: string
+              description: The excerpt for the object
+            featured_media:
+              type: string
+              description: The id of the featured media for the object.
+            comment_status:
+              type: string
+              description: Whether or not comments are open on the object
+              enum:
+                - open
+                - closed
+            ping_status:
+              type: string
+              description: Whether or not the object can be pinged.
+              enum:
+                - open
+                - closed
+        - type: object
+          properties:
+            format:
+              type: string
+              description: The format for the object.
+              enum:
+                - standard
+                - aside
+                - chat
+                - gallery
+                - link
+                - image
+                - quote
+                - status
+                - video
+                - audio
+            sticky:
+              type: boolean
+              description: Whether or not the object should be treated as sticky.
+            categories:
+              type: array
+              description: The terms assigned to the object in the category taxonomy.
+              items:
+                type: string
+            tags:
+              type: array
+              description: he terms assigned to the object in the post_tag taxonomy.
+              items:
+                type: string
+    page:
+      allOf:
+        - properties:
+            date:
+              type: string
+              format: date-time
+              description: 'The date the object was published, in the site''s timezone.'
+            date_gmt:
+              type: string
+              format: date-time
+              description: 'The date the object was published, as GMT.'
+            guid:
+              type: string
+              description: The globally unique identifier for the object.
+            id:
+              type: integer
+              description: Unique identifier for the object.
+            link:
+              type: string
+              description: URL to the object.
+            modified:
+              type: string
+              format: date-time
+              description: 'The date the object was last modified, in the site''s timezone.'
+            modified_gmt:
+              type: string
+              format: date-time
+              description: 'The date the object was last modified, as GMT.'
+            password:
+              type: string
+              description: The A password to protect access to the post.
+            slug:
+              type: string
+              description: An alphanumeric identifier for the object unique to its type.
+            status:
+              type: string
+              description: A named status for the object.
+              enum:
+                - publish
+                - future
+                - draft
+                - pending
+                - private
+            type:
+              type: string
+              description: Type of Post for the object.
+            title:
+              type: string
+              description: The title for the object.
+            content:
+              type: string
+              description: The content for the object.
+            author:
+              type: string
+              description: The id for the author of the object.
+            excerpt:
+              type: string
+              description: The excerpt for the object
+            featured_media:
+              type: string
+              description: The id of the featured media for the object.
+            comment_status:
+              type: string
+              description: Whether or not comments are open on the object
+              enum:
+                - open
+                - closed
+            ping_status:
+              type: string
+              description: Whether or not the object can be pinged.
+              enum:
+                - open
+                - closed
+        - type: object
+          properties:
+            parent:
+              type: integer
+              description: The id for the parent of the object.
+            menu_order:
+              type: integer
+              description: The order of the object in relation to other object of its type.
+            template:
+              type: integer
+              description: The theme file to use to display the object.

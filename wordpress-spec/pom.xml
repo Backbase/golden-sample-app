@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.backbase.dbs.wordpress</groupId>
+    <artifactId>wordpress-spec</artifactId>
+    <version>2.12.125-SNAPSHOT</version>
+    <name>Backbase :: Digital Banking Specifications :: Wordpress :: Presentation Specs</name>
+
+    <scm>
+        <developerConnection>scm:git:ssh://git@stash.backbase.com:7999/po/wordpress-presentation-spec.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <codegen.angularVersion>10.1.0</codegen.angularVersion>
+        <codegen.npmPackage.name>@backbase/wordpress-http-module-ang</codegen.npmPackage.name>
+        <codegen.buildDist>dist/libs/wordpress-http-module-ang</codegen.buildDist>
+        <codegen.npmPackage.version>1.0.0</codegen.npmPackage.version>
+        <codegen.generateMocks>true</codegen.generateMocks>
+        <codegen.apiModulePrefix>CMS</codegen.apiModulePrefix>
+        <codegen.serviceSuffix>HttpService</codegen.serviceSuffix>
+    </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>Backbase Artifact Builds Repository</id>
+            <name>artifacts.backbase.com-builds</name>
+            <url>https://artifacts.backbase.com/staging</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.backbase.oss</groupId>
+                <artifactId>boat-maven-plugin</artifactId>
+                <version>0.14.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/wordpress-client-api-v2.yaml</inputSpec>
+                            <generatorName>boat-angular</generatorName>
+                            <additionalProperties>ngVersion=${codegen.angularVersion},npmName=${codegen.npmPackage.name},npmVersion=${codegen.npmPackage.version},withMocks=${codegen.generateMocks},apiModulePrefix=${codegen.apiModulePrefix},buildDist=${codegen.buildDist},serviceSuffix=${codegen.serviceSuffix}</additionalProperties>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
