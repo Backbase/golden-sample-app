@@ -1,9 +1,9 @@
-# Wordpress Open API specs
+# Drupal Open API specs
 
-Defines both the client and service api for the Wordpress presentation service.
+Defines both the client and service api for the Drupal presentation service.
 
 ## How to run it locally for testing
-This spec defines the api of the Wordpress open api service. It does not run by itself. **This spec depends on
+This spec defines the api of the Drupal open api service. It does not run by itself. **This spec depends on
 other specs fetched via Maven (those that refers to lib/something), so before you start editing you should build with
 Maven first (`mvn clean package`).**
 

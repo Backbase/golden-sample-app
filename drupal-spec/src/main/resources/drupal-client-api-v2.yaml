@@ -1,0 +1,600 @@
+openapi: 3.0.0
+info:
+  description: The REST API provide by the core REST module.
+  title: test - REST API
+  version: Versioning not supported
+security:
+  csrf_token: []
+tags:
+  - name: node
+    description: "Entity type: Content"
+    x-entity-type: node
+    x-definition:
+      $ref: "#/components/schemas/node"
+paths:
+  "/node/{node}":
+    get:
+      parameters:
+        - name: _format
+          in: query
+          required: true
+          description: Request format
+          schema:
+            type: string
+            enum:
+              - hal_json
+              - json
+        - name: node
+          in: path
+          required: true
+          description: The nid,id, of the node.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/hal+json:
+              schema:
+                $ref: "#/components/schemas/node"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/node"
+        "400":
+          description: Bad request
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Bad data
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Bad data
+        "500":
+          description: Internal server error.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal server error.
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal server error.
+      tags:
+        - node
+      summary: Get a Content
+      operationId: entity:node:GET
+      security:
+        - cookie: []
+        - csrf_token: []
+servers:
+  - url: http://localhost:80/
+components:
+  securitySchemes:
+    csrf_token:
+      type: apiKey
+      name: X-CSRF-Token
+      in: header
+      x-tokenUrl: http://localhost/user/token
+  schemas:
+    node:
+      type: object
+      title: node Schema
+      description: Describes the payload for 'node' entities.
+      properties:
+        nid:
+          type: array
+          title: ID
+          items:
+            type: object
+            properties:
+              value:
+                type: integer
+                title: Integer value
+            required:
+              - value
+          minItems: 1
+          maxItems: 1
+        uuid:
+          type: array
+          title: UUID
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                title: Text value
+                maxLength: 128
+            required:
+              - value
+          minItems: 1
+          maxItems: 1
+        vid:
+          type: array
+          title: Revision ID
+          items:
+            type: object
+            properties:
+              value:
+                type: integer
+                title: Integer value
+            required:
+              - value
+          minItems: 1
+          maxItems: 1
+        langcode:
+          type: array
+          title: Language
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                title: Language code
+            required:
+              - value
+          maxItems: 1
+        type:
+          type: array
+          title: Content type
+          items:
+            type: object
+            properties:
+              target_id:
+                type: string
+                title: Content type ID
+            required:
+              - target_id
+          minItems: 1
+          maxItems: 1
+        revision_timestamp:
+          type: array
+          title: Revision create time
+          description: The time that the current revision was created.
+          items:
+            type: object
+            properties:
+              value:
+                type: number
+                title: Timestamp value
+                format: utc-millisec
+            required:
+              - value
+          maxItems: 1
+        revision_uid:
+          type: array
+          title: Revision user
+          description: The user ID of the author of the current revision.
+          items:
+            type: object
+            properties:
+              target_id:
+                type: integer
+                title: User ID
+            required:
+              - target_id
+            title: User
+            description: The referenced entity
+          maxItems: 1
+        revision_log:
+          type: array
+          title: Revision log message
+          description: Briefly describe the changes you have made.
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                title: Text value
+            required:
+              - value
+          default:
+            - value: ""
+          maxItems: 1
+        status:
+          type: array
+          title: Published
+          items:
+            type: object
+            properties:
+              value:
+                type: boolean
+                title: Boolean value
+            required:
+              - value
+          default:
+            - value: true
+          maxItems: 1
+        uid:
+          type: array
+          title: Authored by
+          description: The username of the content author.
+          items:
+            type: object
+            properties:
+              target_id:
+                type: integer
+                title: User ID
+            required:
+              - target_id
+            title: User
+            description: The referenced entity
+          maxItems: 1
+        title:
+          type: array
+          title: Title
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                title: Text value
+                maxLength: 255
+            required:
+              - value
+          minItems: 1
+          maxItems: 1
+        created:
+          type: array
+          title: Authored on
+          description: The time that the node was created.
+          items:
+            type: object
+            properties:
+              value:
+                type: number
+                title: Timestamp value
+                format: utc-millisec
+            required:
+              - value
+          maxItems: 1
+        changed:
+          type: array
+          title: Changed
+          description: The time that the node was last edited.
+          items:
+            type: object
+            properties:
+              value:
+                type: number
+                title: Timestamp value
+                format: utc-millisec
+            required:
+              - value
+          maxItems: 1
+        promote:
+          type: array
+          title: Promoted to front page
+          items:
+            type: object
+            properties:
+              value:
+                type: boolean
+                title: Boolean value
+            required:
+              - value
+          default:
+            - value: true
+          maxItems: 1
+        sticky:
+          type: array
+          title: Sticky at top of lists
+          items:
+            type: object
+            properties:
+              value:
+                type: boolean
+                title: Boolean value
+            required:
+              - value
+          default:
+            - value: false
+          maxItems: 1
+        default_langcode:
+          type: array
+          title: Default translation
+          description: A flag indicating whether this is the default translation.
+          items:
+            type: object
+            properties:
+              value:
+                type: boolean
+                title: Boolean value
+            required:
+              - value
+          default:
+            - value: true
+          maxItems: 1
+        revision_default:
+          type: array
+          title: Default revision
+          description: A flag indicating whether this was a default revision when it was
+            saved.
+          items:
+            type: object
+            properties:
+              value:
+                type: boolean
+                title: Boolean value
+            required:
+              - value
+          maxItems: 1
+        revision_translation_affected:
+          type: array
+          title: Revision translation affected
+          description: Indicates if the last edit of a translation belongs to current
+            revision.
+          items:
+            type: object
+            properties:
+              value:
+                type: boolean
+                title: Boolean value
+            required:
+              - value
+          minItems: 1
+          maxItems: 1
+        path:
+          type: array
+          title: URL alias
+          items:
+            type: object
+            properties:
+              alias:
+                type: string
+                title: Path alias
+              pid:
+                type: integer
+                title: Path id
+              langcode:
+                type: string
+                title: Language Code
+          minItems: 1
+          maxItems: 1
+      required:
+        - nid
+        - uuid
+        - vid
+        - type
+        - title
+        - revision_translation_affected
+        - path
+      discriminator:
+        propertyName: type
+    node_article:
+      allOf:
+        - $ref: "#/components/schemas/node"
+        - type: object
+          title: node:article Schema
+          description: Use articles for time-sensitive content like news, press releases or
+            blog posts.
+          properties:
+            body:
+              type: array
+              title: Body
+              items:
+                type: object
+                properties:
+                  value:
+                    type: string
+                    title: Text
+                  format:
+                    type: string
+                    title: Text format
+                  summary:
+                    type: string
+                    title: Summary
+                required:
+                  - value
+              maxItems: 1
+            comment:
+              type: array
+              title: Comments
+              items:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    title: Comment status
+                  cid:
+                    type: integer
+                    title: Last comment ID
+                  last_comment_timestamp:
+                    type: integer
+                    title: Last comment timestamp
+                    description: The time that the last comment was created.
+                  last_comment_name:
+                    type: string
+                    title: Last comment name
+                    description: The name of the user posting the last comment.
+                  last_comment_uid:
+                    type: integer
+                    title: Last comment user ID
+                  comment_count:
+                    type: integer
+                    title: Number of comments
+                    description: The number of comments.
+                required:
+                  - status
+              default:
+                - status: 2
+                  cid: 0
+                  last_comment_name: ""
+                  last_comment_timestamp: 0
+                  last_comment_uid: 0
+                  comment_count: 0
+              maxItems: 1
+            field_image:
+              type: array
+              title: Image
+              items:
+                type: object
+                properties:
+                  target_id:
+                    type: integer
+                    title: File ID
+                  alt:
+                    type: string
+                    title: Alternative text
+                    description: Alternative image text, for the image\'s \'alt\' attribute.
+                  title:
+                    type: string
+                    title: Title
+                    description: Image title text, for the image\'s \'title\' attribute.
+                  width:
+                    type: integer
+                    title: Width
+                    description: The width of the image in pixels.
+                  height:
+                    type: integer
+                    title: Height
+                    description: The height of the image in pixels.
+                required:
+                  - target_id
+                title: File
+                description: The referenced entity
+              maxItems: 1
+            field_tags:
+              type: array
+              title: Tags
+              description: 'Enter a comma-separated list. For example: Amsterdam, Mexico
+                City, \"Cleveland, Ohio\"'
+              items:
+                type: object
+                properties:
+                  target_id:
+                    type: integer
+                    title: Taxonomy term ID
+                required:
+                  - target_id
+                title: Taxonomy term
+                description: The referenced entity
+          required:
+            - nid
+            - uuid
+            - vid
+            - type
+            - title
+            - revision_translation_affected
+            - path
+    node_image:
+      allOf:
+        - $ref: "#/components/schemas/node"
+        - type: object
+          title: node:image Schema
+          description: Describes the payload for 'node' entities of the 'image' bundle.
+          properties:
+            title:
+              type: array
+              title: Image
+              items:
+                type: object
+                properties:
+                  value:
+                    type: string
+                    title: Text value
+                    maxLength: 255
+                required:
+                  - value
+              minItems: 1
+              maxItems: 1
+            field_image:
+              type: array
+              title: Image
+              items:
+                type: object
+                properties:
+                  target_id:
+                    type: integer
+                    title: File ID
+                  alt:
+                    type: string
+                    title: Alternative text
+                    description: Alternative image text, for the image\'s \'alt\' attribute.
+                  title:
+                    type: string
+                    title: Title
+                    description: Image title text, for the image\'s \'title\' attribute.
+                  width:
+                    type: integer
+                    title: Width
+                    description: The width of the image in pixels.
+                  height:
+                    type: integer
+                    title: Height
+                    description: The height of the image in pixels.
+                required:
+                  - target_id
+                title: File
+                description: The referenced entity
+              maxItems: 1
+          required:
+            - nid
+            - uuid
+            - vid
+            - type
+            - title
+            - revision_translation_affected
+            - path
+    node_page:
+      allOf:
+        - $ref: "#/components/schemas/node"
+        - type: object
+          title: node:page Schema
+          description: Use basic pages for your static content, such as an \'About us\'
+            page.
+          properties:
+            promote:
+              type: array
+              title: Promoted to front page
+              items:
+                type: object
+                properties:
+                  value:
+                    type: boolean
+                    title: Boolean value
+                required:
+                  - value
+              default:
+                - value: false
+              maxItems: 1
+            body:
+              type: array
+              title: Body
+              items:
+                type: object
+                properties:
+                  value:
+                    type: string
+                    title: Text
+                  format:
+                    type: string
+                    title: Text format
+                  summary:
+                    type: string
+                    title: Summary
+                required:
+                  - value
+              maxItems: 1
+          required:
+            - nid
+            - uuid
+            - vid
+            - type
+            - title
+            - revision_translation_affected
+            - path
