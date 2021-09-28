@@ -2,11 +2,11 @@
 In order to test our journey content slots we have provided a way to install your own Wordpress instance completely functional.
 
 ## Pre-requisits
-### [Docker|https://www.docker.com]
+### [Docker](https://www.docker.com)
 
 Download and install the Docker Community Edition for your computer:
-* [Mac|https://hub.docker.com/editions/community/docker-ce-desktop-mac]
-* [Windows|https://hub.docker.com/editions/community/docker-ce-desktop-windows]
+* [Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
+* [Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
 
 This version of Docker includes Docker Compose which we’ll need for our WordPress setup.
 
