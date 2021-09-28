@@ -35,6 +35,7 @@
     "@backbase/positive-pay-journey-ang": "^0.29.0",
     "@backbase/ui-ang": "^6.21.0",
     "@backbase/universal-ang": "^7.0.0",
+    "@backbase/wordpress-http-module-ang": "file:wordpress-http-module-ang",
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
     "@ng-select/ng-select": "^6.1.0",
     "@ngrx/effects": "^12.4.0",

@@ -15,45 +15,37 @@
   <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
 </ng-template>
 
-
-<hr/>
-
-<h2>Include content</h2>
-<bb-journey-content contentId="614325514a82881d6c501bc4"> 
-  Hello
+<h2>Existing Html template</h2>
+<bb-journey-content template="TJ:MTV:WP:htmlTemplate" contentId="1" type="post">
 </bb-journey-content>
 
 <hr/>
+<!-- 
 
-<h2>Include template</h2>
-<bb-journey-content contentId="614325f5aa02be1d44495ffd">
-  <ng-template let-content let-data="data">
-    <h3>Hello</h3>
-  </ng-template>
-</bb-journey-content>
 
-<hr/>
 
-<h2>Html template</h2>
-<bb-journey-content [itemTemplate]="templateStorageService.templates.get('TJ:MTV:htmlTemplate')" contentId="614325514a82881d6c501bc4">
-</bb-journey-content>
 
-<hr/>
 
-<h2>Not existing html template</h2>
-<bb-journey-content [itemTemplate]="templateStorageService.templates.get('TJ:MTV:htmlTemplate2')" contentId="614325514a82881d6c501bc4">
+<h2>Not existing Html template</h2>
+<bb-journey-content templateId="TJ:MTV:htmlTemplate2" contentId="1" type="post">
 </bb-journey-content>
 
 <hr/>
 
 <h2>Existing image template</h2>
-<bb-journey-content [itemTemplate]="templateStorageService.templates.get('TJ:MTV:imageTmpl')" contentId="614325f5aa02be1d44495ffd">
+<bb-journey-content templateId="TJ:MTV:WP:imageTmpl" contentId="5" type="media">
 </bb-journey-content>
 
 <hr/>
 
 <h2>Existing link template</h2>
-<bb-journey-content [itemTemplate]="templateStorageService.templates.get('TJ:MTV:linkTmpl')" contentId="61434c8f9548541c29b33d2c">
+<bb-journey-content templateId="TJ:MTV:WP:linkTmpl" contentId="6" type="media">
 </bb-journey-content>
 
 <hr/>
+
+<h2>Existing image 500h template</h2>
+<bb-journey-content templateId="TJ:MTV:WP:imageTmpl:500h" contentId="5" type="media">
+</bb-journey-content>
+
+<hr/> -->

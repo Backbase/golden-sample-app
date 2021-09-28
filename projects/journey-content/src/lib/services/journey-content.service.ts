@@ -1,19 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+// import { HttpClient } from '@angular/common/http';
 import { Injectable, Optional, Inject, InjectionToken } from '@angular/core';
+import { DefaultHttpService as WordpressHttpService } from 'wordpress-http-module-ang';
 
 export interface JourneyContentConfiguration {
-  /**
-   * Content server URI
-   */
-  contentRootUrl: string;
-  /**
-   * API server URI
-   */
-  rootUrl: string;
-  /**
-   * master API key for API server URI
-   */
-  masterKey: string;
+  cms: 'wordpress' | 'drupal';
 }
 
 // eslint-disable-next-line
@@ -22,9 +12,7 @@ JourneyContentConfiguration
 >('JourneyContentServiceConfiguration injection token');
 
 const configDefaults: JourneyContentConfiguration = {
-  contentRootUrl: 'https://demo.dotcms.com',
-  rootUrl: 'https://api.jsonbin.io/v3',
-  masterKey: '$2b$10$SQMF8MmWsCRbSb4en/efWOvaGDtP0ZMLFIS/yeezk6Oy3nWUPyyAa'
+  cms: 'wordpress'
 };
 
 @Injectable()
@@ -33,7 +21,7 @@ export class JourneyContentService {
 
   constructor(
     @Optional() @Inject(JourneyContentConfigurationToken) config: JourneyContentConfiguration,
-    private http: HttpClient
+    private wordpressHttpService: WordpressHttpService,
   ) {
     config = config || {};
     this._config = { ...configDefaults, ...config };
@@ -43,8 +31,15 @@ export class JourneyContentService {
     return configDefaults;
   }
 
-  get contentRootUrl(): string {
-    return this._config.contentRootUrl;
+  getMediaContent(contentId: string) {
+    if(!contentId) {
+      throw new Error('No contentId defined');
+    }
+ 
+    return this.wordpressHttpService
+    .mediaIdGet({
+      id: contentId,
+    });
   }
 
   getContent(contentId: string) {
@@ -52,10 +47,9 @@ export class JourneyContentService {
       throw new Error('No contentId defined');
     }
 
-    return this.http.get<any>(`${this._config.rootUrl}/b/${contentId}/latest`, {
-      headers: {
-        'X-Master-Key': configDefaults.masterKey
-      }
+    return this.wordpressHttpService
+    .postsIdGet({
+      id: contentId,
     });
   }
 

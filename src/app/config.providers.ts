@@ -7,7 +7,6 @@ import {
 export const JourneyContentConfigProvider: Provider = {
   provide: JourneyContentConfigurationToken,
   useValue: {
-    // rootUrl: 'http://fake-rootUrl.com',
-    // contentRootUrl: 'http://fake-contentRootUrl.com',
+    cms: 'wordpress'
   } as Partial<JourneyContentConfiguration>,
 };

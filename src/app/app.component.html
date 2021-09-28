@@ -108,34 +108,34 @@
         <!--Header Area-->
         <div class="bb-layout__main-content-header bb-block bb-block--xl" aria-live="polite"></div>
 
-
         <template-storage>
-          <ng-template contentTemplate="TJ:MTV:htmlTemplate" let-content let-data="data">
-            <div *ngIf="data.body" [innerHTML]="data.body | safeHtml"></div>
+
+          <ng-template templateId="TJ:MTV:WP:htmlTemplate" let-data="data">
+            <ng-container *ngIf="data.content as content">
+              <div [innerHTML]="content.rendered | safeHtml"></div>
+            </ng-container>
           </ng-template>
 
-          <ng-template contentTemplate="TJ:MTV:linkTmpl" let-content let-data="data">
-            <a *ngIf="data.fileAsset" href="https://{{data.hostName}}{{data.fileAsset}}" target="_blank">{{data.title}}</a>
+          <ng-template templateId="TJ:MTV:WP:linkTmpl2" let-data="data">
+            <a href="{{data.source_url}}" target="_blank">{{data.slug}}</a>
           </ng-template>
 
-          <ng-template contentTemplate="TJ:MTV:imageTmpl" let-content let-data="data">
-            <img *ngIf="data.fileAsset" src="https://{{data.hostName}}{{data.fileAsset}}" width="data.width" height="data.height"/>
+          <ng-template templateId="TJ:MTV:WP:linkTmpl" let-data="data">
+            <ng-container *ngIf="data.title as title">
+              <a href="{{data.source_url}}" target="_blank">{{title.rendered}}</a>
+            </ng-container>
           </ng-template>
 
-          <ng-template contentTemplate="htmlTemplate" let-content let-data="data">
-            --
-            <div *ngIf="data.body" [innerHTML]="data.body | safeHtml"></div>
+          <ng-template templateId="TJ:MTV:WP:imageTmpl" let-data="data">
+            <ng-container *ngIf="data.media_details as details">
+              <img src="{{data.source_url}}" width="{{details.width}}" height="{{details.height}}"/>
+            </ng-container>
           </ng-template>
 
-          <ng-template contentTemplate="linkTmpl" let-content let-data="data">
-            ==
-            <a *ngIf="data.fileAsset" href="https://{{data.hostName}}{{data.fileAsset}}" target="_blank">{{data.title}}</a>
+          <ng-template templateId="TJ:MTV:WP:imageTmpl:500h" let-data="data">
+            <img src="{{data.source_url}}" height="500"/>
           </ng-template>
 
-          <ng-template contentTemplate="imageTmpl" let-content let-data="data">
-            __
-            <img *ngIf="data.fileAsset" src="https://{{data.hostName}}{{data.fileAsset}}" width="data.width" height="data.height"/>
-          </ng-template>
         </template-storage>
         
         <!-- Main Content Area -->

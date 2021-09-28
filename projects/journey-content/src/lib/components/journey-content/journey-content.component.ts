@@ -1,58 +1,56 @@
-import { ChangeDetectorRef, Component, ContentChild, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ContentChild, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { TemplateStorageService } from '../../services/template-storage.service';
 import { JourneyContentService } from '../../services/journey-content.service';
 
 @Component({
   selector: 'bb-journey-content',
   templateUrl: './journey-content.component.html',
-  styles: []
+  styles: [],
 })
 export class JourneyContentComponent implements OnInit {
-  // private preTemplateData: any = {};
-  public templateData: any = {};
+
+  private itemTemplateSubject = new BehaviorSubject<TemplateRef<any> | undefined>(undefined);
+  public itemTemplate$ = this.itemTemplateSubject.asObservable();
+
+  private templateDataSubject = new BehaviorSubject<any>({});
+  public templateData$ = this.templateDataSubject.asObservable();
 
   @Input() contentId = '';
 
-  @ContentChild('wrapper', {static: true}) wrapper: TemplateRef<any> | null = null; 
-
-  @ViewChild('defaultWrapper', {static: true}) defaultWrapper: TemplateRef<any> | null = null;
-
-  get itemTemplate(): TemplateRef<any> | undefined {
-    return this._itemTemplate;
-  }
-  private _itemTemplate: TemplateRef<any> | undefined;
+  @Input() type = 'post';
 
   @Input() 
-  set itemTemplate(value: TemplateRef<any> | undefined) {
-    this._itemTemplate = value;
+  set template(value: string | undefined) {
+    const templateRef = this.templateStorageService.templates.get(value || '');
+    this.itemTemplateSubject.next(templateRef);
   }
 
-  @ContentChild(TemplateRef, {static: true}) 
-  set viewTemplate(value: TemplateRef<any>) {
-    if (!this._itemTemplate && value) {
-      this._itemTemplate = value;
+  constructor(
+    private journeyContentService: JourneyContentService,
+    public readonly templateStorageService: TemplateStorageService) {
     }
-  }
-  
-  constructor(private journeyContentService: JourneyContentService/*, private cdref: ChangeDetectorRef*/) { }
-
-  ngAfterViewInit() {
-    if (!this.wrapper) {
-      this.wrapper = this.defaultWrapper;
-
-    }
-  }
 
   ngOnInit(): void {
-    this.journeyContentService
-    .getContent(this.contentId)
-    .subscribe((data: any) => {
-      this.templateData = data.record.contentlets[0];
-      // this.preTemplateData = data.record.contentlets[0];
+    let call: Observable<object> = of({});
+
+    // Avoid executing any call to server if the template 
+    // doesn't exist or has not been provided.
+    if (this.itemTemplateSubject.getValue() === undefined) {
+      return;
+    }
+
+    if (this.type === 'media') {
+      call = this.journeyContentService
+      .getMediaContent(this.contentId)
+    } else {
+      call = this.journeyContentService
+      .getContent(this.contentId)
+    }
+
+    call.subscribe((data: any) => {
+      this.templateDataSubject.next(data);
     });
+    
   }
-  
-  // ngAfterContentChecked() {
-  //   this.templateData = this.preTemplateData;
-  //   this.cdref.detectChanges();  
-  // }
 }
