@@ -3,8 +3,6 @@ info:
   description: The REST API provide by the core REST module.
   title: test - REST API
   version: Versioning not supported
-security:
-  csrf_token: []
 tags:
   - name: node
     description: "Entity type: Content"
@@ -79,7 +77,7 @@ paths:
       summary: Get a Content
       operationId: entity:node:GET
       security:
-        - cookie: []
+        - cookie: [x]
         - csrf_token: []
 servers:
   - url: http://localhost:80/

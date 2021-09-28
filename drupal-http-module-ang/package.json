@@ -1,0 +1,30 @@
+{
+  "name": "@backbase/drupal-http-module-ang",
+  "version": "1.0.0",
+  "description": "OpenAPI client for @backbase/drupal-http-module-ang",
+  "keywords": [
+    "backbase",
+    "web",
+    "wa3",
+    "wc3",
+    "openapi-client",
+    "openapi-generator"
+  ],
+  "license": "Unlicense",
+  "peerDependencies": {
+    "@angular/core": "^10.1.0",
+    "@backbase/foundation-ang": "^6.6.7",
+    "rxjs": "^6.6.0"
+  },
+  "main": "bundles/backbase-drupal-http-module-ang.umd.js",
+  "module": "fesm2015/backbase-drupal-http-module-ang.js",
+  "es2015": "fesm2015/backbase-drupal-http-module-ang.js",
+  "esm2015": "esm2015/backbase-drupal-http-module-ang.js",
+  "fesm2015": "fesm2015/backbase-drupal-http-module-ang.js",
+  "typings": "backbase-drupal-http-module-ang.d.ts",
+  "metadata": "backbase-drupal-http-module-ang.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
+}

@@ -18,7 +18,7 @@
         <codegen.buildDist>dist/libs/drupal-http-module-ang</codegen.buildDist>
         <codegen.npmPackage.version>1.0.0</codegen.npmPackage.version>
         <codegen.generateMocks>true</codegen.generateMocks>
-        <codegen.apiModulePrefix>CMS</codegen.apiModulePrefix>
+        <codegen.apiModulePrefix>Drupal</codegen.apiModulePrefix>
         <codegen.serviceSuffix>HttpService</codegen.serviceSuffix>
     </properties>
 
