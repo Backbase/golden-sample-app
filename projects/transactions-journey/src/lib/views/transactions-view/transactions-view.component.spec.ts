@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE } from '../../communication';
+import { debitMockTransaction, transactionsMock } from '../../mocks/transactions-mocks';
 import { Transaction } from '../../model/transaction';
 
 import { FilterTransactionsPipe } from '../../pipes/filter-transactions.pipe';
@@ -27,77 +28,6 @@ class FakeTextFilter {
   @Output() textChange = new EventEmitter<string>();
 }
 
-const transactions = [{
-    categoryCode: '#12a580',
-    dates: {
-      valueDate: 1600493600000
-    },
-    transaction: {
-      amountCurrency: {
-        amount: 5000,
-        currencyCode: 'EUR'
-      },
-      type: 'Salaries',
-      creditDebitIndicator: 'CRDT'
-    },
-    merchant: {
-      name: 'Backbase',
-      accountNumber: 'SI64397745065188826'
-    }
-  }, {
-    categoryCode: '#12a580',
-    dates: {
-      valueDate: 1600387200000
-    },
-    transaction: {
-      amountCurrency: {
-        amount: 82.02,
-        currencyCode: 'EUR'
-      },
-      type: 'Card Payment',
-      creditDebitIndicator: 'DBIT'
-    },
-    merchant: {
-      name: 'The Tea Lounge',
-      accountNumber: 'SI64397745065188826'
-    }
-  }, {
-    categoryCode: '#d51271',
-    dates: {
-      valueDate: 1600473600000
-    },
-    transaction: {
-      amountCurrency: {
-        amount: 84.64,
-        currencyCode: 'EUR'
-      },
-      type: 'Card Payment',
-      creditDebitIndicator: 'DBIT'
-    },
-    merchant: {
-      name: 'Texaco',
-      accountNumber: 'SI64397745065188826'
-    }
-  }];
-
-  const additionalTransaction = {
-    categoryCode: '#fbbb1b',
-    dates: {
-      valueDate: 1599868800000
-    },
-    transaction: {
-      amountCurrency: {
-        amount: 142.95,
-        currencyCode: 'EUR'
-      },
-      type: 'Online Transfer',
-      creditDebitIndicator: 'DBIT'
-    },
-    merchant: {
-      name: 'Southern Electric Company',
-      accountNumber: 'SI64397745065188826'
-    }
-  };
 describe('TransactionsViewComponent', () => {
   let fixture: ComponentFixture<TransactionsViewComponent>;
   let component: TransactionsViewComponent;
@@ -110,13 +40,13 @@ describe('TransactionsViewComponent', () => {
         {
           provide: TransactionsHttpService,
           useValue: {
-            transactions$: of(transactions)
+            transactions$: of(transactionsMock)
           },
         },
         {
           provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
           useValue: {
-            latestTransaction$: of(additionalTransaction),
+            latestTransaction$: of(debitMockTransaction),
           }
         }
       ],

@@ -10,7 +10,7 @@
     "build:docker": "docker build -t golden-sample-app:latest .",
     "start:docker": "docker run -p 8080:8080 golden-sample-app",
     "xi18n": "ng extract-i18n golden-sample-app --output-path=src/locale && xliffmerge --profile src/xliffmerge.json nl-NL",
-    "test": "ng test",
+    "test": "ng test --code-coverage=true",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:journeys": "ng build transactions-journey && ng build transfer-journey",

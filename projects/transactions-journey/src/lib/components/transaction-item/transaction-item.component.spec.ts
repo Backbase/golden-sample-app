@@ -2,32 +2,20 @@ import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { AmountModule } from '@backbase/ui-ang';
+import { creditMockTransaction, debitMockTransaction } from '../../mocks/transactions-mocks';
 
 import { TransactionItemComponent } from './transaction-item.component';
 
 @Component({
   selector: 'bb-host-component',
-  template: '<bb-transaction-item [transaction]="transaction"></bb-transaction-item>'
+  template: `
+    <bb-transaction-item [transaction]="creditTransaction"></bb-transaction-item>
+    <bb-transaction-item [transaction]="debitTransaction"></bb-transaction-item>
+  `
 })
 class HostComponent {
-  transaction = {
-    categoryCode: '#12a580',
-    dates: {
-      valueDate: 1600493600000
-    },
-    transaction: {
-      amountCurrency: {
-        amount: 5000,
-        currencyCode: 'EUR'
-      },
-      type: 'Salaries',
-      creditDebitIndicator: 'CRDT'
-    },
-    merchant: {
-      name: 'Backbase',
-      accountNumber: 'SI64397745065188826'
-    }
-  };
+  creditTransaction = creditMockTransaction;
+  debitTransaction = debitMockTransaction
 }
 
 describe('TransactionItemComponent', () => {
@@ -50,18 +38,14 @@ describe('TransactionItemComponent', () => {
   });
 
   it('should set amount positive if the creditDebit indicator has the value of "credit"', async () => {
-    component.transaction.transaction.creditDebitIndicator = 'CRDT';
-    component.transaction = { ...component.transaction }; // force new instance because it's onpush strategy
     fixture.detectChanges();
     await fixture.whenStable();
-    expect(fixture.debugElement.query(By.css('.transactions-item__amount')).nativeElement.classList.contains('negative')).toBe(false);
+    expect(fixture.debugElement.queryAll(By.css('.transactions-item__amount'))[0].nativeElement.classList.contains('negative')).toBe(false);
   });
 
   it('should set amount negative if the creditDebit indicator has the value of "debit"', async () => {
-    component.transaction.transaction.creditDebitIndicator = 'DBIT';
-    component.transaction = { ...component.transaction };  // force new instance because it's onpush strategy
     fixture.detectChanges();
     await fixture.whenStable();
-    expect(fixture.debugElement.query(By.css('.transactions-item__amount')).nativeElement.classList.contains('negative')).toBe(true);
+    expect(fixture.debugElement.queryAll(By.css('.transactions-item__amount'))[1].nativeElement.classList.contains('negative')).toBe(true);
   });
 });
