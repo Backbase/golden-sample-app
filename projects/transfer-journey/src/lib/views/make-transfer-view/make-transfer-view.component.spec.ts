@@ -12,13 +12,6 @@ import { MakeTransferJourneyState } from "../../services/make-transfer-journey-s
 import { MakeTransferPermissionsService } from "../../services/make-transfer-permissions.service";
 import { MakeTransferViewComponent } from "./make-transfer-view.component";
 
-let fixture: ComponentFixture<MakeTransferViewComponent>;
-let routerStub: Pick<Router, 'navigate'>;
-let transferStoreStub: Pick<MakeTransferJourneyState, 'next'>;
-let makeTransferPermissionsStub: Pick<MakeTransferPermissionsService, 'unlimitedAmountPerTransaction$'>;
-let accountsHttpServiceStub: Pick<MakeTransferAccountHttpService, 'currentAccount$'>;
-let configurationServiceStub: Pick<MakeTransferJourneyConfiguration, 'maskIndicator' | 'maxTransactionAmount'>;
-
 @Component({
   selector: 'bb-make-transfer-form',
   template: '<div></div>'
@@ -27,7 +20,6 @@ export class MakeTransferFormFake {
   @Input() account: Account | undefined;
   @Input() showMaskIndicator = true;
   @Input() maxLimit = 0;
-  
   @Output() submitTransfer = new EventEmitter<Transfer>();
 }
 
@@ -38,6 +30,13 @@ const accountMock = {
 };
 
 describe('MakeTransferViewComponent', () => {
+  let fixture: ComponentFixture<MakeTransferViewComponent>;
+  let routerStub: Pick<Router, 'navigate'>;
+  let transferStoreStub: Pick<MakeTransferJourneyState, 'next'>;
+  let makeTransferPermissionsStub: Pick<MakeTransferPermissionsService, 'unlimitedAmountPerTransaction$'>;
+  let accountsHttpServiceStub: Pick<MakeTransferAccountHttpService, 'currentAccount$'>;
+  let configurationServiceStub: Pick<MakeTransferJourneyConfiguration, 'maskIndicator' | 'maxTransactionAmount'>;
+
   transferStoreStub = {
     next: jasmine.createSpy()
   };

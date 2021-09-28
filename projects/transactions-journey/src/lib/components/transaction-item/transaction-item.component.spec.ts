@@ -39,9 +39,7 @@ describe('TransactionItemComponent', () => {
       imports: [AmountModule],
       declarations: [ TransactionItemComponent, HostComponent ]
     });
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(HostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -24,9 +24,10 @@ describe('MakeTransferSummaryComponent', () => {
   });
 
   it('should display the elements correctly', () => {
-    const values = fixture.debugElement.queryAll(By.css('.item-value'));
+    const transferAccountDestination = fixture.debugElement.query(By.css('span[data-role="transfer-account-destination"]'));
+    const transferAmount = fixture.debugElement.query(By.css('span[data-role="transfer-amount"]'));
 
-    expect(values[0].nativeElement.innerText).toBe('002');
-    expect(values[1].nativeElement.innerText).toBe('100');
+    expect(transferAccountDestination.nativeElement.innerText).toBe('002');
+    expect(transferAmount.nativeElement.innerText).toBe('100');
   });
 });

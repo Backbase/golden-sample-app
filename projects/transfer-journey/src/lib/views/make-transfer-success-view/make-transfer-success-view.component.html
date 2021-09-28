@@ -1,5 +1,5 @@
 <h1>{{title}}</h1>
-<div class="transfer-summary" *ngIf="(transferStore.transfer | async)! as transfer">
+<div data-role="transfer-summary" *ngIf="(transferStore.transfer | async)! as transfer">
   you have transfered <strong>{{transfer?.amount}}</strong> to  <strong>{{transfer?.toAccount}}</strong>
 </div>
 

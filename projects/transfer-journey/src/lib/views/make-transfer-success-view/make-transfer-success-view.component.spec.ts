@@ -52,7 +52,7 @@ describe('MakeTransferSuccessViewComponent', () => {
   });
 
   it('should show a summary of the transfer', () => {
-    const element = fixture.debugElement.query(By.css('.transfer-summary')).nativeElement;
+    const element = fixture.debugElement.query(By.css('div[data-role="transfer-summary"]')).nativeElement;
     const title = fixture.debugElement.query(By.css('h1')).nativeElement;
     expect(element.innerText).toBe('you have transfered 200 to 222');
     expect(title.innerText).toBe('my title');

@@ -134,7 +134,7 @@ describe('TransactionsViewComponent', () => {
   });
 
   it('should filter transactions based on the search', () => {
-    component.filter = 'Tea';
+    fixture.debugElement.query(By.css('bb-text-filter')).triggerEventHandler('textChange', 'Tea');
     fixture.detectChanges();
 
     const result = fixture.debugElement.queryAll(By.css('.bb-list__item'));
