@@ -7,7 +7,7 @@ import { AppAuthService } from './services/app-auth.service';
 describe('AppComponent', () => {
   beforeEach(async () => {
     const layoutServiceStub = jasmine.createSpyObj<LayoutService>(['toggleNav']);
-    const authSerivceStub = jasmine.createSpyObj<AppAuthService>(['login']);
+    const authSerivceStub = jasmine.createSpyObj<AppAuthService>(['runInitialLoginSequence']);
 
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule],
