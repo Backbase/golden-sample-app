@@ -116,6 +116,18 @@
             </ng-container>
           </ng-template>
 
+          <ng-template templateId="TJ:MTV:WP:imageTmpl" let-data="data">
+            <ng-container *ngIf="data.media_details as details">
+              <img src="{{data.source_url}}" width="{{details.width}}" height="{{details.height}}"/>
+            </ng-container>
+          </ng-template>
+
+          <!-- <ng-template templateId="TJ:MTV:DR:htmlTemplate" let-data="data">
+            <ng-container *ngIf="data.body as body">
+              <div [innerHTML]="body[0].value | safeHtml"></div>
+            </ng-container>
+          </ng-template>
+          
           <ng-template templateId="TJ:MTV:WP:linkTmpl2" let-data="data">
             <a href="{{data.source_url}}" target="_blank">{{data.slug}}</a>
           </ng-template>
@@ -127,14 +139,18 @@
           </ng-template>
 
           <ng-template templateId="TJ:MTV:WP:imageTmpl" let-data="data">
+            {{ data | json}}
+          </ng-template> -->
+
+          <!-- <ng-template templateId="TJ:MTV:WP:imageTmpl" let-data="data">
             <ng-container *ngIf="data.media_details as details">
               <img src="{{data.source_url}}" width="{{details.width}}" height="{{details.height}}"/>
             </ng-container>
-          </ng-template>
+          </ng-template> -->
 
-          <ng-template templateId="TJ:MTV:WP:imageTmpl:500h" let-data="data">
+          <!-- <ng-template templateId="TJ:MTV:WP:imageTmpl:500h" let-data="data">
             <img src="{{data.source_url}}" height="500"/>
-          </ng-template>
+          </ng-template> -->
 
         </template-storage>
         

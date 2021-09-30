@@ -1,6 +1,11 @@
 // import { HttpClient } from '@angular/common/http';
 import { Injectable, Optional, Inject, InjectionToken } from '@angular/core';
+import { Observable } from 'rxjs';
 import { DefaultHttpService as WordpressHttpService } from 'wordpress-http-module-ang';
+import { CMSConfiguration, NodeHttpService as DrupalHttpService} from 'drupal-http-module-ang';
+import { Media } from '../interfaces/cms-media';
+import { Post } from '../interfaces/cms-post';
+import { DrupalToWordpress } from '../utils/drupal-to-wordpress';
 
 export interface JourneyContentConfiguration {
   cms: 'wordpress' | 'drupal';
@@ -21,36 +26,58 @@ export class JourneyContentService {
 
   constructor(
     @Optional() @Inject(JourneyContentConfigurationToken) config: JourneyContentConfiguration,
-    private wordpressHttpService: WordpressHttpService,
+    /*private wordpressHttpService: WordpressHttpService,*/
+    private drupalHttpService: DrupalHttpService
   ) {
     config = config || {};
     this._config = { ...configDefaults, ...config };
+    
+    this.drupalHttpService.configuration = new CMSConfiguration({
+      apiKeys: {},
+      basePath: '',
+      password: 'test',
+      username: 'test'
+    });
   }
 
   get defaults(): JourneyContentConfiguration {
     return configDefaults;
   }
 
-  getMediaContent(contentId: string) {
+  getMediaContent(contentId: string): Observable<Media> {
     if(!contentId) {
       throw new Error('No contentId defined');
     }
- 
-    return this.wordpressHttpService
-    .mediaIdGet({
-      id: contentId,
-    });
+    
+    return DrupalToWordpress.nodeToMedia(this.drupalHttpService
+      .entityNodeGET({
+        node: contentId,
+        format: 'json',
+      })
+    );
+    
+    // return this.wordpressHttpService
+    // .mediaIdGet({
+    //   id: contentId,
+    // });
   }
 
-  getContent(contentId: string) {
+  getContent(contentId: string): Observable<Post> {
     if(!contentId) {
       throw new Error('No contentId defined');
     }
 
-    return this.wordpressHttpService
-    .postsIdGet({
-      id: contentId,
-    });
+    return DrupalToWordpress.nodeToPost(this.drupalHttpService
+      .entityNodeGET({
+        node: contentId,
+        format: 'json',
+      })
+    );
+    
+    // return this.wordpressHttpService
+    // .postsIdGet({
+    //   id: contentId,
+    // });
   }
 
 }

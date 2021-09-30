@@ -1,9 +1,29 @@
-<!-- If itemTemplate is provided then it's used -->
-<ng-container *ngIf="templateData$ | async as itemData">
-  <ng-container *ngIf="itemTemplate$ | async as template">
-    <ng-container *ngTemplateOutlet="template; context: { data: itemData }">
-    </ng-container>    
+
+<ng-container *ngIf="itemTemplate$ | async as template">
+  <ng-container *ngIf="templateData$ | async as itemData">
+    <ng-container *ngTemplateOutlet="template; context: { data: itemData }"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="!(templateData$ | async)">
+    <ng-container *ngTemplateOutlet="template; context: { data: {} }"></ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="!(itemTemplate$ | async)">
+  <ng-container *ngIf="templateData$ | async as itemData">
+    <ng-container *ngTemplateOutlet="wrapper; context: {$implicit: body, data: itemData}"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="!(templateData$ | async)">
+    <ng-container *ngTemplateOutlet="wrapper; context: {$implicit: body, data: {}}"></ng-container>
   </ng-container>
 </ng-container>
 
 
+<!-- Body is used to render the content passing data -->
+<ng-template #body let-data="data">
+  <ng-content></ng-content>
+</ng-template>
+
+<!-- Default wrapper if no one was passed through content -->
+<ng-template #defaultWrapper let-content let-data="data">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</ng-template>

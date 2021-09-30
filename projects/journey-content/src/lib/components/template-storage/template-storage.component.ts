@@ -20,6 +20,7 @@ export class TemplateStorageComponent {
         const templatesArray = this.templatesList ? this.templatesList.toArray() : [];
         // Traversing templates to create mapping
         templatesArray.forEach((template) => {
+            console.log('template id:', template.templateId);
             this.service.templates.set(template.templateId, template.template);
         });
 

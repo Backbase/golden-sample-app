@@ -13,7 +13,6 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpEvent, HttpParameterCodec } 
 import { Observable } from 'rxjs';
 import { Node } from '../model/models';
 import { CMSConfiguration } from '../configuration';
-import * as ɵngcc0 from '@angular/core';
 export interface EntityNodeGETRequestParams {
     /** Request format */
     ["format"]: 'hal_json' | 'json';
@@ -54,7 +53,4 @@ export declare class NodeHttpService {
         httpHeaderAccept?: 'application/json';
     }): Observable<HttpEvent<Node>>;
     entityNodeGETUrl(requestParameters: EntityNodeGETRequestParams): string;
-    static ɵfac: ɵngcc0.ɵɵFactoryDeclaration<NodeHttpService, [null, { optional: true; }, { optional: true; }]>;
 }
-
-//# sourceMappingURL=node.service.d.ts.map

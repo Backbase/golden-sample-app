@@ -15,22 +15,72 @@
   <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
 </ng-template>
 
-<h2>Existing Html template</h2>
-<bb-journey-content template="TJ:MTV:WP:htmlTemplate" contentId="1" type="post">
+<!-- 
+<h2>Hardcoded content</h2>
+<h3>- no type, no content id -</h3>
+<bb-journey-content>
+  <h1>Test</h1>
 </bb-journey-content>
 
 <hr/>
+
+<h3>- no type, content id - (Post content) -</h3>
+<bb-journey-content contentId="1" type="post">
+  <h1>Hello</h1>
+</bb-journey-content>
+
+<hr/>
+
+<h2>Embedded HTML template</h2>
+<bb-journey-content contentId="1" type="post">
+  <ng-template let-data="data">
+    <ng-container *ngIf="data.content as content">
+      <div [innerHTML]="content.rendered | safeHtml"></div>
+    </ng-container>
+  </ng-template>
+</bb-journey-content>
+
+<hr/> -->
+<!-- 
+<h2>Existing WP Html template</h2>
+<bb-journey-content template="TJ:MTV:WP:htmlTemplate" contentId="1" type="post">
+</bb-journey-content>
+
+<hr/> -->
+
+<!-- <h2>Embedded image template</h2>
+<bb-journey-content contentId="2" type="media">
+  <ng-template let-data="data">
+    <ng-container *ngIf="data.media_details as details">
+      <img src="{{data.source_url}}" width="{{details.width}}" height="{{details.height}}"/>
+    </ng-container>
+  </ng-template>
+</bb-journey-content> -->
+
+<h2>Existing image template</h2>
+<bb-journey-content template="TJ:MTV:WP:imageTmpl" contentId="2" type="media">
+</bb-journey-content>
+
+
+<!-- 
+<h2>Existing Drupal Html template</h2>
+<bb-journey-content template="TJ:MTV:DR:htmlTemplate" contentId="1" type="post">
+</bb-journey-content>
+
+<hr/> -->
+<!-- 
+<h2>Existing image template</h2>
+<bb-journey-content templateId="TJ:MTV:WP:imageTmpl" contentId="3" type="media">
+</bb-journey-content>
+
+<hr/> -->
 <!-- 
 
 
 
 
 
-<h2>Not existing Html template</h2>
-<bb-journey-content templateId="TJ:MTV:htmlTemplate2" contentId="1" type="post">
-</bb-journey-content>
 
-<hr/>
 
 <h2>Existing image template</h2>
 <bb-journey-content templateId="TJ:MTV:WP:imageTmpl" contentId="5" type="media">

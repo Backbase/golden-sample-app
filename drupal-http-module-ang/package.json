@@ -17,14 +17,26 @@
     "rxjs": "^6.6.0"
   },
   "main": "bundles/backbase-drupal-http-module-ang.umd.js",
+  "module_ivy_ngcc": "__ivy_ngcc__/fesm2015/backbase-drupal-http-module-ang.js",
   "module": "fesm2015/backbase-drupal-http-module-ang.js",
+  "es2015_ivy_ngcc": "__ivy_ngcc__/fesm2015/backbase-drupal-http-module-ang.js",
   "es2015": "fesm2015/backbase-drupal-http-module-ang.js",
   "esm2015": "esm2015/backbase-drupal-http-module-ang.js",
+  "fesm2015_ivy_ngcc": "__ivy_ngcc__/fesm2015/backbase-drupal-http-module-ang.js",
   "fesm2015": "fesm2015/backbase-drupal-http-module-ang.js",
   "typings": "backbase-drupal-http-module-ang.d.ts",
   "metadata": "backbase-drupal-http-module-ang.metadata.json",
   "sideEffects": false,
   "dependencies": {
     "tslib": "^2.0.0"
+  },
+  "__processed_by_ivy_ngcc__": {
+    "es2015": "12.2.7",
+    "fesm2015": "12.2.7",
+    "module": "12.2.7",
+    "typings": "12.2.7"
+  },
+  "scripts": {
+    "prepublishOnly": "node --eval \"console.error('ERROR: Trying to publish a package that has been compiled by NGCC. This is not allowed.\\nPlease delete and rebuild the package, without compiling with NGCC, before attempting to publish.\\nNote that NGCC may have been run by importing this package into another project that is being built with Ivy enabled.\\n')\" && exit 1"
   }
 }

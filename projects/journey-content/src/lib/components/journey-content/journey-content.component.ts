@@ -1,4 +1,4 @@
-import { Component, ContentChild, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { TemplateStorageService } from '../../services/template-storage.service';
 import { JourneyContentService } from '../../services/journey-content.service';
@@ -7,20 +7,25 @@ import { JourneyContentService } from '../../services/journey-content.service';
   selector: 'bb-journey-content',
   templateUrl: './journey-content.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JourneyContentComponent implements OnInit {
 
   private itemTemplateSubject = new BehaviorSubject<TemplateRef<any> | undefined>(undefined);
   public itemTemplate$ = this.itemTemplateSubject.asObservable();
 
-  private templateDataSubject = new BehaviorSubject<any>({});
+  private templateDataSubject = new BehaviorSubject<any>(null);
   public templateData$ = this.templateDataSubject.asObservable();
+
+  @ContentChild(TemplateRef, { static: true }) wrapper: TemplateRef<any> | null = null;
+
+  @ViewChild('defaultWrapper', { static: true }) defaultWrapper: TemplateRef<any> | null = null;
 
   @Input() contentId = '';
 
   @Input() type = 'post';
 
-  @Input() 
+  @Input()
   set template(value: string | undefined) {
     const templateRef = this.templateStorageService.templates.get(value || '');
     this.itemTemplateSubject.next(templateRef);
@@ -28,29 +33,36 @@ export class JourneyContentComponent implements OnInit {
 
   constructor(
     private journeyContentService: JourneyContentService,
-    public readonly templateStorageService: TemplateStorageService) {
+    public readonly templateStorageService: TemplateStorageService,
+    private cdf: ChangeDetectorRef) {
+  }
+
+  ngAfterViewInit() {
+    if (!this.wrapper) {
+      this.wrapper = this.defaultWrapper;
+
     }
+  }
 
   ngOnInit(): void {
     let call: Observable<object> = of({});
 
-    // Avoid executing any call to server if the template 
-    // doesn't exist or has not been provided.
-    if (this.itemTemplateSubject.getValue() === undefined) {
+    if (!this.contentId){
       return;
     }
 
     if (this.type === 'media') {
       call = this.journeyContentService
-      .getMediaContent(this.contentId)
+        .getMediaContent(this.contentId)
     } else {
       call = this.journeyContentService
-      .getContent(this.contentId)
+        .getContent(this.contentId)
     }
 
     call.subscribe((data: any) => {
       this.templateDataSubject.next(data);
+      this.cdf.detectChanges();
     });
-    
+
   }
 }

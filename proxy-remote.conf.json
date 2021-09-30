@@ -1,0 +1,12 @@
+{
+  "/wp-json": {
+    "target": "https://wordpress.devs.rnd.live.backbaseservices.com",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/node": {
+    "target": "http://localhost",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}
