@@ -15,18 +15,39 @@
   <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
 </ng-template>
 
+<!-- <h2>Hardcoded content</h2>
+<h3>- no type, no content id -</h3>
+<bb-journey-content>
+  <h1 i18n>Test</h1>
+</bb-journey-content>
+
+<hr/> -->
+<h2>Existing WP Html template</h2>
+<bb-journey-content template="TJ:MTV:WP:htmlTemplate" contentId="1">
+</bb-journey-content>
+
+<hr/>
+
+<bb-journey-content contentId="1">
+  <ng-template let-data="data">
+    <ng-container *ngIf="data.content as content">
+      <div [innerHTML]="content.rendered | safeHtml"></div>
+    </ng-container>
+  </ng-template>
+</bb-journey-content>
+
 <!-- 
 <h2>Hardcoded content</h2>
 <h3>- no type, no content id -</h3>
 <bb-journey-content>
-  <h1>Test</h1>
+  <h1 i18n>Test</h1>
 </bb-journey-content>
 
 <hr/>
 
 <h3>- no type, content id - (Post content) -</h3>
 <bb-journey-content contentId="1" type="post">
-  <h1>Hello</h1>
+  <h1 i18n>Hello</h1>
 </bb-journey-content>
 
 <hr/>
@@ -41,12 +62,12 @@
 </bb-journey-content>
 
 <hr/> -->
-<!-- 
+
 <h2>Existing WP Html template</h2>
 <bb-journey-content template="TJ:MTV:WP:htmlTemplate" contentId="1" type="post">
 </bb-journey-content>
 
-<hr/> -->
+<hr/>
 
 <!-- <h2>Embedded image template</h2>
 <bb-journey-content contentId="2" type="media">
@@ -57,10 +78,14 @@
   </ng-template>
 </bb-journey-content> -->
 
-<h2>Existing image template</h2>
-<bb-journey-content template="TJ:MTV:WP:imageTmpl" contentId="2" type="media">
-</bb-journey-content>
+<!-- <h2>Existing image template WP id=5</h2>
+<bb-journey-content template="TJ:MTV:WP:imageTmpl" contentId="5" type="media">
+</bb-journey-content> -->
 
+<!-- Id is different in WP and Drupal
+<h2>Existing image template DP id=2</h2>
+<bb-journey-content template="TJ:MTV:WP:imageTmpl" contentId="2" type="media">
+</bb-journey-content> -->
 
 <!-- 
 <h2>Existing Drupal Html template</h2>

@@ -22,6 +22,7 @@ import { AuthConfig, OAuthModule, OAuthModuleConfig, OAuthStorage } from 'angula
 
 import { JourneyContentConfigProvider } from './config.providers';
 import { JourneyContentModule } from 'journey-content';
+import { CMSApiModule } from 'wordpress-http-module-ang';
 
 @NgModule({
   declarations: [AppComponent],
@@ -45,6 +46,16 @@ import { JourneyContentModule } from 'journey-content';
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     OAuthModule.forRoot(),
+    CMSApiModule.forRoot(() => {
+      return {
+        credentials: {},
+        isJsonMime: () => true,
+        lookupCredential: () => '',
+        selectHeaderContentType: () => '',
+        selectHeaderAccept: () => '',
+        basePath: 'https://wordpress.devs.rnd.live.backbaseservices.com/wp-json/wp/v2'
+      };
+    }),
     JourneyContentModule,
   ],
   providers: [

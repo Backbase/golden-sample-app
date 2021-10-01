@@ -5,9 +5,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+/**
+ * The purpose of this service is just to test Drupal and Wordpress
+ * in the same way but this will not be needed after having the BE
+ * adaptor and/or when we decide which CMS will be the proposed.
+ */
 @Injectable()
 export class DrupalToWordpress {
-    static nodeToPost(node$: Observable<NodeArticle>): Observable<Post> {
+    nodeToPost(node$: Observable<NodeArticle>): Observable<Post> {
         return node$
         .pipe(
             map((node: NodeArticle): Post => {
@@ -24,7 +29,7 @@ export class DrupalToWordpress {
         );
     }
 
-    static nodeToMedia(node$: Observable<NodeImage>): Observable<Media> {
+    nodeToMedia(node$: Observable<NodeImage>): Observable<Media> {
         return node$
         .pipe(
             map((node: NodeImage): Media => {
