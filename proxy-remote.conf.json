@@ -2,7 +2,8 @@
   "/wp-json": {
     "target": "https://wordpress.devs.rnd.live.backbaseservices.com",
     "secure": false,
-    "logLevel": "debug"
+    "logLevel": "debug",
+    "changeOrigin": true
   },
   "/node": {
     "target": "http://localhost",

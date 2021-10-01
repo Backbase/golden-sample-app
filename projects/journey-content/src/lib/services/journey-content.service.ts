@@ -26,18 +26,18 @@ export class JourneyContentService {
 
   constructor(
     @Optional() @Inject(JourneyContentConfigurationToken) config: JourneyContentConfiguration,
-    /*private wordpressHttpService: WordpressHttpService,*/
-    private drupalHttpService: DrupalHttpService
+    private wordpressHttpService: WordpressHttpService,
+    /*private drupalHttpService: DrupalHttpService*/
   ) {
     config = config || {};
     this._config = { ...configDefaults, ...config };
     
-    this.drupalHttpService.configuration = new CMSConfiguration({
-      apiKeys: {},
-      basePath: '',
-      password: 'test',
-      username: 'test'
-    });
+    // this.drupalHttpService.configuration = new CMSConfiguration({
+    //   apiKeys: {},
+    //   basePath: '',
+    //   password: 'test',
+    //   username: 'test'
+    // });
   }
 
   get defaults(): JourneyContentConfiguration {
@@ -49,17 +49,17 @@ export class JourneyContentService {
       throw new Error('No contentId defined');
     }
     
-    return DrupalToWordpress.nodeToMedia(this.drupalHttpService
-      .entityNodeGET({
-        node: contentId,
-        format: 'json',
-      })
-    );
+    // return DrupalToWordpress.nodeToMedia(this.drupalHttpService
+    //   .entityNodeGET({
+    //     node: contentId,
+    //     format: 'json',
+    //   })
+    // );
     
-    // return this.wordpressHttpService
-    // .mediaIdGet({
-    //   id: contentId,
-    // });
+    return this.wordpressHttpService
+    .mediaIdGet({
+      id: contentId,
+    });
   }
 
   getContent(contentId: string): Observable<Post> {
@@ -67,17 +67,17 @@ export class JourneyContentService {
       throw new Error('No contentId defined');
     }
 
-    return DrupalToWordpress.nodeToPost(this.drupalHttpService
-      .entityNodeGET({
-        node: contentId,
-        format: 'json',
-      })
-    );
+    // return DrupalToWordpress.nodeToPost(this.drupalHttpService
+    //   .entityNodeGET({
+    //     node: contentId,
+    //     format: 'json',
+    //   })
+    // );
     
-    // return this.wordpressHttpService
-    // .postsIdGet({
-    //   id: contentId,
-    // });
+    return this.wordpressHttpService
+    .postsIdGet({
+      id: contentId,
+    });
   }
 
 }
