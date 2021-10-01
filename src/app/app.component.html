@@ -38,7 +38,7 @@
 
     <!-- Navigation Items-->
     <ul
-      *ngIf="isAuthenticated$ | async"
+      *ngIf="isAuthenticated"
       class="bb-layout__horizontal-nav"
     >
       <li class="bb-layout__horizontal-nav-item" *bbIfEntitlements="triplets.canViewTransfer">
