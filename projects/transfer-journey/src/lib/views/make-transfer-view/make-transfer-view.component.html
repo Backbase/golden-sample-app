@@ -15,15 +15,44 @@
   <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
 </ng-template>
 
+<h2>Render hardcoded content</h2>
+<bb-journey-content>
+  <h1>Hola</h1>
+</bb-journey-content>
+
+<hr/>
+
+
+<h2>Render template overriding hardcoded content</h2>
+<bb-journey-content template="example">
+  <h1>Hola</h1>
+</bb-journey-content>
+
+<hr/>
+
+<h2>Render template overriding hardcoded content</h2>
+<bb-journey-content template="example2" contentId="1">
+</bb-journey-content>
+
+<hr/>
+
+<!-- 
+<h2>Render post id=1</h2>
+<bb-journey-content template="TJ:MTV:WP:htmlTemplate" contentId="1">
+</bb-journey-content>
+
+<hr/> -->
+<!-- 
+<h2>Render image id=2</h2>
+<bb-journey-content template="TJ:MTV:WP:imageTmpl" contentId="2" type="media">
+</bb-journey-content> -->
+
+<hr/>
+
 <!-- <h2>Hardcoded content</h2>
 <h3>- no type, no content id -</h3>
 <bb-journey-content>
   <h1 i18n>Test</h1>
-</bb-journey-content>
-
-<hr/> -->
-<h2>Existing WP Html template</h2>
-<bb-journey-content template="TJ:MTV:WP:htmlTemplate" contentId="1">
 </bb-journey-content>
 
 <hr/>
@@ -34,7 +63,7 @@
       <div [innerHTML]="content.rendered | safeHtml"></div>
     </ng-container>
   </ng-template>
-</bb-journey-content>
+</bb-journey-content> -->
 
 <!-- 
 <h2>Hardcoded content</h2>
@@ -62,12 +91,12 @@
 </bb-journey-content>
 
 <hr/> -->
-
+<!-- 
 <h2>Existing WP Html template</h2>
 <bb-journey-content template="TJ:MTV:WP:htmlTemplate" contentId="1" type="post">
 </bb-journey-content>
 
-<hr/>
+<hr/> -->
 
 <!-- <h2>Embedded image template</h2>
 <bb-journey-content contentId="2" type="media">

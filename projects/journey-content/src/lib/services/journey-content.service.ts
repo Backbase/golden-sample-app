@@ -1,10 +1,8 @@
 // import { HttpClient } from '@angular/common/http';
 import { Injectable, Optional, Inject, InjectionToken } from '@angular/core';
-import { Observable } from 'rxjs';
-import { CMSConfiguration, NodeHttpService as DrupalHttpService} from 'drupal-http-module-ang';
+import { Observable } from 'rxjs';;
 import { Media } from '../interfaces/cms-media';
 import { Post } from '../interfaces/cms-post';
-import { DrupalToWordpress } from '../utils/drupal-to-wordpress';
 import { DefaultHttpService } from 'wordpress-http-module-ang';
 
 export interface JourneyContentConfiguration {
@@ -27,18 +25,9 @@ export class JourneyContentService {
   constructor(
     @Optional() @Inject(JourneyContentConfigurationToken) config: JourneyContentConfiguration,
     private wordpressHttpService: DefaultHttpService,
-    /*private drupalHttpService: DrupalHttpService.
-    private drupalToWordpress: DrupalToWordpress*/
   ) {
     config = config || {};
     this._config = { ...configDefaults, ...config };
-    
-    // this.drupalHttpService.configuration = new CMSConfiguration({
-    //   apiKeys: {},
-    //   basePath: '',
-    //   password: 'test',
-    //   username: 'test'
-    // });
   }
 
   get defaults(): JourneyContentConfiguration {
@@ -50,13 +39,6 @@ export class JourneyContentService {
       throw new Error('No contentId defined');
     }
     
-    // return this.drupalToWordpress.nodeToMedia(this.drupalHttpService
-    //   .entityNodeGET({
-    //     node: contentId,
-    //     format: 'json',
-    //   })
-    // );
-    
     return this.wordpressHttpService
     .mediaIdGet({
       id: contentId,
@@ -67,13 +49,6 @@ export class JourneyContentService {
     if(!contentId) {
       throw new Error('No contentId defined');
     }
-
-    // return this.drupalToWordpress.nodeToPost(this.drupalHttpService
-    //   .entityNodeGET({
-    //     node: contentId,
-    //     format: 'json',
-    //   })
-    // );
     
     return this.wordpressHttpService
     .postsIdGet({

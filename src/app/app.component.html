@@ -110,6 +110,14 @@
 
         <template-storage>
 
+          <ng-template templateId="example" let-data="data">
+            <h1>Tomas</h1>
+          </ng-template>
+
+          <ng-template templateId="example2" let-data="data">
+            {{data | json}}
+          </ng-template>
+
           <ng-template templateId="TJ:MTV:WP:htmlTemplate" let-data="data">
             <ng-container *ngIf="data.content as content">
               <div [innerHTML]="content.rendered | safeHtml"></div>

@@ -1,17 +1,8 @@
 {
   "/wp-json": {
-    "target": "http://localhost:8000",
+    "target": "http://localhost:3000",
     "secure": false,
-    "logLevel": "debug"
-  },
-  "/node": {
-    "target": "http://localhost",
-    "secure": false,
-    "logLevel": "debug"
-  },
-  "/sites": {
-    "target": "http://localhost",
-    "secure": false,
-    "logLevel": "debug"
+    "logLevel": "debug",
+    "changeOrigin": true
   }
 }
