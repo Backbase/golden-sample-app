@@ -7,6 +7,5 @@ import {
 export const JourneyContentConfigProvider: Provider = {
   provide: JourneyContentConfigurationToken,
   useValue: {
-    cms: 'wordpress'
   } as Partial<JourneyContentConfiguration>,
 };

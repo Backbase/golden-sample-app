@@ -17,6 +17,10 @@ export class JourneyContentComponent implements OnInit {
   private templateDataSubject = new BehaviorSubject<any>(null);
   public templateData$ = this.templateDataSubject.asObservable();
 
+  @ContentChild('wrapper', { static: true }) wrapper: TemplateRef<any> | null = null; 
+
+  @ViewChild('defaultWrapper', { static: true }) defaultWrapper: TemplateRef<any> | null = null
+
   @Input() contentId = '';
 
   @Input() type = 'post';
@@ -33,12 +37,20 @@ export class JourneyContentComponent implements OnInit {
     private cdf: ChangeDetectorRef) {
   }
 
+  ngAfterViewInit() {
+    if (!this.wrapper) {
+      this.wrapper = this.defaultWrapper;
+    }
+  }
+
   ngOnInit(): void {
     let call: Observable<object> = of({});
 
     if (!this.contentId){
       return;
     }
+
+    console.log('content id:', this.contentId);
 
     if (this.type === 'media') {
       call = this.journeyContentService

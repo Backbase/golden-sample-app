@@ -15,22 +15,34 @@
   <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
 </ng-template>
 
-<h2>Render hardcoded content</h2>
+<h2>Nested template - No data (Hardcoded content)</h2>
 <bb-journey-content>
-  <h1>Hola</h1>
+  <h2>Nested template - No data</h2>
 </bb-journey-content>
 
 <hr/>
 
+<h2>Nested template with data</h2>
+<bb-journey-content contentId="1">
+  <ng-template #wrapper let-data="data">
+    <ng-container *ngIf="data.content as content">
+      <div [innerHTML]="content.rendered | safeHtml"></div>
+    </ng-container>
+  </ng-template>
+</bb-journey-content>
 
-<h2>Render template overriding hardcoded content</h2>
+<hr/>
+
+<h2>Template replacing hardcoded content</h2>
 <bb-journey-content template="example">
   <h1>Hola</h1>
 </bb-journey-content>
 
 <hr/>
 
-<h2>Render template overriding hardcoded content</h2>
+
+
+<h2>Using template with data</h2>
 <bb-journey-content template="example2" contentId="1">
 </bb-journey-content>
 

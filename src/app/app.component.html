@@ -115,7 +115,9 @@
           </ng-template>
 
           <ng-template templateId="example2" let-data="data">
-            {{data | json}}
+            <ng-container *ngIf="data.content as content">
+              <div [innerHTML]="content.rendered | safeHtml"></div>
+            </ng-container>
           </ng-template>
 
           <ng-template templateId="TJ:MTV:WP:htmlTemplate" let-data="data">

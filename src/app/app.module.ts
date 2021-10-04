@@ -22,9 +22,7 @@ import { AuthConfig, OAuthModule, OAuthModuleConfig, OAuthStorage } from 'angula
 
 import { JourneyContentConfigProvider } from './config.providers';
 import { JourneyContentModule } from 'journey-content';
-// import { CMSApiModule } from 'wordpress-http-module-ang';
-
-import { CMSApiModule } from 'drupal-http-module-ang';
+import { CMSApiModule } from 'wordpress-http-module-ang';
 
 @NgModule({
   declarations: [AppComponent],
@@ -48,64 +46,6 @@ import { CMSApiModule } from 'drupal-http-module-ang';
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     OAuthModule.forRoot(),
-    CMSApiModule.forRoot(() => {
-      return {
-        credentials: {},
-        isJsonMime: () => true,
-        lookupCredential: () => '',
-        selectHeaderContentType: () => '',
-        selectHeaderAccept: () => '',
-        basePath: 'http://localhost:3000/wp-json/wp/v2',
-        password: 'test',
-        username: 'test'
-      };
-    }),
-    /** Basic configuration
-    CMSApiModule,
-    */
-    /**
-    * This configuration is for local call to Drupal using proxy */
-    // CMSApiModule.forRoot(() => {
-    //   return {
-    //     apiKeys: {},
-    //     credentials: {},
-    //     isJsonMime: () => true,
-    //     lookupCredential: () => '',
-    //     selectHeaderContentType: () => '',
-    //     selectHeaderAccept: () => '',
-    //     basePath: '',
-    //     password: 'test',
-    //     username: 'test'
-    //   };
-    // }),
-    /**
-     * This configuration is for local calls to Wordpress CMS without using proxy
-   CMSApiModule.forRoot(() => {
-      return {
-        credentials: {},
-        isJsonMime: () => true,
-        lookupCredential: () => '',
-        selectHeaderContentType: () => '',
-        selectHeaderAccept: () => '',
-        basePath: 'http://localhost:8000/wp-json/wp/v2',
-        password: 'test-user',
-        username: 'J4xQ!^e&vvUWTZvu^r'
-      };
-    }),
-    */
-    /**
-     * This configuration is for remote calls to Wordpress CMS without using proxy
-    CMSApiModule.forRoot(() => {
-      return {
-        credentials: {},
-        isJsonMime: () => true,
-        lookupCredential: () => '',
-        selectHeaderContentType: () => '',
-        selectHeaderAccept: () => '',
-        basePath: 'https://wordpress.devs.rnd.live.backbaseservices.com/wp-json/wp/v2'
-      };
-    }),
-     */
     JourneyContentModule,
   ],
   providers: [

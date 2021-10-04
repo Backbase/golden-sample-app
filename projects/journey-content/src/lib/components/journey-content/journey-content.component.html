@@ -1,26 +1,31 @@
-
-<ng-container *ngIf="itemTemplate$ | async as template">
-  <ng-container *ngIf="templateData$ | async as itemData">
+<ng-container *ngIf="templateData$ | async as itemData; else noData">
+  <ng-container *ngIf="itemTemplate$ | async as template; else noTemplateWithData">
+    template and data
     <ng-container *ngTemplateOutlet="template; context: { data: itemData }"></ng-container>
   </ng-container>
-  <ng-container *ngIf="!(templateData$ | async)">
+  <ng-template #noTemplateWithData>
+    <ng-container *ngTemplateOutlet="wrapper; context: { $implicit: body, data: itemData }"></ng-container>
+  </ng-template>
+</ng-container>
+
+<ng-template #noData>
+  <ng-container *ngIf="itemTemplate$ | async as template; else noTemplateNoData">
+    no data but with template
     <ng-container *ngTemplateOutlet="template; context: { data: {} }"></ng-container>
   </ng-container>
-</ng-container>
+</ng-template>
 
-<ng-container *ngIf="!(itemTemplate$ | async)">
-  <ng-container *ngIf="templateData$ | async as itemData">
-    <ng-container *ngTemplateOutlet="defaultWrapper; context: {$implicit: body, data: itemData}"></ng-container>
-  </ng-container>
-  <ng-container *ngIf="!(templateData$ | async)">
-    <ng-container *ngTemplateOutlet="defaultWrapper; context: {$implicit: body, data: {}}"></ng-container>
-  </ng-container>
-</ng-container>
+<ng-template #noTemplateNoData let-content>
+  no template no data
+  <ng-content></ng-content>
+</ng-template>
 
-<ng-template #body let-data="data">
+<ng-template #body>
   <ng-content></ng-content>
 </ng-template>
 
 <ng-template #defaultWrapper let-content let-data="data">
-  <ng-container *ngTemplateOutlet="content"></ng-container>
+  <div class="default-wrapper">
+    <ng-container *ngTemplateOutlet="content; context: { data: data }"></ng-container>
+  </div>
 </ng-template>

@@ -6,7 +6,6 @@ import { Post } from '../interfaces/cms-post';
 import { DefaultHttpService } from 'wordpress-http-module-ang';
 
 export interface JourneyContentConfiguration {
-  cms: 'wordpress' | 'drupal';
 }
 
 // eslint-disable-next-line
@@ -14,9 +13,7 @@ export const JourneyContentConfigurationToken = new InjectionToken<
 JourneyContentConfiguration
 >('JourneyContentServiceConfiguration injection token');
 
-const configDefaults: JourneyContentConfiguration = {
-  cms: 'wordpress'
-};
+const configDefaults: JourneyContentConfiguration = {};
 
 @Injectable()
 export class JourneyContentService {

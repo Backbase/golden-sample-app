@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start:proxy": "ng serve -- --proxy-config ../../proxy-local.conf.json",
+    "start:proxy": "ng serve -- --proxy-config ./proxy-local.conf.json",
     "build": "ng build",
     "build:stats": "ng build --configuration production --stats-json",
     "analyze": "webpack-bundle-analyzer dist/golden-sample-app/stats.json",

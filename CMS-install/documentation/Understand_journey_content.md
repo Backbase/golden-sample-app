@@ -66,26 +66,6 @@ Express server runs on `localhost:3000` and we assume Drupal server runs on `htt
 |`http://localhost:3000/wp-json/wp/v2/media/2`  | `http://localhost:9000/node/2?_format=json` |
 
 #### How my app can connect to Wordpress adapter for Drupal
-On `imports` array we have imported the configuration for Wordpress connector.
-
-*Wordpress connector configuration*
-```typescript
-CMSApiModule.forRoot(() => {
-      return {
-        credentials: {},
-        isJsonMime: () => true,
-        lookupCredential: () => '',
-        selectHeaderContentType: () => '',
-        selectHeaderAccept: () => '',
-        basePath: 'http://localhost:3000/wp-json/wp/v2',
-        password: 'test', // Replace this with yours if needed
-        username: 'test'  // Replace this with yours if needed
-      };
-    }),
-```
-
-On our Wordpress setup we have it installed on port 8000, [see more](../wordpress-install/Readme.md), but as you can see in code we have changed *basePath* to point to our proxy server so the calls are redirected to Drupal.
-
 Drupal and Wordpress responses are incompatible as they don't follow any standards, in order to make it more consistent we have created a response adapter returning the most common used on templates.
 
 When the response is *media* type:
@@ -109,10 +89,10 @@ When the response is *post* type:
 {
     "id": 1,
     "title": {
-        "rendered": "Hello World"
+        "rendered": "Title"
     },
     "content": {
-        "rendered": "<p><strong>orem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p> "
+        "rendered": "<p>Content</p> "
     }
 }
 ```
