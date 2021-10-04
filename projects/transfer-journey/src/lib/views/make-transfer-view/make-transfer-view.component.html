@@ -22,6 +22,13 @@
 
 <hr/>
 
+<h2>Template replacing hardcoded content</h2>
+<bb-journey-content template="example">
+  <h1 i18n>Hola</h1>
+</bb-journey-content>
+
+<hr/>
+
 <h2>Nested template with data</h2>
 <bb-journey-content contentId="1">
   <ng-template #wrapper let-data="data">
@@ -33,133 +40,32 @@
 
 <hr/>
 
-<h2>Template replacing hardcoded content</h2>
-<bb-journey-content template="example">
-  <h1>Hola</h1>
-</bb-journey-content>
-
-<hr/>
-
 <h2>Using template with data</h2>
 <bb-journey-content template="example2" contentId="1">
 </bb-journey-content>
 
 <hr/>
 
-<!-- 
 <h2>Render post id=1</h2>
-<bb-journey-content template="TJ:MTV:WP:htmlTemplate" contentId="1">
+<bb-journey-content template="htmlTemplate" contentId="1">
 </bb-journey-content>
 
-<hr/> -->
-<!-- 
+<hr/>
+
 <h2>Render image id=2</h2>
-<bb-journey-content template="TJ:MTV:WP:imageTmpl" contentId="2" type="media">
-</bb-journey-content> -->
-
-<hr/>
-
-<!-- <h2>Hardcoded content</h2>
-<h3>- no type, no content id -</h3>
-<bb-journey-content>
-  <h1 i18n>Test</h1>
+<bb-journey-content template="imageTmpl" contentId="2" type="media">
 </bb-journey-content>
 
 <hr/>
 
-<bb-journey-content contentId="1">
-  <ng-template let-data="data">
-    <ng-container *ngIf="data.content as content">
-      <div [innerHTML]="content.rendered | safeHtml"></div>
-    </ng-container>
-  </ng-template>
-</bb-journey-content> -->
-
-<!-- 
-<h2>Hardcoded content</h2>
-<h3>- no type, no content id -</h3>
-<bb-journey-content>
-  <h1 i18n>Test</h1>
+<h2>Render image 500h template</h2>
+<bb-journey-content template="imageTmpl:500h" contentId="2" type="media">
 </bb-journey-content>
 
 <hr/>
 
-<h3>- no type, content id - (Post content) -</h3>
-<bb-journey-content contentId="1" type="post">
-  <h1 i18n>Hello</h1>
+<h2>Render link template</h2>
+<bb-journey-content template="linkTmpl" contentId="2" type="media">
 </bb-journey-content>
 
 <hr/>
-
-<h2>Embedded HTML template</h2>
-<bb-journey-content contentId="1" type="post">
-  <ng-template let-data="data">
-    <ng-container *ngIf="data.content as content">
-      <div [innerHTML]="content.rendered | safeHtml"></div>
-    </ng-container>
-  </ng-template>
-</bb-journey-content>
-
-<hr/> -->
-<!-- 
-<h2>Existing WP Html template</h2>
-<bb-journey-content template="TJ:MTV:WP:htmlTemplate" contentId="1" type="post">
-</bb-journey-content>
-
-<hr/> -->
-
-<!-- <h2>Embedded image template</h2>
-<bb-journey-content contentId="2" type="media">
-  <ng-template let-data="data">
-    <ng-container *ngIf="data.media_details as details">
-      <img src="{{data.source_url}}" width="{{details.width}}" height="{{details.height}}"/>
-    </ng-container>
-  </ng-template>
-</bb-journey-content> -->
-
-<!-- <h2>Existing image template WP id=5</h2>
-<bb-journey-content template="TJ:MTV:WP:imageTmpl" contentId="5" type="media">
-</bb-journey-content> -->
-
-<!-- Id is different in WP and Drupal
-<h2>Existing image template DP id=2</h2>
-<bb-journey-content template="TJ:MTV:WP:imageTmpl" contentId="2" type="media">
-</bb-journey-content> -->
-
-<!-- 
-<h2>Existing Drupal Html template</h2>
-<bb-journey-content template="TJ:MTV:DR:htmlTemplate" contentId="1" type="post">
-</bb-journey-content>
-
-<hr/> -->
-<!-- 
-<h2>Existing image template</h2>
-<bb-journey-content templateId="TJ:MTV:WP:imageTmpl" contentId="3" type="media">
-</bb-journey-content>
-
-<hr/> -->
-<!-- 
-
-
-
-
-
-
-
-<h2>Existing image template</h2>
-<bb-journey-content templateId="TJ:MTV:WP:imageTmpl" contentId="5" type="media">
-</bb-journey-content>
-
-<hr/>
-
-<h2>Existing link template</h2>
-<bb-journey-content templateId="TJ:MTV:WP:linkTmpl" contentId="6" type="media">
-</bb-journey-content>
-
-<hr/>
-
-<h2>Existing image 500h template</h2>
-<bb-journey-content templateId="TJ:MTV:WP:imageTmpl:500h" contentId="5" type="media">
-</bb-journey-content>
-
-<hr/> -->
