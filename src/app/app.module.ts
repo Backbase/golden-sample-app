@@ -46,6 +46,19 @@ import { CMSApiModule } from 'wordpress-http-module-ang';
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     OAuthModule.forRoot(),
+    /* Uncomment this if you want to connect to Wordpress BaaS installation
+     * and do not use any proxy. 
+     */
+    // CMSApiModule.forRoot(() => {
+    //   return {
+    //     credentials: {},
+    //     isJsonMime: () => true,
+    //     lookupCredential: () => '',
+    //     selectHeaderContentType: () => '',
+    //     selectHeaderAccept: () => '',
+    //     basePath: 'https://wordpress.devs.rnd.live.backbaseservices.com/wp-json/wp/v2'
+    //   };
+    // }),
     JourneyContentModule,
   ],
   providers: [
