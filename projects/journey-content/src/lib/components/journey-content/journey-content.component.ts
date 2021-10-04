@@ -6,20 +6,20 @@ import { JourneyContentService } from '../../services/journey-content.service';
 @Component({
   selector: 'bb-journey-content',
   templateUrl: './journey-content.component.html',
-  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JourneyContentComponent implements OnInit {
-
   private itemTemplateSubject = new BehaviorSubject<TemplateRef<any> | undefined>(undefined);
   public itemTemplate$ = this.itemTemplateSubject.asObservable();
 
-  private templateDataSubject = new BehaviorSubject<any>(null);
+  private templateDataSubject = new BehaviorSubject<any>({});
   public templateData$ = this.templateDataSubject.asObservable();
 
-  @ContentChild('wrapper', { static: true }) wrapper: TemplateRef<any> | null = null; 
+  @ContentChild('wrapper', { static: true }) 
+    wrapper!: TemplateRef<any>;
 
-  @ViewChild('defaultWrapper', { static: true }) defaultWrapper: TemplateRef<any> | null = null
+  @ViewChild('defaultWrapper', { static: true })
+    defaultWrapper!: TemplateRef<any>;
 
   @Input() contentId = '';
 
@@ -37,7 +37,7 @@ export class JourneyContentComponent implements OnInit {
     private cdf: ChangeDetectorRef) {
   }
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     if (!this.wrapper) {
       this.wrapper = this.defaultWrapper;
     }
