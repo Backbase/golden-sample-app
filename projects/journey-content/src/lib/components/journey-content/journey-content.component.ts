@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { TemplateStorageService } from '../../services/template-storage.service';
-import { JourneyContentService } from '../../services/journey-content.service';
+import { DefaultHttpService } from 'wordpress-http-module-ang';
+// import { JourneyContentService } from 'journey-content';
 
 @Component({
   selector: 'bb-journey-content',
@@ -32,8 +33,9 @@ export class JourneyContentComponent implements OnInit {
   }
 
   constructor(
-    private journeyContentService: JourneyContentService,
     public readonly templateStorageService: TemplateStorageService,
+    private wordpressHttpService: DefaultHttpService,
+    // private journeyContentService: JourneyContentService,
     private cdf: ChangeDetectorRef) {
   }
 
@@ -53,11 +55,19 @@ export class JourneyContentComponent implements OnInit {
     console.log('content id:', this.contentId);
 
     if (this.type === 'media') {
-      call = this.journeyContentService
-        .getMediaContent(this.contentId)
+      call = this.wordpressHttpService
+        .mediaIdGet({
+          id: this.contentId,
+        });
+      // call = this.journeyContentService
+      //   .getMediaContent(this.contentId);
     } else {
-      call = this.journeyContentService
-        .getContent(this.contentId)
+      call = this.wordpressHttpService
+        .postsIdGet({
+          id: this.contentId
+        });
+      // call = this.journeyContentService
+      //   .getContent(this.contentId);
     }
 
     call.subscribe((data: any) => {
