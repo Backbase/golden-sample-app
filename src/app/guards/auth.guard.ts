@@ -7,7 +7,7 @@ export class AuthGuard implements CanActivate {
   constructor(private oAuthService: OAuthService) {
   }
 
-  canActivate = () => {
+  canActivate(): boolean {
     if (this.oAuthService.hasValidAccessToken()) {
       return true;
     }
