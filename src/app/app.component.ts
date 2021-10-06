@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { LayoutService } from '@backbase/ui-ang';
 import { triplets } from './services/entitlementsTriplets';
-import { OAuthService } from "angular-oauth2-oidc";
-import { Router } from "@angular/router";
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-root',

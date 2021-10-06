@@ -1,6 +1,6 @@
-import { takeLast } from "rxjs/operators";
-import { Transfer } from "../model/Account";
-import { MakeTransferJourneyState } from "./make-transfer-journey-state.service";
+import { takeLast } from 'rxjs/operators';
+import { Transfer } from '../model/Account';
+import { MakeTransferJourneyState } from './make-transfer-journey-state.service';
 
 describe('MakeTransferJourneyState', () => {
   let service: MakeTransferJourneyState;

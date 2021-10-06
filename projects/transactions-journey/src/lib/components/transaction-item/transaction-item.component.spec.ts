@@ -15,7 +15,7 @@ import { TransactionItemComponent } from './transaction-item.component';
 })
 class HostComponent {
   creditTransaction = creditMockTransaction;
-  debitTransaction = debitMockTransaction
+  debitTransaction = debitMockTransaction;
 }
 
 describe('TransactionItemComponent', () => {

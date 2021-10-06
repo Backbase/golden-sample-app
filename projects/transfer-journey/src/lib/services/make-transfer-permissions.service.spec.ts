@@ -1,9 +1,9 @@
-import { PropertyResolver } from "@backbase/foundation-ang/web-sdk";
-import { MakeTransferPermissionsService } from "./make-transfer-permissions.service";
+import { PropertyResolver } from '@backbase/foundation-ang/web-sdk';
+import { MakeTransferPermissionsService } from './make-transfer-permissions.service';
 
 describe('MakeTransferPermissionsService', () => {
   let service: MakeTransferPermissionsService;
-  let conditionsServiceStub: PropertyResolver; 
+  let conditionsServiceStub: PropertyResolver;
   beforeEach(() => {
     conditionsServiceStub = {
       resolveEntitlements: jasmine.createSpy('resolveEntitlements').and.returnValue(Promise.resolve(true)),

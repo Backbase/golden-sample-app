@@ -1,16 +1,16 @@
-import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { ComponentFixture, fakeAsync, TestBed } from "@angular/core/testing";
-import { By } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
-import { of } from "rxjs";
-import { Account } from "transfer-journey";
-import { Transfer } from "../../model/Account";
-import { MakeTransferAccountHttpService } from "../../services/make-transfer-accounts.http.service";
-import { MakeTransferJourneyConfiguration } from "../../services/make-transfer-journey-config.service";
-import { MakeTransferJourneyState } from "../../services/make-transfer-journey-state.service";
-import { MakeTransferPermissionsService } from "../../services/make-transfer-permissions.service";
-import { MakeTransferViewComponent } from "./make-transfer-view.component";
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of } from 'rxjs';
+import { Account } from 'transfer-journey';
+import { Transfer } from '../../model/Account';
+import { MakeTransferAccountHttpService } from '../../services/make-transfer-accounts.http.service';
+import { MakeTransferJourneyConfiguration } from '../../services/make-transfer-journey-config.service';
+import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
+import { MakeTransferPermissionsService } from '../../services/make-transfer-permissions.service';
+import { MakeTransferViewComponent } from './make-transfer-view.component';
 
 @Component({
   selector: 'bb-make-transfer-form',
@@ -40,23 +40,23 @@ describe('MakeTransferViewComponent', () => {
   transferStoreStub = {
     next: jasmine.createSpy()
   };
-  
+
   makeTransferPermissionsStub = {
     unlimitedAmountPerTransaction$: of(true),
   };
 
   accountsHttpServiceStub = {
     currentAccount$: of(accountMock),
-  }
+  };
 
   configurationServiceStub = {
     maskIndicator: false,
     maxTransactionAmount: 2000,
-  }
+  };
 
   routerStub = {
     navigate: jasmine.createSpy(),
-  }
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
