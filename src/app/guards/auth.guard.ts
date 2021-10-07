@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import { Observable } from 'rxjs';
-import { filter, switchMap, tap } from 'rxjs/operators';
-import { AppAuthService } from '../services/app-auth.service';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AppAuthService) {}
-
-  canActivate(): Observable<boolean> {
-    return this.authService.isDoneLoading$.pipe(
-      filter((isDone) => isDone),
-      switchMap((_) => this.authService.isAuthenticated$),
-      tap((isAuthenticated) => isAuthenticated || this.authService.login()),
-    );
+  constructor(private oAuthService: OAuthService) {
   }
+
+  canActivate(): boolean {
+    if (this.oAuthService.hasValidAccessToken()) {
+      return true;
+    }
+    this.oAuthService.initLoginFlow();
+    return false;
+  };
 }

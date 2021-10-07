@@ -1,9 +1,9 @@
-import { CommonModule } from "@angular/common";
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { By } from "@angular/platform-browser";
-import { ButtonModule, CurrencyInputModule, InputValidationMessageModule } from "@backbase/ui-ang";
-import { MakeTransferFormComponent } from "transfer-journey";
+import { CommonModule } from '@angular/common';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { ButtonModule, CurrencyInputModule, InputValidationMessageModule } from '@backbase/ui-ang';
+import { MakeTransferFormComponent } from './make-transfer-form.component';
 
 describe('MakeTransferFormComponent', () => {
   let component: MakeTransferFormComponent;
@@ -11,10 +11,10 @@ describe('MakeTransferFormComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        CommonModule, 
-        FormsModule, 
-        ReactiveFormsModule, 
-        ButtonModule, 
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ButtonModule,
         InputValidationMessageModule,
         CurrencyInputModule
       ],
@@ -55,7 +55,7 @@ describe('MakeTransferFormComponent', () => {
     const button = fixture.debugElement.query(By.css('.bb-button-bar button'));
 
     const input = fixture.debugElement.queryAll(By.css('input'));
-  
+
     input[1].nativeElement.value = 'account1';
     input[1].nativeElement.dispatchEvent(new Event('input'));
     input[2].nativeElement.value = '100';

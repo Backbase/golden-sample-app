@@ -1,4 +1,4 @@
-import { Transaction } from "../model/transaction";
+import { Transaction } from '../model/transaction';
 
 export const transactionsMock: Transaction[] = [
   {
@@ -18,7 +18,7 @@ export const transactionsMock: Transaction[] = [
         name: 'Backbase',
         accountNumber: 'SI64397745065188826'
     }
-  }, 
+  },
   {
     categoryCode: '#12a580',
     dates: {
@@ -36,7 +36,7 @@ export const transactionsMock: Transaction[] = [
       name: 'The Tea Lounge',
       accountNumber: 'SI64397745065188826'
     }
-  }, 
+  },
   {
     categoryCode: '#d51271',
     dates: {

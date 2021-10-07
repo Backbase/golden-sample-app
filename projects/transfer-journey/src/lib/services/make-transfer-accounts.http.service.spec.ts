@@ -1,6 +1,6 @@
-import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
-import { TestBed } from "@angular/core/testing";
-import { MakeTransferAccountHttpService } from "transfer-journey";
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { MakeTransferAccountHttpService } from './make-transfer-accounts.http.service';
 
 describe('MakeTransferAccountHttpService', () => {
   let httpMock: HttpTestingController;
@@ -16,7 +16,7 @@ describe('MakeTransferAccountHttpService', () => {
       imports: [HttpClientTestingModule],
       providers: [MakeTransferAccountHttpService]
     });
-    
+
     service = TestBed.inject(MakeTransferAccountHttpService);
     httpMock = TestBed.inject(HttpTestingController);
   });
