@@ -29,7 +29,7 @@ export class DrupalToWordpress {
             id,
             'title': { rendered: title },
         };
-
+        
         if (node.field_image && node.field_image[0]) {
             const imageData = node.field_image[0];
             media.source_url = imageData.url;

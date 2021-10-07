@@ -30,7 +30,6 @@ The Backbase approach on this requires to:
 ## Backbase CMS recommended:
 Backbase recommended CMS is [Wordpress](https://wordpress.com/)
 
-
 ## Architecture 
 
 ### Diagram

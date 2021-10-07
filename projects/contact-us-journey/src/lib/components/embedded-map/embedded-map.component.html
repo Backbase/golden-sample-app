@@ -1,0 +1,13 @@
+<div class="mapouter" #mapOuter>
+    <div class="gmap_canvas" #gmapCanvas>
+        <iframe 
+            width="{{width}}" 
+            height="{{height}}" 
+            id="gmap_canvas" 
+            [src]="url | safeUrl" 
+            frameborder="0" 
+            scrolling="no" 
+            marginheight="0" 
+            marginwidth="0"></iframe>
+    </div>
+</div>

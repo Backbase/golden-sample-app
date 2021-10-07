@@ -1,0 +1,9 @@
+<div class="container">
+    <div class="row">
+        <ng-container *ngFor="let socialNetwork of config.socialNetworks">
+            <div class="col">
+                <bb-icon-ui [name]="socialNetwork">{{socialNetwork}}</bb-icon-ui>
+            </div>
+        </ng-container>
+    </div>
+</div>

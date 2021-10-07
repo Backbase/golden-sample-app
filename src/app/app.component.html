@@ -78,6 +78,18 @@
           </span>
         </a>
       </li>
+      <li class="bb-layout__horizontal-nav-item">
+        <a class="bb-layout__horizontal-nav-link"
+          routerLink="/contact-us"
+          routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"
+          [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
+          role="link"
+        >
+          <span class="bb-layout__horizontal-nav-item-description" i18n="Contact us link@@main.contact-us.link.text">
+            Contact us
+          </span>
+        </a>
+      </li>
     </ul>
 
     <!-- Topbar Content Area (a.k.a. Right Topbar Area) -->
@@ -110,36 +122,10 @@
 
         <template-storage>
 
-          <ng-template templateId="example" let-data="data">
-            <h1>Tomas</h1>
-          </ng-template>
-
-          <ng-template templateId="example2" let-data="data">
-            <ng-container *ngIf="data.content as content">
-              <div [innerHTML]="content.rendered | safeHtml"></div>
-            </ng-container>
-          </ng-template>
-
           <ng-template templateId="htmlTemplate" let-data="data">
             <ng-container *ngIf="data.content as content">
               <div [innerHTML]="content.rendered | safeHtml"></div>
             </ng-container>
-          </ng-template>
-
-          <ng-template templateId="imageTmpl" let-data="data">
-            <ng-container *ngIf="data.media_details as details">
-              <img src="{{data.source_url}}" width="{{details.width}}" height="{{details.height}}"/>
-            </ng-container>
-          </ng-template>
-
-          <ng-template templateId="linkTmpl" let-data="data">
-            <ng-container *ngIf="data.title as title">
-              <a href="{{data.source_url}}" target="_blank">{{title.rendered}}</a>
-            </ng-container>
-          </ng-template>
-
-          <ng-template templateId="imageTmpl:500h" let-data="data">
-            <img src="{{data.source_url}}" height="500"/>
           </ng-template>
 
         </template-storage>

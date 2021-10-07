@@ -4,14 +4,22 @@ import { JourneyContentComponent } from './components/journey-content/journey-co
 import { TemplateStorageComponent } from './components/template-storage/template-storage.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { TemplateIdDirective } from './directives/template-id.directive';
-import { JourneyContentService} from './services/journey-content.service';
+// import { JourneyContentService} from './services/journey-content.service';
 
 @NgModule({
   imports: [
     CommonModule,
   ],
-  declarations: [JourneyContentComponent, TemplateStorageComponent, TemplateIdDirective, SafeHtmlPipe],
-  providers: [JourneyContentService, SafeHtmlPipe],
+  declarations: [
+    JourneyContentComponent, 
+    TemplateStorageComponent, 
+    TemplateIdDirective, 
+    SafeHtmlPipe
+  ],
+  providers: [
+    // JourneyContentService, 
+    SafeHtmlPipe
+  ],
   exports: [JourneyContentComponent, TemplateStorageComponent, TemplateIdDirective, SafeHtmlPipe],
 })
 export class JourneyContentModule {

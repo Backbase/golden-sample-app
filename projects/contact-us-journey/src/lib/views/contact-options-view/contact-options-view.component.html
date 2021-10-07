@@ -1,0 +1,61 @@
+
+<h2>{{title}}</h2>
+
+<bb-embedded-map *ngIf="address" address="{{config.companyAddress}}"></bb-embedded-map>
+
+<div class="container">
+  <div class="row mt-2">
+    <div class="col">
+      <section>
+        <header>
+          <h3>{{contactUsSectionTitle}}</h3>
+        </header>
+        <bb-journey-content template="htmlTemplate" [contentId]="config.contactUsContentId">
+          <p i18n="contact us content label@@contact-us.contact-options-view.contact-us-content.label">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Donec auctor nisi a sapien hendrerit egestas.
+            Aliquam nisl velit, tempus vitae lorem vel, convallis facilisis est. 
+            Quisque nisl arcu, lobortis at sem eu, posuere mollis mi. 
+            Proin in egestas sapien. Duis aliquet elementum bibendum. 
+            Integer molestie urna et quam dapibus, id vehicula justo tincidunt. 
+          </p>
+        </bb-journey-content>
+        <bb-contact-us-form 
+          (submitContact)="submitMessage()"></bb-contact-us-form>
+      </section>
+    </div>
+    <div class="col">
+      <section class="row">
+        <header>
+          <h3>{{businessInfoSectionTitle}}</h3>
+        </header>
+        <bb-journey-content template="htmlTemplate" [contentId]="config.businessInfoContentId">
+          <p i18n="business info section content label@@contact-us.contact-options-view.business-info-content.label">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Donec auctor nisi a sapien hendrerit egestas.
+            Aliquam nisl velit, tempus vitae lorem vel, convallis facilisis est. 
+            Quisque nisl arcu, lobortis at sem eu, posuere mollis mi. 
+            Proin in egestas sapien. Duis aliquet elementum bibendum. 
+            Integer molestie urna et quam dapibus, id vehicula justo tincidunt. 
+          </p>
+        </bb-journey-content>
+      </section>
+      <section class="row">
+        <header>
+          <h3>{{stayConnectedSectionTitle}}</h3>
+        </header>
+        <bb-journey-content template="htmlTemplate" [contentId]="config.stayConnectedContentId">
+          <p i18n="stay connected section content label@@contact-us.contact-options-view.stay-connected-content.label">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Donec auctor nisi a sapien hendrerit egestas.
+            Aliquam nisl velit, tempus vitae lorem vel, convallis facilisis est. 
+            Quisque nisl arcu, lobortis at sem eu, posuere mollis mi. 
+            Proin in egestas sapien. Duis aliquet elementum bibendum. 
+            Integer molestie urna et quam dapibus, id vehicula justo tincidunt. 
+          </p>
+        </bb-journey-content>
+        <bb-social-networks ></bb-social-networks>
+      </section>
+    </div>
+  </div>
+</div>

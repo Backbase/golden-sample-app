@@ -1,0 +1,69 @@
+<form [formGroup]="contactUsForm" (ngSubmit)="contact()">
+  <div class="bb-block bb-block--xl">
+    <div class="form-group">
+      <label i18n="name label@@contact-us.form.name.label">Name</label>
+      <input type="text" class="form-control" formControlName="name"
+        i18n-placeholder="name placeholder@@contact-us.form.name.placeholder" placeholder="Your name" />
+      <div bbValidationMessage>
+        <bb-input-validation-message-ui [showErrors]="isInvalidControl('name')">
+          <span i18n="name required error@@contact-us.form.name.error.required" *ngIf="getError('name', 'required')">
+            Required field
+          </span>
+        </bb-input-validation-message-ui>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label i18n="email label@@contact-us.form.email.label">Email</label>
+      <input type="text" class="form-control" formControlName="email"
+        i18n-placeholder="email placeholder@@contact-us.form.email.placeholder"
+        placeholder="Email address" />
+      <div bbValidationMessage>
+        <bb-input-validation-message-ui [showErrors]="isInvalidControl('email')">
+          <span i18n="email required error@@contact-us.form.email.error.email" *ngIf="getError('email', 'email')">
+            Not a valid email provided
+          </span>
+          <span i18n="email required error@@contact-us.form.email.error.required" *ngIf="getError('email', 'required')">
+            Required field
+          </span>
+        </bb-input-validation-message-ui>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label i18n="phone label@@transfer.form.phone.label">Phone</label>
+      <input type="text" class="form-control" formControlName="phone"
+        i18n-placeholder="phone placeholder@@contact-us.form.phone.placeholder" placeholder="Phone number" />
+    </div>
+
+    <div class="form-group">
+      <label i18n="subject label@@transfer.form.subject.label">Subject</label>
+      <input type="text" class="form-control" formControlName="subject"
+        i18n-placeholder="subject placeholder@@contact-us.form.subject.placeholder" placeholder="Subject" />
+      <div bbValidationMessage>
+        <bb-input-validation-message-ui [showErrors]="isInvalidControl('subject')">
+          <span i18n="subject required error@@contact-us.form.subject.error.required" *ngIf="getError('subject', 'required')">
+            Required field
+          </span>
+        </bb-input-validation-message-ui>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label i18n="message label@@transfer.form.message.label">Message</label>
+      <textarea class="form-control" formControlName="message"
+      i18n-placeholder="message placeholder@@contact-us.form.message.placeholder" placeholder="Write your message here"></textarea>
+      <div bbValidationMessage>
+        <bb-input-validation-message-ui [showErrors]="isInvalidControl('message')">
+          <span i18n="message required error@@contact-us.form.message.error.required" *ngIf="getError('message', 'required')">
+            Required field
+          </span>
+        </bb-input-validation-message-ui>
+      </div>
+    </div>
+  </div>
+
+  <div class="bb-button-bar">
+    <button bbButton type="submit" i18n="submit button@@contact-us.form.submit.text">Submit message</button>
+  </div>
+</form>

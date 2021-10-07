@@ -22,7 +22,7 @@ export class JourneyContentComponent implements OnInit {
   @ViewChild('defaultWrapper', { static: true })
     defaultWrapper!: TemplateRef<any>;
 
-  @Input() contentId = '';
+  @Input() contentId?: string;
 
   @Input() type = 'post';
 
@@ -49,10 +49,9 @@ export class JourneyContentComponent implements OnInit {
     let call: Observable<object> = of({});
 
     if (!this.contentId){
+      this.itemTemplateSubject.next(this.wrapper);
       return;
     }
-
-    console.log('content id:', this.contentId);
 
     if (this.type === 'media') {
       call = this.wordpressHttpService

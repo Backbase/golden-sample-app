@@ -29,6 +29,10 @@ const routes: Routes = [
     canActivate: [ AuthGuard, EntitlementsGuard ],
   },
   {
+    path: 'contact-us',
+    loadChildren: () => import('./contact-us/contact-us-journey-bundle.module').then(m => m.ContactUsJourneyBundleModule),
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then((m) => m.LoginModule),
   },
