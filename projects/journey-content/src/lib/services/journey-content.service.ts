@@ -6,6 +6,7 @@ import { Post } from '../interfaces/cms-post';
 import { DefaultHttpService } from 'wordpress-http-module-ang';
 
 export interface JourneyContentConfiguration {
+  cache?: boolean;
 }
 
 // eslint-disable-next-line
@@ -13,7 +14,9 @@ export const JourneyContentConfigurationToken = new InjectionToken<
 JourneyContentConfiguration
 >('JourneyContentServiceConfiguration injection token');
 
-const configDefaults: JourneyContentConfiguration = {};
+const configDefaults: JourneyContentConfiguration = {
+  cache: false,
+};
 
 @Injectable()
 export class JourneyContentService {

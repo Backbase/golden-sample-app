@@ -7,5 +7,6 @@ import {
 export const JourneyContentConfigProvider: Provider = {
   provide: JourneyContentConfigurationToken,
   useValue: {
+    cache: true
   } as Partial<JourneyContentConfiguration>,
 };

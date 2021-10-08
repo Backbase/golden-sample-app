@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, In
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { TemplateStorageService } from '../../services/template-storage.service';
 import { DefaultHttpService } from 'wordpress-http-module-ang';
+import { JourneyContentConfiguration } from 'journey-content';
 // import { JourneyContentService } from 'journey-content';
 
 @Component({
@@ -10,6 +11,7 @@ import { DefaultHttpService } from 'wordpress-http-module-ang';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JourneyContentComponent implements OnInit {
+  private cache: Map<string, any> = new Map();
   private itemTemplateSubject = new BehaviorSubject<TemplateRef<any> | undefined>(undefined);
   public itemTemplate$ = this.itemTemplateSubject.asObservable();
 
@@ -35,6 +37,7 @@ export class JourneyContentComponent implements OnInit {
   constructor(
     public readonly templateStorageService: TemplateStorageService,
     private wordpressHttpService: DefaultHttpService,
+    private config: JourneyContentConfiguration,
     // private journeyContentService: JourneyContentService,
     private cdf: ChangeDetectorRef) {
   }
@@ -53,26 +56,36 @@ export class JourneyContentComponent implements OnInit {
       return;
     }
 
-    if (this.type === 'media') {
-      call = this.wordpressHttpService
-        .mediaIdGet({
-          id: this.contentId,
-        });
-      // call = this.journeyContentService
-      //   .getMediaContent(this.contentId);
-    } else {
-      call = this.wordpressHttpService
-        .postsIdGet({
-          id: this.contentId
-        });
-      // call = this.journeyContentService
-      //   .getContent(this.contentId);
-    }
+    const keyCache = `${this.type}:${this.contentId}`;
+    const cached = this.cache.get(keyCache);
 
-    call.subscribe((data: any) => {
-      this.templateDataSubject.next(data);
+    if (this.config.cache && cached) {
+      this.templateDataSubject.next(cached);
       this.cdf.detectChanges();
-    });
-
+    } else {
+      if (this.type === 'media') {
+        call = this.wordpressHttpService
+          .mediaIdGet({
+            id: this.contentId,
+          });
+        // call = this.journeyContentService
+        //   .getMediaContent(this.contentId);
+      } else {
+        call = this.wordpressHttpService
+          .postsIdGet({
+            id: this.contentId
+          });
+        // call = this.journeyContentService
+        //   .getContent(this.contentId);
+      }
+  
+      call.subscribe((data: any) => {
+        if (this.config.cache) {
+          this.cache.set(keyCache, data);
+        }
+        this.templateDataSubject.next(data);
+        this.cdf.detectChanges();
+      });
+    }
   }
 }
