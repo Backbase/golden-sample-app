@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Inject, Input, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { TemplateStorageService } from '../../services/template-storage.service';
 import { DefaultHttpService } from 'wordpress-http-module-ang';
 import { JourneyContentConfiguration, JourneyContentConfigurationToken } from 'journey-content';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 // import { JourneyContentService } from 'journey-content';
 
 @Component({
@@ -13,6 +15,10 @@ import { JourneyContentConfiguration, JourneyContentConfigurationToken } from 'j
 export class JourneyContentComponent implements OnInit {
   private _config!: JourneyContentConfiguration;
   private cache: Map<string, any> = new Map();
+
+  private callFailedSubject = new BehaviorSubject<boolean>(false);
+  public callFailed$ = this.callFailedSubject.asObservable();
+
   private itemTemplateSubject = new BehaviorSubject<TemplateRef<any> | undefined>(undefined);
   public itemTemplate$ = this.itemTemplateSubject.asObservable();
 
@@ -45,6 +51,11 @@ export class JourneyContentComponent implements OnInit {
     this._config = { ...config };
   }
 
+  private errorHandler(error: HttpErrorResponse) {
+    this.callFailedSubject.next(true);
+    return throwError(error.message || "server error.");
+  }
+
   ngAfterContentInit() {
     if (!this.wrapper) {
       this.wrapper = this.defaultWrapper;
@@ -55,6 +66,7 @@ export class JourneyContentComponent implements OnInit {
     let call: Observable<object> = of({});
 
     if (!this.contentId){
+      this.templateDataSubject.next({});
       this.itemTemplateSubject.next(this.wrapper);
       return;
     }
@@ -82,7 +94,11 @@ export class JourneyContentComponent implements OnInit {
         //   .getContent(this.contentId);
       }
   
-      call.subscribe((data: any) => {
+      call
+      .pipe(
+        catchError(this.errorHandler.bind(this)),
+      )
+      .subscribe((data: any) => {
         if (this._config.cache) {
           this.cache.set(keyCache, data);
         }

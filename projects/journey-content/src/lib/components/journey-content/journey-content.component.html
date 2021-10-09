@@ -15,3 +15,7 @@
     <ng-container *ngTemplateOutlet="content"></ng-container>
   </div>
 </ng-template>
+
+<ng-container *ngIf="(callFailed$ | async)">
+  <ng-container *ngTemplateOutlet="wrapper; context: { $implicit: body, data: (templateData$ | async) }"></ng-container>
+</ng-container>
