@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Inject, Input, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { TemplateStorageService } from '../../services/template-storage.service';
 import { DefaultHttpService } from 'wordpress-http-module-ang';
-import { JourneyContentConfiguration, JourneyContentConfigurationToken } from 'journey-content';
+import { TemplateStorageService } from '../../services/template-storage.service';
+import { JourneyContentConfiguration, JourneyContentConfigurationToken } from '../../services/journey-content.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-// import { JourneyContentService } from 'journey-content';
+import { catchError, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'bb-journey-content',
@@ -14,7 +13,6 @@ import { catchError } from 'rxjs/operators';
 })
 export class JourneyContentComponent implements OnInit {
   private _config!: JourneyContentConfiguration;
-  private cache: Map<string, any> = new Map();
 
   private callFailedSubject = new BehaviorSubject<boolean>(false);
   public callFailed$ = this.callFailedSubject.asObservable();
@@ -33,7 +31,7 @@ export class JourneyContentComponent implements OnInit {
 
   @Input() contentId?: string;
 
-  @Input() type = 'post';
+  @Input() type = 'posts';
 
   @Input()
   set template(value: string | undefined) {
@@ -45,7 +43,6 @@ export class JourneyContentComponent implements OnInit {
     @Optional() @Inject(JourneyContentConfigurationToken) config: JourneyContentConfiguration,
     public readonly templateStorageService: TemplateStorageService,
     private wordpressHttpService: DefaultHttpService,
-    // private journeyContentService: JourneyContentService,
     private cdf: ChangeDetectorRef) {
     config = config || {};
     this._config = { ...config };
@@ -71,40 +68,31 @@ export class JourneyContentComponent implements OnInit {
       return;
     }
 
-    const keyCache = `${this.type}:${this.contentId}`;
-    const cached = this.cache.get(keyCache);
+    const getParams = { id: this.contentId };
 
-    if (this._config.cache && cached) {
-      this.templateDataSubject.next(cached);
-      this.cdf.detectChanges();
+    if (this.type === 'media') {
+      call = this.wordpressHttpService
+        .mediaIdGet(getParams);
     } else {
-      if (this.type === 'media') {
-        call = this.wordpressHttpService
-          .mediaIdGet({
-            id: this.contentId,
-          });
-        // call = this.journeyContentService
-        //   .getMediaContent(this.contentId);
-      } else {
-        call = this.wordpressHttpService
-          .postsIdGet({
-            id: this.contentId
-          });
-        // call = this.journeyContentService
-        //   .getContent(this.contentId);
-      }
-  
-      call
-      .pipe(
-        catchError(this.errorHandler.bind(this)),
-      )
-      .subscribe((data: any) => {
-        if (this._config.cache) {
-          this.cache.set(keyCache, data);
-        }
-        this.templateDataSubject.next(data);
-        this.cdf.detectChanges();
-      });
+      call = this.wordpressHttpService
+        .postsIdGet(getParams);
     }
+
+    call = call
+    .pipe(
+      catchError(this.errorHandler.bind(this)),
+    );
+
+    if (this._config.cache) {
+      call = call
+      .pipe(
+        shareReplay({ bufferSize: 1, refCount: true }),
+      );
+    }
+
+    call.subscribe((data: any) => {
+      this.templateDataSubject.next(data);
+      this.cdf.detectChanges();
+    });
   }
 }
