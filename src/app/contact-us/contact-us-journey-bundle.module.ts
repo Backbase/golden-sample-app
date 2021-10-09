@@ -10,7 +10,23 @@ import { ContactUsJourneyConfiguration, ContactUsJourneyModule } from 'projects/
       // contactUsContentId: '1',
       // businessInfoContentId: '1',
       // stayConnectedContentId: '1',
-      socialNetworks: ['transactions', 'fingerprint', 'flare']
+      socialNetworks: [
+        {
+          name: 'Facebook',
+          iconName: 'facebook',
+          url: 'https://www.facebook.com/backbase/'
+        },
+        {
+          name: 'Twitter',
+          iconName: 'twitter',
+          url: 'https://twitter.com/backbase',
+        },
+        {
+          name: 'Instagram',
+          iconName: 'instagram',
+          url: 'https://www.instagram.com/life_at_backbase',
+        }
+      ]
     } as ContactUsJourneyConfiguration
   }],
 })

@@ -1,11 +1,11 @@
-import { Component } from "@angular/core";
-import { ContactUsJourneyConfiguration } from "projects/contact-us-journey/src/public-api";
+import { Component, Input } from "@angular/core";
+import { SocialNetworks } from "../../model/SocialNetwork";
 
 @Component({
     selector: 'bb-social-networks',
     templateUrl: 'social-networks.component.html',
-    styleUrls: ['social-networks.component.scss'],
 })
 export class SocialNetworksComponent {
-    constructor(public readonly config: ContactUsJourneyConfiguration) {}
+    @Input()
+    socialNetworks: SocialNetworks = [];
 }

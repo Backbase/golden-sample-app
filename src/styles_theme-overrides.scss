@@ -12,3 +12,45 @@
 .bb-icon-transactions::before {
   content: "credit-card";  
 }
+
+.bb-icon-facebook {
+  background-image: url('assets/custom-icons/facebook.svg');
+  display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  &::before {
+    content: '';
+  }
+}
+.bb-icon-facebook.bb-icon--md {
+  width: 40px;
+  height: 40px;
+}
+
+.bb-icon-twitter {
+  background-image: url('assets/custom-icons/twitter.svg');
+  display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  &::before {
+    content: ' ';
+  }
+}
+.bb-icon-twitter.bb-icon--md {
+  width: 40px;
+  height: 40px;
+}
+
+.bb-icon-instagram {
+  background-image: url('assets/custom-icons/instagram.svg');
+  display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  &::before {
+    content: ' ';
+  }
+}
+.bb-icon-instagram.bb-icon--md {
+  width: 40px;
+  height: 40px;
+}

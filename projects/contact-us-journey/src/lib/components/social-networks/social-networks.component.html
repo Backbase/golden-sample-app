@@ -1,8 +1,12 @@
 <div class="container">
     <div class="row">
-        <ng-container *ngFor="let socialNetwork of config.socialNetworks">
+        <ng-container *ngFor="let socialNetwork of socialNetworks">
             <div class="col">
-                <bb-icon-ui [name]="socialNetwork">{{socialNetwork}}</bb-icon-ui>
+                <a [href]="socialNetwork.url | safeUrl">
+                    <bb-icon-ui [name]="socialNetwork.iconName">
+                        {{socialNetwork.name}}
+                    </bb-icon-ui>
+                </a>
             </div>
         </ng-container>
     </div>

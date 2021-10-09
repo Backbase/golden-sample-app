@@ -20,7 +20,7 @@ const configDefaults: JourneyContentConfiguration = {
 
 @Injectable()
 export class JourneyContentService {
-  private _config: JourneyContentConfiguration;
+  private _config!: JourneyContentConfiguration;
 
   constructor(
     @Optional() @Inject(JourneyContentConfigurationToken) config: JourneyContentConfiguration,

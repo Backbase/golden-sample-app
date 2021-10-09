@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Inject, Input, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { TemplateStorageService } from '../../services/template-storage.service';
 import { DefaultHttpService } from 'wordpress-http-module-ang';
-import { JourneyContentConfiguration } from 'journey-content';
+import { JourneyContentConfiguration, JourneyContentConfigurationToken } from 'journey-content';
 // import { JourneyContentService } from 'journey-content';
 
 @Component({
@@ -11,6 +11,7 @@ import { JourneyContentConfiguration } from 'journey-content';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JourneyContentComponent implements OnInit {
+  private _config!: JourneyContentConfiguration;
   private cache: Map<string, any> = new Map();
   private itemTemplateSubject = new BehaviorSubject<TemplateRef<any> | undefined>(undefined);
   public itemTemplate$ = this.itemTemplateSubject.asObservable();
@@ -35,11 +36,13 @@ export class JourneyContentComponent implements OnInit {
   }
 
   constructor(
+    @Optional() @Inject(JourneyContentConfigurationToken) config: JourneyContentConfiguration,
     public readonly templateStorageService: TemplateStorageService,
     private wordpressHttpService: DefaultHttpService,
-    private config: JourneyContentConfiguration,
     // private journeyContentService: JourneyContentService,
     private cdf: ChangeDetectorRef) {
+    config = config || {};
+    this._config = { ...config };
   }
 
   ngAfterContentInit() {
@@ -59,7 +62,7 @@ export class JourneyContentComponent implements OnInit {
     const keyCache = `${this.type}:${this.contentId}`;
     const cached = this.cache.get(keyCache);
 
-    if (this.config.cache && cached) {
+    if (this._config.cache && cached) {
       this.templateDataSubject.next(cached);
       this.cdf.detectChanges();
     } else {
@@ -80,7 +83,7 @@ export class JourneyContentComponent implements OnInit {
       }
   
       call.subscribe((data: any) => {
-        if (this.config.cache) {
+        if (this._config.cache) {
           this.cache.set(keyCache, data);
         }
         this.templateDataSubject.next(data);
