@@ -17,5 +17,5 @@
 </ng-template>
 
 <ng-container *ngIf="(callFailed$ | async)">
-  <ng-container *ngTemplateOutlet="wrapper; context: { $implicit: body, data: (templateData$ | async) }"></ng-container>
+  <ng-container *ngTemplateOutlet="wrapper; context: { $implicit: body, data: {} }"></ng-container>
 </ng-container>
