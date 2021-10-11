@@ -8,13 +8,8 @@ import { Transaction } from '../../model/transaction';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransactionItemComponent implements OnChanges {
-
-  @Input()
-  transaction!: Transaction;
-
+  @Input() transaction!: Transaction;
   amount = 0;
-
-  constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.transaction) {
