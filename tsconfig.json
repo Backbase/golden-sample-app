@@ -21,13 +21,9 @@
     ],
     "paths": {
       "transactions-journey": [
-        "dist/transactions-journey/transactions-journey",
-        "dist/transactions-journey",
         "projects/transactions-journey/src/public-api.ts"
       ],
       "transfer-journey": [
-        "dist/transfer-journey/transfer-journey",
-        "dist/transfer-journey",
         "projects/transfer-journey/src/public-api.ts"
       ]
     }

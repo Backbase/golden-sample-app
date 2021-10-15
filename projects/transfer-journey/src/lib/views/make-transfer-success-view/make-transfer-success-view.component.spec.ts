@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ButtonModule } from '@backbase/ui-ang';
+import { ButtonModule } from '@backbase/ui-ang/button';
 import { of } from 'rxjs';
 import { MakeTransferSuccessViewComponent } from './make-transfer-success-view.component';
 import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';

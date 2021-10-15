@@ -2,13 +2,6 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideRoutes, Route, RouterModule } from '@angular/router';
-import {
-  AccountSelectorModule,
-  ButtonModule,
-  CurrencyInputModule,
-  InputValidationMessageModule,
-  LoadingIndicatorModule
-} from '@backbase/ui-ang';
 import { MakeTransferJourneyState } from './services/make-transfer-journey-state.service';
 import { MakeTransferFormComponent } from './components/make-transfer-form/make-transfer-form.component';
 import { MakeTransferSummaryComponent } from './components/make-transfer-summary/make-transfer-summary.component';
@@ -21,6 +14,11 @@ import { MakeTransferViewComponent } from './views/make-transfer-view/make-trans
 import { MakeTransferJourneyConfiguration } from './services/make-transfer-journey-config.service';
 import { MakeTransferPermissionsService } from './services/make-transfer-permissions.service';
 import { MakeTransferAccountHttpService } from './services/make-transfer-accounts.http.service';
+import { ButtonModule } from '@backbase/ui-ang/button';
+import { CurrencyInputModule } from '@backbase/ui-ang/currency-input';
+import { AccountSelectorModule } from '@backbase/ui-ang/account-selector';
+import { InputValidationMessageModule } from '@backbase/ui-ang/input-validation-message';
+import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
 
 const defaultRoute: Route = {
   path: '',
