@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { InputTextModule } from '@backbase/ui-ang';
+import { InputTextModule } from '@backbase/ui-ang/input-text';
 import { TextFilterComponent } from './text-filter.component';
 
 describe('TextFilterComponent', () => {

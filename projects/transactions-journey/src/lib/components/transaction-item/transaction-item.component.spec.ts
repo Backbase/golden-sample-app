@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AmountModule } from '@backbase/ui-ang';
+import { AmountModule } from '@backbase/ui-ang/amount';
 import { creditMockTransaction, debitMockTransaction } from '../../mocks/transactions-mocks';
 
 import { TransactionItemComponent } from './transaction-item.component';

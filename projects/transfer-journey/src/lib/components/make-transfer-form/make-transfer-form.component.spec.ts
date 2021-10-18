@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ButtonModule, CurrencyInputModule, InputValidationMessageModule } from '@backbase/ui-ang';
+import { CurrencyInputModule } from '@backbase/ui-ang/currency-input';
+import { ButtonModule } from '@backbase/ui-ang/button';
+import { InputValidationMessageModule } from '@backbase/ui-ang/input-validation-message';
 import { MakeTransferFormComponent } from './make-transfer-form.component';
 
 describe('MakeTransferFormComponent', () => {
