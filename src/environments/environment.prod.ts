@@ -3,9 +3,26 @@ import { AuthConfig } from 'angular-oauth2-oidc';
 import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
 import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
 
+const pageConfig = {
+  locales: '${LOCALES}'.split(','),
+  apiRoot: '${PATHNAME}api',
+  staticResourcesRoot: '${PATHNAME}',
+  locale: 'en-US',
+  cx: {
+    kind: "hybrid",
+    scope: "${AUTH_SCOPE}",
+    authUrl: "${AUTH_URL}",
+    realm: "${AUTH_REALM}",
+    clientId: "${AUTH_CLIENT_ID}",
+    landingPageUrl: '${PROTOCOL}//${HOSTNAME}${PATHNAME}${AUTH_LANDING_PAGE}',
+    loginPageUrl: '${PROTOCOL}//${HOSTNAME}${PATHNAME}${AUTH_REDIRECT_PAGE}',
+  }
+};
+
 export const environment = {
   production: true,
   apiURL: '${API_ROOT}',
+  pageConfig,
   mockProviders: [{
     provide: HTTP_INTERCEPTORS,
     useClass: TransactionsInterceptor,
@@ -20,13 +37,13 @@ export const environment = {
 
 export const authConfig: AuthConfig = {
   // Url of the Identity Provider
-  issuer: '${AUTH_URL}',
+  issuer: pageConfig.cx.authUrl,
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: window.location.origin + '/transactions',
+  redirectUri: pageConfig.cx.landingPageUrl,
 
   // The SPA's id. The SPA is registered with this id at the auth-server
-  clientId: 'bb-web-client',
+  clientId: pageConfig.cx.clientId,
 
   // Just needed if your auth server demands a secret. In general, this
   // is a sign that the auth server is not configured with SPAs in mind
@@ -39,13 +56,13 @@ export const authConfig: AuthConfig = {
   // set the scope for the permissions the client should request
   // The first four are defined by OIDC.
   // Important: Request offline_access to get a refresh token
-  scope: 'openid profile email',
+  scope: pageConfig.cx.scope,
 
   requireHttps: false,
 
   showDebugInformation: true,
 
-  logoutUrl: window.location.origin + '/login',
+  logoutUrl: pageConfig.cx.loginPageUrl,
 
   // Explicitly add flag to make possible refresh of the token
   // without going through login flow

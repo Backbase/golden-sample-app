@@ -10,27 +10,13 @@ import { DOCUMENT } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.scss' ],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   triplets = triplets;
   isAuthenticated = false;
-  _language: string = '';
-
-  set language(value :string) {
-    this.setLocaleService(value).then((value) => {
-      this.document.location.replace('http://localhost:4200');
-    });
-    this._language = value;
-  }
-
-  get language() {
-    return this._language;
-  }
+  
 
   constructor(
-    private oAuthService: OAuthService, 
-    @Inject(SET_LOCALE) private setLocaleService: SetLocale,
-    @Inject(PAGE_CONFIG) private pageConfigService: PageConfig,
-    @Inject(DOCUMENT) private document: Document,
+    private oAuthService: OAuthService,
     public layoutService: LayoutService
   ) {
     this.isAuthenticated = oAuthService.hasValidAccessToken();
@@ -43,9 +29,5 @@ export class AppComponent implements OnInit {
   focusMainContainer(event: MouseEvent) {
     const element = event.view?.window?.document?.querySelector('[role=\'main\']') as HTMLElement | undefined;
     element?.focus();
-  }
-
-  ngOnInit() {
-    this._language = this.pageConfigService.locale;
   }
 }

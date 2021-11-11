@@ -21,21 +21,37 @@ const mockProviders: Provider[] = [
   },
 ];
 
+const pageConfig = {
+  locales: ['en-US','nl-NL'],
+  apiRoot: '/api',
+  staticResourcesRoot: '/',
+  locale: 'en-US',
+  cx: {
+    scope: "openid",
+    authUrl: "https://identity-latest-universal.retail.backbase.eu/auth/realms/backbase",
+    realm: "backbase",
+    clientId: "bb-web-client",
+    loginPageUrl: 'http//localhost:4200/login',
+    landingPageUrl: 'http//localhost:4200/transactions',
+  }
+};
+
 export const environment = {
   production: false,
   apiRoot: 'https://app.stable.retail.backbasecloud.com/api',
   mockProviders,
+  pageConfig,
 };
 
 export const authConfig: AuthConfig = {
   // Url of the Identity Provider
-  issuer: 'https://identity-latest-universal.retail.backbase.eu/auth/realms/backbase',
+  issuer: pageConfig.cx.authUrl,
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: window.location.origin + '/transactions',
+  redirectUri: pageConfig.cx.landingPageUrl,
 
   // The SPA's id. The SPA is registered with this id at the auth-server
-  clientId: 'bb-web-client',
+  clientId: pageConfig.cx.clientId,
 
   // Just needed if your auth server demands a secret. In general, this
   // is a sign that the auth server is not configured with SPAs in mind
@@ -48,13 +64,13 @@ export const authConfig: AuthConfig = {
   // set the scope for the permissions the client should request
   // The first four are defined by OIDC.
   // Important: Request offline_access to get a refresh token
-  scope: 'openid profile email',
+  scope: pageConfig.cx.scope,
 
   requireHttps: false,
 
   showDebugInformation: true,
 
-  logoutUrl: window.location.origin + '/login',
+  logoutUrl: pageConfig.cx.loginPageUrl,
 
   // Explicitly add flag to make possible refresh of the token
   // without going through login flow

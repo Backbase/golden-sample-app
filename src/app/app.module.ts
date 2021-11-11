@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { CONDITIONS, PAGE_CONFIG, SET_LOCALE } from '@backbase/foundation-ang/web-sdk';
 import { triplets } from './services/entitlementsTriplets';
+import { LocaleSelectorComponent } from './components/locale-selector.component';
 
 const buildEntitlementsByUser = (userPermissions: Record<string, boolean>): (triplet: string) => Promise<boolean> => (triplet: string) => new Promise((resolve) => {
   Object.keys(userPermissions).forEach((key) => {
@@ -30,7 +31,7 @@ const buildEntitlementsByUser = (userPermissions: Record<string, boolean>): (tri
   });
 });
 @NgModule({
-  declarations: [ AppComponent ],
+  declarations: [ AppComponent, LocaleSelectorComponent ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -87,8 +88,8 @@ const buildEntitlementsByUser = (userPermissions: Record<string, boolean>): (tri
         const localeCookie = cookie.get('bb-locale');
         const locale = localeCookie ? localeCookie : 'en-US';
         return {
+          ...environment.pageConfig,
           locale,
-          locales: ['en-US', 'nl-NL'],
         }
       },
       deps:[CookieService],
