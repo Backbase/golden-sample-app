@@ -12,9 +12,9 @@ export class LocaleSelectorComponent implements OnInit {
   localesCatalog = localesCatalog;
   locales = this.pageConfigService.locales;
 
-  set language(value :string) {
-    this.setLocaleService(value).then((value) => {
-      this.document.location.href = '/';
+  set language(value: string) {
+    this.setLocaleService(value).then(() => {
+      this.document.location.href = this.pageConfigService.staticResourcesRoot;
     });
     this._language = value;
   }
