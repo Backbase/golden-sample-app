@@ -82,14 +82,28 @@
 
     <!-- Topbar Content Area (a.k.a. Right Topbar Area) -->
     <div class="bb-layout__topbar-content-area">
-        <div class="mx-4">
+        <div>
           <a
             href="#"
             (click)="logout()"
             role="link"
           >
             <bb-icon-ui color="secondary" data-role="notifications-icon" name="user" size="lg"></bb-icon-ui>
-        </a>
+          </a>
+        </div>
+        <div class="mx-4">
+          <bb-dropdown-single-select-ui
+            [(ngModel)]="language"
+          >
+            <bb-dropdown-single-select-option-ui
+              value="en-US"
+              label="English"
+            ></bb-dropdown-single-select-option-ui>
+            <bb-dropdown-single-select-option-ui
+              value="nl-NL"
+              label="Dutch"
+            ></bb-dropdown-single-select-option-ui>
+          </bb-dropdown-single-select-ui>
         </div>
     </div>
   </nav>

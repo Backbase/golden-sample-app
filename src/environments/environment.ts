@@ -4,35 +4,11 @@
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Provider } from '@angular/core';
-import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
 import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
-import { triplets } from '../app/services/entitlementsTriplets';
-
-
-const buildEntitlementsByUser = (userPermissions: Record<string, boolean>): (triplet: string) => Promise<boolean> => (triplet: string) => new Promise((resolve) => {
-    Object.keys(userPermissions).forEach((key) => {
-      if (triplet === key) {
-        resolve(userPermissions[key]);
-      }
-    });
-  });
 
 const mockProviders: Provider[] = [
-  {
-    provide: CONDITIONS,
-    useFactory: () => ({
-      resolveEntitlements(triplet: string) {
-        return buildEntitlementsByUser({
-          [triplets.canMakeLimitlessAmountTransfer]: true,
-          [triplets.canViewTransactions]: true,
-          [triplets.canViewTransfer]: true,
-        })(triplet);
-      },
-    }),
-    deps: []
-  },
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TransactionsInterceptor,

@@ -1,14 +1,26 @@
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthConfig } from 'angular-oauth2-oidc';
+import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
+import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
 
 export const environment = {
   production: true,
-  apiURL: '${API_URL}',
-  mockProviders: []
+  apiURL: '${API_ROOT}',
+  mockProviders: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TransactionsInterceptor,
+    multi: true,
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AccountsInterceptor,
+    multi: true,
+  },]
 };
 
 export const authConfig: AuthConfig = {
   // Url of the Identity Provider
-  issuer: '${ISSUER}',
+  issuer: '${AUTH_URL}',
 
   // URL of the SPA to redirect the user to after login
   redirectUri: window.location.origin + '/transactions',
@@ -34,4 +46,9 @@ export const authConfig: AuthConfig = {
   showDebugInformation: true,
 
   logoutUrl: window.location.origin + '/login',
+
+  // Explicitly add flag to make possible refresh of the token
+  // without going through login flow
+  useSilentRefresh: true,
+  silentRefreshTimeout: 5000,
 };

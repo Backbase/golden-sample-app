@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  web:
+    build:
+      context: .
+    ports:
+      - target: 4200
+        published: 4200
+    environment:
+      PROTOCOL: 'http:'
+      HOSTNAME: localhost
+      PORT: 4200
+      PATHNAME: /
+      API_ROOT: https://app.stable.retail.backbasecloud.com/api
+      AUTH_URL: https://identity-latest-universal.retail.backbase.eu/auth/realms/backbase
+      AUTH_REALM: backbase
+      AUTH_SCOPE: openid
+      AUTH_CLIENT_ID: bb-web-client
