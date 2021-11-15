@@ -11,14 +11,15 @@ map $sent_http_content_type $expires {
 }
 
 # Accept-Language header, for content negotiation
-map $http_accept_language $lang {
+map $http_accept_language $accept_lang {
     ~*^(\w+)-\w+.* $1;
     default ${FALLBACK_LOCALE};
 }
 
 # read bb-locale cookie to get current locale
-map $http_cookie $lang_cookie {
+map $http_cookie $lang {
   ~bb-locale=(?<value>[^\;]+) $value;
+  default $accept_lang;
 }
 
 server {
@@ -43,6 +44,11 @@ server {
   add_header Strict-Transport-Security "max-age=31449600; includeSubDomains" always;
   set $csp '${CSP}';
 
+  # override index file for the empty location
+  location = / {
+    index /$lang/index.html;
+  }
+
   # serves any file with an extension that is not html
   location ~* \.(?!html)\w+$ {
     # Enables or disables adding or modifying the “Expires” and “Cache-Control” response headers
@@ -59,7 +65,7 @@ server {
   #   falling back to Accept-Language header when locale is not explicit in the URL (language-only)
   #   falling back to ${FALLBACK_LOCALE} when all of the above are not available.
   location ~* "^${BASE_HREF}(?:(\w{2})(?:-(\w{2}))?/?)?" {
-      try_files $uri /$1-$2/index.html /$1/index.html /$lang_cookie/index.html /$lang/index.html /index.html =404;
+      try_files $uri /$1-$2/index.html /$1/index.html /$lang/index.html /index.html =404;
 
       # no-cache response may be stored by any cache, even if the response is normally non-cacheable.
       #   However, the stored response MUST always go through validation with the origin server first before using it
