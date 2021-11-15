@@ -33,7 +33,7 @@ export const authConfig: AuthConfig = {
   issuer: 'https://identity-latest-universal.retail.backbase.eu/auth/realms/backbase',
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: document.location + '/transactions',
+  redirectUri: document.location.origin + '/transactions',
 
   // The SPA's id. The SPA is registered with this id at the auth-server
   clientId: 'bb-web-client',
@@ -55,7 +55,7 @@ export const authConfig: AuthConfig = {
 
   showDebugInformation: true,
 
-  logoutUrl: document.location + '/login',
+  logoutUrl: document.location.origin + '/login',
 
   // Explicitly add flag to make possible refresh of the token
   // without going through login flow
