@@ -1,6 +1,4 @@
 import { PageConfig } from "@backbase/foundation-ang/web-sdk";
-import '@angular/localize/init';
-
 export interface PageConfigCx extends PageConfig {
   cx: {
     scope: string,
@@ -14,11 +12,19 @@ export interface PageConfigCx extends PageConfig {
 
 export const localesCatalog: Record<string, { language: string, code: string }> = {
   'en-US': {
-    language:  $localize`:page english language|page english language@@page.language.en.text:English`,
+    language:  'English',
     code: 'en-US'
   },
   'nl-NL': {
-    language: $localize`:page dutch language|page dutch language@@page.language.nl.text:Nederlands`,
+    language: 'Nederlands',
     code: 'nl-NL'
-  }
+  },
+  'en': {
+    language:  'English',
+    code: 'en'
+  },
+  'nl': {
+    language: 'Nederlands',
+    code: 'nl'
+  },
 }

@@ -18,10 +18,10 @@ import { LogoModule } from '@backbase/ui-ang/logo';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
 import { DropdownSingleSelectModule } from '@backbase/ui-ang/dropdown-single-select';
 import { FormsModule } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
-import { CONDITIONS, PAGE_CONFIG, SET_LOCALE } from '@backbase/foundation-ang/web-sdk';
+import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
 import { triplets } from './services/entitlementsTriplets';
 import { LocaleSelectorComponent } from './components/locale-selector.component';
+import { LocalesService, LOCALES_LIST } from './services/locales.service';
 
 const buildEntitlementsByUser = (userPermissions: Record<string, boolean>): (triplet: string) => Promise<boolean> => (triplet: string) => new Promise((resolve) => {
   Object.keys(userPermissions).forEach((key) => {
@@ -70,31 +70,6 @@ const buildEntitlementsByUser = (userPermissions: Record<string, boolean>): (tri
       useFactory: (oAuthService: OAuthService) => () => oAuthService.loadDiscoveryDocumentAndTryLogin()
     },
     {
-      provide: SET_LOCALE,
-      useFactory: (cookie: CookieService) => (locale: string) => {
-        cookie.set('bb-locale', locale);
-        return Promise.resolve({
-          status: 200,
-          statusText: 'OK',
-          headers: {},
-          body: '',
-        });
-      },
-      deps:[CookieService],
-    },
-    {
-      provide: PAGE_CONFIG,
-      useFactory: (cookie: CookieService) => {
-        const localeCookie = cookie.get('bb-locale');
-        const locale = localeCookie ? localeCookie : 'en-US';
-        return {
-          ...environment.pageConfig,
-          locale,
-        }
-      },
-      deps:[CookieService],
-    },
-    {
       provide: CONDITIONS,
       useFactory: () => ({
         resolveEntitlements(triplet: string) {
@@ -107,6 +82,11 @@ const buildEntitlementsByUser = (userPermissions: Record<string, boolean>): (tri
       }),
       deps: []
     },
+    {
+      provide: LOCALES_LIST,
+      useValue: environment.locales,
+    },
+    LocalesService,
   ],
   bootstrap: [ AppComponent ],
 })

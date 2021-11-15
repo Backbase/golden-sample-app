@@ -14,9 +14,8 @@ services:
       PATHNAME: /
       API_ROOT: https://app.stable.retail.backbasecloud.com/api
       AUTH_URL: https://identity-latest-universal.retail.backbase.eu/auth/realms/backbase
-      AUTH_REALM: backbase
       AUTH_SCOPE: openid profile email
       AUTH_CLIENT_ID: bb-web-client
       AUTH_LANDING_PAGE: transactions
       AUTH_REDIRECT_PAGE: login
-      LOCALES: en-US,nl-NL
+      LOCALES: en,nl

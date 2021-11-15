@@ -1,7 +1,7 @@
 import { DOCUMENT } from "@angular/common";
 import { Component, Inject, OnInit } from "@angular/core";
-import { PAGE_CONFIG, SetLocale, SET_LOCALE } from "@backbase/foundation-ang/web-sdk";
-import { PageConfigCx, localesCatalog } from "../../model/Page";
+import { localesCatalog } from "../../model/Page";
+import { LocalesService, LOCALES_LIST } from "../services/locales.service";
 
 @Component({
   selector: 'bb-locale-selector',
@@ -10,26 +10,31 @@ import { PageConfigCx, localesCatalog } from "../../model/Page";
 export class LocaleSelectorComponent implements OnInit {
   private _language: string = '';
   localesCatalog = localesCatalog;
-  locales = this.pageConfigService.locales;
 
   set language(value: string) {
-    this.setLocaleService(value).then(() => {
-      this.document.location.href = this.pageConfigService.staticResourcesRoot;
-    });
-    this._language = value;
+    this.localeService.setLocaleCookie(value);
+    this.document.location.href = this.document.location.origin;
   }
 
   get language() {
     return this._language;
   }
 
+  private findLocale(locale: string): string {
+    if (this.locales.includes(locale)) {
+      return locale;
+    }
+
+    return '';
+  }
+
   ngOnInit() {
-    this._language = this.pageConfigService.locale;
+    this._language = this.findLocale(this.localeService.currentLocale);
   }
 
   constructor(
-    @Inject(SET_LOCALE) private setLocaleService: SetLocale,
-    @Inject(PAGE_CONFIG) private pageConfigService: PageConfigCx,
+    private localeService: LocalesService,
+    @Inject(LOCALES_LIST) public locales: Array<string>,
     @Inject(DOCUMENT) private document: Document,
   ){}
 }
