@@ -1,11 +1,17 @@
 import { DOCUMENT } from "@angular/common";
-import { Component, Inject, OnInit } from "@angular/core";
-import { localesCatalog } from "../../model/Page";
-import { LocalesService, LOCALES_LIST } from "../services/locales.service";
+import { Component, Inject, InjectionToken, OnInit } from "@angular/core";
+import { LocalesService, LOCALES_LIST } from "./locales.service";
+import { localesCatalog } from "./locales-catalog";
+
+export const DocumentWrapper = new InjectionToken<Document>('wrapper for document service');
 
 @Component({
   selector: 'bb-locale-selector',
   templateUrl: 'locale-selector.component.html',
+  providers: [{
+    provide: DocumentWrapper,
+    useExisting: DOCUMENT,
+  }]
 })
 export class LocaleSelectorComponent implements OnInit {
   private _language: string = '';
@@ -35,6 +41,6 @@ export class LocaleSelectorComponent implements OnInit {
   constructor(
     private localeService: LocalesService,
     @Inject(LOCALES_LIST) public locales: Array<string>,
-    @Inject(DOCUMENT) private document: Document,
+    @Inject(DocumentWrapper) private document: Document,
   ){}
 }

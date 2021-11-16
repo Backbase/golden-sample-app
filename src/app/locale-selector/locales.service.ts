@@ -13,6 +13,6 @@ export class LocalesService {
   }
 
   constructor(private cookie: CookieService,
-    @Inject(LOCALE_ID) public locale: string,
+    @Inject(LOCALE_ID) private locale: string,
   ) {}
 }

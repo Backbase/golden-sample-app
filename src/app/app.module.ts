@@ -16,12 +16,9 @@ import { IconModule } from '@backbase/ui-ang/icon';
 import { LayoutModule } from '@backbase/ui-ang/layout';
 import { LogoModule } from '@backbase/ui-ang/logo';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
-import { DropdownSingleSelectModule } from '@backbase/ui-ang/dropdown-single-select';
-import { FormsModule } from '@angular/forms';
 import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
 import { triplets } from './services/entitlementsTriplets';
-import { LocaleSelectorComponent } from './components/locale-selector.component';
-import { LocalesService, LOCALES_LIST } from './services/locales.service';
+import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 
 const buildEntitlementsByUser = (userPermissions: Record<string, boolean>): (triplet: string) => Promise<boolean> => (triplet: string) => new Promise((resolve) => {
   Object.keys(userPermissions).forEach((key) => {
@@ -31,7 +28,7 @@ const buildEntitlementsByUser = (userPermissions: Record<string, boolean>): (tri
   });
 });
 @NgModule({
-  declarations: [ AppComponent, LocaleSelectorComponent ],
+  declarations: [ AppComponent ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -43,11 +40,12 @@ const buildEntitlementsByUser = (userPermissions: Record<string, boolean>): (tri
     LogoModule,
     NgbDropdownModule,
     AvatarModule,
-    FormsModule,
-    DropdownSingleSelectModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     OAuthModule.forRoot(),
+    LocaleSelectorModule.forRoot({
+      locales: environment.locales,
+    }),
   ],
   providers: [
     ...environment.mockProviders,
@@ -82,11 +80,6 @@ const buildEntitlementsByUser = (userPermissions: Record<string, boolean>): (tri
       }),
       deps: []
     },
-    {
-      provide: LOCALES_LIST,
-      useValue: environment.locales,
-    },
-    LocalesService,
   ],
   bootstrap: [ AppComponent ],
 })
