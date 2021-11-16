@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { LayoutService } from '@backbase/ui-ang/layout';
 import { triplets } from './services/entitlementsTriplets';
 import { OAuthService } from 'angular-oauth2-oidc';
@@ -11,8 +11,12 @@ import { OAuthService } from 'angular-oauth2-oidc';
 export class AppComponent {
   triplets = triplets;
   isAuthenticated = false;
+  
 
-  constructor(private oAuthService: OAuthService, public layoutService: LayoutService) {
+  constructor(
+    private oAuthService: OAuthService,
+    public layoutService: LayoutService
+  ) {
     this.isAuthenticated = oAuthService.hasValidAccessToken();
   }
 

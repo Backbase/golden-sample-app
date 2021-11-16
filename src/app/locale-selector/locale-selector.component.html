@@ -1,0 +1,9 @@
+<bb-dropdown-single-select-ui
+  [(ngModel)]="language"
+>
+  <bb-dropdown-single-select-option-ui
+    *ngFor="let locale of locales"
+    [value]="localesCatalog[locale].code"
+    [label]="localesCatalog[locale].language"
+  ></bb-dropdown-single-select-option-ui>
+</bb-dropdown-single-select-ui>

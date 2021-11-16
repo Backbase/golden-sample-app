@@ -4,35 +4,11 @@
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Provider } from '@angular/core';
-import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
 import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
-import { triplets } from '../app/services/entitlementsTriplets';
-
-
-const buildEntitlementsByUser = (userPermissions: Record<string, boolean>): (triplet: string) => Promise<boolean> => (triplet: string) => new Promise((resolve) => {
-    Object.keys(userPermissions).forEach((key) => {
-      if (triplet === key) {
-        resolve(userPermissions[key]);
-      }
-    });
-  });
 
 const mockProviders: Provider[] = [
-  {
-    provide: CONDITIONS,
-    useFactory: () => ({
-      resolveEntitlements(triplet: string) {
-        return buildEntitlementsByUser({
-          [triplets.canMakeLimitlessAmountTransfer]: true,
-          [triplets.canViewTransactions]: true,
-          [triplets.canViewTransfer]: true,
-        })(triplet);
-      },
-    }),
-    deps: []
-  },
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TransactionsInterceptor,
@@ -49,6 +25,7 @@ export const environment = {
   production: false,
   apiRoot: 'https://app.stable.retail.backbasecloud.com/api',
   mockProviders,
+  locales: ['en-US', 'nl-NL'],
 };
 
 export const authConfig: AuthConfig = {
@@ -56,7 +33,7 @@ export const authConfig: AuthConfig = {
   issuer: 'https://identity-latest-universal.retail.backbase.eu/auth/realms/backbase',
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: window.location.origin + '/transactions',
+  redirectUri: document.location.origin + '/transactions',
 
   // The SPA's id. The SPA is registered with this id at the auth-server
   clientId: 'bb-web-client',
@@ -72,13 +49,13 @@ export const authConfig: AuthConfig = {
   // set the scope for the permissions the client should request
   // The first four are defined by OIDC.
   // Important: Request offline_access to get a refresh token
-  scope: 'openid profile email',
+  scope: 'openid',
 
   requireHttps: false,
 
   showDebugInformation: true,
 
-  logoutUrl: window.location.origin + '/login',
+  logoutUrl: document.location.origin + '/login',
 
   // Explicitly add flag to make possible refresh of the token
   // without going through login flow

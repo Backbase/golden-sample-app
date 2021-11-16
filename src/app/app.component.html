@@ -82,14 +82,17 @@
 
     <!-- Topbar Content Area (a.k.a. Right Topbar Area) -->
     <div class="bb-layout__topbar-content-area">
-        <div class="mx-4">
+        <div>
           <a
             href="#"
             (click)="logout()"
             role="link"
           >
             <bb-icon-ui color="secondary" data-role="notifications-icon" name="user" size="lg"></bb-icon-ui>
-        </a>
+          </a>
+        </div>
+        <div class="mx-4">
+          <app-locale-selector></app-locale-selector>
         </div>
     </div>
   </nav>

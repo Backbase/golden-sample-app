@@ -16,6 +16,19 @@ import { IconModule } from '@backbase/ui-ang/icon';
 import { LayoutModule } from '@backbase/ui-ang/layout';
 import { LogoModule } from '@backbase/ui-ang/logo';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
+import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
+import { triplets } from './services/entitlementsTriplets';
+import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
+
+const buildEntitlementsByUser = 
+  (userPermissions: Record<string, boolean>): (triplet: string) => 
+    Promise<boolean> => (triplet: string) => new Promise((resolve) => {
+      Object.keys(userPermissions).forEach((key) => {
+        if (triplet === key) {
+          resolve(userPermissions[key]);
+        }
+      });
+    });
 @NgModule({
   declarations: [ AppComponent ],
   imports: [
@@ -32,6 +45,9 @@ import { AvatarModule } from '@backbase/ui-ang/avatar';
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     OAuthModule.forRoot(),
+    LocaleSelectorModule.forRoot({
+      locales: environment.locales,
+    }),
   ],
   providers: [
     ...environment.mockProviders,
@@ -53,7 +69,19 @@ import { AvatarModule } from '@backbase/ui-ang/avatar';
       deps: [ OAuthService ],
       useFactory: (oAuthService: OAuthService) => () => oAuthService.loadDiscoveryDocumentAndTryLogin()
     },
-    
+    {
+      provide: CONDITIONS,
+      useFactory: () => ({
+        resolveEntitlements(triplet: string) {
+          return buildEntitlementsByUser({
+            [triplets.canMakeLimitlessAmountTransfer]: true,
+            [triplets.canViewTransactions]: true,
+            [triplets.canViewTransfer]: true,
+          })(triplet);
+        },
+      }),
+      deps: []
+    },
   ],
   bootstrap: [ AppComponent ],
 })
