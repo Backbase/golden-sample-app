@@ -1,21 +1,27 @@
-import { DOCUMENT } from "@angular/common";
-import { Component, Inject, InjectionToken, OnInit } from "@angular/core";
-import { LocalesService, LOCALES_LIST } from "./locales.service";
-import { localesCatalog } from "./locales-catalog";
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, InjectionToken, OnInit } from '@angular/core';
+import { LocalesService, LOCALES_LIST } from './locales.service';
+import { localesCatalog } from './locales-catalog';
 
-export const DocumentWrapper = new InjectionToken<Document>('wrapper for document service');
+export const documentWrapper = new InjectionToken<Document>('wrapper for document service');
 
 @Component({
-  selector: 'bb-locale-selector',
+  selector: 'app-locale-selector',
   templateUrl: 'locale-selector.component.html',
   providers: [{
-    provide: DocumentWrapper,
+    provide: documentWrapper,
     useExisting: DOCUMENT,
   }]
 })
 export class LocaleSelectorComponent implements OnInit {
-  private _language: string = '';
+  constructor(
+    private localeService: LocalesService,
+    @Inject(LOCALES_LIST) public locales: Array<string>,
+    @Inject(documentWrapper) private document: Document,
+  ){}
+
   localesCatalog = localesCatalog;
+  private currentLanguage = '';
 
   set language(value: string) {
     this.localeService.setLocaleCookie(value);
@@ -23,7 +29,11 @@ export class LocaleSelectorComponent implements OnInit {
   }
 
   get language() {
-    return this._language;
+    return this.currentLanguage;
+  }
+
+  ngOnInit() {
+    this.currentLanguage = this.findLocale(this.localeService.currentLocale);
   }
 
   private findLocale(locale: string): string {
@@ -33,14 +43,4 @@ export class LocaleSelectorComponent implements OnInit {
 
     return '';
   }
-
-  ngOnInit() {
-    this._language = this.findLocale(this.localeService.currentLocale);
-  }
-
-  constructor(
-    private localeService: LocalesService,
-    @Inject(LOCALES_LIST) public locales: Array<string>,
-    @Inject(DocumentWrapper) private document: Document,
-  ){}
 }

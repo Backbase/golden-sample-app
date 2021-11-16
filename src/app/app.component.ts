@@ -2,8 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { LayoutService } from '@backbase/ui-ang/layout';
 import { triplets } from './services/entitlementsTriplets';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { PageConfig, PAGE_CONFIG, SetLocale, SET_LOCALE } from '@backbase/foundation-ang/web-sdk';
-import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-root',

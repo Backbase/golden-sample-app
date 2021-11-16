@@ -7,16 +7,16 @@ export const localesCatalog: Record<string, { language: string, code: string }> 
     language: 'Nederlands',
     code: 'nl-NL'
   },
-  'en': {
+  en: {
     language:  'English',
     code: 'en'
   },
-  'nl': {
+  nl: {
     language: 'Nederlands',
     code: 'nl'
   },
-  'es': {
+  es: {
     language: 'Spanish',
     code: 'es',
   }
-}
+};

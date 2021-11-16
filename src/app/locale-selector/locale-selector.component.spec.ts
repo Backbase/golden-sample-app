@@ -1,10 +1,10 @@
-import { CommonModule } from "@angular/common";
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { FormsModule } from "@angular/forms";
-import { By } from "@angular/platform-browser";
-import { DropdownSingleSelectModule } from "@backbase/ui-ang/dropdown-single-select";
-import { DocumentWrapper, LocaleSelectorComponent } from "./locale-selector.component";
-import { LocalesService, LOCALES_LIST } from "./locales.service";
+import { CommonModule } from '@angular/common';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { DropdownSingleSelectModule } from '@backbase/ui-ang/dropdown-single-select';
+import { documentWrapper, LocaleSelectorComponent } from './locale-selector.component';
+import { LocalesService, LOCALES_LIST } from './locales.service';
 
 describe('bb-locale-selector', () => {
   let documentStub: { location: { href: string, origin: string } };
@@ -25,7 +25,7 @@ describe('bb-locale-selector', () => {
     localeServiceStub = {
       currentLocale: 'en',
       setLocaleCookie: jasmine.createSpy('setLocaleCookie'),
-    }
+    };
 
     TestBed.configureTestingModule({
       imports: [DropdownSingleSelectModule, FormsModule, CommonModule],
@@ -43,7 +43,7 @@ describe('bb-locale-selector', () => {
     }).overrideComponent(LocaleSelectorComponent, {
       set: {
         providers: [{
-          provide: DocumentWrapper,
+          provide: documentWrapper,
           useValue: documentStub,
         }],
       },
@@ -58,7 +58,7 @@ describe('bb-locale-selector', () => {
       .debugElement
       .queryAll(By.css('option'))
       .map((element) => element.nativeElement.innerText.trim());
-    
+
     expect(languages).toEqual(['Spanish', 'English']);
   });
 
