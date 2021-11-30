@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { provideRoutes } from '@angular/router';
+
 import { SimpleContentExampleComponent } from './simple-content-example/simple-content-example.component';
+
+import { ContentExampleService } from './content-example.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,8 @@ import { SimpleContentExampleComponent } from './simple-content-example/simple-c
         path: '',
         component: SimpleContentExampleComponent
       }
-    ])
+    ]),
+    ContentExampleService
   ]
 })
 export class ContentExampleModule { }
