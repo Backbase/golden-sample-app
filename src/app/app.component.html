@@ -78,6 +78,18 @@
           </span>
         </a>
       </li>
+      <li class="bb-layout__horizontal-nav-item">
+        <a class="bb-layout__horizontal-nav-link"
+          routerLink="/content"
+          routerLinkActive="bb-layout__horizontal-nav-link--active" #contentRouterLink="routerLinkActive"
+          [attr.aria-current]="contentRouterLink.isActive ? 'page' : undefined"
+          role="link"
+        >
+          <span class="bb-layout__horizontal-nav-item-description" i18n="Positive pay link@@main.positive-pay.link.text">
+            Content
+          </span>
+        </a>
+      </li>
     </ul>
 
     <!-- Topbar Content Area (a.k.a. Right Topbar Area) -->

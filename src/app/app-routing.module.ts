@@ -28,6 +28,11 @@ const routes: Routes = [
     },
     canActivate: [ AuthGuard, EntitlementsGuard ],
   },
+{
+    path: 'content',
+    loadChildren: () => import('./content-example/content-example.module').then(m => m.ContentExampleModule),
+    canActivate: [ AuthGuard ],
+  },
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then((m) => m.LoginModule),
