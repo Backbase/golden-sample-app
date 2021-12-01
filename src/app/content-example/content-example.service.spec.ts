@@ -22,7 +22,7 @@ describe('ContentExampleService', () => {
   });
 
   it('should do a request for a simple content example', (done: DoneFn) => {
-    service.getSimpleContentExample().subscribe(() => done());
+    service.simpleContentExample$.subscribe(() => done());
 
     const urlToFetchSimpleContent = 'http://localhost:4200/content-from-drupal/node/1?_format=hal_json';
     const req = httpMock.expectOne(urlToFetchSimpleContent);

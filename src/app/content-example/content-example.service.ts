@@ -8,9 +8,7 @@ export class ContentExampleService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getSimpleContentExample(): Observable<string> {
-    return this.getContent(1)
-  }
+  simpleContentExample$ = this.getContent(1);
 
   private getContent(id: number | string): Observable<string> {
     return (
@@ -18,7 +16,6 @@ export class ContentExampleService {
         .get<{ body: [{ value: string }]}>(`http://localhost:4200/content-from-drupal/node/${id}?_format=hal_json`)
         .pipe(
           map((response) => response.body[0].value as string),
-          
         )
     );
   }
