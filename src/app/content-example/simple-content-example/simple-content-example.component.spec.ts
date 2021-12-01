@@ -1,6 +1,7 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { ContentExampleService } from '../content-example.service';
 
@@ -12,27 +13,29 @@ describe('SimpleContentExampleComponent', () => {
 
   let contentExampleServiceSpy: jasmine.SpyObj<ContentExampleService>;
   let mockIsContentFetchingFailed$$: BehaviorSubject<boolean>;
+  let mockSimpleContentExample$$: BehaviorSubject<string | null>;
 
   const mockContentFromServer = 'some text content from server';
 
   beforeEach(async () => {
     contentExampleServiceSpy = jasmine.createSpyObj<ContentExampleService>(['simpleContentExample$']);
     mockIsContentFetchingFailed$$ = new BehaviorSubject<boolean>(false);
+    mockSimpleContentExample$$ = new BehaviorSubject<string | null>(mockContentFromServer);
     Object.assign(contentExampleServiceSpy, {
-      simpleContentExample$: of(mockContentFromServer),
+      simpleContentExample$: mockSimpleContentExample$$.asObservable(),
       isContentFetchingFailed$: mockIsContentFetchingFailed$$.asObservable(),
     });
 
     await TestBed.configureTestingModule({
-      declarations: [ SimpleContentExampleComponent ],
+      declarations: [SimpleContentExampleComponent],
       providers: [
         {
           provide: ContentExampleService,
-          useValue: contentExampleServiceSpy
-        }
-      ]
-    })
-    .compileComponents();
+          useValue: contentExampleServiceSpy,
+        },
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).compileComponents();
 
   fixture = TestBed.createComponent(SimpleContentExampleComponent);
     component = fixture.componentInstance;
@@ -58,5 +61,14 @@ describe('SimpleContentExampleComponent', () => {
     const errorMessage = fixture.debugElement.query(By.css('[data-role="simple-content--error-message"]'));
 
     expect(errorMessage).not.toBeNull();
+  });
+
+  it('should show skeleton if there is no fetching error, but the content is still loading', () => {
+    mockSimpleContentExample$$.next(null);
+    fixture.detectChanges();
+
+    const skeleton = fixture.debugElement.query(By.css('ngx-skeleton-loader'));
+
+    expect(skeleton).not.toBeNull();
   });
 });

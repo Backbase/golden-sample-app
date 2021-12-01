@@ -1,7 +1,21 @@
 <ng-container *ngIf="!(isContentFetchingFailed$ | async); else contentFetchErrorTmpl">
-	<div [innerHTML]="contentFromTheServer$ | async" data-role="simple-content--container"></div>
+	<ng-container *ngIf="(contentFromTheServer$ | async) as content; else loadingContentSkeleton">
+		<div [innerHTML]="content" data-role="simple-content--container"></div>
+	</ng-container>
 </ng-container>
 
 <ng-template #contentFetchErrorTmpl>
 	<p data-role="simple-content--error-message">Sorry, there is a problem with content.</p> 
+</ng-template>
+
+<ng-template #loadingContentSkeleton>
+	<!--
+		The values of the properties for ngx-skeleton-component
+		are fully cusomizable and hardcoded here only for demo purposes.
+	-->
+	<ngx-skeleton-loader 
+		[count]="8" 
+	    [appearance]="'line'" 
+	    [animation]="'pulse'"
+	></ngx-skeleton-loader>
 </ng-template>

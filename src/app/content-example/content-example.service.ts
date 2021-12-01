@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, delay, map } from 'rxjs/operators';
 
 @Injectable()
 export class ContentExampleService {
@@ -17,6 +17,7 @@ export class ContentExampleService {
       this.httpClient
         .get<{ body: [{ value: string }]}>(`http://localhost:4200/content-from-drupal/node/${id}?_format=hal_json`)
         .pipe(
+          delay(5000),
           map((response) => response.body[0].value as string),
           catchError(({ message }) => {
             this.isContentFetchingFailed$$.next(true);
