@@ -51,10 +51,7 @@
           },
           "configurations": {
             "production": {
-              "index": {
-                "input": "src/index.prod.html",
-                "output": "index.html"
-              },
+              "baseHref": "${BASE_HREF}",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
