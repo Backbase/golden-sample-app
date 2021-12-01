@@ -25,7 +25,7 @@ export const authConfig: AuthConfig = {
   issuer: '${AUTH_URL}/realms/backbase',
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: window.location.href + 'transactions',
+  redirectUri: window.location.origin + '${BASE_HREF}' + 'transactions',
 
   // The SPA's id. The SPA is registered with this id at the auth-server
   clientId: '${AUTH_CLIENT_ID}',
@@ -47,7 +47,7 @@ export const authConfig: AuthConfig = {
 
   showDebugInformation: true,
 
-  logoutUrl: window.location.href,
+  logoutUrl: window.location.origin + '${BASE_HREF}' + 'logout',
 
   // Explicitly add flag to make possible refresh of the token
   // without going through login flow
