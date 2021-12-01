@@ -1,1 +1,7 @@
-<div [innerHTML]="contentFromTheServer$ | async" data-role="simple-content--container"></div>
+<ng-container *ngIf="!(isContentFetchingFailed$ | async); else contentFetchErrorTmpl">
+	<div [innerHTML]="contentFromTheServer$ | async" data-role="simple-content--container"></div>
+</ng-container>
+
+<ng-template #contentFetchErrorTmpl>
+	<p data-role="simple-content--error-message">Sorry, there is a problem with content.</p> 
+</ng-template>

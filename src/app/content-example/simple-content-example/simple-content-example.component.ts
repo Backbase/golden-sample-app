@@ -8,6 +8,7 @@ import { ContentExampleService } from '../content-example.service';
 })
 export class SimpleContentExampleComponent {
   contentFromTheServer$ = this.contentService.simpleContentExample$;
+  isContentFetchingFailed$ = this.contentService.isContentFetchingFailed$;
 
   constructor(private contentService: ContentExampleService) { }
 }
