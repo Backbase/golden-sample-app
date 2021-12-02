@@ -67,7 +67,11 @@ const buildEntitlementsByUser =
       provide: APP_INITIALIZER,
       multi: true,
       deps: [ OAuthService ],
-      useFactory: (oAuthService: OAuthService) => () => oAuthService.loadDiscoveryDocumentAndTryLogin()
+      useFactory: (oAuthService: OAuthService) => () => {
+        return oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+          return oAuthService.setupAutomaticSilentRefresh();
+        });
+      }
     },
     {
       provide: CONDITIONS,
