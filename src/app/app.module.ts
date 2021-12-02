@@ -20,8 +20,8 @@ import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
 import { triplets } from './services/entitlementsTriplets';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 
-const buildEntitlementsByUser = 
-  (userPermissions: Record<string, boolean>): (triplet: string) => 
+const buildEntitlementsByUser =
+  (userPermissions: Record<string, boolean>): (triplet: string) =>
     Promise<boolean> => (triplet: string) => new Promise((resolve) => {
       Object.keys(userPermissions).forEach((key) => {
         if (triplet === key) {
@@ -57,7 +57,7 @@ const buildEntitlementsByUser =
       provide: OAuthModuleConfig,
       useValue: {
         resourceServer: {
-          allowedUrls: [ 'http://www.angular.at/api' ],
+          allowedUrls: [ environment.apiRoot ],
           sendAccessToken: true,
         },
       },
