@@ -48,9 +48,4 @@ export const authConfig: AuthConfig = {
   showDebugInformation: true,
 
   logoutUrl: '${PROTOCOL}//${HOSTNAME}:${PORT}${PATHNAME}${AUTH_REDIRECT_PAGE}',
-
-  // Explicitly add flag to make possible refresh of the token
-  // without going through login flow
-  useSilentRefresh: true,
-  silentRefreshTimeout: 5000,
 };
