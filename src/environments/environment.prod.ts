@@ -48,9 +48,4 @@ export const authConfig: AuthConfig = {
   showDebugInformation: true,
 
   logoutUrl: window.location.origin + '${BASE_HREF}' + 'logout',
-
-  // Explicitly add flag to make possible refresh of the token
-  // without going through login flow
-  useSilentRefresh: true,
-  silentRefreshTimeout: 5000,
 };
