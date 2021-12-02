@@ -4,11 +4,12 @@ import { TestBed } from '@angular/core/testing';
 import { ContentExampleService } from './content-example.service';
 
 // Disable delay for the content request to avoid the async timeout.
-fdescribe('ContentExampleService', () => {
+describe('ContentExampleService', () => {
   let service: ContentExampleService;
   let httpMock: HttpTestingController;
 
   const urlToFetchSimpleContent = 'http://localhost:4200/content-from-drupal/node/1?_format=hal_json';
+  const urlToFetchStructuredContent = 'http://localhost:4200/content-from-drupal/node/2?_format=hal_json';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -29,6 +30,21 @@ fdescribe('ContentExampleService', () => {
 
     const req = httpMock.expectOne(urlToFetchSimpleContent);
     req.flush({ body: [''] });
+
+    expect(req.request.method).toBe('GET');
+  });
+
+  it('should do a request for a structured content item', (done: DoneFn) => {
+    service.structuredContentExample$.subscribe(() => done());
+
+    const req = httpMock.expectOne(urlToFetchStructuredContent);
+    req.flush({ 
+      field_address_line: [{ value: 'test'}],
+      field_email: [{ value: 'test'}],
+      field_public: [{ value: 'test'}],
+      title: [{ value: 'test'}],
+      type: [{ target_id: 'business_info' }],
+    });
 
     expect(req.request.method).toBe('GET');
   });
