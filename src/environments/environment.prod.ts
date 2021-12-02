@@ -25,7 +25,7 @@ export const authConfig: AuthConfig = {
   issuer: '${AUTH_URL}/realms/backbase',
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: '${PROTOCOL}//${HOSTNAME}:${PORT}${PATHNAME}${AUTH_LANDING_PAGE}',
+  redirectUri: window.location.origin + '${BASE_HREF}' + 'transactions',
 
   // The SPA's id. The SPA is registered with this id at the auth-server
   clientId: '${AUTH_CLIENT_ID}',
@@ -47,5 +47,5 @@ export const authConfig: AuthConfig = {
 
   showDebugInformation: true,
 
-  logoutUrl: '${PROTOCOL}//${HOSTNAME}:${PORT}${PATHNAME}${AUTH_REDIRECT_PAGE}',
+  logoutUrl: window.location.origin + '${BASE_HREF}' + 'logout',
 };

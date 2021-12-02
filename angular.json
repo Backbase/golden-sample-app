@@ -51,6 +51,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "${BASE_HREF}",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
