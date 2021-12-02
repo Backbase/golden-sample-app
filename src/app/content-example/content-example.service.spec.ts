@@ -3,7 +3,8 @@ import { TestBed } from '@angular/core/testing';
 
 import { ContentExampleService } from './content-example.service';
 
-describe('ContentExampleService', () => {
+// Disable delay for the content request to avoid the async timeout.
+fdescribe('ContentExampleService', () => {
   let service: ContentExampleService;
   let httpMock: HttpTestingController;
 
