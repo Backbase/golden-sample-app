@@ -37,7 +37,7 @@ export const authConfig: AuthConfig = {
 
   // The SPA's id. The SPA is registered with this id at the auth-server
   clientId: 'bb-web-client',
-
+  
   // Just needed if your auth server demands a secret. In general, this
   // is a sign that the auth server is not configured with SPAs in mind
   // and it might not enforce further best practices vital for security
@@ -56,11 +56,6 @@ export const authConfig: AuthConfig = {
   showDebugInformation: true,
 
   logoutUrl: document.location.origin + '/login',
-
-  // Explicitly add flag to make possible refresh of the token
-  // without going through login flow
-  useSilentRefresh: true,
-  silentRefreshTimeout: 5000,
 };
 
 /*
