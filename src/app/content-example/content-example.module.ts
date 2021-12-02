@@ -5,12 +5,16 @@ import { provideRoutes } from '@angular/router';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 import { SimpleContentExampleComponent } from './simple-content-example/simple-content-example.component';
+import { StructuredContentExampleComponent } from './structured-content-example/structured-content-example.component';
+import { ContentExampleViewComponent } from './content-example-view/content-example-view.component';
 
 import { ContentExampleService } from './content-example.service';
 
 @NgModule({
   declarations: [
-    SimpleContentExampleComponent
+    SimpleContentExampleComponent,
+    StructuredContentExampleComponent,
+    ContentExampleViewComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +24,7 @@ import { ContentExampleService } from './content-example.service';
     provideRoutes([
       {
         path: '',
-        component: SimpleContentExampleComponent
+        component: ContentExampleViewComponent
       }
     ]),
     ContentExampleService
