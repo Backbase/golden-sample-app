@@ -1,8 +1,16 @@
-type DrupalArticle = [{ target_id: 'article' }]; 
+export enum ResponseType {
+  Article = 'article',
+  BusinessInfo = 'business_info',
+  ContactUs = 'contact_us'
+}
 
-type BusinessInfo = [{ target_id: 'business_info' }];
+type DrupalArticle = [{ target_id: ResponseType.Article }]; 
 
-type ReponseType = DrupalArticle | BusinessInfo;
+type BusinessInfo = [{ target_id: ResponseType.BusinessInfo }];
+
+type ContactUs = [{ target_id: ResponseType.ContactUs }];
+
+type ReponseType = DrupalArticle | BusinessInfo | ContactUs;
 
 export type FieldValue = [
   {
@@ -33,4 +41,31 @@ export interface StructuredContent {
   email: string,
   public: boolean,
   title: string,
+}
+
+export interface EmbededContent {
+  [key: string] : [{
+    _links: {
+      self: {
+          href: string,
+        },
+      },
+    },
+  ],
+}
+
+export interface ContactUsReponse extends DrupalResponse {
+  field_email: FieldValue,
+  type: ContactUs,
+  field_social_net: [{ uri: string, title: string }],
+  _embedded: EmbededContent
+}
+export interface ContactUsData {
+  title: string,
+  email: string;
+  socialLink: {
+    link: string,
+    linkText: string,
+    imageLink: string,
+  },
 }
