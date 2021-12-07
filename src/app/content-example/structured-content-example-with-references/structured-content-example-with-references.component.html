@@ -1,0 +1,34 @@
+<ng-container *ngIf="!(isContentFetchingFailed$ | async); else contentFetchErrorTmpl">
+	<ng-container *ngIf="(contentFromTheServer$ | async) as content; else loadingContentSkeleton">
+		<section data-role="structured-content-wth-ref--container">
+			<h2>{{ content.title }}</h2>
+			<div>
+				<p>Email us at: </p>
+				<a href="mailtto:{{ content.email }}">{{ content.email }}</a>
+			</div>
+			<div>
+				<p>Or find us at social media:</p>
+				<a href="{{ content.socialLink.link }}">
+					<img [src]="content.socialLink.imageLink" alt="image for socual network "/>
+				</a>
+			</div>
+		</section>
+	</ng-container>
+</ng-container>
+
+
+<ng-template #contentFetchErrorTmpl>
+	<p data-role="structured-content-with-ref--error-message">Sorry, there is a problem with content.</p> 
+</ng-template>
+
+<ng-template #loadingContentSkeleton>
+	<!--
+		The values of the properties for ngx-skeleton-component
+		are fully cusomizable and hardcoded here only for demo purposes.
+	-->
+	<ngx-skeleton-loader 
+		[count]="8" 
+	    [appearance]="'line'" 
+	    [animation]="'pulse'"
+	></ngx-skeleton-loader>
+</ng-template>

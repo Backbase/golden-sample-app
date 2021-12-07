@@ -7,6 +7,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SimpleContentExampleComponent } from './simple-content-example/simple-content-example.component';
 import { StructuredContentExampleComponent } from './structured-content-example/structured-content-example.component';
 import { ContentExampleViewComponent } from './content-example-view/content-example-view.component';
+import { StructuredContentExampleWithReferencesComponent } from './structured-content-example-with-references/structured-content-example-with-references.component';
 
 import { ContentExampleService } from './content-example.service';
 
@@ -14,7 +15,8 @@ import { ContentExampleService } from './content-example.service';
   declarations: [
     SimpleContentExampleComponent,
     StructuredContentExampleComponent,
-    ContentExampleViewComponent
+    ContentExampleViewComponent,
+    StructuredContentExampleWithReferencesComponent
   ],
   imports: [
     CommonModule,
