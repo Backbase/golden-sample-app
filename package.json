@@ -13,7 +13,7 @@
     "test": "ng test --code-coverage=true",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:journeys": "ng build transactions-journey && ng build transfer-journey",
+    "build:journeys": "ng build transactions-journey && ng build transfer-journey && ng build ach-positive-pay-journey",
     "test:transfer:watch": "ng test transfer-journey --watch",
     "test:transactions:watch": "ng test transactions-journey --watch"
   },
@@ -46,7 +46,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^13.0.4",
+    "@angular-devkit/build-angular": "^12.2.13",
     "@angular-eslint/builder": "12.7.0",
     "@angular-eslint/eslint-plugin": "12.7.0",
     "@angular-eslint/eslint-plugin-template": "12.7.0",

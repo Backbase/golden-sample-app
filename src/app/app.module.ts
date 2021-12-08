@@ -17,24 +17,17 @@ import { LayoutModule } from '@backbase/ui-ang/layout';
 import { LogoModule } from '@backbase/ui-ang/logo';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
 import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
-import { triplets } from './services/entitlementsTriplets';
+import { buildEntitlementsByUser, triplets } from './services/entitlementsTriplets';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-const buildEntitlementsByUser =
-  (userPermissions: Record<string, boolean>): (triplet: string) =>
-    Promise<boolean> => (triplet: string) => new Promise((resolve) => {
-      Object.keys(userPermissions).forEach((key) => {
-        if (triplet === key) {
-          resolve(userPermissions[key]);
-        }
-      });
-    });
 @NgModule({
-  declarations: [ AppComponent ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     EntitlementsModule,
     DropdownMenuModule,
     IconModule,
@@ -57,7 +50,7 @@ const buildEntitlementsByUser =
       provide: OAuthModuleConfig,
       useValue: {
         resourceServer: {
-          allowedUrls: [ environment.apiRoot ],
+          allowedUrls: [environment.apiRoot],
           sendAccessToken: true,
         },
       },
@@ -66,28 +59,25 @@ const buildEntitlementsByUser =
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [ OAuthService ],
-      useFactory: (oAuthService: OAuthService) => () => {
-        return oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-          return oAuthService.setupAutomaticSilentRefresh();
-        });
-      }
+      deps: [OAuthService],
+      useFactory: (oAuthService: OAuthService) => () =>
+        oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => oAuthService.setupAutomaticSilentRefresh()),
     },
     {
       provide: CONDITIONS,
       useFactory: () => ({
-        resolveEntitlements(triplet: string) {
-          return buildEntitlementsByUser({
+        resolveEntitlements: (triplet: string) =>
+          buildEntitlementsByUser({
             [triplets.canMakeLimitlessAmountTransfer]: true,
             [triplets.canViewTransactions]: true,
             [triplets.canViewTransfer]: true,
-          })(triplet);
-        },
+            [triplets.canViewAchRule]: true,
+            [triplets.canCreateAchRule]: true,
+          })(triplet),
       }),
-      deps: []
+      deps: [],
     },
   ],
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

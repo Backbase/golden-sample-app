@@ -7,6 +7,7 @@ import { Provider } from '@angular/core';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
 import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
+import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
 
 const mockProviders: Provider[] = [
   {
@@ -17,6 +18,11 @@ const mockProviders: Provider[] = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: AccountsInterceptor,
+    multi: true,
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AchPositivePayInterceptor,
     multi: true,
   },
 ];
@@ -37,7 +43,7 @@ export const authConfig: AuthConfig = {
 
   // The SPA's id. The SPA is registered with this id at the auth-server
   clientId: 'bb-web-client',
-  
+
   // Just needed if your auth server demands a secret. In general, this
   // is a sign that the auth server is not configured with SPAs in mind
   // and it might not enforce further best practices vital for security

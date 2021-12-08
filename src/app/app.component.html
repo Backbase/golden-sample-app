@@ -68,13 +68,27 @@
       </li>
       <li class="bb-layout__horizontal-nav-item">
         <a class="bb-layout__horizontal-nav-link"
-          routerLink="/positive-pay"
-          routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"
-          [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
-          role="link"
+           routerLink="/positive-pay"
+           routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"
+           [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
+           role="link"
         >
-          <span class="bb-layout__horizontal-nav-item-description" i18n="Positive pay link@@main.positive-pay.link.text">
+          <span class="bb-layout__horizontal-nav-item-description"
+                i18n="Positive pay link@@main.positive-pay.link.text">
             Positive Pay
+          </span>
+        </a>
+      </li>
+      <li class="bb-layout__horizontal-nav-item">
+        <a class="bb-layout__horizontal-nav-link"
+           routerLink="/ach-positive-pay"
+           routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"
+           [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
+           role="link"
+        >
+          <span class="bb-layout__horizontal-nav-item-description"
+                i18n="Ach Positive pay link@@main.ach-positive-pay.link.text">
+            ACH Positive Pay
           </span>
         </a>
       </li>

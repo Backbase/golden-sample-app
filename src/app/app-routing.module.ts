@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
 import { AuthGuard } from './guards/auth.guard';
 import { triplets } from './services/entitlementsTriplets';
-
 
 const routes: Routes = [
   {
@@ -21,12 +20,21 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'ach-positive-pay',
+    loadChildren: () =>
+      import('./ach-positive-pay/ach-positive-pay-journey-bundle.module').then(
+        (m) => m.AchPositivePayJourneyBundleModule,
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'transactions',
-    loadChildren: () => import('./transactions/transactions-journey-bundle.module').then(m => m.TransactionsJourneyBundleModule),
+    loadChildren: () =>
+      import('./transactions/transactions-journey-bundle.module').then((m) => m.TransactionsJourneyBundleModule),
     data: {
       entitlements: triplets.canViewTransactions,
     },
-    canActivate: [ AuthGuard, EntitlementsGuard ],
+    canActivate: [AuthGuard, EntitlementsGuard],
   },
   {
     path: 'login',
