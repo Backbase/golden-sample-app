@@ -12,9 +12,15 @@ export class JourneyCommunicationService implements MakeTransferCommunicationSer
   private categoryCodeForTransfer = '#c12020';
   private latestTransaction$$ = new BehaviorSubject<Transaction | undefined>(undefined);
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   public latestTransaction$ = this.latestTransaction$$.asObservable();
 
   constructor(private router: Router) {}
+
+  public makeTransfer(transfer: Transfer): void {
+    this.latestTransaction$$.next(this.mapTransferToTransaction(transfer));
+    this.router.navigate(['transactions']);
+  }
 
   private mapTransferToTransaction({ toAccount, amount }: Transfer): Transaction {
     return {
@@ -35,10 +41,5 @@ export class JourneyCommunicationService implements MakeTransferCommunicationSer
         accountNumber: toAccount,
       },
     };
-  }
-
-  public makeTransfer(transfer: Transfer): void {
-    this.latestTransaction$$.next(this.mapTransferToTransaction(transfer));
-    this.router.navigate(['transactions']);
   }
 }

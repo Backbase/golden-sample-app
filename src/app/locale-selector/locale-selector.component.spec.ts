@@ -4,14 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { DropdownSingleSelectModule } from '@backbase/ui-ang/dropdown-single-select';
 import { documentWrapper, LocaleSelectorComponent } from './locale-selector.component';
-import { LocalesService, LOCALES_LIST } from './locales.service';
+import { LOCALES_LIST, LocalesService } from './locales.service';
 
 describe('bb-locale-selector', () => {
-  let documentStub: { location: { href: string, origin: string } };
-  let localeServiceStub: Pick<LocalesService, |
-   'currentLocale' |
-   'setLocaleCookie'
-   >
+  let documentStub: { location: { href: string; origin: string } };
+  let localeServiceStub: Pick<LocalesService, 'currentLocale' | 'setLocaleCookie'>;
   let fixture: ComponentFixture<LocaleSelectorComponent>;
 
   beforeEach(() => {
@@ -19,7 +16,7 @@ describe('bb-locale-selector', () => {
       location: {
         href: 'test',
         origin: '',
-      }
+      },
     };
 
     localeServiceStub = {
@@ -31,21 +28,23 @@ describe('bb-locale-selector', () => {
       imports: [DropdownSingleSelectModule, FormsModule, CommonModule],
       declarations: [LocaleSelectorComponent],
       providers: [
-        { 
+        {
           provide: LOCALES_LIST,
           useValue: ['es', 'en'],
         },
         {
           provide: LocalesService,
           useValue: localeServiceStub,
-        }
-      ]
+        },
+      ],
     }).overrideComponent(LocaleSelectorComponent, {
       set: {
-        providers: [{
-          provide: documentWrapper,
-          useValue: documentStub,
-        }],
+        providers: [
+          {
+            provide: documentWrapper,
+            useValue: documentStub,
+          },
+        ],
       },
     });
 
@@ -54,15 +53,14 @@ describe('bb-locale-selector', () => {
   });
 
   it('should load all the languages configured', () => {
-    const languages = fixture
-      .debugElement
+    const languages = fixture.debugElement
       .queryAll(By.css('option'))
       .map((element) => element.nativeElement.innerText.trim());
 
     expect(languages).toEqual(['Spanish', 'English']);
   });
 
-  it(`should set a new cookie value and refresh the page 
+  it(`should set a new cookie value and refresh the page
   by calling the respective services after selecting a language`, () => {
     const select = fixture.debugElement.query(By.css('select')).nativeElement;
     select.value = select.options[1].value;

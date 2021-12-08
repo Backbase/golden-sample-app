@@ -5,11 +5,11 @@
             <input type="text" class="form-control" formControlName="fromAccount" [disabled]="true"/>
           </div>
           <div class="form-group">
-            <label i18n="to account label@@transfer.form.fromAccount.label">To Account</label>
-            <input 
-              type="text" 
-              class="form-control" 
-              formControlName="toAccount"  
+            <label i18n="to account label@@transfer.form.toAccount.label">To Account</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="toAccount"
               i18n-placeholder="from account placeholder@@transfer.form.toAccount.placeholder"
               placeholder="type an account name"
             />
@@ -48,8 +48,8 @@
             </bb-currency-input-ui>
           </div>
     </div>
-    
-    <div class="bb-button-bar"> 
+
+    <div class="bb-button-bar">
       <button bbButton type="submit" i18n="submit button@@transfer.form.submit.text">Submit</button>
     </div>
   </form>
