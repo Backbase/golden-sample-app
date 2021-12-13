@@ -16,19 +16,9 @@ import { IconModule } from '@backbase/ui-ang/icon';
 import { LayoutModule } from '@backbase/ui-ang/layout';
 import { LogoModule } from '@backbase/ui-ang/logo';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
-import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
-import { triplets } from './services/entitlementsTriplets';
+import { ENTITLEMENTS_CONFIG, WebSdkModule } from '@backbase/foundation-ang/web-sdk';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 
-const buildEntitlementsByUser =
-  (userPermissions: Record<string, boolean>): (triplet: string) =>
-    Promise<boolean> => (triplet: string) => new Promise((resolve) => {
-      Object.keys(userPermissions).forEach((key) => {
-        if (triplet === key) {
-          resolve(userPermissions[key]);
-        }
-      });
-    });
 @NgModule({
   declarations: [ AppComponent ],
   imports: [
@@ -48,11 +38,15 @@ const buildEntitlementsByUser =
     LocaleSelectorModule.forRoot({
       locales: environment.locales,
     }),
+    WebSdkModule.forRoot({
+      apiRoot: environment.apiRoot,
+    })
   ],
   providers: [
     ...environment.mockProviders,
     AuthGuard,
     { provide: AuthConfig, useValue: authConfig },
+    { provide: ENTITLEMENTS_CONFIG, useValue: { forceResolved: !environment.production } },
     {
       provide: OAuthModuleConfig,
       useValue: {
@@ -72,20 +66,7 @@ const buildEntitlementsByUser =
           return oAuthService.setupAutomaticSilentRefresh();
         });
       }
-    },
-    {
-      provide: CONDITIONS,
-      useFactory: () => ({
-        resolveEntitlements(triplet: string) {
-          return buildEntitlementsByUser({
-            [triplets.canMakeLimitlessAmountTransfer]: true,
-            [triplets.canViewTransactions]: true,
-            [triplets.canViewTransfer]: true,
-          })(triplet);
-        },
-      }),
-      deps: []
-    },
+    }
   ],
   bootstrap: [ AppComponent ],
 })
