@@ -6,7 +6,7 @@ import { Environment } from './type';
 
 export const environment: Environment = {
   production: true,
-  apiURL: '${API_ROOT}',
+  apiRoot: '${API_ROOT}',
   locales: '${LOCALES}'.split(','),
   // TODO: Remove these interceptors when there is an api available
   mockProviders: [{
@@ -19,7 +19,6 @@ export const environment: Environment = {
     useClass: AccountsInterceptor,
     multi: true,
   },],
-  apiRoot: 'https://app.stable.retail.backbasecloud.com/api',
 };
 
 export const authConfig: AuthConfig = {

@@ -5,5 +5,4 @@ export interface Environment {
 	apiRoot: string,
 	mockProviders: Provider[],
 	locales: string[],
-	apiURL?: string,
 }
