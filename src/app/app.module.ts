@@ -16,13 +16,12 @@ import { IconModule } from '@backbase/ui-ang/icon';
 import { LayoutModule } from '@backbase/ui-ang/layout';
 import { LogoModule } from '@backbase/ui-ang/logo';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
-import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
-import { buildEntitlementsByUser, triplets } from './services/entitlementsTriplets';
+import { ENTITLEMENTS_CONFIG, WebSdkModule } from '@backbase/foundation-ang/web-sdk';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [ AppComponent ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -41,16 +40,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LocaleSelectorModule.forRoot({
       locales: environment.locales,
     }),
+    WebSdkModule.forRoot({
+      apiRoot: environment.apiRoot,
+    })
   ],
   providers: [
     ...environment.mockProviders,
     AuthGuard,
     { provide: AuthConfig, useValue: authConfig },
+    { provide: ENTITLEMENTS_CONFIG, useValue: { forceResolved: !environment.production } },
     {
       provide: OAuthModuleConfig,
       useValue: {
         resourceServer: {
-          allowedUrls: [environment.apiRoot],
+          allowedUrls: [ environment.apiRoot ],
           sendAccessToken: true,
         },
       },
@@ -59,25 +62,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [OAuthService],
-      useFactory: (oAuthService: OAuthService) => () =>
-        oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => oAuthService.setupAutomaticSilentRefresh()),
-    },
-    {
-      provide: CONDITIONS,
-      useFactory: () => ({
-        resolveEntitlements: (triplet: string) =>
-          buildEntitlementsByUser({
-            [triplets.canMakeLimitlessAmountTransfer]: true,
-            [triplets.canViewTransactions]: true,
-            [triplets.canViewTransfer]: true,
-            [triplets.canViewAchRule]: true,
-            [triplets.canCreateAchRule]: true,
-          })(triplet),
-      }),
-      deps: [],
-    },
+      deps: [ OAuthService ],
+      useFactory: (oAuthService: OAuthService) => () => {
+        return oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+          return oAuthService.setupAutomaticSilentRefresh();
+        });
+      }
+    }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [ AppComponent ],
 })
-export class AppModule {}
+export class AppModule {
+}

@@ -36,7 +36,7 @@ export const environment = {
 
 export const authConfig: AuthConfig = {
   // Url of the Identity Provider
-  issuer: 'https://identity-latest-universal.retail.backbase.eu/auth/realms/backbase',
+  issuer: 'https://identity.ret-us-l.rnd.live.backbaseservices.com/auth/realms/backbase',
 
   // URL of the SPA to redirect the user to after login
   redirectUri: document.location.origin + '/transactions',
