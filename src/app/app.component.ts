@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LayoutService } from '@backbase/ui-ang/layout';
 import { triplets } from './services/entitlementsTriplets';
 import { OAuthService } from 'angular-oauth2-oidc';

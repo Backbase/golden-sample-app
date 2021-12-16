@@ -44,8 +44,8 @@
       <li class="bb-layout__horizontal-nav-item" *bbIfEntitlements="triplets.canViewTransfer">
         <a class="bb-layout__horizontal-nav-link"
           routerLink="/transfer"
-          routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"
-          [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
+          routerLinkActive="bb-layout__horizontal-nav-link--active" #makeTransferRouterLink="routerLinkActive"
+          [attr.aria-current]="makeTransferRouterLink.isActive ? 'page' : undefined"
           role="link"
         >
           <span class="bb-layout__horizontal-nav-item-description" i18n="make transfer link@@main.transfer.link.text">
@@ -56,8 +56,8 @@
       <li class="bb-layout__horizontal-nav-item" *bbIfEntitlements="triplets.canViewTransactions">
         <a class="bb-layout__horizontal-nav-link"
           routerLink="/transactions"
-          routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"
-          [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
+          routerLinkActive="bb-layout__horizontal-nav-link--active" #transactionsListRouterLink="routerLinkActive"
+          [attr.aria-current]="transactionsListRouterLink.isActive ? 'page' : undefined"
           role="link"
         >
           <bb-icon-ui class="bb-layout__horizontal-nav-item-icon" name="transactions" size="md"></bb-icon-ui>
@@ -69,8 +69,8 @@
       <li class="bb-layout__horizontal-nav-item">
         <a class="bb-layout__horizontal-nav-link"
           routerLink="/positive-pay"
-          routerLinkActive="bb-layout__horizontal-nav-link--active" #myAccountsRouterLink="routerLinkActive"
-          [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
+          routerLinkActive="bb-layout__horizontal-nav-link--active" #positivePayRouterLink="routerLinkActive"
+          [attr.aria-current]="positivePayRouterLink.isActive ? 'page' : undefined"
           role="link"
         >
           <span class="bb-layout__horizontal-nav-item-description" i18n="Positive pay link@@main.positive-pay.link.text">

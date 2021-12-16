@@ -16,19 +16,9 @@ import { IconModule } from '@backbase/ui-ang/icon';
 import { LayoutModule } from '@backbase/ui-ang/layout';
 import { LogoModule } from '@backbase/ui-ang/logo';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
-import { CONDITIONS } from '@backbase/foundation-ang/web-sdk';
-import { triplets } from './services/entitlementsTriplets';
+import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 
-const buildEntitlementsByUser = 
-  (userPermissions: Record<string, boolean>): (triplet: string) => 
-    Promise<boolean> => (triplet: string) => new Promise((resolve) => {
-      Object.keys(userPermissions).forEach((key) => {
-        if (triplet === key) {
-          resolve(userPermissions[key]);
-        }
-      });
-    });
 @NgModule({
   declarations: [ AppComponent ],
   imports: [
@@ -48,6 +38,9 @@ const buildEntitlementsByUser =
     LocaleSelectorModule.forRoot({
       locales: environment.locales,
     }),
+    WebSdkModule.forRoot({
+      apiRoot: environment.apiRoot,
+    })
   ],
   providers: [
     ...environment.mockProviders,
@@ -57,7 +50,7 @@ const buildEntitlementsByUser =
       provide: OAuthModuleConfig,
       useValue: {
         resourceServer: {
-          allowedUrls: [ 'http://www.angular.at/api' ],
+          allowedUrls: [ environment.apiRoot ],
           sendAccessToken: true,
         },
       },
@@ -67,21 +60,12 @@ const buildEntitlementsByUser =
       provide: APP_INITIALIZER,
       multi: true,
       deps: [ OAuthService ],
-      useFactory: (oAuthService: OAuthService) => () => oAuthService.loadDiscoveryDocumentAndTryLogin()
-    },
-    {
-      provide: CONDITIONS,
-      useFactory: () => ({
-        resolveEntitlements(triplet: string) {
-          return buildEntitlementsByUser({
-            [triplets.canMakeLimitlessAmountTransfer]: true,
-            [triplets.canViewTransactions]: true,
-            [triplets.canViewTransfer]: true,
-          })(triplet);
-        },
-      }),
-      deps: []
-    },
+      useFactory: (oAuthService: OAuthService) => () => {
+        return oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+          return oAuthService.setupAutomaticSilentRefresh();
+        });
+      }
+    }
   ],
   bootstrap: [ AppComponent ],
 })

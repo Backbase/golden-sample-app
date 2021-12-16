@@ -2,10 +2,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
 import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
+import { Environment } from './type';
 
-export const environment = {
+export const environment: Environment = {
   production: true,
-  apiURL: '${API_ROOT}',
+  apiRoot: '${API_ROOT}',
   locales: '${LOCALES}'.split(','),
   // TODO: Remove these interceptors when there is an api available
   mockProviders: [{
@@ -17,15 +18,15 @@ export const environment = {
     provide: HTTP_INTERCEPTORS,
     useClass: AccountsInterceptor,
     multi: true,
-  },]
+  },],
 };
 
 export const authConfig: AuthConfig = {
   // Url of the Identity Provider
-  issuer: '${AUTH_URL}',
+  issuer: '${AUTH_URL}/realms/backbase',
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: '${PROTOCOL}//${HOSTNAME}:${PORT}${PATHNAME}${AUTH_LANDING_PAGE}',
+  redirectUri: window.location.origin + '${BASE_HREF}' + 'transactions',
 
   // The SPA's id. The SPA is registered with this id at the auth-server
   clientId: '${AUTH_CLIENT_ID}',
@@ -47,10 +48,5 @@ export const authConfig: AuthConfig = {
 
   showDebugInformation: true,
 
-  logoutUrl: '${PROTOCOL}//${HOSTNAME}:${PORT}${PATHNAME}${AUTH_REDIRECT_PAGE}',
-
-  // Explicitly add flag to make possible refresh of the token
-  // without going through login flow
-  useSilentRefresh: true,
-  silentRefreshTimeout: 5000,
+  logoutUrl: window.location.origin + '${BASE_HREF}' + 'logout',
 };
