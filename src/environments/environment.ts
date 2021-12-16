@@ -7,6 +7,7 @@ import { Provider } from '@angular/core';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
 import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
+import { Environment } from './type';
 
 const mockProviders: Provider[] = [
   {
@@ -21,7 +22,7 @@ const mockProviders: Provider[] = [
   },
 ];
 
-export const environment = {
+export const environment: Environment = {
   production: false,
   apiRoot: 'https://app.stable.retail.backbasecloud.com/api',
   mockProviders,

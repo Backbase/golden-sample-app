@@ -2,8 +2,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
 import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
+import { Environment } from './type';
 
-export const environment = {
+export const environment: Environment = {
   production: true,
   apiURL: '${API_ROOT}',
   locales: '${LOCALES}'.split(','),
@@ -17,7 +18,8 @@ export const environment = {
     provide: HTTP_INTERCEPTORS,
     useClass: AccountsInterceptor,
     multi: true,
-  },]
+  },],
+  apiRoot: 'https://app.stable.retail.backbasecloud.com/api',
 };
 
 export const authConfig: AuthConfig = {
