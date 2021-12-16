@@ -7,6 +7,7 @@ import { Provider } from '@angular/core';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
 import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
+import { Environment } from './type';
 
 const mockProviders: Provider[] = [
   {
@@ -21,7 +22,7 @@ const mockProviders: Provider[] = [
   },
 ];
 
-export const environment = {
+export const environment: Environment = {
   production: false,
   apiRoot: 'https://app.stable.retail.backbasecloud.com/api',
   mockProviders,
@@ -30,7 +31,7 @@ export const environment = {
 
 export const authConfig: AuthConfig = {
   // Url of the Identity Provider
-  issuer: 'https://identity.ret-us-l.rnd.live.backbaseservices.com/auth/realms/backbase',
+  issuer: 'https://identity.dev.sdbx.live.backbaseservices.com/auth/realms/retail',
 
   // URL of the SPA to redirect the user to after login
   redirectUri: document.location.origin + '/transactions',
