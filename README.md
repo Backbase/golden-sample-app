@@ -2,6 +2,10 @@
 
 This example project is a reference implementation to showcase a number of best practices to use when building a new Angular SPA that leverages Backbase components and libraries. The project is regularly updated, so come back often to check for new improvements.
 
+# !important
+
+To have the application up and running with the idenity server, please, use this URL `http://0.0.0.0:4200/` to access the app.
+
 ## Authentication details
 
 ### Prerequisites:

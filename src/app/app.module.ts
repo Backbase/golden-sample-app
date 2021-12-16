@@ -16,7 +16,7 @@ import { IconModule } from '@backbase/ui-ang/icon';
 import { LayoutModule } from '@backbase/ui-ang/layout';
 import { LogoModule } from '@backbase/ui-ang/logo';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
-import { ENTITLEMENTS_CONFIG, WebSdkModule } from '@backbase/foundation-ang/web-sdk';
+import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -48,7 +48,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ...environment.mockProviders,
     AuthGuard,
     { provide: AuthConfig, useValue: authConfig },
-    { provide: ENTITLEMENTS_CONFIG, useValue: { forceResolved: !environment.production } },
     {
       provide: OAuthModuleConfig,
       useValue: {
