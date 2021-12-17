@@ -8,6 +8,7 @@ import { AuthConfig } from 'angular-oauth2-oidc';
 import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
 import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
 import { Environment } from './type';
+import { EntitlementsInterceptor } from '../app/interceptors/entitlements-interceptor';
 
 const mockProviders: Provider[] = [
   {
@@ -20,6 +21,11 @@ const mockProviders: Provider[] = [
     useClass: AccountsInterceptor,
     multi: true,
   },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: EntitlementsInterceptor,
+    multi: true
+  }
 ];
 
 export const environment: Environment = {
