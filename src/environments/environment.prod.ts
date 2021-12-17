@@ -3,6 +3,7 @@ import { AuthConfig } from 'angular-oauth2-oidc';
 import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
 import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
 import { Environment } from './type';
+import { EntitlementsInterceptor } from '../app/interceptors/entitlements-interceptor';
 
 export const environment: Environment = {
   production: true,
@@ -18,7 +19,12 @@ export const environment: Environment = {
     provide: HTTP_INTERCEPTORS,
     useClass: AccountsInterceptor,
     multi: true,
-  },],
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: EntitlementsInterceptor,
+    multi: true
+  }],
 };
 
 export const authConfig: AuthConfig = {
