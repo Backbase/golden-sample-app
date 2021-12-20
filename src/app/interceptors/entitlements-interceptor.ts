@@ -23,6 +23,24 @@ const entitlements = [
           "view": true,
         }
       },
+    {
+        "additions": {},
+        "resource": "Payments",
+        "function": "ManagePositivePay",
+        "permissions": {
+          "create": true,
+          "view": true,
+        }
+      },
+    {
+        "additions": {},
+        "resource": "Payments",
+        "function": "AchPositivePay",
+        "permissions": {
+          "create": true,
+          "view": true,
+        }
+      },
   ];
 
 

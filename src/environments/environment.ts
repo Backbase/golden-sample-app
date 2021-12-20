@@ -7,6 +7,7 @@ import { Provider } from '@angular/core';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
 import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
+import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
 import { Environment } from './type';
 import { EntitlementsInterceptor } from '../app/interceptors/entitlements-interceptor';
 
@@ -19,6 +20,11 @@ const mockProviders: Provider[] = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: AccountsInterceptor,
+    multi: true,
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AchPositivePayInterceptor,
     multi: true,
   },
   {

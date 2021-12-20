@@ -212,6 +212,46 @@
           }
         }
       }
+    },
+    "ach-positive-pay-journey": {
+      "projectType": "library",
+      "root": "projects/ach-positive-pay-journey",
+      "sourceRoot": "projects/ach-positive-pay-journey/src",
+      "prefix": "bb",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ach-positive-pay-journey/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ach-positive-pay-journey/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ach-positive-pay-journey/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ach-positive-pay-journey/src/test.ts",
+            "tsConfig": "projects/ach-positive-pay-journey/tsconfig.spec.json",
+            "karmaConfig": "projects/ach-positive-pay-journey/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ach-positive-pay-journey/**/*.ts",
+              "projects/ach-positive-pay-journey/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "golden-sample-app",

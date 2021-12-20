@@ -18,6 +18,7 @@ import { LogoModule } from '@backbase/ui-ang/logo';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
 import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [ AppComponent ],
@@ -25,6 +26,7 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     EntitlementsModule,
     DropdownMenuModule,
     IconModule,
@@ -60,11 +62,10 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
       provide: APP_INITIALIZER,
       multi: true,
       deps: [ OAuthService ],
-      useFactory: (oAuthService: OAuthService) => () => {
-        return oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-          return oAuthService.setupAutomaticSilentRefresh();
-        });
-      }
+      useFactory: (oAuthService: OAuthService) => () =>
+        oAuthService.loadDiscoveryDocumentAndTryLogin().then(() =>
+          oAuthService.setupAutomaticSilentRefresh()
+        )
     }
   ],
   bootstrap: [ AppComponent ],

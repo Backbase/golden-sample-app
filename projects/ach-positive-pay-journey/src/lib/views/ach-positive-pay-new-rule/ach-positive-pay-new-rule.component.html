@@ -1,0 +1,78 @@
+<bb-modal-ui
+  [isOpen]="true"
+  [modalOptions]="modalOptions"
+  (cancel)="closeModal()"
+>
+  <bb-modal-header-ui id="ach-positive-pay-new-blocker-modal-head">
+    <ng-template bbCustomModalHeader>
+      <bb-header-ui
+        headingClasses="modal-title"
+        headingType="h2"
+        heading="New ACH Rule"
+        i18n-heading="New ACH Rule|Title of the New ACH Rule form in modal@@ach-positive-pay.new-rule.title"
+        data-role="ach-positive-pay-new-rule-title"
+      >
+      </bb-header-ui>
+    </ng-template>
+  </bb-modal-header-ui>
+
+  <bb-modal-body-ui>
+    <ng-template bbCustomModalBody>
+      <div aria-live="assertive">
+        <div
+          *ngIf="serverError"
+          class="bb-positive-pay-create-check__alert-wrapper"
+          data-role="ach-positive-pay-new-rule-alert-error"
+        >
+          <bb-alert-ui
+            title="Unknown error occurred. Try to submit the form again."
+            i18n-title="Server Error|Message that is displayed when server throws error@@ach-positive-pay.error.default.title"
+            [dismissible]="true"
+            (close)="hideError()"
+          >
+          </bb-alert-ui>
+        </div>
+      </div>
+
+      <bb-ach-positive-pay-rule-form
+        [form]="achRuleForm"
+        [accounts]="(accounts$ | async)!"
+        (selectAccountId)="onSelectAccountId($event)"
+      ></bb-ach-positive-pay-rule-form>
+
+    </ng-template>
+  </bb-modal-body-ui>
+
+  <bb-modal-footer-ui>
+    <ng-template bbCustomModalFooter>
+      <div class="bb-button-bar bb-button-bar--spacing-lg">
+        <bb-load-button-ui
+          id="bb-ach-positive-pay-new-rule-load-more"
+          class="bb-button-bar__button"
+          color="primary"
+          type="submit"
+          [isLoading]="loading"
+          data-role="ach-positive-pay-new-rule-submit-button"
+          i18n="Submit form|Button for submitting new rule@@ach-positive-pay.new-rule.submit-button"
+          (click)="submitRule()"
+        >
+          Submit
+        </bb-load-button-ui>
+
+        <button
+          bbButton
+          class="bb-button-bar__button"
+          type="button"
+          color="link"
+          data-role="ach-positive-pay-new-rule-cancel-button"
+          i18n="Cancel|Button for canceling entry of new check@@ach-positive-pay.new-rule.cancel-button"
+          (click)="closeModal()"
+        >
+          Cancel
+        </button>
+
+      </div>
+    </ng-template>
+  </bb-modal-footer-ui>
+
+</bb-modal-ui>

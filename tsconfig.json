@@ -20,6 +20,9 @@
       "dom"
     ],
     "paths": {
+      "ach-positive-pay-journey": [
+        "projects/ach-positive-pay-journey/src/public-api.ts"
+      ],
       "transactions-journey": [
         "projects/transactions-journey/src/public-api.ts"
       ],
