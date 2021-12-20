@@ -7,14 +7,3 @@ export const triplets = {
   canViewAchRule: 'Payments.AchPositivePay.view',
   canCreateAchRule: 'Payments.AchPositivePay.create',
 };
-
-export const buildEntitlementsByUser =
-  (userPermissions: Record<string, boolean>): ((triplet: string) => Promise<boolean>) =>
-  (triplet: string) =>
-    new Promise((resolve) => {
-      Object.keys(userPermissions).forEach((key) => {
-        if (triplet === key) {
-          resolve(userPermissions[key]);
-        }
-      });
-    });
