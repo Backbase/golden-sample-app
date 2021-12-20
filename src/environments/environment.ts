@@ -9,6 +9,7 @@ import { TransactionsInterceptor } from '../app/interceptors/transactions.interc
 import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
 import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
 import { Environment } from './type';
+import { EntitlementsInterceptor } from '../app/interceptors/entitlements-interceptor';
 
 const mockProviders: Provider[] = [
   {
@@ -26,6 +27,11 @@ const mockProviders: Provider[] = [
     useClass: AchPositivePayInterceptor,
     multi: true,
   },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: EntitlementsInterceptor,
+    multi: true
+  }
 ];
 
 export const environment: Environment = {
