@@ -20,7 +20,9 @@ import { achPositivePayDefaultRoutes } from './ach-positive-pay-journey.routes';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
-import { AchPositivePayRuleFormComponent } from './views/ach-positive-pay-new-rule/ach-positive-pay-rule-form/ach-positive-pay-rule-form.component';
+import {
+  AchPositivePayRuleFormComponent
+} from './views/ach-positive-pay-new-rule/ach-positive-pay-rule-form/ach-positive-pay-rule-form.component';
 import { AchPositivePayHttpService } from './services/ach-positive-pay.http.service';
 
 @NgModule({

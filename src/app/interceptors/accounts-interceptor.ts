@@ -25,14 +25,14 @@ export class AccountsInterceptor implements HttpInterceptor {
             {
               id: '00001',
               name: 'My first accounts',
-              number: '••••••••••••••••2244',
+              number: '••••••••••••••••2244', // eslint-disable-line id-blacklist
               balance: 5690.76,
               currency: 'USD',
             },
             {
               id: '00002',
               name: 'My second account',
-              number: '•••6670',
+              number: '•••6670',  // eslint-disable-line id-blacklist
               balance: 15420.47,
               currency: 'USD',
             },

@@ -62,11 +62,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       provide: APP_INITIALIZER,
       multi: true,
       deps: [ OAuthService ],
-      useFactory: (oAuthService: OAuthService) => () => {
-        return oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-          return oAuthService.setupAutomaticSilentRefresh();
-        });
-      }
+      useFactory: (oAuthService: OAuthService) => () =>
+        oAuthService.loadDiscoveryDocumentAndTryLogin().then(() =>
+          oAuthService.setupAutomaticSilentRefresh()
+        )
     }
   ],
   bootstrap: [ AppComponent ],
