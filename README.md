@@ -4,7 +4,7 @@ This example project is a reference implementation to showcase a number of best 
 
 # !important
 
-To have the application up and running with the idenity server, please, use this URL `http://0.0.0.0:4200/` to access the app.
+On some AWS environments, due to specific WAF configuration, you might need to use `http://0.0.0.0:4200/` when accessing the app locally, in order to successfully authenticate.
 
 ## Authentication details
 
@@ -18,9 +18,8 @@ Do not copy-paste anything related to the authentication to your banking applica
 
 ### How to add authentication to your app
 
-1. Import `WebSdkModule.forRoot()` to the app module and add the auth config.
-2. Create `AppAuthService` that will use `AuthService` from `@backbase/foundation-ang/auth`.
-3. Use `AuthGuard` and/or `AuthInterceptor` directly or as base classes.
+See the example code in the `app.module.ts`, the related `AuthConfig` in the `environment.ts` files, and the `APP_INITIALIZER` provider logic.
+Secure routes with `AuthGuard`s. We rely on https://github.com/manfredsteyer/angular-oauth2-oidc, check their documentation for more details.
 
 ## Development server
 
