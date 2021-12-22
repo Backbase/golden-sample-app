@@ -36,7 +36,7 @@ const mockProviders: Provider[] = [
 
 export const environment: Environment = {
   production: false,
-  apiRoot: 'https://app.stable.retail.backbasecloud.com/api',
+  apiRoot: 'https://app.dev.sdbx.live.backbaseservices.com/api',
   mockProviders,
   locales: ['en-US', 'nl-NL'],
 };
