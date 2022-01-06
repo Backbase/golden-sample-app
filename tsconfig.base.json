@@ -1,0 +1,30 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@golden-sample-app/ach-positive-pay-journey": [
+        "libs/ach-positive-pay-journey/src/index.ts"
+      ],
+      "@golden-sample-app/transactions-journey": [
+        "libs/transactions-journey/src/index.ts"
+      ],
+      "@golden-sample-app/transfer-journey": [
+        "libs/transfer-journey/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
