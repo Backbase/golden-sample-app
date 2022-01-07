@@ -1,16 +1,28 @@
-import { TestBed } from '@angular/core/testing';
-
 import { AchPositivePayHttpService } from './ach-positive-pay.http.service';
 
 describe('AchPositivePayJourneyService', () => {
   let service: AchPositivePayHttpService;
+  let http: any = {
+    get: jest.fn(),
+    post: jest.fn(),
+  };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(AchPositivePayHttpService);
+    service = new AchPositivePayHttpService(http);
   });
 
-  it('should be created', () => {
+  it('should be created and make a get', () => {
     expect(service).toBeTruthy();
+    expect(http.get).toHaveBeenCalledWith('/api/accounts');
+  });
+
+  describe('submitAchRule', () => {
+    it('should post', () => {
+      service.submitAchRule('rule');
+      expect(http.post).toHaveBeenCalledWith(
+        '/api/ach-positive-pay/rule',
+        'rule'
+      );
+    });
   });
 });

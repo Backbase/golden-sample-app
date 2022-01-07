@@ -4,21 +4,20 @@ import { AchPositivePayRuleFormComponent } from './ach-positive-pay-rule-form.co
 
 describe('AchPositivePayRuleFormComponent', () => {
   let component: AchPositivePayRuleFormComponent;
-  let fixture: ComponentFixture<AchPositivePayRuleFormComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [AchPositivePayRuleFormComponent],
-    }).compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AchPositivePayRuleFormComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = new AchPositivePayRuleFormComponent();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('onCheckingAccountSelect', () => {
+    it('should emit selected account', () => {
+      jest.spyOn(component.selectAccountId, 'emit');
+      component.onCheckingAccountSelect({});
+      expect(component.selectAccountId.emit).toHaveBeenCalledWith({});
+    });
   });
 });

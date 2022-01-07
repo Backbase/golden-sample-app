@@ -4,21 +4,31 @@ import { AchPositivePayJourneyComponent } from './ach-positive-pay-journey.compo
 
 describe('AchPositivePayJourneyComponent', () => {
   let component: AchPositivePayJourneyComponent;
-  let fixture: ComponentFixture<AchPositivePayJourneyComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [AchPositivePayJourneyComponent],
-    }).compileComponents();
-  });
+  let mockRouter: any = {
+    navigate: jest.fn(),
+  };
+  let mockActivatedRoute: any = {
+    route: 'route',
+  };
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AchPositivePayJourneyComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = new AchPositivePayJourneyComponent(
+      mockRouter,
+      mockActivatedRoute
+    );
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('openNewBlockerModal', () => {
+    it('should create', () => {
+      component.openNewBlockerModal();
+      expect(mockRouter.navigate).toHaveBeenCalledWith(
+        [{ outlets: { modal: 'new' } }],
+        { relativeTo: { route: 'route' } }
+      );
+    });
   });
 });
