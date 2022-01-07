@@ -1,73 +1,48 @@
-import { CommonModule } from '@angular/common';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { DropdownSingleSelectModule } from '@backbase/ui-ang/dropdown-single-select';
-import { documentWrapper, LocaleSelectorComponent } from './locale-selector.component';
-import { LOCALES_LIST, LocalesService } from './locales.service';
+import { LocaleSelectorComponent } from './locale-selector.component';
 
 describe('bb-locale-selector', () => {
-  let documentStub: { location: { href: string; origin: string } };
-  let localeServiceStub: Pick<LocalesService, 'currentLocale' | 'setLocaleCookie'>;
-  let fixture: ComponentFixture<LocaleSelectorComponent>;
+  let component: LocaleSelectorComponent;
+  const mockLocales = ['en', 'es'];
+  let mockDocument: any = {
+    location: {
+      href: 'test',
+      origin: '',
+    },
+  };
+  let mockLocalesService: any = {};
 
   beforeEach(() => {
-    documentStub = {
-      location: {
-        href: 'test',
-        origin: '',
-      },
-    };
+    component = new LocaleSelectorComponent(
+      mockLocalesService,
+      mockLocales,
+      mockDocument
+    );
+  });
 
-    localeServiceStub = {
-      currentLocale: 'en',
-      setLocaleCookie: jasmine.createSpy('setLocaleCookie'),
-    };
+  it(`should call ngOnInit and set current language to correct locale`, () => {
+    mockLocalesService.currentLocale = 'en';
+    component.ngOnInit();
+    expect(component.language).toEqual('en');
+  });
 
-    TestBed.configureTestingModule({
-      imports: [DropdownSingleSelectModule, FormsModule, CommonModule],
-      declarations: [LocaleSelectorComponent],
-      providers: [
-        {
-          provide: LOCALES_LIST,
-          useValue: ['es', 'en'],
-        },
-        {
-          provide: LocalesService,
-          useValue: localeServiceStub,
-        },
-      ],
-    }).overrideComponent(LocaleSelectorComponent, {
-      set: {
-        providers: [
-          {
-            provide: documentWrapper,
-            useValue: documentStub,
-          },
-        ],
-      },
-    });
-
-    fixture = TestBed.createComponent(LocaleSelectorComponent);
-    fixture.detectChanges();
+  it(`should call ngOnInit and set current language to empty string`, () => {
+    mockLocalesService.currentLocale = 'NAN';
+    component.ngOnInit();
+    expect(component.language).toEqual('');
   });
 
   it('should load all the languages configured', () => {
-    const languages = fixture.debugElement
-      .queryAll(By.css('option'))
-      .map((element) => element.nativeElement.innerText.trim());
-
-    expect(languages).toEqual(['Spanish', 'English']);
+    let locales = mockLocales.map(
+      (locale) => component.localesCatalog[locale].language
+    );
+    expect(locales).toEqual(['English', 'Spanish']);
   });
 
   it(`should set a new cookie value and refresh the page
   by calling the respective services after selecting a language`, () => {
-    const select = fixture.debugElement.query(By.css('select')).nativeElement;
-    select.value = select.options[1].value;
-    select.dispatchEvent(new Event('change'));
-    fixture.detectChanges();
-
-    expect(localeServiceStub.setLocaleCookie).toHaveBeenCalledWith('en');
-    expect(documentStub.location.origin).toBe(documentStub.location.href);
+    mockLocalesService.setLocaleCookie = jest.fn();
+    component.language = 'es';
+    expect(mockLocalesService.setLocaleCookie).toHaveBeenCalledWith('es');
+    expect(mockDocument.location.origin).toBe(mockDocument.location.href);
   });
 });

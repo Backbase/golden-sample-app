@@ -12,7 +12,10 @@ export class AppComponent {
   triplets = triplets;
   isAuthenticated = false;
 
-  constructor(private oAuthService: OAuthService, public layoutService: LayoutService) {
+  constructor(
+    private oAuthService: OAuthService,
+    public layoutService: LayoutService
+  ) {
     this.isAuthenticated = oAuthService.hasValidAccessToken();
   }
 
@@ -21,7 +24,9 @@ export class AppComponent {
   }
 
   focusMainContainer(event: MouseEvent) {
-    const element = event.view?.window?.document?.querySelector('[role="main"]') as HTMLElement | undefined;
+    const element = event.view?.window.document.querySelector(
+      '[role="main"]'
+    ) as HTMLElement | undefined;
     element?.focus();
   }
 }

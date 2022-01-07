@@ -1,32 +1,44 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { LayoutService } from '@backbase/ui-ang/layout';
 import { AppComponent } from './app.component';
-import { OAuthService } from 'angular-oauth2-oidc';
-
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let mockOAuthService: any = {};
+  let mockLayoutService: any = {};
   beforeEach(async () => {
-    const layoutServiceStub = jasmine.createSpyObj<LayoutService>(['toggleNav']);
-
-    await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [AppComponent],
-      providers: [
-        {
-          provide: OAuthService,
-          useValue: jasmine.createSpyObj<OAuthService>(['logOut','hasValidAccessToken']),
-        },
-        {
-          provide: LayoutService,
-          useValue: layoutServiceStub,
-        },
-      ],
-    }).compileComponents();
+    mockOAuthService.hasValidAccessToken = jest.fn(() => true);
+    component = new AppComponent(mockOAuthService, mockLayoutService);
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
+  });
+
+  it('should logout', () => {
+    mockOAuthService.logOut = jest.fn();
+    component.logout();
+    expect(mockOAuthService.logOut).toHaveBeenCalledWith(true);
+  });
+
+  it('should skip to content and focus element ', () => {
+    const focus = jest.fn();
+    const mockEvent: any = {
+      view: {
+        window: {
+          document: {
+            querySelector: () => {
+              return { focus };
+            },
+          },
+        },
+      },
+    };
+    component.focusMainContainer(mockEvent);
+    expect(focus).toHaveBeenCalled();
+  });
+
+  it('should not focus anything, nothing to expect', () => {
+    const mockEvent: any = {
+      view: undefined,
+    };
+    component.focusMainContainer(mockEvent);
   });
 });
