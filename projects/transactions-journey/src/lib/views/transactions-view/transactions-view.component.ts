@@ -13,14 +13,15 @@ export class TransactionsViewComponent {
 
   filter = '';
 
-  transactions = combineLatest([
+  transactions$ = combineLatest([
     this.transactionsService.transactions$,
     this.externalCommunicationService?.latestTransaction$ || of(undefined),
   ]).pipe(
     map(([transactions, latestTransaction]) =>
-      latestTransaction ? [latestTransaction, ...transactions] : transactions,
+      // latestTransaction ? [latestTransaction, ...transactions] : transactions,
+      transactions,
     ),
-  );
+  ).subscribe(v => console.log(v));
 
   constructor(
     private readonly route: ActivatedRoute,

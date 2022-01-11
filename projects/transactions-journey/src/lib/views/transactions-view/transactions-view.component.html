@@ -5,11 +5,11 @@
       <div class="bb-block bb-block--md">
         <bb-text-filter (textChange)="filter = $event || ''"></bb-text-filter>
       </div>
-      <ul *ngIf="transactions | async as items" class="bb-list">
+      <!-- <ul *ngIf="transactions | async as items" class="bb-list">
         <li *ngFor="let item of items | filterTransactions: filter" class="bb-list__item">
           <bb-transaction-item [transaction]="item"></bb-transaction-item>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </div>
 </div>
