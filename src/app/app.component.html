@@ -41,7 +41,8 @@
       *ngIf="isAuthenticated"
       class="bb-layout__horizontal-nav"
     >
-      <li class="bb-layout__horizontal-nav-item" *bbIfEntitlements="triplets.canViewTransfer">
+<!-- *bbIfEntitlements="triplets.canViewTransfer" -->
+      <li class="bb-layout__horizontal-nav-item" >
         <a class="bb-layout__horizontal-nav-link"
           routerLink="/transfer"
           routerLinkActive="bb-layout__horizontal-nav-link--active" #makeTransferRouterLink="routerLinkActive"
@@ -53,7 +54,8 @@
           </span>
         </a>
       </li>
-      <li class="bb-layout__horizontal-nav-item" *bbIfEntitlements="triplets.canViewTransactions">
+<!-- *bbIfEntitlements="triplets.canViewTransactions" -->
+      <li class="bb-layout__horizontal-nav-item" >
         <a class="bb-layout__horizontal-nav-link"
           routerLink="/transactions"
           routerLinkActive="bb-layout__horizontal-nav-link--active" #transactionsListRouterLink="routerLinkActive"
