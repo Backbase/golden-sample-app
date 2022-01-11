@@ -1,7 +1,5 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthConfig } from 'angular-oauth2-oidc';
-import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
-import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
 import { Environment } from './type';
 import { EntitlementsInterceptor } from '../app/interceptors/entitlements-interceptor';
 
@@ -9,17 +7,7 @@ export const environment: Environment = {
   production: true,
   apiRoot: '${API_ROOT}',
   locales: '${LOCALES}'.split(','),
-  // TODO: Remove these interceptors when there is an api available
-  mockProviders: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: TransactionsInterceptor,
-    multi: true,
-  },
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AccountsInterceptor,
-    multi: true,
-  },
+  mockProviders: [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: EntitlementsInterceptor,
