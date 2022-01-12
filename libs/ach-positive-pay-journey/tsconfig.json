@@ -10,6 +10,7 @@
       "path": "./tsconfig.spec.json"
     }
   ],
+  "composite": true,
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
     "strict": true,

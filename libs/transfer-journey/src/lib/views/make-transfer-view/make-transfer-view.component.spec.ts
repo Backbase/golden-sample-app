@@ -1,132 +1,53 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { of } from 'rxjs';
-import { Account } from 'transfer-journey';
 import { Transfer } from '../../model/Account';
-import { MakeTransferAccountHttpService } from '../../services/make-transfer-accounts.http.service';
-import { MakeTransferJourneyConfiguration } from '../../services/make-transfer-journey-config.service';
-import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
-import { MakeTransferPermissionsService } from '../../services/make-transfer-permissions.service';
 import { MakeTransferViewComponent } from './make-transfer-view.component';
 
-@Component({
-  selector: 'bb-make-transfer-form',
-  template: '<div></div>'
-})
-export class MakeTransferFormFake {
-  @Input() account: Account | undefined;
-  @Input() showMaskIndicator = true;
-  @Input() maxLimit = 0;
-  @Output() submitTransfer = new EventEmitter<Transfer>();
-}
-
-const accountMock = {
-  id: '00001',
-  name: 'my account name',
-  amount: 5690.76,
-};
-
 describe('MakeTransferViewComponent', () => {
-  let fixture: ComponentFixture<MakeTransferViewComponent>;
-  let routerStub: Pick<Router, 'navigate'>;
-  let transferStoreStub: Pick<MakeTransferJourneyState, 'next'>;
-  let makeTransferPermissionsStub: Pick<MakeTransferPermissionsService, 'unlimitedAmountPerTransaction$'>;
-  let accountsHttpServiceStub: Pick<MakeTransferAccountHttpService, 'currentAccount$'>;
-  let configurationServiceStub: Pick<MakeTransferJourneyConfiguration, 'maskIndicator' | 'maxTransactionAmount'>;
-
-  transferStoreStub = {
-    next: jasmine.createSpy()
+  let component: MakeTransferViewComponent;
+  const mockActivatedRoute: any = {
+    snapshot: {
+      data: {
+        title: 'some mocked title',
+      },
+    },
   };
-
-  makeTransferPermissionsStub = {
-    unlimitedAmountPerTransaction$: of(true),
+  const mockRouter: any = {
+    navigate: jest.fn(),
   };
-
-  accountsHttpServiceStub = {
-    currentAccount$: of(accountMock),
+  const mockTransferStore: any = {
+    next: jest.fn(),
   };
-
-  configurationServiceStub = {
-    maskIndicator: false,
-    maxTransactionAmount: 2000,
-  };
-
-  routerStub = {
-    navigate: jasmine.createSpy(),
+  const mockPermissions: any = {};
+  const mockAcounts: any = {};
+  const mockConfig: any = {};
+  const mockTransfer: Transfer = {
+    fromAccount: 'from',
+    toAccount: 'to',
+    amount: 1,
   };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [CommonModule],
-      declarations: [MakeTransferViewComponent, MakeTransferFormFake],
-      providers:[
-        {
-          provide: Router,
-          useValue: routerStub,
-        },
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            snapshot: {
-              data: {
-                title: 'my title',
-              },
-            },
-          },
-        },
-        {
-          provide: MakeTransferJourneyState,
-          useValue: transferStoreStub
-        },
-        {
-          provide: MakeTransferPermissionsService,
-          useValue: makeTransferPermissionsStub
-        },
-        {
-          provide: MakeTransferAccountHttpService,
-          useValue: accountsHttpServiceStub
-        },
-        {
-          provide: MakeTransferJourneyConfiguration,
-          useValue: configurationServiceStub,
-        },
-      ],
-    });
-
-    fixture = TestBed.createComponent(MakeTransferViewComponent);
-    fixture.detectChanges();
+    component = new MakeTransferViewComponent(
+      mockActivatedRoute,
+      mockRouter,
+      mockTransferStore,
+      mockPermissions,
+      mockAcounts,
+      mockConfig
+    );
   });
 
-  it('should load the title correctly', () => {
-    const element = fixture.debugElement.query(By.css('h1')).nativeElement;
-
-    expect(element.innerText).toBe('my title');
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should load the account correctly', fakeAsync(() => {
-    fixture.whenStable().then(() => {
-      const element = fixture.debugElement.query(By.directive(MakeTransferFormFake)).componentInstance as MakeTransferFormFake;
-
-      expect(element.account).toEqual(accountMock);
+  describe('submitTransfer', () => {
+    it('should navigate and update store', () => {
+      component.submitTransfer(mockTransfer);
+      expect(mockTransferStore.next).toHaveBeenCalledWith(mockTransfer);
+      expect(mockRouter.navigate).toHaveBeenCalledWith(
+        ['../make-transfer-summary'],
+        { relativeTo: mockActivatedRoute }
+      );
     });
-  }));
-
-  it('should store the payment and navigate to the next step', fakeAsync(() => {
-    fixture.whenStable().then(() => {
-        const element = fixture.debugElement.query(By.directive(MakeTransferFormFake)).componentInstance as MakeTransferFormFake;
-        const transferMock = {
-          amount: 100,
-          fromAccount: '11',
-          toAccount: '22',
-        };
-
-        element.submitTransfer.emit(transferMock);
-
-        expect(transferStoreStub.next).toHaveBeenCalledWith(transferMock);
-        expect(routerStub.navigate).toHaveBeenCalled();
-      });
-  }));
+  });
 });

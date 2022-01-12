@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '~@angular/cdk/a11y';
+@import '../../../node_modules/@angular/cdk/a11y';
 @include cdk-a11y();
 
 bb-area,

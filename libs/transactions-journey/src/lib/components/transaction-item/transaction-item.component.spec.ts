@@ -1,51 +1,39 @@
-import { Component } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { AmountModule } from '@backbase/ui-ang/amount';
-import { creditMockTransaction, debitMockTransaction } from '../../mocks/transactions-mocks';
-
+import { SimpleChange, SimpleChanges } from '@angular/core';
+import {
+  creditMockTransaction,
+  debitMockTransaction,
+  transactionsMock,
+} from '../../mocks/transactions-mocks';
 import { TransactionItemComponent } from './transaction-item.component';
 
-@Component({
-  selector: 'bb-host-component',
-  template: `
-    <bb-transaction-item [transaction]="creditTransaction"></bb-transaction-item>
-    <bb-transaction-item [transaction]="debitTransaction"></bb-transaction-item>
-  `
-})
-class HostComponent {
-  creditTransaction = creditMockTransaction;
-  debitTransaction = debitMockTransaction;
-}
-
 describe('TransactionItemComponent', () => {
-  let component: HostComponent;
-  let fixture: ComponentFixture<HostComponent>;
+  let component: TransactionItemComponent;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [AmountModule],
-      declarations: [ TransactionItemComponent, HostComponent ]
-    });
-
-    fixture = TestBed.createComponent(HostComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = new TransactionItemComponent();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set amount positive if the creditDebit indicator has the value of "credit"', async () => {
-    fixture.detectChanges();
-    await fixture.whenStable();
-    expect(fixture.debugElement.queryAll(By.css('.transactions-item__amount'))[0].nativeElement.classList.contains('negative')).toBe(false);
-  });
-
-  it('should set amount negative if the creditDebit indicator has the value of "debit"', async () => {
-    fixture.detectChanges();
-    await fixture.whenStable();
-    expect(fixture.debugElement.queryAll(By.css('.transactions-item__amount'))[1].nativeElement.classList.contains('negative')).toBe(true);
+  describe('ngOnChanges', () => {
+    const simplaChanges: SimpleChanges = {
+      transaction: new SimpleChange('', '', true),
+    };
+    it('should set amount to debit transaction amount', () => {
+      component.transaction = debitMockTransaction;
+      component.ngOnChanges(simplaChanges);
+      expect(component.amount).toBe(
+        -debitMockTransaction.transaction.amountCurrency.amount
+      );
+    });
+    it('should set amount to credit transaction amount', () => {
+      component.transaction = creditMockTransaction;
+      component.ngOnChanges(simplaChanges);
+      expect(component.amount).toBe(
+        debitMockTransaction.transaction.amountCurrency.amount
+      );
+    });
   });
 });

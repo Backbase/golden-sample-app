@@ -19,9 +19,9 @@ export class TransactionItemComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['transaction']) {
-      this.amount = this.transaction?.transaction.amountCurrency.amount ?? 0;
+      this.amount = this.transaction.transaction.amountCurrency.amount ?? 0;
 
-      if (this.transaction?.transaction.creditDebitIndicator === 'DBIT') {
+      if (this.transaction.transaction.creditDebitIndicator === 'DBIT') {
         this.amount *= -1;
       }
     }

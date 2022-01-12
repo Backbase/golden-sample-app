@@ -1,8 +1,8 @@
 {
-    "xliffmergeOptions": {
-      "apikey": "",
-      "autotranslate": [],
-      "srcDir": "src/locale",
-      "genDir": "src/locale"
-    }
+  "xliffmergeOptions": {
+    "apikey": "",
+    "autotranslate": [],
+    "srcDir": "apps/golden-sample-app/src/locale",
+    "genDir": "apps/golden-sample-app/src/locale"
   }
+}

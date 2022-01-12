@@ -1,75 +1,64 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE } from '../../communication';
-import { debitMockTransaction, transactionsMock } from '../../mocks/transactions-mocks';
-import { Transaction } from '../../model/transaction';
-
-import { FilterTransactionsPipe } from '../../pipes/filter-transactions.pipe';
-import { TransactionsHttpService } from '../../services/transactions.http.service';
+import { TestScheduler } from 'rxjs/testing';
+import {
+  debitMockTransaction,
+  transactionsMock,
+} from '../../mocks/transactions-mocks';
 import { TransactionsViewComponent } from './transactions-view.component';
 
-@Component({
-  selector: 'bb-transaction-item',
-  template: '<div>{{transaction?.merchant?.name}}</div>'
-})
-class FakeTransactionsItem {
-  @Input() transaction: Transaction[] | undefined;
-}
-
-@Component({
-  selector: 'bb-text-filter',
-  template: '<div></div>'
-})
-class FakeTextFilter {
-  @Output() textChange = new EventEmitter<string>();
-}
-
 describe('TransactionsViewComponent', () => {
-  let fixture: ComponentFixture<TransactionsViewComponent>;
+  let scheduler: TestScheduler;
   let component: TransactionsViewComponent;
-
+  let mockActivatedRoute: any = {};
+  let mockTransactionViewService: any = {
+    transactions$: of(transactionsMock),
+  };
+  let mockTransactionsCommunicationService: any = {
+    latestTransaction$: of(debitMockTransaction),
+  };
+  const createComponent = () => {
+    component = new TransactionsViewComponent(
+      mockActivatedRoute,
+      mockTransactionViewService,
+      mockTransactionsCommunicationService
+    );
+  };
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule],
-      declarations: [FakeTransactionsItem, FakeTextFilter, FilterTransactionsPipe, TransactionsViewComponent],
-      providers: [
-        {
-          provide: TransactionsHttpService,
-          useValue: {
-            transactions$: of(transactionsMock)
-          },
+    mockActivatedRoute = {
+      snapshot: {
+        data: {
+          title: 'route',
         },
-        {
-          provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
-          useValue: {
-            latestTransaction$: of(debitMockTransaction),
-          }
-        }
-      ],
+      },
+    };
+    createComponent();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  describe('transaction', () => {
+    beforeEach(() => {
+      scheduler = new TestScheduler((actual, expected) => {
+        expect(actual).toEqual(expected);
+      });
     });
-
-    fixture = TestBed.createComponent(TransactionsViewComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should load all the transactions from both communciation service and http service', () => {
-    const result = fixture.debugElement.queryAll(By.css('.bb-list__item'));
-
-    expect(result.length).toBe(4);
-  });
-
-  it('should filter transactions based on the search', () => {
-    fixture.debugElement.query(By.css('bb-text-filter')).triggerEventHandler('textChange', 'Tea');
-    fixture.detectChanges();
-
-    const result = fixture.debugElement.queryAll(By.css('.bb-list__item'));
-
-    expect(result.length).toBe(1);
-    expect(result[0].nativeElement.innerText).toBe('The Tea Lounge');
+    it('should combine latest transactions with transactions', () => {
+      scheduler.run(({ expectObservable }) => {
+        const expectedMarble = '(a|)';
+        const expected = { a: [debitMockTransaction, ...transactionsMock] };
+        expectObservable(component.transactions).toBe(expectedMarble, expected);
+      });
+    });
+    it('should return transactions when no latest transactions exist', () => {
+      mockTransactionsCommunicationService = undefined;
+      createComponent();
+      scheduler.run(({ expectObservable }) => {
+        const expectedMarble = '(a|)';
+        const expected = { a: [...transactionsMock] };
+        expectObservable(component.transactions).toBe(expectedMarble, expected);
+      });
+    });
   });
 });

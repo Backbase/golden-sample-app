@@ -5,7 +5,7 @@
       "projectType": "library",
       "root": "libs/ach-positive-pay-journey",
       "sourceRoot": "libs/ach-positive-pay-journey/src",
-      "prefix": "golden-sample-app",
+      "prefix": "bb",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -31,7 +31,7 @@
       "projectType": "application",
       "root": "apps/golden-sample-app",
       "sourceRoot": "apps/golden-sample-app/src",
-      "prefix": "backbase",
+      "prefix": "bb",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -58,8 +58,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "3mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -156,7 +156,7 @@
       "projectType": "library",
       "root": "libs/transactions-journey",
       "sourceRoot": "libs/transactions-journey/src",
-      "prefix": "golden-sample-app",
+      "prefix": "bb",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -182,7 +182,7 @@
       "projectType": "library",
       "root": "libs/transfer-journey",
       "sourceRoot": "libs/transfer-journey/src",
-      "prefix": "golden-sample-app",
+      "prefix": "bb",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
