@@ -38,6 +38,11 @@ const routes: Routes = [
     canActivate: [AuthGuard, EntitlementsGuard],
   },
   {
+    path: 'accounts',
+    loadChildren: () => import('./user-accounts/user-accounts.module').then((m) => m.UserAccountsModule),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then((m) => m.LoginModule),
   },

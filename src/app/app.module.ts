@@ -3,7 +3,7 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
+import { EntitlementsModule, ENTITLEMENTS_CONFIG } from '@backbase/foundation-ang/entitlements';
 
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -20,6 +20,7 @@ import { AvatarModule } from '@backbase/ui-ang/avatar';
 
 import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
 
+import { ACCESS_CONTROL_BASE_PATH } from '@backbase/data-ang/accesscontrol';
 import { TRANSACTIONS_BASE_PATH } from '@backbase/data-ang/transactions';
 import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/data-ang/arrangements';
 
@@ -29,6 +30,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
+import { ButtonModule } from '@backbase/ui-ang';
 
 @NgModule({
   declarations: [AppComponent],
@@ -53,6 +55,7 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
     WebSdkModule.forRoot({
       apiRoot: environment.apiRoot,
     }),
+    ButtonModule,
   ],
   providers: [
     ...(environment.mockProviders || []),
@@ -62,7 +65,7 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
       provide: OAuthModuleConfig,
       useValue: {
         resourceServer: {
-          allowedUrls: [ environment.apiRoot ],
+          allowedUrls: [environment.apiRoot],
           sendAccessToken: true,
         },
       },
@@ -71,7 +74,7 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [ OAuthService ],
+      deps: [OAuthService],
       useFactory: (oAuthService: OAuthService) => () =>
         oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => oAuthService.setupAutomaticSilentRefresh()),
     },
@@ -83,6 +86,24 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
       provide: ARRANGEMENT_MANAGER_BASE_PATH,
       useValue: environment.apiRoot + '/arrangement-manager',
     },
+    // {
+    //   provide: ACCESS_CONTROL_BASE_PATH,
+    //   useValue: environment.apiRoot + '/access-control',
+    // },
+    {
+      provide: ENTITLEMENTS_CONFIG,
+      useValue: {
+        accessControlBasePath: '/api/access-control',
+      },
+    },
+    // {
+    //   provide: ENTITLEMENTS_CONFIG,
+    //   useValue: {
+    //     forceResolved: false,
+    //     accessControlBasePath: '/access-control',
+    //     accessControlPath: '/client-api/v2/accessgroups/users/permissions/summary',
+    //   },
+    // },
   ],
   bootstrap: [AppComponent],
 })

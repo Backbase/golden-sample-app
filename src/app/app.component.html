@@ -100,8 +100,7 @@
     <div class="bb-layout__topbar-content-area">
         <div>
           <a
-            href="#"
-            (click)="logout()"
+            routerLink="/accounts"
             role="link"
           >
             <bb-icon-ui color="secondary" data-role="notifications-icon" name="user" size="lg"></bb-icon-ui>
@@ -109,6 +108,11 @@
         </div>
         <div class="mx-4">
           <app-locale-selector></app-locale-selector>
+        </div>
+        <div>
+          <button bbButton (click)="logout()">
+            logout
+          </button>
         </div>
     </div>
   </nav>
