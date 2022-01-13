@@ -1,0 +1,10 @@
+
+<div *ngIf="arrangements$ | async as arrangments">
+	<h1>There are {{ arrangments.length }} accounts</h1>
+
+	<ul>
+		<li *ngFor="let account of arrangments">
+			{{ account.displayName }} - {{ account.availableBalance }} {{ account.currency }}
+		</li>
+	</ul>
+</div>
