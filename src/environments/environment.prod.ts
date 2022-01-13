@@ -1,18 +1,10 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { Environment } from './type';
-import { EntitlementsInterceptor } from '../app/interceptors/entitlements-interceptor';
 
 export const environment: Environment = {
   production: true,
   apiRoot: '${API_ROOT}',
   locales: '${LOCALES}'.split(','),
-  mockProviders: [
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: EntitlementsInterceptor,
-    multi: true
-  }],
 };
 
 export const authConfig: AuthConfig = {

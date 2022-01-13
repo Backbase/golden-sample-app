@@ -2,12 +2,17 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpXsrfTokenExtractor } from '@angular/common/http';
 import { Provider } from '@angular/core';
-import { AuthConfig } from 'angular-oauth2-oidc';
-import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
+
 import { Environment } from './type';
-import { EntitlementsInterceptor } from '../app/interceptors/entitlements-interceptor';
+
+import { AuthConfig } from 'angular-oauth2-oidc';
+
+import { AuthInterceptor} from '@backbase/foundation-ang/auth';
+
+import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
+import { HttpXsrfInterceptor } from '../app/interceptors/http-xsrf.interceptor';
 
 const mockProviders: Provider[] = [
   {
@@ -17,9 +22,15 @@ const mockProviders: Provider[] = [
   },
   {
     provide: HTTP_INTERCEPTORS,
-    useClass: EntitlementsInterceptor,
-    multi: true
-  }
+    useClass: AuthInterceptor,
+    multi: true,
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpXsrfInterceptor,
+    deps: [HttpXsrfTokenExtractor],
+    multi: true,
+  },
 ];
 
 export const environment: Environment = {
