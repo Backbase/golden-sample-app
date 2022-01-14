@@ -129,18 +129,6 @@
       "sourceRoot": "apps/golden-sample-app-e2e/src",
       "projectType": "application",
       "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/golden-sample-app-e2e/cypress.json",
-            "devServerTarget": "golden-sample-app:serve:development"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "golden-sample-app:serve:production"
-            }
-          }
-        },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "outputs": ["{options.outputFile}"],

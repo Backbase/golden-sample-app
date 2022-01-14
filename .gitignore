@@ -47,3 +47,5 @@ testem.log
 Thumbs.db
 
 .angular
+test-results/
+playwright-report/
