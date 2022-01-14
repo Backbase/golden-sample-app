@@ -8,7 +8,6 @@ describe('AchPositivePayRulesComponent', () => {
   });
 
   it('should create', () => {
-    component.ngOnInit();
     expect(component).toBeTruthy();
   });
 });
