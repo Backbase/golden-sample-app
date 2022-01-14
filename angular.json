@@ -131,9 +131,8 @@
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": ["apps/golden-sample-app-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": ["apps/golden-sample-app-e2e/**/*.ts"]
           }
         }
       },

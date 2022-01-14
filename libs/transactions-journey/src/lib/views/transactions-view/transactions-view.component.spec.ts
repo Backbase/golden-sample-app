@@ -10,7 +10,7 @@ describe('TransactionsViewComponent', () => {
   let scheduler: TestScheduler;
   let component: TransactionsViewComponent;
   let mockActivatedRoute: any = {};
-  let mockTransactionViewService: any = {
+  const mockTransactionViewService: any = {
     transactions$: of(transactionsMock),
   };
   let mockTransactionsCommunicationService: any = {

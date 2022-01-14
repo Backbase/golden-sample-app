@@ -3,14 +3,14 @@ import { MakeTransferSuccessViewComponent } from './make-transfer-success-view.c
 describe('MakeTransferSuccessViewComponent', () => {
   let component: MakeTransferSuccessViewComponent;
   let mockTransferStore: any;
-  let mockActivatedRoute: any = {
+  const mockActivatedRoute: any = {
     snapshot: {
       data: {
         title: 'title',
       },
     },
   };
-  let mockRouter: any = {
+  const mockRouter: any = {
     navigate: jest.fn(),
   };
 

@@ -4,19 +4,19 @@ import { AchPositivePayNewRuleComponent } from './ach-positive-pay-new-rule.comp
 
 describe('AchPositivePayNewRuleComponent', () => {
   let component: AchPositivePayNewRuleComponent;
-  let mockRouter: any = {
+  const mockRouter: any = {
     navigate: jest.fn(),
   };
-  let mockActivatedRoute: any = {
+  const mockActivatedRoute: any = {
     route: 'route',
   };
   let mockFormBuilder: any = {
     group: jest.fn(),
   };
-  let mockAchPositivePayService: any = {
+  const mockAchPositivePayService: any = {
     accounts$: of(),
   };
-  let mockNotificationService: any = {
+  const mockNotificationService: any = {
     showNotification: jest.fn(),
   };
 

@@ -2,8 +2,8 @@ import { LocalesService } from './locales.service';
 
 describe('LocalesService', () => {
   let service: LocalesService;
-  let mockLocale = 'en';
-  let mockDocument: any = {
+  const mockLocale = 'en';
+  const mockDocument: any = {
     cookie: '',
   };
 

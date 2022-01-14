@@ -1,9 +1,9 @@
-import { Transfer } from '@golden-sample-app/transfer-journey';
+import { Transfer } from '@libs/transfer';
 import { JourneyCommunicationService } from './journey-communication.service';
 
 describe('JourneyCommunicationService', () => {
   let service: JourneyCommunicationService;
-  let mockRouter: any = { navigate: jest.fn() };
+  const mockRouter: any = { navigate: jest.fn() };
 
   const mocktoAccount = 'mock to account';
   const mockAmount = 42;

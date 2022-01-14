@@ -3,7 +3,7 @@ import {
   TransactionsJourneyConfiguration,
   TransactionsJourneyModule,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
-} from '@golden-sample-app/transactions-journey';
+} from '@libs/transactions-journey';
 import { JourneyCommunicationService } from '../services/journey-communication.service';
 
 @NgModule({

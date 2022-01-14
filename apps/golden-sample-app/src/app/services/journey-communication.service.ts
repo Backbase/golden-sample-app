@@ -5,11 +5,8 @@ import { BehaviorSubject } from 'rxjs';
 import {
   Transaction,
   TransactionsCommunicationService,
-} from '@golden-sample-app/transactions-journey';
-import {
-  MakeTransferCommunicationService,
-  Transfer,
-} from '@golden-sample-app/transfer-journey';
+} from '@libs/transactions';
+import { MakeTransferCommunicationService, Transfer } from '@libs/transfer';
 
 @Injectable({
   providedIn: 'root',

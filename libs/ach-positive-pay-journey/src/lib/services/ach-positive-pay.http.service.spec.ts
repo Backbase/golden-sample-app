@@ -2,7 +2,7 @@ import { AchPositivePayHttpService } from './ach-positive-pay.http.service';
 
 describe('AchPositivePayJourneyService', () => {
   let service: AchPositivePayHttpService;
-  let http: any = {
+  const http: any = {
     get: jest.fn(),
     post: jest.fn(),
   };

@@ -3,7 +3,7 @@ import {
   MakeTransferCommunicationService,
   MakeTransferJourneyConfiguration,
   TransferJourneyModule,
-} from '@golden-sample-app/transfer-journey';
+} from '@libs/transfer';
 import { JourneyCommunicationService } from '../services/journey-communication.service';
 
 @NgModule({

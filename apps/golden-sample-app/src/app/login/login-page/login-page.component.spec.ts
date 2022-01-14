@@ -2,7 +2,7 @@ import { LoginPageComponent } from './login-page.component';
 
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
-  let mockOAuthService: any = {};
+  const mockOAuthService: any = {};
 
   beforeEach(() => {
     component = new LoginPageComponent(mockOAuthService);

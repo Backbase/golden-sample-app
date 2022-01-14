@@ -2,7 +2,7 @@ import { AuthGuard } from './auth.guard';
 
 describe('AuthGuard', () => {
   let authGuard: AuthGuard;
-  let mockOAuthService: any = {};
+  const mockOAuthService: any = {};
 
   beforeEach(() => {
     authGuard = new AuthGuard(mockOAuthService);

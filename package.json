@@ -11,7 +11,8 @@
     "build:docker": "docker build -t golden-sample-app:latest .",
     "start:docker": "docker run -p 8080:8080 golden-sample-app",
     "xi18n": "ng extract-i18n golden-sample-app --output-path=apps/golden-sample-app/src/locale && xliffmerge --profile apps/golden-sample-app/src/xliffmerge.json nl-NL",
-    "e2e": "npx playwright test"
+    "e2e": "npx playwright test",
+    "lint": "nx run-many --all --target=lint"
   },
   "private": true,
   "dependencies": {
@@ -66,6 +67,7 @@
     "@typescript-eslint/parser": "~5.9.1",
     "eslint": "8.2.0",
     "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-playwright": "^0.7.1",
     "jest": "~27.4.7",
     "jest-preset-angular": "11.0.1",
     "ngx-i18nsupport": "^0.17.1",

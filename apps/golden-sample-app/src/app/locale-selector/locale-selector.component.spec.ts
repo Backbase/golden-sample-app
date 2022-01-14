@@ -3,13 +3,13 @@ import { LocaleSelectorComponent } from './locale-selector.component';
 describe('bb-locale-selector', () => {
   let component: LocaleSelectorComponent;
   const mockLocales = ['en', 'es'];
-  let mockDocument: any = {
+  const mockDocument: any = {
     location: {
       href: 'test',
       origin: '',
     },
   };
-  let mockLocalesService: any = {};
+  const mockLocalesService: any = {};
 
   beforeEach(() => {
     component = new LocaleSelectorComponent(
@@ -32,7 +32,7 @@ describe('bb-locale-selector', () => {
   });
 
   it('should load all the languages configured', () => {
-    let locales = mockLocales.map(
+    const locales = mockLocales.map(
       (locale) => component.localesCatalog[locale].language
     );
     expect(locales).toEqual(['English', 'Spanish']);

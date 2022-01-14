@@ -7,7 +7,7 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import mocks from '../mock-data/transactions.json';
-import { Transaction } from '@golden-sample-app/transactions-journey';
+import { Transaction } from '@libs/transactions';
 import { Observable, of } from 'rxjs';
 
 @Injectable()

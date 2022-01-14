@@ -1,11 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'bb-ach-positive-pay-rules',
   templateUrl: './ach-positive-pay-rules.component.html',
 })
-export class AchPositivePayRulesComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class AchPositivePayRulesComponent {}

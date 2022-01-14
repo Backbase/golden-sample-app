@@ -1,8 +1,8 @@
 import { AppComponent } from './app.component';
 describe('AppComponent', () => {
   let component: AppComponent;
-  let mockOAuthService: any = {};
-  let mockLayoutService: any = {};
+  const mockOAuthService: any = {};
+  const mockLayoutService: any = {};
   beforeEach(async () => {
     mockOAuthService.hasValidAccessToken = jest.fn(() => true);
     component = new AppComponent(mockOAuthService, mockLayoutService);

@@ -4,10 +4,10 @@ import { AchPositivePayJourneyComponent } from './ach-positive-pay-journey.compo
 
 describe('AchPositivePayJourneyComponent', () => {
   let component: AchPositivePayJourneyComponent;
-  let mockRouter: any = {
+  const mockRouter: any = {
     navigate: jest.fn(),
   };
-  let mockActivatedRoute: any = {
+  const mockActivatedRoute: any = {
     route: 'route',
   };
 
