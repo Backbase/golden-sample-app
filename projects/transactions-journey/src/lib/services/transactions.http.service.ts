@@ -22,41 +22,41 @@ export class TransactionsHttpService {
       map((arrangements) => arrangements.map((ar) => ar.id)),
     );
 
-  public transactions$ = combineLatest([
-    this.arrangements$,
-    of(this.configurationService.pageSize),
-  ]).pipe(
-    switchMap(
-      ([arrangements, pageSize]) =>
-        this.transactionsHttpService.getTransactions(
-          {
-            transactionListRequest: {
-              arrangementsIds: arrangements,
-              size: pageSize,
-            },
-          } as GetTransactionsRequestParams,
-          'body',
-        ),
-    ),
-  );
-
   // public transactions$ = combineLatest([
   //   this.arrangements$,
   //   of(this.configurationService.pageSize),
   // ]).pipe(
   //   switchMap(
   //     ([arrangements, pageSize]) =>
-  //       this.transactionsHttpService.getTransactionsWithPost(
+  //       this.transactionsHttpService.getTransactions(
   //         {
   //           transactionListRequest: {
   //             arrangementsIds: arrangements,
   //             size: pageSize,
   //           },
-  //         } as GetTransactionsWithPostRequestParams,
-  //         'response',
+  //         } as GetTransactionsRequestParams,
+  //         'body',
   //       ),
   //   ),
   // );
+
+  public transactions$ = combineLatest([
+    this.arrangements$,
+    of(this.configurationService.pageSize),
+  ]).pipe(
+    switchMap(
+      ([arrangements, pageSize]) =>
+        this.transactionsHttpService.getTransactionsWithPost(
+          {
+            transactionListRequest: {
+              arrangementsIds: arrangements,
+              size: pageSize,
+            },
+          } as GetTransactionsWithPostRequestParams,
+          'response',
+        ),
+    ),
+  );
 
   constructor(
     private http: HttpClient,
