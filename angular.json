@@ -1,17 +1,17 @@
 {
   "version": 1,
   "projects": {
-    "ach-positive-pay-journey": {
+    "ach-positive-pay": {
       "projectType": "library",
-      "root": "libs/ach-positive-pay-journey",
-      "sourceRoot": "libs/ach-positive-pay-journey/src",
+      "root": "libs/ach-positive-pay",
+      "sourceRoot": "libs/ach-positive-pay/src",
       "prefix": "bb",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/ach-positive-pay-journey"],
+          "outputs": ["coverage/libs/ach-positive-pay"],
           "options": {
-            "jestConfig": "libs/ach-positive-pay-journey/jest.config.js",
+            "jestConfig": "libs/ach-positive-pay/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -19,13 +19,12 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/ach-positive-pay-journey/src/**/*.ts",
-              "libs/ach-positive-pay-journey/src/**/*.html"
+              "libs/ach-positive-pay/src/**/*.ts",
+              "libs/ach-positive-pay/src/**/*.html"
             ]
           }
         }
-      },
-      "tags": []
+      }
     },
     "golden-sample-app": {
       "projectType": "application",
@@ -121,8 +120,7 @@
             "passWithNoTests": true
           }
         }
-      },
-      "tags": []
+      }
     },
     "golden-sample-app-e2e": {
       "root": "apps/golden-sample-app-e2e",
@@ -135,21 +133,19 @@
             "lintFilePatterns": ["apps/golden-sample-app-e2e/**/*.ts"]
           }
         }
-      },
-      "tags": [],
-      "implicitDependencies": ["golden-sample-app"]
+      }
     },
-    "transactions-journey": {
+    "transactions": {
       "projectType": "library",
-      "root": "libs/transactions-journey",
-      "sourceRoot": "libs/transactions-journey/src",
+      "root": "libs/transactions",
+      "sourceRoot": "libs/transactions/src",
       "prefix": "bb",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/transactions-journey"],
+          "outputs": ["coverage/libs/transactions"],
           "options": {
-            "jestConfig": "libs/transactions-journey/jest.config.js",
+            "jestConfig": "libs/transactions/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -157,25 +153,24 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/transactions-journey/src/**/*.ts",
-              "libs/transactions-journey/src/**/*.html"
+              "libs/transactions/src/**/*.ts",
+              "libs/transactions/src/**/*.html"
             ]
           }
         }
-      },
-      "tags": []
+      }
     },
-    "transfer-journey": {
+    "transfer": {
       "projectType": "library",
-      "root": "libs/transfer-journey",
-      "sourceRoot": "libs/transfer-journey/src",
+      "root": "libs/transfer",
+      "sourceRoot": "libs/transfer/src",
       "prefix": "bb",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/transfer-journey"],
+          "outputs": ["coverage/libs/transfer"],
           "options": {
-            "jestConfig": "libs/transfer-journey/jest.config.js",
+            "jestConfig": "libs/transfer/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -183,13 +178,12 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/transfer-journey/src/**/*.ts",
-              "libs/transfer-journey/src/**/*.html"
+              "libs/transfer/src/**/*.ts",
+              "libs/transfer/src/**/*.html"
             ]
           }
         }
-      },
-      "tags": []
+      }
     }
   }
 }

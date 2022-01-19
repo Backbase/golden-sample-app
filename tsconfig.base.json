@@ -15,9 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@libs/ach-positive-pay": ["libs/ach-positive-pay-journey/src/index.ts"],
-      "@libs/transactions": ["libs/transactions-journey/src/index.ts"],
-      "@libs/transfer": ["libs/transfer-journey/src/index.ts"]
+      "@libs/ach-positive-pay": ["libs/ach-positive-pay/src/index.ts"],
+      "@libs/transactions": ["libs/transactions/src/index.ts"],
+      "@libs/transfer": ["libs/transfer/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

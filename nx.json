@@ -1,5 +1,5 @@
 {
-  "npmScope": "golden-sample-app",
+  "npmScope": "backbase",
   "affected": {
     "defaultBase": "main"
   },
@@ -8,10 +8,11 @@
     "packageManager": "yarn"
   },
   "implicitDependencies": {
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "angular.json": "*",
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "tslint.json": "*",
+    "nx.json": "*",
+    "tsconfig.base.json": "*",
     ".eslintrc.json": "*"
   },
   "tasksRunnerOptions": {
@@ -20,6 +21,24 @@
       "options": {
         "cacheableOperations": ["build", "lint", "test"]
       }
+    }
+  },
+  "projects": {
+    "ach-positive-pay": {
+      "tags": ["scope:shared"]
+    },
+    "transactions": {
+      "tags": ["scope:shared"]
+    },
+    "transfer": {
+      "tags": ["scope:shared"]
+    },
+    "golden-sample-app": {
+      "tags": ["type:app"]
+    },
+    "golden-sample-app-e2e": {
+      "tags": ["type:app"],
+      "implicitDependencies": ["golden-sample-app"]
     }
   },
   "targetDependencies": {
