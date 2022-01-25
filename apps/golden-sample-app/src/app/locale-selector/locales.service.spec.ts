@@ -3,12 +3,12 @@ import { LocalesService } from './locales.service';
 describe('LocalesService', () => {
   let service: LocalesService;
   const mockLocale = 'en';
-  const mockDocument: any = {
+  const mockDocument: Pick<Document, 'cookie'> = {
     cookie: '',
   };
 
   beforeEach(() => {
-    service = new LocalesService(mockLocale, mockDocument);
+    service = new LocalesService(mockLocale, mockDocument as Document);
   });
 
   it('should return current locale', () => {

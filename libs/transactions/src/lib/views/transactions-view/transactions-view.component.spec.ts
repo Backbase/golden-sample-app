@@ -1,3 +1,4 @@
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import {
@@ -5,37 +6,48 @@ import {
   transactionsMock,
 } from '../../mocks/transactions-mocks';
 import { TransactionsViewComponent } from './transactions-view.component';
+import { TransactionsHttpService } from '../../services/transactions.http.service';
+import { TransactionsCommunicationService } from '../../communication';
 
 describe('TransactionsViewComponent', () => {
+  const snapshot: Pick<ActivatedRouteSnapshot, 'data'> = {
+    data: {
+      title: 'someTitle',
+    },
+  };
   let scheduler: TestScheduler;
   let component: TransactionsViewComponent;
-  let mockActivatedRoute: any = {};
-  const mockTransactionViewService: any = {
+  const mockActivatedRoute: Pick<ActivatedRoute, 'snapshot'> = {
+    snapshot: snapshot as ActivatedRouteSnapshot,
+  };
+  const mockTransactionsHttpService: Pick<
+    TransactionsHttpService,
+    'transactions$'
+  > = {
     transactions$: of(transactionsMock),
   };
-  let mockTransactionsCommunicationService: any = {
+  let mockTransactionsCommunicationService:
+    | Pick<TransactionsCommunicationService, 'latestTransaction$'>
+    | undefined = {
     latestTransaction$: of(debitMockTransaction),
   };
   const createComponent = () => {
     component = new TransactionsViewComponent(
-      mockActivatedRoute,
-      mockTransactionViewService,
-      mockTransactionsCommunicationService
+      mockActivatedRoute as ActivatedRoute,
+      mockTransactionsHttpService as TransactionsHttpService,
+      mockTransactionsCommunicationService as TransactionsCommunicationService
     );
   };
   beforeEach(() => {
-    mockActivatedRoute = {
-      snapshot: {
-        data: {
-          title: 'route',
-        },
-      },
-    };
     createComponent();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set title', () => {
+    expect(component.title).toBe(snapshot.data['title']);
   });
 
   describe('transaction', () => {

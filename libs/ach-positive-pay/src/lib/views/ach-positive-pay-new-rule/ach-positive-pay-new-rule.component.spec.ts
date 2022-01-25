@@ -1,32 +1,38 @@
 import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationService } from '@backbase/ui-ang';
 import { of, throwError } from 'rxjs';
+import { AchPositivePayHttpService } from '../../services/ach-positive-pay.http.service';
 import { AchPositivePayNewRuleComponent } from './ach-positive-pay-new-rule.component';
 
 describe('AchPositivePayNewRuleComponent', () => {
   let component: AchPositivePayNewRuleComponent;
-  const mockRouter: any = {
+  const mockRouter: Pick<Router, 'navigate'> = {
     navigate: jest.fn(),
   };
-  const mockActivatedRoute: any = {
-    route: 'route',
-  };
-  let mockFormBuilder: any = {
+  const mockActivatedRoute = new ActivatedRoute();
+  let mockFormBuilder: Pick<FormBuilder, 'group'> = {
     group: jest.fn(),
   };
-  const mockAchPositivePayService: any = {
+  const mockAchPositivePayService: Pick<
+    AchPositivePayHttpService,
+    'accounts$' | 'submitAchRule'
+  > = {
     accounts$: of(),
+    submitAchRule: jest.fn(),
   };
-  const mockNotificationService: any = {
-    showNotification: jest.fn(),
-  };
+  const mockNotificationService: Pick<NotificationService, 'showNotification'> =
+    {
+      showNotification: jest.fn(),
+    };
 
   const createComponent = () => {
     component = new AchPositivePayNewRuleComponent(
-      mockRouter,
+      mockRouter as Router,
       mockActivatedRoute,
-      mockFormBuilder,
-      mockAchPositivePayService,
-      mockNotificationService
+      mockFormBuilder as FormBuilder,
+      mockAchPositivePayService as AchPositivePayHttpService,
+      mockNotificationService as NotificationService
     );
   };
   beforeEach(() => {
@@ -53,7 +59,7 @@ describe('AchPositivePayNewRuleComponent', () => {
     it('should close the modal and navigate', () => {
       component.closeModal();
       expect(mockRouter.navigate).toBeCalledWith(['..'], {
-        relativeTo: { route: 'route' },
+        relativeTo: mockActivatedRoute,
       });
       expect(component.loading).toBeFalsy();
     });

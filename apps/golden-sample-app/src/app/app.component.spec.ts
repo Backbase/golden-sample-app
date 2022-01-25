@@ -1,11 +1,19 @@
+import { LayoutService } from '@backbase/ui-ang';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { AppComponent } from './app.component';
 describe('AppComponent', () => {
   let component: AppComponent;
-  const mockOAuthService: any = {};
-  const mockLayoutService: any = {};
+  const mockOAuthService: Pick<OAuthService, 'logOut' | 'hasValidAccessToken'> =
+    {
+      logOut: jest.fn(),
+      hasValidAccessToken: jest.fn(() => true),
+    };
+  let mockLayoutService: LayoutService;
   beforeEach(async () => {
-    mockOAuthService.hasValidAccessToken = jest.fn(() => true);
-    component = new AppComponent(mockOAuthService, mockLayoutService);
+    component = new AppComponent(
+      mockOAuthService as OAuthService,
+      mockLayoutService
+    );
   });
 
   it('should create the app', () => {
@@ -20,25 +28,26 @@ describe('AppComponent', () => {
 
   it('should skip to content and focus element ', () => {
     const focus = jest.fn();
-    const mockEvent: any = {
-      view: {
-        window: {
-          document: {
-            querySelector: () => {
-              return { focus };
-            },
-          },
-        },
+    const mockDocument: Pick<Document, 'querySelector'> = {
+      querySelector: () => {
+        return { focus };
       },
     };
-    component.focusMainContainer(mockEvent);
+    const mockEvent: Pick<MouseEvent, 'view'> = {
+      view: {
+        window: {
+          document: mockDocument,
+        },
+      } as Window,
+    };
+    component.focusMainContainer(mockEvent as MouseEvent);
     expect(focus).toHaveBeenCalled();
   });
 
-  it('should not focus anything, nothing to expect', () => {
-    const mockEvent: any = {
-      view: undefined,
+  it('should not focus anything', () => {
+    const mockEvent: Pick<MouseEvent, 'view'> = {
+      view: null,
     };
-    component.focusMainContainer(mockEvent);
+    component.focusMainContainer(mockEvent as MouseEvent);
   });
 });

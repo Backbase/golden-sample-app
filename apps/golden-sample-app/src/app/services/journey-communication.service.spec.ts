@@ -1,15 +1,16 @@
+import { Router } from '@angular/router';
 import { Transfer } from '@libs/transfer';
 import { JourneyCommunicationService } from './journey-communication.service';
 
 describe('JourneyCommunicationService', () => {
   let service: JourneyCommunicationService;
-  const mockRouter: any = { navigate: jest.fn() };
+  const mockRouter: Pick<Router, 'navigate'> = { navigate: jest.fn() };
 
   const mocktoAccount = 'mock to account';
   const mockAmount = 42;
 
   beforeEach(() => {
-    service = new JourneyCommunicationService(mockRouter);
+    service = new JourneyCommunicationService(mockRouter as Router);
     service.makeTransfer({
       toAccount: mocktoAccount,
       amount: mockAmount,

@@ -1,16 +1,22 @@
+import { OAuthService } from 'angular-oauth2-oidc';
 import { AuthGuard } from './auth.guard';
 
 describe('AuthGuard', () => {
   let authGuard: AuthGuard;
-  const mockOAuthService: any = {};
+  const mockOAuthService: Pick<
+    OAuthService,
+    'initLoginFlow' | 'hasValidAccessToken'
+  > = {
+    initLoginFlow: jest.fn(),
+    hasValidAccessToken: jest.fn(),
+  };
 
   beforeEach(() => {
-    authGuard = new AuthGuard(mockOAuthService);
+    authGuard = new AuthGuard(mockOAuthService as OAuthService);
   });
 
   describe('should not activate route', () => {
     it('if the auth service init was finished, but the user is still not authenticated', () => {
-      mockOAuthService.initLoginFlow = jest.fn();
       mockOAuthService.hasValidAccessToken = jest.fn(() => false);
       const received = authGuard.canActivate();
       expect(received).toBe(false);

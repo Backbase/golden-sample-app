@@ -1,24 +1,31 @@
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Router,
+} from '@angular/router';
+import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
 import { MakeTransferSuccessViewComponent } from './make-transfer-success-view.component';
 
 describe('MakeTransferSuccessViewComponent', () => {
   let component: MakeTransferSuccessViewComponent;
-  let mockTransferStore: any;
-  const mockActivatedRoute: any = {
-    snapshot: {
-      data: {
-        title: 'title',
-      },
+  let mockTransferState: MakeTransferJourneyState;
+  const snapshot: Pick<ActivatedRouteSnapshot, 'data'> = {
+    data: {
+      title: 'someTitle',
     },
   };
-  const mockRouter: any = {
+  const mockActivatedRoute: Pick<ActivatedRoute, 'snapshot'> = {
+    snapshot: snapshot as ActivatedRouteSnapshot,
+  };
+  const mockRouter: Pick<Router, 'navigate'> = {
     navigate: jest.fn(),
   };
 
   beforeEach(() => {
     component = new MakeTransferSuccessViewComponent(
-      mockTransferStore,
-      mockActivatedRoute,
-      mockRouter
+      mockTransferState,
+      mockActivatedRoute as ActivatedRoute,
+      mockRouter as Router
     );
   });
 

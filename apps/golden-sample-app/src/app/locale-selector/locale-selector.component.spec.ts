@@ -1,32 +1,47 @@
 import { LocaleSelectorComponent } from './locale-selector.component';
+import { LocalesService } from './locales.service';
 
 describe('bb-locale-selector', () => {
   let component: LocaleSelectorComponent;
   const mockLocales = ['en', 'es'];
-  const mockDocument: any = {
-    location: {
-      href: 'test',
-      origin: '',
-    },
+  const mockLocation: Pick<Location, 'href' | 'origin'> = {
+    href: 'test',
+    origin: '',
   };
-  const mockLocalesService: any = {};
+  const mockDocument: Pick<Document, 'location'> = {
+    location: mockLocation as Location,
+  };
+  let mockLocalesService: Pick<
+    LocalesService,
+    'setLocaleCookie' | 'currentLocale'
+  > = {
+    currentLocale: 'en',
+    setLocaleCookie: jest.fn(),
+  };
+
+  function createComponent() {
+    component = new LocaleSelectorComponent(
+      mockLocalesService as LocalesService,
+      mockLocales,
+      mockDocument as Document
+    );
+  }
 
   beforeEach(() => {
-    component = new LocaleSelectorComponent(
-      mockLocalesService,
-      mockLocales,
-      mockDocument
-    );
+    createComponent();
   });
 
   it(`should call ngOnInit and set current language to correct locale`, () => {
-    mockLocalesService.currentLocale = 'en';
     component.ngOnInit();
     expect(component.language).toEqual('en');
   });
 
   it(`should call ngOnInit and set current language to empty string`, () => {
-    mockLocalesService.currentLocale = 'NAN';
+    mockLocalesService = {
+      currentLocale: 'Nan',
+      setLocaleCookie: jest.fn(),
+    };
+    createComponent();
     component.ngOnInit();
     expect(component.language).toEqual('');
   });

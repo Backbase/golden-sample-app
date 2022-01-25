@@ -1,19 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ActivatedRoute, Router } from '@angular/router';
 import { AchPositivePayJourneyComponent } from './ach-positive-pay-journey.component';
 
 describe('AchPositivePayJourneyComponent', () => {
   let component: AchPositivePayJourneyComponent;
-  const mockRouter: any = {
+  const mockRouter: Pick<Router, 'navigate'> = {
     navigate: jest.fn(),
   };
-  const mockActivatedRoute: any = {
-    route: 'route',
-  };
+  const mockActivatedRoute = new ActivatedRoute();
 
   beforeEach(() => {
     component = new AchPositivePayJourneyComponent(
-      mockRouter,
+      mockRouter as Router,
       mockActivatedRoute
     );
   });
@@ -27,7 +24,7 @@ describe('AchPositivePayJourneyComponent', () => {
       component.openNewBlockerModal();
       expect(mockRouter.navigate).toHaveBeenCalledWith(
         [{ outlets: { modal: 'new' } }],
-        { relativeTo: { route: 'route' } }
+        { relativeTo: mockActivatedRoute }
       );
     });
   });

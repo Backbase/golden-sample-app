@@ -30,7 +30,6 @@ export class MakeTransferViewComponent {
 
   submitTransfer(transfer: Transfer): void {
     this.transferStore.next(transfer);
-
     this.router.navigate(['../make-transfer-summary'], {
       relativeTo: this.route,
     });

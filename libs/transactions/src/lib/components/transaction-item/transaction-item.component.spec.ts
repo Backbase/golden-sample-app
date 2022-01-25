@@ -2,7 +2,6 @@ import { SimpleChange, SimpleChanges } from '@angular/core';
 import {
   creditMockTransaction,
   debitMockTransaction,
-  transactionsMock,
 } from '../../mocks/transactions-mocks';
 import { TransactionItemComponent } from './transaction-item.component';
 

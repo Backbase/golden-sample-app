@@ -1,5 +1,3 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AchPositivePayRuleFormComponent } from './ach-positive-pay-rule-form.component';
 
 describe('AchPositivePayRuleFormComponent', () => {
