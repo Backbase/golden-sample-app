@@ -29,7 +29,7 @@ export const environment: Environment = {
 
 export const authConfig: AuthConfig = {
   // Url of the Identity Provider
-  issuer: '${AUTH_URL}/realms/backbase',
+  issuer: '${AUTH_URL}',
 
   // URL of the SPA to redirect the user to after login
   redirectUri: window.location.origin + '${BASE_HREF}' + 'transactions',
