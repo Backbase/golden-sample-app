@@ -1,0 +1,107 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '../../../node_modules/@angular/cdk/a11y';
+@include cdk-a11y();
+
+bb-area,
+bb-root,
+bb-chrome,
+bb-panel-container,
+bb-tab-container,
+bb-deck-container,
+bb-column-container {
+  display: block;
+}
+
+body,
+html {
+  height: 100vb;
+}
+.app-loading {
+  width: 100px;
+  height: 100px;
+  position: static;
+  top: 50%;
+  left: 50%;
+}
+
+.app-loading {
+  .logo {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 94px;
+    height: 100px;
+
+    // this way asset gets processed by webpack
+    background: url(./assets/content/logo-emblem.svg) center center no-repeat;
+  }
+}
+
+.app-loading .spinner {
+  height: 200px;
+  width: 200px;
+  animation: rotate 2s linear infinite;
+  transform-origin: center center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.app-loading .spinner .path {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite;
+  stroke-linecap: round;
+  stroke: #ddd;
+}
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+.login-logo {
+  height: 36px;
+}
+
+.fullscreen-bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -100;
+
+  .fullscreen-bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+  }
+}
+
+.translucent {
+  opacity: 0.92;
+}

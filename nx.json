@@ -1,0 +1,67 @@
+{
+  "npmScope": "backbase",
+  "affected": {
+    "defaultBase": "main"
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "packageManager": "yarn"
+  },
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "tslint.json": "*",
+    "nx.json": "*",
+    "tsconfig.base.json": "*",
+    ".eslintrc.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test"]
+      }
+    }
+  },
+  "projects": {
+    "ach-positive-pay": {
+      "tags": ["scope:shared"]
+    },
+    "transactions": {
+      "tags": ["scope:shared"]
+    },
+    "transfer": {
+      "tags": ["scope:shared"]
+    },
+    "golden-sample-app": {
+      "tags": ["type:app"]
+    },
+    "golden-sample-app-e2e": {
+      "tags": ["type:app"],
+      "implicitDependencies": ["golden-sample-app"]
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "generators": {
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "golden-sample-app"
+}
