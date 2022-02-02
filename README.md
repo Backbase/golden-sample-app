@@ -1,26 +1,64 @@
 # Golden Sample Angular App
 
-This example project is a reference implementation to showcase a number of best practices to use when building a new Angular SPA that leverages Backbase components and libraries. The project is regularly updated, so come back often to check for new improvements. For the best experience, these VSCode extenstions for Nx and Jest should be installed. Jest runner allows you to easly run isolated test as you are developing. Nx Console allows you to easily find and run all the possible Nx Commands.
+The mission of the golden sample is to provide examples of code structure, configuration, and best practices we would like to instill during journey development that would be beneficial as a reference to the audience.
+
+
+## Table of Contents
+* [What is app for](#what-is-app-for)
+* [Requirements](#requirements)
+* [Authentication details](#authentication-details)
+* [Generate an application](#generate-an-application)
+* [Generate a library](#generate-a-library)
+* [Development server](#development-server)
+* [Code scaffolding](#code-scaffolding)
+* [Build](#build)
+* [Tests](#tests)
+* [Understand your workspace](#understand-your-workspace)
+* [Running with docker](#running-with-docker)
+* [Package as a runnable Docker container](#package-as-a-runnable-docker-container)
+* [Further help](#further-help)
+
+
+
+
+
+## What is app for
+- This example project is a reference implementation to showcase a number of best practices to use when building a new Angular SPA that leverages Backbase components and libraries. The project is regularly updated, so come back often to check for new improvements.
+- This prototype covers:
+    - Authentication in the app
+    - Enable support of the multiple languages
+    - Integration with a theme
+    - Using existing journey installed from 
+    - local NPM repository
+    - Configuration of the journeys
+    - Configuration of the entitlements
+    - Communication between journeys
+
+
+## Requirements
+For the best experience, these VSCode extensions for Nx and Jest should be installed. Jest runner allows you to easily run the isolated test as you are developing. Nx Console allows you to easily find and run all the possible Nx Commands.
 
 - `nrwl.angular-console`
 - `firsttris.vscode-jest-runner`.
 
-## Important
+#### Important
 
 On some AWS environments, due to specific WAF configuration, you might need to use `http://0.0.0.0:4200/` when accessing the app locally, in order to successfully authenticate.
 
+
+
 ## Authentication details
 
-### Prerequisites
+#### Prerequisites
 
 - Go through the [documentation page](https://community.backbase.com/documentation/foundation_angular/latest/authenticate_users) first to avoid any confusion with implementing authentication in the modelless app
 
-### Important Info
+#### Important Info
 
 The code that is used for authentication is not for production purposes, this is the example to understand the concepts lying under the hood.
 Do not copy-paste anything related to the authentication to your banking application.
 
-### How to add authentication to your app
+#### How to add authentication to your app
 
 See the example code in the `app.module.ts`, the related `AuthConfig` in the `environment.ts` files, and the `APP_INITIALIZER` provider logic.
 Secure routes with `AuthGuard`s. We rely on <https://github.com/manfredsteyer/angular-oauth2-oidc>, check their documentation for more details.
@@ -33,7 +71,7 @@ Run `ng g @nrwl/angular:app my-app` to generate an application.
 
 When using Nx, you can create multiple applications and libraries in the same workspace.
 
-After generating, use appropiate tags in both `nx.json` and `.eslintrs.json` to impose constraints on the dependency graph. [Nx Tags](https://nx.dev/structure/monorepo-tags)
+After generating, use appropriate tags in both `nx.json` and `.eslintrs.json` to impose constraints on the dependency graph. [Nx Tags](https://nx.dev/structure/monorepo-tags)
 
 ## Generate a library
 
@@ -43,7 +81,7 @@ Run `ng g @nrwl/angular:lib my-lib` to generate a library.
 
 Libraries are shareable across libraries and applications. They can be imported from `@backbase/mylib`.
 
-After generating, use appropiate tags in both `nx.json` and `.eslintrs.json` to impose constraints on the dependency graph.[Nx Tags](https://nx.dev/structure/monorepo-tags)
+After generating, use appropriate tags in both `nx.json` and `.eslintrs.json` to impose constraints on the dependency graph.[Nx Tags](https://nx.dev/structure/monorepo-tags)
 
 ## Development server
 
@@ -57,13 +95,15 @@ Run `ng g component my-component --project=my-app` to generate a new component.
 
 Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+## Tests
+
+### Running unit tests
 
 Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
 
 Run `nx affected:test` to execute the unit tests affected by a change.
 
-## Running end-to-end tests
+### Running end-to-end tests
 
 Run `npx playwright test`
 
