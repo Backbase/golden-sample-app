@@ -16,7 +16,6 @@ import { IconModule } from '@backbase/ui-ang/icon';
 import { LayoutModule } from '@backbase/ui-ang/layout';
 import { LogoModule } from '@backbase/ui-ang/logo';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
-import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -27,21 +26,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    EntitlementsModule,
     DropdownMenuModule,
     IconModule,
     LayoutModule,
     LogoModule,
     NgbDropdownModule,
     AvatarModule,
+    EntitlementsModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     OAuthModule.forRoot(),
     LocaleSelectorModule.forRoot({
       locales: environment.locales,
-    }),
-    WebSdkModule.forRoot({
-      apiRoot: environment.apiRoot,
     })
   ],
   providers: [
