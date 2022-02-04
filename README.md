@@ -28,8 +28,7 @@ The mission of the golden sample is to provide examples of code structure, confi
     - Authentication in the app
     - Enable support of the multiple languages
     - Integration with a theme
-    - Using existing journey installed from 
-    - local NPM repository
+    - Using existing journey installed from local NPM repository
     - Configuration of the journeys
     - Configuration of the entitlements
     - Communication between journeys
