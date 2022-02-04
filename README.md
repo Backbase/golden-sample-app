@@ -34,7 +34,7 @@ The mission of the golden sample is to provide examples of code structure, confi
     - Communication between journeys
 
 
-## Requirements
+## Recommendation
 For the best experience, these VSCode extensions for Nx and Jest should be installed. Jest runner allows you to easily run the isolated test as you are developing. Nx Console allows you to easily find and run all the possible Nx Commands.
 
 - [nrwl.angular-console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console)
