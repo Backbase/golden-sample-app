@@ -59,7 +59,7 @@ Do not copy-paste anything related to the authentication to your banking applica
 
 #### How to add authentication to your app
 
-See the example code in the `app.module.ts`, the related `AuthConfig` in the `environment.ts` files, and the `APP_INITIALIZER` provider logic.
+Check the example code in the `app.module.ts`, the related `AuthConfig` in the `environment.ts` files, and the `APP_INITIALIZER` provider logic.
 Secure routes with `AuthGuard`s. We rely on <https://github.com/manfredsteyer/angular-oauth2-oidc>, check their documentation for more details.
 
 ## Generate an application
