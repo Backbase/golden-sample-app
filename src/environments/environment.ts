@@ -9,8 +9,6 @@ import { Environment } from './type';
 
 import { AuthConfig } from 'angular-oauth2-oidc';
 
-import { AuthInterceptor} from '@backbase/foundation-ang/auth';
-
 import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
 import { HttpXsrfInterceptor } from '../app/interceptors/http-xsrf.interceptor';
 
@@ -18,11 +16,6 @@ const mockProviders: Provider[] = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: AchPositivePayInterceptor,
-    multi: true,
-  },
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
     multi: true,
   },
   {
@@ -45,7 +38,8 @@ export const authConfig: AuthConfig = {
   issuer: 'https://identity.dev.sdbx.live.backbaseservices.com/auth/realms/retail',
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: document.location.origin + '/transactions',
+  // redirectUri: document.location.origin + '/transactions',
+  redirectUri: document.location.origin + '/select-context',
 
   // The SPA's id. The SPA is registered with this id at the auth-server
   clientId: 'bb-web-client',
@@ -67,7 +61,9 @@ export const authConfig: AuthConfig = {
 
   showDebugInformation: true,
 
-  logoutUrl: document.location.origin + '/login',
+  logoutUrl: document.location.origin + '/logout',
+  useSilentRefresh: true,
+  silentRefreshTimeout: 5000,
 };
 
 /*
