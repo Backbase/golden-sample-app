@@ -18,8 +18,6 @@ import { LayoutModule } from '@backbase/ui-ang/layout';
 import { LogoModule } from '@backbase/ui-ang/logo';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
 
-import { WebSdkModule } from '@backbase/foundation-ang/web-sdk';
-
 import { ACCESS_CONTROL_BASE_PATH } from '@backbase/data-ang/accesscontrol';
 import { TRANSACTIONS_BASE_PATH } from '@backbase/data-ang/transactions';
 import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/data-ang/arrangements';
@@ -52,9 +50,6 @@ import { ButtonModule } from '@backbase/ui-ang';
     LocaleSelectorModule.forRoot({
       locales: environment.locales,
     }),
-    WebSdkModule.forRoot({
-      apiRoot: environment.apiRoot,
-    }),
     ButtonModule,
   ],
   providers: [
@@ -86,24 +81,16 @@ import { ButtonModule } from '@backbase/ui-ang';
       provide: ARRANGEMENT_MANAGER_BASE_PATH,
       useValue: environment.apiRoot + '/arrangement-manager',
     },
-    // {
-    //   provide: ACCESS_CONTROL_BASE_PATH,
-    //   useValue: environment.apiRoot + '/access-control',
-    // },
+    {
+      provide: ACCESS_CONTROL_BASE_PATH,
+      useValue: environment.apiRoot + '/access-control',
+    },
     {
       provide: ENTITLEMENTS_CONFIG,
       useValue: {
-        accessControlBasePath: '/api/access-control',
+        accessControlBasePath: `${environment.apiRoot}/access-control`,
       },
     },
-    // {
-    //   provide: ENTITLEMENTS_CONFIG,
-    //   useValue: {
-    //     forceResolved: false,
-    //     accessControlBasePath: '/access-control',
-    //     accessControlPath: '/client-api/v2/accessgroups/users/permissions/summary',
-    //   },
-    // },
   ],
   bootstrap: [AppComponent],
 })
