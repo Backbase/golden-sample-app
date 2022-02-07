@@ -1,6 +1,6 @@
 # Golden Sample Angular App
 
-The mission of the golden sample is to provide examples of code structure, configuration, and best practices we would like to instill during journey development that would be beneficial as a reference to the audience.
+This golden sample provides examples of the code structure, configuration, and best practices to use for developing your  Backbase journey.
 
 
 ## Table of Contents
