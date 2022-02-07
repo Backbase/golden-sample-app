@@ -23,7 +23,7 @@ The mission of the golden sample is to provide examples of code structure, confi
 
 
 ## What is the app for
-- This example project is a reference implementation to showcase a number of best practices to use when building a new Angular SPA that leverages Backbase components and libraries. The project is regularly updated, so come back often to check for new improvements.
+- This project is a reference implementation to showcase best practices to use when building a new Angular SPA for Backbase components and libraries. The project is updated with the latest versions of the tools and libraries used. 
 - This prototype covers:
     - Authentication in the app
     - Enable support of the multiple languages
