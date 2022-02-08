@@ -35,7 +35,7 @@ This golden sample provides examples of the code structure, configuration, and b
 
 
 ## Recommendation
-For the best experience, these VSCode extensions for Nx and Jest should be installed. Jest runner allows you to easily run the isolated test as you are developing. Nx Console allows you to easily find and run all the possible Nx Commands.
+For the best experience, the following VSCode extensions for Nx and Jest should be installed. 
 
 - [nrwl.angular-console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console): to find and run all the possible Nx Commands.J
 - [firsttris.vscode-jest-runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner).
