@@ -29,7 +29,7 @@ This golden sample provides examples of the code structure, configuration, and b
     - Support of the multiple languages
     - Integration with a theme
     - Using existing journey installed from local NPM repository
-    - Configuration of the journeys
+    - Configuring journeys
     - Configuration of the entitlements
     - Communication between journeys
 
