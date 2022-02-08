@@ -40,7 +40,6 @@ For the best experience, the following VSCode extensions for Nx and Jest should 
 - [nrwl.angular-console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console): to find and run all the possible Nx Commands.J
 - [firsttris.vscode-jest-runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner): to easily run the isolated test as you are developing. 
 
-#### Important
 
 - On some AWS environments, due to specific WAF configuration, you may haved to use `http://0.0.0.0:4200/` when accessing the app locally, in order to successfully authenticate.
 
