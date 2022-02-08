@@ -4,8 +4,8 @@ This golden sample provides examples of the code structure, configuration, and b
 
 
 ## Table of Contents
-* [What is app for](#what-is-app-for)
-* [Requirements](#requirements)
+* [What is the app for](#what-is-the-app-for)
+* [Prerequisites](#prerequisites)
 * [Authentication details](#authentication-details)
 * [Generate an application](#generate-an-application)
 * [Generate a library](#generate-a-library)
@@ -23,7 +23,7 @@ This golden sample provides examples of the code structure, configuration, and b
 
 
 ## What is the app for
-- This project is a reference implementation to showcase best practices to use when building a new Angular SPA for Backbase components and libraries. The project is updated with the latest versions of the tools and libraries used. 
+- This project is a reference implementation to showcase best practices to use when building a new Angular SPA for Backbase components and libraries. The project is updated with the latest versions of the tools and libraries used. It shows guidelines about how to develop a web application for the frontend developers.
 - This prototype includes the following:
     - Authentication
     - Support of the multiple languages
@@ -32,7 +32,15 @@ This golden sample provides examples of the code structure, configuration, and b
     - Configuring journeys
     - Configuring entitlements
     - Communication between journeys
-
+ 
+ ### What components are part of the app
+  - Auth module
+  - Locale selector for SPA
+  - Theme
+  - Entitlement
+  - Configuration of journeys
+  - Communication service
+  - Simplistic journey examples like transactions and transfer
 
 ## Prerequisites
 For the best experience, the following VSCode extensions for Nx and Jest should be installed. 
