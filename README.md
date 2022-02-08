@@ -42,7 +42,7 @@ For the best experience, the following VSCode extensions for Nx and Jest should 
 
 #### Important
 
-On some AWS environments, due to specific WAF configuration, you might need to use `http://0.0.0.0:4200/` when accessing the app locally, in order to successfully authenticate.
+- On some AWS environments, due to specific WAF configuration, you may haved to use `http://0.0.0.0:4200/` when accessing the app locally, in order to successfully authenticate.
 
 
 
