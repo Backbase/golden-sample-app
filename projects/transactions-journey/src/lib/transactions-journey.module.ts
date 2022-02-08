@@ -11,6 +11,7 @@ import { FilterTransactionsPipe } from './pipes/filter-transactions.pipe';
 import { TransactionsHttpService } from './services/transactions.http.service';
 import { TransactionsJourneyConfiguration } from './services/transactions-journey-config.service';
 import { AmountModule } from '@backbase/ui-ang/amount';
+import { ArrangementsService } from './services/arrangements.service';
 
 const defaultRoute: Route = {
   path: '',
@@ -23,7 +24,7 @@ const defaultRoute: Route = {
 @NgModule({
   declarations: [TransactionsViewComponent, TransactionItemComponent, TextFilterComponent, FilterTransactionsPipe],
   imports: [CommonModule, RouterModule, FormsModule, AmountModule, InputTextModule],
-  providers: [TransactionsHttpService, TransactionsJourneyConfiguration],
+  providers: [TransactionsHttpService, TransactionsJourneyConfiguration, ArrangementsService],
 })
 export class TransactionsJourneyModule {
   static forRoot(
