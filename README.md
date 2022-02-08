@@ -30,7 +30,7 @@ This golden sample provides examples of the code structure, configuration, and b
     - Integration with a theme
     - Using existing journey installed from local NPM repository
     - Configuring journeys
-    - Configuration of the entitlements
+    - Configuring entitlements
     - Communication between journeys
 
 
