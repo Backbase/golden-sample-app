@@ -26,7 +26,7 @@ This golden sample provides examples of the code structure, configuration, and b
 - This project is a reference implementation to showcase best practices to use when building a new Angular SPA for Backbase components and libraries. The project is updated with the latest versions of the tools and libraries used. 
 - This prototype includes the following:
     - Authentication
-    - Enable support of the multiple languages
+    - Support of the multiple languages
     - Integration with a theme
     - Using existing journey installed from local NPM repository
     - Configuration of the journeys
