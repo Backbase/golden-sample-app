@@ -18,6 +18,7 @@ import { LogoModule } from '@backbase/ui-ang/logo';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CookieService } from "ngx-cookie-service";
 
 @NgModule({
   declarations: [ AppComponent ],
@@ -57,11 +58,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [ OAuthService ],
-      useFactory: (oAuthService: OAuthService) => () =>
-        oAuthService.loadDiscoveryDocumentAndTryLogin().then(() =>
+      deps: [ OAuthService, CookieService ],
+      useFactory: (oAuthService: OAuthService, cookieService: CookieService) => () => {
+        // Remove this if auth cookie is not needed for the app
+        oAuthService.events.subscribe(e => {
+          if (e.type === 'token_received' || e.type === 'token_refreshed') {
+            // Set the cookie on the app domain
+            cookieService.set('Authorization', `Bearer ${ oAuthService.getAccessToken() }`);
+          }
+        });
+
+        return oAuthService.loadDiscoveryDocumentAndTryLogin().then(() =>
           oAuthService.setupAutomaticSilentRefresh()
-        )
+        );
+      }
     }
   ],
   bootstrap: [ AppComponent ],
