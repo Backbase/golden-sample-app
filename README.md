@@ -79,6 +79,12 @@ Run `ng build --configuration production` and then `docker-compose up` to startu
 
 Run `ng build:docker` (after a successful build with `ng build`) to create a Docker image. Start a new container with `npm run start:docker`.
 
+## Experimental branches
+
+*nojira/without-positive-pay* resolves issues with  M1 chip devices.
+
+*feature/wf-502--ngc-example* showcases integration with Drupal.
+
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
