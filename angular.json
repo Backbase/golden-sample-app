@@ -1,75 +1,88 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
   "projects": {
+    "ach-positive-pay": {
+      "projectType": "library",
+      "root": "libs/ach-positive-pay",
+      "sourceRoot": "libs/ach-positive-pay/src",
+      "prefix": "bb",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/positive-pay/test"],
+          "options": {
+            "project": "libs/ach-positive-pay/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ach-positive-pay/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ach-positive-pay/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ach-positive-pay"],
+          "options": {
+            "jestConfig": "libs/ach-positive-pay/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ach-positive-pay/src/**/*.ts",
+              "libs/ach-positive-pay/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "golden-sample-app": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "sass"
-        },
-        "@schematics/angular:application": {
-          "strict": true
-        }
-      },
-      "root": "",
-      "sourceRoot": "src",
-      "prefix": "app",
+      "root": "apps/golden-sample-app",
+      "sourceRoot": "apps/golden-sample-app/src",
+      "prefix": "bb",
       "i18n": {
         "locales": {
-          "nl-NL": "src/locale/messages.nl-NL.xlf",
-          "en": "src/locale/messages.xlf",
-          "nl": "src/locale/messages.nl-NL.xlf"
+          "nl-NL": "apps/golden-sample-app/src/locale/messages.nl-NL.xlf",
+          "en": "apps/golden-sample-app/src/locale/messages.xlf",
+          "nl": "apps/golden-sample-app/src/locale/messages.nl-NL.xlf"
         }
       },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/golden-sample-app",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
+            "outputPath": "dist/apps/golden-sample-app",
+            "index": "apps/golden-sample-app/src/index.html",
+            "main": "apps/golden-sample-app/src/main.ts",
+            "polyfills": "apps/golden-sample-app/src/polyfills.ts",
+            "tsConfig": "apps/golden-sample-app/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "apps/golden-sample-app/src/favicon.ico",
+              "apps/golden-sample-app/src/assets"
             ],
             "styles": [
-              "src/styles.sass",
+              "apps/golden-sample-app/src/styles.scss",
               "node_modules/@backbase/backbase-theme/scss/main.scss",
-              "src/styles_theme-overrides.scss"
+              "apps/golden-sample-app/src/styles.sass"
             ],
-            "scripts": [],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "scripts": []
           },
           "configurations": {
+            "baseHref": "${BASE_HREF::-1}",
             "production": {
-              "baseHref": "${BASE_HREF::-1}",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "2mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "3mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -77,21 +90,37 @@
                   "maximumError": "4kb"
                 }
               ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/golden-sample-app/src/environments/environment.ts",
+                  "with": "apps/golden-sample-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all",
               "localize": true
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "golden-sample-app:build"
-          },
           "configurations": {
             "production": {
               "browserTarget": "golden-sample-app:build:production"
+            },
+            "development": {
+              "browserTarget": "golden-sample-app:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -99,163 +128,138 @@
             "browserTarget": "golden-sample-app:build"
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.sass"
-            ],
-            "scripts": []
-          }
-        },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
+              "apps/golden-sample-app/src/**/*.ts",
+              "apps/golden-sample-app/src/**/*.html"
             ]
           }
         },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/golden-sample-app"],
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "golden-sample-app:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "golden-sample-app:serve:production"
-            }
+            "jestConfig": "apps/golden-sample-app/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
     },
-    "transfer-journey": {
-      "projectType": "library",
-      "root": "projects/transfer-journey",
-      "sourceRoot": "projects/transfer-journey/src",
-      "prefix": "bb",
+    "golden-sample-app-e2e": {
+      "root": "apps/golden-sample-app-e2e",
+      "sourceRoot": "apps/golden-sample-app-e2e/src",
+      "projectType": "application",
       "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "projects/transfer-journey/tsconfig.lib.json",
-            "project": "projects/transfer-journey/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/transfer-journey/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/transfer-journey/src/test.ts",
-            "tsConfig": "projects/transfer-journey/tsconfig.spec.json",
-            "karmaConfig": "projects/transfer-journey/karma.conf.js"
-          }
-        },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "projects/transfer-journey/**/*.ts",
-              "projects/transfer-journey/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/golden-sample-app-e2e/**/*.ts"]
           }
         }
       }
     },
-    "transactions-journey": {
+    "transactions": {
       "projectType": "library",
-      "root": "projects/transactions-journey",
-      "sourceRoot": "projects/transactions-journey/src",
+      "root": "libs/transactions",
+      "sourceRoot": "libs/transactions/src",
       "prefix": "bb",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/transactions"],
           "options": {
-            "tsConfig": "projects/transactions-journey/tsconfig.lib.json",
-            "project": "projects/transactions-journey/ng-package.json"
+            "project": "libs/transactions/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/transactions-journey/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/transactions-journey/src/test.ts",
-            "tsConfig": "projects/transactions-journey/tsconfig.spec.json",
-            "karmaConfig": "projects/transactions-journey/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/transactions-journey/**/*.ts",
-              "projects/transactions-journey/**/*.html"
-            ]
-          }
-        }
-      }
-    },
-    "ach-positive-pay-journey": {
-      "projectType": "library",
-      "root": "projects/ach-positive-pay-journey",
-      "sourceRoot": "projects/ach-positive-pay-journey/src",
-      "prefix": "bb",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/ach-positive-pay-journey/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/ach-positive-pay-journey/tsconfig.lib.prod.json"
+              "tsConfig": "libs/transactions/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ach-positive-pay-journey/tsconfig.lib.json"
+              "tsConfig": "libs/transactions/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/transactions"],
           "options": {
-            "main": "projects/ach-positive-pay-journey/src/test.ts",
-            "tsConfig": "projects/ach-positive-pay-journey/tsconfig.spec.json",
-            "karmaConfig": "projects/ach-positive-pay-journey/karma.conf.js"
+            "jestConfig": "libs/transactions/jest.config.js",
+            "passWithNoTests": true
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "projects/ach-positive-pay-journey/**/*.ts",
-              "projects/ach-positive-pay-journey/**/*.html"
+              "libs/transactions/src/**/*.ts",
+              "libs/transactions/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "transfer": {
+      "projectType": "library",
+      "root": "libs/transfer",
+      "sourceRoot": "libs/transfer/src",
+      "prefix": "bb",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/transfer"],
+          "options": {
+            "project": "libs/transfer/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/transfer/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/transfer/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/transfer"],
+          "options": {
+            "jestConfig": "libs/transfer/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/transfer/src/**/*.ts",
+              "libs/transfer/src/**/*.html"
             ]
           }
         }
       }
     }
   },
-  "defaultProject": "golden-sample-app",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "defaultCollection": "@nrwl/angular",
+    "packageManager": "npm"
+  },
+  "defaultProject": "golden-sample-app",
+  "schematics": {
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
   }
 }

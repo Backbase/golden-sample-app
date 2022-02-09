@@ -9,11 +9,11 @@ services:
         published: 4200
     environment:
       PROTOCOL: 'http:'
-      HOSTNAME: 0.0.0.0
+      HOSTNAME: localhost
       PORT: 4200
-      PATHNAME: /
+      BASE_HREF: /golden-sample/
       API_ROOT: https://app.stable.retail.backbasecloud.com/api
-      AUTH_URL: https://identity.dev.sdbx.live.backbaseservices.com/auth/realms/retail
+      AUTH_URL: https://identity.dev.sdbx.live.backbaseservices.com/auth
       AUTH_SCOPE: openid profile email
       AUTH_CLIENT_ID: bb-web-client
       AUTH_LANDING_PAGE: transactions
