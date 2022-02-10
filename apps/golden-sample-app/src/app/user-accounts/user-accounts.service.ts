@@ -2,11 +2,8 @@ import { Injectable } from '@angular/core';
 import { ProductSummaryHttpService, ProductSummaryItem } from '@backbase/data-ang/arrangements';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UserAccountsService {
-
   public arrangements$: Observable<ProductSummaryItem[]> = this.productSummaryDataHttpService
     .getArrangementsByBusinessFunction(
       {
@@ -16,7 +13,7 @@ export class UserAccountsService {
         size: 1000000,
       },
       'body',
-    )
+    );
 
   constructor(
     private readonly productSummaryDataHttpService: ProductSummaryHttpService,
