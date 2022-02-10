@@ -56,7 +56,6 @@
           [attr.aria-current]="
             makeTransferRouterLink.isActive ? 'page' : undefined
           "
-          role="link"
         >
           <bb-icon-ui class="bb-layout__vertical-nav-item-icon" name="payments"></bb-icon-ui>
           <span
@@ -79,7 +78,6 @@
           [attr.aria-current]="
             transactionsListRouterLink.isActive ? 'page' : undefined
           "
-          role="link"
         >
           <bb-icon-ui
             class="bb-layout__horizontal-nav-item-icon"
@@ -101,7 +99,7 @@
           routerLinkActive="bb-layout__horizontal-nav-link--active"
           #positivePayRouterLink="routerLinkActive"
           [attr.aria-current]="positivePayRouterLink.isActive ? 'page' : undefined"
-          role="link">
+        >
           <bb-icon-ui class="bb-layout__vertical-nav-item-icon" name="note"></bb-icon-ui>
           <span
             class="bb-layout__horizontal-nav-item-description"
@@ -117,7 +115,7 @@
           routerLinkActive="bb-layout__horizontal-nav-link--active"
           #myAccountsRouterLink="routerLinkActive"
           [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
-          role="link">
+        >
           <bb-icon-ui class="bb-layout__vertical-nav-item-icon" name="verified-user"></bb-icon-ui>
 
           <span
@@ -145,7 +143,7 @@
         <app-locale-selector></app-locale-selector>
       </div>
       <div>
-        <a href="#" (click)="logout()">
+        <a href="#" (click)="logout()" data-role="logout-btn">
           <bb-icon-ui
             color="secondary"
             data-role="notifications-icon"
