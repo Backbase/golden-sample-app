@@ -2,15 +2,12 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { HTTP_INTERCEPTORS, HttpXsrfTokenExtractor } from '@angular/common/http';
+import { HttpXsrfTokenExtractor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Provider } from '@angular/core';
-
-import { Environment } from './type';
-
 import { AuthConfig } from 'angular-oauth2-oidc';
-
 import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
 import { HttpXsrfInterceptor } from '../app/interceptors/http-xsrf.interceptor';
+import { Environment } from './type';
 
 const mockProviders: Provider[] = [
   {
@@ -38,7 +35,6 @@ export const authConfig: AuthConfig = {
   issuer: 'https://identity.dev.sdbx.live.backbaseservices.com/auth/realms/retail',
 
   // URL of the SPA to redirect the user to after login
-  // redirectUri: document.location.origin + '/transactions',
   redirectUri: document.location.origin + '/select-context',
 
   // The SPA's id. The SPA is registered with this id at the auth-server
