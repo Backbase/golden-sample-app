@@ -8,7 +8,7 @@ import { TransactionsJourneyConfiguration } from './transactions-journey-config.
 @Injectable()
 export class TransactionsHttpService {
   public transactions$ = combineLatest([
-    this.arangementsService.arrangements$,
+    this.arangementsService.arrangementIds$,
     of(this.configurationService.pageSize),
   ]).pipe(
     switchMap(

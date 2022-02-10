@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ArrangementsService {
-  public arrangements$ = this.productSummaryDataHttpService
+  public arrangementIds$ = this.productSummaryDataHttpService
     .getArrangementsByBusinessFunction(
       {
         businessFunction: 'Product Summary',
