@@ -1,5 +1,5 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { UserContextComponent } from './user-context.component';
 
 describe('UserContextComponent', () => {
@@ -8,7 +8,8 @@ describe('UserContextComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserContextComponent ]
+      declarations: [ UserContextComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });
@@ -19,9 +20,9 @@ describe('UserContextComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should render select context widget', () => {
+    const selectContextWidget = fixture.nativeElement.querySelector('[data-role="user-context-selector"]');
 
-  // todo: add test for rendering of context widget after merge main with jest
+    expect(selectContextWidget).not.toBeNull();
+  });
 });
