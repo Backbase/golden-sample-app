@@ -15,7 +15,7 @@ describe('AppComponent', () => {
       logOut: jest.fn(),
       hasValidAccessToken: jest.fn(() => true),
     };
-  let mockLayoutService = {
+  const mockLayoutService = {
     navigationExpanded$: of(true)
   };
 
