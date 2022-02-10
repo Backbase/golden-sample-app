@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-
-import {
-  Transaction,
-  TransactionsCommunicationService,
-} from '@libs/transactions';
+import { TransactionItem } from '@backbase/data-ang/transactions';
+import { TransactionsCommunicationService } from '@libs/transactions';
 import { MakeTransferCommunicationService, Transfer } from '@libs/transfer';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +11,9 @@ import { MakeTransferCommunicationService, Transfer } from '@libs/transfer';
 export class JourneyCommunicationService
   implements MakeTransferCommunicationService, TransactionsCommunicationService
 {
-  private categoryCodeForTransfer = '#c12020';
-  private latestTransaction$$ = new BehaviorSubject<Transaction | undefined>(
-    undefined
-  );
+  private latestTransaction$$ = new BehaviorSubject<
+    TransactionItem | undefined
+  >(undefined);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   public latestTransaction$ = this.latestTransaction$$.asObservable();
@@ -32,24 +28,19 @@ export class JourneyCommunicationService
   private mapTransferToTransaction({
     toAccount,
     amount,
-  }: Transfer): Transaction {
+  }: Transfer): TransactionItem {
     return {
-      categoryCode: this.categoryCodeForTransfer,
-      dates: {
-        valueDate: new Date().getTime(),
-      },
-      transaction: {
-        amountCurrency: {
-          amount,
-          currencyCode: 'EUR',
-        },
-        type: 'Transfer to account',
-        creditDebitIndicator: 'DBIT',
+      valueDate: String(new Date().getTime()),
+      type: 'Transfer to account',
+      creditDebitIndicator: 'DBIT',
+      transactionAmountCurrency: {
+        amount: String(amount),
+        currencyCode: 'EUR',
       },
       merchant: {
         name: toAccount,
-        accountNumber: toAccount,
+        id: Number(toAccount),
       },
-    };
+    } as unknown as TransactionItem;
   }
 }

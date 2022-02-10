@@ -1,96 +1,79 @@
-import { Transaction } from '../model/transaction';
+import { TransactionItem } from '@backbase/data-ang/transactions';
 
-export const transactionsMock: Transaction[] = [
+export const transactionsMock = [
   {
-    categoryCode: '#12a580',
-    dates: {
-        valueDate: 1600493600000
-    },
-    transaction: {
-        amountCurrency: {
-        amount: 5000,
-        currencyCode: 'EUR'
-        },
-        type: 'Salaries',
-        creditDebitIndicator: 'CRDT'
+    valueDate: '1600493600000',
+    type: 'Salaries',
+    creditDebitIndicator: 'CRDT',
+    transactionAmountCurrency: {
+      amount: '5000',
+      currencyCode: 'EUR',
     },
     merchant: {
-        name: 'Backbase',
-        accountNumber: 'SI64397745065188826'
-    }
+      name: 'Backbase',
+      id: 64397745065188826,
+    },
   },
   {
-    categoryCode: '#12a580',
-    dates: {
-      valueDate: 1600387200000
-    },
-    transaction: {
+    valueDate: 1600387200000,
+    type: 'Card Payment',
+    creditDebitIndicator: 'DBIT',
+    transactionAmountCurrency: {
       amountCurrency: {
         amount: 82.02,
-        currencyCode: 'EUR'
+        currencyCode: 'EUR',
       },
-      type: 'Card Payment',
-      creditDebitIndicator: 'DBIT'
     },
     merchant: {
       name: 'The Tea Lounge',
-      accountNumber: 'SI64397745065188826'
-    }
+      id: 64397745065188826,
+    },
   },
   {
-    categoryCode: '#d51271',
-    dates: {
-      valueDate: 1600473600000
-    },
-    transaction: {
+    valueDate: 1600473600000,
+    transactionAmountCurrency: {
       amountCurrency: {
         amount: 84.64,
-        currencyCode: 'EUR'
+        currencyCode: 'EUR',
       },
       type: 'Card Payment',
-      creditDebitIndicator: 'DBIT'
+      creditDebitIndicator: 'DBIT',
     },
     merchant: {
       name: 'Texaco',
-      accountNumber: 'SI64397745065188826'
-    }
-  }
-];
-
-export const debitMockTransaction: Transaction ={
-    categoryCode: '#fbbb1b',
-    dates: {
-      valueDate: 1599868800000
+      id: 64397745065188826,
     },
-    transaction: {
-      amountCurrency: {
-        amount: 142.95,
-        currencyCode: 'EUR'
-      },
-      type: 'Online Transfer',
-      creditDebitIndicator: 'DBIT'
-    },
-    merchant: {
-      name: 'Southern Electric Company',
-      accountNumber: 'SI64397745065188826'
-    }
-  };
-
-export const creditMockTransaction: Transaction ={
-  categoryCode: '#fbbb1b',
-  dates: {
-    valueDate: 1599868800000
   },
-  transaction: {
+] as TransactionItem[];
+
+export const debitMockTransaction = {
+  valueDate: 1599868800000,
+  transactionAmountCurrency: {
     amountCurrency: {
       amount: 142.95,
-      currencyCode: 'EUR'
+      currencyCode: 'EUR',
     },
     type: 'Online Transfer',
-    creditDebitIndicator: 'CRDT'
+    creditDebitIndicator: 'DBIT',
   },
   merchant: {
     name: 'Southern Electric Company',
-    accountNumber: 'SI64397745065188826'
-  }
-};
+    id: 64397745065188826,
+  },
+} as unknown as TransactionItem;
+
+export const creditMockTransaction = {
+  valueDate: 1599868800000,
+  transactionAmountCurrency: {
+    amountCurrency: {
+      amount: 142.95,
+      currencyCode: 'EUR',
+    },
+    type: 'Online Transfer',
+    creditDebitIndicator: 'CRDT',
+  },
+  merchant: {
+    name: 'Southern Electric Company',
+    id: 64397745065188826,
+  },
+} as unknown as TransactionItem;
