@@ -22,7 +22,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "composite": true,
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,
