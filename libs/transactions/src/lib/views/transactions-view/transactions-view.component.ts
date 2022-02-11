@@ -4,27 +4,26 @@ import { combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   TransactionsCommunicationService,
-  TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+  TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE
 } from '../../communication';
 import { TransactionsHttpService } from '../../services/transactions.http.service';
 
 @Component({
   templateUrl: './transactions-view.component.html',
+  selector: 'bb-transactions-view',
 })
 export class TransactionsViewComponent {
-  title = this.route.snapshot.data['title'];
+  public title = this.route.snapshot.data['title'];
+  public filter = '';
 
-  filter = '';
-
-  transactions$ = combineLatest([
+  public transactions$ = combineLatest([
     this.transactionsService.transactions$,
     this.externalCommunicationService?.latestTransaction$ || of(undefined),
   ]).pipe(
     map(([transactions, latestTransaction]) =>
-      // latestTransaction ? [latestTransaction, ...transactions] : transactions,
-      transactions,
+      latestTransaction ? [latestTransaction, ...(transactions || [])] : transactions,
     ),
-  ).subscribe(v => console.log(v));
+  );
 
   constructor(
     private readonly route: ActivatedRoute,
