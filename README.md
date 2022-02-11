@@ -24,7 +24,7 @@ This golden sample provides examples of the code structure, configuration, and b
 
 ## What is the app for
 - This project is a reference implementation to showcase best practices to use when building a new Angular SPA for Backbase components and libraries. The project is updated with the latest versions of the tools and libraries used. It shows guidelines about how to develop a web application for the frontend developers.
-- This prototype includes the following:
+- This prototype covers the following:
     - Authentication
     - Support of the multiple languages
     - Integration with a theme
@@ -37,7 +37,7 @@ This golden sample provides examples of the code structure, configuration, and b
   - Auth module
   - Locale selector for SPA
   - Theme
-  - Entitlement
+  - Entitlements
   - Configuration of journeys
   - Communication service
   - Simplistic journey examples like transactions and transfer
