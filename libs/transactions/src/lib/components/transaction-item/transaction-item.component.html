@@ -1,3 +1,4 @@
+<span class="transactions-item__categoryCode" [ngStyle]="{'background-color': (+transaction.transactionAmountCurrency.amount > 0 ? '#12a580' : '#d51271')}"></span>
 <span class="transactions-item__date">{{ transaction.valueDate | date: 'MMM. d' }}</span>
 <span class="transactions-item__description">
   <span class="transactions-item__merchant">{{ transaction.merchant?.name }}</span>
