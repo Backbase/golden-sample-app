@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { GetTransactionsWithPostRequestParams, TransactionClientHttpService } from '@backbase/data-ang/transactions';
-import { combineLatest, of } from 'rxjs';
+import { GetTransactionsWithPostRequestParams, TransactionClientHttpService, TransactionItem } from '@backbase/data-ang/transactions';
+import { combineLatest, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ArrangementsService } from './arrangements.service';
 import { TransactionsJourneyConfiguration } from './transactions-journey-config.service';
 
 @Injectable()
 export class TransactionsHttpService {
-  public transactions$ = combineLatest([
-    this.arangementsService.arrangementIds$,
+  public transactions$: Observable<TransactionItem[] | undefined> = combineLatest([
+    this.arrangementsService.arrangementIds$,
     of(this.configurationService.pageSize),
   ]).pipe(
     switchMap(
@@ -24,14 +24,14 @@ export class TransactionsHttpService {
             state: 'COMPLETED',
           },
         } as GetTransactionsWithPostRequestParams,
-        'response',
+        'body',
       ),
     ),
   );
 
   constructor(
     private readonly configurationService: TransactionsJourneyConfiguration,
-    private transactionsHttpService: TransactionClientHttpService,
-    private arangementsService: ArrangementsService,
+    private readonly transactionsHttpService: TransactionClientHttpService,
+    private readonly arrangementsService: ArrangementsService,
   ) {}
 }
