@@ -1,30 +1,32 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { EntitlementsModule, ENTITLEMENTS_CONFIG } from '@backbase/foundation-ang/entitlements';
-
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-
-import { AuthConfig, OAuthModule, OAuthModuleConfig, OAuthService, OAuthStorage } from 'angular-oauth2-oidc';
-
+import { ACCESS_CONTROL_BASE_PATH } from '@backbase/data-ang/accesscontrol';
+import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/data-ang/arrangements';
+import { TRANSACTIONS_BASE_PATH } from '@backbase/data-ang/transactions';
+import {
+  EntitlementsModule,
+  ENTITLEMENTS_CONFIG
+} from '@backbase/foundation-ang/entitlements';
+import { AvatarModule } from '@backbase/ui-ang/avatar';
+import { ButtonModule } from '@backbase/ui-ang/button';
 import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { LayoutModule } from '@backbase/ui-ang/layout';
 import { LogoModule } from '@backbase/ui-ang/logo';
-import { AvatarModule } from '@backbase/ui-ang/avatar';
-import { ButtonModule } from '@backbase/ui-ang/button';
-
-import { ACCESS_CONTROL_BASE_PATH } from '@backbase/data-ang/accesscontrol';
-import { TRANSACTIONS_BASE_PATH } from '@backbase/data-ang/transactions';
-import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/data-ang/arrangements';
-
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import {
+  AuthConfig,
+  OAuthModule,
+  OAuthModuleConfig,
+  OAuthService,
+  OAuthStorage
+} from 'angular-oauth2-oidc';
+import { CookieService } from 'ngx-cookie-service';
 import { authConfig, environment } from '../environments/environment';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -69,9 +71,24 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [OAuthService],
-      useFactory: (oAuthService: OAuthService) => () =>
-        oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => oAuthService.setupAutomaticSilentRefresh()),
+      deps: [OAuthService, CookieService],
+      useFactory:
+        (oAuthService: OAuthService, cookieService: CookieService) => () => {
+          // Remove this if auth cookie is not needed for the app
+          oAuthService.events.subscribe(({ type }) => {
+            if (type === 'token_received' || type === 'token_refreshed') {
+              // Set the cookie on the app domain
+              cookieService.set(
+                'Authorization',
+                `Bearer ${oAuthService.getAccessToken()}`
+              );
+            }
+          });
+
+          return oAuthService
+            .loadDiscoveryDocumentAndTryLogin()
+            .then(() => oAuthService.setupAutomaticSilentRefresh());
+        },
     },
     {
       provide: TRANSACTIONS_BASE_PATH,
