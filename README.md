@@ -45,26 +45,26 @@ This golden sample provides examples of the code structure, configuration, and b
 ## Prerequisites
 For the best experience, the following VSCode extensions for Nx and Jest should be installed. 
 
-- [nrwl.angular-console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console): to find and run all the possible Nx Commands.J
+- [nrwl.angular-console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console): to find and run all the possible Nx Commands.
 - [firsttris.vscode-jest-runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner): to easily run the isolated test as you are developing. 
 
 
-- On some AWS environments, due to specific WAF configuration, you may haved to use `http://0.0.0.0:4200/` when accessing the app locally, in order to successfully authenticate.
+- On some AWS environments, due to specific WAF configuration, you may need to use `http://0.0.0.0:4200/` when accessing the app locally, in order to successfully authenticate.
 
 
 
 ## Authentication details
 
-#### Prerequisites
+### Prerequisites
 
 - Go through the [documentation page](https://community.backbase.com/documentation/foundation_angular/latest/authenticate_users) first to avoid any confusion with implementing authentication in the modelless app
 
-#### Important Info
+### Important Info
 
 The code that is used for authentication is not for production purposes, this is the example to understand the concepts lying under the hood.
 Do not copy-paste anything related to the authentication to your banking application.
 
-#### How to add authentication to your app
+### How to add authentication to your app
 
 Check the example code in the `app.module.ts`, the related `AuthConfig` in the `environment.ts` files, and the `APP_INITIALIZER` provider logic.
 Secure routes with `AuthGuard`s. We rely on <https://github.com/manfredsteyer/angular-oauth2-oidc>, check their documentation for more details.
@@ -87,7 +87,6 @@ Run `ng g @nrwl/angular:lib my-lib` to generate a library.
 
 Libraries are shareable across libraries and applications. They can be imported from `@backbase/mylib`.
 
-After generating, use appropriate tags in both `nx.json` and `.eslintrs.json` to impose constraints on the dependency graph.[Nx Tags](https://nx.dev/structure/monorepo-tags)
 
 ## Development server
 
