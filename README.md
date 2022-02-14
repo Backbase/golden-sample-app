@@ -102,7 +102,7 @@ Run `ng build my-app` to build the project. The build artifacts will be stored i
 
 ## Tests
 
-### Running unit tests
+- Running unit tests
 
 Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
 
