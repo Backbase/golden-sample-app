@@ -41,7 +41,7 @@ The project uses the latest versions of the tools and libraries.
   - Simplistic journey examples like transactions and transfer
 
 ## Prerequisites
-For the best experience, the following VSCode extensions for Nx and Jest should be installed. 
+- Install the following VSCode extensions:  
 
 - [nrwl.angular-console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console): to find and run all the possible Nx Commands.
 - [firsttris.vscode-jest-runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner): to easily run the isolated test as you are developing. 
