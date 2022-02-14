@@ -44,7 +44,7 @@ The project uses the latest versions of the tools and libraries.
 - Install the following VSCode extensions:  
 
 - [nrwl.angular-console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console): to find and run all the possible Nx Commands.
-- [firsttris.vscode-jest-runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner): to easily run the isolated test as you are developing. 
+-- [firsttris.vscode-jest-runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner): to isolated tests while you are developing. 
 
 
 - For AWS environments with specific WAF configurations, you may need to use `http://0.0.0.0:4200/` when accessing the app locally, in order to successfully authenticate.
