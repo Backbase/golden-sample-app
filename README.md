@@ -37,7 +37,7 @@ The project uses the latest versions of the tools and libraries.
   - Entitlements: configure entitlements for different scenarios
   - Configure journeys
   - Communication service: communications between journeys
-  - Simplistic journey examples like transactions and transfer
+  - Simple examples of journeys such as transactions and transfer
 
 ## Prerequisites
 - Install the following VSCode extensions:  
