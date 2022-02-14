@@ -19,10 +19,8 @@ export const transactionsMock = [
     type: 'Card Payment',
     creditDebitIndicator: 'DBIT',
     transactionAmountCurrency: {
-      amountCurrency: {
-        amount: 82.02,
-        currencyCode: 'EUR',
-      },
+      amount: 82.02,
+      currencyCode: 'EUR',
     },
     merchant: {
       name: 'The Tea Lounge',
@@ -34,10 +32,8 @@ export const transactionsMock = [
     type: 'Card Payment',
     creditDebitIndicator: 'DBIT',
     transactionAmountCurrency: {
-      amountCurrency: {
-        amount: 84.64,
-        currencyCode: 'EUR',
-      },
+      amount: 84.64,
+      currencyCode: 'EUR',
     },
     merchant: {
       name: 'Texaco',
@@ -51,10 +47,8 @@ export const debitMockTransaction = {
   type: 'Online Transfer',
   creditDebitIndicator: 'DBIT',
   transactionAmountCurrency: {
-    amountCurrency: {
-      amount: 142.95,
-      currencyCode: 'EUR',
-    },
+    amount: 142.95,
+    currencyCode: 'EUR',
   },
   merchant: {
     name: 'Southern Electric Company',
@@ -67,10 +61,8 @@ export const creditMockTransaction = {
   type: 'Online Transfer',
   creditDebitIndicator: 'CRDT',
   transactionAmountCurrency: {
-    amountCurrency: {
-      amount: 142.95,
-      currencyCode: 'EUR',
-    },
+    amount: 142.95,
+    currencyCode: 'EUR',
   },
   merchant: {
     name: 'Southern Electric Company',
