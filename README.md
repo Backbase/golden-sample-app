@@ -37,7 +37,7 @@ The project uses the latest versions of the tools and libraries.
   - Theme: integrate with a theme
   - Entitlements: configure entitlements for different scenarios
   - Configure journeys
-  - Communication service
+  - Communication service: communications between journeys
   - Simplistic journey examples like transactions and transfer
 
 ## Prerequisites
