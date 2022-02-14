@@ -30,7 +30,6 @@ This READ ME provides an overview and set-up of the app, and further guidance is
 The project uses the latest versions of the tools and libraries.
 - This prototype covers the following:
   
-    - Configuring journeys
     - Configuring entitlements
  
  ### Components included in the app
