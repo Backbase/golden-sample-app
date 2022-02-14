@@ -108,7 +108,7 @@ Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
 
 Run `nx affected:test` to execute the unit tests affected by a change.
 
-### Running end-to-end tests
+-  Running end-to-end tests
 
 Run `npx playwright test`
 
