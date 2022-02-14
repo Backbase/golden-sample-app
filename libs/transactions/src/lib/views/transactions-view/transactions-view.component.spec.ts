@@ -35,7 +35,6 @@ describe('TransactionsViewComponent', () => {
     | Pick<TransactionsCommunicationService, 'latestTransaction$'>
     | undefined;
 
-  let component: TransactionsViewComponent;
   let fixture: ComponentFixture<TransactionsViewComponent>;
 
   beforeEach(async () => {
@@ -73,7 +72,6 @@ describe('TransactionsViewComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(TransactionsViewComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
