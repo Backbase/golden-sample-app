@@ -4,7 +4,7 @@ This golden sample provides examples of the code structure, configuration, and b
 
 
 ## Table of Contents
-* [What is the app for](#what-is-the-app-for)
+* [Overview of the app](#what-is-the-app-for)
 * [Prerequisites](#prerequisites)
 * [Authentication details](#authentication-details)
 * [Generate an application](#generate-an-application)
