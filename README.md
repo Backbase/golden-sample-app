@@ -47,7 +47,7 @@ The project uses the latest versions of the tools and libraries.
 - [firsttris.vscode-jest-runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner): to easily run the isolated test as you are developing. 
 
 
-- On some AWS environments, due to specific WAF configuration, you may need to use `http://0.0.0.0:4200/` when accessing the app locally, in order to successfully authenticate.
+- For AWS environments with specific WAF configurations, you may need to use `http://0.0.0.0:4200/` when accessing the app locally, in order to successfully authenticate.
 
 
 
