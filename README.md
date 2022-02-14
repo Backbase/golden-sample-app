@@ -43,7 +43,7 @@ The project uses the latest versions of the tools and libraries.
 ## Prerequisites
 - Install the following VSCode extensions:  
 
-- [nrwl.angular-console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console): to find and run all the possible Nx Commands.
+-- [nrwl.angular-console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console): to find and run the Nx Commands.
 -- [firsttris.vscode-jest-runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner): to isolated tests while you are developing. 
 
 
