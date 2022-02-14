@@ -32,7 +32,7 @@ The project uses the latest versions of the tools and libraries.
   
  
  ### Components included in the app
-  - Auth module
+  - Auth module: define authentication
   - Locale selector for SPA
   - Theme
   - Entitlements
