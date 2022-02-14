@@ -28,7 +28,6 @@ This project is a complete reference implementation for building a new Angular s
 This READ ME provides an overview and set-up of the app, and further guidance is provided as comments in the code to further guide you.
 
 The project uses the latest versions of the tools and libraries.
-- This prototype covers the following:
   
  
  ### Components included in the app
