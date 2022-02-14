@@ -6,19 +6,12 @@ import { HttpXsrfTokenExtractor, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { Provider } from '@angular/core';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
-import { HttpXsrfInterceptor } from '../app/interceptors/http-xsrf.interceptor';
 import { Environment } from './type';
 
 const mockProviders: Provider[] = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: AchPositivePayInterceptor,
-    multi: true,
-  },
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: HttpXsrfInterceptor,
-    deps: [HttpXsrfTokenExtractor],
     multi: true,
   },
 ];
