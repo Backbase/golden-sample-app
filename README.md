@@ -29,7 +29,6 @@ This READ ME provides an overview and set-up of the app, and further guidance is
 
 The project uses the latest versions of the tools and libraries.
 - This prototype covers the following:
-    - Authentication
     - Integration with a theme
     - Using existing journey installed from local NPM repository
     - Configuring journeys
