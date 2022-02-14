@@ -35,7 +35,7 @@ The project uses the latest versions of the tools and libraries.
   - Auth module: define authentication
   - Locale selector for SPA: support multiple languages
   - Theme
-  - Entitlements
+  - Entitlements: configure entitlements for different scenarios
   - Configuration of journeys
   - Communication service
   - Simplistic journey examples like transactions and transfer
