@@ -95,7 +95,12 @@ Run `ng g component my-component --project=my-app` to generate a new component.
 
 ## Build
 
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+To run the project on a development server, run 
+`ng build my-app
+
+The build artifacts are stored in the `dist/` directory. 
+
+To build the app to production, use the `--prod` flag.
 
 ## Tests
 
