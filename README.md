@@ -36,7 +36,7 @@ The project uses the latest versions of the tools and libraries.
   - Locale selector for SPA: support multiple languages
   - Theme: integrate with a theme
   - Entitlements: configure entitlements for different scenarios
-  - Configuration of journeys
+  - Configure journeys
   - Communication service
   - Simplistic journey examples like transactions and transfer
 
