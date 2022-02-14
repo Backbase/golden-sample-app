@@ -1,6 +1,6 @@
 # Golden Sample Angular App
 
-This golden sample provides examples of the code structure, configuration, and best practices to use for developing your  Backbase journey.
+This golden sample provides examples of the code structure, configuration, and best practices for using the Backbase Angular tools.
 
 
 ## Table of Contents
