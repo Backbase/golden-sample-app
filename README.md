@@ -35,7 +35,6 @@ The project uses the latest versions of the tools and libraries.
     - Using existing journey installed from local NPM repository
     - Configuring journeys
     - Configuring entitlements
-    - Communication between journeys
  
  ### Components included in the app
   - Auth module
