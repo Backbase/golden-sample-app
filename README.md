@@ -37,7 +37,7 @@ The project uses the latest versions of the tools and libraries.
     - Configuring entitlements
     - Communication between journeys
  
- ### What components are part of the app
+ ### Components included in the app
   - Auth module
   - Locale selector for SPA
   - Theme
