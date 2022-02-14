@@ -23,7 +23,11 @@ This golden sample provides examples of the code structure, configuration, and b
 
 
 ## What is the app for
-- This project is a reference implementation to showcase best practices to use when building a new Angular SPA for Backbase components and libraries. The project is updated with the latest versions of the tools and libraries used. It shows guidelines about how to develop a web application for the frontend developers.
+This project is a complete reference implementation for building a new Angular single page application(SPA) with Backbase components and libraries.  It includes best practices that front-end developers can use to build their own web application.
+
+This READ ME provides an overview and set-up of the app, and further guidance is provided as comments in the code to further guide you.
+
+The project uses the latest versions of the tools and libraries.
 - This prototype covers the following:
     - Authentication
     - Support of the multiple languages
