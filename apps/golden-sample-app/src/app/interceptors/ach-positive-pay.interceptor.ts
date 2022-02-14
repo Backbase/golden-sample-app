@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AchPositivePayInterceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<{ method: string, url: string }>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (req.url.includes('api/ach-positive-pay/rule') && req.method === 'POST') {
       return timer(400).pipe(
         map(
