@@ -7,10 +7,18 @@
   padding: 10px 15px;
 }
 
-.transactions-item__categoryCode {
+.transactions-item__color-indication {
   width: 5px;
   align-self: stretch;
   padding: 0;
+
+  &--positive {
+    background-color: RGBA(18, 165, 128, 1);
+  }
+
+  &--negative {
+    background-color: RGBA(213, 18, 113, 1);
+  }
 }
 
 .transactions-item__description {

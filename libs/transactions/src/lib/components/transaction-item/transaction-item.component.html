@@ -1,10 +1,10 @@
-<span class="transactions-item__categoryCode" [ngStyle]="{'background-color': (+transaction.transactionAmountCurrency.amount > 0 ? '#12a580' : '#d51271')}"></span>
+<span class="transactions-item__color-indication" [ngClass]="{'transactions-item__color-indication--positive': isAmountPositive, 'transactions-item__color-indication--negative': !isAmountPositive}"></span>
 <span class="transactions-item__date">{{ transaction.valueDate | date: 'MMM. d' }}</span>
 <span class="transactions-item__description">
   <span class="transactions-item__merchant">{{ transaction.merchant?.name }}</span>
   <span class="transactions-item__transactionType">{{ transaction.type }}</span>
 </span>
-<span class="transactions-item__amount" [ngClass]="{'negative': +transaction.transactionAmountCurrency.amount < 0}">
+<span class="transactions-item__amount" [ngClass]="{'negative': !isAmountPositive}">
   <bb-amount-ui
     [currency]="transaction.transactionAmountCurrency.currencyCode"
     [amount]="transaction.transactionAmountCurrency.amount"

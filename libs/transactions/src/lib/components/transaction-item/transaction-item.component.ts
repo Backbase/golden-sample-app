@@ -15,7 +15,8 @@ import { TransactionItem } from '@backbase/data-ang/transactions';
 })
 export class TransactionItemComponent implements OnChanges {
   @Input() transaction!: TransactionItem;
-  amount = 0;
+  public amount = 0;
+  public isAmountPositive = true;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['transaction']) {
@@ -24,6 +25,8 @@ export class TransactionItemComponent implements OnChanges {
       if (this.transaction.creditDebitIndicator === 'DBIT') {
         this.amount *= -1;
       }
+
+      this.isAmountPositive = this.amount > 0;
     }
   }
 }
