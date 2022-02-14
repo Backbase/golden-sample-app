@@ -4,7 +4,7 @@ This golden sample provides examples of the code structure, configuration, and b
 
 
 ## Table of Contents
-* [Overview of the app](#what-is-the-app-for)
+* [Overview of the app](#overview-of-the-app)
 * [Prerequisites](#prerequisites)
 * [Authentication details](#authentication-details)
 * [Generate an application](#generate-an-application)
@@ -42,8 +42,8 @@ The project uses the latest versions of the tools and libraries.
 ## Prerequisites
 - Install the following VSCode extensions:  
 
--- [nrwl.angular-console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console): to find and run the Nx Commands.
--- [firsttris.vscode-jest-runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner): to isolated tests while you are developing. 
+    - [nrwl.angular-console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console): to find and run the Nx Commands.
+    - [firsttris.vscode-jest-runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner): to isolated tests while you are developing. 
 
 
 - For AWS environments with specific WAF configurations, you may need to use `http://0.0.0.0:4200/` when accessing the app locally, in order to successfully authenticate.
