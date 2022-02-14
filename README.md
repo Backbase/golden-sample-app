@@ -82,7 +82,7 @@ Run `ng g @nrwl/angular:lib my-lib` to generate a library.
 
 > You can also use Nx Console to generate libraries as well.
 
-Libraries are shareable across libraries and applications. They can be imported from `@backbase/mylib`.
+Libraries can be shared across libraries and applications. You can import them from `@backbase/mylib`.
 
 
 ## Development server
