@@ -33,7 +33,7 @@ The project uses the latest versions of the tools and libraries.
  
  ### Components included in the app
   - Auth module: define authentication
-  - Locale selector for SPA
+  - Locale selector for SPA: support multiple languages
   - Theme
   - Entitlements
   - Configuration of journeys
