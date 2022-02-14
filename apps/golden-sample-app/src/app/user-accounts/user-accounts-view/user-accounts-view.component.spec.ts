@@ -4,7 +4,6 @@ import { UserAccountsService } from '../user-accounts.service';
 import { UserAccountsViewComponent } from './user-accounts-view.component';
 
 describe('UserAccountsViewComponent', () => {
-  let component: UserAccountsViewComponent;
   let fixture: ComponentFixture<UserAccountsViewComponent>;
 
   const mockUserAccountsService = {
@@ -29,7 +28,6 @@ describe('UserAccountsViewComponent', () => {
     .compileComponents();
 
     fixture = TestBed.createComponent(UserAccountsViewComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
