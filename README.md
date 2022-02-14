@@ -72,7 +72,7 @@ Run `ng g @nrwl/angular:app my-app` to generate an application.
 
 > You can also use Nx Console to generate libraries as well.
 
-When using When using [Nx](https://nx.dev/), you can create multiple applications and libraries in the same workspace.
+When using [Nx](https://nx.dev/), you can create multiple applications and libraries in the same workspace.
 
 After generating, use appropriate tags in both `nx.json` and `.eslintrs.json` to impose constraints on the dependency graph. [Nx Tags](https://nx.dev/structure/monorepo-tags)
 
