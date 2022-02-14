@@ -34,7 +34,7 @@ The project uses the latest versions of the tools and libraries.
  ### Components included in the app
   - Auth module: define authentication
   - Locale selector for SPA: support multiple languages
-  - Theme
+  - Theme: integrate with a theme
   - Entitlements: configure entitlements for different scenarios
   - Configuration of journeys
   - Communication service
