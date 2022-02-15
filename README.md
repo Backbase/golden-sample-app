@@ -50,7 +50,7 @@ The project uses the latest versions of the tools and libraries.
 
 
 
-## Authentication details
+## Authentication
 
 ### Prerequisites
 
