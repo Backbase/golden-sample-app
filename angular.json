@@ -9,7 +9,9 @@
       "architect": {
         "build": {
           "builder": "@nrwl/angular:package",
-          "outputs": ["dist/positive-pay/test"],
+          "outputs": [
+            "dist/positive-pay/test"
+          ],
           "options": {
             "project": "libs/ach-positive-pay/ng-package.json"
           },
@@ -25,7 +27,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/ach-positive-pay"],
+          "outputs": [
+            "coverage/libs/ach-positive-pay"
+          ],
           "options": {
             "jestConfig": "libs/ach-positive-pay/jest.config.js",
             "passWithNoTests": true
@@ -57,7 +61,6 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/golden-sample-app",
             "index": "apps/golden-sample-app/src/index.html",
@@ -113,11 +116,12 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
+            "development": {
+              "browserTarget": "golden-sample-app:build:development",
+              "proxyConfig": "./proxy.conf.json"
+            },
             "production": {
               "browserTarget": "golden-sample-app:build:production"
-            },
-            "development": {
-              "browserTarget": "golden-sample-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -139,7 +143,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/golden-sample-app"],
+          "outputs": [
+            "coverage/apps/golden-sample-app"
+          ],
           "options": {
             "jestConfig": "apps/golden-sample-app/jest.config.js",
             "passWithNoTests": true
@@ -155,7 +161,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/golden-sample-app-e2e/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/golden-sample-app-e2e/**/*.ts"
+            ]
           }
         }
       }
@@ -168,7 +176,9 @@
       "architect": {
         "build": {
           "builder": "@nrwl/angular:package",
-          "outputs": ["dist/libs/transactions"],
+          "outputs": [
+            "dist/libs/transactions"
+          ],
           "options": {
             "project": "libs/transactions/ng-package.json"
           },
@@ -184,7 +194,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/transactions"],
+          "outputs": [
+            "coverage/libs/transactions"
+          ],
           "options": {
             "jestConfig": "libs/transactions/jest.config.js",
             "passWithNoTests": true
@@ -209,7 +221,9 @@
       "architect": {
         "build": {
           "builder": "@nrwl/angular:package",
-          "outputs": ["dist/libs/transfer"],
+          "outputs": [
+            "dist/libs/transfer"
+          ],
           "options": {
             "project": "libs/transfer/ng-package.json"
           },
@@ -225,7 +239,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/transfer"],
+          "outputs": [
+            "coverage/libs/transfer"
+          ],
           "options": {
             "jestConfig": "libs/transfer/jest.config.js",
             "passWithNoTests": true
