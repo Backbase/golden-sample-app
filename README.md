@@ -6,10 +6,10 @@ This golden sample provides examples of the code structure, configuration, and b
 ## Table of Contents
 * [Overview of the app](#overview-of-the-app)
 * [Prerequisites](#prerequisites)
-* [Authentication details](#authentication-details)
+* [Authentication](#authentication)
 * [Generate an application](#generate-an-application)
 * [Generate a library](#generate-a-library)
-* [Development server](#development-server)
+* [Load app on a development server](#load-app-on-a-development-server)
 * [Code scaffolding](#code-scaffolding)
 * [Build](#build)
 * [Tests](#tests)
@@ -52,10 +52,6 @@ The project uses the latest versions of the tools and libraries.
 
 ## Authentication
 
-### Prerequisites
-
-- Go through the [documentation page](https://community.backbase.com/documentation/foundation_angular/latest/authenticate_users) first to avoid any confusion with implementing authentication in the modelless app
-
 ### Important Info
 
 The code that is used for authentication is not for production purposes, this is the example to understand the concepts lying under the hood.
@@ -63,7 +59,7 @@ Do not copy-paste anything related to the authentication to your banking applica
 
 ### How to add authentication to your app
 
-Check the example code in the `app.module.ts`, the related `AuthConfig` in the `environment.ts` files, and the `APP_INITIALIZER` provider logic.
+Check the example code in the [`app.module.ts`](https://github.com/Backbase/golden-sample-app/blob/master/apps/golden-sample-app/src/app/app.module.ts#L46), the related `AuthConfig` in the[`environment.ts`](https://github.com/Backbase/golden-sample-app/blob/master/apps/golden-sample-app/src/environments/environment.ts#L44) files, and the `APP_INITIALIZER` provider logic.
 Secure routes with `AuthGuard`s. We rely on <https://github.com/manfredsteyer/angular-oauth2-oidc>, check their documentation for more details.
 
 ## Generate an application
