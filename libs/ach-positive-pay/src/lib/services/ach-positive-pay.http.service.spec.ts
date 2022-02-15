@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { AchRule } from '../models/ach-rule';
 import { AchPositivePayHttpService } from './ach-positive-pay.http.service';
 
 describe('AchPositivePayJourneyService', () => {
@@ -19,10 +20,10 @@ describe('AchPositivePayJourneyService', () => {
 
   describe('submitAchRule', () => {
     it('should post', () => {
-      service.submitAchRule('rule');
+      service.submitAchRule({} as AchRule);
       expect(mockHttpClient.post).toHaveBeenCalledWith(
         '/api/ach-positive-pay/rule',
-        'rule'
+        {},
       );
     });
   });
