@@ -85,7 +85,7 @@ Run `ng g @nrwl/angular:lib my-lib` to generate a library.
 Libraries can be shared across libraries and applications. You can import them from `@backbase/mylib`.
 
 
-## Development server
+## Load app on a development server
 
 Run `ng serve my-app` for a dev server. Navigate to <http://localhost:4200/>. The app will automatically reload if you change any of the source files.
 
