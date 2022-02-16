@@ -1,19 +1,56 @@
 # Golden Sample Angular App
 
-This example project is a reference implementation to showcase a number of best practices to use when building a new Angular SPA that leverages Backbase components and libraries. The project is regularly updated, so come back often to check for new improvements. For the best experience, these VSCode extenstions for Nx and Jest should be installed. Jest runner allows you to easly run isolated test as you are developing. Nx Console allows you to easily find and run all the possible Nx Commands.
+This golden sample provides examples of the code structure, configuration, and best practices for using the Backbase Angular tools.
 
-- `nrwl.angular-console`
-- `firsttris.vscode-jest-runner`.
 
-## Important
+## Table of Contents
+* [Overview of the app](#overview-of-the-app)
+* [Prerequisites](#prerequisites)
+* [Authentication](#authentication)
+* [Generate an application](#generate-an-application)
+* [Generate a library](#generate-a-library)
+* [Load app on a development server](#load-app-on-a-development-server)
+* [Code scaffolding](#code-scaffolding)
+* [Build](#build)
+* [Tests](#tests)
+* [Understand your workspace](#understand-your-workspace)
+* [Running with docker](#running-with-docker)
+* [Package as a runnable Docker container](#package-as-a-runnable-docker-container)
+* [Further help](#further-help)
 
-On some AWS environments, due to specific WAF configuration, you might need to use `http://0.0.0.0:4200/` when accessing the app locally, in order to successfully authenticate.
 
-## Authentication details
 
-### Prerequisites
 
-- Go through the [documentation page](https://community.backbase.com/documentation/foundation_angular/latest/authenticate_users) first to avoid any confusion with implementing authentication in the modelless app
+
+## Overview of the app
+This project is a complete reference implementation for building a new Angular single page application(SPA) with Backbase components and libraries.  It includes best practices that front-end developers can use to build their own web application.
+
+This README provides an overview and set-up of the app, and further guidance is provided as comments in the code to further guide you.
+
+The project uses the latest versions of the tools and libraries.
+  
+ 
+ ### Components included in the app
+  - Auth module: define authentication
+  - Locale selector for SPA: support multiple languages
+  - Theme: integrate with a theme
+  - Entitlements: configure entitlements for different scenarios
+  - Configure journeys
+  - Communication service: communications between journeys
+  - Simple examples of journeys such as transactions and transfer
+
+## Prerequisites
+- Install the following VSCode extensions:  
+
+    - [nrwl.angular-console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console): to find and run the Nx Commands.
+    - [firsttris.vscode-jest-runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner): to isolated tests while you are developing. 
+
+
+- For AWS environments with specific WAF configurations, you may need to use `http://0.0.0.0:4200/` when accessing the app locally, in order to successfully authenticate.
+
+
+
+## Authentication
 
 ### Important Info
 
@@ -22,7 +59,7 @@ Do not copy-paste anything related to the authentication to your banking applica
 
 ### How to add authentication to your app
 
-See the example code in the `app.module.ts`, the related `AuthConfig` in the `environment.ts` files, and the `APP_INITIALIZER` provider logic.
+Check the example code in the [`app.module.ts`](https://github.com/Backbase/golden-sample-app/blob/master/apps/golden-sample-app/src/app/app.module.ts#L46), the related `AuthConfig` in the[`environment.ts`](https://github.com/Backbase/golden-sample-app/blob/master/apps/golden-sample-app/src/environments/environment.ts#L44) files, and the `APP_INITIALIZER` provider logic.
 Secure routes with `AuthGuard`s. We rely on <https://github.com/manfredsteyer/angular-oauth2-oidc>, check their documentation for more details.
 
 ## Generate an application
@@ -31,9 +68,9 @@ Run `ng g @nrwl/angular:app my-app` to generate an application.
 
 > You can also use Nx Console to generate libraries as well.
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+When using [Nx](https://nx.dev/), you can create multiple applications and libraries in the same workspace.
 
-After generating, use appropiate tags in both `nx.json` and `.eslintrs.json` to impose constraints on the dependency graph. [Nx Tags](https://nx.dev/structure/monorepo-tags)
+After the app has been generated, use tags in `nx.json` and `.eslintrs.json` to impose constraints on the dependency graph. [Nx Tags](https://nx.dev/structure/monorepo-tags)
 
 ## Generate a library
 
@@ -41,11 +78,10 @@ Run `ng g @nrwl/angular:lib my-lib` to generate a library.
 
 > You can also use Nx Console to generate libraries as well.
 
-Libraries are shareable across libraries and applications. They can be imported from `@backbase/mylib`.
+Libraries can be shared across libraries and applications. You can import them from `@backbase/mylib`.
 
-After generating, use appropiate tags in both `nx.json` and `.eslintrs.json` to impose constraints on the dependency graph.[Nx Tags](https://nx.dev/structure/monorepo-tags)
 
-## Development server
+## Load app on a development server
 
 Run `ng serve my-app` for a dev server. Navigate to <http://localhost:4200/>. The app will automatically reload if you change any of the source files.
 
@@ -55,15 +91,22 @@ Run `ng g component my-component --project=my-app` to generate a new component.
 
 ## Build
 
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+To run the project on a development server, run 
+`ng build my-app
 
-## Running unit tests
+The build artifacts are stored in the `dist/` directory. 
+
+To build the app to production, use the `--prod` flag.
+
+## Tests
+
+- Running unit tests
 
 Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
 
 Run `nx affected:test` to execute the unit tests affected by a change.
 
-## Running end-to-end tests
+-  Running end-to-end tests
 
 Run `npx playwright test`
 
