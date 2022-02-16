@@ -1,4 +1,7 @@
-import { TransactionClientHttpService, TransactionItem } from '@backbase/data-ang/transactions';
+import {
+  TransactionClientHttpService,
+  TransactionItem,
+} from '@backbase/data-ang/transactions';
 import { of } from 'rxjs';
 import { ArrangementsService } from './arrangements.service';
 import { TransactionsJourneyConfiguration } from './transactions-journey-config.service';
@@ -20,7 +23,6 @@ describe('TransactionsHttpService', () => {
     arrangementIds$: of(mockArrangenementsIds),
   } as ArrangementsService;
 
-
   beforeEach(() => {
     service = new TransactionsHttpService(
       mockConfigurationService,
@@ -28,12 +30,14 @@ describe('TransactionsHttpService', () => {
       mockArrangementsService
     );
 
-  jest.spyOn(mockTransactionsClientHttpService, 'getTransactionsWithPost')
+    jest.spyOn(mockTransactionsClientHttpService, 'getTransactionsWithPost');
   });
 
   it('should call transactions client http service to get the transactions', (done) => {
     service.transactions$.subscribe(() => {
-      expect(mockTransactionsClientHttpService.getTransactionsWithPost).toHaveBeenCalledWith(
+      expect(
+        mockTransactionsClientHttpService.getTransactionsWithPost
+      ).toHaveBeenCalledWith(
         {
           transactionListRequest: {
             arrangementsIds: mockArrangenementsIds,
@@ -44,7 +48,7 @@ describe('TransactionsHttpService', () => {
             state: 'COMPLETED',
           },
         },
-        'body',
+        'body'
       );
 
       done();

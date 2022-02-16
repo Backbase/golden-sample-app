@@ -7,10 +7,9 @@ describe('UserContextComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserContextComponent ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-    .compileComponents();
+      declarations: [UserContextComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,9 @@ describe('UserContextComponent', () => {
   });
 
   it('should render select context widget', () => {
-    const selectContextWidget = fixture.nativeElement.querySelector('[data-role="user-context-selector"]');
+    const selectContextWidget = fixture.nativeElement.querySelector(
+      '[data-role="user-context-selector"]'
+    );
 
     expect(selectContextWidget).not.toBeNull();
   });

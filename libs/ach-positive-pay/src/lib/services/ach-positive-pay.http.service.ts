@@ -6,7 +6,8 @@ import { AchRule } from '../models/ach-rule';
 
 @Injectable()
 export class AchPositivePayHttpService {
-  public readonly accounts$ = this.http.get<ProductSummaryItem[]>('/api/accounts');
+  public readonly accounts$ =
+    this.http.get<ProductSummaryItem[]>('/api/accounts');
 
   constructor(private http: HttpClient) {}
 

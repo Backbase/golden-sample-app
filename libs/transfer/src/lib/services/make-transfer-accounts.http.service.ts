@@ -5,8 +5,9 @@ import { Account } from '../model/Account';
 
 @Injectable()
 export class MakeTransferAccountHttpService {
-  currentAccount$: Observable<Account> = this.http.get<Account>('/api/accounts/current');
+  currentAccount$: Observable<Account> = this.http.get<Account>(
+    '/api/accounts/current'
+  );
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 }

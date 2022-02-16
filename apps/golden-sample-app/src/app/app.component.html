@@ -45,9 +45,7 @@
 
     <!-- Navigation Items-->
     <ul *ngIf="isAuthenticated" class="bb-layout__horizontal-nav">
-      <li
-        class="bb-layout__horizontal-nav-item"
-      >
+      <li class="bb-layout__horizontal-nav-item">
         <a
           class="bb-layout__horizontal-nav-link"
           routerLink="/transfer"
@@ -57,7 +55,10 @@
             makeTransferRouterLink.isActive ? 'page' : undefined
           "
         >
-          <bb-icon-ui class="bb-layout__vertical-nav-item-icon" name="payments"></bb-icon-ui>
+          <bb-icon-ui
+            class="bb-layout__vertical-nav-item-icon"
+            name="payments"
+          ></bb-icon-ui>
           <span
             class="bb-layout__horizontal-nav-item-description"
             i18n="make transfer link@@main.transfer.link.text"
@@ -98,12 +99,18 @@
           routerLink="/positive-pay"
           routerLinkActive="bb-layout__horizontal-nav-link--active"
           #positivePayRouterLink="routerLinkActive"
-          [attr.aria-current]="positivePayRouterLink.isActive ? 'page' : undefined"
+          [attr.aria-current]="
+            positivePayRouterLink.isActive ? 'page' : undefined
+          "
         >
-          <bb-icon-ui class="bb-layout__vertical-nav-item-icon" name="note"></bb-icon-ui>
+          <bb-icon-ui
+            class="bb-layout__vertical-nav-item-icon"
+            name="note"
+          ></bb-icon-ui>
           <span
             class="bb-layout__horizontal-nav-item-description"
-            i18n="Positive pay link@@main.positive-pay.link.text">
+            i18n="Positive pay link@@main.positive-pay.link.text"
+          >
             Positive Pay
           </span>
         </a>
@@ -114,13 +121,19 @@
           routerLink="/ach-positive-pay"
           routerLinkActive="bb-layout__horizontal-nav-link--active"
           #myAccountsRouterLink="routerLinkActive"
-          [attr.aria-current]="myAccountsRouterLink.isActive ? 'page' : undefined"
+          [attr.aria-current]="
+            myAccountsRouterLink.isActive ? 'page' : undefined
+          "
         >
-          <bb-icon-ui class="bb-layout__vertical-nav-item-icon" name="verified-user"></bb-icon-ui>
+          <bb-icon-ui
+            class="bb-layout__vertical-nav-item-icon"
+            name="verified-user"
+          ></bb-icon-ui>
 
           <span
             class="bb-layout__horizontal-nav-item-description"
-            i18n="Ach Positive pay link@@main.ach-positive-pay.link.text">
+            i18n="Ach Positive pay link@@main.ach-positive-pay.link.text"
+          >
             ACH Positive Pay
           </span>
         </a>

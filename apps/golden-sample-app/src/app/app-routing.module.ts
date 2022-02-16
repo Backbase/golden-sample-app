@@ -8,22 +8,30 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'transactions'
+    redirectTo: 'transactions',
   },
   {
     path: 'select-context',
-    loadChildren: () => import('./user-context/user-context.module').then((m) => m.UserContextModule),
+    loadChildren: () =>
+      import('./user-context/user-context.module').then(
+        (m) => m.UserContextModule
+      ),
     canActivate: [AuthGuard],
   },
   {
     path: 'transfer',
-    loadChildren: () => import('./transfer/transfer-journey-bundle.module').then((m) => m.TransferJourneyBundleModule),
+    loadChildren: () =>
+      import('./transfer/transfer-journey-bundle.module').then(
+        (m) => m.TransferJourneyBundleModule
+      ),
     canActivate: [AuthGuard],
   },
   {
     path: 'positive-pay',
     loadChildren: () =>
-      import('./positive-pay/positive-pay-journey-bundle.module').then((m) => m.PositivePayJourneyBundleModule),
+      import('./positive-pay/positive-pay-journey-bundle.module').then(
+        (m) => m.PositivePayJourneyBundleModule
+      ),
     canActivate: [AuthGuard, EntitlementsGuard],
     data: {
       entitlements: triplets.canViewPositivePay,
@@ -33,7 +41,7 @@ const routes: Routes = [
     path: 'ach-positive-pay',
     loadChildren: () =>
       import('./ach-positive-pay/ach-positive-pay-journey-bundle.module').then(
-        (m) => m.AchPositivePayJourneyBundleModule,
+        (m) => m.AchPositivePayJourneyBundleModule
       ),
     canActivate: [AuthGuard, EntitlementsGuard],
     data: {
@@ -43,15 +51,20 @@ const routes: Routes = [
   {
     path: 'transactions',
     loadChildren: () =>
-      import('./transactions/transactions-journey-bundle.module').then((m) => m.TransactionsJourneyBundleModule),
+      import('./transactions/transactions-journey-bundle.module').then(
+        (m) => m.TransactionsJourneyBundleModule
+      ),
     data: {
       entitlements: triplets.canViewTransactions,
     },
-    canActivate: [ AuthGuard, EntitlementsGuard ],
+    canActivate: [AuthGuard, EntitlementsGuard],
   },
   {
     path: 'accounts',
-    loadChildren: () => import('./user-accounts/user-accounts.module').then((m) => m.UserAccountsModule),
+    loadChildren: () =>
+      import('./user-accounts/user-accounts.module').then(
+        (m) => m.UserAccountsModule
+      ),
     canActivate: [AuthGuard],
   },
   {

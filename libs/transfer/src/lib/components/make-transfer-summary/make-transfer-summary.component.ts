@@ -3,7 +3,7 @@ import { Transfer } from '../../model/Account';
 
 @Component({
   selector: 'bb-make-transfer-summary',
-  templateUrl: 'make-transfer-summary.component.html'
+  templateUrl: 'make-transfer-summary.component.html',
 })
 export class MakeTransferSummaryComponent {
   @Input() transfer: Transfer | undefined;

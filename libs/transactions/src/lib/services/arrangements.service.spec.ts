@@ -7,9 +7,13 @@ describe('ArrangementsService', () => {
   const arrangementIdMock = 'arrangment-id-mock';
 
   const mockProductSummaryService = {
-    getArrangementsByBusinessFunction: jest.fn(() => of([{
-      id: arrangementIdMock,
-    }]))
+    getArrangementsByBusinessFunction: jest.fn(() =>
+      of([
+        {
+          id: arrangementIdMock,
+        },
+      ])
+    ),
   } as unknown as ProductSummaryHttpService;
 
   beforeEach(() => {
@@ -18,7 +22,9 @@ describe('ArrangementsService', () => {
 
   it('should call product summary service to get arrangements', (done) => {
     service.arrangementIds$.subscribe(() => {
-      expect(mockProductSummaryService.getArrangementsByBusinessFunction).toHaveBeenCalled();
+      expect(
+        mockProductSummaryService.getArrangementsByBusinessFunction
+      ).toHaveBeenCalled();
       done();
     });
   });

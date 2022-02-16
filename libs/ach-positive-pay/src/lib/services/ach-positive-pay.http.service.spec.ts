@@ -23,7 +23,7 @@ describe('AchPositivePayJourneyService', () => {
       service.submitAchRule({} as AchRule);
       expect(mockHttpClient.post).toHaveBeenCalledWith(
         '/api/ach-positive-pay/rule',
-        {},
+        {}
       );
     });
   });

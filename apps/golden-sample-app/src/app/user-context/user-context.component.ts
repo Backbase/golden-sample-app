@@ -20,4 +20,4 @@ const logoutFactoryService = (oAuthService: OAuthService) => {
     },
   ],
 })
-export class UserContextComponent { }
+export class UserContextComponent {}

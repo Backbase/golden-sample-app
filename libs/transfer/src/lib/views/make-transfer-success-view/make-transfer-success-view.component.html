@@ -1,14 +1,20 @@
-<h1>{{title}}</h1>
-<div data-role="transfer-summary" *ngIf="(transferStore.transfer | async)! as transfer">
-  you have transfered <strong>{{transfer?.amount}}</strong> to  <strong>{{transfer?.toAccount}}</strong>
+<h1>{{ title }}</h1>
+<div
+  data-role="transfer-summary"
+  *ngIf="(transferStore.transfer | async)! as transfer"
+>
+  you have transfered <strong>{{ transfer?.amount }}</strong> to
+  <strong>{{ transfer?.toAccount }}</strong>
 </div>
 
 <div class="bb-button-bar">
-  <button 
+  <button
     bbButton
     class="bb-button-bar__button"
-    color="secondary" 
+    color="secondary"
     (click)="close()"
     i18n="close button@@transfer.success.close.text"
-  >Close</button>
+  >
+    Close
+  </button>
 </div>

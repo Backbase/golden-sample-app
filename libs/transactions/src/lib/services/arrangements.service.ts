@@ -12,11 +12,11 @@ export class ArrangementsService {
         privilege: 'view',
         size: 1000000,
       },
-      'body',
+      'body'
     )
     .pipe(map((arrangements) => arrangements.map((ar) => ar.id)));
 
   constructor(
-    private readonly productSummaryDataHttpService: ProductSummaryHttpService,
-  ) { }
+    private readonly productSummaryDataHttpService: ProductSummaryHttpService
+  ) {}
 }

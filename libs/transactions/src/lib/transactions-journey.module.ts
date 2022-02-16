@@ -23,13 +23,29 @@ const defaultRoute: Route = {
 };
 
 @NgModule({
-  declarations: [TransactionsViewComponent, TransactionItemComponent, TextFilterComponent, FilterTransactionsPipe],
-  imports: [CommonModule, RouterModule, FormsModule, AmountModule, InputTextModule, LoadingIndicatorModule],
-  providers: [TransactionsHttpService, TransactionsJourneyConfiguration, ArrangementsService],
+  declarations: [
+    TransactionsViewComponent,
+    TransactionItemComponent,
+    TextFilterComponent,
+    FilterTransactionsPipe,
+  ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    AmountModule,
+    InputTextModule,
+    LoadingIndicatorModule,
+  ],
+  providers: [
+    TransactionsHttpService,
+    TransactionsJourneyConfiguration,
+    ArrangementsService,
+  ],
 })
 export class TransactionsJourneyModule {
   static forRoot(
-    data: { [key: string]: unknown; route: Route } = { route: defaultRoute },
+    data: { [key: string]: unknown; route: Route } = { route: defaultRoute }
   ): ModuleWithProviders<TransactionsJourneyModule> {
     return {
       ngModule: TransactionsJourneyModule,

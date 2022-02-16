@@ -8,7 +8,7 @@ import { TRANSACTIONS_BASE_PATH } from '@backbase/data-ang/transactions';
 import { TemplateRegistry } from '@backbase/foundation-ang/core';
 import {
   EntitlementsModule,
-  ENTITLEMENTS_CONFIG
+  ENTITLEMENTS_CONFIG,
 } from '@backbase/foundation-ang/entitlements';
 import { PAGE_CONFIG } from '@backbase/foundation-ang/web-sdk';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
@@ -25,7 +25,7 @@ import {
   OAuthModule,
   OAuthModuleConfig,
   OAuthService,
-  OAuthStorage
+  OAuthStorage,
 } from 'angular-oauth2-oidc';
 import { CookieService } from 'ngx-cookie-service';
 import { authConfig, environment } from '../environments/environment';

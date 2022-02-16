@@ -9,9 +9,14 @@ import { PERMISSIONS } from '../../constants/permissions';
 export class AchPositivePayJourneyComponent {
   permissions = PERMISSIONS;
 
-  constructor(private readonly router: Router, private readonly route: ActivatedRoute) {}
+  constructor(
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
+  ) {}
 
   openNewBlockerModal() {
-    this.router.navigate([{ outlets: { modal: 'new' } }], { relativeTo: this.route });
+    this.router.navigate([{ outlets: { modal: 'new' } }], {
+      relativeTo: this.route,
+    });
   }
 }

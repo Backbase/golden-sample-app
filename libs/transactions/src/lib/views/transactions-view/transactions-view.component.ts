@@ -4,7 +4,7 @@ import { combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   TransactionsCommunicationService,
-  TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE
+  TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
 } from '../../communication';
 import { TransactionsHttpService } from '../../services/transactions.http.service';
 
@@ -21,8 +21,10 @@ export class TransactionsViewComponent {
     this.externalCommunicationService?.latestTransaction$ || of(undefined),
   ]).pipe(
     map(([transactions, latestTransaction]) =>
-      latestTransaction ? [latestTransaction, ...(transactions || [])] : transactions,
-    ),
+      latestTransaction
+        ? [latestTransaction, ...(transactions || [])]
+        : transactions
+    )
   );
 
   constructor(

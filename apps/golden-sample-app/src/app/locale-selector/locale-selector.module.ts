@@ -12,7 +12,9 @@ import { CommonModule } from '@angular/common';
   providers: [LocalesService],
 })
 export class LocaleSelectorModule {
-  static forRoot(config: { locales: Array<string> }): ModuleWithProviders<LocaleSelectorModule> {
+  static forRoot(config: {
+    locales: Array<string>;
+  }): ModuleWithProviders<LocaleSelectorModule> {
     return {
       ngModule: LocaleSelectorModule,
       providers: [

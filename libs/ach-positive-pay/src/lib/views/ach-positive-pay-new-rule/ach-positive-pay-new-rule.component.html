@@ -9,7 +9,9 @@
         headingClasses="modal-title"
         headingType="h2"
         heading="New ACH Rule"
-        i18n-heading="New ACH Rule|Title of the New ACH Rule form in modal@@ach-positive-pay.new-rule.title"
+        i18n-heading="
+          New ACH Rule|Title of the New ACH Rule form in
+          modal@@ach-positive-pay.new-rule.title"
         data-role="ach-positive-pay-new-rule-title"
       >
       </bb-header-ui>
@@ -26,7 +28,9 @@
         >
           <bb-alert-ui
             title="Unknown error occurred. Try to submit the form again."
-            i18n-title="Server Error|Message that is displayed when server throws error@@ach-positive-pay.error.default.title"
+            i18n-title="
+              Server Error|Message that is displayed when server throws
+              error@@ach-positive-pay.error.default.title"
             [dismissible]="true"
             (close)="hideError()"
           >
@@ -39,7 +43,6 @@
         [accounts]="(accounts$ | async)!"
         (selectAccountId)="onSelectAccountId($event)"
       ></bb-ach-positive-pay-rule-form>
-
     </ng-template>
   </bb-modal-body-ui>
 
@@ -53,7 +56,9 @@
           type="submit"
           [isLoading]="loading"
           data-role="ach-positive-pay-new-rule-submit-button"
-          i18n="Submit form|Button for submitting new rule@@ach-positive-pay.new-rule.submit-button"
+          i18n="
+            Submit form|Button for submitting new
+            rule@@ach-positive-pay.new-rule.submit-button"
           (click)="submitRule()"
         >
           Submit
@@ -65,14 +70,14 @@
           type="button"
           color="link"
           data-role="ach-positive-pay-new-rule-cancel-button"
-          i18n="Cancel|Button for canceling entry of new check@@ach-positive-pay.new-rule.cancel-button"
+          i18n="
+            Cancel|Button for canceling entry of new
+            check@@ach-positive-pay.new-rule.cancel-button"
           (click)="closeModal()"
         >
           Cancel
         </button>
-
       </div>
     </ng-template>
   </bb-modal-footer-ui>
-
 </bb-modal-ui>

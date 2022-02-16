@@ -7,33 +7,37 @@ describe('UserAccountsViewComponent', () => {
   let fixture: ComponentFixture<UserAccountsViewComponent>;
 
   const mockUserAccountsService = {
-    arrangements$: of([{
-      displayName: 'mock display name',
-      availableBalance: 0,
-      currency: 'EUR' 
-    }, {
-      displayName: 'mock display name',
-      availableBalance: 0,
-      currency: 'EUR' 
-    }]),
+    arrangements$: of([
+      {
+        displayName: 'mock display name',
+        availableBalance: 0,
+        currency: 'EUR',
+      },
+      {
+        displayName: 'mock display name',
+        availableBalance: 0,
+        currency: 'EUR',
+      },
+    ]),
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserAccountsViewComponent ],
+      declarations: [UserAccountsViewComponent],
       providers: [
-        { provide: UserAccountsService, useValue: mockUserAccountsService }
-      ]
-    })
-    .compileComponents();
+        { provide: UserAccountsService, useValue: mockUserAccountsService },
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UserAccountsViewComponent);
     fixture.detectChanges();
   });
 
   it('should render correct ammount of available accounts', () => {
-    const accounts = fixture.nativeElement.querySelectorAll('[data-role="arrangmenet-container"]');
+    const accounts = fixture.nativeElement.querySelectorAll(
+      '[data-role="arrangmenet-container"]'
+    );
 
     expect(accounts.length).toBe(2);
-  })
+  });
 });

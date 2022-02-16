@@ -27,7 +27,7 @@ const defaultRoute: Route = {
     {
       path: '',
       redirectTo: 'make-transfer',
-      pathMatch: 'full'
+      pathMatch: 'full',
     },
     {
       path: 'make-transfer',
@@ -42,7 +42,7 @@ const defaultRoute: Route = {
       data: {
         title: TRANSLATIONS.makeTransferTitle,
       },
-      canActivate: [ MakeTransferJourneyStoreGuard ]
+      canActivate: [MakeTransferJourneyStoreGuard],
     },
     {
       path: 'make-transfer-success',
@@ -50,9 +50,9 @@ const defaultRoute: Route = {
       data: {
         title: TRANSLATIONS.makeTransferTitle,
       },
-      canActivate: [ MakeTransferJourneyStoreGuard ]
-    }
-  ]
+      canActivate: [MakeTransferJourneyStoreGuard],
+    },
+  ],
 };
 
 @NgModule({
@@ -81,13 +81,15 @@ const defaultRoute: Route = {
     MakeTransferPermissionsService,
     MakeTransferAccountHttpService,
   ],
-  exports: [ TransferJourneyComponent ]
+  exports: [TransferJourneyComponent],
 })
 export class TransferJourneyModule {
-  static forRoot(data: { [key: string]: unknown; route: Route } = { route: defaultRoute }): ModuleWithProviders<TransferJourneyModule> {
+  static forRoot(
+    data: { [key: string]: unknown; route: Route } = { route: defaultRoute }
+  ): ModuleWithProviders<TransferJourneyModule> {
     return {
       ngModule: TransferJourneyModule,
-      providers: [ provideRoutes([ data.route ]) ],
+      providers: [provideRoutes([data.route])],
     };
   }
 }

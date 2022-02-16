@@ -6,7 +6,7 @@ import {
 } from '@backbase/positive-pay-journey-ang';
 
 @NgModule({
-  imports: [ PositivePayJourneyModule.forRoot() ],
+  imports: [PositivePayJourneyModule.forRoot()],
   providers: [
     {
       provide: POSITIVE_PAY_JOURNEY_CONFIGURATION_TOKEN,
@@ -16,5 +16,4 @@ import {
     },
   ],
 })
-export class PositivePayJourneyBundleModule {
-}
+export class PositivePayJourneyBundleModule {}

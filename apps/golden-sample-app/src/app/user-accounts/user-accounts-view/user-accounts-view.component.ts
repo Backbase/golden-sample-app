@@ -6,7 +6,7 @@ import { UserAccountsService } from '../user-accounts.service';
   templateUrl: './user-accounts-view.component.html',
 })
 export class UserAccountsViewComponent {
-  public arrangements$ = this.userAccountsService.arrangements$
+  public arrangements$ = this.userAccountsService.arrangements$;
 
-  constructor(private readonly userAccountsService: UserAccountsService) { }
+  constructor(private readonly userAccountsService: UserAccountsService) {}
 }

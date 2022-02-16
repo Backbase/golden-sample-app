@@ -7,19 +7,20 @@ import { MakeTransferJourneyState } from './services/make-transfer-journey-state
 @Injectable()
 export class MakeTransferJourneyStoreGuard implements CanActivate {
   canActivate(): Observable<boolean> {
-    return this.transferStore.transfer
-      .pipe(
-        tap((data) => {
-          if (!data) {
-            this.router.navigate(['../make-transfer'], { relativeTo: this.route });
-          }
-        }),
-        map(() => true),
+    return this.transferStore.transfer.pipe(
+      tap((data) => {
+        if (!data) {
+          this.router.navigate(['../make-transfer'], {
+            relativeTo: this.route,
+          });
+        }
+      }),
+      map(() => true)
     );
   }
   constructor(
     public readonly transferStore: MakeTransferJourneyState,
     private readonly router: Router,
-    private readonly route: ActivatedRoute,
+    private readonly route: ActivatedRoute
   ) {}
 }

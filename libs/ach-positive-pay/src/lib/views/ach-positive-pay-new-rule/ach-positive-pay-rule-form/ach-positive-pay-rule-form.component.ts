@@ -12,7 +12,8 @@ export class AchPositivePayRuleFormComponent {
 
   @Input() accounts: ProductSummaryItem[] = [];
 
-  @Output() selectAccountId: EventEmitter<ProductSummaryItem> = new EventEmitter<ProductSummaryItem>();
+  @Output() selectAccountId: EventEmitter<ProductSummaryItem> =
+    new EventEmitter<ProductSummaryItem>();
 
   readonly paymentTypes = [
     ACH_POSITIVE_PAY_TRANSLATIONS.creditPaymentType,

@@ -3,7 +3,9 @@ import { Component, Inject, InjectionToken, OnInit } from '@angular/core';
 import { LOCALES_LIST, LocalesService } from './locales.service';
 import { localesCatalog } from './locales-catalog';
 
-export const documentWrapper = new InjectionToken<Document>('wrapper for document service');
+export const documentWrapper = new InjectionToken<Document>(
+  'wrapper for document service'
+);
 
 @Component({
   selector: 'app-locale-selector',
@@ -22,7 +24,7 @@ export class LocaleSelectorComponent implements OnInit {
   constructor(
     private localeService: LocalesService,
     @Inject(LOCALES_LIST) public locales: Array<string>,
-    @Inject(documentWrapper) private document: Document,
+    @Inject(documentWrapper) private document: Document
   ) {}
 
   set language(value: string) {

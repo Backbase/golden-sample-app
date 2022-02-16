@@ -16,7 +16,7 @@ describe('AppComponent', () => {
       hasValidAccessToken: jest.fn(() => true),
     };
   const mockLayoutService = {
-    navigationExpanded$: of(true)
+    navigationExpanded$: of(true),
   };
 
   beforeEach(async () => {
@@ -34,7 +34,7 @@ describe('AppComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  
+
   it('should create the app', () => {
     expect(component).toBeTruthy();
   });
@@ -42,7 +42,9 @@ describe('AppComponent', () => {
   it('should logout', () => {
     mockOAuthService.logOut = jest.fn();
 
-    const logoutBtn = fixture.debugElement.nativeElement.querySelector('[data-role="logout-btn"]');
+    const logoutBtn = fixture.debugElement.nativeElement.querySelector(
+      '[data-role="logout-btn"]'
+    );
     logoutBtn.dispatchEvent(new Event('click'));
     fixture.detectChanges();
 

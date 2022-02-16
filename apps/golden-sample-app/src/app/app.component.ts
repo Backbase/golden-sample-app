@@ -14,7 +14,7 @@ export class AppComponent {
 
   constructor(
     private oAuthService: OAuthService,
-    public layoutService: LayoutService,
+    public layoutService: LayoutService
   ) {
     this.isAuthenticated = oAuthService.hasValidAccessToken();
   }

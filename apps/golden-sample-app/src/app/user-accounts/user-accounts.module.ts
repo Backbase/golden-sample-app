@@ -8,11 +8,13 @@ import { UserAccountsService } from './user-accounts.service';
   declarations: [UserAccountsViewComponent],
   imports: [CommonModule],
   providers: [
-    provideRoutes([{
-      path: '',
-      component: UserAccountsViewComponent
-    }]),
+    provideRoutes([
+      {
+        path: '',
+        component: UserAccountsViewComponent,
+      },
+    ]),
     UserAccountsService,
-  ]
+  ],
 })
-export class UserAccountsModule { }
+export class UserAccountsModule {}

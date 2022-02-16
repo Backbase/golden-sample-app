@@ -3,5 +3,4 @@ import { Component } from '@angular/core';
   selector: 'bb-transfer-journey',
   templateUrl: 'transfer-journey.component.html',
 })
-export class TransferJourneyComponent {
-}
+export class TransferJourneyComponent {}
