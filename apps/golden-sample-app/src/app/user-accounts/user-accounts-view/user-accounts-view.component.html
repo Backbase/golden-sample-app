@@ -1,5 +1,5 @@
 <div *ngIf="arrangements$ | async as arrangments">
-	<h1>There are {{ arrangments.length }} accounts</h1>
+	<h1 i18n="user accounts header@@app.userAccountsView.header">There are {arrangments.length, plural, =0 {no accouints} =1 {account} other {{{ arrangments.length }} accounts}} </h1>
 
 	<ul>
 		<li *ngFor="let account of arrangments" data-role="arrangmenet-container">
