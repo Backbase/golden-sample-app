@@ -1,14 +1,16 @@
 import { HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, LOCALE_ID, NgModule, Optional } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ACCESS_CONTROL_BASE_PATH } from '@backbase/data-ang/accesscontrol';
 import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/data-ang/arrangements';
 import { TRANSACTIONS_BASE_PATH } from '@backbase/data-ang/transactions';
+import { TemplateRegistry } from '@backbase/foundation-ang/core';
 import {
   EntitlementsModule,
   ENTITLEMENTS_CONFIG
 } from '@backbase/foundation-ang/entitlements';
+import { PAGE_CONFIG } from '@backbase/foundation-ang/web-sdk';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
@@ -31,6 +33,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
+
+const pageConfig = (_locale: string = '') => ({
+  linkRoot: '/',
+  apiRoot: '/api',
+  staticResourcesRoot: document.location.origin,
+  locale: _locale || 'en',
+});
 
 @NgModule({
   declarations: [AppComponent],
@@ -107,6 +116,12 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
       useValue: {
         accessControlBasePath: `${environment.apiRoot}/access-control`,
       },
+    },
+    TemplateRegistry,
+    {
+      provide: PAGE_CONFIG,
+      useFactory: pageConfig,
+      deps: [[new Optional(), LOCALE_ID]],
     },
   ],
   bootstrap: [AppComponent],
