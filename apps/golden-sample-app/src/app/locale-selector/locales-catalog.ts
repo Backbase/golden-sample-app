@@ -1,4 +1,7 @@
-export const localesCatalog: Record<string, { language: string; code: string }> = {
+export const localesCatalog: Record<
+  string,
+  { language: string; code: string }
+> = {
   'en-US': {
     language: 'English',
     code: 'en-US',

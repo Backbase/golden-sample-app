@@ -1,16 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { provideRoutes, Route, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { TRANSLATIONS } from './constants/dynamic-translations';
-import { TransactionsViewComponent } from './views/transactions-view/transactions-view.component';
-import { InputTextModule } from '@backbase/ui-ang/input-text';
-import { TransactionItemComponent } from './components/transaction-item/transaction-item.component';
-import { TextFilterComponent } from './components/text-filter/text-filter.component';
-import { FilterTransactionsPipe } from './pipes/filter-transactions.pipe';
-import { TransactionsHttpService } from './services/transactions.http.service';
-import { TransactionsJourneyConfiguration } from './services/transactions-journey-config.service';
+import { provideRoutes, Route, RouterModule } from '@angular/router';
 import { AmountModule } from '@backbase/ui-ang/amount';
+import { InputTextModule } from '@backbase/ui-ang/input-text';
+import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
+import { TextFilterComponent } from './components/text-filter/text-filter.component';
+import { TransactionItemComponent } from './components/transaction-item/transaction-item.component';
+import { TRANSLATIONS } from './constants/dynamic-translations';
+import { FilterTransactionsPipe } from './pipes/filter-transactions.pipe';
+import { ArrangementsService } from './services/arrangements.service';
+import { TransactionsJourneyConfiguration } from './services/transactions-journey-config.service';
+import { TransactionsHttpService } from './services/transactions.http.service';
+import { TransactionsViewComponent } from './views/transactions-view/transactions-view.component';
 
 const defaultRoute: Route = {
   path: '',
@@ -21,13 +23,29 @@ const defaultRoute: Route = {
 };
 
 @NgModule({
-  declarations: [TransactionsViewComponent, TransactionItemComponent, TextFilterComponent, FilterTransactionsPipe],
-  imports: [CommonModule, RouterModule, FormsModule, AmountModule, InputTextModule],
-  providers: [TransactionsHttpService, TransactionsJourneyConfiguration],
+  declarations: [
+    TransactionsViewComponent,
+    TransactionItemComponent,
+    TextFilterComponent,
+    FilterTransactionsPipe,
+  ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    AmountModule,
+    InputTextModule,
+    LoadingIndicatorModule,
+  ],
+  providers: [
+    TransactionsHttpService,
+    TransactionsJourneyConfiguration,
+    ArrangementsService,
+  ],
 })
 export class TransactionsJourneyModule {
   static forRoot(
-    data: { [key: string]: unknown; route: Route } = { route: defaultRoute },
+    data: { [key: string]: unknown; route: Route } = { route: defaultRoute }
   ): ModuleWithProviders<TransactionsJourneyModule> {
     return {
       ngModule: TransactionsJourneyModule,

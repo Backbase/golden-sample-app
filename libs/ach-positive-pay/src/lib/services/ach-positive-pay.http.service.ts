@@ -1,15 +1,17 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ProductSummaryItem } from '@backbase/data-ang/arrangements';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { ProductSummaryItem } from '@backbase/data-ang/arrangements';
+import { Observable } from 'rxjs';
+import { AchRule } from '../models/ach-rule';
 
 @Injectable()
 export class AchPositivePayHttpService {
-  public readonly accounts$ = this.http.get<ProductSummaryItem[]>('/api/accounts');
+  public readonly accounts$ =
+    this.http.get<ProductSummaryItem[]>('/api/accounts');
 
   constructor(private http: HttpClient) {}
 
-  submitAchRule(rule: any): Observable<any> {
+  submitAchRule(rule: AchRule): Observable<unknown> {
     return this.http.post('/api/ach-positive-pay/rule', rule);
   }
 }

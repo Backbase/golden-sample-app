@@ -5,48 +5,31 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Provider } from '@angular/core';
 import { AuthConfig } from 'angular-oauth2-oidc';
-import { TransactionsInterceptor } from '../app/interceptors/transactions.interceptor';
-import { AccountsInterceptor } from '../app/interceptors/accounts-interceptor';
 import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
 import { Environment } from './type';
-import { EntitlementsInterceptor } from '../app/interceptors/entitlements-interceptor';
 
 const mockProviders: Provider[] = [
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TransactionsInterceptor,
-    multi: true,
-  },
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AccountsInterceptor,
-    multi: true,
-  },
   {
     provide: HTTP_INTERCEPTORS,
     useClass: AchPositivePayInterceptor,
     multi: true,
   },
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: EntitlementsInterceptor,
-    multi: true
-  }
 ];
 
 export const environment: Environment = {
   production: false,
-  apiRoot: 'https://app.dev.sdbx.live.backbaseservices.com/api',
+  apiRoot: '/api',
   mockProviders,
   locales: ['en-US', 'nl-NL'],
 };
 
 export const authConfig: AuthConfig = {
   // Url of the Identity Provider
-  issuer: 'https://identity.dev.sdbx.live.backbaseservices.com/auth/realms/retail',
+  issuer:
+    'https://identity.dev.sdbx.live.backbaseservices.com/auth/realms/retail',
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: document.location.origin + '/transactions',
+  redirectUri: document.location.origin + '/select-context',
 
   // The SPA's id. The SPA is registered with this id at the auth-server
   clientId: 'bb-web-client',
@@ -68,7 +51,9 @@ export const authConfig: AuthConfig = {
 
   showDebugInformation: true,
 
-  logoutUrl: document.location.origin + '/login',
+  logoutUrl: document.location.origin + '/logout',
+  useSilentRefresh: true,
+  silentRefreshTimeout: 5000,
 };
 
 /*

@@ -1,15 +1,25 @@
 <div class="row">
   <div class="bb-card col-md-6">
     <div class="bb-card__body">
-      <h1>{{title}}</h1>
+      <h1 data-role="transactions-view__title">{{ title }}</h1>
       <div class="bb-block bb-block--md">
         <bb-text-filter (textChange)="filter = $event || ''"></bb-text-filter>
       </div>
-      <ul *ngIf="transactions | async as items" class="bb-list">
-        <li *ngFor="let item of items | filterTransactions: filter" class="bb-list__item">
+      <ul *ngIf="transactions$ | async as items; else loading" class="bb-list">
+        <li
+          *ngFor="let item of items | filterTransactions: filter"
+          class="bb-list__item"
+          data-role="transactions-view__item-container"
+        >
           <bb-transaction-item [transaction]="item"></bb-transaction-item>
         </li>
       </ul>
     </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <div data-role="transactions-view__loading-state-container">
+    <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
+  </div>
+</ng-template>

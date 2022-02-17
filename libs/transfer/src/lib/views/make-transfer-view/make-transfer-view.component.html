@@ -1,10 +1,9 @@
-
-<h1>{{title}}</h1>
+<h1>{{ title }}</h1>
 
 <ng-container *ngIf="dataWithLoading$ | async as data">
   <bb-make-transfer-form
     *ngIf="!data.loading; else loadingIndicator"
-    [account]="data.account" 
+    [account]="data.account"
     [showMaskIndicator]="config.maskIndicator"
     (submitTransfer)="submitTransfer($event)"
     [maxLimit]="data.limit"

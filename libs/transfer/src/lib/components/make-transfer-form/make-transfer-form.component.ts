@@ -1,11 +1,16 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { TRANSLATIONS } from '../../constants/dynamic-translations';
 import { Account, Transfer } from '../../model/Account';
 
 @Component({
   selector: 'bb-make-transfer-form',
-  templateUrl: 'make-transfer-form.component.html'
+  templateUrl: 'make-transfer-form.component.html',
 })
 export class MakeTransferFormComponent implements OnInit {
   @Input() account: Account | undefined;
@@ -19,7 +24,10 @@ export class MakeTransferFormComponent implements OnInit {
     return this.makeTransferForm.controls[field];
   }
 
-  private validateAmount(value: number, description: string): (control: AbstractControl) => unknown {
+  private validateAmount(
+    value: number,
+    description: string
+  ): (control: AbstractControl) => unknown {
     return (control: AbstractControl) => {
       const amount = control.value.amount as number;
 
@@ -61,16 +69,30 @@ export class MakeTransferFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.makeTransferForm = this.fb.group({
-        fromAccount: [{
-          value: `${this.showMaskIndicator ? '*****' : this.account?.name}: €${this.account?.amount}`,
-          disabled: true
-        }],
-        toAccount: ['', Validators.required],
-        amount: ['', [
+      fromAccount: [
+        {
+          value: `${this.showMaskIndicator ? '*****' : this.account?.name}: €${
+            this.account?.amount
+          }`,
+          disabled: true,
+        },
+      ],
+      toAccount: ['', Validators.required],
+      amount: [
+        '',
+        [
           Validators.required,
           this.validateAmount(this.account?.amount || 0, TRANSLATIONS.maxError),
-          ...(this.maxLimit > 0 ? [this.validateAmount(this.maxLimit, TRANSLATIONS.limitError(this.maxLimit))] : [])
-        ]],
+          ...(this.maxLimit > 0
+            ? [
+                this.validateAmount(
+                  this.maxLimit,
+                  TRANSLATIONS.limitError(this.maxLimit)
+                ),
+              ]
+            : []),
+        ],
+      ],
     });
   }
 }

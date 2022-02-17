@@ -1,21 +1,21 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Transaction } from '../model/transaction';
+import { TransactionItem } from '@backbase/data-ang/transactions';
 
 @Pipe({
-  name: 'filterTransactions'
+  name: 'filterTransactions',
 })
 export class FilterTransactionsPipe implements PipeTransform {
-
-  transform(value: Transaction[], text: string): Transaction[] {
+  transform(value: TransactionItem[], text: string): TransactionItem[] {
     if (!text) {
       return value;
     }
 
     const lowerCaseText = text.toLocaleLowerCase();
 
-    return value.filter(({ merchant, transaction }: Transaction) =>
-      merchant.name.toLocaleLowerCase().includes(lowerCaseText) ||
-      transaction.type.toLocaleLowerCase().includes(lowerCaseText));
+    return value.filter(
+      ({ merchant, type }: TransactionItem) =>
+        merchant?.name.toLocaleLowerCase().includes(lowerCaseText) ||
+        type.toLocaleLowerCase().includes(lowerCaseText)
+    );
   }
-
 }

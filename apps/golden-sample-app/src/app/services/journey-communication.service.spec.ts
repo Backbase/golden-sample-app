@@ -19,8 +19,10 @@ describe('JourneyCommunicationService', () => {
 
   it('should add transfer to latests transactions', (done) => {
     service.latestTransaction$.subscribe((received) => {
-      expect(received?.transaction.amountCurrency.amount).toEqual(mockAmount);
-      expect(received?.merchant.name).toEqual(mocktoAccount);
+      expect(received?.transactionAmountCurrency.amount).toEqual(
+        String(mockAmount)
+      );
+      expect(received?.merchant?.name).toEqual(mocktoAccount);
       done();
     });
   });

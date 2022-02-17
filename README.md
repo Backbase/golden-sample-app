@@ -83,7 +83,7 @@ Libraries can be shared across libraries and applications. You can import them f
 
 ## Load app on a development server
 
-Run `ng serve my-app` for a dev server. Navigate to <http://localhost:4200/>. The app will automatically reload if you change any of the source files.
+Run `npm run start` for a dev server. Navigate to <http://0.0.0.0:4200/>. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 

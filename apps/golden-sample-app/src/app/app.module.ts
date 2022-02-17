@@ -1,27 +1,48 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { authConfig, environment } from '../environments/environment';
-import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthGuard } from './guards/auth.guard';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { AuthConfig, OAuthModule, OAuthModuleConfig, OAuthService, OAuthStorage } from 'angular-oauth2-oidc';
+import { APP_INITIALIZER, LOCALE_ID, NgModule, Optional } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ACCESS_CONTROL_BASE_PATH } from '@backbase/data-ang/accesscontrol';
+import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/data-ang/arrangements';
+import { TRANSACTIONS_BASE_PATH } from '@backbase/data-ang/transactions';
+import { TemplateRegistry } from '@backbase/foundation-ang/core';
+import {
+  EntitlementsModule,
+  ENTITLEMENTS_CONFIG,
+} from '@backbase/foundation-ang/entitlements';
+import { PAGE_CONFIG } from '@backbase/foundation-ang/web-sdk';
+import { AvatarModule } from '@backbase/ui-ang/avatar';
+import { ButtonModule } from '@backbase/ui-ang/button';
 import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { LayoutModule } from '@backbase/ui-ang/layout';
 import { LogoModule } from '@backbase/ui-ang/logo';
-import { AvatarModule } from '@backbase/ui-ang/avatar';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import {
+  AuthConfig,
+  OAuthModule,
+  OAuthModuleConfig,
+  OAuthService,
+  OAuthStorage,
+} from 'angular-oauth2-oidc';
+import { CookieService } from 'ngx-cookie-service';
+import { authConfig, environment } from '../environments/environment';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { AuthGuard } from './guards/auth.guard';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CookieService } from "ngx-cookie-service";
+
+const pageConfig = (_locale: string = '') => ({
+  linkRoot: '/',
+  apiRoot: '/api',
+  staticResourcesRoot: document.location.origin,
+  locale: _locale || 'en',
+});
 
 @NgModule({
-  declarations: [ AppComponent ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -39,17 +60,18 @@ import { CookieService } from "ngx-cookie-service";
     OAuthModule.forRoot(),
     LocaleSelectorModule.forRoot({
       locales: environment.locales,
-    })
+    }),
+    ButtonModule,
   ],
   providers: [
-    ...environment.mockProviders,
+    ...(environment.mockProviders || []),
     AuthGuard,
     { provide: AuthConfig, useValue: authConfig },
     {
       provide: OAuthModuleConfig,
       useValue: {
         resourceServer: {
-          allowedUrls: [ environment.apiRoot ],
+          allowedUrls: [environment.apiRoot],
           sendAccessToken: true,
         },
       },
@@ -58,23 +80,50 @@ import { CookieService } from "ngx-cookie-service";
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [ OAuthService, CookieService ],
-      useFactory: (oAuthService: OAuthService, cookieService: CookieService) => () => {
-        // Remove this if auth cookie is not needed for the app
-        oAuthService.events.subscribe(e => {
-          if (e.type === 'token_received' || e.type === 'token_refreshed') {
-            // Set the cookie on the app domain
-            cookieService.set('Authorization', `Bearer ${ oAuthService.getAccessToken() }`);
-          }
-        });
+      deps: [OAuthService, CookieService],
+      useFactory:
+        (oAuthService: OAuthService, cookieService: CookieService) => () => {
+          // Remove this if auth cookie is not needed for the app
+          oAuthService.events.subscribe(({ type }) => {
+            if (type === 'token_received' || type === 'token_refreshed') {
+              // Set the cookie on the app domain
+              cookieService.set(
+                'Authorization',
+                `Bearer ${oAuthService.getAccessToken()}`
+              );
+            }
+          });
 
-        return oAuthService.loadDiscoveryDocumentAndTryLogin().then(() =>
-          oAuthService.setupAutomaticSilentRefresh()
-        );
-      }
-    }
+          return oAuthService
+            .loadDiscoveryDocumentAndTryLogin()
+            .then(() => oAuthService.setupAutomaticSilentRefresh());
+        },
+    },
+    {
+      provide: TRANSACTIONS_BASE_PATH,
+      useValue: environment.apiRoot + '/transaction-manager',
+    },
+    {
+      provide: ARRANGEMENT_MANAGER_BASE_PATH,
+      useValue: environment.apiRoot + '/arrangement-manager',
+    },
+    {
+      provide: ACCESS_CONTROL_BASE_PATH,
+      useValue: environment.apiRoot + '/access-control',
+    },
+    {
+      provide: ENTITLEMENTS_CONFIG,
+      useValue: {
+        accessControlBasePath: `${environment.apiRoot}/access-control`,
+      },
+    },
+    TemplateRegistry,
+    {
+      provide: PAGE_CONFIG,
+      useFactory: pageConfig,
+      deps: [[new Optional(), LOCALE_ID]],
+    },
   ],
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

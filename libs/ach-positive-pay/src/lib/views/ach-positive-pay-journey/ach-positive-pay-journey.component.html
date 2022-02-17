@@ -1,12 +1,21 @@
-<ng-container *bbIfEntitlements="permissions.canCreateAchRule; else headingWithTitleOnlyTemplate">
+<ng-container
+  *bbIfEntitlements="
+    permissions.canCreateAchRule;
+    else headingWithTitleOnlyTemplate
+  "
+>
   <bb-heading-widget
     heading="ACH Positive Pay"
-    i18n-heading="ACH positive pay title|Title for the heading@@ach-positive-pay-journey.heading.title"
+    i18n-heading="
+      ACH positive pay title|Title for the
+      heading@@ach-positive-pay-journey.heading.title"
     headingType="h1"
     headingClasses="bb-heading-widget__heading"
     customClassName="bb-heading-widget--de-elevated"
     buttonTitle="New ACH Blocker"
-    i18n-buttonTitle="New ACH Blocker|Button for opening New blocker dialog with form@@ach-positive-pay-journey.heading.new-blocker.button"
+    i18n-buttonTitle="
+      New ACH Blocker|Button for opening New blocker dialog with
+      form@@ach-positive-pay-journey.heading.new-blocker.button"
     iconClasses="add"
     buttonClasses="btn btn-primary"
     (buttonAction)="openNewBlockerModal()"
@@ -16,7 +25,9 @@
 <ng-template #headingWithTitleOnlyTemplate>
   <bb-heading-widget
     heading="ACH Positive Pay"
-    i18n-heading="ACH positive pay title|Title for the heading@@ach-positive-pay-journey.heading.title"
+    i18n-heading="
+      ACH positive pay title|Title for the
+      heading@@ach-positive-pay-journey.heading.title"
     headingType="h1"
     headingClasses="bb-heading-widget__heading"
     customClassName="bb-heading-widget--de-elevated"

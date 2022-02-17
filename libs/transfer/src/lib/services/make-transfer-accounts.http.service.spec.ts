@@ -1,4 +1,7 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { MakeTransferAccountHttpService } from './make-transfer-accounts.http.service';
 
@@ -14,7 +17,7 @@ describe('MakeTransferAccountHttpService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [MakeTransferAccountHttpService]
+      providers: [MakeTransferAccountHttpService],
     });
 
     service = TestBed.inject(MakeTransferAccountHttpService);

@@ -10,18 +10,20 @@ import { TransactionsHttpService } from '../../services/transactions.http.servic
 
 @Component({
   templateUrl: './transactions-view.component.html',
+  selector: 'bb-transactions-view',
 })
 export class TransactionsViewComponent {
-  title = this.route.snapshot.data['title'];
+  public title = this.route.snapshot.data['title'];
+  public filter = '';
 
-  filter = '';
-
-  transactions = combineLatest([
+  public transactions$ = combineLatest([
     this.transactionsService.transactions$,
     this.externalCommunicationService?.latestTransaction$ || of(undefined),
   ]).pipe(
     map(([transactions, latestTransaction]) =>
-      latestTransaction ? [latestTransaction, ...transactions] : transactions
+      latestTransaction
+        ? [latestTransaction, ...(transactions || [])]
+        : transactions
     )
   );
 

@@ -1,16 +1,29 @@
-<span class="transactions-item__categoryCode" [ngStyle]="{'background-color': transaction.categoryCode}"></span>
-<span class="transactions-item__date">{{ transaction.dates.valueDate | date: 'MMM. d' }}</span>
+<span
+  class="transactions-item__color-indication"
+  [ngClass]="{
+    'transactions-item__color-indication--positive': isAmountPositive,
+    'transactions-item__color-indication--negative': !isAmountPositive
+  }"
+></span>
+<span class="transactions-item__date">{{
+  transaction.valueDate | date: 'MMM. d'
+}}</span>
 <span class="transactions-item__description">
-  <span class="transactions-item__merchant">{{ transaction.merchant.name }}</span>
-  <span class="transactions-item__transactionType">{{ transaction.transaction.type }}</span>
+  <span class="transactions-item__merchant">{{
+    transaction.merchant?.name
+  }}</span>
+  <span class="transactions-item__transactionType">{{ transaction.type }}</span>
 </span>
-<span class="transactions-item__amount" [ngClass]="{'negative': amount < 0}">
+<span
+  class="transactions-item__amount"
+  [ngClass]="{ negative: !isAmountPositive }"
+>
   <bb-amount-ui
-    [currency]="transaction.transaction.amountCurrency.currencyCode"
-    [amount]="amount"
+    [currency]="transaction.transactionAmountCurrency.currencyCode"
+    [amount]="transaction.transactionAmountCurrency.amount"
     [mapCurrency]="true"
     [showPlusSign]="false"
-    [abbreviate]="false">
+    [abbreviate]="false"
+  >
   </bb-amount-ui>
 </span>
-

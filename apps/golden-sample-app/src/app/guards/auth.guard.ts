@@ -4,8 +4,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private oAuthService: OAuthService) {
-  }
+  constructor(private oAuthService: OAuthService) {}
 
   canActivate(): boolean {
     if (this.oAuthService.hasValidAccessToken()) {
@@ -13,5 +12,5 @@ export class AuthGuard implements CanActivate {
     }
     this.oAuthService.initLoginFlow();
     return false;
-  };
+  }
 }

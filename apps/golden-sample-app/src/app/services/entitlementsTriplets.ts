@@ -1,6 +1,5 @@
 export const triplets = {
-  canViewTransactions: 'Payments.transactions.view',
-  canViewTransfer: 'Payments.transfer.view',
+  canViewTransactions: 'Transactions.Transactions.view',
   canMakeLimitlessAmountTransfer: 'Payments.transfer.limitless',
   canViewPositivePay: 'Payments.ManagePositivePay.view',
   canEditPositivePay: 'Payments.ManagePositivePay.create',

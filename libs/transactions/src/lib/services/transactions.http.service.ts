@@ -1,16 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Transaction } from '../model/transaction';
-import { of } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {
+  GetTransactionsWithPostRequestParams,
+  TransactionClientHttpService,
+  TransactionItem,
+} from '@backbase/data-ang/transactions';
+import { combineLatest, Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { ArrangementsService } from './arrangements.service';
 import { TransactionsJourneyConfiguration } from './transactions-journey-config.service';
-import { map, switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class TransactionsHttpService {
-  public transactions$ = of(this.configurationService.pageSize).pipe(
-    map((pageSize) => new HttpParams().append('page', String(0)).append('pageSize', String(pageSize))),
-    switchMap((params) => this.http.get<Transaction[]>('/api/transactions', { params })),
-  );
+  public transactions$: Observable<TransactionItem[] | undefined> =
+    combineLatest([
+      this.arrangementsService.arrangementIds$,
+      of(this.configurationService.pageSize),
+    ]).pipe(
+      switchMap(([arrangements, pageSize]) =>
+        this.transactionsHttpService.getTransactionsWithPost(
+          {
+            transactionListRequest: {
+              arrangementsIds: arrangements,
+              size: pageSize,
+              from: 0,
+              orderBy: 'bookingDate',
+              direction: 'DESC',
+              state: 'COMPLETED',
+            },
+          } as GetTransactionsWithPostRequestParams,
+          'body'
+        )
+      )
+    );
 
-  constructor(private http: HttpClient, private readonly configurationService: TransactionsJourneyConfiguration) {}
+  constructor(
+    private readonly configurationService: TransactionsJourneyConfiguration,
+    private readonly transactionsHttpService: TransactionClientHttpService,
+    private readonly arrangementsService: ArrangementsService
+  ) {}
 }

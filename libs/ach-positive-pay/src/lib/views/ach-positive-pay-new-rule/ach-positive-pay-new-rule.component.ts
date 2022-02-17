@@ -27,14 +27,15 @@ export class AchPositivePayNewRuleComponent implements OnInit {
 
   achRuleForm!: FormGroup;
 
-  accounts$: Observable<ProductSummaryItem[]> = this.achPositivePayService.accounts$;
+  accounts$: Observable<ProductSummaryItem[]> =
+    this.achPositivePayService.accounts$;
 
   constructor(
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly fb: FormBuilder,
     private readonly achPositivePayService: AchPositivePayHttpService,
-    private readonly notificationService: NotificationService,
+    private readonly notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +70,7 @@ export class AchPositivePayNewRuleComponent implements OnInit {
         });
         this.closeModal();
       },
-      (error) => (this.serverError = error.message),
+      (error) => (this.serverError = error.message)
     );
   }
 

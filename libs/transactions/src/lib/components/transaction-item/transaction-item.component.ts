@@ -5,7 +5,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { Transaction } from '../../model/transaction';
+import { TransactionItem } from '@backbase/data-ang/transactions';
 
 @Component({
   selector: 'bb-transaction-item',
@@ -14,16 +14,21 @@ import { Transaction } from '../../model/transaction';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransactionItemComponent implements OnChanges {
-  @Input() transaction!: Transaction;
-  amount = 0;
+  @Input() transaction!: TransactionItem;
+  public amount = 0;
+  public isAmountPositive = true;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['transaction']) {
-      this.amount = this.transaction.transaction.amountCurrency.amount ?? 0;
+      this.amount = Number(
+        this.transaction.transactionAmountCurrency.amount ?? 0
+      );
 
-      if (this.transaction.transaction.creditDebitIndicator === 'DBIT') {
+      if (this.transaction.creditDebitIndicator === 'DBIT') {
         this.amount *= -1;
       }
+
+      this.isAmountPositive = this.amount > 0;
     }
   }
 }
