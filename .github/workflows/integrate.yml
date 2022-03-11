@@ -29,15 +29,14 @@ jobs:
         uses: actions/cache@v2
         with:
           # A list of files, directories, and wildcard patterns to cache and restore
-          path:
-          ~/.npm
+          path: ~/.npm
           # An explicit key for restoring and saving the cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           # An ordered list of keys to use for restoring the cache if no cache hit occurred for key
           restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
       - run: npm ci
       - run: npm run build
       - run: npm test
