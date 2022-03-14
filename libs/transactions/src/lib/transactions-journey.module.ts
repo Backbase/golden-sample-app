@@ -11,6 +11,7 @@ import { TRANSLATIONS } from './constants/dynamic-translations';
 import { FilterTransactionsPipe } from './pipes/filter-transactions.pipe';
 import { ArrangementsService } from './services/arrangements.service';
 import { TransactionsJourneyConfiguration } from './services/transactions-journey-config.service';
+import { TransactionsRouteTitleResolverService } from './services/transactions-route-title-resolver.service';
 import { TransactionsHttpService } from './services/transactions.http.service';
 import { TransactionsViewComponent } from './views/transactions-view/transactions-view.component';
 
@@ -19,6 +20,9 @@ const defaultRoute: Route = {
   component: TransactionsViewComponent,
   data: {
     title: TRANSLATIONS.transactionsTitle,
+  },
+  resolve: {
+    title: TransactionsRouteTitleResolverService,
   },
 };
 
@@ -41,6 +45,7 @@ const defaultRoute: Route = {
     TransactionsHttpService,
     TransactionsJourneyConfiguration,
     ArrangementsService,
+    TransactionsRouteTitleResolverService,
   ],
 })
 export class TransactionsJourneyModule {

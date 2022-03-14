@@ -3,4 +3,5 @@ import { Injectable } from '@angular/core';
 export class MakeTransferJourneyConfiguration {
   maskIndicator = true;
   maxTransactionAmount = 100;
+  slimMode = true;
 }
