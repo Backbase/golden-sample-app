@@ -14,7 +14,7 @@ import { JourneyCommunicationService } from '../services/journey-communication.s
       provide: TransactionsJourneyConfiguration,
       useValue: {
         pageSize: 10,
-        slimMode: !environment.designSlimMode,
+        slimMode: !environment.common.designSlimMode,
       } as TransactionsJourneyConfiguration,
     },
     {
