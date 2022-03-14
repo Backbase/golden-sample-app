@@ -5,6 +5,7 @@ export const environment: Environment = {
   production: true,
   apiRoot: '${API_ROOT}',
   locales: '${LOCALES}'.split(','),
+  designSlimMode: false,
 };
 
 export const authConfig: AuthConfig = {

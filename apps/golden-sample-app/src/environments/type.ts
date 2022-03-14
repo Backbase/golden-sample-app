@@ -5,4 +5,5 @@ export interface Environment {
   apiRoot: string;
   locales: string[];
   mockProviders?: Provider[];
+  designSlimMode: boolean;
 }

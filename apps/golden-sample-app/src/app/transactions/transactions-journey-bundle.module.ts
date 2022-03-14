@@ -4,6 +4,7 @@ import {
   TransactionsJourneyModule,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
 } from '@libs/transactions';
+import { environment } from '../../environments/environment';
 import { JourneyCommunicationService } from '../services/journey-communication.service';
 
 @NgModule({
@@ -13,6 +14,7 @@ import { JourneyCommunicationService } from '../services/journey-communication.s
       provide: TransactionsJourneyConfiguration,
       useValue: {
         pageSize: 10,
+        slimMode: !environment.designSlimMode,
       } as TransactionsJourneyConfiguration,
     },
     {

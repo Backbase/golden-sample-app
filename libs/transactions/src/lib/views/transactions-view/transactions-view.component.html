@@ -1,7 +1,9 @@
 <div class="row">
   <div class="bb-card col-md-6">
     <div class="bb-card__body">
-      <h1 data-role="transactions-view__title">{{ title }}</h1>
+      <h1 *ngIf="title !== ''" data-role="transactions-view__title">
+        {{ title }}
+      </h1>
       <div class="bb-block bb-block--md">
         <bb-text-filter (textChange)="filter = $event || ''"></bb-text-filter>
       </div>

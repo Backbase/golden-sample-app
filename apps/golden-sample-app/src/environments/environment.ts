@@ -21,6 +21,7 @@ export const environment: Environment = {
   apiRoot: '/api',
   mockProviders,
   locales: ['en-US', 'nl-NL'],
+  designSlimMode: false,
 };
 
 export const authConfig: AuthConfig = {
