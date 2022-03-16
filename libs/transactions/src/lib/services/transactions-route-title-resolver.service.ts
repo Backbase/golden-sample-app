@@ -4,13 +4,12 @@ import {
   Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
-import { of } from 'rxjs';
 import { TransactionsJourneyConfiguration } from './transactions-journey-config.service';
 
 @Injectable()
-export class TransactionsRouteTitleResolverService implements Resolve<unknown> {
+export class TransactionsRouteTitleResolverService implements Resolve<string> {
   resolve(route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) {
-    return of(this.config.slimMode ? route.data['title'] : '');
+    return !this.config.slimMode ? route.data['title'] : '';
   }
   constructor(private config: TransactionsJourneyConfiguration) {}
 }

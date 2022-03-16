@@ -20,6 +20,7 @@ import { InputValidationMessageModule } from '@backbase/ui-ang/input-validation-
 import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
 import { MakeTransferRouteTitleResolverService } from './services/make-transfer-route-title-resolver.service';
 import { TRANSLATIONS } from './constants/dynamic-translations';
+import { MakeTransferTitleComponent } from './components/make-transfer-ui/make-transfer-title.component';
 
 const defaultRoute: Route = {
   path: '',
@@ -73,6 +74,7 @@ const defaultRoute: Route = {
     MakeTransferSummaryComponent,
     MakeTransferSummaryViewComponent,
     MakeTransferSuccessViewComponent,
+    MakeTransferTitleComponent,
   ],
   imports: [
     CommonModule,
