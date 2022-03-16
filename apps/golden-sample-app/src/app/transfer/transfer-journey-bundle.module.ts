@@ -15,7 +15,7 @@ import { JourneyCommunicationService } from '../services/journey-communication.s
       useValue: {
         maskIndicator: false,
         maxTransactionAmount: 100,
-        slimMode: !environment.common.designSlimMode,
+        slimMode: environment.common.designSlimMode,
       } as MakeTransferJourneyConfiguration,
     },
     {

@@ -15,16 +15,9 @@ import {
 import { FilterTransactionsPipe } from '../../pipes/filter-transactions.pipe';
 import { TransactionsHttpService } from '../../services/transactions.http.service';
 import { TransactionsViewComponent } from './transactions-view.component';
+import { By } from '@angular/platform-browser';
 
 describe('TransactionsViewComponent', () => {
-  const snapshot: Pick<ActivatedRouteSnapshot, 'data'> = {
-    data: {
-      title: 'someTitle',
-    },
-  };
-  const mockActivatedRoute: Pick<ActivatedRoute, 'snapshot'> = {
-    snapshot: snapshot as ActivatedRouteSnapshot,
-  };
   let transactions$$: BehaviorSubject<TransactionItem[] | undefined>;
   let mockTransactionsHttpService: Pick<
     TransactionsHttpService,
@@ -37,7 +30,7 @@ describe('TransactionsViewComponent', () => {
 
   let fixture: ComponentFixture<TransactionsViewComponent>;
 
-  beforeEach(async () => {
+  const setup = (snapshot: Pick<ActivatedRouteSnapshot, 'data'>) => {
     transactions$$ = new BehaviorSubject<TransactionItem[] | undefined>(
       undefined
     );
@@ -51,14 +44,19 @@ describe('TransactionsViewComponent', () => {
       latestTransaction$: latestTransactions$$.asObservable(),
     };
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [
         TransactionsViewComponent,
         TextFilterComponent,
         FilterTransactionsPipe,
       ],
       providers: [
-        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: snapshot as ActivatedRouteSnapshot,
+          },
+        },
         {
           provide: TransactionsHttpService,
           useValue: mockTransactionsHttpService,
@@ -69,11 +67,11 @@ describe('TransactionsViewComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(TransactionsViewComponent);
     fixture.detectChanges();
-  });
+  };
 
   const elements = {
     getTitle: () =>
@@ -91,11 +89,26 @@ describe('TransactionsViewComponent', () => {
   };
 
   it('should set title from the route data', () => {
+    const snapshot = {
+      data: {
+        title: 'someTitle',
+      },
+    };
+
+    setup(snapshot);
+
     const title = elements.getTitle();
     expect(title.innerHTML).toBe(snapshot.data['title']);
   });
 
   it('should render loading state if transactions are pending', () => {
+    const snapshot = {
+      data: {
+        title: 'someTitle',
+      },
+    };
+
+    setup(snapshot);
     const loadingState = elements.getLoadingState();
     expect(loadingState).not.toBeNull();
   });
@@ -104,6 +117,13 @@ describe('TransactionsViewComponent', () => {
     beforeEach(() => {
       transactions$$.next(transactionsMock);
       fixture.detectChanges();
+      const snapshot = {
+        data: {
+          title: 'someTitle',
+        },
+      };
+
+      setup(snapshot);
     });
 
     it('should render proper amount of transaction items', () => {
@@ -125,6 +145,20 @@ describe('TransactionsViewComponent', () => {
 
       const transactionItems = elements.getTransactionItems();
       expect(transactionItems.length).toBe(transactionsMock.length);
+    });
+  });
+
+  describe('when there is no title specified', () => {
+    it('should not create the title element in the dom', () => {
+      const snapshot = {
+        data: {
+          title: '',
+        },
+      };
+
+      setup(snapshot);
+
+      expect(fixture.debugElement.query(By.css('h1'))).toBe(undefined);
     });
   });
 });

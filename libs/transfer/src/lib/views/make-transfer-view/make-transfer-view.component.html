@@ -1,4 +1,4 @@
-<h1 *ngIf="title !== ''">{{ title }}</h1>
+<bb-make-transfer-title [title]="title"></bb-make-transfer-title>
 
 <ng-container *ngIf="dataWithLoading$ | async as data">
   <bb-make-transfer-form
