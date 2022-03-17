@@ -2,7 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { TransactionItem } from '@backbase/data-ang/transactions';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, delay } from 'rxjs';
 import {
   TransactionsCommunicationService,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
@@ -30,7 +30,10 @@ describe('TransactionsViewComponent', () => {
 
   let fixture: ComponentFixture<TransactionsViewComponent>;
 
-  const setup = (snapshot: Pick<ActivatedRouteSnapshot, 'data'>) => {
+  const setup = (
+    snapshot: Pick<ActivatedRouteSnapshot, 'data'>,
+    delayFlag: boolean = false
+  ) => {
     transactions$$ = new BehaviorSubject<TransactionItem[] | undefined>(
       undefined
     );
@@ -40,6 +43,12 @@ describe('TransactionsViewComponent', () => {
     latestTransactions$$ = new BehaviorSubject<TransactionItem | undefined>(
       undefined
     );
+
+    if (delayFlag) {
+      mockTransactionsHttpService.transactions$ =
+        mockTransactionsHttpService.transactions$.pipe(delay(300));
+    }
+
     mockTransactionsCommunicationService = {
       latestTransaction$: latestTransactions$$.asObservable(),
     };
@@ -88,63 +97,58 @@ describe('TransactionsViewComponent', () => {
       ),
   };
 
-  it('should set title from the route data', () => {
-    const snapshot = {
-      data: {
-        title: 'someTitle',
-      },
-    };
-
-    setup(snapshot);
-
-    const title = elements.getTitle();
-    expect(title.innerHTML).toBe(snapshot.data['title']);
-  });
-
-  it('should render loading state if transactions are pending', () => {
-    const snapshot = {
-      data: {
-        title: 'someTitle',
-      },
-    };
-
-    setup(snapshot);
-    const loadingState = elements.getLoadingState();
-    expect(loadingState).not.toBeNull();
-  });
-
   describe('transaction', () => {
-    beforeEach(() => {
-      transactions$$.next(transactionsMock);
-      fixture.detectChanges();
-      const snapshot = {
-        data: {
-          title: 'someTitle',
-        },
-      };
+    let snapshot = {
+      data: {
+        title: 'someTitle',
+      },
+    };
 
-      setup(snapshot);
+    describe('when the server takes long to respond', () => {
+      beforeEach(() => {
+        setup(snapshot, true);
+        transactions$$.next(transactionsMock);
+        fixture.detectChanges();
+      });
+
+      it('should render loading state if transactions are pending', () => {
+        const loadingState = elements.getLoadingState();
+        expect(loadingState).not.toBeNull();
+      });
     });
 
-    it('should render proper amount of transaction items', () => {
-      const transactionItems = elements.getTransactionItems();
-      expect(transactionItems.length).toBe(transactionsMock.length);
-    });
+    describe('when the server response correctly', () => {
+      beforeEach(() => {
+        setup(snapshot);
+        transactions$$.next(transactionsMock);
+        fixture.detectChanges();
+      });
 
-    it('should render additional transaction received from communication service', () => {
-      latestTransactions$$.next(debitMockTransaction);
-      fixture.detectChanges();
+      it('should set title from the route data', () => {
+        const title = elements.getTitle();
+        expect(title.innerHTML.trim()).toBe(snapshot.data['title']);
+      });
 
-      const transactionItems = elements.getTransactionItems();
-      expect(transactionItems.length).toBe(transactionsMock.length + 1);
-    });
+      it('should render proper amount of transaction items', () => {
+        const transactionItems = elements.getTransactionItems();
+        expect(transactionItems.length).toBe(transactionsMock.length);
+      });
 
-    it('should render transactions without error if communication service was not provided', () => {
-      mockTransactionsCommunicationService = undefined;
-      fixture.detectChanges();
+      it('should render additional transaction received from communication service', () => {
+        latestTransactions$$.next(debitMockTransaction);
+        fixture.detectChanges();
 
-      const transactionItems = elements.getTransactionItems();
-      expect(transactionItems.length).toBe(transactionsMock.length);
+        const transactionItems = elements.getTransactionItems();
+        expect(transactionItems.length).toBe(transactionsMock.length + 1);
+      });
+
+      it('should render transactions without error if communication service was not provided', () => {
+        mockTransactionsCommunicationService = undefined;
+        fixture.detectChanges();
+
+        const transactionItems = elements.getTransactionItems();
+        expect(transactionItems.length).toBe(transactionsMock.length);
+      });
     });
   });
 
@@ -158,7 +162,7 @@ describe('TransactionsViewComponent', () => {
 
       setup(snapshot);
 
-      expect(fixture.debugElement.query(By.css('h1'))).toBe(undefined);
+      expect(fixture.debugElement.query(By.css('h1'))).toBeFalsy();
     });
   });
 });
