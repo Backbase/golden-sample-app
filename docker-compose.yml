@@ -12,7 +12,7 @@ services:
       HOSTNAME: localhost
       PORT: 4200
       BASE_HREF: /golden-sample/
-      API_ROOT: https://app.stable.retail.backbasecloud.com/api
+      API_ROOT: https://app.prd.sdbx.live.backbaseservices.com/api
       AUTH_URL: https://identity.prd.sdbx.live.backbaseservices.com/auth
       AUTH_SCOPE: openid profile email
       AUTH_CLIENT_ID: bb-web-client
