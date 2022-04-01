@@ -4,19 +4,25 @@ This golden sample provides examples of the code structure, configuration, and b
 
 
 ## Table of Contents
-* [Overview of the app](#overview-of-the-app)
-* [Prerequisites](#prerequisites)
-* [Authentication](#authentication)
-* [Generate an application](#generate-an-application)
-* [Generate a library](#generate-a-library)
-* [Load app on a development server](#load-app-on-a-development-server)
-* [Code scaffolding](#code-scaffolding)
-* [Build](#build)
-* [Tests](#tests)
-* [Understand your workspace](#understand-your-workspace)
-* [Running with docker](#running-with-docker)
-* [Package as a runnable Docker container](#package-as-a-runnable-docker-container)
-* [Further help](#further-help)
+- [Golden Sample Angular App](#golden-sample-angular-app)
+  - [Table of Contents](#table-of-contents)
+  - [Overview of the app](#overview-of-the-app)
+    - [Components included in the app](#components-included-in-the-app)
+  - [Prerequisites](#prerequisites)
+  - [Authentication](#authentication)
+    - [Important Info](#important-info)
+    - [How to add authentication to your app](#how-to-add-authentication-to-your-app)
+  - [Generate an application](#generate-an-application)
+  - [Generate a library](#generate-a-library)
+  - [Load app on a development server](#load-app-on-a-development-server)
+  - [Code scaffolding](#code-scaffolding)
+  - [Build](#build)
+  - [Tests](#tests)
+  - [Understand your workspace](#understand-your-workspace)
+  - [Running with docker](#running-with-docker)
+  - [Package as a runnable Docker container](#package-as-a-runnable-docker-container)
+  - [Experimental branches](#experimental-branches)
+  - [Further help](#further-help)
 
 
 
@@ -59,7 +65,7 @@ Do not copy-paste anything related to the authentication to your banking applica
 
 ### How to add authentication to your app
 
-Check the example code in the [`app.module.ts`](https://github.com/Backbase/golden-sample-app/blob/master/apps/golden-sample-app/src/app/app.module.ts#L46), the related `AuthConfig` in the[`environment.ts`](https://github.com/Backbase/golden-sample-app/blob/master/apps/golden-sample-app/src/environments/environment.ts#L44) files, and the `APP_INITIALIZER` provider logic.
+Check the example code in the [`app.module.ts`](https://github.com/Backbase/golden-sample-app/blob/main/apps/golden-sample-app/src/app/app.module.ts#L46), the related `AuthConfig` in the[`environment.ts`](https://github.com/Backbase/golden-sample-app/blob/main/apps/golden-sample-app/src/environments/environment.ts#L44) files, and the `APP_INITIALIZER` provider logic.
 Secure routes with `AuthGuard`s. We rely on <https://github.com/manfredsteyer/angular-oauth2-oidc>, check their documentation for more details.
 
 ## Generate an application
@@ -126,7 +132,7 @@ Run `ng build:docker` (after a successful build with `ng build`) to create a Doc
 
 *nojira/without-positive-pay* resolves issues with  M1 chip devices.
 
-*feature/wf-502--ngc-example* showcases integration with Drupal.
+*feature/content-from-drupal-integration-reference* showcases integration with Drupal.
 
 ## Further help
 

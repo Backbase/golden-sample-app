@@ -8,7 +8,7 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
     "start": "ng serve",
     "start:docker": "docker run -p 8080:8080 golden-sample-app",
-    "test": "nx test --code-coverage",
+    "test": "nx run-many --target=test --all",
     "build": "nx build --configuration production",
     "build:stats": "ng build --configuration production --stats-json",
     "build:docker": "docker build -t golden-sample-app:latest .",
