@@ -23,7 +23,7 @@ This golden sample provides examples of the code structure, configuration, and b
 
 
 ## Overview of the app
-This project is a complete reference implementation for building a new Angular single page application(SPA) with Backbase components and libraries.  It includes best practices that front-end developers can use to build their own web application.
+This project is a complete reference implementation for building a new Angular single page application(SPA) with Backbase components and libraries.  It includes best practices that front-end developers can use to build their own web applications.
 
 This README provides an overview and set-up of the app, and further guidance is provided as comments in the code to further guide you.
 
@@ -41,10 +41,10 @@ The project uses the latest versions of the tools and libraries.
 
     - There are 3 parts of the communication chain:
       - Source journey (the one that will send some data or signal) should define and export. Check the [`make-transfer-communication.service.ts`](https://github.com/Backbase/golden-sample-app/blob/master/libs/transfer/src/lib/services/make-transfer-communication.service.ts)
-      - Destination journey (the one that will receive the data of signal) should also define the interface of the service that it expects. Check the [`communication/index.ts`](https://github.com/Backbase/golden-sample-app/blob/master/libs/transactions/src/lib/communication/index.ts)
+      - The destination journey (the one that will receive the data of signal) should also define the interface of the service that it expects. Check the [`communication/index.ts`](https://github.com/Backbase/golden-sample-app/blob/master/libs/transactions/src/lib/communication/index.ts)
       - The actual implementation of the service lives on the application level and must implement both of the available interfaces (or abstract classes) from source and destination journeys. Check the example [`journey-communication.service.ts`](https://github.com/Backbase/golden-sample-app/blob/master/apps/golden-sample-app/src/app/services/journey-communication.service.ts)
       - Do not forget, that communication service from the application level should be provided to the journeys modules in the bundle files (to avoid breaking lazy loading). Check the [`transactions-journey-bundle.module.ts`](https://github.com/Backbase/golden-sample-app/blob/master/apps/golden-sample-app/src/app/transactions/transactions-journey-bundle.module.ts)
-    - The general explanation of the communication service idea and theoretical underlying can be found in [communicate_between_journeys](https://community.backbase.com/documentation/foundation_angular/latest/communicate_between_journeys)
+    - The general explanation of the communication service idea and  its theoretical underlying can be found in [communicate_between_journeys](https://community.backbase.com/documentation/foundation_angular/latest/communicate_between_journeys)
   - Simple examples of journeys such as [transactions](https://github.com/Backbase/golden-sample-app/tree/master/libs/transactions) and [transfer](https://github.com/Backbase/golden-sample-app/tree/master/libs/transfer)
 
 ## Prerequisites
