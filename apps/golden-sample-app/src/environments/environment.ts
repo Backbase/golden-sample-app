@@ -32,7 +32,7 @@ export const authConfig: AuthConfig = {
     'https://identity.prd.sdbx.live.backbaseservices.com/auth/realms/retail',
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: document.location.origin + '/select-context',
+  redirectUri: document.baseURI + 'select-context',
 
   // The SPA's id. The SPA is registered with this id at the auth-server
   clientId: 'bb-web-client',
@@ -54,7 +54,7 @@ export const authConfig: AuthConfig = {
 
   showDebugInformation: true,
 
-  logoutUrl: document.location.origin + '/logout',
+  logoutUrl: document.baseURI + 'logout',
   useSilentRefresh: true,
   silentRefreshTimeout: 5000,
 };
