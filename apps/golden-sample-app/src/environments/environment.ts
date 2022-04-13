@@ -55,8 +55,6 @@ export const authConfig: AuthConfig = {
   showDebugInformation: true,
 
   logoutUrl: document.location.origin + '/logout',
-  useSilentRefresh: true,
-  silentRefreshTimeout: 5000,
 };
 
 /*
