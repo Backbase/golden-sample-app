@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
@@ -22,6 +23,7 @@ export class TransactionsJourneyBundleComponent { }
 
 @NgModule({
   imports: [
+    CommonModule,
     RouterModule,
     TransactionsJourneyModule.forRoot({ 
       route: {
