@@ -4,8 +4,10 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
+  TemplateRef,
 } from '@angular/core';
 import { TransactionItem } from '@backbase/data-ang/transactions';
+import { TransactionsJourneyConfiguration } from '../../services/transactions-journey-config.service';
 
 @Component({
   selector: 'bb-transaction-item',
@@ -17,9 +19,17 @@ export class TransactionItemComponent implements OnChanges {
   @Input() transaction!: TransactionItem;
   public amount = 0;
   public isAmountPositive = true;
+  public additionsDetailsTpl: TemplateRef<any> | undefined;
+  
+  constructor(private readonly configService: TransactionsJourneyConfiguration) {
+    this.additionsDetailsTpl = this.configService.additionalDetailsTpl;
 
+  }
+  
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['transaction']) {
+    console.warn('transaction', this.transaction);
+
       this.amount = Number(
         this.transaction.transactionAmountCurrency.amount ?? 0
       );

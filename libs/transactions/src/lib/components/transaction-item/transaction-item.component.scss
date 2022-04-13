@@ -27,7 +27,8 @@
   flex: 1;
 }
 
-.transactions-item__transactionType {
+.transactions-item__transactionType,
+.transactions-item__additionalDetails {
   font-size: .8rem;
   color: gray;
 }
