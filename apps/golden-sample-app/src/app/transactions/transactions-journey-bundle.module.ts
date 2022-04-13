@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import {
   TransactionsJourneyConfiguration,
   TransactionsJourneyModule,
@@ -7,8 +8,29 @@ import {
 import { environment } from '../../environments/environment';
 import { JourneyCommunicationService } from '../services/journey-communication.service';
 
+@Component({
+  selector: 'app-transactions-journey-bundle',
+  template: `
+    <bb-transactions-journey>
+        <ng-template bbTransactionAdditionalDetails let-transaction>
+          {{ transaction.counterPartyAccountNumber}}
+        </ng-template>
+    </bb-transactions-journey>
+  `,
+})
+export class TransactionsJourneyBundleComponent { }
+
 @NgModule({
-  imports: [TransactionsJourneyModule.forRoot()],
+  imports: [
+    RouterModule,
+    TransactionsJourneyModule.forRoot({ 
+      route: {
+        path: '',
+        component: TransactionsJourneyBundleComponent
+      } 
+    })
+  ],
+  declarations: [TransactionsJourneyBundleComponent],
   providers: [
     {
       provide: TransactionsJourneyConfiguration,
