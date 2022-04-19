@@ -12,9 +12,8 @@
   <span class="transactions-item__counterParty">{{
     transaction.counterPartyName
   }}</span>
-  <span class="transactions-item__transactionType">{{ transaction.type }}</span>
-
-  <span class="transactions-item__additionalDetails">
+  <span class="transactions-item__transactionType">
+    {{ transaction.type }}
     <ng-container
       *ngIf="additionsDetailsTpl"
       data-slot="additionsDetails"
@@ -22,7 +21,6 @@
       [ngTemplateOutletContext]="{ $implicit: transaction }"
     ></ng-container>
   </span>
-
 </span>
 <span
   class="transactions-item__amount"
