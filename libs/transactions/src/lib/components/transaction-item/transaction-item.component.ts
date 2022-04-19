@@ -18,12 +18,9 @@ export class TransactionItemComponent implements OnChanges {
   @Input() transaction!: TransactionItem;
   public amount = 0;
   public isAmountPositive = true;
-  public additionsDetailsTpl;
+  public additionsDetailsTpl = this.configService.additionalDetailsTpl;
   
-  constructor(private readonly configService: TransactionsJourneyConfiguration) {
-    this.additionsDetailsTpl = this.configService.additionalDetailsTpl;
-
-  }
+  constructor(private readonly configService: TransactionsJourneyConfiguration) {}
   
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['transaction']) {
