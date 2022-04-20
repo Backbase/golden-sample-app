@@ -18,7 +18,11 @@
       *ngIf="additionsDetailsTpl"
       data-slot="additionsDetails"
       [ngTemplateOutlet]="additionsDetailsTpl"
-      [ngTemplateOutletContext]="{ $implicit: transaction }"
+      [ngTemplateOutletContext]="{
+        additions: transaction.additions,
+        merchant: transaction.merchant,
+        counterPartyAccountNumber: transaction.counterPartyAccountNumber
+      }"
     ></ng-container>
   </span>
 </span>
