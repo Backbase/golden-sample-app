@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { AmountModule } from '@backbase/ui-ang/amount';
 import {
   creditMockTransaction,
   debitMockTransaction,
 } from '../../mocks/transactions-mocks';
 import { TransactionItemComponent } from './transaction-item.component';
+import { TransactionsJourneyConfiguration } from '../../services/transactions-journey-config.service';
+import { AdditionalDetailsContext } from '../../directives/transaction-additional-details.directive';
 
 @Component({
   selector: 'bb-transaction-item-test-component',
@@ -21,10 +24,34 @@ describe('TransactionItemComponent', () => {
   let fixture: ComponentFixture<TestTransactionItemComponent>;
   let component: TestTransactionItemComponent;
 
+  let templateFixture: ComponentFixture<TestComponent>;
+
+  const mockConfig: Partial<TransactionsJourneyConfiguration> = {
+    additionalDetailsTpl: undefined
+  }
+
+  const ADDITIONAL_DETAILS_TEXT = 'my-addition-details-template';
+
+  @Component({
+    template: `
+      <div>
+        <ng-template>${ADDITIONAL_DETAILS_TEXT}</ng-template>
+      </div>
+      `
+  })
+  class TestComponent {
+    @ViewChildren(TemplateRef) templates?: QueryList<TemplateRef<AdditionalDetailsContext>>
+  }
+
   beforeEach(async () => {
+    mockConfig.additionalDetailsTpl = undefined;
+
     await TestBed.configureTestingModule({
-      declarations: [TransactionItemComponent, TestTransactionItemComponent],
+      declarations: [TransactionItemComponent, TestTransactionItemComponent, TestComponent],
       imports: [AmountModule],
+      providers: [
+        { provide: TransactionsJourneyConfiguration, useValue: mockConfig }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestTransactionItemComponent);
@@ -49,6 +76,19 @@ describe('TransactionItemComponent', () => {
       );
 
       expect(positiveColorIndicatorEl).not.toBeNull();
+    });
+
+    it('should render template for additional data if found in config service', () => {
+      expect(fixture.nativeElement.innerHTML).not.toContain(ADDITIONAL_DETAILS_TEXT);
+
+      templateFixture = TestBed.createComponent(TestComponent);
+      templateFixture.detectChanges();
+      mockConfig.additionalDetailsTpl = templateFixture.componentInstance.templates?.get(0);
+
+      fixture = TestBed.createComponent(TestTransactionItemComponent);
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement.innerHTML).toContain(ADDITIONAL_DETAILS_TEXT);
     });
   });
 });
