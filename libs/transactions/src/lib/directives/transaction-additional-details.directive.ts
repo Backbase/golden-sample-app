@@ -2,7 +2,7 @@ import { Directive, TemplateRef } from "@angular/core";
 import { TransactionItem } from "@backbase/data-ang/transactions";
 
 export type AdditionalDetailsContext = {
-  $implicit: TransactionItem
+  $implicit: Pick<TransactionItem, 'additions' | 'counterPartyAccountNumber' | 'location' | 'merchant'>
 }
 
 @Directive({selector: 'ng-template[bbTransactionAdditionalDetails]'})
