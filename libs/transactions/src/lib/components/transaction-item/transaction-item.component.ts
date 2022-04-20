@@ -6,6 +6,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { TransactionItem } from '@backbase/data-ang/transactions';
+import { AdditionalDetailsContext } from '../../directives/transaction-additional-details.directive';
+import { TransactionsJourneyConfiguration } from '../../services/transactions-journey-config.service';
 
 @Component({
   selector: 'bb-transaction-item',
@@ -15,9 +17,21 @@ import { TransactionItem } from '@backbase/data-ang/transactions';
 })
 export class TransactionItemComponent implements OnChanges {
   @Input() transaction!: TransactionItem;
+  
   public amount = 0;
   public isAmountPositive = true;
+  public additionsDetailsTpl = this.configService.additionalDetailsTpl;
+  
+  get additionsDetailsContext(): AdditionalDetailsContext {
+    return {
+      additions: this.transaction.additions,
+      merchant: this.transaction.merchant,
+      counterPartyAccountNumber: this.transaction.counterPartyAccountNumber
+    }
+  }
 
+  constructor(private readonly configService: TransactionsJourneyConfiguration) {}
+  
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['transaction']) {
       this.amount = Number(

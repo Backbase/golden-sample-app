@@ -9,10 +9,18 @@
   transaction.valueDate | date: 'MMM. d'
 }}</span>
 <span class="transactions-item__description">
-  <span class="transactions-item__merchant">{{
-    transaction.merchant?.name
+  <span class="transactions-item__counterParty">{{
+    transaction.counterPartyName
   }}</span>
-  <span class="transactions-item__transactionType">{{ transaction.type }}</span>
+  <span class="transactions-item__transactionType">
+    {{ transaction.type }}
+    <ng-container
+      *ngIf="additionsDetailsTpl"
+      data-slot="additionsDetails"
+      [ngTemplateOutlet]="additionsDetailsTpl"
+      [ngTemplateOutletContext]="additionsDetailsContext"
+    ></ng-container>
+  </span>
 </span>
 <span
   class="transactions-item__amount"

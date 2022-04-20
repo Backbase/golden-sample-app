@@ -6,9 +6,18 @@ import {
 } from '@libs/transactions';
 import { environment } from '../../environments/environment';
 import { JourneyCommunicationService } from '../services/journey-communication.service';
+import { TransactionsJourneyBundleComponent } from './transactions-journey-bundle.component';
 
 @NgModule({
-  imports: [TransactionsJourneyModule.forRoot()],
+  imports: [
+    TransactionsJourneyModule.forRoot({ 
+      route: {
+        path: '',
+        component: TransactionsJourneyBundleComponent
+      } 
+    })
+  ],
+  declarations: [TransactionsJourneyBundleComponent],
   providers: [
     {
       provide: TransactionsJourneyConfiguration,
