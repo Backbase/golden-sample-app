@@ -5,9 +5,8 @@ import {
 } from '@angular/router';
 import { of } from 'rxjs';
 import { Transfer } from '../../model/Account';
-import { MakeTransferAccountHttpService } from '../../services/make-transfer-accounts.http.service';
 import { MakeTransferJourneyConfiguration } from '../../services/make-transfer-journey-config.service';
-import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
+import { MakeTransferJourneyState } from '../../state/make-transfer-journey-state.service';
 import { MakeTransferPermissionsService } from '../../services/make-transfer-permissions.service';
 import { MakeTransferViewComponent } from './make-transfer-view.component';
 
@@ -33,13 +32,7 @@ describe('MakeTransferViewComponent', () => {
   > = {
     unlimitedAmountPerTransaction$: of(true),
   };
-  const mockAcounts: Pick<MakeTransferAccountHttpService, 'currentAccount$'> = {
-    currentAccount$: of({
-      id: 'someId',
-      name: 'someName',
-      amount: 12,
-    }),
-  };
+
   const mockConfig: Pick<
     MakeTransferJourneyConfiguration,
     'maxTransactionAmount'
@@ -58,7 +51,6 @@ describe('MakeTransferViewComponent', () => {
       mockRouter as Router,
       mockTransferState as MakeTransferJourneyState,
       mockPermissions as MakeTransferPermissionsService,
-      mockAcounts as MakeTransferAccountHttpService,
       mockConfig as MakeTransferJourneyConfiguration
     );
   });
