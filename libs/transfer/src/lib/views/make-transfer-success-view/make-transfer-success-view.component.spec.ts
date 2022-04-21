@@ -3,7 +3,7 @@ import {
   ActivatedRouteSnapshot,
   Router,
 } from '@angular/router';
-import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
+import { MakeTransferJourneyState } from '../../state/make-transfer-journey-state.service';
 import { MakeTransferSuccessViewComponent } from './make-transfer-success-view.component';
 
 describe('MakeTransferSuccessViewComponent', () => {

@@ -3,8 +3,12 @@ import {
   ActivatedRouteSnapshot,
   Router,
 } from '@angular/router';
+import { of } from 'rxjs';
 import { MakeTransferCommunicationService } from '../../services/make-transfer-communication.service';
-import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
+import {
+  MakeTransferJourneyState,
+  TransferOperationStatus,
+} from '../../state/make-transfer-journey-state.service';
 import { MakeTransferSummaryViewComponent } from './make-transfer-summary-view.component';
 
 describe('MakeTransferSymmaryViewComponent', () => {
@@ -14,12 +18,22 @@ describe('MakeTransferSymmaryViewComponent', () => {
     | undefined = {
     makeTransfer: jest.fn(),
   };
-  const mockTransferState: Pick<MakeTransferJourneyState, 'currentValue'> = {
-    currentValue: {
-      fromAccount: 'somAccount',
-      toAccount: 'somAccount',
-      amount: 12,
-    },
+  const transferMock = {
+    fromAccount: 'somAccount',
+    toAccount: 'somAccount',
+    amount: 12,
+  };
+  const mockTransferState: Pick<
+    MakeTransferJourneyState,
+    'transfer$' | 'vm$' | 'makeTransfer'
+  > = {
+    transfer$: of(transferMock),
+    vm$: of({
+      transfer: transferMock,
+      transferState: TransferOperationStatus.SUCCESSFUL,
+      account: undefined,
+    }),
+    makeTransfer: () => void 1,
   };
   const snapshot: Pick<ActivatedRouteSnapshot, 'data'> = {
     data: {
@@ -68,7 +82,7 @@ describe('MakeTransferSymmaryViewComponent', () => {
     it('should call use communicationService', () => {
       component.submit();
       expect(mockCommunicationService?.makeTransfer).toBeCalledWith(
-        mockTransferState.currentValue
+        transferMock
       );
     });
     it('should navigate', () => {

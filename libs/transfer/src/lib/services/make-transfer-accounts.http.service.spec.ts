@@ -25,7 +25,7 @@ describe('MakeTransferAccountHttpService', () => {
   });
 
   it('should retrieve an account', (done) => {
-    service.currentAccount$.subscribe((data) => {
+    service.getAccounts().subscribe((data) => {
       expect(data).toEqual(account);
       done();
     });
