@@ -1,6 +1,7 @@
 <bb-make-transfer-title [title]="title"></bb-make-transfer-title>
 <bb-make-transfer-summary
-  [transfer]="(transferStore.transfer | async)!"
+  *ngIf="(vm$ | async)! as vm"
+  [transfer]="vm.transfer"
   (submitTransfer)="submit()"
   (closeTransfer)="close()"
 ></bb-make-transfer-summary>

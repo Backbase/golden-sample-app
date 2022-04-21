@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideRoutes, Route, RouterModule } from '@angular/router';
-import { MakeTransferJourneyState } from './services/make-transfer-journey-state.service';
 import { MakeTransferFormComponent } from './components/make-transfer-form/make-transfer-form.component';
 import { MakeTransferSummaryComponent } from './components/make-transfer-summary/make-transfer-summary.component';
 import { MakeTransferJourneyStoreGuard } from './make-transfer-journey-store-guard';
@@ -88,7 +87,6 @@ const defaultRoute: Route = {
   ],
   providers: [
     MakeTransferJourneyStoreGuard,
-    MakeTransferJourneyState,
     MakeTransferJourneyConfiguration,
     MakeTransferPermissionsService,
     MakeTransferAccountHttpService,
