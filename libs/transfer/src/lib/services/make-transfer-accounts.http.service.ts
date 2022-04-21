@@ -1,13 +1,55 @@
-import { HttpClient } from '@angular/common/http';
+import {
+  ArrangementsHttpService,
+  BalancesHttpService,
+  ProductSummaryHttpService,
+} from '@backbase/data-ang/arrangements';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Account } from '../model/Account';
+import { catchError, map, of } from 'rxjs';
+import { Transfer } from '../model/Account';
 
 @Injectable()
 export class MakeTransferAccountHttpService {
-  currentAccount$: Observable<Account> = this.http.get<Account>(
-    '/api/accounts/current'
-  );
+  getAccounts() {
+    return this.productSummaryDataHttpService.getArrangementsByBusinessFunction(
+      {
+        businessFunction: 'Product Summary',
+        resourceName: 'Product Summary',
+        privilege: 'view',
+        size: 1000000,
+      },
+      'body'
+    );
+  }
 
-  constructor(private http: HttpClient) {}
+  accountBalance(accountKind: number) {
+    return this.balanceDataHttpService
+      .getAggregations({ productKindIds: [accountKind] })
+      .pipe(
+        map((item) => {
+          const balances =
+            item[0] &&
+            item[0].aggregatedBalances &&
+            item[0].aggregatedBalances[0];
+          return parseInt(balances?.amount || '0', 10);
+        }),
+        catchError(() => of(300))
+      );
+  }
+
+  getAccountById(accountId: string) {
+    return this.arrangementDataHttpService.getArrangementById({
+      arrangementId: accountId,
+    });
+  }
+
+  makeTransfer(_transfer: Transfer) {
+    // save transfer in api
+    return of({});
+  }
+
+  constructor(
+    private readonly productSummaryDataHttpService: ProductSummaryHttpService,
+    private readonly balanceDataHttpService: BalancesHttpService,
+    private readonly arrangementDataHttpService: ArrangementsHttpService
+  ) {}
 }
