@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
   TransactionsJourneyConfiguration,
@@ -10,6 +11,7 @@ import { TransactionsJourneyBundleComponent } from './transactions-journey-bundl
 
 @NgModule({
   imports: [
+    CommonModule,
     TransactionsJourneyModule.forRoot({ 
       route: {
         path: '',
