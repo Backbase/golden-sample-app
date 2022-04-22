@@ -14,12 +14,10 @@
   }}</span>
   <span class="transactions-item__transactionType">
     {{ transaction.type }}
-    <ng-container
-      *ngIf="additionsDetailsTpl"
-      data-slot="additionsDetails"
-      [ngTemplateOutlet]="additionsDetailsTpl"
-      [ngTemplateOutletContext]="additionsDetailsContext"
-    ></ng-container>
+    <ng-template 
+      [ngComponentOutlet]="additionsDetails"
+      [ndcDynamicInputs]="additionsDetailsInputs">
+    </ng-template>
   </span>
 </span>
 <span

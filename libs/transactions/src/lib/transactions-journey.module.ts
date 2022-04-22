@@ -8,14 +8,13 @@ import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
 import { TextFilterComponent } from './components/text-filter/text-filter.component';
 import { TransactionItemComponent } from './components/transaction-item/transaction-item.component';
 import { TRANSLATIONS } from './constants/dynamic-translations';
-import { TransactionAdditionalDetailsTemplateDirective } from './directives/transaction-additional-details.directive';
 import { FilterTransactionsPipe } from './pipes/filter-transactions.pipe';
 import { ArrangementsService } from './services/arrangements.service';
 import { TransactionsJourneyConfiguration } from './services/transactions-journey-config.service';
 import { TransactionsRouteTitleResolverService } from './services/transactions-route-title-resolver.service';
 import { TransactionsHttpService } from './services/transactions.http.service';
-import { TransactionsJourneyComponent } from './transactions-journey.component';
 import { TransactionsViewComponent } from './views/transactions-view/transactions-view.component';
+import { DynamicIoModule } from 'ng-dynamic-component';
 
 const defaultRoute: Route = {
   path: '',
@@ -30,8 +29,6 @@ const defaultRoute: Route = {
 
 @NgModule({
   declarations: [
-    TransactionAdditionalDetailsTemplateDirective,
-    TransactionsJourneyComponent,
     TransactionsViewComponent,
     TransactionItemComponent,
     TextFilterComponent,
@@ -44,10 +41,7 @@ const defaultRoute: Route = {
     AmountModule,
     InputTextModule,
     LoadingIndicatorModule,
-  ],
-  exports: [
-    TransactionsJourneyComponent,
-    TransactionAdditionalDetailsTemplateDirective
+    DynamicIoModule
   ],
   providers: [
     TransactionsHttpService,

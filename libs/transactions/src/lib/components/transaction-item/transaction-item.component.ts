@@ -1,13 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   Input,
   OnChanges,
   SimpleChanges,
+  Type,
 } from '@angular/core';
 import { TransactionItem } from '@backbase/data-ang/transactions';
-import { AdditionalDetailsContext } from '../../directives/transaction-additional-details.directive';
-import { TransactionsJourneyConfiguration } from '../../services/transactions-journey-config.service';
+import { TRANSACTION_ADDITION_DETAILS } from '../../tokens';
 
 @Component({
   selector: 'bb-transaction-item',
@@ -20,9 +21,8 @@ export class TransactionItemComponent implements OnChanges {
   
   public amount = 0;
   public isAmountPositive = true;
-  public additionsDetailsTpl = this.configService.additionalDetailsTpl;
   
-  get additionsDetailsContext(): AdditionalDetailsContext {
+  get additionsDetailsInputs() {
     return {
       additions: this.transaction.additions,
       merchant: this.transaction.merchant,
@@ -30,8 +30,11 @@ export class TransactionItemComponent implements OnChanges {
     }
   }
 
-  constructor(private readonly configService: TransactionsJourneyConfiguration) {}
-  
+  // TODO provide correct generic instead of `any`
+  constructor(
+    @Inject(TRANSACTION_ADDITION_DETAILS) public additionsDetails: Type<any>
+  ) {}
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['transaction']) {
       this.amount = Number(
