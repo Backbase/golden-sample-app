@@ -10,7 +10,7 @@ import {
   Type,
 } from '@angular/core';
 import { TransactionItem } from '@backbase/data-ang/transactions';
-import { TRANSACTION_ADDITION_DETAILS, TRANSACTION_ADDITION_DETAILS_DATA } from '../../extensions';
+import { AdditionDetailsData, TRANSACTION_ADDITION_DETAILS, TRANSACTION_ADDITION_DETAILS_DATA } from '../../extensions';
 
 @Component({
   selector: 'bb-transaction-item',
@@ -34,7 +34,7 @@ export class TransactionItemComponent implements OnChanges {
       providers: [
         { 
           provide: TRANSACTION_ADDITION_DETAILS_DATA, 
-          useFactory: () => ({
+          useFactory: (): AdditionDetailsData => ({
             additions: this.transaction.additions || {},
             merchant: this.transaction.merchant,
             counterPartyAccountNumber: this.transaction.counterPartyAccountNumber
