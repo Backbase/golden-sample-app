@@ -48,7 +48,6 @@
     "@nrwl/angular": "12.10.1",
     "angular-oauth2-oidc": "^12.1.0",
     "bignumber.js": "^9.0.1",
-    "ng-dynamic-component": "^10.1.0",
     "ngx-cookie-service": "^12.0.3",
     "rxjs": "~7.4.0",
     "tslib": "^2.0.0",

@@ -15,8 +15,10 @@
   <span class="transactions-item__transactionType">
     {{ transaction.type }}
     <ng-template 
+      *ngIf="additionsDetails"
       [ngComponentOutlet]="additionsDetails"
-      [ndcDynamicInputs]="additionsDetailsInputs">
+      [ngComponentOutletInjector]="additionalDetailsInjector"
+    >
     </ng-template>
   </span>
 </span>

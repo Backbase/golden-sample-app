@@ -14,7 +14,6 @@ import { TransactionsJourneyConfiguration } from './services/transactions-journe
 import { TransactionsRouteTitleResolverService } from './services/transactions-route-title-resolver.service';
 import { TransactionsHttpService } from './services/transactions.http.service';
 import { TransactionsViewComponent } from './views/transactions-view/transactions-view.component';
-import { DynamicIoModule } from 'ng-dynamic-component';
 
 const defaultRoute: Route = {
   path: '',
@@ -40,8 +39,7 @@ const defaultRoute: Route = {
     FormsModule,
     AmountModule,
     InputTextModule,
-    LoadingIndicatorModule,
-    DynamicIoModule
+    LoadingIndicatorModule
   ],
   providers: [
     TransactionsHttpService,

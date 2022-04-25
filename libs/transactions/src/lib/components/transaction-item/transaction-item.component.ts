@@ -2,13 +2,15 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  Injector,
   Input,
   OnChanges,
+  Optional,
   SimpleChanges,
   Type,
 } from '@angular/core';
 import { TransactionItem } from '@backbase/data-ang/transactions';
-import { TRANSACTION_ADDITION_DETAILS } from '../../tokens';
+import { TRANSACTION_ADDITION_DETAILS, TRANSACTION_ADDITION_DETAILS_DATA } from '../../extensions';
 
 @Component({
   selector: 'bb-transaction-item',
@@ -21,19 +23,27 @@ export class TransactionItemComponent implements OnChanges {
   
   public amount = 0;
   public isAmountPositive = true;
+  additionalDetailsInjector: Injector;
   
-  get additionsDetailsInputs() {
-    return {
-      additions: this.transaction.additions,
-      merchant: this.transaction.merchant,
-      counterPartyAccountNumber: this.transaction.counterPartyAccountNumber
-    }
-  }
-
-  // TODO provide correct generic instead of `any`
   constructor(
-    @Inject(TRANSACTION_ADDITION_DETAILS) public additionsDetails: Type<any>
-  ) {}
+    @Optional() @Inject(TRANSACTION_ADDITION_DETAILS) public additionsDetails: Type<any>,
+    injector: Injector,
+  ) {
+
+    this.additionalDetailsInjector = Injector.create({
+      providers: [
+        { 
+          provide: TRANSACTION_ADDITION_DETAILS_DATA, 
+          useFactory: () => ({
+            additions: this.transaction.additions || {},
+            merchant: this.transaction.merchant,
+            counterPartyAccountNumber: this.transaction.counterPartyAccountNumber
+          })
+        }
+      ],
+      parent: injector
+    })
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['transaction']) {
