@@ -1,3 +1,4 @@
+import { of } from 'rxjs';
 import { takeLast } from 'rxjs/operators';
 import { Transfer } from '../model/Account';
 import { MakeTransferAccountHttpService } from '../services/make-transfer-accounts.http.service';
@@ -17,10 +18,10 @@ describe('MakeTransferJourneyState', () => {
 
   beforeEach(() => {
     accountsMock = {
-      accountBalance: jasmine.createSpy().and.returnValue(1),
-      getAccountById: jasmine.createSpy(),
-      getAccounts: jasmine.createSpy(),
-      makeTransfer: jasmine.createSpy(),
+      accountBalance: jest.fn().mockReturnValue(1),
+      getAccountById: jest.fn().mockReturnValue(of([])),
+      getAccounts: jest.fn().mockReturnValue(of([])),
+      makeTransfer: jest.fn(),
     };
     service = new MakeTransferJourneyState(
       accountsMock as MakeTransferAccountHttpService
@@ -28,14 +29,11 @@ describe('MakeTransferJourneyState', () => {
   });
 
   it('should allow share an object through an observable', (done) => {
-    const subscription = service.transfer$
-      .pipe(takeLast(1))
-      .subscribe((value) => {
-        expect(value).toEqual(transferMock);
-        done();
-      });
-
+    service.transfer$.subscribe((value) => {
+      expect(value).toEqual(transferMock);
+      done();
+    });
+    service.loadAccounts();
     service.next(transferMock);
-    subscription.unsubscribe();
   });
 });
