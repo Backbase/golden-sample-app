@@ -1,14 +1,14 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TransactionAdditionalDetailsTemplateDirective } from './directives/transaction-additional-details.directive';
-import { TransactionsJourneyConfiguration } from './services/transactions-journey-config.service';
+import { ExtensionTemplatesService } from './services/extension-templates.service';
 import { TransactionsJourneyComponent } from './transactions-journey.component';
 
 describe('TransactionsJourneyComponent', () => {
     let fixture: ComponentFixture<WrapperComponent>;
 
-    const mockConfig: Partial<TransactionsJourneyConfiguration> = {
-        additionalDetailsTpl: undefined
+    const mockTemplateService: Partial<ExtensionTemplatesService> = {
+        additionalDetailsTemplate: undefined
     }
 
     @Component({
@@ -21,13 +21,13 @@ describe('TransactionsJourneyComponent', () => {
     class WrapperComponent {}
 
     beforeEach(async () => {
-        mockConfig.additionalDetailsTpl = undefined;
+        mockTemplateService.additionalDetailsTemplate = undefined;
 
         await TestBed.configureTestingModule({
             declarations: [WrapperComponent, TransactionsJourneyComponent, TransactionAdditionalDetailsTemplateDirective],
             schemas: [NO_ERRORS_SCHEMA],
             providers: [
-            { provide: TransactionsJourneyConfiguration, useValue: mockConfig },
+            { provide: ExtensionTemplatesService, useValue: mockTemplateService },
             ],
         }).compileComponents();
 
@@ -39,6 +39,6 @@ describe('TransactionsJourneyComponent', () => {
     });
 
     it('should store provided template for additional details in config servie', () => {
-        expect(mockConfig.additionalDetailsTpl).toBeDefined();
+        expect(mockTemplateService.additionalDetailsTemplate).toBeDefined();
     });
 });

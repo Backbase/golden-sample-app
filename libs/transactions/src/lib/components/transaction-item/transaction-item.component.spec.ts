@@ -1,4 +1,4 @@
-import { Component, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { Component, QueryList, TemplateRef, ViewChildren } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { AmountModule } from '@backbase/ui-ang/amount';
@@ -7,8 +7,8 @@ import {
   debitMockTransaction,
 } from '../../mocks/transactions-mocks';
 import { TransactionItemComponent } from './transaction-item.component';
-import { TransactionsJourneyConfiguration } from '../../services/transactions-journey-config.service';
 import { AdditionalDetailsContext } from '../../directives/transaction-additional-details.directive';
+import { ExtensionTemplatesService } from '../../services/extension-templates.service';
 
 @Component({
   selector: 'bb-transaction-item-test-component',
@@ -26,8 +26,8 @@ describe('TransactionItemComponent', () => {
 
   let templateFixture: ComponentFixture<TestComponent>;
 
-  const mockConfig: Partial<TransactionsJourneyConfiguration> = {
-    additionalDetailsTpl: undefined
+  const mockTemplateService: Partial<ExtensionTemplatesService> = {
+    additionalDetailsTemplate: undefined
   }
 
   const ADDITIONAL_DETAILS_TEXT = 'my-addition-details-template';
@@ -44,13 +44,13 @@ describe('TransactionItemComponent', () => {
   }
 
   beforeEach(async () => {
-    mockConfig.additionalDetailsTpl = undefined;
+    mockTemplateService.additionalDetailsTemplate = undefined;
 
     await TestBed.configureTestingModule({
       declarations: [TransactionItemComponent, TestTransactionItemComponent, TestComponent],
       imports: [AmountModule],
       providers: [
-        { provide: TransactionsJourneyConfiguration, useValue: mockConfig }
+        { provide: ExtensionTemplatesService, useValue: mockTemplateService }
       ]
     }).compileComponents();
 
@@ -83,7 +83,7 @@ describe('TransactionItemComponent', () => {
 
       templateFixture = TestBed.createComponent(TestComponent);
       templateFixture.detectChanges();
-      mockConfig.additionalDetailsTpl = templateFixture.componentInstance.templates?.get(0);
+      mockTemplateService.additionalDetailsTemplate = templateFixture.componentInstance.templates?.get(0);
 
       fixture = TestBed.createComponent(TestTransactionItemComponent);
       fixture.detectChanges();

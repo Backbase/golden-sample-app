@@ -1,17 +1,17 @@
 import { AfterContentChecked, Component, ContentChild } from '@angular/core';
 import { TransactionAdditionalDetailsTemplateDirective } from './directives/transaction-additional-details.directive';
-import { TransactionsJourneyConfiguration } from './services/transactions-journey-config.service';
+import { ExtensionTemplatesService } from './services/extension-templates.service';
 
 @Component({
   selector: 'bb-transactions-journey',
   templateUrl: 'transactions-journey.component.html',
 })
 export class TransactionsJourneyComponent implements AfterContentChecked {
-  @ContentChild(TransactionAdditionalDetailsTemplateDirective) additionalDetailsTpl?: TransactionAdditionalDetailsTemplateDirective;
+  @ContentChild(TransactionAdditionalDetailsTemplateDirective) additionalDetailsTemplate?: TransactionAdditionalDetailsTemplateDirective;
 
-  constructor(private readonly configService: TransactionsJourneyConfiguration) {}
+  constructor(private readonly extensionTemplateService: ExtensionTemplatesService) {}
   
   ngAfterContentChecked() {
-    this.configService.additionalDetailsTpl = this.additionalDetailsTpl?.templateRef;
+    this.extensionTemplateService.additionalDetailsTemplate = this.additionalDetailsTemplate?.templateRef;
   }
 }
