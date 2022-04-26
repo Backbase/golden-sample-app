@@ -78,7 +78,7 @@ describe('TransactionItemComponent', () => {
       expect(positiveColorIndicatorEl).not.toBeNull();
     });
 
-    it('should render template for additional data if found in config service', () => {
+    it('should render template for additional data if found in template service', () => {
       expect(fixture.nativeElement.innerHTML).not.toContain(ADDITIONAL_DETAILS_TEXT);
 
       templateFixture = TestBed.createComponent(TestComponent);

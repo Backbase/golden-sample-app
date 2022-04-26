@@ -38,7 +38,7 @@ describe('TransactionsJourneyComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should store provided template for additional details in config servie', () => {
+    it('should store provided template for additional details in template servie', () => {
         expect(mockTemplateService.additionalDetailsTemplate).toBeDefined();
     });
 });
