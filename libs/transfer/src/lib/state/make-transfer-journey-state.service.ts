@@ -18,16 +18,25 @@ export enum TransferOperationStatus {
   ERROR = 2,
 }
 
+export enum TransferLoadingStatus {
+  NOT_STARTED = 0,
+  LOADING = 1,
+  ERROR = -1,
+  DONE = 2,
+}
+
 export interface MakeTransferState {
   transfer: Transfer | undefined;
   account: Account | undefined;
   transferState: TransferOperationStatus;
+  loadingStatus: TransferLoadingStatus;
 }
 
 const defaultMakeTransferState: MakeTransferState = {
   transfer: undefined,
   account: undefined,
   transferState: TransferOperationStatus.INIT,
+  loadingStatus: TransferLoadingStatus.NOT_STARTED,
 };
 
 @Injectable()
@@ -39,19 +48,25 @@ export class MakeTransferJourneyState extends ComponentStore<MakeTransferState> 
   readonly transfer$ = this.select(({ transfer }) => transfer);
   readonly account$ = this.select(({ account }) => account);
   readonly transferState$ = this.select(({ transferState }) => transferState);
+  readonly loadingStatus$ = this.select(({ loadingStatus }) => loadingStatus);
 
   readonly vm$ = this.select(
     this.transfer$,
     this.account$,
     this.transferState$,
-    (transfer, account, transferState) => ({
+    this.loadingStatus$,
+    (transfer, account, transferState, loadingStatus) => ({
       transfer,
       account,
       transferState,
+      loadingStatus,
     })
   );
 
   readonly loadAccounts = this.effect((value: Observable<void>) => {
+    this.patchState({
+      loadingStatus: TransferLoadingStatus.LOADING,
+    });
     return value.pipe(
       switchMap(() => this.apiService.getAccounts()),
       switchMap((accounts) => {
@@ -68,8 +83,17 @@ export class MakeTransferJourneyState extends ComponentStore<MakeTransferState> 
         )
       ),
       tap((account) => {
-        console.log(account);
-        this.updateAccount(account);
+        this.patchState({
+          account,
+          loadingStatus: TransferLoadingStatus.DONE,
+        });
+      }),
+      catchError(() => {
+        this.patchState({
+          account: undefined,
+          loadingStatus: TransferLoadingStatus.ERROR,
+        });
+        return of();
       })
     );
   });
@@ -101,10 +125,5 @@ export class MakeTransferJourneyState extends ComponentStore<MakeTransferState> 
   readonly next = this.updater((state, transfer: Transfer) => ({
     ...state,
     transfer,
-  }));
-
-  readonly updateAccount = this.updater((state, account: Account) => ({
-    ...state,
-    account,
   }));
 }
