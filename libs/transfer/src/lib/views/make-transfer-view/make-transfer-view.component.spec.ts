@@ -12,8 +12,13 @@ import { MakeTransferViewComponent } from './make-transfer-view.component';
 
 describe('MakeTransferViewComponent', () => {
   let component: MakeTransferViewComponent;
-  const mockTransferState: Pick<MakeTransferJourneyState, 'next'> = {
+  const mockTransferState: Pick<
+    MakeTransferJourneyState,
+    'next' | 'loadAccounts' | 'vm$'
+  > = {
     next: jest.fn(),
+    loadAccounts: jest.fn(),
+    vm$: of(),
   };
   const snapshot: Pick<ActivatedRouteSnapshot, 'data'> = {
     data: {
@@ -65,7 +70,12 @@ describe('MakeTransferViewComponent', () => {
       expect(mockTransferState.next).toHaveBeenCalledWith(mockTransfer);
       expect(mockRouter.navigate).toHaveBeenCalledWith(
         ['../make-transfer-summary'],
-        { relativeTo: mockActivatedRoute }
+        {
+          relativeTo: mockActivatedRoute,
+          state: {
+            transfer: mockTransfer,
+          },
+        }
       );
     });
   });
