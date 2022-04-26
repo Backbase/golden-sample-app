@@ -20,7 +20,7 @@ export class TransactionItemComponent implements OnChanges {
   
   public amount = 0;
   public isAmountPositive = true;
-  public additionsDetailsTpl = this.extensionTemplateService.additionalDetailsTemplate;
+  public additionsDetailsTemplate = this.extensionTemplateService.additionalDetailsTemplate;
   
   get additionsDetailsContext(): AdditionalDetailsContext {
     return {

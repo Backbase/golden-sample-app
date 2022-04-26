@@ -15,9 +15,9 @@
   <span class="transactions-item__transactionType">
     {{ transaction.type }}
     <ng-container
-      *ngIf="additionsDetailsTpl"
+      *ngIf="additionsDetailsTemplate"
       data-slot="additionsDetails"
-      [ngTemplateOutlet]="additionsDetailsTpl"
+      [ngTemplateOutlet]="additionsDetailsTemplate"
       [ngTemplateOutletContext]="additionsDetailsContext"
     ></ng-container>
   </span>
