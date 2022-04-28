@@ -98,11 +98,28 @@ const defaultRoute: Route = {
 })
 export class TransferJourneyModule {
   static forRoot(
-    data: { [key: string]: unknown; route: Route } = { route: defaultRoute }
+    data: { [key: string]: unknown; route?: Route, routeOverrides?: Route[] } = { route: defaultRoute }
   ): ModuleWithProviders<TransferJourneyModule> {
+
+    const route = data.route || defaultRoute;
+
+    // TODO: something generic instead of having this code in every journey
+    if (data.routeOverrides) {
+      data.routeOverrides.forEach(override => {
+        const foundRoute = route.children?.find(child => child.path === override.path)
+        
+        if (foundRoute) {
+          foundRoute.component = override.component;
+        }
+        // else try to find this recursively?
+
+        // last resort, maybe append this provided route to existing config?
+      })
+    }
+
     return {
       ngModule: TransferJourneyModule,
-      providers: [provideRoutes([data.route])],
+      providers: [provideRoutes([route])],
     };
   }
 }
