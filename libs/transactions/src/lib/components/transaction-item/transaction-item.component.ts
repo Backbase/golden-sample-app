@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { TransactionItem } from '@backbase/data-ang/transactions';
 import { AdditionalDetailsContext } from '../../directives/transaction-additional-details.directive';
-import { TransactionsJourneyConfiguration } from '../../services/transactions-journey-config.service';
+import { ExtensionTemplatesService } from '../../services/extension-templates.service';
 
 @Component({
   selector: 'bb-transaction-item',
@@ -20,7 +20,7 @@ export class TransactionItemComponent implements OnChanges {
   
   public amount = 0;
   public isAmountPositive = true;
-  public additionsDetailsTpl = this.configService.additionalDetailsTpl;
+  public additionsDetailsTemplate = this.extensionTemplateService.additionalDetailsTemplate;
   
   get additionsDetailsContext(): AdditionalDetailsContext {
     return {
@@ -30,7 +30,7 @@ export class TransactionItemComponent implements OnChanges {
     }
   }
 
-  constructor(private readonly configService: TransactionsJourneyConfiguration) {}
+  constructor(private readonly extensionTemplateService: ExtensionTemplatesService) {}
   
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['transaction']) {
