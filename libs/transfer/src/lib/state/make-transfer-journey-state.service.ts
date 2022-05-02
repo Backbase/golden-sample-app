@@ -100,8 +100,8 @@ export class MakeTransferJourneyState extends ComponentStore<MakeTransferState> 
 
   readonly makeTransfer = this.effect((transfer$: Observable<void>) =>
     transfer$.pipe(
-      switchMap(() => this.transfer$),
-      switchMap((transfer) => {
+      switchMap(() => {
+        const this.get(({ transfer }) => transfer);
         if (transfer) {
           return this.apiService.makeTransfer(transfer);
         }
