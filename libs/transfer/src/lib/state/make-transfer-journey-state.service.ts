@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import {
   catchError,
+  EMPTY,
   map,
   Observable,
   of,
@@ -101,9 +102,9 @@ export class MakeTransferJourneyState extends ComponentStore<MakeTransferState> 
   readonly makeTransfer = this.effect((transfer$: Observable<void>) =>
     transfer$.pipe(
       switchMap(() => {
-        const this.get(({ transfer }) => transfer);
-        if (transfer) {
-          return this.apiService.makeTransfer(transfer);
+        const currentTransfer = this.get(({ transfer }) => transfer);
+        if (currentTransfer) {
+          return this.apiService.makeTransfer(currentTransfer);
         }
 
         return throwError(() => new Error('Invalid transfer object'));
