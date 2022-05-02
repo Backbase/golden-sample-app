@@ -9,7 +9,7 @@ import { MakeTransferSuccessViewComponent } from './make-transfer-success-view.c
 
 describe('MakeTransferSuccessViewComponent', () => {
   let component: MakeTransferSuccessViewComponent;
-  let mockTransferState: Pick<MakeTransferJourneyState, 'vm$'>;
+  let mockTransferState: Pick<MakeTransferJourneyState, 'transfer$'>;
   const snapshot: Pick<ActivatedRouteSnapshot, 'data'> = {
     data: {
       title: 'someTitle',
@@ -24,7 +24,7 @@ describe('MakeTransferSuccessViewComponent', () => {
 
   beforeEach(() => {
     mockTransferState = {
-      vm$: of(),
+      transfer$: of(),
     };
     component = new MakeTransferSuccessViewComponent(
       mockTransferState as MakeTransferJourneyState,
