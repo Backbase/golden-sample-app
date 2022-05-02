@@ -26,10 +26,7 @@ export class MakeTransferAccountHttpService {
       .getAggregations({ productKindIds: [accountKind] })
       .pipe(
         map((item) => {
-          const balances =
-            item[0] &&
-            item[0].aggregatedBalances &&
-            item[0].aggregatedBalances[0];
+          const balances = item[0]?.aggregatedBalances?[0];
           return parseInt(balances?.amount || '0', 10);
         }),
         catchError(() => of(300))
