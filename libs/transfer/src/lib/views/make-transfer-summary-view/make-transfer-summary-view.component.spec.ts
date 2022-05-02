@@ -82,12 +82,6 @@ describe('MakeTransferSymmaryViewComponent', () => {
   });
 
   describe('submit', () => {
-    // it('should call use communicationService', () => {
-    //   component.submit();
-    //   expect(mockCommunicationService?.makeTransfer).toBeCalledWith(
-    //     transferMock
-    //   );
-    // });
     it('should emit a submit event', () => {
       mockCommunicationService = undefined;
       createComponent();
