@@ -117,7 +117,7 @@ export class MakeTransferJourneyState extends ComponentStore<MakeTransferState> 
         this.patchState({
           transferState: TransferOperationStatus.ERROR,
         });
-        return of({});
+        return EMPTY;
       })
     )
   );
