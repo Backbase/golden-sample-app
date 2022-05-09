@@ -17,7 +17,7 @@ export class MakeTransferFormComponent implements OnInit {
   @Input() showMaskIndicator = true;
   @Input() maxLimit = 0;
 
-  @Output() submitTransfer = new EventEmitter<Transfer>();
+  @Output() submitTransfer = new EventEmitter<Transfer | undefined>();
   makeTransferForm!: FormGroup;
 
   private getControl(field: string): AbstractControl | undefined {

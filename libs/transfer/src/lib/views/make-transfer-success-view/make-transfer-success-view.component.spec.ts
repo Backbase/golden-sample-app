@@ -3,12 +3,13 @@ import {
   ActivatedRouteSnapshot,
   Router,
 } from '@angular/router';
-import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
+import { of } from 'rxjs';
+import { MakeTransferJourneyState } from '../../state/make-transfer-journey-state.service';
 import { MakeTransferSuccessViewComponent } from './make-transfer-success-view.component';
 
 describe('MakeTransferSuccessViewComponent', () => {
   let component: MakeTransferSuccessViewComponent;
-  let mockTransferState: MakeTransferJourneyState;
+  let mockTransferState: Pick<MakeTransferJourneyState, 'transfer$'>;
   const snapshot: Pick<ActivatedRouteSnapshot, 'data'> = {
     data: {
       title: 'someTitle',
@@ -22,8 +23,11 @@ describe('MakeTransferSuccessViewComponent', () => {
   };
 
   beforeEach(() => {
+    mockTransferState = {
+      transfer$: of(),
+    };
     component = new MakeTransferSuccessViewComponent(
-      mockTransferState,
+      mockTransferState as MakeTransferJourneyState,
       mockActivatedRoute as ActivatedRoute,
       mockRouter as Router
     );

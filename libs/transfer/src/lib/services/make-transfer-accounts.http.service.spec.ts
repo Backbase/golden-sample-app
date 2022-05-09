@@ -25,12 +25,14 @@ describe('MakeTransferAccountHttpService', () => {
   });
 
   it('should retrieve an account', (done) => {
-    service.currentAccount$.subscribe((data) => {
+    service.getAccounts().subscribe((data) => {
       expect(data).toEqual(account);
       done();
     });
 
-    const req = httpMock.expectOne('/api/accounts/current');
+    const req = httpMock.expectOne(
+      '/client-api/v2/productsummary/context/arrangements?businessFunction=Product%20Summary&resourceName=Product%20Summary&privilege=view&size=1000000'
+    );
     expect(req.request.method).toBe('GET');
     req.flush(account);
   });

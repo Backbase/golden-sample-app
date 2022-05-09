@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
+import { MakeTransferJourneyState } from '../../state/make-transfer-journey-state.service';
 
 @Component({
   templateUrl: 'make-transfer-success-view.component.html',
 })
 export class MakeTransferSuccessViewComponent {
+  transfer$ = this.transferStore.transfer$;
   title = this.route.snapshot.data['title'];
 
   close(): void {
@@ -13,7 +14,7 @@ export class MakeTransferSuccessViewComponent {
   }
 
   constructor(
-    public readonly transferStore: MakeTransferJourneyState,
+    private readonly transferStore: MakeTransferJourneyState,
     private readonly route: ActivatedRoute,
     private readonly router: Router
   ) {}

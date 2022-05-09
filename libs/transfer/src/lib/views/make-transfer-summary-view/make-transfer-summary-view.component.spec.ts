@@ -3,8 +3,12 @@ import {
   ActivatedRouteSnapshot,
   Router,
 } from '@angular/router';
+import { of } from 'rxjs';
 import { MakeTransferCommunicationService } from '../../services/make-transfer-communication.service';
-import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
+import {
+  MakeTransferJourneyState,
+  TransferOperationStatus,
+} from '../../state/make-transfer-journey-state.service';
 import { MakeTransferSummaryViewComponent } from './make-transfer-summary-view.component';
 
 describe('MakeTransferSymmaryViewComponent', () => {
@@ -14,13 +18,15 @@ describe('MakeTransferSymmaryViewComponent', () => {
     | undefined = {
     makeTransfer: jest.fn(),
   };
-  const mockTransferState: Pick<MakeTransferJourneyState, 'currentValue'> = {
-    currentValue: {
-      fromAccount: 'somAccount',
-      toAccount: 'somAccount',
-      amount: 12,
-    },
+  let transferMock = {
+    fromAccount: 'somAccount',
+    toAccount: 'somAccount',
+    amount: 12,
   };
+  let mockTransferState: Pick<
+    MakeTransferJourneyState,
+    'transfer$' | 'vm$' | 'makeTransfer'
+  >;
   const snapshot: Pick<ActivatedRouteSnapshot, 'data'> = {
     data: {
       title: 'someTitle',
@@ -29,10 +35,21 @@ describe('MakeTransferSymmaryViewComponent', () => {
   const mockActivatedRoute: Pick<ActivatedRoute, 'snapshot'> = {
     snapshot: snapshot as ActivatedRouteSnapshot,
   };
-  const mockRouter: Pick<Router, 'navigate'> = {
-    navigate: jest.fn(),
-  };
+  let mockRouter: Pick<Router, 'navigate'>;
   const createComponent = () => {
+    mockTransferState = {
+      transfer$: of(transferMock),
+      vm$: of({
+        transfer: transferMock,
+        transferState: TransferOperationStatus.SUCCESSFUL,
+        account: undefined,
+        loadingStatus: 0,
+      }),
+      makeTransfer: jest.fn(),
+    };
+    mockRouter = {
+      navigate: jest.fn(),
+    };
     component = new MakeTransferSummaryViewComponent(
       mockTransferState as MakeTransferJourneyState,
       mockActivatedRoute as ActivatedRoute,
@@ -65,20 +82,23 @@ describe('MakeTransferSymmaryViewComponent', () => {
   });
 
   describe('submit', () => {
-    it('should call use communicationService', () => {
+    it('should emit a submit event', () => {
+      mockCommunicationService = undefined;
+      createComponent();
       component.submit();
-      expect(mockCommunicationService?.makeTransfer).toBeCalledWith(
-        mockTransferState.currentValue
-      );
+      expect(mockTransferState.makeTransfer).toHaveBeenCalled();
     });
     it('should navigate', () => {
       mockCommunicationService = undefined;
       createComponent();
-      component.submit();
+
       expect(mockRouter.navigate).toHaveBeenCalledWith(
         ['../make-transfer-success'],
         {
           relativeTo: mockActivatedRoute,
+          state: {
+            transfer: transferMock,
+          },
         }
       );
     });
