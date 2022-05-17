@@ -18,7 +18,7 @@
       *ngIf="additionsDetails"
       bbTransactionsItemAdditions
       [componentType]="additionsDetails"
-      [context]="transaction"
+      [context]="(exampleChanges$ | async) || undefined"
     >
     </ng-container>
   </span>

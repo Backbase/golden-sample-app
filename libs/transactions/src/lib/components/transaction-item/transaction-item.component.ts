@@ -13,7 +13,8 @@ import {
   ΘTRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig, TransactionAdditionalDetailsComponent,
 } from '../../extensions';
-import {ExtensionComponent, ExtensionSlotDirective} from "../../extension-slot.directive";
+import { ExtensionSlotDirective} from "../../extension-slot.directive";
+import {interval, switchMap, map, ReplaySubject} from "rxjs";
 
 @Component({
   selector: 'bb-transaction-item',
@@ -22,11 +23,34 @@ import {ExtensionComponent, ExtensionSlotDirective} from "../../extension-slot.d
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransactionItemComponent implements OnChanges {
-  @Input() transaction!: TransactionItem;
+  private _transaction!: TransactionItem;
+  private readonly transaction$$ = new ReplaySubject<TransactionItem>(1);
+
+  @Input()
+  set transaction(transaction: TransactionItem) {
+    this.transaction$$.next(transaction);
+    this._transaction = transaction;
+  }
+  get transaction(): TransactionItem {
+    return this._transaction;
+  }
 
   public amount = 0;
   public isAmountPositive = true;
   public additionsDetails?: Type<TransactionAdditionalDetailsComponent>;
+  public exampleChanges$ = this.transaction$$.pipe(
+    switchMap(
+      (txn) => interval(2000).pipe(
+        map((v) => ({
+            ...txn,
+            additions: {
+                myAddition: `${v}`
+            }
+          })
+        ),
+      )
+    )
+  );
 
   constructor(
     @Inject(ΘTRANSACTION_EXTENSIONS_CONFIG) extensionsConfig: TransactionsJourneyExtensionsConfig,

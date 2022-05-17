@@ -7,14 +7,18 @@ import {
 import { environment } from '../../environments/environment';
 import { JourneyCommunicationService } from '../services/journey-communication.service';
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
+import { CommonModule } from "@angular/common";
 
 @NgModule({
-  imports: [TransactionsJourneyModule.forRoot({
-    extensionSlots: {
-      // Provide the custom component in a type-safe way via config
-      transactionItem: TransactionItemAdditionalDetailsComponent
-    }
-  })],
+  imports: [
+    CommonModule,
+    TransactionsJourneyModule.forRoot({
+      extensionSlots: {
+        // Provide the custom component in a type-safe way via config
+        transactionItem: TransactionItemAdditionalDetailsComponent
+      }
+    })
+  ],
   declarations: [TransactionItemAdditionalDetailsComponent],
   providers: [
     {
