@@ -14,12 +14,13 @@
   }}</span>
   <span class="transactions-item__transactionType">
     {{ transaction.type }}
-    <ng-template 
+    <ng-container
       *ngIf="additionsDetails"
-      [ngComponentOutlet]="additionsDetails"
-      [ngComponentOutletInjector]="additionalDetailsInjector"
+      bbTransactionsItemAdditions
+      [componentType]="additionsDetails"
+      [context]="transaction"
     >
-    </ng-template>
+    </ng-container>
   </span>
 </span>
 <span

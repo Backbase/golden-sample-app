@@ -1,4 +1,4 @@
-<span class="transaction-account-number">{{ data.counterPartyAccountNumber }}</span>
-<span class="transaction-my-addition" *ngIf="data.additions['myAddition']">
-  {{ data.additions!["myAddition"] }}
+<span class="transaction-account-number">{{ context.counterPartyAccountNumber }}</span>
+<span class="transaction-my-addition" *ngIf="context.additions['myAddition']">
+  {{ context.additions!["myAddition"] }}
 </span>

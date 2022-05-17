@@ -1,12 +1,12 @@
-import { Component, Inject } from "@angular/core";
-import { AdditionDetailsData, TRANSACTION_ADDITION_DETAILS_DATA } from "@libs/transactions";
+import { Component, Input } from "@angular/core";
+import { TransactionAdditionalDetailsComponent } from "@libs/transactions";
+import { TransactionItem } from "@backbase/data-ang/transactions";
 
 @Component({
     styleUrls: ['./transaction-additional-details.component.scss'],
     templateUrl: './transaction-additional-details.component.html'
   })
-  export class TransactionItemAdditionalDetailsComponent {
-    constructor(
-      @Inject(TRANSACTION_ADDITION_DETAILS_DATA) public data: AdditionDetailsData
-    ) {}
-  }
+export class TransactionItemAdditionalDetailsComponent implements TransactionAdditionalDetailsComponent {
+  @Input()
+  context: TransactionItem | undefined;
+}

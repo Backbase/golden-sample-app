@@ -1,16 +1,19 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Directive,
   Inject,
-  Injector,
   Input,
   OnChanges,
-  Optional,
   SimpleChanges,
   Type,
 } from '@angular/core';
 import { TransactionItem } from '@backbase/data-ang/transactions';
-import { AdditionDetailsData, TRANSACTION_ADDITION_DETAILS, TRANSACTION_ADDITION_DETAILS_DATA } from '../../extensions';
+import {
+  ΘTRANSACTION_EXTENSIONS_CONFIG,
+  TransactionsJourneyExtensionsConfig,
+} from '../../extensions';
+import {ExtensionComponent, ExtensionSlotDirective} from "../../extension-slot.directive";
 
 @Component({
   selector: 'bb-transaction-item',
@@ -20,29 +23,15 @@ import { AdditionDetailsData, TRANSACTION_ADDITION_DETAILS, TRANSACTION_ADDITION
 })
 export class TransactionItemComponent implements OnChanges {
   @Input() transaction!: TransactionItem;
-  
+
   public amount = 0;
   public isAmountPositive = true;
-  additionalDetailsInjector: Injector;
-  
-  constructor(
-    @Optional() @Inject(TRANSACTION_ADDITION_DETAILS) public additionsDetails: Type<any>,
-    injector: Injector,
-  ) {
+  public additionsDetails?: Type<ExtensionComponent<TransactionItem>>;
 
-    this.additionalDetailsInjector = Injector.create({
-      providers: [
-        { 
-          provide: TRANSACTION_ADDITION_DETAILS_DATA, 
-          useFactory: (): AdditionDetailsData => ({
-            additions: this.transaction.additions || {},
-            merchant: this.transaction.merchant,
-            counterPartyAccountNumber: this.transaction.counterPartyAccountNumber
-          })
-        }
-      ],
-      parent: injector
-    })
+  constructor(
+    @Inject(ΘTRANSACTION_EXTENSIONS_CONFIG) extensionsConfig: TransactionsJourneyExtensionsConfig,
+  ) {
+    this.additionsDetails = extensionsConfig.transactionItem;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -59,3 +48,8 @@ export class TransactionItemComponent implements OnChanges {
     }
   }
 }
+
+@Directive({
+  selector: '[bbTransactionsItemAdditions]'
+})
+export class TransactionItemAdditonalDetailsDirective extends ExtensionSlotDirective<TransactionItem> {}
