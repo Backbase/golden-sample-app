@@ -11,7 +11,7 @@ import {
 import { TransactionItem } from '@backbase/data-ang/transactions';
 import {
   ΘTRANSACTION_EXTENSIONS_CONFIG,
-  TransactionsJourneyExtensionsConfig,
+  TransactionsJourneyExtensionsConfig, TransactionAdditionalDetailsComponent,
 } from '../../extensions';
 import {ExtensionComponent, ExtensionSlotDirective} from "../../extension-slot.directive";
 
@@ -26,7 +26,7 @@ export class TransactionItemComponent implements OnChanges {
 
   public amount = 0;
   public isAmountPositive = true;
-  public additionsDetails?: Type<ExtensionComponent<TransactionItem>>;
+  public additionsDetails?: Type<TransactionAdditionalDetailsComponent>;
 
   constructor(
     @Inject(ΘTRANSACTION_EXTENSIONS_CONFIG) extensionsConfig: TransactionsJourneyExtensionsConfig,

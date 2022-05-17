@@ -33,10 +33,10 @@ export abstract class ExtensionSlotDirective<ContextType>
 
   ngOnChanges(changes: SimpleChanges): void {
     const componentInstance = this.componentRef?.instance;
-    if (changes.context && componentInstance?.ngOnChanges) {
+    if (changes['context'] && componentInstance?.ngOnChanges) {
       componentInstance.context = this.context;
       componentInstance.ngOnChanges({
-        context: changes.context
+        context: changes['context']
       });
     }
   }
