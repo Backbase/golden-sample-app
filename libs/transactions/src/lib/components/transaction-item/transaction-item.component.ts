@@ -11,10 +11,10 @@ import {
 import { TransactionItem } from '@backbase/data-ang/transactions';
 import {
   ΘTRANSACTION_EXTENSIONS_CONFIG,
-  TransactionsJourneyExtensionsConfig, TransactionAdditionalDetailsComponent,
+  TransactionsJourneyExtensionsConfig, TransactionAdditionalDetailsComponent, TransactionAdditionalDetailsContext,
 } from '../../extensions';
 import { ExtensionSlotDirective} from "../../extension-slot.directive";
-import {interval, switchMap, map, ReplaySubject} from "rxjs";
+import {interval, switchMap, map, ReplaySubject, Observable} from "rxjs";
 
 @Component({
   selector: 'bb-transaction-item',

@@ -3,6 +3,7 @@ export * from './lib/transactions-journey.module';
 export {
   TransactionsJourneyExtensionsConfig,
   TransactionAdditionalDetailsComponent,
+  TransactionAdditionalDetailsContext,
   // don't export the private config injection token
 } from './lib/extensions';
 export * from './lib/views/transactions-view/transactions-view.component';

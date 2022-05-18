@@ -1,6 +1,5 @@
 import {Component, Input, SimpleChanges} from "@angular/core";
-import { TransactionAdditionalDetailsComponent } from "@libs/transactions";
-import { TransactionItem } from "@backbase/data-ang/transactions";
+import { TransactionAdditionalDetailsComponent, TransactionAdditionalDetailsContext } from "@libs/transactions";
 
 let instanceCount = 0;
 
@@ -11,7 +10,7 @@ let instanceCount = 0;
 })
 export class TransactionItemAdditionalDetailsComponent implements TransactionAdditionalDetailsComponent {
   @Input()
-  context: TransactionItem | undefined;
+  context: TransactionAdditionalDetailsContext | undefined;
 
   private readonly id = instanceCount++;
 

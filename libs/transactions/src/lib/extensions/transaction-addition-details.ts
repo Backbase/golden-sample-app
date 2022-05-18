@@ -2,7 +2,8 @@ import {InjectionToken, Type} from "@angular/core";
 import { TransactionItem } from "@backbase/data-ang/transactions";
 import {ExtensionComponent} from "../extension-slot.directive";
 
-export type TransactionAdditionalDetailsComponent = ExtensionComponent<TransactionItem>;
+export type TransactionAdditionalDetailsContext = Pick<TransactionItem, 'additions' | 'counterPartyAccountNumber' | 'merchant'>;
+export type TransactionAdditionalDetailsComponent = ExtensionComponent<TransactionAdditionalDetailsContext>;
 
 export interface TransactionsJourneyExtensionsConfig {
   transactionItem?: Type<TransactionAdditionalDetailsComponent>;
