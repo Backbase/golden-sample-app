@@ -25,9 +25,14 @@ export class LocaleSelectorComponent implements OnInit {
     private localeService: LocalesService,
     @Inject(LOCALES_LIST) public locales: Array<string>,
     @Inject(documentWrapper) private document: Document
-  ) {}
+  ) {
+    const event = new CustomEvent('data-analytics-languages-available', { detail: { locales } });
+    window.dispatchEvent(event);
+  }
 
   set language(value: string) {
+    const event = new CustomEvent('data-analytics-change-language', { detail: { locale: value } });
+    window.dispatchEvent(event);
     this.localeService.setLocaleCookie(value);
     this.document.location.href = this.document.location.origin;
   }
@@ -38,6 +43,8 @@ export class LocaleSelectorComponent implements OnInit {
 
   ngOnInit() {
     this.currentLanguage = this.findLocale(this.localeService.currentLocale);
+    const event = new CustomEvent('data-analytics-change-language', { detail: { locale: this.currentLanguage } });
+    window.dispatchEvent(event);
   }
 
   private findLocale(locale: string): string {

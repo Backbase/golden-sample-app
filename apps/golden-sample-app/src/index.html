@@ -8,6 +8,27 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
   </head>
   <body>
+    <script type="text/javascript">
+      document.addEventListener('click', function (event) {
+        let target = event.target;
+
+        if (target && target.hasAttribute('data-analytics-id')) {
+          console.log('tracking click event on', target);
+        } else {
+          while(!target.hasAttribute('data-analytics-id') && target.tagName !== 'HTML') {
+            target = target.parentNode;
+            if (target && target.hasAttribute('data-analytics-id')) {
+              console.log('tracking click event on', target);
+              break;
+            }
+          }
+        }
+      }, false);
+
+      window.addEventListener('data-analytics-change-language', function (event) {
+        console.log(event);
+      });
+    </script>
     <app-root></app-root>
   </body>
 </html>
