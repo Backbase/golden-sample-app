@@ -22,7 +22,7 @@ export class AppComponent {
     // Listening for navigation events
     router.events.forEach((event) => {
       if(event instanceof NavigationEnd) {
-        (window as any).trackingEventsFake('change language:', event);
+        (window as any).trackingEventsFake('on navigate:', event);
       }
       // NavigationStart
       // NavigationEnd
