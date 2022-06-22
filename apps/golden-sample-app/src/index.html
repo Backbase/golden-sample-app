@@ -9,24 +9,30 @@
   </head>
   <body>
     <script type="text/javascript">
+      function trackingEventsFake (eventType, event) {
+        console.log('tracking event type:', eventType, event);
+      }
+
+      // Listening for click events
       document.addEventListener('click', function (event) {
         let target = event.target;
 
         if (target && target.hasAttribute('data-analytics-id')) {
-          console.log('tracking click event on', target);
+          trackingEventsFake('click', event);
         } else {
           while(!target.hasAttribute('data-analytics-id') && target.tagName !== 'HTML') {
             target = target.parentNode;
             if (target && target.hasAttribute('data-analytics-id')) {
-              console.log('tracking click event on', target);
+              trackingEventsFake('click', event);
               break;
             }
           }
         }
       }, false);
 
+      // Listening for custom event
       window.addEventListener('data-analytics-change-language', function (event) {
-        console.log(event);
+        trackingEventsFake('change language:', event);
       });
     </script>
     <app-root></app-root>

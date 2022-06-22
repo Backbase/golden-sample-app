@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LayoutService } from '@backbase/ui-ang/layout';
 import { triplets } from './services/entitlementsTriplets';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +15,21 @@ export class AppComponent {
 
   constructor(
     private oAuthService: OAuthService,
-    public layoutService: LayoutService
+    public layoutService: LayoutService,
+    private router: Router
   ) {
     this.isAuthenticated = oAuthService.hasValidAccessToken();
+    // Listening for navigation events
+    router.events.forEach((event) => {
+      if(event instanceof NavigationEnd) {
+        (window as any).trackingEventsFake('change language:', event);
+      }
+      // NavigationStart
+      // NavigationEnd
+      // NavigationCancel
+      // NavigationError
+      // RoutesRecognized
+    });
   }
 
   logout(): void {
