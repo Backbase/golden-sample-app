@@ -53,7 +53,6 @@ export class TransactionsViewComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.textFilter.textChange
     this.transactionItemsElementRefs.changes.subscribe((items) => {
       items.forEach((item: ElementRef, index: number) => {
         item.nativeElement.addEventListener('click', () => {
