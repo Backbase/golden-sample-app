@@ -17,6 +17,9 @@ export class AppComponent {
     public layoutService: LayoutService
   ) {
     this.isAuthenticated = oAuthService.hasValidAccessToken();
+    window.addEventListener('bb-analytics', ($event) => {
+      console.log('===', $event);
+    });
   }
 
   logout(): void {
