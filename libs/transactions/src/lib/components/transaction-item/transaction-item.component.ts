@@ -9,12 +9,13 @@ import {
   Type,
 } from '@angular/core';
 import { TransactionItem } from '@backbase/data-ang/transactions';
+import { ViewExtensionDirective } from '@backbase/ui-ang/view-extensions';
 import {
   ΘTRANSACTION_EXTENSIONS_CONFIG,
-  TransactionsJourneyExtensionsConfig, TransactionAdditionalDetailsComponent, TransactionAdditionalDetailsContext,
+  TransactionsJourneyExtensionsConfig,
+  TransactionAdditionalDetailsComponent,
+  TransactionAdditionalDetailsContext,
 } from '../../extensions';
-import { ExtensionSlotDirective} from "../../extension-slot.directive";
-import {interval, switchMap, map, ReplaySubject, Observable} from "rxjs";
 
 @Component({
   selector: 'bb-transaction-item',
@@ -23,39 +24,19 @@ import {interval, switchMap, map, ReplaySubject, Observable} from "rxjs";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransactionItemComponent implements OnChanges {
-  private _transaction!: TransactionItem;
-  private readonly transaction$$ = new ReplaySubject<TransactionItem>(1);
-
   @Input()
-  set transaction(transaction: TransactionItem) {
-    this.transaction$$.next(transaction);
-    this._transaction = transaction;
-  }
-  get transaction(): TransactionItem {
-    return this._transaction;
-  }
+  public transaction!: TransactionItem;
 
   public amount = 0;
   public isAmountPositive = true;
   public additionsDetails?: Type<TransactionAdditionalDetailsComponent>;
-  public exampleChanges$ = this.transaction$$.pipe(
-    switchMap(
-      (txn) => interval(2000).pipe(
-        map((v) => ({
-            ...txn,
-            additions: {
-                myAddition: `${v}`
-            }
-          })
-        ),
-      )
-    )
-  );
+  public additionsDetailsContext?: TransactionAdditionalDetailsContext;
 
   constructor(
-    @Inject(ΘTRANSACTION_EXTENSIONS_CONFIG) extensionsConfig: TransactionsJourneyExtensionsConfig,
+    @Inject(ΘTRANSACTION_EXTENSIONS_CONFIG)
+    extensionsConfig: TransactionsJourneyExtensionsConfig
   ) {
-    this.additionsDetails = extensionsConfig.transactionItem;
+    this.additionsDetails = extensionsConfig.transactionItemAdditionalDetails;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -69,11 +50,16 @@ export class TransactionItemComponent implements OnChanges {
       }
 
       this.isAmountPositive = this.amount > 0;
+      this.additionsDetailsContext = {
+        merchant: this.transaction.merchant,
+        additions: this.transaction.additions,
+        counterPartyAccountNumber: this.transaction.counterPartyAccountNumber,
+      };
     }
   }
 }
 
 @Directive({
-  selector: '[bbTransactionsItemAdditions]'
+  selector: '[bbTransactionsItemAdditions]',
 })
-export class TransactionItemAdditonalDetailsDirective extends ExtensionSlotDirective<TransactionItem> {}
+export class TransactionItemAdditionalDetailsDirective extends ViewExtensionDirective<TransactionAdditionalDetailsContext> {}

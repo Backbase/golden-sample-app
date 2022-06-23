@@ -4,13 +4,11 @@ export {
   TransactionsJourneyExtensionsConfig,
   TransactionAdditionalDetailsComponent,
   TransactionAdditionalDetailsContext,
-  // don't export the private config injection token
-} from './lib/extensions';
+} from // don't export the private config injection token
+'./lib/extensions';
 export * from './lib/views/transactions-view/transactions-view.component';
 
 export {
   TransactionsCommunicationService,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
 } from './lib/communication';
-
-export * from './lib/extension-slot.directive';
