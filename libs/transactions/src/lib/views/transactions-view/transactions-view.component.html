@@ -5,7 +5,7 @@
         {{ title }}
       </h1>
       <div class="bb-block bb-block--md">
-        <bb-text-filter (textChange)="filter = $event || ''"></bb-text-filter>
+        <bb-text-filter (textChange)="onTextChange($event)"></bb-text-filter>
       </div>
       <ul *ngIf="transactions$ | async as items; else loading" class="bb-list">
         <li
