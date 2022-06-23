@@ -13,8 +13,8 @@ import {
   debitMockTransaction,
 } from '../../mocks/transactions-mocks';
 import { TransactionItemComponent } from './transaction-item.component';
-import { TransactionsJourneyConfiguration } from '../../services/transactions-journey-config.service';
 import { AdditionalDetailsContext } from '../../directives/transaction-additional-details.directive';
+import { ExtensionTemplatesService } from '../../services/extension-templates.service';
 
 @Component({
   selector: 'bb-transaction-item-test-component',
@@ -52,7 +52,7 @@ describe('TransactionItemComponent', () => {
   }
 
   beforeEach(async () => {
-    mockConfig.additionalDetailsTpl = undefined;
+    mockTemplateService.additionalDetailsTemplate = undefined;
 
     await TestBed.configureTestingModule({
       declarations: [

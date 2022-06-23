@@ -1,24 +1,40 @@
-import { Component, Optional } from '@angular/core';
+import { Component, OnDestroy, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { filter, Subject, takeUntil } from 'rxjs';
 import { MakeTransferCommunicationService } from '../../services/make-transfer-communication.service';
-import { MakeTransferJourneyState } from '../../services/make-transfer-journey-state.service';
+import {
+  MakeTransferJourneyState,
+  TransferOperationStatus,
+} from '../../state/make-transfer-journey-state.service';
 
 @Component({
   templateUrl: 'make-transfer-summary-view.component.html',
 })
-export class MakeTransferSummaryViewComponent {
+export class MakeTransferSummaryViewComponent implements OnDestroy {
   title = this.route.snapshot.data['title'];
+  vm$ = this.transferStore.vm$;
+  private successfulOperation = this.transferStore.vm$
+    .pipe(
+      filter(
+        ({ transferState }) =>
+          transferState === TransferOperationStatus.SUCCESSFUL
+      )
+    )
+    .subscribe(({ transfer }) => {
+      if (this.externalCommunicationService && transfer) {
+        this.externalCommunicationService.makeTransfer(transfer);
+      } else {
+        this.router.navigate(['../make-transfer-success'], {
+          relativeTo: this.route,
+          state: {
+            transfer: transfer,
+          },
+        });
+      }
+    });
 
   submit(): void {
-    if (this.externalCommunicationService && this.transferStore.currentValue) {
-      this.externalCommunicationService.makeTransfer(
-        this.transferStore.currentValue
-      );
-    } else {
-      this.router.navigate(['../make-transfer-success'], {
-        relativeTo: this.route,
-      });
-    }
+    this.transferStore.makeTransfer();
   }
 
   close(): void {
@@ -26,10 +42,14 @@ export class MakeTransferSummaryViewComponent {
   }
 
   constructor(
-    public readonly transferStore: MakeTransferJourneyState,
+    private readonly transferStore: MakeTransferJourneyState,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     @Optional()
     private externalCommunicationService: MakeTransferCommunicationService
   ) {}
+
+  ngOnDestroy(): void {
+    this.successfulOperation.unsubscribe();
+  }
 }
