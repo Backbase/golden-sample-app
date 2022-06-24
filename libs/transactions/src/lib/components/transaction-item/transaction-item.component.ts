@@ -11,7 +11,7 @@ import {
 import { TransactionItem } from '@backbase/data-ang/transactions';
 import { ViewExtensionDirective } from '@backbase/ui-ang/view-extensions';
 import {
-  ΘTRANSACTION_EXTENSIONS_CONFIG,
+  TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
   TransactionAdditionalDetailsComponent,
   TransactionAdditionalDetailsContext,
@@ -33,7 +33,7 @@ export class TransactionItemComponent implements OnChanges {
   public additionsDetailsContext?: TransactionAdditionalDetailsContext;
 
   constructor(
-    @Inject(ΘTRANSACTION_EXTENSIONS_CONFIG)
+    @Inject(TRANSACTION_EXTENSIONS_CONFIG)
     extensionsConfig: TransactionsJourneyExtensionsConfig
   ) {
     this.additionsDetails = extensionsConfig.transactionItemAdditionalDetails;

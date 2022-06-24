@@ -18,7 +18,7 @@ import { TransactionsRouteTitleResolverService } from './services/transactions-r
 import { TransactionsHttpService } from './services/transactions.http.service';
 import { TransactionsViewComponent } from './views/transactions-view/transactions-view.component';
 import {
-  ΘTRANSACTION_EXTENSIONS_CONFIG,
+  TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
 } from './extensions';
 
@@ -71,7 +71,7 @@ export class TransactionsJourneyModule {
       providers: [
         provideRoutes([route || defaultRoute]),
         {
-          provide: ΘTRANSACTION_EXTENSIONS_CONFIG,
+          provide: TRANSACTION_EXTENSIONS_CONFIG,
           useValue: extensionSlots || {},
         },
       ],
