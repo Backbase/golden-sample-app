@@ -16,6 +16,7 @@ import { TransactionsHttpService } from '../../services/transactions.http.servic
 })
 export class TransactionsViewComponent implements AfterViewInit {
   @ViewChild(TextFilterComponent) textFilter!: TextFilterComponent; 
+  @ViewChild(TextFilterComponent, { read: ElementRef }) textFilterElementRef!: ElementRef; 
   @ViewChildren(TransactionItemComponent, { read: ElementRef }) transactionItemsElementRefs!: QueryList<ElementRef>;
   @ViewChildren(TransactionItemComponent) transactionItems!: QueryList<TransactionItemComponent>;
 
@@ -43,8 +44,8 @@ export class TransactionsViewComponent implements AfterViewInit {
 
   onTextChange($event: string) {
     this.filter = $event || '';
-    const event = new CustomEvent('bb-analytics', { detail: { event: 'filter-transactions', payload: $event } });
-    window.dispatchEvent(event);
+    const event = new CustomEvent('bb-analytics', { bubbles: true, detail: { event: 'filter-transactions', payload: $event } });
+    this.textFilterElementRef.nativeElement.dispatchEvent(event);
   }
 
   ngAfterViewInit(): void {
