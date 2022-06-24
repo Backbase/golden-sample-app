@@ -10,11 +10,6 @@ import { TextFilterComponent } from '../../components/text-filter/text-filter.co
 import { TransactionItemComponent } from '../../components/transaction-item/transaction-item.component';
 import { TransactionsHttpService } from '../../services/transactions.http.service';
 
-export interface AnalyticsEvent {
-  event: string;
-  payload: any;
-}
-
 @Component({
   templateUrl: './transactions-view.component.html',
   selector: 'bb-transactions-view',
