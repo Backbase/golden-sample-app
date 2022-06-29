@@ -6,16 +6,21 @@ import { AmountModule } from '@backbase/ui-ang/amount';
 import { InputTextModule } from '@backbase/ui-ang/input-text';
 import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
 import { TextFilterComponent } from './components/text-filter/text-filter.component';
-import { TransactionItemComponent } from './components/transaction-item/transaction-item.component';
+import {
+  TransactionItemComponent,
+  TransactionItemAdditionalDetailsDirective,
+} from './components/transaction-item/transaction-item.component';
 import { TRANSLATIONS } from './constants/dynamic-translations';
-import { TransactionAdditionalDetailsTemplateDirective } from './directives/transaction-additional-details.directive';
 import { FilterTransactionsPipe } from './pipes/filter-transactions.pipe';
 import { ArrangementsService } from './services/arrangements.service';
 import { TransactionsJourneyConfiguration } from './services/transactions-journey-config.service';
 import { TransactionsRouteTitleResolverService } from './services/transactions-route-title-resolver.service';
 import { TransactionsHttpService } from './services/transactions.http.service';
-import { TransactionsJourneyComponent } from './transactions-journey.component';
 import { TransactionsViewComponent } from './views/transactions-view/transactions-view.component';
+import {
+  TRANSACTION_EXTENSIONS_CONFIG,
+  TransactionsJourneyExtensionsConfig,
+} from './extensions';
 
 const defaultRoute: Route = {
   path: '',
@@ -28,14 +33,18 @@ const defaultRoute: Route = {
   },
 };
 
+export interface TransactionsJourneyModuleConfig {
+  route?: Route;
+  extensionSlots?: TransactionsJourneyExtensionsConfig;
+}
+
 @NgModule({
   declarations: [
-    TransactionAdditionalDetailsTemplateDirective,
-    TransactionsJourneyComponent,
     TransactionsViewComponent,
     TransactionItemComponent,
     TextFilterComponent,
     FilterTransactionsPipe,
+    TransactionItemAdditionalDetailsDirective,
   ],
   imports: [
     CommonModule,
@@ -45,10 +54,6 @@ const defaultRoute: Route = {
     InputTextModule,
     LoadingIndicatorModule,
   ],
-  exports: [
-    TransactionsJourneyComponent,
-    TransactionAdditionalDetailsTemplateDirective
-  ],
   providers: [
     TransactionsHttpService,
     TransactionsJourneyConfiguration,
@@ -57,12 +62,19 @@ const defaultRoute: Route = {
   ],
 })
 export class TransactionsJourneyModule {
-  static forRoot(
-    data: { [key: string]: unknown; route: Route } = { route: defaultRoute }
-  ): ModuleWithProviders<TransactionsJourneyModule> {
+  static forRoot({
+    route,
+    extensionSlots,
+  }: TransactionsJourneyModuleConfig = {}): ModuleWithProviders<TransactionsJourneyModule> {
     return {
       ngModule: TransactionsJourneyModule,
-      providers: [provideRoutes([data.route])],
+      providers: [
+        provideRoutes([route || defaultRoute]),
+        {
+          provide: TRANSACTION_EXTENSIONS_CONFIG,
+          useValue: extensionSlots || {},
+        },
+      ],
     };
   }
 }

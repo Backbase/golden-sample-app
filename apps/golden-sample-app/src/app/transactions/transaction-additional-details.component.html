@@ -1,0 +1,9 @@
+<span class="transaction-account-number">{{
+  context?.counterPartyAccountNumber
+}}</span>
+<span
+  class="transaction-my-addition"
+  *ngIf="context?.additions?.['myAddition']"
+>
+  My Addition: {{ context?.additions?.['myAddition'] }}
+</span>

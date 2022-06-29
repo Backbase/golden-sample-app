@@ -2,7 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { AchPositivePayJourneyComponent } from './views/ach-positive-pay-journey/ach-positive-pay-journey.component';
 import { AchPositivePayRulesComponent } from './views/ach-positive-pay-rules/ach-positive-pay-rules.component';
 import { AchPositivePayNewRuleComponent } from './views/ach-positive-pay-new-rule/ach-positive-pay-new-rule.component';
-import { HeadingWidgetModule } from '@backbase/universal-ang';
+import { HeadingWidgetModule } from '@backbase/universal-ang/heading';
 import {
   AccountSelectorModule,
   AlertModule,

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
@@ -8,18 +7,20 @@ import {
 } from '@libs/transactions';
 import { environment } from '../../environments/environment';
 import { JourneyCommunicationService } from '../services/journey-communication.service';
-import { TransactionsJourneyBundleComponent } from './transactions-journey-bundle.component';
+import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild([{
-      path: '',
-      component: TransactionsJourneyBundleComponent
-    }]),
-    TransactionsJourneyModule.forRoot()
+    TransactionsJourneyModule.forRoot({
+      extensionSlots: {
+        transactionItemAdditionalDetails:
+          TransactionItemAdditionalDetailsComponent,
+      },
+    }),
   ],
-  declarations: [TransactionsJourneyBundleComponent],
+  declarations: [TransactionItemAdditionalDetailsComponent],
   providers: [
     {
       provide: TransactionsJourneyConfiguration,

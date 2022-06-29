@@ -15,10 +15,10 @@
   <span class="transactions-item__transactionType">
     {{ transaction.type }}
     <ng-container
-      *ngIf="additionsDetailsTemplate"
-      data-slot="additionsDetails"
-      [ngTemplateOutlet]="additionsDetailsTemplate"
-      [ngTemplateOutletContext]="additionsDetailsContext"
+      *ngIf="additionsDetails"
+      bbTransactionsItemAdditions
+      [componentType]="additionsDetails"
+      [context]="additionsDetailsContext"
     ></ng-container>
   </span>
 </span>

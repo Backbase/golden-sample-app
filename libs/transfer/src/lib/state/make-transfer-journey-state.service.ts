@@ -66,9 +66,11 @@ export class MakeTransferJourneyState extends ComponentStore<MakeTransferState> 
 
   readonly loadAccounts = this.effect((value: Observable<void>) => {
     return value.pipe(
-      tap(() => this.patchState({
-        loadingStatus: TransferLoadingStatus.LOADING,
-      })),
+      tap(() =>
+        this.patchState({
+          loadingStatus: TransferLoadingStatus.LOADING,
+        })
+      ),
       switchMap(() => this.apiService.getAccounts()),
       switchMap((accounts) => {
         const firstItem = accounts[0];

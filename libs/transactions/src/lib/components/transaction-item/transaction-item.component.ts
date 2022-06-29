@@ -1,13 +1,21 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Directive,
+  Inject,
   Input,
   OnChanges,
   SimpleChanges,
+  Type,
 } from '@angular/core';
 import { TransactionItem } from '@backbase/data-ang/transactions';
-import { AdditionalDetailsContext } from '../../directives/transaction-additional-details.directive';
-import { ExtensionTemplatesService } from '../../services/extension-templates.service';
+import { ViewExtensionDirective } from '@backbase/ui-ang/view-extensions';
+import {
+  TRANSACTION_EXTENSIONS_CONFIG,
+  TransactionsJourneyExtensionsConfig,
+  TransactionAdditionalDetailsComponent,
+  TransactionAdditionalDetailsContext,
+} from '../../extensions';
 
 @Component({
   selector: 'bb-transaction-item',
@@ -16,22 +24,21 @@ import { ExtensionTemplatesService } from '../../services/extension-templates.se
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransactionItemComponent implements OnChanges {
-  @Input() transaction!: TransactionItem;
-  
+  @Input()
+  public transaction!: TransactionItem;
+
   public amount = 0;
   public isAmountPositive = true;
-  public additionsDetailsTemplate = this.extensionTemplateService.additionalDetailsTemplate;
-  
-  get additionsDetailsContext(): AdditionalDetailsContext {
-    return {
-      additions: this.transaction.additions,
-      merchant: this.transaction.merchant,
-      counterPartyAccountNumber: this.transaction.counterPartyAccountNumber
-    }
+  public additionsDetails?: Type<TransactionAdditionalDetailsComponent>;
+  public additionsDetailsContext?: TransactionAdditionalDetailsContext;
+
+  constructor(
+    @Inject(TRANSACTION_EXTENSIONS_CONFIG)
+    extensionsConfig: TransactionsJourneyExtensionsConfig
+  ) {
+    this.additionsDetails = extensionsConfig.transactionItemAdditionalDetails;
   }
 
-  constructor(private readonly extensionTemplateService: ExtensionTemplatesService) {}
-  
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['transaction']) {
       this.amount = Number(
@@ -43,6 +50,16 @@ export class TransactionItemComponent implements OnChanges {
       }
 
       this.isAmountPositive = this.amount > 0;
+      this.additionsDetailsContext = {
+        merchant: this.transaction.merchant,
+        additions: this.transaction.additions,
+        counterPartyAccountNumber: this.transaction.counterPartyAccountNumber,
+      };
     }
   }
 }
+
+@Directive({
+  selector: '[bbTransactionsItemAdditions]',
+})
+export class TransactionItemAdditionalDetailsDirective extends ViewExtensionDirective<TransactionAdditionalDetailsContext> {}
