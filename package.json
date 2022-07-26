@@ -41,7 +41,7 @@
     "@backbase/select-context-widget-ang": "^4.4.0",
     "@backbase/ui-ang": "^7.5.0",
     "@backbase/universal-ang": "^7.0.0",
-    "@ng-bootstrap/ng-bootstrap": "^10.0.0",
+    "@ng-bootstrap/ng-bootstrap": "~10.0.0",
     "@ngrx/component-store": "^12.5.1",
     "@ngrx/effects": "^12.5.1",
     "@ngrx/store": "^12.5.1",
