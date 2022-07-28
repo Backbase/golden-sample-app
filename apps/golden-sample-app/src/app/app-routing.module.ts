@@ -37,17 +37,17 @@ const routes: Routes = [
       entitlements: triplets.canViewPositivePay,
     },
   },
-  {
-    path: 'ach-positive-pay',
-    loadChildren: () =>
-      import('./ach-positive-pay/ach-positive-pay-journey-bundle.module').then(
-        (m) => m.AchPositivePayJourneyBundleModule
-      ),
-    canActivate: [AuthGuard, EntitlementsGuard],
-    data: {
-      entitlements: triplets.canViewAchRule,
-    },
-  },
+  // {
+  //   path: 'ach-positive-pay',
+  //   loadChildren: () =>
+  //     import('./ach-positive-pay/ach-positive-pay-journey-bundle.module').then(
+  //       (m) => m.AchPositivePayJourneyBundleModule
+  //     ),
+  //   canActivate: [AuthGuard, EntitlementsGuard],
+  //   data: {
+  //     entitlements: triplets.canViewAchRule,
+  //   },
+  // },
   {
     path: 'transactions',
     loadChildren: () =>

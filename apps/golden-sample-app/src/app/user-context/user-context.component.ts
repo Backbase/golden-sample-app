@@ -1,23 +1,29 @@
 import { Component } from '@angular/core';
-import { LOGOUT } from '@backbase/foundation-ang/web-sdk';
+import { Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
-
-const logoutFactoryService = (oAuthService: OAuthService) => {
-  return {
-    goToLoginPage: () => oAuthService.initLoginFlow(),
-    logout: () => oAuthService.revokeTokenAndLogout(),
-  };
-};
+import { UserContextGuard } from './user-context.guard';
 
 @Component({
   selector: 'app-user-context',
   templateUrl: './user-context.component.html',
-  providers: [
-    {
-      provide: LOGOUT,
-      useFactory: logoutFactoryService,
-      deps: [OAuthService],
-    },
-  ],
 })
-export class UserContextComponent {}
+export class UserContextComponent {
+  private readonly redirectUrl: string;
+
+  constructor(
+    private userContextGuard: UserContextGuard,
+    private authService: OAuthService,
+    private router: Router,
+  ) {
+    this.redirectUrl = this.userContextGuard.getTargetUrl() ?? '/';
+  }
+
+  redirect() {
+    this.router.navigateByUrl(this.redirectUrl);
+  }
+
+  logout() {
+    this.authService.revokeTokenAndLogout();
+    this.authService.initLoginFlow();
+  }
+}

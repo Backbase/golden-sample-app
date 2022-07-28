@@ -3,7 +3,7 @@ import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AchPositivePayHttpService } from '../../services/ach-positive-pay.http.service';
-import { NotificationService } from '@backbase/ui-ang';
+import { NotificationService } from '@backbase/ui-ang/notification';
 import { ACH_POSITIVE_PAY_TRANSLATIONS } from '../../constants/dynamic-translations';
 import { ProductSummaryItem } from '@backbase/data-ang/arrangements';
 import { Observable } from 'rxjs';
