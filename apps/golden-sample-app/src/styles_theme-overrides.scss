@@ -12,3 +12,8 @@
 .bb-icon-transactions::before {
   content: "credit-card";  
 }
+
+.bb-layout .bb-layout__topbar {
+  z-index: $zindex-modal-backdrop + 1;
+}
+

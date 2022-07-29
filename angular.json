@@ -66,9 +66,7 @@
               "apps/golden-sample-app/src/assets"
             ],
             "styles": [
-              "apps/golden-sample-app/src/styles.scss",
-              "node_modules/@backbase/backbase-theme/scss/main.scss",
-              "apps/golden-sample-app/src/styles.sass"
+              "apps/golden-sample-app/src/styles.scss"
             ],
             "scripts": []
           },
