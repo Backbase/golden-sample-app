@@ -10,8 +10,18 @@ import {
 import { ServiceAgreementHttpService } from '@backbase/data-ang/accesscontrol';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, mapTo } from 'rxjs/operators';
 
+const COOKIE_KEY = 'USER_CONTEXT';
+
+/**
+ * Guard checks if user has the valid service agreement context.
+ *
+ * Cookie `USER_CONTEXT` is used to do the check.
+ * The cookie is set by the API server without SameSite attribute.
+ * Therefore, to be able to read the cookie, the proxy server
+ * for API requests must be configured.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -22,29 +32,24 @@ export class UserContextGuard implements CanActivate, CanActivateChild {
   constructor(
     private readonly cookieService: CookieService,
     private readonly router: Router,
-    private readonly serviceAgreementService: ServiceAgreementHttpService,
-  ) { }
+    private readonly serviceAgreementService: ServiceAgreementHttpService
+  ) {}
+
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-  ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> {
     return this.canActivate(childRoute, state);
   }
 
   canActivate(
     _next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> {
     this.targetUrl = state.url;
-    const cookieIsSet = this.cookieService.check('USER_CONTEXT');
-    console.log('cookieIsSet', cookieIsSet);
-    if (!cookieIsSet) {
-      return this.getSelectContextUrlTree();
-    }
 
-    return (
-      this.cookieValid ||
-      this.validateUserContextCookie().pipe(map(isValid => isValid || this.getSelectContextUrlTree()))
+    return this.validateUserContextCookie().pipe(
+      map((isValid) => isValid || this.getSelectContextUrlTree())
     );
   }
 
@@ -56,16 +61,28 @@ export class UserContextGuard implements CanActivate, CanActivateChild {
     return this.router.createUrlTree(['/select-context']);
   }
 
+  /**
+   * Validate the cookie by requesting the service agreement
+   * associated with the cookie value.
+   */
   private validateUserContextCookie(): Observable<boolean> {
+    const cookieIsSet = this.cookieService.check(COOKIE_KEY);
+    if (!cookieIsSet) {
+      this.cookieValid = false;
+      return of(false);
+    }
+
+    if (this.cookieValid) {
+      return of(true);
+    }
+
     return this.serviceAgreementService.getServiceAgreementContext().pipe(
-      map(() => {
-        this.cookieValid = true;
+      mapTo(true),
+      catchError(() => of(false)),
+      map((valid) => {
+        this.cookieValid = valid;
         return this.cookieValid;
-      }),
-      catchError(() => {
-        this.cookieValid = false;
-        return of(this.cookieValid);
-      }),
+      })
     );
   }
 }

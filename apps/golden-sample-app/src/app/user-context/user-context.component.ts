@@ -13,7 +13,7 @@ export class UserContextComponent {
   constructor(
     private userContextGuard: UserContextGuard,
     private authService: OAuthService,
-    private router: Router,
+    private router: Router
   ) {
     this.redirectUrl = this.userContextGuard.getTargetUrl() ?? '/';
   }

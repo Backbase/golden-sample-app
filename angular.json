@@ -65,9 +65,7 @@
               "apps/golden-sample-app/src/favicon.ico",
               "apps/golden-sample-app/src/assets"
             ],
-            "styles": [
-              "apps/golden-sample-app/src/styles.scss"
-            ],
+            "styles": ["apps/golden-sample-app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -150,9 +148,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/golden-sample-app-e2e/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/golden-sample-app-e2e/**/*.ts"]
           }
         }
       }

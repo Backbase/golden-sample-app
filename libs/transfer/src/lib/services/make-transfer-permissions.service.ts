@@ -6,7 +6,5 @@ export class MakeTransferPermissionsService {
   unlimitedAmountPerTransaction$ = from(
     this.conditions.resolveEntitlements('Payments.transfer.limitless')
   );
-  constructor(
-    private readonly conditions: ConditionsService
-  ) {}
+  constructor(private readonly conditions: ConditionsService) {}
 }
