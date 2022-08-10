@@ -1,0 +1,53 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: ${{ github.base_ref }}
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      # - name: Cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     # A list of files, directories, and wildcard patterns to cache and restore
+      #     path: ~/.npm
+      #     # An explicit key for restoring and saving the cache
+      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      #     # An ordered list of keys to use for restoring the cache if no cache hit occurred for key
+      #     restore-keys: |
+      #       ${{ runner.os }}-build-${{ env.cache-name }}-
+      #       ${{ runner.os }}-build-
+      #       ${{ runner.os }}-
+      - run: |
+          echo "github.base_ref:" ${{ github.base_ref }}
+          echo "github.head_ref:" ${{ github.head_ref }}
+          echo "github.ref:" ${{ github.ref }}
+      # - run: curl -s -u"${{ secrets.BB_USERNAME }}:${{ secrets.BB_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run affected:build
+      - run: bpm run affected:lint
+      - run: npm run affected:test
