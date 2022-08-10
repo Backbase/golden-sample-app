@@ -1,7 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@backbase/ui-ang/scss/main';
 
-@import '../../../node_modules/@angular/cdk/a11y';
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+@import '~@angular/cdk/a11y';
 @include cdk-a11y();
+
+@import './styles_theme-overrides.scss';
 
 bb-area,
 bb-root,

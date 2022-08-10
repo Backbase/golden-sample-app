@@ -6,7 +6,8 @@
       [pageSize]="7"
       [includeCurrentContext]="false"
       [showSearchAfter]="5"
-      [selectContextRedirectPage]="'abs:current-page'"
+      (back)="logout()"
+      (selectContextSuccess)="redirect()"
     ></bb-select-context-widget>
   </div>
 </div>
