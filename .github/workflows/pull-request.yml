@@ -46,7 +46,7 @@ jobs:
           echo "github.head_ref:" ${{ github.head_ref }}
           echo "github.ref:" ${{ github.ref }}
           echo "repo username " ${{ secrets.BAAS_BB_ARTIFACTORY_NPM_USERNAME  }}
-      - run: curl -s -u"${{ secrets.BAAS_BB_ARTIFACTORY_NPM_USERNAME }}:${{ secrets.BAAS_BB_ARTIFACTORY_NPM_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc
+      - run: curl -s -u -w "${{ secrets.BAAS_BB_ARTIFACTORY_NPM_USERNAME }}:${{ secrets.BAAS_BB_ARTIFACTORY_NPM_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc
       - run: npm ci
       - run: npm run format:check
       - run: npm run affected:build
