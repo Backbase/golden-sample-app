@@ -52,5 +52,5 @@ jobs:
                 
       - run: npm ci
         env:
-          BB_USERNAME: ${{ secrets.BAAS_BB_ARTIFACTORY_NPM_USERNAME }}
-          BB_PASSWORD: ${{ secrets.BAAS_BB_ARTIFACTORY_NPM_PASSWORD }}
+          BB_USERNAME: ${{ secrets.BB_USERNAME }}
+          BB_PASSWORD: ${{ secrets.BB_PASSWORD }}
