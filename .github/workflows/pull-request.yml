@@ -29,6 +29,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
+          scope: '@backbase'
+
       # - name: Cache
       #   uses: actions/cache@v2
       #   with:
@@ -48,11 +51,9 @@ jobs:
           echo "repo username " ${{ secrets.BAAS_BB_ARTIFACTORY_NPM_USERNAME  }}
           
       - name: Setup NPM
-        run: curl -s -u"${{ secrets.BAAS_BB_ARTIFACTORY_NPM_USERNAME }}:${{ secrets.BAAS_BB_ARTIFACTORY_NPM_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc    
      # - run: curl -s -u -w"${{ secrets.BAAS_BB_ARTIFACTORY_NPM_USERNAME }}:${{ secrets.BAAS_BB_ARTIFACTORY_NPM_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc
       
       - run: npm ci
-      - run: npm run format:check
-      - run: npm run affected:build
-      - run: bpm run affected:lint
-      - run: npm run affected:test
+        env:
+          username: ${{ secrets.BAAS_BB_ARTIFACTORY_NPM_USERNAME }}
+          password: ${{ secrets.BAAS_BB_ARTIFACTORY_NPM_PASSWORD }}
