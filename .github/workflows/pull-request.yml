@@ -5,7 +5,11 @@ name: Node.js CI
 
 on:
   pull_request:
-
+  
+env:
+  BB_USERNAME: 'manisha'
+  BB_PASSWORD: 'QVA4VUExR29OOWUxZ29TaWZwRDhmOUc0RGJV'
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -52,6 +56,4 @@ jobs:
           echo "repo username " ${{ secrets.BAAS_BB_ARTIFACTORY_NPM_USERNAME  }}
       - run: curl -s -u"${{ env.BB_USERNAME }}:${{ env.BB_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc          
       - run: npm ci
-        env:
-          BB_USERNAME: 'manisha'
-          BB_PASSWORD: 'QVA4VUExR29OOWUxZ29TaWZwRDhmOUc0RGJV'
+        
