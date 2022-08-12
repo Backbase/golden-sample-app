@@ -29,8 +29,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
-          scope: '@backbase'
+          # registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
+          # scope: '@backbase'
           
 
       # - name: Cache
@@ -50,7 +50,7 @@ jobs:
           echo "github.head_ref:" ${{ github.head_ref }}
           echo "github.ref:" ${{ github.ref }}
           echo "repo username " ${{ secrets.BAAS_BB_ARTIFACTORY_NPM_USERNAME  }}
-      # - run: curl -s -u"${{ secrets.BAAS_BB_ARTIFACTORY_NPM_USERNAME }}:${{ secrets.BAAS_BB_ARTIFACTORY_NPM_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc          
+      - run: curl -s -u"${{ env.BB_USERNAME }}:${{ env.BB_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc          
       - run: npm ci
         env:
           BB_USERNAME: 'manisha'
