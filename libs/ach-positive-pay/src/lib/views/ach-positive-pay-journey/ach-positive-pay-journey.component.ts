@@ -16,7 +16,7 @@ export class AchPositivePayJourneyComponent {
 
   openNewBlockerModal() {
     this.router.navigate([{ outlets: { modal: 'new' } }], {
-      relativeTo: this.route,
+       relativeTo: this.route,
     });
   }
 }
