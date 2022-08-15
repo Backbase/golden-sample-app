@@ -34,7 +34,7 @@ jobs:
           echo "github.head_ref:" ${{ github.head_ref }}
           echo "github.ref:" ${{ github.ref }}
           echo "secrets:" ${{ secrets.MAVEN_USERNAME }}
-      - run: curl -s -u"${{ secrets.BB_USERNAME }}:${{ secrets.BB_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc
+      - run: curl -s -u"${{ secrets.MAVEN_USERNAME }}:${{ secrets.MAVEN_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc
       - run: npm ci
       - run: npm run format:check
       - run: npx nx affected --target=lint --parallel=2
