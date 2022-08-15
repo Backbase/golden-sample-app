@@ -1,14 +1,18 @@
 @font-face {
-  font-family: "IcoMoon";
+  font-family: 'IcoMoon';
   font-style: normal;
   font-weight: 400;
-  src: url("assets/fonts/IcoMoon/icomoon.ttf") format("truetype");
+  src: url('assets/fonts/IcoMoon/icomoon.ttf') format('truetype');
 }
 
 .bb-icon {
-  font-family: "IcoMoon";
+  font-family: 'IcoMoon';
 }
 
 .bb-icon-transactions::before {
-  content: "credit-card";  
+  content: 'credit-card';
+}
+
+.bb-layout .bb-layout__topbar {
+  z-index: $zindex-modal-backdrop + 1;
 }

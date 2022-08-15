@@ -65,11 +65,7 @@
               "apps/golden-sample-app/src/favicon.ico",
               "apps/golden-sample-app/src/assets"
             ],
-            "styles": [
-              "apps/golden-sample-app/src/styles.scss",
-              "node_modules/@backbase/backbase-theme/scss/main.scss",
-              "apps/golden-sample-app/src/styles.sass"
-            ],
+            "styles": ["apps/golden-sample-app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -152,9 +148,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/golden-sample-app-e2e/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/golden-sample-app-e2e/**/*.ts"]
           }
         }
       }
@@ -239,6 +233,7 @@
     }
   },
   "cli": {
+    "analytics": false,
     "defaultCollection": "@nrwl/angular",
     "packageManager": "npm"
   },

@@ -4,7 +4,7 @@
     else headingWithTitleOnlyTemplate
   "
 >
-  <bb-heading-widget
+  <bb-heading-ui
     heading="ACH Positive Pay"
     i18n-heading="
       ACH positive pay title|Title for the
@@ -19,11 +19,11 @@
     iconClasses="add"
     buttonClasses="btn btn-primary"
     (buttonAction)="openNewBlockerModal()"
-  ></bb-heading-widget>
+  ></bb-heading-ui>
 </ng-container>
 
 <ng-template #headingWithTitleOnlyTemplate>
-  <bb-heading-widget
+  <bb-heading-ui
     heading="ACH Positive Pay"
     i18n-heading="
       ACH positive pay title|Title for the
@@ -31,7 +31,7 @@
     headingType="h1"
     headingClasses="bb-heading-widget__heading"
     customClassName="bb-heading-widget--de-elevated"
-  ></bb-heading-widget>
+  ></bb-heading-ui>
 </ng-template>
 
 <div class="container-fluid container--drag-up">
