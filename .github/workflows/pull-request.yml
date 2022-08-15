@@ -16,7 +16,7 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
@@ -26,28 +26,31 @@ jobs:
           main-branch-name: ${{ github.base_ref }}
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      # - name: Cache
-      #   uses: actions/cache@v2
-      #   with:
-      #     # A list of files, directories, and wildcard patterns to cache and restore
-      #     path: ~/.npm
-      #     # An explicit key for restoring and saving the cache
-      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-      #     # An ordered list of keys to use for restoring the cache if no cache hit occurred for key
-      #     restore-keys: |
-      #       ${{ runner.os }}-build-${{ env.cache-name }}-
-      #       ${{ runner.os }}-build-
-      #       ${{ runner.os }}-
+          cache: "npm"
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: ~/.npm
+          # An explicit key for restoring and saving the cache
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          # An ordered list of keys to use for restoring the cache if no cache hit occurred for key
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
       - run: |
           echo "github.base_ref:" ${{ github.base_ref }}
           echo "github.head_ref:" ${{ github.head_ref }}
           echo "github.ref:" ${{ github.ref }}
-      - run: curl -s -u"${{ secrets.BAAS_BB_ARTIFACTORY_NPM_USERNAME }}:${{ secrets.BAAS_BB_ARTIFACTORY_NPM_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc
+          echo "secrets:" ${{ secrets.BB_USERNAME }}
+      - run: curl -s -u"${{ secrets.BB_USERNAME }}:${{ secrets.BB_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc
       - run: npm ci
       - run: npm run format:check
-      - run: npm run affected:build
-      - run: bpm run affected:lint
-      - run: npm run affected:test
+      - run: npx nx affected --target=lint --parallel=2
+      - run: npx nx affected --target=test --parallel=2
+      - run: npm run xi18n
+      - run: npx nx affected --target=build --parallel=3
