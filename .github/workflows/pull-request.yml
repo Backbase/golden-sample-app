@@ -35,7 +35,7 @@ jobs:
           echo "github.base_ref:" ${{ github.base_ref }}
           echo "github.head_ref:" ${{ github.head_ref }}
           echo "github.ref:" ${{ github.ref }}
-          echo "secrets:" ${{ secrets.MAVEN_USERNAME }}
+          echo "secrets:" ${{ secrets.GITHUB_TOKEN }}
       - run: npm ci
       - run: npm run format:check
       - run: npx nx affected --target=lint --parallel=2
@@ -45,3 +45,4 @@ jobs:
         env:
           username: ${{ secrets.MAVEN_USERNAME }}
           password: ${{ secrets.MAVEN_PASSWORD }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
