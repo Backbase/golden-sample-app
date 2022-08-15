@@ -29,15 +29,19 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          registry-url: 'https://repo.backbase.com/api/npm/npm-backbase/'
+          scope: '@backbase'
       - run: |
           echo "github.base_ref:" ${{ github.base_ref }}
           echo "github.head_ref:" ${{ github.head_ref }}
           echo "github.ref:" ${{ github.ref }}
           echo "secrets:" ${{ secrets.MAVEN_USERNAME }}
-      - run: curl -s -u"${{ secrets.MAVEN_USERNAME }}:${{ secrets.MAVEN_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc
       - run: npm ci
       - run: npm run format:check
       - run: npx nx affected --target=lint --parallel=2
       - run: npx nx affected --target=test --parallel=2
       - run: npm run xi18n
       - run: npx nx affected --target=build --parallel=3
+        env:
+          username: ${{ secrets.MAVEN_USERNAME }}
+          password: ${{ secrets.MAVEN_PASSWORD }}
