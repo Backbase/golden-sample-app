@@ -1,10 +1,12 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: Pull Request Prerequisite Checks
 
 on:
   pull_request:
+    branches:
+      - main
   
 jobs:
   build:
@@ -13,28 +15,35 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
+
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
         with:
           main-branch-name: ${{ github.base_ref }}
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node with version ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: curl -s -u"${{ secrets.MAVEN_USERNAME }}:${{ secrets.MAVEN_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc
-      - run: npm ci
-        env:  
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: npm run format:check
-      - run: npx nx affected --target=lint --parallel=2
-      - run: npx nx affected --target=test --parallel=2
-      - run: npm run xi18n
-      - run: npx nx affected --target=build --parallel=3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build app
+        run: npm run affected:build
+
+      - name: Check Formatting
+        run: npm run format:check  
+
+      - name: Unit test
+        run: npm run affected:test
+
+      - name: Check Linting
+        run: npm run affected:lint 
