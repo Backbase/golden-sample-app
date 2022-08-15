@@ -28,17 +28,8 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          always-auth: true
           node-version: ${{ matrix.node-version }}
-          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase'
-          scope: '@backbase'
-        env:
-            NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: |
-          echo "github.base_ref:" ${{ github.base_ref }}
-          echo "github.head_ref:" ${{ github.head_ref }}
-          echo "github.ref:" ${{ github.ref }}
-          echo "secrets:" ${{ secrets.NPM_TOKEN }}
+      - run: curl -s -u"${{ secrets.MAVEN_USERNAME }}:${{ secrets.MAVEN_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc
       - run: npm ci
         env:  
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
