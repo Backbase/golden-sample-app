@@ -30,8 +30,10 @@ jobs:
         with:
           always-auth: true
           node-version: ${{ matrix.node-version }}
-          registry-url: 'https://repo.backbase.com/api/npm/npm-backbase/auth/backbase'
+          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
           scope: '@backbase'
+          username: ${{ secrets.MAVEN_USERNAME }}
+          password: ${{ secrets.MAVEN_PASSWORD }}
       - run: |
           echo "github.base_ref:" ${{ github.base_ref }}
           echo "github.head_ref:" ${{ github.head_ref }}
@@ -43,6 +45,3 @@ jobs:
       - run: npx nx affected --target=test --parallel=2
       - run: npm run xi18n
       - run: npx nx affected --target=build --parallel=3
-        env:
-          username: ${{ secrets.MAVEN_USERNAME }}
-          password: ${{ secrets.MAVEN_PASSWORD }}
