@@ -32,8 +32,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase'
           scope: '@backbase'
-          username: ${{ secrets.MAVEN_USERNAME }}
-          password: ${{ secrets.MAVEN_PASSWORD }}
         env:
             NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
