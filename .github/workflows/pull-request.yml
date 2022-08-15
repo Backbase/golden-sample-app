@@ -26,13 +26,12 @@ jobs:
           main-branch-name: ${{ github.base_ref }}
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           always-auth: true
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase'
           scope: '@backbase'
-          auth-token: ${{secrets.GITHUB_TOKEN}}
         env:
             NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
@@ -41,6 +40,8 @@ jobs:
           echo "github.ref:" ${{ github.ref }}
           echo "secrets:" ${{ secrets.NPM_TOKEN }}
       - run: npm ci
+        env:  
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run format:check
       - run: npx nx affected --target=lint --parallel=2
       - run: npx nx affected --target=test --parallel=2
