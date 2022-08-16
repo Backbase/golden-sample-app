@@ -18,6 +18,5 @@ export class AchPositivePayJourneyComponent {
     this.router.navigate([{ outlets: { modal: 'new' } }], {
       relativeTo: this.route,
     });
-    console.log("Hello");
   }
 }
