@@ -47,3 +47,9 @@ jobs:
 
       - name: Check Linting
         run: npm run affected:lint 
+      
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+        
+      - name: Run Playwright tests
+        run: npm run test:e2e
