@@ -52,4 +52,4 @@ jobs:
         run: npx playwright install --with-deps
         
       - name: Run Playwright tests
-        run: npm run test:e2e
+        run: npm run e2e
