@@ -28,13 +28,11 @@ jobs:
           main-branch-name: ${{ github.base_ref }}
 
       - name: Setup Node with version ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: ./.github/actions/setup-node
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: curl -s -u"${{ secrets.MAVEN_USERNAME }}:${{ secrets.MAVEN_PASSWORD }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase > .npmrc
-
-      - name: Install dependencies
-        run: npm ci
+          npmUsername: ${{ secrets.MAVEN_USERNAME }}
+          npmPassword: ${{ secrets.MAVEN_PASSWORD }}
+          nodeVersion: ${{ matrix.node-version }}
 
       - name: Build app
         run: npm run affected:build

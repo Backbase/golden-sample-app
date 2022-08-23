@@ -1,0 +1,67 @@
+name: "Setup Node Environment"
+##
+#
+# Set up node environment and install NPM dependencies.
+# Node modules and Angular cache are cached, and installation is skipped if retrieved.
+#
+##
+inputs:
+  npmUsername:
+    description: "Username for authentication in NPM registry"
+    required: true
+  npmPassword:
+    description: "Password for authentication in NPM registry"
+    required: true
+  nodeVersion:
+    description: "node version"
+    required: true
+runs:
+  using: "composite"  
+  steps:
+    ##
+    #
+    # Creates a cache of project's node_module and Angular's cache.
+    # This cache will always be fetched while nothing changes in the lock file.
+    #
+    ##
+    - name: Cache node modules
+      id: cache
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: |
+          ./node_modules
+          ./node_modules/.cache
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - name: Use Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ inputs.nodeVersion }}
+
+    ##
+    #
+    # Authenticate and generate .npmrc to install dependencies from NPM registry
+    # Condition: only executed if cache not restored
+    #
+    ##
+    - name: Setup NPM
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: curl -s -u"${{ inputs.npmUserName }}:${{ inputs.npmPassword }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase >> .npmrc
+      shell: bash
+
+    ##
+    #
+    # Install NPM dependencies
+    # Condition: only executed if cache not restored
+    #
+    ##
+    - name: Install Dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: npm ci
+      shell: bash
