@@ -26,13 +26,13 @@ jobs:
       - name: Setup Node with version 16
         uses: actions/setup-node@v3
         with:
+          always-auth: true
           node-version: '16.x'
           registry-url: 'https://repo.backbase.com/api/npm/npm-backbase/'
-          scope: '@backbase'
-          always-auth: true
+          scope: '@backbase'      
           
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         
