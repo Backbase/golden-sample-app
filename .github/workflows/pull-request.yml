@@ -27,8 +27,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
-          registry-url: 'https://repo.backbase.com/api/npm/npm-backbase/',
+          registry-url: 'https://repo.backbase.com/api/npm/npm-backbase/'
           scope: '@backbase'
+          auth-token: true
           
       - name: Install dependencies
         run: npm ci
