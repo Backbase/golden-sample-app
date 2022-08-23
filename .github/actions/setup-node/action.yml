@@ -12,9 +12,6 @@ inputs:
   npmPassword:
     description: "Password for authentication in NPM registry"
     required: true
-  nodeVersion:
-    description: "node version"
-    required: true
 runs:
   using: "composite"  
   steps:
@@ -40,9 +37,9 @@ runs:
           ${{ runner.os }}-
 
     - name: Use Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
-        node-version: ${{ inputs.nodeVersion }}
+        node-version: 16
 
     ##
     #

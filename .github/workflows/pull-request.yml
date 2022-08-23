@@ -11,11 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-
+    
     steps:
       - uses: actions/checkout@v3
         with:
@@ -32,7 +28,6 @@ jobs:
         with:
           npmUsername: ${{ secrets.MAVEN_USERNAME }}
           npmPassword: ${{ secrets.MAVEN_PASSWORD }}
-          nodeVersion: ${{ matrix.node-version }}
 
       - name: Build app
         run: npm run affected:build
