@@ -15,9 +15,7 @@
     "e2e": "npx playwright test",
     "lint": "nx run-many --all --target=lint",
     "format": "prettier --write \"{apps,libs}/**/*.{ts,md,html}\" \"!{apps,libs}/**/coverage\" ",
-    "format:check": "prettier --list-different \"{apps,libs}/**/*.{ts,md}\" \"!{apps,libs}/**/coverage\"",
-    "check-update": "ng update && ncu -u",
-    "analyze": "sh ./scripts/analyze-bundle.sh"
+    "format:check": "prettier --list-different \"{apps,libs}/**/*.{ts,md}\" \"!{apps,libs}/**/coverage\""
   },
   "private": true,
   "dependencies": {
