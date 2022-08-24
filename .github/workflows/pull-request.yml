@@ -24,7 +24,7 @@ jobs:
           main-branch-name: ${{ github.base_ref }}
 
       - name: Setup Node with version 16
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           always-auth: true
           node-version: '16.x'
@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts
         env:
-          authToken: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         
       - name: Build app
         run: npm run affected:build
