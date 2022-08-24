@@ -1,0 +1,25 @@
+name: E2E Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  playwright:
+    name: 'Playwright Tests'
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.25.0-focal
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Setup Node with version 16
+        uses: ./.github/actions/setup-node
+        with:
+          npmUsername: ${{ secrets.MAVEN_USERNAME }}
+          npmPassword: ${{ secrets.MAVEN_PASSWORD }}
+
+      - name: Run Playwright tests
+        run: npm run e2e
