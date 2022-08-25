@@ -15,31 +15,12 @@ inputs:
 runs:
   using: "composite"  
   steps:
-    ##
-    #
-    # Creates a cache of project's node_module and Angular's cache.
-    # This cache will always be fetched while nothing changes in the lock file.
-    #
-    ##
-    - name: Cache node modules
-      id: cache
-      uses: actions/cache@v3
-      env:
-        cache-name: cache-node-modules
-      with:
-        path: |
-          ./node_modules
-          ./node_modules/.cache
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
 
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
         node-version: 16
+        cache: 'npm'
 
     ##
     #
@@ -63,8 +44,4 @@ runs:
       run: npm ci
       shell: bash
     
-    - name: Remove .npmrc file
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: rm ./.npmrc
-      shell: bash
       
