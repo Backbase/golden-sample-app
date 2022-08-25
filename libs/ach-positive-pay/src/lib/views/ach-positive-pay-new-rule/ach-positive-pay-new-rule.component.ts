@@ -53,6 +53,7 @@ export class AchPositivePayNewRuleComponent implements OnInit {
   }
 
   onSelectAccountId(account: ProductSummaryItem) {
+    console.log(account);
     this.achRuleForm.get('arrangement')?.setValue(account);
   }
 
