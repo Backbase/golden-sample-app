@@ -1,0 +1,41 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Pull Request Prerequisite Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: ${{ github.base_ref }}
+
+      - name: Setup Node with version 16
+        uses: ./.github/actions/setup-node
+        with:
+          npmUsername: ${{ secrets.MAVEN_USERNAME }}
+          npmPassword: ${{ secrets.MAVEN_PASSWORD }}      
+        
+      - name: Build app
+        run: npm run affected:build
+
+      - name: Check Formatting
+        run: npm run format:check  
+
+      - name: Unit test
+        run: npm run affected:test
+
+      - name: Check Linting
+        run: npm run affected:lint
