@@ -27,8 +27,5 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Install Playwright
-        run: npx playwright install --with-deps
-
       - name: Run Playwright tests
         run: npm run e2e
