@@ -1,0 +1,4 @@
+{
+  "tags": ["type:app"],
+  "implicitDependencies": ["golden-sample-app"]
+}

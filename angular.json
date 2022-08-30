@@ -232,12 +232,6 @@
       }
     }
   },
-  "cli": {
-    "analytics": false,
-    "defaultCollection": "@nrwl/angular",
-    "packageManager": "npm"
-  },
-  "defaultProject": "golden-sample-app",
   "schematics": {
     "@nrwl/angular:application": {
       "style": "scss",

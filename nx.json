@@ -26,24 +26,6 @@
       }
     }
   },
-  "projects": {
-    "ach-positive-pay": {
-      "tags": ["scope:shared"]
-    },
-    "golden-sample-app": {
-      "tags": ["type:app"]
-    },
-    "golden-sample-app-e2e": {
-      "tags": ["type:app"],
-      "implicitDependencies": ["golden-sample-app"]
-    },
-    "transactions": {
-      "tags": ["scope:shared"]
-    },
-    "transfer": {
-      "tags": ["scope:shared"]
-    }
-  },
   "targetDependencies": {
     "build": [
       {
