@@ -12,17 +12,20 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.25.0-focal
 
     steps:
-      - name: Check out code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Setup Node with version 16
-        uses: ./.github/actions/setup-node
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          npmUsername: ${{ secrets.MAVEN_USERNAME }}
-          npmPassword: ${{ secrets.MAVEN_PASSWORD }}
-          
-      - name: Install Playwright
-        run: npx playwright install --with-deps
-        
+          node-version: 16
+          cache: 'npm'
+          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
+          scope: '@backbase'
+
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Run Playwright tests
         run: npm run e2e
