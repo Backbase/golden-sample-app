@@ -1,0 +1,47 @@
+name: "Setup Node Environment"
+##
+#
+# Set up node environment and install NPM dependencies.
+# Node modules and Angular cache are cached, and installation is skipped if retrieved.
+#
+##
+inputs:
+  npmUsername:
+    description: "Username for authentication in NPM registry"
+    required: true
+  npmPassword:
+    description: "Password for authentication in NPM registry"
+    required: true
+runs:
+  using: "composite"  
+  steps:
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        cache: 'npm'
+
+    ##
+    #
+    # Authenticate and generate .npmrc to install dependencies from NPM registry
+    # Condition: only executed if cache not restored
+    #
+    ##
+    - name: Setup NPM
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: curl -s -u"${{ inputs.npmUserName }}:${{ inputs.npmPassword }}" https://repo.backbase.com/api/npm/npm-backbase/auth/backbase >> .npmrc
+      shell: bash
+
+    ##
+    #
+    # Install NPM dependencies
+    # Condition: only executed if cache not restored
+    #
+    ##
+    - name: Install Dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: npm ci
+      shell: bash
+    
+      
