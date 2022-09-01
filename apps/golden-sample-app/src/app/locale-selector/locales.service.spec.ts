@@ -17,6 +17,6 @@ describe('LocalesService', () => {
 
   it('should set locale cooke', () => {
     service.setLocaleCookie('en');
-    expect(mockDocument.cookie).toEqual('bb-locale=en;');
+    expect(mockDocument.cookie).toEqual('bb-locale=en;Path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT;secure;samesite=Lax;');
   });
 });
