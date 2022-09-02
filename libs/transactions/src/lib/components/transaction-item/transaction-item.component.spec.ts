@@ -13,8 +13,8 @@ import {
   debitMockTransaction,
 } from '../../mocks/transactions-mocks';
 import { TransactionItemComponent } from './transaction-item.component';
-import { AdditionalDetailsContext } from '../../directives/transaction-additional-details.directive';
-import { ExtensionTemplatesService } from '../../services/extension-templates.service';
+import { TransactionAdditionalDetailsContext, TRANSACTION_EXTENSIONS_CONFIG } from '../../extensions';
+import { TransactionsJourneyConfiguration } from '../../services/transactions-journey-config.service';
 
 @Component({
   selector: 'bb-transaction-item-test-component',
@@ -32,10 +32,11 @@ describe('TransactionItemComponent', () => {
 
   let templateFixture: ComponentFixture<TestComponent>;
 
-  const mockConfig: Partial<TransactionsJourneyConfiguration> = {
-    additionalDetailsTpl: undefined,
+  const mockConfig: {additions: TemplateRef<TransactionAdditionalDetailsContext> | undefined} = {
+    additions : undefined,
   };
 
+  const mockInjectionToken = { transactionItemAdditionalDetails: undefined };
   const ADDITIONAL_DETAILS_TEXT = 'my-addition-details-template';
 
   @Component({
@@ -47,12 +48,12 @@ describe('TransactionItemComponent', () => {
   })
   class TestComponent {
     @ViewChildren(TemplateRef) templates?: QueryList<
-      TemplateRef<AdditionalDetailsContext>
+      TemplateRef<TransactionAdditionalDetailsContext>
     >;
   }
 
   beforeEach(async () => {
-    mockTemplateService.additionalDetailsTemplate = undefined;
+    // mockTemplateService.additionalDetailsTemplate = undefined;
 
     await TestBed.configureTestingModule({
       declarations: [
@@ -63,6 +64,7 @@ describe('TransactionItemComponent', () => {
       imports: [AmountModule],
       providers: [
         { provide: TransactionsJourneyConfiguration, useValue: mockConfig },
+        { provide: TRANSACTION_EXTENSIONS_CONFIG, useValue: mockInjectionToken }
       ],
     }).compileComponents();
 
@@ -90,14 +92,14 @@ describe('TransactionItemComponent', () => {
       expect(positiveColorIndicatorEl).not.toBeNull();
     });
 
-    it('should render template for additional data if found in config service', () => {
+    xit('should render template for additional data if found in config service', () => {
       expect(fixture.nativeElement.innerHTML).not.toContain(
         ADDITIONAL_DETAILS_TEXT
       );
 
       templateFixture = TestBed.createComponent(TestComponent);
       templateFixture.detectChanges();
-      mockConfig.additionalDetailsTpl =
+      mockConfig.additions =
         templateFixture.componentInstance.templates?.get(0);
 
       fixture = TestBed.createComponent(TestTransactionItemComponent);
