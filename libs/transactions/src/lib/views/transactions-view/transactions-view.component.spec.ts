@@ -98,7 +98,7 @@ describe('TransactionsViewComponent', () => {
   };
 
   describe('transaction', () => {
-    let snapshot = {
+    const snapshot = {
       data: {
         title: 'someTitle',
       },

@@ -11,7 +11,7 @@ export const transactionsMock = [
     },
     merchant: {
       name: 'Backbase',
-      id: 64397745065188826,
+      id: 64397,
     },
   },
   {
@@ -24,7 +24,7 @@ export const transactionsMock = [
     },
     merchant: {
       name: 'The Tea Lounge',
-      id: 64397745065188826,
+      id: 64397,
     },
   },
   {
@@ -37,7 +37,7 @@ export const transactionsMock = [
     },
     merchant: {
       name: 'Texaco',
-      id: 64397745065188826,
+      id: 64397,
     },
   },
 ] as TransactionItem[];
@@ -52,7 +52,7 @@ export const debitMockTransaction = {
   },
   merchant: {
     name: 'Southern Electric Company',
-    id: 64397745065188826,
+    id: 64397,
   },
 } as unknown as TransactionItem;
 
@@ -66,6 +66,6 @@ export const creditMockTransaction = {
   },
   merchant: {
     name: 'Southern Electric Company',
-    id: 64397745065188826,
+    id: 64397,
   },
 } as unknown as TransactionItem;
