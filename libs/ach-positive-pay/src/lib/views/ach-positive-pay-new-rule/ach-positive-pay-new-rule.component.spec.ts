@@ -68,7 +68,11 @@ describe('AchPositivePayNewRuleComponent', () => {
 
   describe('onSelectAccountId', () => {
     it('should arrangement to new account', () => {
-      const mockAccount : ProductSummaryItem = { id: 'id', legalEntityIds: ['ids'], debitCards: [{unmaskableAttributes: ["BBAN"]}] };
+      const mockAccount: ProductSummaryItem = {
+        id: 'id',
+        legalEntityIds: ['ids'],
+        debitCards: [{ unmaskableAttributes: ['BBAN'] }],
+      };
       mockFormBuilder = new FormBuilder();
       createComponent();
       component.ngOnInit();

@@ -13,7 +13,10 @@ import {
   debitMockTransaction,
 } from '../../mocks/transactions-mocks';
 import { TransactionItemComponent } from './transaction-item.component';
-import { TransactionAdditionalDetailsContext, TRANSACTION_EXTENSIONS_CONFIG } from '../../extensions';
+import {
+  TransactionAdditionalDetailsContext,
+  TRANSACTION_EXTENSIONS_CONFIG,
+} from '../../extensions';
 import { TransactionsJourneyConfiguration } from '../../services/transactions-journey-config.service';
 
 @Component({
@@ -32,8 +35,10 @@ describe('TransactionItemComponent', () => {
 
   let templateFixture: ComponentFixture<TestComponent>;
 
-  const mockConfig: {additions: TemplateRef<TransactionAdditionalDetailsContext> | undefined} = {
-    additions : undefined,
+  const mockConfig: {
+    additions: TemplateRef<TransactionAdditionalDetailsContext> | undefined;
+  } = {
+    additions: undefined,
   };
 
   const mockInjectionToken = { transactionItemAdditionalDetails: undefined };
@@ -64,7 +69,10 @@ describe('TransactionItemComponent', () => {
       imports: [AmountModule],
       providers: [
         { provide: TransactionsJourneyConfiguration, useValue: mockConfig },
-        { provide: TRANSACTION_EXTENSIONS_CONFIG, useValue: mockInjectionToken }
+        {
+          provide: TRANSACTION_EXTENSIONS_CONFIG,
+          useValue: mockInjectionToken,
+        },
       ],
     }).compileComponents();
 
