@@ -18,7 +18,7 @@ describe('MakeTransferSymmaryViewComponent', () => {
     | undefined = {
     makeTransfer: jest.fn(),
   };
-  let transferMock = {
+  const transferMock = {
     fromAccount: 'somAccount',
     toAccount: 'somAccount',
     amount: 12,

@@ -8,7 +8,9 @@ describe('MakeTransferPermissionsService', () => {
       resolveEntitlements: jest.fn(() => Promise.resolve(true)),
     };
   beforeEach(() => {
-    service = new MakeTransferPermissionsService(mockConditionsService);
+    service = new MakeTransferPermissionsService(
+      <ConditionsService>mockConditionsService
+    );
   });
 
   it('should evaluate a permission in the entitlements resolver', (done) => {
