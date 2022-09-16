@@ -19,6 +19,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'error-page',
+    loadChildren: () =>
+      import('./error-page/error-page.module').then((m) => m.ErrorPageModule),
+  },
+  {
     path: 'transfer',
     loadChildren: () =>
       import('./transfer/transfer-journey-bundle.module').then(

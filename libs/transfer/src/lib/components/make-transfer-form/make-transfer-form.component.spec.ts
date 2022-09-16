@@ -23,7 +23,6 @@ describe('MakeTransferFormComponent', () => {
   });
   beforeEach(() => {
     component = new MakeTransferFormComponent(formBuilder, route);
-    
   });
 
   it('should create', () => {
