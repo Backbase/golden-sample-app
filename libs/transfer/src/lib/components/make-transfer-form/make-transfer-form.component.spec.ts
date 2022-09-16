@@ -43,7 +43,6 @@ describe('MakeTransferFormComponent', () => {
     it('shoud mark all as touched', () => {
       component.ngOnInit();
       const errors = component.getError('amount', 'required');
-      console.log(component.accountName);
       expect(errors).toBe(true);
     });
   });
