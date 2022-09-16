@@ -35,3 +35,19 @@
   >
   </bb-amount-ui>
 </span>
+<span>
+  <button
+    bbButton
+    [color]="'primary'"
+    [buttonSize]="'sm'"
+    [routerLink]="[
+      '/transfer/make-transfer',
+      {
+        amount: transaction.transactionAmountCurrency.amount,
+        accountName: transaction.merchant?.name || transaction.counterPartyName
+      }
+    ]"
+  >
+    <bb-icon-ui [name]="'redo'" [size]="'xs'"></bb-icon-ui>
+  </button>
+</span>

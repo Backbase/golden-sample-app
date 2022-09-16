@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { TRANSLATIONS } from '../../constants/dynamic-translations';
 import { Account, Transfer } from '../../model/Account';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'bb-make-transfer-form',
@@ -19,7 +20,8 @@ export class MakeTransferFormComponent implements OnInit {
 
   @Output() submitTransfer = new EventEmitter<Transfer | undefined>();
   makeTransferForm!: FormGroup;
-
+  accountName: null | string = '';
+  transferAmount: null | string = '';
   private getControl(field: string): AbstractControl | undefined {
     return this.makeTransferForm.controls[field];
   }
@@ -65,9 +67,14 @@ export class MakeTransferFormComponent implements OnInit {
     return !!control && control.touched && control.invalid;
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      this.accountName = params.get('accountName');
+      this.transferAmount = params.get('amount');
+    });
+
     this.makeTransferForm = this.fb.group({
       fromAccount: [
         {
@@ -77,9 +84,9 @@ export class MakeTransferFormComponent implements OnInit {
           disabled: true,
         },
       ],
-      toAccount: ['', Validators.required],
+      toAccount: [this.accountName, Validators.required],
       amount: [
-        '',
+        this.transferAmount ? { amount: this.transferAmount } : '',
         [
           Validators.required,
           this.validateAmount(this.account?.amount || 0, TRANSLATIONS.maxError),

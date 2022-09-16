@@ -2,9 +2,13 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { provideRoutes, Route, RouterModule } from '@angular/router';
+
 import { AmountModule } from '@backbase/ui-ang/amount';
 import { InputTextModule } from '@backbase/ui-ang/input-text';
 import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
+import { ButtonModule } from '@backbase/ui-ang/button';
+import { IconModule } from '@backbase/ui-ang/icon';
+
 import { TextFilterComponent } from './components/text-filter/text-filter.component';
 import {
   TransactionItemComponent,
@@ -53,6 +57,8 @@ export interface TransactionsJourneyModuleConfig {
     AmountModule,
     InputTextModule,
     LoadingIndicatorModule,
+    ButtonModule,
+    IconModule,
   ],
   providers: [
     TransactionsHttpService,
