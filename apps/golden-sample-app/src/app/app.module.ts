@@ -30,6 +30,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { authConfig, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthEventsHandlerService } from './auth/auth-events-handler.service';
 import { AuthGuard } from './guards/auth.guard';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 
@@ -72,9 +73,10 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [OAuthService, CookieService],
+      deps: [OAuthService, CookieService, AuthEventsHandlerService],
       useFactory:
-        (oAuthService: OAuthService, cookieService: CookieService) => () => {
+        (oAuthService: OAuthService, cookieService: CookieService) =>
+        async () => {
           // Remove this if auth cookie is not needed for the app
           oAuthService.events.subscribe(({ type }) => {
             if (type === 'token_received' || type === 'token_refreshed') {
@@ -86,9 +88,7 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
             }
           });
 
-          return oAuthService
-            .loadDiscoveryDocumentAndTryLogin()
-            .then(() => oAuthService.setupAutomaticSilentRefresh());
+          await oAuthService.loadDiscoveryDocumentAndTryLogin();
         },
     },
     {
