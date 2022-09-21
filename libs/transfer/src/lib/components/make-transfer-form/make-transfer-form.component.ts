@@ -70,10 +70,8 @@ export class MakeTransferFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    
     this.accountName = this.route.snapshot.params['accountName'];
     this.transferAmount = this.route.snapshot.params['amount'];
-
     this.makeTransferForm = this.fb.group({
       fromAccount: [
         {

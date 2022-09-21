@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MakeTransferJourneyState } from './state/make-transfer-journey-state.service';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'bb-transfer-journey',
@@ -8,8 +8,6 @@ import { ActivatedRoute } from "@angular/router";
   providers: [MakeTransferJourneyState],
 })
 export class TransferJourneyComponent {
-
-  public counterPartyName = this.route.snapshot.params['counterPartyName']
-  constructor(private route: ActivatedRoute) {     
-  }
+  public counterPartyName = this.route.snapshot.params['counterPartyName'];
+  constructor(private route: ActivatedRoute) {}
 }

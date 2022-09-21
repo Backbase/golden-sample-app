@@ -85,7 +85,7 @@ const defaultRoute: Route = {
     InputValidationMessageModule,
     ReactiveFormsModule,
     LoadingIndicatorModule,
-    AlertModule
+    AlertModule,
   ],
   providers: [
     MakeTransferJourneyStoreGuard,
