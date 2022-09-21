@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
   HttpResponse,
 } from '@angular/common/http';
-import { Observable, throwError, timer } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, timer } from 'rxjs';
+import {  map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -33,14 +32,6 @@ export class AchPositivePayInterceptor implements HttpInterceptor {
       );
     }
 
-    return next.handle(req).pipe(
-      catchError((err: HttpErrorResponse) => {
-        const status = err.status.toString();
-        if (status === '403' || status === '401') {
-          this.router.navigateByUrl('/error-page');
-        }
-        return throwError(() => new Error(err.message));
-      })
-    );
+    return next.handle(req);
   }
 }

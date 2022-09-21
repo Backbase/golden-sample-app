@@ -1,3 +1,12 @@
+<div class="row" *ngIf="counterPartyName">
+  <bb-alert-ui
+    title="Transfer Alert"
+    modifier="info"
+    [dismissible]="true"
+    [message]="'Making Repeated Transfer for '+ counterPartyName"
+    data-role="alert-multiple-lines"
+  ></bb-alert-ui>
+</div>
 <div class="row">
   <div class="bb-card col-md-6">
     <div class="bb-card__body">

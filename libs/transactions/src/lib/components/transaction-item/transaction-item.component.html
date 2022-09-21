@@ -43,6 +43,10 @@
     [routerLink]="[
       '/transfer',
       {
+        counterPartyName: transaction.counterPartyName
+      },
+      'make-transfer',
+      {
         amount: transaction.transactionAmountCurrency.amount,
         accountName: transaction.merchant?.name || transaction.counterPartyName
       }

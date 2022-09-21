@@ -15,6 +15,7 @@ import { MakeTransferAccountHttpService } from './services/make-transfer-account
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { CurrencyInputModule } from '@backbase/ui-ang/currency-input';
 import { AccountSelectorModule } from '@backbase/ui-ang/account-selector';
+import { AlertModule } from '@backbase/ui-ang/alert';
 import { InputValidationMessageModule } from '@backbase/ui-ang/input-validation-message';
 import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
 import { MakeTransferRouteTitleResolverService } from './services/make-transfer-route-title-resolver.service';
@@ -84,6 +85,7 @@ const defaultRoute: Route = {
     InputValidationMessageModule,
     ReactiveFormsModule,
     LoadingIndicatorModule,
+    AlertModule
   ],
   providers: [
     MakeTransferJourneyStoreGuard,
