@@ -5,17 +5,24 @@ import { TransactionItem } from '@backbase/data-ang/transactions';
   name: 'filterTransactions',
 })
 export class FilterTransactionsPipe implements PipeTransform {
-  transform(value: TransactionItem[], text: string): TransactionItem[] {
-    if (!text) {
-      return value;
+  transform(
+    value: TransactionItem[],
+    text: string,
+    accountId?: string | null
+  ): TransactionItem[] {
+    if (text) {
+      const lowerCaseText = text.toLocaleLowerCase();
+      return value.filter(
+        ({ merchant, type }: TransactionItem) =>
+          merchant?.name.toLocaleLowerCase().includes(lowerCaseText) ||
+          type.toLocaleLowerCase().includes(lowerCaseText)
+      );
     }
 
-    const lowerCaseText = text.toLocaleLowerCase();
+    if (accountId) {
+      return value.filter((item) => item.arrangementId === accountId);
+    }
 
-    return value.filter(
-      ({ merchant, type }: TransactionItem) =>
-        merchant?.name.toLocaleLowerCase().includes(lowerCaseText) ||
-        type.toLocaleLowerCase().includes(lowerCaseText)
-    );
+    return value;
   }
 }

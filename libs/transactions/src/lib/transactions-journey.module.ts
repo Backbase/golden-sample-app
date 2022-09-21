@@ -17,21 +17,28 @@ import { TransactionsJourneyConfiguration } from './services/transactions-journe
 import { TransactionsRouteTitleResolverService } from './services/transactions-route-title-resolver.service';
 import { TransactionsHttpService } from './services/transactions.http.service';
 import { TransactionsViewComponent } from './views/transactions-view/transactions-view.component';
+import { TransactionDetailsComponent } from './views/transaction-details/transaction-details.component';
 import {
   TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
 } from './extensions';
 
-const defaultRoute: Route = {
-  path: '',
-  component: TransactionsViewComponent,
-  data: {
-    title: TRANSLATIONS.transactionsTitle,
+const defaultRoute: Route[] = [
+  {
+    path: '',
+    component: TransactionsViewComponent,
+    data: {
+      title: TRANSLATIONS.transactionsTitle,
+    },
+    resolve: {
+      title: TransactionsRouteTitleResolverService,
+    },
   },
-  resolve: {
-    title: TransactionsRouteTitleResolverService,
+  {
+    path: 'transaction-details/:id',
+    component: TransactionDetailsComponent,
   },
-};
+];
 
 export interface TransactionsJourneyModuleConfig {
   route?: Route;
@@ -45,6 +52,7 @@ export interface TransactionsJourneyModuleConfig {
     TextFilterComponent,
     FilterTransactionsPipe,
     TransactionItemAdditionalDetailsDirective,
+    TransactionDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -60,6 +68,7 @@ export interface TransactionsJourneyModuleConfig {
     ArrangementsService,
     TransactionsRouteTitleResolverService,
   ],
+  exports: [TransactionDetailsComponent],
 })
 export class TransactionsJourneyModule {
   static forRoot({
@@ -69,7 +78,7 @@ export class TransactionsJourneyModule {
     return {
       ngModule: TransactionsJourneyModule,
       providers: [
-        provideRoutes([route || defaultRoute]),
+        provideRoutes([...(defaultRoute || route)]),
         {
           provide: TRANSACTION_EXTENSIONS_CONFIG,
           useValue: extensionSlots || {},

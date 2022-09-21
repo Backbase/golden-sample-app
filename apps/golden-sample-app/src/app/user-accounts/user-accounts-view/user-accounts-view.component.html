@@ -5,9 +5,22 @@
   </h1>
 
   <ul>
-    <li *ngFor="let account of arrangments" data-role="arrangmenet-container">
+    <li
+      *ngFor="let account of arrangments"
+      class="bb-block--sm"
+      data-role="arrangmenet-container"
+    >
       {{ account.displayName }} - {{ account.availableBalance }}
       {{ account.currency }}
+      <button
+        bbButton
+        [color]="'link'"
+        [buttonSize]="'sm'"
+        [routerLink]="['/transactions']"
+        [queryParams]="{ id: account.id }"
+      >
+        View Transactions for this account
+      </button>
     </li>
   </ul>
 </div>
