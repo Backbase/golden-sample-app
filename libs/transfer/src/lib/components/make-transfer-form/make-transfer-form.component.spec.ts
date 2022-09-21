@@ -14,7 +14,7 @@ describe('MakeTransferFormComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: FormBuilder, useValue: formBuilder },
-        { provide: ActivatedRoute, useValue: { snapshot: {params: {}} } },
+        { provide: ActivatedRoute, useValue: { snapshot: { params: {} } } },
       ],
     }).compileComponents();
     route = TestBed.inject(ActivatedRoute);
