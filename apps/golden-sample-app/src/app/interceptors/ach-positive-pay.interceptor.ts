@@ -35,7 +35,8 @@ export class AchPositivePayInterceptor implements HttpInterceptor {
 
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
-        if (err.status.toString().startsWith('4')) {
+        const status = err.status.toString();
+        if (status === '403' || status === '401') {
           this.router.navigateByUrl('/error-page');
         }
         return throwError(() => new Error(err.message));
