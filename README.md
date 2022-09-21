@@ -76,6 +76,12 @@ Do not copy-paste anything related to the authentication to your banking applica
 Check the example code in the [`app.module.ts`](https://github.com/Backbase/golden-sample-app/blob/main/apps/golden-sample-app/src/app/app.module.ts#L46), the related `AuthConfig` in the[`environment.ts`](https://github.com/Backbase/golden-sample-app/blob/main/apps/golden-sample-app/src/environments/environment.ts#L44) files, and the `APP_INITIALIZER` provider logic.
 Secure routes with `AuthGuard`s. We rely on <https://github.com/manfredsteyer/angular-oauth2-oidc>, check their documentation for more details.
 
+We've provided the `AuthEventsHandlerService` via the `APP_INITIALIZER` which will handle auth events from the above 3rd party library. This service is an example implementation of how we expect applications to handle auth events. It includes the following default settings:
+
+- The access token will be refreshed when it expires automatically.
+- When token refresh, code exchange, or session errors occur the user is automatically logged out.
+- A login using an invalid state parameter will be returned to the Auth server. This will likely result in a return to the application, however, in they will now have passed a valid state parameter.
+
 ## Generate an application
 
 Run `ng g @nrwl/angular:app my-app` to generate an application.
