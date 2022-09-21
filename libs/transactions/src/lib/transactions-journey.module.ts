@@ -67,9 +67,7 @@ export interface TransactionsJourneyModuleConfig {
     TransactionsJourneyConfiguration,
     ArrangementsService,
     TransactionsRouteTitleResolverService,
-  ],
-  exports: [TransactionDetailsComponent],
-})
+  ]})
 export class TransactionsJourneyModule {
   static forRoot({
     route,
