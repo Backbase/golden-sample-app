@@ -1,19 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Resolve, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { TransactionItem } from '@backbase/data-ang/transactions';
-import { Observable, of } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { TransactionsHttpService } from './transactions.http.service';
 
 @Injectable()
 export class TransactionsDetailsRouteResolverService
   implements Resolve<TransactionItem | null>
 {
-  resolve(): Observable<TransactionItem> | Observable<null> {
+  resolve(route: ActivatedRouteSnapshot): Observable<TransactionItem | null> | TransactionItem {
     const transactionData = this.router.getCurrentNavigation()?.extras
       ?.state as TransactionItem;
-    if (!transactionData) {
-      /* TODO: Instead of returning null, fetch the data from the API and pass it to the component  */
-      return of(null);
-    } else return of(transactionData);
+
+    if (transactionData) {
+      return transactionData;
+    }
+
+    return this.api.transactions$.pipe(
+      map((transactions) => transactions?.find((t) => t.id === route.params['id']) ?? null)
+    );
   }
-  constructor(private router: Router) {}
+
+  constructor(private router: Router, private api: TransactionsHttpService) { }
 }

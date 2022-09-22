@@ -5,7 +5,7 @@ import {
   TransactionItem,
 } from '@backbase/data-ang/transactions';
 import { combineLatest, Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { shareReplay, switchMap } from 'rxjs/operators';
 import { ArrangementsService } from './arrangements.service';
 import { TransactionsJourneyConfiguration } from './transactions-journey-config.service';
 
@@ -30,7 +30,8 @@ export class TransactionsHttpService {
           } as GetTransactionsWithPostRequestParams,
           'body'
         )
-      )
+      ),
+      shareReplay(),
     );
 
   constructor(
