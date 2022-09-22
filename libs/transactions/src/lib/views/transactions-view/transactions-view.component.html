@@ -5,22 +5,25 @@
         {{ title }}
       </h1>
       <div class="bb-block bb-block--md">
-        <bb-text-filter (textChange)="filter = $event || ''"></bb-text-filter>
+        <bb-text-filter (textChange)="search($event)"></bb-text-filter>
+      </div>
+      <div class="bb-block bb-block--md" *ngIf="(bankAlias$ | async)?.['bankAlias'] as accountName">
+        Filtered By:
+        <bb-badge-ui
+          [text]="accountName"
+          color="success"
+          [abbr]="false"
+          [circle]="false"
+        ></bb-badge-ui>
+       <span routerLink="/transactions">X</span>
       </div>
       <ul *ngIf="transactions$ | async as items; else loading" class="bb-list">
         <li
-          *ngFor="
-            let item of items | filterTransactions: filter:selectedAccount
-          "
+          *ngFor="let item of items | filterTransactions: filter"
           class="bb-list__item"
           data-role="transactions-view__item-container"
-          [routerLink]="['/transactions/transaction-details', item.id]"
-          [state]="{
-            queryParams: item,
-            skipLocationChange: false,
-            fragment: 'top'
-          }"
-          [attr.id]="item.id"
+          [routerLink]="['/transactions', item.id]"
+          [state]="item"
         >
           <bb-transaction-item [transaction]="item"></bb-transaction-item>
         </li>

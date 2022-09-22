@@ -3,6 +3,8 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { provideRoutes, Route, RouterModule } from '@angular/router';
 import { AmountModule } from '@backbase/ui-ang/amount';
+import { BadgeModule } from '@backbase/ui-ang/badge';
+
 import { InputTextModule } from '@backbase/ui-ang/input-text';
 import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
 import { TextFilterComponent } from './components/text-filter/text-filter.component';
@@ -17,11 +19,12 @@ import { TransactionsJourneyConfiguration } from './services/transactions-journe
 import { TransactionsRouteTitleResolverService } from './services/transactions-route-title-resolver.service';
 import { TransactionsHttpService } from './services/transactions.http.service';
 import { TransactionsViewComponent } from './views/transactions-view/transactions-view.component';
-import { TransactionDetailsComponent } from './views/transaction-details/transaction-details.component';
+import { TransactionDetailsComponent } from './views/transaction-details/transaction-details-view.component';
 import {
   TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
 } from './extensions';
+import { TransactionsDetailsRouteResolverService } from './services/transactions-details-route-resolver.service';
 
 const defaultRoute: Route[] = [
   {
@@ -35,8 +38,11 @@ const defaultRoute: Route[] = [
     },
   },
   {
-    path: 'transaction-details/:id',
+    path: ':id',
     component: TransactionDetailsComponent,
+    resolve: {
+      myData: TransactionsDetailsRouteResolverService
+    }
   },
 ];
 
@@ -61,12 +67,14 @@ export interface TransactionsJourneyModuleConfig {
     AmountModule,
     InputTextModule,
     LoadingIndicatorModule,
+    BadgeModule,
   ],
   providers: [
     TransactionsHttpService,
     TransactionsJourneyConfiguration,
     ArrangementsService,
     TransactionsRouteTitleResolverService,
+    TransactionsDetailsRouteResolverService
   ],
 })
 export class TransactionsJourneyModule {
