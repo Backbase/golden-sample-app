@@ -8,11 +8,9 @@ import {
 } from '@angular/common/http';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class AchPositivePayInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
   intercept(
     req: HttpRequest<{ method: string; url: string }>,
     next: HttpHandler
