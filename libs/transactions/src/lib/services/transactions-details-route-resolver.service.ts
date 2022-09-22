@@ -11,6 +11,7 @@ export class TransactionsDetailsRouteResolverService
     const transactionData = this.router.getCurrentNavigation()?.extras
       ?.state as TransactionItem;
     if (!transactionData) {
+      /* TODO: Instead of returning null, fetch the data from the API and pass it to the component  */
       return of(null);
     } else return of(transactionData);
   }

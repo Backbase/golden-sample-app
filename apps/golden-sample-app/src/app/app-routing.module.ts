@@ -33,7 +33,7 @@ const routes: Routes = [
       import('./positive-pay/positive-pay-journey-bundle.module').then(
         (m) => m.PositivePayJourneyBundleModule
       ),
-    canActivate: [AuthGuard, EntitlementsGuard, UserContextGuard],
+    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard ],
     data: {
       entitlements: triplets.canViewPositivePay,
     },
@@ -44,7 +44,7 @@ const routes: Routes = [
       import('./ach-positive-pay/ach-positive-pay-journey-bundle.module').then(
         (m) => m.AchPositivePayJourneyBundleModule
       ),
-    canActivate: [AuthGuard, EntitlementsGuard, UserContextGuard],
+    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard ],
     data: {
       entitlements: triplets.canViewAchRule,
     },
@@ -58,7 +58,7 @@ const routes: Routes = [
     data: {
       entitlements: triplets.canViewTransactions,
     },
-    canActivate: [AuthGuard, EntitlementsGuard, UserContextGuard],
+    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard ],
   },
   {
     path: 'accounts',
