@@ -41,8 +41,8 @@ const defaultRoute: Route[] = [
     path: ':id',
     component: TransactionDetailsComponent,
     resolve: {
-      myData: TransactionsDetailsRouteResolverService
-    }
+      myData: TransactionsDetailsRouteResolverService,
+    },
   },
 ];
 
@@ -74,7 +74,7 @@ export interface TransactionsJourneyModuleConfig {
     TransactionsJourneyConfiguration,
     ArrangementsService,
     TransactionsRouteTitleResolverService,
-    TransactionsDetailsRouteResolverService
+    TransactionsDetailsRouteResolverService,
   ],
 })
 export class TransactionsJourneyModule {

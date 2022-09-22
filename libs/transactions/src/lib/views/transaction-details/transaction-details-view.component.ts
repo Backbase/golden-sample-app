@@ -14,21 +14,27 @@ export interface ITransactionDetails {
 })
 export class TransactionDetailsComponent implements OnInit, OnDestroy {
   public transactionDetails: ITransactionDetails | null = null;
-  private sub: Subscription = new Subscription();;
-  constructor(public route: ActivatedRoute, private router: Router) {
-  }
+  private sub: Subscription = new Subscription();
+  constructor(public route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    this.sub.add(this.route.data.subscribe(({ myData }) => {
-      if(myData) {
-        this.transactionDetails = (({ id, billingStatus, category, bookingDate }) => ({ id, billingStatus, category, bookingDate }))(myData);
-      } else {
-        this.router.navigate(['/transactions']);
-      }
-    }));
+    this.sub.add(
+      this.route.data.subscribe(({ myData }) => {
+        if (myData) {
+          this.transactionDetails = (({
+            id,
+            billingStatus,
+            category,
+            bookingDate,
+          }) => ({ id, billingStatus, category, bookingDate }))(myData);
+        } else {
+          this.router.navigate(['/transactions']);
+        }
+      })
+    );
   }
 
   ngOnDestroy(): void {
-     this.sub.unsubscribe(); 
+    this.sub.unsubscribe();
   }
 }

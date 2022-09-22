@@ -39,11 +39,11 @@ export class TransactionsViewComponent {
     private readonly transactionsService: TransactionsHttpService,
     @Optional()
     @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE)
-    private externalCommunicationService: TransactionsCommunicationService,
+    private externalCommunicationService: TransactionsCommunicationService
   ) {}
 
-  search(ev: string){
+  search(ev: string) {
     this.filter = ev || '';
-    this.router?.navigate([], {queryParams: {search: this.filter}});
+    this.router?.navigate([], { queryParams: { search: this.filter } });
   }
 }

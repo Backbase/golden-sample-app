@@ -7,7 +7,10 @@
       <div class="bb-block bb-block--md">
         <bb-text-filter (textChange)="search($event)"></bb-text-filter>
       </div>
-      <div class="bb-block bb-block--md" *ngIf="(bankAlias$ | async)?.['bankAlias'] as accountName">
+      <div
+        class="bb-block bb-block--md"
+        *ngIf="(bankAlias$ | async)?.['bankAlias'] as accountName"
+      >
         Filtered By:
         <bb-badge-ui
           [text]="accountName"
@@ -15,7 +18,7 @@
           [abbr]="false"
           [circle]="false"
         ></bb-badge-ui>
-       <span routerLink="/transactions">X</span>
+        <span routerLink="/transactions">X</span>
       </div>
       <ul *ngIf="transactions$ | async as items; else loading" class="bb-list">
         <li
