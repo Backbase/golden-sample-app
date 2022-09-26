@@ -1,4 +1,15 @@
 {
+  "root": "apps/golden-sample-app-e2e",
+  "sourceRoot": "apps/golden-sample-app-e2e/src",
+  "projectType": "application",
   "tags": ["type:app"],
-  "implicitDependencies": ["golden-sample-app"]
+  "implicitDependencies": ["golden-sample-app"],
+  "architect": {
+    "lint": {
+      "builder": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/golden-sample-app-e2e/**/*.ts"]
+      }
+    }
+  }
 }

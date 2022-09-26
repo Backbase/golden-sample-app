@@ -1,3 +1,41 @@
 {
-  "tags": ["scope:shared"]
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "root": "libs/transfer",
+  "sourceRoot": "libs/transfer/src",
+  "prefix": "bb",
+  "tags": ["scope:transfer", "type:feature"],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "options": {
+        "project": "libs/transfer/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transfer/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transfer/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/transfer/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/transfer/src/**/*.ts",
+          "libs/transfer/src/**/*.html"
+        ]
+      }
+    }
+  }
 }
