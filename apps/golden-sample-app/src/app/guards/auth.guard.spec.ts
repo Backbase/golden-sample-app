@@ -12,7 +12,7 @@ describe('AuthGuard', () => {
   };
 
   beforeEach(() => {
-    authGuard = new AuthGuard(mockOAuthService as OAuthService);
+    authGuard = new AuthGuard(mockOAuthService as OAuthService, 'en');
   });
 
   describe('should not activate route', () => {

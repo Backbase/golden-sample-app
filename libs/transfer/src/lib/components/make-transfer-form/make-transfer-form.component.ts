@@ -71,8 +71,8 @@ export class MakeTransferFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const accountName: string = this.route.snapshot.parent?.params['accountName'] ?? '';
-    const amount: string = this.route.snapshot.parent?.params['amount'] ?? '0';
+    const accountName: string = this.route.snapshot.parent?.params['accountName'];
+    const amount: string = this.route.snapshot.parent?.params['amount'];
 
     this.makeTransferForm = this.fb.group({
       fromAccount: [
@@ -85,7 +85,7 @@ export class MakeTransferFormComponent implements OnInit {
       ],
       toAccount: [accountName, Validators.required],
       amount: [
-        { amount: parseFloat(amount) },
+        amount ? { amount: parseFloat(amount) } : '',
         [
           Validators.required,
           this.validateAmount(this.account?.amount || 0, TRANSLATIONS.maxError),

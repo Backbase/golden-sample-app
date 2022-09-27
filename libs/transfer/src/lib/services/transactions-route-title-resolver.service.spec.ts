@@ -1,4 +1,3 @@
-import { ActivatedRouteSnapshot } from '@angular/router';
 import { MakeTransferJourneyConfiguration } from './make-transfer-journey-config.service';
 import { MakeTransferRouteTitleResolverService } from './make-transfer-route-title-resolver.service';
 
@@ -17,7 +16,6 @@ describe('MakeTransferRouteTitleResolverService', () => {
           title: 'hello',
         },
       } as any,
-      {} as any
     );
 
     expect(result).toBe('hello');
@@ -31,7 +29,6 @@ describe('MakeTransferRouteTitleResolverService', () => {
           title: 'hello',
         },
       } as any,
-      {} as any
     );
 
     expect(result).toBe('');

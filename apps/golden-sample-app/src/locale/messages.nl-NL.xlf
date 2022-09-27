@@ -7782,7 +7782,7 @@
           <x id="PH" equiv-text="this.accountName" />
         </source>
         <target state="final">
-          Making Repeated Transfer for
+          Herhaald overstappen voor
           <x id="PH" equiv-text="this.accountName" />
         </target>
 

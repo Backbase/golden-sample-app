@@ -16,7 +16,6 @@ describe('MakeTransferRouteTitleResolverService', () => {
           title: 'hello',
         },
       } as any,
-      {} as any
     );
 
     expect(result).toBe('hello');
@@ -30,7 +29,6 @@ describe('MakeTransferRouteTitleResolverService', () => {
           title: 'hello',
         },
       } as any,
-      {} as any
     );
 
     expect(result).toBe('');

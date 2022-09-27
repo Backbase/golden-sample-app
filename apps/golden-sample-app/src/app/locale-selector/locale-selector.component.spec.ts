@@ -8,7 +8,8 @@ describe('bb-locale-selector', () => {
     href: 'test',
     origin: '',
   };
-  const mockDocument: Pick<Document, 'location'> = {
+  const mockDocument: Pick<Document, 'location' | 'baseURI'> = {
+    baseURI: 'test',
     location: mockLocation as Location,
   };
   let mockLocalesService: Pick<
@@ -58,6 +59,6 @@ describe('bb-locale-selector', () => {
     mockLocalesService.setLocaleCookie = jest.fn();
     component.language = 'es';
     expect(mockLocalesService.setLocaleCookie).toHaveBeenCalledWith('es');
-    expect(mockDocument.location.origin).toBe(mockDocument.location.href);
+    expect(mockDocument.location.href).toBe(mockDocument.baseURI);
   });
 });
