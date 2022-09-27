@@ -1,3 +1,41 @@
 {
-  "tags": ["scope:shared"]
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "root": "libs/ach-positive-pay",
+  "sourceRoot": "libs/ach-positive-pay/src",
+  "prefix": "bb",
+  "tags": ["scope:ach-positive-pay", "type:feature"],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "options": {
+        "project": "libs/ach-positive-pay/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/ach-positive-pay/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/ach-positive-pay/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/ach-positive-pay/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ach-positive-pay/src/**/*.ts",
+          "libs/ach-positive-pay/src/**/*.html"
+        ]
+      }
+    }
+  }
 }
