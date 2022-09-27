@@ -78,52 +78,50 @@
         </context-group>
       </trans-unit>
       <trans-unit id="app.userAccountsView.header" datatype="html">
-        <source>User accounts</source>
-        <target state="final">Gebruikersaccounts</target>
+        <source> User accounts </source>
+        <target state="final"> Gebruikersaccounts </target>
         <note priority="1" from="description">user accounts header</note>
+
 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="app.userAccountsView.sumary" datatype="html">
         <source>
-          <x id="ICU" equiv-text="{arrangments.length, plural,
-          =0 {There are no accounts}
-          =1 {There is an account}
-          other {There are {{ arrangments.length }} accounts}
-        }" />
+          <x id="ICU" equiv-text="{arrangments.length, plural, =0 {There are no accounts} =1 {There is an
+        account} other {There are {{ arrangments.length }} accounts} }" />
           :
         </source>
         <target state="final">
-          <x id="ICU" equiv-text="{arrangments.length, plural,
-          =0 {There are no accounts}
-          =1 {There is an account}
-          other {There are {{ arrangments.length }} accounts}
-        }" />
+          <x id="ICU" equiv-text="{arrangments.length, plural, =0 {There are no accounts} =1 {There is an
+        account} other {There are {{ arrangments.length }} accounts} }" />
           :
         </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
-          <context context-type="linenumber">15,20</context>
-        </context-group>
+
         <note priority="1" from="description">user accounts summary</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
       </trans-unit>
-      <trans-unit id="6dd2f991d3791d30c86d6a319ac0e33ba8472076" datatype="html">
+      <trans-unit id="ce8df2bda52e3d3fda7d5fa541cb0e5b7ced0930" datatype="html">
         <source>
-          {VAR_PLURAL, plural, =0 {There are no accounts} =1 {There is an account} other {There are
+          {VAR_PLURAL, plural, =0 {There are no accounts} =1 {There is an
+        account} other {There are
           <x id="INTERPOLATION" />
           accounts}}
         </source>
         <target state="final">
-          {VAR_PLURAL, plural, =0 {Er zijn geen accounts} =1 {Er is één account} other {Er zijn
+          {VAR_PLURAL, plural, =0 {Er zijn geen accounts} =1 {Er is één
+        account} other {Er zijn
           <x id="INTERPOLATION" />
           accounts}}
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
-          <context context-type="linenumber">15,21</context>
+          <context context-type="linenumber">17,22</context>
         </context-group>
       </trans-unit>
 
@@ -132,12 +130,13 @@
         <source>Available balance</source>
         <target state="final">Beschikbaar saldo</target>
 
-        <note priority="1" from="description">User account available balance label</note>
+        <note priority="1" from="description">User account available balance
+              label</note>
 
 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="limits.edit.action-button.save" datatype="html">
@@ -7620,9 +7619,10 @@
         <target state="final">To Account</target>
 
         <note priority="1" from="description">to account label</note>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transfer.form.toAccount.placeholder" datatype="html">
@@ -7630,9 +7630,10 @@
         <target state="final">type an account name</target>
 
         <note priority="1" from="description">from account placeholder</note>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transfer.form.toAccount.error.required" datatype="html">
@@ -7640,9 +7641,10 @@
         <target state="final"> Required field </target>
 
         <note priority="1" from="description">to account required error</note>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transfer.form.amount.label" datatype="html">
@@ -7650,9 +7652,10 @@
         <target state="final">Amount</target>
 
         <note priority="1" from="description">amount label</note>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transfer.form.amount.error.required" datatype="html">
@@ -7660,9 +7663,10 @@
         <target state="final"> Required field </target>
 
         <note priority="1" from="description">amount required error</note>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transfer.form.submit.text" datatype="html">
@@ -7670,9 +7674,10 @@
         <target state="final"> Submit </target>
 
         <note priority="1" from="description">submit button</note>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transfer.summary.heading.label" datatype="html">

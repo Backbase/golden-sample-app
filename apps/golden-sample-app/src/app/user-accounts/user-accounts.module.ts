@@ -11,7 +11,7 @@ import { UserAccountsService } from './user-accounts.service';
   imports: [
     CommonModule,
     LoadingIndicatorModule,
-    ProductItemBasicAccountModule
+    ProductItemBasicAccountModule,
   ],
   providers: [
     provideRoutes([
@@ -23,4 +23,4 @@ import { UserAccountsService } from './user-accounts.service';
     UserAccountsService,
   ],
 })
-export class UserAccountsModule { }
+export class UserAccountsModule {}

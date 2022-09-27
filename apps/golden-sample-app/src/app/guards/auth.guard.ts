@@ -7,7 +7,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     private oAuthService: OAuthService,
     @Inject(LOCALE_ID) private locale: string
-  ) { }
+  ) {}
 
   canActivate(): boolean {
     if (this.oAuthService.hasValidAccessToken()) {

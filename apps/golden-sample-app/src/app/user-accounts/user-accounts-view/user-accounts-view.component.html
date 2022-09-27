@@ -4,7 +4,9 @@
       <h1
         class="bb-card__title"
         i18n="user accounts header@@app.userAccountsView.header"
-      >User accounts</h1>
+      >
+        User accounts
+      </h1>
     </div>
 
     <div
@@ -12,27 +14,30 @@
       *ngIf="arrangements$ | async as arrangments; else loading"
     >
       <p i18n="user accounts summary@@app.userAccountsView.sumary">
-        {arrangments.length, plural,
-          =0 {There are no accounts}
-          =1 {There is an account}
-          other {There are {{ arrangments.length }} accounts}
-        }:
+        {arrangments.length, plural, =0 {There are no accounts} =1 {There is an
+        account} other {There are {{ arrangments.length }} accounts} }:
       </p>
       <div class="bb-list">
-        <div *ngFor="let account of arrangments" data-role="product" class="bb-list__item">
+        <div
+          *ngFor="let account of arrangments"
+          data-role="product"
+          class="bb-list__item"
+        >
           <bb-product-item-basic-account-ui
             [title]="account.displayName"
             [amount]="account.availableBalance"
             [currency]="account.currency"
             [productNumber]="account.number"
             balanceLabel="Available balance"
-            i18n-balanceLabel="User account available balance label@@app.userAccountsView.balanceLabel"
-            [active]=false
+            i18n-balanceLabel="
+              User account available balance
+              label@@app.userAccountsView.balanceLabel"
+            [active]="false"
             [favorite]="account.favorite || false"
             data-role="arrangmenet-container"
           ></bb-product-item-basic-account-ui>
         </div>
-        </div>
+      </div>
     </div>
   </div>
 </div>

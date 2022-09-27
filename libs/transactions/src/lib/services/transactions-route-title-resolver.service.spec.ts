@@ -10,26 +10,22 @@ describe('MakeTransferRouteTitleResolverService', () => {
 
   it('should resolve route with the title data if the `slimMode` configuration is set as false', () => {
     const service = createInstance({ slimMode: false });
-    const result = service.resolve(
-      {
-        data: {
-          title: 'hello',
-        },
-      } as any,
-    );
+    const result = service.resolve({
+      data: {
+        title: 'hello',
+      },
+    } as any);
 
     expect(result).toBe('hello');
   });
 
   it('should resolve route without the title data if the `slimMode` configuration is set as true', () => {
     const service = createInstance({ slimMode: true });
-    const result = service.resolve(
-      {
-        data: {
-          title: 'hello',
-        },
-      } as any,
-    );
+    const result = service.resolve({
+      data: {
+        title: 'hello',
+      },
+    } as any);
 
     expect(result).toBe('');
   });

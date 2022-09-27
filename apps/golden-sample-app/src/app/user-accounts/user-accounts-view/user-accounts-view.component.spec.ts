@@ -28,7 +28,7 @@ describe('UserAccountsViewComponent', () => {
       providers: [
         { provide: UserAccountsService, useValue: mockUserAccountsService },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserAccountsViewComponent);

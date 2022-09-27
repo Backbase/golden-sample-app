@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { MakeTransferJourneyConfiguration } from './make-transfer-journey-config.service';
 
 @Injectable()

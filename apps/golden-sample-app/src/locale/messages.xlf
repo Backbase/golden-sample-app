@@ -65,39 +65,45 @@
         <note priority="1" from="description">Ach Positive pay link</note>
       </trans-unit>
       <trans-unit id="app.userAccountsView.header" datatype="html">
-        <source>User accounts</source>
+        <source> User accounts </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
-          <context context-type="linenumber">7,13</context>
+          <context context-type="linenumber">8,14</context>
         </context-group>
         <note priority="1" from="description">user accounts header</note>
       </trans-unit>
       <trans-unit id="app.userAccountsView.sumary" datatype="html">
-        <source> <x id="ICU" equiv-text="{arrangments.length, plural,
-          =0 {There are no accounts}
-          =1 {There is an account}
-          other {There are {{ arrangments.length }} accounts}
-        }"/>: </source>
+        <source>
+          <x id="ICU" equiv-text="{arrangments.length, plural, =0 {There are no accounts} =1 {There is an
+        account} other {There are {{ arrangments.length }} accounts} }" />
+          :
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
-          <context context-type="linenumber">15,20</context>
+          <context context-type="linenumber">17,19</context>
         </context-group>
         <note priority="1" from="description">user accounts summary</note>
       </trans-unit>
-      <trans-unit id="6dd2f991d3791d30c86d6a319ac0e33ba8472076" datatype="html">
-        <source>{VAR_PLURAL, plural, =0 {There are no accounts} =1 {There is an account} other {There are <x id="INTERPOLATION"/> accounts}}</source>
+      <trans-unit id="ce8df2bda52e3d3fda7d5fa541cb0e5b7ced0930" datatype="html">
+        <source>
+          {VAR_PLURAL, plural, =0 {There are no accounts} =1 {There is an
+        account} other {There are
+          <x id="INTERPOLATION" />
+          accounts}}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
-          <context context-type="linenumber">15,21</context>
+          <context context-type="linenumber">17,22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="app.userAccountsView.balanceLabel" datatype="html">
         <source>Available balance</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
-          <context context-type="linenumber">28,31</context>
+          <context context-type="linenumber">31,35</context>
         </context-group>
-        <note priority="1" from="description">User account available balance label</note>
+        <note priority="1" from="description">User account available balance
+              label</note>
       </trans-unit>
       <trans-unit id="business.function.transactions" datatype="html">
         <source>Transactions</source>
@@ -1476,14 +1482,20 @@
         <note priority="1" from="description">Limits bound header title</note>
       </trans-unit>
       <trans-unit id="4074675407078589422" datatype="html">
-        <source>{VAR_SELECT, select, transactional-limits-bound {Per transaction} daily {Daily} weekly {Weekly} monthly {Monthly} quarterly {Quarterly} yearly {Yearly} other {<x id="INTERPOLATION"/> }}</source>
+        <source>
+          {VAR_SELECT, select, transactional-limits-bound {Per transaction} daily {Daily} weekly {Weekly} monthly {Monthly} quarterly {Quarterly} yearly {Yearly} other {
+          <x id="INTERPOLATION" />
+          }}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/edit-limit/edit-limit.component.html</context>
           <context context-type="linenumber">1,6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="limits.edit.limits-bound.name" datatype="html">
-        <source> <x id="ICU" equiv-text="&lt;ng-te" xid="2994557407098425179"/> </source>
+        <source>
+          <x id="ICU" equiv-text="&lt;ng-te" xid="2994557407098425179" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/edit-limit/edit-limit.component.html</context>
           <context context-type="linenumber">1,3</context>
@@ -1491,14 +1503,20 @@
         <note priority="1" from="description">Limits bound frequency name</note>
       </trans-unit>
       <trans-unit id="7188229585275885882" datatype="html">
-        <source>{VAR_SELECT, select, transactional-limits-bound {Per transaction limit} daily {Daily limit} weekly {Weekly limit} monthly {Monthly limit} quarterly {Quarterly limit} yearly {Yearly limit} other {<x id="INTERPOLATION"/> limit }}</source>
+        <source>
+          {VAR_SELECT, select, transactional-limits-bound {Per transaction limit} daily {Daily limit} weekly {Weekly limit} monthly {Monthly limit} quarterly {Quarterly limit} yearly {Yearly limit} other {
+          <x id="INTERPOLATION" />
+          limit }}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/edit-limit/edit-limit.component.html</context>
           <context context-type="linenumber">1,7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="limits.edit.limits-bound.currency-input.regular" datatype="html">
-        <source> <x id="ICU" equiv-text="Customi" xid="6533310563080504560"/> </source>
+        <source>
+          <x id="ICU" equiv-text="Customi" xid="6533310563080504560" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/edit-limit/edit-limit.component.html</context>
           <context context-type="linenumber">1,4</context>
@@ -1506,15 +1524,21 @@
         <note priority="1" from="description">Regular limit currency input label</note>
       </trans-unit>
       <trans-unit id="1318570290501480640" datatype="html">
-        <source>{VAR_SELECT, select, transactional-limits-bound {Per transaction shadow limit} daily {Daily shadow
-                  limit} weekly {Weekly shadow limit} monthly {Monthly shadow limit} quarterly {Quarterly shadow limit} yearly {Yearly shadow limit} other {<x id="INTERPOLATION"/> shadow limit }}</source>
+        <source>
+          {VAR_SELECT, select, transactional-limits-bound {Per transaction shadow limit} daily {Daily shadow
+                  limit} weekly {Weekly shadow limit} monthly {Monthly shadow limit} quarterly {Quarterly shadow limit} yearly {Yearly shadow limit} other {
+          <x id="INTERPOLATION" />
+          shadow limit }}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/edit-limit/edit-limit.component.html</context>
           <context context-type="linenumber">1,9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="limits.edit.limits-bound.currency-input.shadow" datatype="html">
-        <source> <x id="ICU" equiv-text="itCusto" xid="7575013010923027292"/> </source>
+        <source>
+          <x id="ICU" equiv-text="itCusto" xid="7575013010923027292" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/edit-limit/edit-limit.component.html</context>
           <context context-type="linenumber">1,4</context>
@@ -1534,15 +1558,21 @@
         <note priority="1" from="description">Consumed amount for limit</note>
       </trans-unit>
       <trans-unit id="2426156630383741504" datatype="html">
-        <source>{VAR_SELECT, select, daily {Can't be higher than
-                  Daily limit} weekly {Can't be higher than Weekly limit} monthly {Can't be higher than Monthly limit} quarterly {Can't be higher than Quarterly limit} yearly {Can't be higher than Yearly limit} other {Can't be higher than <x id="INTERPOLATION"/> limit}}</source>
+        <source>
+          {VAR_SELECT, select, daily {Can't be higher than
+                  Daily limit} weekly {Can't be higher than Weekly limit} monthly {Can't be higher than Monthly limit} quarterly {Can't be higher than Quarterly limit} yearly {Can't be higher than Yearly limit} other {Can't be higher than
+          <x id="INTERPOLATION" />
+          limit}}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/edit-limit/edit-limit.component.html</context>
           <context context-type="linenumber">1,10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="limits.edit.limits-bound.regular.error.validation" datatype="html">
-        <source> <x id="ICU" equiv-text="stomiza" xid="236925928080286617"/> </source>
+        <source>
+          <x id="ICU" equiv-text="stomiza" xid="236925928080286617" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/edit-limit/edit-limit.component.html</context>
           <context context-type="linenumber">1,4</context>
@@ -1550,18 +1580,23 @@
         <note priority="1" from="description">Validation error for regular limit</note>
       </trans-unit>
       <trans-unit id="2511920343852509458" datatype="html">
-        <source>{VAR_SELECT, select, daily {Can't be higher than
+        <source>
+          {VAR_SELECT, select, daily {Can't be higher than
                   Daily shadow limit} weekly {Can't be higher than Weekly shadow limit} monthly {Can't be higher than
                   Monthly shadow limit} quarterly {Can't be higher than Quarterly shadow limit} yearly {Can't be higher
                   than Yearly shadow limit} other {Can't be higher than
-                  <x id="INTERPOLATION"/> shadow limit}}</source>
+          <x id="INTERPOLATION" />
+          shadow limit}}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/edit-limit/edit-limit.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="limits.edit.limits-bound.shadow.error.validation" datatype="html">
-        <source> <x id="ICU" equiv-text="Customi" xid="7468393954000035122"/> </source>
+        <source>
+          <x id="ICU" equiv-text="Customi" xid="7468393954000035122" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/edit-limit/edit-limit.component.html</context>
           <context context-type="linenumber">1,4</context>
@@ -1617,14 +1652,20 @@
         <note priority="1" from="description">Loading text</note>
       </trans-unit>
       <trans-unit id="2146252859044547083" datatype="html">
-        <source>{VAR_SELECT, select, transactional-limits-bound {Per transaction} daily {Daily} weekly {Weekly} monthly {Monthly} quarterly {Quarterly} yearly {Yearly} other {<x id="INTERPOLATION"/>}}</source>
+        <source>
+          {VAR_SELECT, select, transactional-limits-bound {Per transaction} daily {Daily} weekly {Weekly} monthly {Monthly} quarterly {Quarterly} yearly {Yearly} other {
+          <x id="INTERPOLATION" />
+          }}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/manage-limits-modal-view-body/limit-bound-item/limit-bound-item.component.html</context>
           <context context-type="linenumber">1,5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="limits.limitsBound.title" datatype="html">
-        <source> <x id="ICU" equiv-text="s&quot;>&lt;/n" xid="8472198297952206260"/> </source>
+        <source>
+          <x id="ICU" equiv-text="s&quot;>&lt;/n" xid="8472198297952206260" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/manage-limits-modal-view-body/limit-bound-item/limit-bound-item.component.html</context>
           <context context-type="linenumber">1,3</context>
@@ -1632,9 +1673,13 @@
         <note priority="1" from="description">Limits bound title</note>
       </trans-unit>
       <trans-unit id="limits.consumed.regular" datatype="html">
-        <source><x id="START_TAG_BB_AMOUNT_UI" ctype="x-bb_amount_ui" equiv-text="iner>
+        <source>
+          <x id="START_TAG_BB_AMOUNT_UI" ctype="x-bb_amount_ui" equiv-text="iner>
 
-&lt;ng-templ"/><x id="CLOSE_TAG_BB_AMOUNT_UI" ctype="x-bb_amount_ui" equiv-text="zable let-hostRef"/> consumed </source>
+&lt;ng-templ" />
+          <x id="CLOSE_TAG_BB_AMOUNT_UI" ctype="x-bb_amount_ui" equiv-text="zable let-hostRef" />
+          consumed
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/manage-limits-modal-view-body/limit-bound-item/limit-bound-item.component.html</context>
           <context context-type="linenumber">1,5</context>
@@ -1642,9 +1687,13 @@
         <note priority="1" from="description">Consumed amount for regular limit</note>
       </trans-unit>
       <trans-unit id="limits.consumed.shadow" datatype="html">
-        <source><x id="START_TAG_BB_AMOUNT_UI" ctype="x-bb_amount_ui" equiv-text="tainer>
+        <source>
+          <x id="START_TAG_BB_AMOUNT_UI" ctype="x-bb_amount_ui" equiv-text="tainer>
 
-&lt;ng-tem"/><x id="CLOSE_TAG_BB_AMOUNT_UI" ctype="x-bb_amount_ui" equiv-text="mizable let-hostR"/> consumed </source>
+&lt;ng-tem" />
+          <x id="CLOSE_TAG_BB_AMOUNT_UI" ctype="x-bb_amount_ui" equiv-text="mizable let-hostR" />
+          consumed
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/manage-limits-modal-view-body/limit-bound-item/limit-bound-item.component.html</context>
           <context context-type="linenumber">1,5</context>
@@ -1959,8 +2008,11 @@
         <note priority="1" from="description">Cancel button@account-group-detail-modal.cancel-btn</note>
       </trans-unit>
       <trans-unit id="1175566915828934469" datatype="html">
-        <source>Detail for <x id="INTERPOLATION" equiv-text="ntext]=&quot;{
-    s"/></source>
+        <source>
+          Detail for
+          <x id="INTERPOLATION" equiv-text="ntext]=&quot;{
+    s" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/account-group-detail-modal/account-group-detail-modal.component.html</context>
           <context context-type="linenumber">1</context>
@@ -2644,7 +2696,10 @@
       </trans-unit>
       <trans-unit id="function-group-list.details.permission.privilege-indicator.tooltip.permitted
     " datatype="html">
-        <source><x id="PH" equiv-text="ermitted`"/> permitted</source>
+        <source>
+          <x id="PH" equiv-text="ermitted`" />
+          permitted
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/privilege-indicator/privilege-indicator.component.ts</context>
           <context context-type="linenumber">4,3</context>
@@ -2654,7 +2709,10 @@
       </trans-unit>
       <trans-unit id="function-group-list.details.permission.privilege-indicator.tooltip.not-permitted
     " datatype="html">
-        <source><x id="PH" equiv-text="ot permitted`"/> not permitted</source>
+        <source>
+          <x id="PH" equiv-text="ot permitted`" />
+          not permitted
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/privilege-indicator/privilege-indicator.component.ts</context>
           <context context-type="linenumber">7,3</context>
@@ -2833,18 +2891,38 @@
         <note priority="1" from="description">Disable button text for self approve@self-approval-modal.disable-btn.text</note>
       </trans-unit>
       <trans-unit id="6000692813171100941" datatype="html">
-        <source>{VAR_SELECT, select, validFromOnly {Active from
-    <x id="START_TAG_SPAN" ctype="x-span"/><x id="INTERPOLATION"/> <x id="INTERPOLATION_1"/><x id="CLOSE_TAG_SPAN" ctype="x-span"/>} validUntilOnly {Active until
-    <x id="START_TAG_SPAN" ctype="x-span"/><x id="INTERPOLATION_2"/> <x id="INTERPOLATION_3"/><x id="CLOSE_TAG_SPAN" ctype="x-span"/>} validFromUntil {Active from
-    <x id="START_TAG_SPAN" ctype="x-span"/><x id="INTERPOLATION"/> <x id="INTERPOLATION_1"/><x id="CLOSE_TAG_SPAN" ctype="x-span"/> until
-    <x id="START_TAG_SPAN" ctype="x-span"/><x id="INTERPOLATION_2"/> <x id="INTERPOLATION_3"/><x id="CLOSE_TAG_SPAN" ctype="x-span"/>}}</source>
+        <source>
+          {VAR_SELECT, select, validFromOnly {Active from
+          <x id="START_TAG_SPAN" ctype="x-span" />
+          <x id="INTERPOLATION" />
+          <x id="INTERPOLATION_1" />
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" />
+          } validUntilOnly {Active until
+          <x id="START_TAG_SPAN" ctype="x-span" />
+          <x id="INTERPOLATION_2" />
+          <x id="INTERPOLATION_3" />
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" />
+          } validFromUntil {Active from
+          <x id="START_TAG_SPAN" ctype="x-span" />
+          <x id="INTERPOLATION" />
+          <x id="INTERPOLATION_1" />
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" />
+          until
+          <x id="START_TAG_SPAN" ctype="x-span" />
+          <x id="INTERPOLATION_2" />
+          <x id="INTERPOLATION_3" />
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" />
+          }}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/time-bounds/time-bounds.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="time-bounds.label.validity-period" datatype="html">
-        <source> <x id="ICU" equiv-text="&quot; data-" xid="3367025179215010129"/> </source>
+        <source>
+          <x id="ICU" equiv-text="&quot; data-" xid="3367025179215010129" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/time-bounds/time-bounds.component.html</context>
           <context context-type="linenumber">1</context>
@@ -2860,9 +2938,17 @@
         <note priority="1" from="description">Delete button@payee-group-delete-modal.delete-btn</note>
       </trans-unit>
       <trans-unit id="8243908732521138495" datatype="html">
-        <source>Unassign '<x id="INTERPOLATION" equiv-text="ner>
+        <source>
+          Unassign '
+          <x id="INTERPOLATION" equiv-text="ner>
 
-&lt;ng-templ"/>' Payee Group from <x id="INTERPOLATION_1" equiv-text="ble let-hostRef"/> in the '<x id="INTERPOLATION_2" equiv-text="stRef.isOpen&quot; ("/>' job role?</source>
+&lt;ng-templ" />
+          ' Payee Group from
+          <x id="INTERPOLATION_1" equiv-text="ble let-hostRef" />
+          in the '
+          <x id="INTERPOLATION_2" equiv-text="stRef.isOpen&quot; (" />
+          ' job role?
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/unassign-data-group/unassign-data-group-modal.component.html</context>
           <context context-type="linenumber">1,4</context>
@@ -2870,8 +2956,14 @@
         <note priority="1" from="description">Title of unassign payee modal@unassign-data-group-modal.title</note>
       </trans-unit>
       <trans-unit id="4698133489246035185" datatype="html">
-        <source>Unassign '<x id="INTERPOLATION" equiv-text="g-template bbUn"/>' Account Group from '<x id="INTERPOLATION_1" equiv-text="tRef>
-  &lt;bb-mod"/>' job role?</source>
+        <source>
+          Unassign '
+          <x id="INTERPOLATION" equiv-text="g-template bbUn" />
+          ' Account Group from '
+          <x id="INTERPOLATION_1" equiv-text="tRef>
+  &lt;bb-mod" />
+          ' job role?
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/unassign-data-group/unassign-data-group-modal.component.html</context>
           <context context-type="linenumber">1,4</context>
@@ -2919,7 +3011,11 @@
         <note priority="1" from="description">Search for Account Group(s)</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.select-account-linked-groups-modal.title" datatype="html">
-        <source>Link Account Group(s) to "<x id="INTERPOLATION" equiv-text="role]=&quot;_userPer"/>" Payee Group</source>
+        <source>
+          Link Account Group(s) to "
+          <x id="INTERPOLATION" equiv-text="role]=&quot;_userPer" />
+          " Payee Group
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -2943,7 +3039,11 @@
         <note priority="1" from="description">Search for Payee Group(s)</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.select-payee-groups-modal.title" datatype="html">
-        <source>Assign Payee Group(s) to "<x id="INTERPOLATION" equiv-text="ttr.data-role]="/>" Account Group</source>
+        <source>
+          Assign Payee Group(s) to "
+          <x id="INTERPOLATION" equiv-text="ttr.data-role]=" />
+          " Account Group
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -2951,8 +3051,12 @@
         <note priority="1" from="description">Assign Payee Group(s)</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.label.permissionsWithin" datatype="html">
-        <source> Permissions within '<x id="INTERPOLATION" equiv-text="dataGroups&quot;
-  ["/>' </source>
+        <source>
+          Permissions within '
+          <x id="INTERPOLATION" equiv-text="dataGroups&quot;
+  [" />
+          '
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -2992,7 +3096,11 @@
         <note priority="1" from="description">Unassign job role</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.approval-level.info" datatype="html">
-        <source> Approval level "<x id="INTERPOLATION" equiv-text="ons &amp;&amp; dataGrou"/>" </source>
+        <source>
+          Approval level "
+          <x id="INTERPOLATION" equiv-text="ons &amp;&amp; dataGrou" />
+          "
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3080,14 +3188,20 @@
         <note priority="1" from="description">Not applicable tooltip</note>
       </trans-unit>
       <trans-unit id="3347470124741496562" datatype="html">
-        <source>{VAR_PLURAL, plural, =0 {No account groups assigned } =1 {1 account group assigned } other {<x id="INTERPOLATION"/> account groups assigned }}</source>
+        <source>
+          {VAR_PLURAL, plural, =0 {No account groups assigned } =1 {1 account group assigned } other {
+          <x id="INTERPOLATION" />
+          account groups assigned }}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="user-permissions-item.label.accountGroupsAssigned" datatype="html">
-        <source> <x id="ICU" equiv-text="issions" xid="3449058968353419097"/> </source>
+        <source>
+          <x id="ICU" equiv-text="issions" xid="3449058968353419097" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3107,14 +3221,27 @@
         <note priority="1" from="description">Remove account group</note>
       </trans-unit>
       <trans-unit id="1825830175672634768" datatype="html">
-        <source>{VAR_PLURAL, plural, =1 {1/<x id="INTERPOLATION"/> payee group linked } other {<x id="INTERPOLATION_1"/>/<x id="INTERPOLATION"/> payee groups linked to }}</source>
+        <source>
+          {VAR_PLURAL, plural, =1 {1/
+          <x id="INTERPOLATION" />
+          payee group linked } other {
+          <x id="INTERPOLATION_1" />
+          /
+          <x id="INTERPOLATION" />
+          payee groups linked to }}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="user-permissions-item.label.allPayeesLinked" datatype="html">
-        <source> <x id="ICU" equiv-text="erPermis" xid="5235159117906898919"/> <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="ata-role]=&quot;_user"/><x id="INTERPOLATION_2" equiv-text="-container'&quot;"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="ssion-item bb-blo"/></source>
+        <source>
+          <x id="ICU" equiv-text="erPermis" xid="5235159117906898919" />
+          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="ata-role]=&quot;_user" />
+          <x id="INTERPOLATION_2" equiv-text="-container'&quot;" />
+          <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="ssion-item bb-blo" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3122,15 +3249,21 @@
         <note priority="1" from="description">All Payee Groups Linked</note>
       </trans-unit>
       <trans-unit id="7299189423554464034" datatype="html">
-        <source>{VAR_PLURAL, plural, =1 {1 payee group linked } other {<x id="INTERPOLATION"/> payee
-                groups linked }}</source>
+        <source>
+          {VAR_PLURAL, plural, =1 {1 payee group linked } other {
+          <x id="INTERPOLATION" />
+          payee
+                groups linked }}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="user-permissions-item.label.selectedPayeesLinked" datatype="html">
-        <source> <x id="ICU" equiv-text="ons &amp;&amp; d" xid="7954690153732402690"/> </source>
+        <source>
+          <x id="ICU" equiv-text="ons &amp;&amp; d" xid="7954690153732402690" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3154,8 +3287,12 @@
         <note priority="1" from="description">Linked Account Group Table</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.toggle-button.account-group" datatype="html">
-        <source> Account Groups (<x id="INTERPOLATION" equiv-text="s&quot;
-  [attr.data"/>) </source>
+        <source>
+          Account Groups (
+          <x id="INTERPOLATION" equiv-text="s&quot;
+  [attr.data" />
+          )
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3163,8 +3300,12 @@
         <note priority="1" from="description">Account group toggle button</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.toggle-button.payee-group" datatype="html">
-        <source> Payee Groups (<x id="INTERPOLATION" equiv-text="aGroups&quot;
-  [att"/>) </source>
+        <source>
+          Payee Groups (
+          <x id="INTERPOLATION" equiv-text="aGroups&quot;
+  [att" />
+          )
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3180,7 +3321,11 @@
         <note priority="1" from="description">Payee Groups table header name</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.table.header.payee-group.tooltip.aria-label.text" datatype="html">
-        <source> These are the payee group(s) linked with account group(s) assigned to <x id="INTERPOLATION" equiv-text="&lt;!-- eslint-dis"/> Job Role </source>
+        <source>
+          These are the payee group(s) linked with account group(s) assigned to
+          <x id="INTERPOLATION" equiv-text="&lt;!-- eslint-dis" />
+          Job Role
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3189,7 +3334,11 @@
                       text</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.table.header.payee-group.tooltip.text" datatype="html">
-        <source> These are the payee group(s) linked with account group(s) assigned to <x id="INTERPOLATION" equiv-text="&lt;!-- eslint-dis"/> Job Role </source>
+        <source>
+          These are the payee group(s) linked with account group(s) assigned to
+          <x id="INTERPOLATION" equiv-text="&lt;!-- eslint-dis" />
+          Job Role
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3198,7 +3347,11 @@
                         text</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.table.header.account-group.tooltip.aria-label.text" datatype="html">
-        <source> These are the account group(s) assigned to <x id="INTERPOLATION" equiv-text="&lt;!-- eslint-dis"/> Job Role </source>
+        <source>
+          These are the account group(s) assigned to
+          <x id="INTERPOLATION" equiv-text="&lt;!-- eslint-dis" />
+          Job Role
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3207,8 +3360,15 @@
                         text</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.table.header.account-group.name" datatype="html">
-        <source> Account Groups <x id="START_TAG_SPAN" ctype="x-span" equiv-text="tr.data-role]=&quot;_userPermissions.na"/>(<x id="INTERPOLATION" equiv-text="class=&quot;bb-user-p"/>)<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="lock bb-block--sm&quot;>
-  &lt;div class=&quot;bb"/></source>
+        <source>
+          Account Groups
+          <x id="START_TAG_SPAN" ctype="x-span" equiv-text="tr.data-role]=&quot;_userPermissions.na" />
+          (
+          <x id="INTERPOLATION" equiv-text="class=&quot;bb-user-p" />
+          )
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="lock bb-block--sm&quot;>
+  &lt;div class=&quot;bb" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3216,7 +3376,11 @@
         <note priority="1" from="description">Account Groups table header name</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.table.header.account-group.tooltip.text" datatype="html">
-        <source> These are the account group(s) assigned to <x id="INTERPOLATION" equiv-text="&lt;!-- eslint-dis"/> Job Role </source>
+        <source>
+          These are the account group(s) assigned to
+          <x id="INTERPOLATION" equiv-text="&lt;!-- eslint-dis" />
+          Job Role
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3275,8 +3439,14 @@
         <note priority="1" from="description">Remove payee group</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.remove-payee-group.btn.tooltip.text" datatype="html">
-        <source> Remove '<x id="INTERPOLATION" equiv-text="[attr.data-rol"/>' Payee Group from '<x id="INTERPOLATION_1" equiv-text="r'&quot;
-  class=&quot;bb"/>' Account Group </source>
+        <source>
+          Remove '
+          <x id="INTERPOLATION" equiv-text="[attr.data-rol" />
+          ' Payee Group from '
+          <x id="INTERPOLATION_1" equiv-text="r'&quot;
+  class=&quot;bb" />
+          ' Account Group
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3292,7 +3462,11 @@
         <note priority="1" from="description">Remove payee group linking</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.unassign-payee-group.btn.tooltip.text" datatype="html">
-        <source> Remove '<x id="INTERPOLATION" equiv-text="tr.data-role]=&quot;"/>' Payee Group from Account Group(s) </source>
+        <source>
+          Remove '
+          <x id="INTERPOLATION" equiv-text="tr.data-role]=&quot;" />
+          ' Payee Group from Account Group(s)
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3308,7 +3482,11 @@
         <note priority="1" from="description">Assign payee group</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.add-payee-group.btn.tooltip.text" datatype="html">
-        <source> Add payee group(s) to '<x id="INTERPOLATION" equiv-text="role]=&quot;_userPer"/>' Account Group </source>
+        <source>
+          Add payee group(s) to '
+          <x id="INTERPOLATION" equiv-text="role]=&quot;_userPer" />
+          ' Account Group
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3324,7 +3502,11 @@
         <note priority="1" from="description">Assign account group to payee group</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.assign-account-group-to-payee.btn.tooltip.text" datatype="html">
-        <source> Add '<x id="INTERPOLATION" equiv-text="_userPermission"/>' Payee Group to Account Group(s) </source>
+        <source>
+          Add '
+          <x id="INTERPOLATION" equiv-text="_userPermission" />
+          ' Payee Group to Account Group(s)
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3340,7 +3522,13 @@
         <note priority="1" from="description">Remove account group from payee</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.remove-account-group-from-payee.btn.tooltip.text" datatype="html">
-        <source> Remove '<x id="INTERPOLATION" equiv-text="e]=&quot;_userPermis"/>' Payee Group from '<x id="INTERPOLATION_1" equiv-text="-user-permissio"/>' Account Group </source>
+        <source>
+          Remove '
+          <x id="INTERPOLATION" equiv-text="e]=&quot;_userPermis" />
+          ' Payee Group from '
+          <x id="INTERPOLATION_1" equiv-text="-user-permissio" />
+          ' Account Group
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3438,7 +3626,13 @@
           criteria</note>
       </trans-unit>
       <trans-unit id="user-permissions-item.select-account-linked-groups-modal.empty.subtitle" datatype="html">
-        <source>All account groups assigned to "<x id="INTERPOLATION" equiv-text="ermissions.name"/>" Job Role already linked to "<x id="INTERPOLATION_1" equiv-text="m bb-block bb-b"/>" payee group.</source>
+        <source>
+          All account groups assigned to "
+          <x id="INTERPOLATION" equiv-text="ermissions.name" />
+          " Job Role already linked to "
+          <x id="INTERPOLATION_1" equiv-text="m bb-block bb-b" />
+          " payee group.
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
           <context context-type="linenumber">1</context>
@@ -3677,14 +3871,23 @@
         <note priority="1" from="meaning">ACH rules list empty state subtitle</note>
       </trans-unit>
       <trans-unit id="3832422925401851071" datatype="html">
-        <source>{VAR_SELECT, select, on {on} other {<x id="INTERPOLATION"/>}}</source>
+        <source>
+          {VAR_SELECT, select, on {on} other {
+          <x id="INTERPOLATION" />
+          }}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-common-ang/src/lib/components/positive-pay-date-time/positive-pay-date-time.component.ts</context>
           <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="positive-pay-common.date-time.text.at" datatype="html">
-        <source> <x id="INTERPOLATION"/> at <x id="INTERPOLATION_1"/></source>
+        <source>
+           
+          <x id="INTERPOLATION" />
+          at
+          <x id="INTERPOLATION_1" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-common-ang/src/lib/components/positive-pay-date-time/positive-pay-date-time.component.ts</context>
           <context context-type="linenumber">54</context>
@@ -3816,7 +4019,10 @@
         <note priority="1" from="description">Empty state title</note>
       </trans-unit>
       <trans-unit id="positive-pay-common.pagination.sr-only-text" datatype="html">
-        <source> Results Pagination - Page <x id="INTERPOLATION" equiv-text="[totalIt"/> </source>
+        <source>
+          Results Pagination - Page
+          <x id="INTERPOLATION" equiv-text="[totalIt" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-common-ang/src/lib/components/positive-pay-pagination/positive-pay-pagination.component.html</context>
           <context context-type="linenumber">1,6</context>
@@ -3834,8 +4040,13 @@
         <note priority="1" from="meaning">Load more</note>
       </trans-unit>
       <trans-unit id="positive-pay-common.load-more.sr-only-text" datatype="html">
-        <source> Results <x id="INTERPOLATION" equiv-text="i
-      [page]="/> to <x id="INTERPOLATION_1" equiv-text="ms]=&quot;total&quot;"/> </source>
+        <source>
+          Results
+          <x id="INTERPOLATION" equiv-text="i
+      [page]=" />
+          to
+          <x id="INTERPOLATION_1" equiv-text="ms]=&quot;total&quot;" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-common-ang/src/lib/components/positive-pay-pagination/positive-pay-pagination.component.html</context>
           <context context-type="linenumber">1,6</context>
@@ -3871,7 +4082,13 @@
         <note priority="1" from="meaning">Account Balance</note>
       </trans-unit>
       <trans-unit id="positive-pay-common.sort-header.sr-only-text" datatype="html">
-        <source>Table sorted by <x id="columnName" equiv-text="this.bbSortable"/> in <x id="order(asc, desc)" equiv-text="this.getAriaSortAttribute()"/> order</source>
+        <source>
+          Table sorted by
+          <x id="columnName" equiv-text="this.bbSortable" />
+          in
+          <x id="order(asc, desc)" equiv-text="this.getAriaSortAttribute()" />
+          order
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-common-ang/src/lib/components/positive-pay-sort-header/positive-pay-sort-header.component.ts</context>
           <context context-type="linenumber">84,83</context>
@@ -4183,8 +4400,14 @@
         <note priority="1" from="meaning">Check type label</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.check-type.action.voided" datatype="html">
-        <source>Voided <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="seSrOnly&quot;
-    class=&quot;sr-only&quot;"/>check <x id="INTERPOLATION" equiv-text="by screen readers"/><x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="bel@@positive-pay-journey.check-type"/></source>
+        <source>
+          Voided
+          <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="seSrOnly&quot;
+    class=&quot;sr-only&quot;" />
+          check
+          <x id="INTERPOLATION" equiv-text="by screen readers" />
+          <x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="bel@@positive-pay-journey.check-type" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/shared/components/positive-pay-check-type/positive-pay-check-type.component.html</context>
           <context context-type="linenumber">1,6</context>
@@ -4193,8 +4416,14 @@
         <note priority="1" from="meaning">Voided check #123</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.check-type.action.issued" datatype="html">
-        <source>Issued <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="seSrOnly&quot;
-    class=&quot;sr-only&quot;"/>check <x id="INTERPOLATION" equiv-text="by screen readers"/><x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="bel@@positive-pay-journey.check-type"/></source>
+        <source>
+          Issued
+          <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="seSrOnly&quot;
+    class=&quot;sr-only&quot;" />
+          check
+          <x id="INTERPOLATION" equiv-text="by screen readers" />
+          <x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="bel@@positive-pay-journey.check-type" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/shared/components/positive-pay-check-type/positive-pay-check-type.component.html</context>
           <context context-type="linenumber">1,6</context>
@@ -4221,7 +4450,11 @@
         <note priority="1" from="meaning">A11y Delete check button</note>
       </trans-unit>
       <trans-unit id="852550996715262787" datatype="html">
-        <source>Delete check <x id="INTERPOLATION" equiv-text="lClose()&quot;>"/>?</source>
+        <source>
+          Delete check
+          <x id="INTERPOLATION" equiv-text="lClose()&quot;>" />
+          ?
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/shared/components/positive-pay-delete-check/positive-pay-delete-check.component.html</context>
           <context context-type="linenumber">1,3</context>
@@ -4257,7 +4490,11 @@
         <note priority="1" from="meaning">Cancel</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.delete-check.success.notification.header" datatype="html">
-        <source> Check <x id="INTERPOLATION" equiv-text="plate bbCustomM"/> was deleted successfully.</source>
+        <source>
+          Check
+          <x id="INTERPOLATION" equiv-text="plate bbCustomM" />
+          was deleted successfully.
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/shared/components/positive-pay-delete-check/positive-pay-delete-check.component.html</context>
           <context context-type="linenumber">1,6</context>
@@ -4266,7 +4503,11 @@
         <note priority="1" from="meaning">Check successfully deleted notification</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.delete-check.error.notification.header" datatype="html">
-        <source> Check <x id="INTERPOLATION" equiv-text="&lt;ng-templat"/> was not deleted.</source>
+        <source>
+          Check
+          <x id="INTERPOLATION" equiv-text="&lt;ng-templat" />
+          was not deleted.
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/shared/components/positive-pay-delete-check/positive-pay-delete-check.component.html</context>
           <context context-type="linenumber">1,5</context>
@@ -4293,7 +4534,11 @@
         <note priority="1" from="meaning">Unknown Error Message</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.view-check-details.deleteCheck.error.title" datatype="html">
-        <source>Check <x id="INTERPOLATION" equiv-text="odalBody>"/> was not deleted.</source>
+        <source>
+          Check
+          <x id="INTERPOLATION" equiv-text="odalBody>" />
+          was not deleted.
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-check-details/positive-pay-check-details-modal/positive-pay-check-details-modal.component.html</context>
           <context context-type="linenumber">1,9</context>
@@ -4347,7 +4592,10 @@
         <note priority="1" from="meaning">Resolve exception</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.check-details.title" datatype="html">
-        <source>Check <x id="INTERPOLATION" equiv-text="e-pay-check-det"/></source>
+        <source>
+          Check
+          <x id="INTERPOLATION" equiv-text="e-pay-check-det" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-check-details/positive-pay-check-details-modal/positive-pay-check-details-modal.component.html</context>
           <context context-type="linenumber">1,7</context>
@@ -4381,9 +4629,17 @@
         <note priority="1" from="description">Error state subtitle</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.check-details-summary.submitted.enteredBy" datatype="html">
-        <source> Entered by <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="top&quot;>
-    &lt;bb-po"/><x id="INTERPOLATION" equiv-text="us [checkStatus"/> <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="s&quot;>&lt;/bb-positive-"/><x id="START_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="/span>
-  &lt;div cl"/><x id="CLOSE_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="bb-stack__break-"/></source>
+        <source>
+          Entered by
+          <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="top&quot;>
+    &lt;bb-po" />
+          <x id="INTERPOLATION" equiv-text="us [checkStatus" />
+           
+          <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="s&quot;>&lt;/bb-positive-" />
+          <x id="START_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="/span>
+  &lt;div cl" />
+          <x id="CLOSE_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="bb-stack__break-" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-check-details/positive-pay-check-details-summary/positive-pay-check-details-summary.component.html</context>
           <context context-type="linenumber">1,7</context>
@@ -4392,7 +4648,11 @@
         <note priority="1" from="meaning">Entered by</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.check-details-summary.exception.raised" datatype="html">
-        <source>Raised <x id="START_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="ack__item--align"/><x id="CLOSE_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="[checkStatus]=&quot;c"/></source>
+        <source>
+          Raised
+          <x id="START_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="ack__item--align" />
+          <x id="CLOSE_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="[checkStatus]=&quot;c" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-check-details/positive-pay-check-details-summary/positive-pay-check-details-summary.component.html</context>
           <context context-type="linenumber">1,3</context>
@@ -4401,9 +4661,15 @@
         <note priority="1" from="meaning">Raised</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.check-details-summary.resolved.payDecision" datatype="html">
-        <source>Pay decision <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="b-positive-pay-check-status [check"/><x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text=">&lt;/bb-positive-pay-check-status>
-  &lt;"/><x id="START_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="ck__break bb-sta"/><x id="CLOSE_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="m&quot;>&lt;/div>
-  &lt;p"/></source>
+        <source>
+          Pay decision
+          <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="b-positive-pay-check-status [check" />
+          <x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text=">&lt;/bb-positive-pay-check-status>
+  &lt;" />
+          <x id="START_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="ck__break bb-sta" />
+          <x id="CLOSE_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="m&quot;>&lt;/div>
+  &lt;p" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-check-details/positive-pay-check-details-summary/positive-pay-check-details-summary.component.html</context>
           <context context-type="linenumber">1,7</context>
@@ -4412,11 +4678,19 @@
         <note priority="1" from="meaning">Pay decision</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.check-details-summary.resolved.rejectDecision" datatype="html">
-        <source> Reject decision <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="y-check-status [checkStatus]=&quot;chec"/><x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="tainer [ngSwitch]=&quot;check.issueStatus&quot;>
+        <source>
+          Reject decision
+          <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="y-check-status [checkStatus]=&quot;chec" />
+          <x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="tainer [ngSwitch]=&quot;check.issueStatus&quot;>
       &lt;ng-container
-        i18n=&quot;"/><x id="START_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="cing-sm&quot;>&lt;/div>"/><x id="CLOSE_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="bb-block--no-marg"/><x id="START_TAG_NG_CONTAINER_1" ctype="x-ng_container_1" equiv-text="-role=&quot;positive-pay-check-details-"/><x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="tainer [ngSwitch]=&quot;check.issueStatus&quot;>
+        i18n=&quot;" />
+          <x id="START_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="cing-sm&quot;>&lt;/div>" />
+          <x id="CLOSE_TAG_BB_POSITIVE_PAY_DATE_TIME" ctype="x-bb_positive_pay_date_time" equiv-text="bb-block--no-marg" />
+          <x id="START_TAG_NG_CONTAINER_1" ctype="x-ng_container_1" equiv-text="-role=&quot;positive-pay-check-details-" />
+          <x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="tainer [ngSwitch]=&quot;check.issueStatus&quot;>
       &lt;ng-container
-        i18n=&quot;"/></source>
+        i18n=&quot;" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-check-details/positive-pay-check-details-summary/positive-pay-check-details-summary.component.html</context>
           <context context-type="linenumber">1,12</context>
@@ -4438,7 +4712,13 @@
         <note priority="1" from="meaning">On</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.check-details-summary.resolved.by" datatype="html">
-        <source>by <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="sm bb-stack__ite"/><x id="INTERPOLATION" equiv-text="b-positive-pay-"/> <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="Status]=&quot;check.is"/></source>
+        <source>
+          by 
+          <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="sm bb-stack__ite" />
+          <x id="INTERPOLATION" equiv-text="b-positive-pay-" />
+           
+          <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="Status]=&quot;check.is" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-check-details/positive-pay-check-details-summary/positive-pay-check-details-summary.component.html</context>
           <context context-type="linenumber">1,3</context>
@@ -4447,7 +4727,12 @@
         <note priority="1" from="meaning">by</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.check-details-summary.resolved.after" datatype="html">
-        <source>after <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="--align-top&quot;>"/>Cut off time <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="heckStatus]=&quot;chec"/></source>
+        <source>
+          after 
+          <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="--align-top&quot;>" />
+          Cut off time 
+          <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="heckStatus]=&quot;chec" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-check-details/positive-pay-check-details-summary/positive-pay-check-details-summary.component.html</context>
           <context context-type="linenumber">1,3</context>
@@ -4456,7 +4741,12 @@
         <note priority="1" from="meaning">by</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.check-details-summary.rejectionReason" datatype="html">
-        <source>. Reason: <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="-stack__item--al"/><x id="INTERPOLATION" equiv-text="itive-pay-check"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="us]=&quot;check.issueS"/></source>
+        <source>
+          . Reason: 
+          <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="-stack__item--al" />
+          <x id="INTERPOLATION" equiv-text="itive-pay-check" />
+          <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="us]=&quot;check.issueS" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-check-details/positive-pay-check-details-summary/positive-pay-check-details-summary.component.html</context>
           <context context-type="linenumber">1,3</context>
@@ -4903,7 +5193,11 @@
         <note priority="1" from="description">Error message when check number is not number</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.new-check.check-number.min-length-error" datatype="html">
-        <source>Minimum <x id="requiredLength" equiv-text="requiredLength"/> digits required.</source>
+        <source>
+          Minimum
+          <x id="requiredLength" equiv-text="requiredLength" />
+          digits required.
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-new-check/positive-pay-new-check-modal/positive-pay-new-check-modal.component.ts</context>
           <context context-type="linenumber">185,179</context>
@@ -4911,7 +5205,11 @@
         <note priority="1" from="description">Error message when check number does not match min length validation</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.new-check.check-number.max-length-error" datatype="html">
-        <source>Maximum <x id="requiredLength" equiv-text="requiredLength"/> digits required.</source>
+        <source>
+          Maximum
+          <x id="requiredLength" equiv-text="requiredLength" />
+          digits required.
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-new-check/positive-pay-new-check-modal/positive-pay-new-check-modal.component.ts</context>
           <context context-type="linenumber">187</context>
@@ -5168,8 +5466,13 @@
         <note priority="1" from="meaning">Payee</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.view-checks.list.issue-date" datatype="html">
-        <source> Issued: <x id="START_TAG_TIME" ctype="x-time" equiv-text="ChecksLoaded&quot;
-  ["/><x id="INTERPOLATION" equiv-text="Page * itemsPer"/><x id="CLOSE_TAG_TIME" ctype="x-time" equiv-text="*ngFor=&quot;let check"/></source>
+        <source>
+          Issued:
+          <x id="START_TAG_TIME" ctype="x-time" equiv-text="ChecksLoaded&quot;
+  [" />
+          <x id="INTERPOLATION" equiv-text="Page * itemsPer" />
+          <x id="CLOSE_TAG_TIME" ctype="x-time" equiv-text="*ngFor=&quot;let check" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-view-checks/positive-pay-view-checks-list/positive-pay-view-checks-list.component.html</context>
           <context context-type="linenumber">2,7</context>
@@ -5178,8 +5481,13 @@
         <note priority="1" from="meaning">Issued</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.view-checks.list.entry-date" datatype="html">
-        <source> Entered: <x id="START_TAG_TIME" ctype="x-time" equiv-text="ecksLoaded&quot;
-  [it"/><x id="INTERPOLATION" equiv-text="ge * itemsPerPa"/><x id="CLOSE_TAG_TIME" ctype="x-time" equiv-text="gFor=&quot;let check of"/></source>
+        <source>
+          Entered:
+          <x id="START_TAG_TIME" ctype="x-time" equiv-text="ecksLoaded&quot;
+  [it" />
+          <x id="INTERPOLATION" equiv-text="ge * itemsPerPa" />
+          <x id="CLOSE_TAG_TIME" ctype="x-time" equiv-text="gFor=&quot;let check of" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-view-checks/positive-pay-view-checks-list/positive-pay-view-checks-list.component.html</context>
           <context context-type="linenumber">2,7</context>
@@ -5368,8 +5676,13 @@
         <note priority="1" from="meaning">Empty state checklist subtitle</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.view-exceptions.cut-off-time.text" datatype="html">
-        <source> Cut-off at <x id="INTERPOLATION" equiv-text="me set by FI@@p"/> (<x id="INTERPOLATION_1" equiv-text="view-exceptions"/>)
-</source>
+        <source>
+          Cut-off at
+          <x id="INTERPOLATION" equiv-text="me set by FI@@p" />
+          (
+          <x id="INTERPOLATION_1" equiv-text="view-exceptions" />
+          )
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-view-exceptions/positive-pay-view-exception-cut-off-time/positive-pay-view-exception-cut-off-time.component.html</context>
           <context context-type="linenumber">2,5</context>
@@ -5378,7 +5691,11 @@
         <note priority="1" from="meaning">Cut-off time label</note>
       </trans-unit>
       <trans-unit id="8411014514268161819" datatype="html">
-        <source>{VAR_PLURAL, plural, =1 {<x id="INTERPOLATION"/> } other {Multiple reasons}}</source>
+        <source>
+          {VAR_PLURAL, plural, =1 {
+          <x id="INTERPOLATION" />
+          } other {Multiple reasons}}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-view-exceptions/positive-pay-view-exceptions-list/positive-pay-view-exceptions-list.component.html</context>
           <context context-type="linenumber">2</context>
@@ -5434,9 +5751,14 @@
         <note priority="1" from="meaning">Account details label</note>
       </trans-unit>
       <trans-unit id="positive-pay-journey.view-exceptions.list.issue-date" datatype="html">
-        <source> Issued: <x id="START_TAG_TIME" ctype="x-time" equiv-text="[itemIndex]=&quot;c"/><x id="INTERPOLATION" equiv-text="erPage&quot;
+        <source>
+          Issued:
+          <x id="START_TAG_TIME" ctype="x-time" equiv-text="[itemIndex]=&quot;c" />
+          <x id="INTERPOLATION" equiv-text="erPage&quot;
 >
-  &lt;li"/><x id="CLOSE_TAG_TIME" ctype="x-time" equiv-text="xception of except"/></source>
+  &lt;li" />
+          <x id="CLOSE_TAG_TIME" ctype="x-time" equiv-text="xception of except" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-journey/src/lib/views/positive-pay-view-exceptions/positive-pay-view-exceptions-list/positive-pay-view-exceptions-list.component.html</context>
           <context context-type="linenumber">2,7</context>
@@ -5749,14 +6071,20 @@
         <note priority="1" from="meaning">Switch to context</note>
       </trans-unit>
       <trans-unit id="4800778941344875641" datatype="html">
-        <source>{VAR_PLURAL, plural, =1 {1 result found} other {<x id="INTERPOLATION"/> results found}}</source>
+        <source>
+          {VAR_PLURAL, plural, =1 {1 result found} other {
+          <x id="INTERPOLATION" />
+          results found}}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/select-context-widget-ang/src/lib/select-context-widget/service-agreement-list/service-agreement-list.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="select-context.label.resultsFound" datatype="html">
-        <source> <x id="ICU" equiv-text="-conte" xid="301311273243367215"/> </source>
+        <source>
+          <x id="ICU" equiv-text="-conte" xid="301311273243367215" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/select-context-widget-ang/src/lib/select-context-widget/service-agreement-list/service-agreement-list.component.html</context>
           <context context-type="linenumber">1</context>
@@ -5819,7 +6147,7 @@
         <source>To Account</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">11</context>
         </context-group>
         <note priority="1" from="description">to account label</note>
       </trans-unit>
@@ -5827,7 +6155,7 @@
         <source>type an account name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <note priority="1" from="description">from account placeholder</note>
       </trans-unit>
@@ -5835,7 +6163,7 @@
         <source> Required field </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">34,36</context>
+          <context context-type="linenumber">29,31</context>
         </context-group>
         <note priority="1" from="description">to account required error</note>
       </trans-unit>
@@ -5843,7 +6171,7 @@
         <source>Amount</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <note priority="1" from="description">amount label</note>
       </trans-unit>
@@ -5851,7 +6179,7 @@
         <source> Required field </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">55,57</context>
+          <context context-type="linenumber">50,52</context>
         </context-group>
         <note priority="1" from="description">amount required error</note>
       </trans-unit>
@@ -5859,7 +6187,7 @@
         <source> Submit </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">72,74</context>
+          <context context-type="linenumber">67,69</context>
         </context-group>
         <note priority="1" from="description">submit button</note>
       </trans-unit>
@@ -5924,7 +6252,10 @@
         <note priority="1" from="meaning">make transfer form max validation error</note>
       </trans-unit>
       <trans-unit id="transfer.form.limitError" datatype="html">
-        <source>You cannot make a transfer greater than <x id="PH" equiv-text="maxLimit"/></source>
+        <source>
+          You cannot make a transfer greater than
+          <x id="PH" equiv-text="maxLimit" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/constants/dynamic-translations.ts</context>
           <context context-type="linenumber">7</context>
@@ -5941,7 +6272,10 @@
         <note priority="1" from="description">A title for Repeat Transfer Alert</note>
       </trans-unit>
       <trans-unit id="transfer.repeat.message" datatype="html">
-        <source>Making Repeated Transfer for <x id="PH" equiv-text="this.accountName"/></source>
+        <source>
+          Making Repeated Transfer for
+          <x id="PH" equiv-text="this.accountName" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/transfer-journey.component.ts</context>
           <context context-type="linenumber">15</context>
@@ -5957,14 +6291,20 @@
         <note priority="1" from="description">close button</note>
       </trans-unit>
       <trans-unit id="2730467850913690896" datatype="html">
-        <source>{VAR_PLURAL, plural, =1 {1 account selected} other {<x id="INTERPOLATION"/> accounts selected}}</source>
+        <source>
+          {VAR_PLURAL, plural, =1 {1 account selected} other {
+          <x id="INTERPOLATION" />
+          accounts selected}}
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/account-selector/account-selector.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="bb-account-selector-ui.multi.label" datatype="html">
-        <source> <x id="ICU" equiv-text="ear)=&quot;" xid="333235356627623509"/> </source>
+        <source>
+          <x id="ICU" equiv-text="ear)=&quot;" xid="333235356627623509" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/account-selector/account-selector.component.html</context>
           <context context-type="linenumber">1</context>
@@ -6000,8 +6340,11 @@
         <note priority="1" from="meaning">Search</note>
       </trans-unit>
       <trans-unit id="bb-account-selector-ui.options.count" datatype="html">
-        <source> <x id="INTERPOLATION" equiv-text="&lt;ng-select
-  #a"/> options </source>
+        <source>
+          <x id="INTERPOLATION" equiv-text="&lt;ng-select
+  #a" />
+          options
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/account-selector/account-selector.component.html</context>
           <context context-type="linenumber">1</context>
@@ -6081,7 +6424,11 @@
         <note priority="1" from="description">Amount abbreviation short suffix</note>
       </trans-unit>
       <trans-unit id="bb-char-counter-ui.pre-max-length-warning" datatype="html">
-        <source> You can type only <x id="INTERPOLATION" equiv-text="&lt;div class=&quot;bb-"/> more characters in this field. </source>
+        <source>
+          You can type only
+          <x id="INTERPOLATION" equiv-text="&lt;div class=&quot;bb-" />
+          more characters in this field.
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/char-counter/char-counter.component.html</context>
           <context context-type="linenumber">1</context>
@@ -6091,7 +6438,11 @@
         <note priority="1" from="meaning">Above to reach Max Length Error</note>
       </trans-unit>
       <trans-unit id="bb-char-counter-ui.max-length-warning" datatype="html">
-        <source> Limit reached. You can only use <x id="INTERPOLATION" equiv-text="&quot;true&quot; role=&quot;lo"/> characters in this field. </source>
+        <source>
+          Limit reached. You can only use
+          <x id="INTERPOLATION" equiv-text="&quot;true&quot; role=&quot;lo" />
+          characters in this field.
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/char-counter/char-counter.component.html</context>
           <context context-type="linenumber">1</context>
@@ -6115,7 +6466,9 @@
       </trans-unit>
       <trans-unit id="validation-form-minlength-error-single" datatype="html">
         <source>
-    Must be shorter then <x id="PH" equiv-text="} character`;"/> character</source>
+          Must be shorter then          <x id="PH" equiv-text="} character`;" />
+          character
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/control-error-handler/control-error-handler.const.ts</context>
           <context context-type="linenumber">35</context>
@@ -6123,7 +6476,9 @@
       </trans-unit>
       <trans-unit id="validation-form-minlength-error-multiple" datatype="html">
         <source>
-    Must be shorter then <x id="PH" equiv-text="} characters`"/> characters</source>
+          Must be shorter then          <x id="PH" equiv-text="} characters`" />
+          characters
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/control-error-handler/control-error-handler.const.ts</context>
           <context context-type="linenumber">37</context>
@@ -6131,7 +6486,9 @@
       </trans-unit>
       <trans-unit id="bb-ui-ang.control-error-handler.validation-form-maxlength-error-single" datatype="html">
         <source>
-    Must be at least <x id="PH" equiv-text="} charact"/> character long</source>
+          Must be at least          <x id="PH" equiv-text="} charact" />
+          character long
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/control-error-handler/control-error-handler.const.ts</context>
           <context context-type="linenumber">43</context>
@@ -6139,23 +6496,31 @@
       </trans-unit>
       <trans-unit id="bb-ui-ang.control-error-handler.validation-form-maxlength-error-multiple" datatype="html">
         <source>
-    Must be at least <x id="PH" equiv-text="} charact"/> characters long</source>
+          Must be at least          <x id="PH" equiv-text="} charact" />
+          characters long
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/control-error-handler/control-error-handler.const.ts</context>
           <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="validation-form-min-error" datatype="html">
-        <source>Expect value to be bigger than <x id="PH" equiv-text=",
-  max: ({ max }) => $localize`:@@validation-form-max-err"/></source>
+        <source>
+          Expect value to be bigger than
+          <x id="PH" equiv-text=",
+  max: ({ max }) => $localize`:@@validation-form-max-err" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/control-error-handler/control-error-handler.const.ts</context>
           <context context-type="linenumber">50,31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="validation-form-max-error" datatype="html">
-        <source>Expect value to be less than <x id="PH" equiv-text=",
-  email: () => $localize`:@@validation-form-email-erro"/></source>
+        <source>
+          Expect value to be less than
+          <x id="PH" equiv-text=",
+  email: () => $localize`:@@validation-form-email-erro" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/control-error-handler/control-error-handler.const.ts</context>
           <context context-type="linenumber">51,31</context>
@@ -6207,7 +6572,10 @@
         <note priority="1" from="description">Clear selection button text</note>
       </trans-unit>
       <trans-unit id="defaultSelectingState.with.i18n.support" datatype="html">
-        <source>Selecting date: <x id="INTERPOLATION" equiv-text="-touched': pare"/></source>
+        <source>
+          Selecting date:
+          <x id="INTERPOLATION" equiv-text="-touched': pare" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/input-datepicker/input-datepicker.component.html</context>
           <context context-type="linenumber">2</context>
@@ -6215,7 +6583,11 @@
         <note priority="1" from="description">Default selecting date state i18n message</note>
       </trans-unit>
       <trans-unit id="defaultSelectedState.with.i18n.support" datatype="html">
-        <source>Selected date is<x id="INTERPOLATION" equiv-text="ng-touched': pa"/>.</source>
+        <source>
+          Selected date is
+          <x id="INTERPOLATION" equiv-text="ng-touched': pa" />
+          .
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/input-datepicker/input-datepicker.component.html</context>
           <context context-type="linenumber">2</context>
@@ -6259,8 +6631,11 @@
         <note priority="1" from="meaning">Close notification button</note>
       </trans-unit>
       <trans-unit id="bb-pagination-ui.pagination.link.number" datatype="html">
-        <source>page <x id="INTERPOLATION" equiv-text="ms&quot;
-  [boundary"/></source>
+        <source>
+          page
+          <x id="INTERPOLATION" equiv-text="ms&quot;
+  [boundary" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/pagination/pagination.component.html</context>
           <context context-type="linenumber">1</context>
@@ -6315,7 +6690,12 @@
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.carousel.slide-number" datatype="html">
-        <source> Slide <x id="INTERPOLATION" equiv-text="`true`, allows"/> of <x id="INTERPOLATION_1" equiv-text="usel using keyb"/> </source>
+        <source>
+          Slide
+          <x id="INTERPOLATION" equiv-text="`true`, allows" />
+          of
+          <x id="INTERPOLATION_1" equiv-text="usel using keyb" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/carousel/carousel.ts</context>
           <context context-type="linenumber">150,157</context>
@@ -6437,9 +6817,11 @@
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.progressbar.value" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="r.
+        <source>
+          <x id="INTERPOLATION" equiv-text="r.
    *
-   * Su"/></source>
+   * Su" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/progressbar/progressbar.ts</context>
           <context context-type="linenumber">65,67</context>
@@ -6530,14 +6912,18 @@
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.timepicker.PM" datatype="html">
-        <source><x id="INTERPOLATION"/></source>
+        <source>
+          <x id="INTERPOLATION" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
           <context context-type="linenumber">295</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.timepicker.AM" datatype="html">
-        <source><x id="INTERPOLATION"/></source>
+        <source>
+          <x id="INTERPOLATION" />
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
           <context context-type="linenumber">295</context>
