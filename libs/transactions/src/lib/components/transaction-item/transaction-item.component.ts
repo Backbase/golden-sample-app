@@ -8,6 +8,7 @@ import {
   SimpleChanges,
   Type,
 } from '@angular/core';
+import { Params } from '@angular/router';
 import { TransactionItem } from '@backbase/data-ang/transactions';
 import { ViewExtensionDirective } from '@backbase/ui-ang/view-extensions';
 import {
@@ -56,6 +57,18 @@ export class TransactionItemComponent implements OnChanges {
         counterPartyAccountNumber: this.transaction.counterPartyAccountNumber,
       };
     }
+  }
+
+  getTransferRouteParams(transaction: TransactionItem): Params {
+    const params: Params = {
+      amount: parseFloat(transaction.transactionAmountCurrency.amount),
+    };
+
+    if (transaction.counterPartyName) {
+      params['accountName'] = transaction.counterPartyName;
+    }
+
+    return params;
   }
 }
 

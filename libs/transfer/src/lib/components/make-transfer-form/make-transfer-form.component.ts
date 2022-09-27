@@ -19,9 +19,9 @@ export class MakeTransferFormComponent implements OnInit {
   @Input() maxLimit = 0;
 
   @Output() submitTransfer = new EventEmitter<Transfer | undefined>();
+
   makeTransferForm!: FormGroup;
-  accountName: null | string = '';
-  transferAmount: null | string = '';
+
   private getControl(field: string): AbstractControl | undefined {
     return this.makeTransferForm.controls[field];
   }
@@ -68,11 +68,12 @@ export class MakeTransferFormComponent implements OnInit {
   }
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute) {
-    this.accountName = this.route.snapshot.params['accountName'];
-    this.transferAmount = this.route.snapshot.params['amount'];
   }
 
   ngOnInit(): void {
+    const accountName: string = this.route.snapshot.parent?.params['accountName'] ?? '';
+    const amount: string = this.route.snapshot.parent?.params['amount'] ?? '0';
+
     this.makeTransferForm = this.fb.group({
       fromAccount: [
         {
@@ -82,9 +83,9 @@ export class MakeTransferFormComponent implements OnInit {
           disabled: true,
         },
       ],
-      toAccount: [this.accountName, Validators.required],
+      toAccount: [accountName, Validators.required],
       amount: [
-        this.transferAmount ? { amount: this.transferAmount } : '',
+        { amount: parseFloat(amount) },
         [
           Validators.required,
           this.validateAmount(this.account?.amount || 0, TRANSLATIONS.maxError),

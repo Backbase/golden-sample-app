@@ -8,6 +8,11 @@ import { ActivatedRoute } from '@angular/router';
   providers: [MakeTransferJourneyState],
 })
 export class TransferJourneyComponent {
-  public counterPartyName = this.route.snapshot.params['counterPartyName'];
+  public title: string = this.route.snapshot.firstChild?.data['title'] ?? '';
+
+  public accountName: string = this.route.snapshot.params['accountName'];
+
+  public repeatMessage = $localize`:A message for Repeat Transfer Alert@@transfer.repeat.message:Making Repeated Transfer for ${this.accountName}`;
+
   constructor(private route: ActivatedRoute) {}
 }

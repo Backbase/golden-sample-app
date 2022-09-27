@@ -1,6 +1,6 @@
 import { Component, OnDestroy, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, Subject, takeUntil } from 'rxjs';
+import { filter } from 'rxjs';
 import { MakeTransferCommunicationService } from '../../services/make-transfer-communication.service';
 import {
   MakeTransferJourneyState,
@@ -11,8 +11,8 @@ import {
   templateUrl: 'make-transfer-summary-view.component.html',
 })
 export class MakeTransferSummaryViewComponent implements OnDestroy {
-  title = this.route.snapshot.data['title'];
   vm$ = this.transferStore.vm$;
+
   private successfulOperation = this.transferStore.vm$
     .pipe(
       filter(
