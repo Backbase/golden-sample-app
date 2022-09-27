@@ -29,7 +29,7 @@ export class LocaleSelectorComponent implements OnInit {
 
   set language(value: string) {
     this.localeService.setLocaleCookie(value);
-    this.document.location.href = this.document.location.origin;
+    this.document.location.href = this.document.baseURI;
   }
 
   get language() {
