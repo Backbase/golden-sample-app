@@ -58,18 +58,6 @@ export class TransactionItemComponent implements OnChanges {
       };
     }
   }
-
-  getTransferRouteParams(transaction: TransactionItem): Params {
-    const params: Params = {
-      amount: parseFloat(transaction.transactionAmountCurrency.amount),
-    };
-
-    if (transaction.counterPartyName) {
-      params['accountName'] = transaction.counterPartyName;
-    }
-
-    return params;
-  }
 }
 
 @Directive({

@@ -3,8 +3,9 @@
     <div class="bb-card__header">
       <h1 class="bb-card__title">{{ title }}</h1>
     </div>
+
     <div class="bb-card__body">
-      <dl *ngIf="transaction" class="row">
+      <dl class="row">
         <div class="col-md-8">
           <dt
             i18n="
@@ -86,6 +87,19 @@
           </dd>
         </div>
       </dl>
+    </div>
+
+    <div class="bb-card__footer text-right">
+      <button
+        bbButton
+        color="secondary"
+        [routerLink]="['/transfer', transferParams, 'make-transfer']"
+      >
+        <bb-icon-ui name="replay" cropped></bb-icon-ui>
+        <span i18n="Label for Repeat Transaction@@transaction-details.repeat"
+          >Repeat transaction</span
+        >
+      </button>
     </div>
   </div>
 </div>

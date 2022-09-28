@@ -49,7 +49,7 @@
       </trans-unit>
       <trans-unit id="main.transactions.link.text" datatype="html">
         <source> Transactions List </source>
-        <target state="final"> Transactions List </target>
+        <target state="final"> Transactielijst </target>
 
         <note priority="1" from="description">transactions list link</note>
         <context-group purpose="location">
@@ -138,6 +138,15 @@
           <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
           <context context-type="linenumber">31</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="user-accounts.view-transactions" datatype="html">
+        <source> View Transactions </source>
+        <target state="final"> Transacties bekijken </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
+          <context context-type="linenumber">45,54</context>
+        </context-group>
+        <note priority="1" from="description">Label for View Transactions link</note>
       </trans-unit>
       <trans-unit id="limits.edit.action-button.save" datatype="html">
         <source>Save</source>
@@ -7575,7 +7584,7 @@
       </trans-unit>
       <trans-unit id="transaction.form.filter.placeholder" datatype="html">
         <source>filter transactions by type</source>
-        <target state="final">filter transactions by type</target>
+        <target state="final">transacties filteren op type</target>
 
         <note priority="1" from="description">filter transaction placeholder</note>
         <context-group purpose="location">
@@ -7585,7 +7594,7 @@
       </trans-unit>
       <trans-unit id="transaction.form.filter.aria-label" datatype="html">
         <source>filter transactions</source>
-        <target state="final">filter transactions</target>
+        <target state="final">transacties filteren</target>
 
         <note priority="1" from="description">filter transaction aira label</note>
         <context-group purpose="location">
@@ -7595,13 +7604,159 @@
       </trans-unit>
       <trans-unit id="transactions-journey.header.text" datatype="html">
         <source>Transactions List</source>
-        <target state="final">Transactions List</target>
+        <target state="final">Transactielijst</target>
 
         <note priority="1" from="description">header of the page</note>
         <note priority="1" from="meaning">transactions title</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transactions/src/lib/constants/dynamic-translations.ts</context>
           <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="transactions-journey.details.text" datatype="html">
+        <source>Transaction Details</source>
+        <target state="final">Transactie details</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/constants/dynamic-translations.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">header of the page</note>
+        <note priority="1" from="meaning">transaction details title</note>
+      </trans-unit>
+      <trans-unit id="transactions.details.recepient" datatype="html">
+        <source> Recepient: </source>
+        <target state="final"> Ontvanger: </target>
+
+        <note priority="1" from="description">Recepient label for Transaction
+              Details</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="transactions.details.date" datatype="html">
+        <source> Date: </source>
+        <target state="final"> Date: </target>
+
+        <note priority="1" from="description">Date label for Transaction Details</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="transactions.details.amount" datatype="html">
+        <source> Amount: </source>
+        <target state="final"> Amount: </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <note priority="1" from="description">Amount label for Transaction Amount</note>
+      </trans-unit>
+      <trans-unit id="transactions.details.category" datatype="html">
+        <source> Category: </source>
+        <target state="final"> Category: </target>
+
+        <note priority="1" from="description">Category label for Transaction
+              Details</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="transactions.details.description" datatype="html">
+        <source> Description: </source>
+        <target state="final"> Description: </target>
+
+        <note priority="1" from="description">Description label for Transaction
+              Details</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="transactions.details.status" datatype="html">
+        <source> Status: </source>
+        <target state="final"> Status: </target>
+
+        <note priority="1" from="description">Status label for Transaction Details</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="transaction-details.repeat" datatype="html">
+        <source>Repeat transaction</source>
+        <target state="final">Herhaal transactie</target>
+        <note priority="1" from="description">Label for Repeat Transaction</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="857011402599994952" datatype="html">
+        <source>
+          Transaction
+          <x id="PH" equiv-text="this.route.snapshot.params['id']" />
+          not found
+        </source>
+        <target state="final">
+          Transaction
+          <x id="PH" equiv-text="this.route.snapshot.params['id']" />
+          not found
+        </target>
+
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4467323362722952678" datatype="html">
+        <source>Unknown</source>
+        <target state="final">Unknown</target>
+
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3169427932576895164" datatype="html">
+        <source>UNKNOWN</source>
+        <target state="final">UNKNOWN</target>
+
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4890031060409002646" datatype="html">
+        <source>Uncategorized</source>
+        <target state="final">Uncategorized</target>
+
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="transactions.filters.label" datatype="html">
+        <source>filtered by:</source>
+        <target state="final">gefilterd op:</target>
+
+        <note priority="1" from="description">Label for filtered by</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transactions-view/transactions-view.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="transactions.account-filter.remove" datatype="html">
+        <source>Remove account filter</source>
+        <target state="final">Accountfilter verwijderen</target>
+
+        <note priority="1" from="description">Remove label for Account Badge</note>
+
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transactions-view/transactions-view.component.html</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transfer.form.fromAccount.label" datatype="html">
@@ -8014,6 +8169,123 @@
           <context context-type="sourcefile">libs/ui-ang/char-counter/char-counter.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.badRequest.title" datatype="html">
+        <source>Bad request error</source>
+        <target state="final">Bad request error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User action error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.badRequest.message" datatype="html">
+        <source>There is a problem with the action you are trying to perform.</source>
+        <target state="final">There is a problem with the action you are trying to perform.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User action error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unauthorized.title" datatype="html">
+        <source>Unauthorized error</source>
+        <target state="final">Unauthorized error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Unauthorized error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unauthorized.message" datatype="html">
+        <source>You must authenticate yourself to get the requested response.</source>
+        <target state="final">You must authenticate yourself to get the requested response.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Unauthorized error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.forbidden.title" datatype="html">
+        <source>Forbidden error</source>
+        <target state="final">Forbidden error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Forbidden error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.forbidden.message" datatype="html">
+        <source>You do not have access rights to the content.</source>
+        <target state="final">You do not have access rights to the content.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Forbidden error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.notFound.title" datatype="html">
+        <source>Not found error</source>
+        <target state="final">Not found error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Not found error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.notFound.message" datatype="html">
+        <source>No data was found.</source>
+        <target state="final">No data was found.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Not found error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.connectivity.title" datatype="html">
+        <source>Internet connection error</source>
+        <target state="final">Internet connection error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Internet connection error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.connectivity.message" datatype="html">
+        <source>Are you connected to the internet? Please check your connection and try again.</source>
+        <target state="final">Are you connected to the internet? Please check your connection and try again.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Internet connection error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unexpected.title" datatype="html">
+        <source>Unexpected error</source>
+        <target state="final">Unexpected error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Unexpected error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unexpected.message" datatype="html">
+        <source>Something's gone wrong with our server. Please try again later.</source>
+        <target state="final">Something's gone wrong with our server. Please try again later.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Unexpected error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unknown.title" datatype="html">
+        <source>Unknown error</source>
+        <target state="final">Unknown error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Unknown error title</note>
       </trans-unit>
 
 
