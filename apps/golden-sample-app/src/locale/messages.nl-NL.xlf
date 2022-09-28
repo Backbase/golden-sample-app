@@ -7596,7 +7596,7 @@
         <source>filter transactions</source>
         <target state="final">transacties filteren</target>
 
-        <note priority="1" from="description">filter transaction aira label</note>
+        <note priority="1" from="description">filter transaction aria label</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transactions/src/lib/components/text-filter/text-filter.component.html</context>
           <context context-type="linenumber">3</context>
