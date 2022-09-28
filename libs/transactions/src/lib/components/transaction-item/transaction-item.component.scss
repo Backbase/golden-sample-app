@@ -1,4 +1,4 @@
-@import '~@backbase/ui-ang/scss/1-variables/variables';
+@import '~@backbase/ui-ang/scss/1-variables/brand/color';
 
 :host {
   display: flex;
@@ -25,7 +25,7 @@
 
 :host {
   &:hover .transactions-item__color-indication {
-    background-color: $primary;
+    background-color: $color-primary;
     width: 7px;
   }
 }
