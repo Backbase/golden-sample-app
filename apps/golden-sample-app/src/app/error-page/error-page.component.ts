@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
 })
 export class ErrorPageComponent {
   public error =
-    this.router.getCurrentNavigation()?.extras.state?.['error']
-    ?? new HttpErrorResponse({ status: 404 });
+    this.router.getCurrentNavigation()?.extras.state?.['error'] ??
+    new HttpErrorResponse({ status: 404 });
 
-  constructor(private readonly router: Router) { }
+  constructor(private readonly router: Router) {}
 }
