@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -6,9 +7,9 @@ import { Router } from '@angular/router';
   templateUrl: './error-page.component.html',
 })
 export class ErrorPageComponent {
-  public message =
-    this.router.getCurrentNavigation()?.extras.state?.['message'] ??
-    $localize`:Error page message@@error-page.message:Try to reload the page or contact the system administrator.`;
+  public error =
+    this.router.getCurrentNavigation()?.extras.state?.['error']
+    ?? new HttpErrorResponse({ status: 404 });
 
-  constructor(private readonly router: Router) {}
+  constructor(private readonly router: Router) { }
 }

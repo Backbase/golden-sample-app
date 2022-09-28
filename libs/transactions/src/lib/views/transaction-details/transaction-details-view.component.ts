@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Currency, TransactionItem } from '@backbase/data-ang/transactions';
@@ -28,10 +29,10 @@ export class TransactionDetailsComponent implements OnInit {
       this.route.snapshot.data['transaction'];
 
     if (!transactionItem) {
-      throw {
-        message: $localize`Transaction ${this.route.snapshot.params['id']} not found`,
-        name: 'NotFoundError',
-      };
+      throw new HttpErrorResponse({
+        status: 404,
+        statusText: $localize`Transaction ${this.route.snapshot.params['id']} not found`,
+      });
     }
 
     this.transaction = {

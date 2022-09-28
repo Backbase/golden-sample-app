@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ErrorPageComponent } from './error-page.component';
-import { EmptyStateModule } from '@backbase/ui-ang/empty-state';
+import { ErrorCommonStateModule } from '@backbase/ui-ang/common-error-state';
 
 @NgModule({
   declarations: [ErrorPageComponent],
   imports: [
     CommonModule,
-    EmptyStateModule,
+    ErrorCommonStateModule,
     RouterModule.forChild([
       {
         path: '',

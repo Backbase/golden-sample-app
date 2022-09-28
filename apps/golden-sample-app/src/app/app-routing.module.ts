@@ -76,7 +76,7 @@ const routes: Routes = [
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: 'transactions',
+    redirectTo: 'error',
   },
 ];
 

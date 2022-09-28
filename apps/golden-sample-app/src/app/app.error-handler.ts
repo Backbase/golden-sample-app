@@ -1,21 +1,13 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler, Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
-function toErrorObject(error: Error | unknown): Error | undefined {
+function extractRejectionError(error: unknown): Error | unknown {
   if (error && typeof error === 'object' && 'rejection' in error) {
-    error = (error as { rejection: Error | unknown }).rejection;
+    return (error as { rejection: unknown }).rejection;
   }
 
-  if (
-    error &&
-    typeof error === 'object' &&
-    'name' in error &&
-    'message' in error
-  ) {
-    return error as Error;
-  }
-
-  return undefined;
+  return error;
 }
 
 @Injectable()
@@ -25,14 +17,14 @@ export class AppErrorHandler implements ErrorHandler {
     private readonly ngZone: NgZone
   ) {}
 
-  handleError(error: Error | unknown | { rejection: Error | unknown }): void {
-    const errorObject = toErrorObject(error);
+  handleError(error: Error | unknown): void {
+    const extractedError = extractRejectionError(error);
 
-    if (errorObject?.name === 'NotFoundError') {
+    if (extractedError instanceof HttpErrorResponse) {
       this.ngZone.run(() => {
         this.router.navigate(['/error'], {
           state: {
-            message: errorObject.message,
+            error: extractedError,
           },
           skipLocationChange: true,
         });
