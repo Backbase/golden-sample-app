@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MakeTransferJourneyConfiguration } from '../../services/make-transfer-journey-config.service';
 import { Transfer } from '../../model/Account';
-import { combineLatest, concat, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { MakeTransferPermissionsService } from '../../services/make-transfer-permissions.service';
 import {
   MakeTransferJourneyState,
@@ -14,7 +13,6 @@ import {
   templateUrl: 'make-transfer-view.component.html',
 })
 export class MakeTransferViewComponent {
-  title = this.route.snapshot.data['title'];
   vm$ = this.transferStore.vm$;
   limit$ = this.permissions.unlimitedAmountPerTransaction$.pipe(
     map((resolve) => (!resolve ? this.config.maxTransactionAmount : 0))

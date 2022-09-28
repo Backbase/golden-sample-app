@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { ArrangementsService } from '@libs/transactions';
@@ -27,6 +28,7 @@ describe('UserAccountsViewComponent', () => {
       providers: [
         { provide: ArrangementsService, useValue: mockArrangementsService },
       ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserAccountsViewComponent);

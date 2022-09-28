@@ -58,6 +58,15 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
+        },
+        "nl": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "localize": ["nl-NL"]
         }
       },
       "defaultConfiguration": "production"
@@ -71,6 +80,10 @@
         },
         "production": {
           "browserTarget": "golden-sample-app:build:production"
+        },
+        "nl": {
+          "browserTarget": "golden-sample-app:build:nl",
+          "proxyConfig": "./proxy.conf.json"
         }
       },
       "defaultConfiguration": "development"

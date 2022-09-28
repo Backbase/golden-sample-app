@@ -7,7 +7,6 @@ import { MakeTransferJourneyState } from '../../state/make-transfer-journey-stat
 })
 export class MakeTransferSuccessViewComponent {
   transfer$ = this.transferStore.transfer$;
-  title = this.route.snapshot.data['title'];
 
   close(): void {
     this.router.navigate(['../make-transfer'], { relativeTo: this.route });

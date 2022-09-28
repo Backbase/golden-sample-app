@@ -1,4 +1,3 @@
-<bb-make-transfer-title [title]="title"></bb-make-transfer-title>
 <div data-role="transfer-summary" *ngIf="(transfer$ | async)! as transfer">
   you have transfered <strong>{{ transfer?.amount }}</strong> to
   <strong>{{ transfer?.toAccount }}</strong>

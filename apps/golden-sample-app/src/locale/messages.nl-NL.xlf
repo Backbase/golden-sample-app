@@ -39,7 +39,7 @@
       </trans-unit>
       <trans-unit id="main.transfer.link.text" datatype="html">
         <source> Make transfer </source>
-        <target state="final"> Make transfer </target>
+        <target state="final"> Overboeking maken </target>
 
         <note priority="1" from="description">make transfer link</note>
         <context-group purpose="location">
@@ -49,7 +49,7 @@
       </trans-unit>
       <trans-unit id="main.transactions.link.text" datatype="html">
         <source> Transactions List </source>
-        <target state="final"> Transactions List </target>
+        <target state="final"> Transactielijst </target>
 
         <note priority="1" from="description">transactions list link</note>
         <context-group purpose="location">
@@ -77,68 +77,76 @@
           <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="error-page.title" datatype="html">
-        <source>Page couldn’t load</source>
-        <target state="final">Page couldn’t load</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/golden-sample-app/src/app/error-page/error-page.component.html</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-        <note priority="1" from="description">Error page label</note>
-      </trans-unit>
-      <trans-unit id="error-page.message" datatype="html">
-        <source>Try to reload the page or contact the system administrator.</source>
-        <target state="final">Try to reload the page or contact the system administrator.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/golden-sample-app/src/app/error-page/error-page.component.ts</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-        <note priority="1" from="description">Error page message</note>
-      </trans-unit>
       <trans-unit id="app.userAccountsView.header" datatype="html">
-        <source>
-          There are
-          <x id="ICU" equiv-text="{arrangements.length, plural, =0 {no accouints} =1 {account} other
-    {{{ arrangements.length }} accounts}}" />
-        </source>
-        <target state="final">
-          There are
-          <x id="ICU" equiv-text="{arrangements.length, plural, =0 {no accouints} =1 {account} other
-    {{{ arrangements.length }} accounts}}" />
-        </target>
-
+        <source> User accounts </source>
+        <target state="final"> Gebruikersaccounts </target>
         <note priority="1" from="description">user accounts header</note>
+
+
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="c4b00824315143de89a0013a2a77ac60c2fdf1e5" datatype="html">
+      <trans-unit id="app.userAccountsView.sumary" datatype="html">
         <source>
-          {VAR_PLURAL, plural, =0 {no accouints} =1 {account} other {
+          <x id="ICU" equiv-text="{arrangments.length, plural, =0 {There are no accounts} =1 {There is an
+        account} other {There are {{ arrangments.length }} accounts} }" />
+          :
+        </source>
+        <target state="final">
+          <x id="ICU" equiv-text="{arrangments.length, plural, =0 {There are no accounts} =1 {There is an
+        account} other {There are {{ arrangments.length }} accounts} }" />
+          :
+        </target>
+
+        <note priority="1" from="description">user accounts summary</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ce8df2bda52e3d3fda7d5fa541cb0e5b7ced0930" datatype="html">
+        <source>
+          {VAR_PLURAL, plural, =0 {There are no accounts} =1 {There is an
+        account} other {There are
           <x id="INTERPOLATION" />
           accounts}}
         </source>
         <target state="final">
-          {VAR_PLURAL, plural, =0 {no accouints} =1 {account} other {
+          {VAR_PLURAL, plural, =0 {Er zijn geen accounts} =1 {Er is één
+        account} other {Er zijn
           <x id="INTERPOLATION" />
           accounts}}
         </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
+          <context context-type="linenumber">17,22</context>
+        </context-group>
+      </trans-unit>
+
+
+      <trans-unit id="app.userAccountsView.balanceLabel" datatype="html">
+        <source>Available balance</source>
+        <target state="final">Beschikbaar saldo</target>
+
+        <note priority="1" from="description">User account available balance
+              label</note>
+
 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="user-accounts.view-transactions" datatype="html">
         <source> View Transactions </source>
         <target state="final"> Transacties bekijken </target>
-
-        <note priority="1" from="description">Label for View Transactions link</note>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">45,54</context>
         </context-group>
+        <note priority="1" from="description">Label for View Transactions link</note>
       </trans-unit>
       <trans-unit id="limits.edit.action-button.save" datatype="html">
         <source>Save</source>
@@ -182,7 +190,6 @@
       <trans-unit id="limits.edit.header.period" datatype="html">
         <source>Period</source>
         <target state="final">Period</target>
-
         <note priority="1" from="description">Limits bound header title</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/edit-limit/edit-limit.component.html</context>
@@ -232,7 +239,6 @@
         <target state="final">
           <x id="ICU" equiv-text="&lt;ng-te" xid="2994557407098425179" />
         </target>
-
         <note priority="1" from="description">Limits bound frequency name</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/edit-limit/edit-limit.component.html</context>
@@ -262,7 +268,6 @@
         <target state="final">
           <x id="ICU" equiv-text="Customi" xid="6533310563080504560" />
         </target>
-
         <note priority="1" from="description">Regular limit currency input label</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/edit-limit/edit-limit.component.html</context>
@@ -294,7 +299,6 @@
         <target state="final">
           <x id="ICU" equiv-text="itCusto" xid="7575013010923027292" />
         </target>
-
         <note priority="1" from="description">Shadow limit currency input label</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/manage-limits-modal/edit-limit/edit-limit.component.html</context>
@@ -304,7 +308,6 @@
       <trans-unit id="limits.edit.limits-bound.consumed" datatype="html">
         <source> consumed</source>
         <target state="final"> consumed</target>
-
 
         <note priority="1" from="description">Consumed amount for limit</note>
         <context-group purpose="location">
@@ -886,7 +889,6 @@
       <trans-unit id="account-group-detail-modal.row.header.currency" datatype="html">
         <source> Currency </source>
         <target state="final"> Currency </target>
-
         <note priority="1" from="description">Table header name</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/account-group-detail-modal/account-group-detail-modal.component.html</context>
@@ -2336,7 +2338,6 @@
       <trans-unit id="business.function.batch.manage.confidential" datatype="html">
         <source>Batch - Manage Confidential</source>
         <target state="final">Batch - Manage Confidential</target>
-
         <note priority="1" from="description">Batch - Manage Confidential</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/constants/translations.constants.ts</context>
@@ -2424,7 +2425,6 @@
       <trans-unit id="business.function.p2p.transfer" datatype="html">
         <source>P2P Transfer</source>
         <target state="final">P2P Transfer</target>
-
         <note priority="1" from="description">P2P Transfer</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-common-ang/src/lib/constants/translations.constants.ts</context>
@@ -2644,7 +2644,6 @@
       <trans-unit id="data-group-items-table.table.header.number" datatype="html">
         <source>Number</source>
         <target state="final">Number</target>
-
         <note priority="1" from="description">Number</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/data-group-items-table/data-group-items-table.component.html</context>
@@ -2928,7 +2927,6 @@
       <trans-unit id="payee-item-detail.contact.email" datatype="html">
         <source> Email address </source>
         <target state="final"> Email address </target>
-
         <note priority="1" from="description">Contact email</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/payee-item-detail/payee-item-detail.component.html</context>
@@ -2988,7 +2986,6 @@
       <trans-unit id="payee-item-detail.contact.account.iban.label" datatype="html">
         <source>IBAN: </source>
         <target state="final">IBAN: </target>
-
         <note priority="1" from="description">Account IBAN</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/payee-item-detail/payee-item-detail.component.html</context>
@@ -3037,7 +3034,6 @@
       <trans-unit id="privilege-indicator-list.label.privilege.aria.execute" datatype="html">
         <source>Execute privilege</source>
         <target state="final">Execute privilege</target>
-
         <note priority="1" from="description">Execute privilege</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/privilege-indicator-list/privilege-indicator-list.component.html</context>
@@ -3056,7 +3052,6 @@
       <trans-unit id="privilege-indicator-list.label.privilege.aria.view" datatype="html">
         <source>View privilege</source>
         <target state="final">View privilege</target>
-
         <note priority="1" from="description">View privilege</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/privilege-indicator-list/privilege-indicator-list.component.html</context>
@@ -3075,7 +3070,6 @@
       <trans-unit id="privilege-indicator-list.label.privilege.aria.create" datatype="html">
         <source>Create privilege</source>
         <target state="final">Create privilege</target>
-
         <note priority="1" from="description">Create privilege</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/privilege-indicator-list/privilege-indicator-list.component.html</context>
@@ -3094,7 +3088,6 @@
       <trans-unit id="privilege-indicator-list.label.privilege.aria.edit" datatype="html">
         <source>Edit privilege</source>
         <target state="final">Edit privilege</target>
-
         <note priority="1" from="description">Edit privilege</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/privilege-indicator-list/privilege-indicator-list.component.html</context>
@@ -3113,7 +3106,6 @@
       <trans-unit id="privilege-indicator-list.label.privilege.aria.delete" datatype="html">
         <source>Delete privilege</source>
         <target state="final">Delete privilege</target>
-
         <note priority="1" from="description">Delete privilege</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/privilege-indicator-list/privilege-indicator-list.component.html</context>
@@ -3132,7 +3124,6 @@
       <trans-unit id="privilege-indicator-list.label.privilege.aria.cancel" datatype="html">
         <source>Cancel privilege</source>
         <target state="final">Cancel privilege</target>
-
         <note priority="1" from="description">Cancel privilege</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/privilege-indicator-list/privilege-indicator-list.component.html</context>
@@ -3151,7 +3142,6 @@
       <trans-unit id="privilege-indicator-list.label.privilege.aria.approve" datatype="html">
         <source>Approve privilege</source>
         <target state="final">Approve privilege</target>
-
         <note priority="1" from="description">Approve privilege</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/privilege-indicator-list/privilege-indicator-list.component.html</context>
@@ -3200,7 +3190,6 @@
       <trans-unit id="privilege-indicator-list.limit.edit-limit.tooltip" datatype="html">
         <source>Click to edit limit</source>
         <target state="final">Click to edit limit</target>
-
         <note priority="1" from="description">Edit limit button tooltip</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/privilege-indicator-list/privilege-indicator-list.component.html</context>
@@ -3596,7 +3585,6 @@
         <target state="final">
           <x id="ICU" equiv-text="&quot; data-" xid="3367025179215010129" />
         </target>
-
         <note priority="1" from="description">Time bound label</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/time-bounds/time-bounds.component.html</context>
@@ -3679,7 +3667,6 @@
           <x id="INTERPOLATION_1" equiv-text="m bb-block bb-b" />
           " payee group.
         </target>
-
         <note priority="1" from="description">All already linked.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -3689,7 +3676,6 @@
       <trans-unit id="user-permissions-item.select-payee-groups-modal.header.column-all" datatype="html">
         <source>All</source>
         <target state="final">All</target>
-
         <note priority="1" from="description">All</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -3729,7 +3715,6 @@
       <trans-unit id="user-permissions-item.select-payee-groups-modal.empty.subtitle" datatype="html">
         <source>You can create a payee group within the 'Payee Groups' section.</source>
         <target state="final">You can create a payee group within the 'Payee Groups' section.</target>
-
         <note priority="1" from="description">You can create a payee group within the 'Payee Groups'
           section.</note>
         <context-group purpose="location">
@@ -3780,7 +3765,6 @@
       <trans-unit id="user-permissions-item.select-account-linked-groups-modal.search" datatype="html">
         <source>Search</source>
         <target state="final">Search</target>
-
         <note priority="1" from="description">Search for Account Group(s)</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -3808,7 +3792,6 @@
           <x id="INTERPOLATION" equiv-text="role]=&quot;_userPer" />
           " Payee Group
         </target>
-
         <note priority="1" from="description">Link Account Group(s)</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -4058,7 +4041,6 @@
         <target state="final">
           <x id="ICU" equiv-text="issions" xid="3449058968353419097" />
         </target>
-
         <note priority="1" from="description">Account Groups Assigned</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -4068,7 +4050,6 @@
       <trans-unit id="user-permissions-item.label.remove-account-group" datatype="html">
         <source>Remove account group</source>
         <target state="final">Remove account group</target>
-
 
         <note priority="1" from="description">Remove account group</note>
         <context-group purpose="location">
@@ -4149,7 +4130,6 @@
         <target state="final">
           <x id="ICU" equiv-text="ons &amp;&amp; d" xid="7954690153732402690" />
         </target>
-
         <note priority="1" from="description">Selected Payee Groups Linked</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -4189,7 +4169,6 @@
   [attr.data" />
           )
         </target>
-
         <note priority="1" from="description">Account group toggle button</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -4209,7 +4188,6 @@
   [att" />
           )
         </target>
-
         <note priority="1" from="description">Payee group toggle button</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -4302,7 +4280,6 @@
           <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="lock bb-block--sm&quot;>
   &lt;div class=&quot;bb" />
         </target>
-
         <note priority="1" from="description">Account Groups table header name</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -4361,7 +4338,6 @@
       <trans-unit id="user-permissions-item.saveButton" datatype="html">
         <source> Save </source>
         <target state="final"> Save </target>
-
         <note priority="1" from="description">Button to save form </note>
         <note priority="1" from="meaning">Save button</note>
         <context-group purpose="location">
@@ -4372,7 +4348,6 @@
       <trans-unit id="user-permissions-item.cancelButton" datatype="html">
         <source> Cancel </source>
         <target state="final"> Cancel </target>
-
         <note priority="1" from="description">Button to cancel </note>
         <note priority="1" from="meaning">Cancel Button</note>
         <context-group purpose="location">
@@ -4407,7 +4382,6 @@
   class=&quot;bb" />
           ' Account Group
         </target>
-
         <note priority="1" from="description">Remove payee group tooltip text</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -4435,7 +4409,6 @@
           <x id="INTERPOLATION" equiv-text="tr.data-role]=&quot;" />
           ' Payee Group from Account Group(s)
         </target>
-
         <note priority="1" from="description">Unassign payee group tooltip text</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -4463,7 +4436,6 @@
           <x id="INTERPOLATION" equiv-text="role]=&quot;_userPer" />
           ' Account Group
         </target>
-
         <note priority="1" from="description">Add payee group(s) tooltip text</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -4491,7 +4463,6 @@
           <x id="INTERPOLATION" equiv-text="_userPermission" />
           ' Payee Group to Account Group(s)
         </target>
-
         <note priority="1" from="description">Assign Account Group to Payee tooltip text</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -4523,7 +4494,6 @@
           <x id="INTERPOLATION_1" equiv-text="-user-permissio" />
           ' Account Group
         </target>
-
         <note priority="1" from="description">Remove Account group tooltip text</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -4543,7 +4513,6 @@
       <trans-unit id="user-permissions-item.select-account-groups-modal.header.column-all" datatype="html">
         <source> All </source>
         <target state="final"> All </target>
-
         <note priority="1" from="description">All</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/accessgroup-ui/src/lib/user-permissions-item/user-permissions-item.component.html</context>
@@ -4572,7 +4541,6 @@
       <trans-unit id="user-permissions-item.select-account-groups-modal.empty.subtitle" datatype="html">
         <source>You can create an account group within the 'Account Groups' section.</source>
         <target state="final">You can create an account group within the 'Account Groups' section.</target>
-
         <note priority="1" from="description">You can create an account group within the 'Account Groups'
           section.</note>
         <context-group purpose="location">
@@ -4633,7 +4601,6 @@
       <trans-unit id="user-permissions-item.select-account-linked-groups-modal.empty.search.subtitle" datatype="html">
         <source>We can't find what you're looking for. Please try a different criteria.</source>
         <target state="final">We can't find what you're looking for. Please try a different criteria.</target>
-
         <note priority="1" from="description">Please try a different
           criteria</note>
         <context-group purpose="location">
@@ -5190,7 +5157,6 @@
       <trans-unit id="positive-pay-journey.server.error.subscription.required" datatype="html">
         <source>This account does not have a Positive Pay ACH subscription.</source>
         <target state="final">This account does not have a Positive Pay ACH subscription.</target>
-
         <note priority="1" from="description">This account does not have a Positive Pay ACH subscription.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-common-ang/src/lib/data-access/constants/errors.ts</context>
@@ -5200,7 +5166,6 @@
       <trans-unit id="ach-positive-pay-journey.server.error.unknown.error" datatype="html">
         <source>Unknown error.</source>
         <target state="final">Unknown error.</target>
-
         <note priority="1" from="description">Unknown error occurred</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/positive-pay-common-ang/src/lib/data-access/constants/errors.ts</context>
@@ -5348,7 +5313,6 @@
         </context-group>
         <note priority="1" from="description">Error message when date range is invalid</note>
       </trans-unit>
-
       <trans-unit id="positive-pay-journey.heading.title" datatype="html">
         <source>Positive Pay</source>
         <target state="final">Positive Pay</target>
@@ -5984,7 +5948,6 @@
         <note priority="1" from="meaning">Raised On</note>
       </trans-unit>
 
-
       <trans-unit id="positive-pay-journey.exception.details.buttons.pay" datatype="html">
         <source> Pay </source>
         <target state="final"> Pay </target>
@@ -6239,7 +6202,6 @@
       <trans-unit id="positive-pay.exception-decision.confirmation-message.reject" datatype="html">
         <source> Are you sure you want to reject this check? This action can not be undone. </source>
         <target state="final"> Are you sure you want to reject this check? This action can not be undone. </target>
-
         <note priority="1" from="description">Message displayed in a dialog asking user to confirm Reject decision for exception</note>
         <note priority="1" from="meaning">Are you sure you want to reject this check?</note>
         <context-group purpose="location">
@@ -6281,7 +6243,6 @@
       <trans-unit id="positive-pay.exception-decision.submitted-notification.message" datatype="html">
         <source>Check was processed successfully.</source>
         <target state="final">Check was processed successfully.</target>
-
         <note priority="1" from="description">Success notification message when exception decision is submitted</note>
         <note priority="1" from="meaning">Check was processed successfully</note>
         <context-group purpose="location">
@@ -6570,7 +6531,6 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-
       <trans-unit id="positive-pay-journey.submitted-notification.header" datatype="html">
         <source>Success</source>
         <target state="final">Success</target>
@@ -6596,7 +6556,6 @@
         </context-group>
       </trans-unit>
 
-
       <trans-unit id="positive-pay-journey.view-checks.list.payee.sr-only" datatype="html">
         <source> Payee </source>
         <target state="final"> Payee </target>
@@ -6608,7 +6567,6 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-
       <trans-unit id="positive-pay-journey.view-checks.list.issue-date" datatype="html">
         <source>
           Issued:
@@ -6709,7 +6667,6 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-
       <trans-unit id="positive-pay-journey.view-checks.column.payee" datatype="html">
         <source> Payee </source>
         <target state="final"> Payee </target>
@@ -6721,7 +6678,6 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-
       <trans-unit id="positive-pay-journey.view-checks.column.check-number" datatype="html">
         <source> Check # </source>
         <target state="final"> Check # </target>
@@ -7165,7 +7121,6 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-
       <trans-unit id="positive-pay-journey.view-exceptions.list.amount.sr-only" datatype="html">
         <source> Amount </source>
         <target state="final"> Amount </target>
@@ -7369,7 +7324,6 @@
       <trans-unit id="select-context.permissions.empty.subtitle" datatype="html">
         <source>Please contact the administrator to activate your account.</source>
         <target state="final">Please contact the administrator to activate your account.</target>
-
         <note priority="1" from="description">Empty state subtitle when user has no
         permissions</note>
         <note priority="1" from="meaning">Permissions required subtilte</note>
@@ -7480,7 +7434,6 @@
       <trans-unit id="select-context.search.empty.subtitle" datatype="html">
         <source>We can’t find what you’re looking for. Please try a different criteria.</source>
         <target state="final">We can’t find what you’re looking for. Please try a different criteria.</target>
-
         <note priority="1" from="description">Empty state subtitle when there is no search
         results</note>
         <note priority="1" from="meaning">Search empty state subtitle</note>
@@ -7492,7 +7445,6 @@
       <trans-unit id="select-context.error.connectivity.title" datatype="html">
         <source>Connectivity Error</source>
         <target state="final">Connectivity Error</target>
-
         <note priority="1" from="description">Empty state label when there is connectivity
       error</note>
         <note priority="1" from="meaning">Connectivity Error title</note>
@@ -7504,7 +7456,6 @@
       <trans-unit id="select-context.error.accessDenied.title" datatype="html">
         <source>Permissions required</source>
         <target state="final">Permissions required</target>
-
         <note priority="1" from="description">Error state label when user does not have permissions to select
       context</note>
         <note priority="1" from="meaning">Permissions required</note>
@@ -7516,7 +7467,6 @@
       <trans-unit id="select-context.error.connectivity.subtitle" datatype="html">
         <source>Are you connected to the internet? Please check your connection and try again.</source>
         <target state="final">Are you connected to the internet? Please check your connection and try again.</target>
-
         <note priority="1" from="description">Empty state subtitle label when there is connectivity
       error</note>
         <note priority="1" from="meaning">Connectivity Error subtitle</note>
@@ -7528,7 +7478,6 @@
       <trans-unit id="select-context.error.accessDenied.subtitle" datatype="html">
         <source>You don't have permissions to select context.</source>
         <target state="final">You don't have permissions to select context.</target>
-
         <note priority="1" from="description">Error state subtitle label when user does not have permissions to select
       contexts</note>
         <note priority="1" from="meaning">No Permissions Subtitle</note>
@@ -7551,7 +7500,6 @@
       <trans-unit id="select-context.error.unknown.subtitle" datatype="html">
         <source>Try to reload the page or contact the system administrator.</source>
         <target state="final">Try to reload the page or contact the system administrator.</target>
-
         <note priority="1" from="description">Empty state subtitle label when there is an unknown
       error</note>
         <note priority="1" from="meaning">Unknown Error subtitle</note>
@@ -7627,7 +7575,6 @@
         <target state="final">
           <x id="ICU" equiv-text="-conte" xid="301311273243367215" />
         </target>
-
         <note priority="1" from="description">Results found label</note>
         <note priority="1" from="meaning">Results found</note>
         <context-group purpose="location">
@@ -7635,7 +7582,6 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-
       <trans-unit id="transaction.form.filter.placeholder" datatype="html">
         <source>filter transactions by type</source>
         <target state="final">transacties filteren op type</target>
@@ -7650,7 +7596,7 @@
         <source>filter transactions</source>
         <target state="final">transacties filteren</target>
 
-        <note priority="1" from="description">filter transaction placeholder</note>
+        <note priority="1" from="description">filter transaction aria label</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transactions/src/lib/components/text-filter/text-filter.component.html</context>
           <context context-type="linenumber">3</context>
@@ -7680,62 +7626,73 @@
       <trans-unit id="transactions.details.recepient" datatype="html">
         <source> Recepient: </source>
         <target state="final"> Ontvanger: </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
-          <context context-type="linenumber">13,15</context>
-        </context-group>
+
         <note priority="1" from="description">Recepient label for Transaction
               Details</note>
-      </trans-unit>
-      <trans-unit id="transactions.details.date" datatype="html">
-        <source>Date:</source>
-        <target state="final">Datum:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">14</context>
         </context-group>
-        <note priority="1" from="description">Date label for Transaction
-              Details</note>
+      </trans-unit>
+      <trans-unit id="transactions.details.date" datatype="html">
+        <source> Date: </source>
+        <target state="final"> Date: </target>
+
+        <note priority="1" from="description">Date label for Transaction Details</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="transactions.details.amount" datatype="html">
-        <source>Amount:</source>
-        <target state="final">Hoeveelheid:</target>
+        <source> Amount: </source>
+        <target state="final"> Amount: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
           <context context-type="linenumber">37</context>
         </context-group>
-        <note priority="1" from="description">Amount label for Transaction
-              Amount</note>
+        <note priority="1" from="description">Amount label for Transaction Amount</note>
       </trans-unit>
       <trans-unit id="transactions.details.category" datatype="html">
-        <source>Category:</source>
-        <target state="final">Categorie:</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
-          <context context-type="linenumber">55</context>
-        </context-group>
+        <source> Category: </source>
+        <target state="final"> Category: </target>
+
         <note priority="1" from="description">Category label for Transaction
               Details</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="transactions.details.description" datatype="html">
-        <source>Description:</source>
-        <target state="final">Beschrijving:</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
-          <context context-type="linenumber">66</context>
-        </context-group>
+        <source> Description: </source>
+        <target state="final"> Description: </target>
+
         <note priority="1" from="description">Description label for Transaction
               Details</note>
-      </trans-unit>
-      <trans-unit id="transactions.details.status" datatype="html">
-        <source>Status:</source>
-        <target state="final">Toestand:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">70</context>
         </context-group>
-        <note priority="1" from="description">Status label for Transaction
-              Details</note>
+      </trans-unit>
+      <trans-unit id="transactions.details.status" datatype="html">
+        <source> Status: </source>
+        <target state="final"> Status: </target>
+
+        <note priority="1" from="description">Status label for Transaction Details</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="transaction-details.repeat" datatype="html">
+        <source>Repeat transaction</source>
+        <target state="final">Herhaal transactie</target>
+        <note priority="1" from="description">Label for Repeat Transaction</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="857011402599994952" datatype="html">
         <source>
@@ -7748,57 +7705,63 @@
           <x id="PH" equiv-text="this.route.snapshot.params['id']" />
           not found
         </target>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4467323362722952678" datatype="html">
         <source>Unknown</source>
         <target state="final">Unknown</target>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3169427932576895164" datatype="html">
         <source>UNKNOWN</source>
         <target state="final">UNKNOWN</target>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4890031060409002646" datatype="html">
         <source>Uncategorized</source>
         <target state="final">Uncategorized</target>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transactions.filters.label" datatype="html">
         <source>filtered by:</source>
         <target state="final">gefilterd op:</target>
+
+        <note priority="1" from="description">Label for filtered by</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transactions/src/lib/views/transactions-view/transactions-view.component.html</context>
-          <context context-type="linenumber">18,23</context>
+          <context context-type="linenumber">23</context>
         </context-group>
-        <note priority="1" from="description">Label for filtered by</note>
       </trans-unit>
       <trans-unit id="transactions.account-filter.remove" datatype="html">
         <source>Remove account filter</source>
         <target state="final">Accountfilter verwijderen</target>
 
         <note priority="1" from="description">Remove label for Account Badge</note>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transactions/src/lib/views/transactions-view/transactions-view.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transfer.form.fromAccount.label" datatype="html">
         <source>From account</source>
-        <target state="final">From account</target>
+        <target state="final">Van account</target>
 
         <note priority="1" from="description">from account label</note>
         <context-group purpose="location">
@@ -7808,12 +7771,13 @@
       </trans-unit>
       <trans-unit id="transfer.form.toAccount.label" datatype="html">
         <source>To Account</source>
-        <target state="final">To Account</target>
+        <target state="final">Verklaren</target>
 
         <note priority="1" from="description">to account label</note>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transfer.form.toAccount.placeholder" datatype="html">
@@ -7821,54 +7785,59 @@
         <target state="final">type an account name</target>
 
         <note priority="1" from="description">from account placeholder</note>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transfer.form.toAccount.error.required" datatype="html">
         <source> Required field </source>
-        <target state="final"> Required field </target>
+        <target state="final"> Verplicht veld </target>
 
         <note priority="1" from="description">to account required error</note>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transfer.form.amount.label" datatype="html">
         <source>Amount</source>
-        <target state="final">Amount</target>
+        <target state="final">Hoeveelheid</target>
 
         <note priority="1" from="description">amount label</note>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transfer.form.amount.error.required" datatype="html">
         <source> Required field </source>
-        <target state="final"> Required field </target>
+        <target state="final"> Verplicht veld </target>
 
         <note priority="1" from="description">amount required error</note>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transfer.form.submit.text" datatype="html">
         <source> Submit </source>
-        <target state="final"> Submit </target>
+        <target state="final"> Indienen </target>
 
         <note priority="1" from="description">submit button</note>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/components/make-transfer-form/make-transfer-form.component.html</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="transfer.summary.heading.label" datatype="html">
         <source> Are you sure to send out this transfer? </source>
-        <target state="final"> Are you sure to send out this transfer? </target>
+        <target state="final"> Weet u zeker dat u deze overschrijving wilt versturen? </target>
 
         <note priority="1" from="description">summary heading label</note>
         <context-group purpose="location">
@@ -7878,7 +7847,7 @@
       </trans-unit>
       <trans-unit id="transfer.summary.account.description.label" datatype="html">
         <source>it will be send to account:</source>
-        <target state="final">it will be send to account:</target>
+        <target state="final">het wordt naar de rekening gestuurd:</target>
 
         <note priority="1" from="description">summary account description
       label</note>
@@ -7889,7 +7858,7 @@
       </trans-unit>
       <trans-unit id="transfer.summary.amount.description.label" datatype="html">
         <source>With amount of:</source>
-        <target state="final">With amount of:</target>
+        <target state="final">Met bedrag van:</target>
 
         <note priority="1" from="description">summary amount description
       label</note>
@@ -7900,7 +7869,7 @@
       </trans-unit>
       <trans-unit id="transfer.summary.submit.text" datatype="html">
         <source> Submit </source>
-        <target state="final"> Submit </target>
+        <target state="final"> Indienen </target>
 
         <note priority="1" from="description">submit button</note>
         <context-group purpose="location">
@@ -7910,7 +7879,7 @@
       </trans-unit>
       <trans-unit id="transfer.summary.close.text" datatype="html">
         <source> Close </source>
-        <target state="final"> Close </target>
+        <target state="final"> Annuleren </target>
 
         <note priority="1" from="description">close button</note>
         <context-group purpose="location">
@@ -7920,7 +7889,7 @@
       </trans-unit>
       <trans-unit id="make-transfer-journey.header.text" datatype="html">
         <source>Make a transfer</source>
-        <target state="final">Make a transfer</target>
+        <target state="final">Maak een overboeking</target>
 
         <note priority="1" from="description">header of the page</note>
         <note priority="1" from="meaning">make transfer title</note>
@@ -7957,14 +7926,42 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="transfer.repeat.title" datatype="html">
+        <source>Transfer Alert</source>
+        <target state="final">Overdrachtswaarschuwing</target>
+
+        <note priority="1" from="description">A title for Repeat Transfer Alert</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transfer/src/lib/transfer-journey.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="transfer.repeat.message" datatype="html">
+        <source>
+          Making Repeated Transfer for
+          <x id="PH" equiv-text="this.accountName" />
+        </source>
+        <target state="final">
+          Herhaald overstappen voor
+          <x id="PH" equiv-text="this.accountName" />
+        </target>
+
+        <note priority="1" from="description">A message for Repeat Transfer Alert</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transfer/src/lib/transfer-journey.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="transfer.success.close.text" datatype="html">
         <source> Close </source>
         <target state="final"> Close </target>
 
         <note priority="1" from="description">close button</note>
+
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transfer/src/lib/views/make-transfer-success-view/make-transfer-success-view.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2730467850913690896" datatype="html">
@@ -7991,7 +7988,6 @@
         <target state="final">
           <x id="ICU" equiv-text="ear)=&quot;" xid="333235356627623509" />
         </target>
-
         <note priority="1" from="description">Selected Accounts multi label </note>
         <note priority="1" from="meaning">Selected Accounts</note>
         <context-group purpose="location">
@@ -8043,7 +8039,6 @@
   #a" />
           options
         </target>
-
         <note priority="1" from="description">Screen reader description of the number of options after filtering the
           combobox</note>
         <note priority="1" from="meaning">Number of options</note>
@@ -8149,7 +8144,6 @@
           <x id="INTERPOLATION" equiv-text="&lt;div class=&quot;bb-" />
           more characters in this field.
         </target>
-
         <note priority="1" from="description">String is almost has 'maxLength' characters.
         </note>
         <note priority="1" from="meaning">Above to reach Max Length Error</note>
@@ -8169,13 +8163,129 @@
           <x id="INTERPOLATION" equiv-text="&quot;true&quot; role=&quot;lo" />
           characters in this field.
         </target>
-
         <note priority="1" from="description">String is more than 'maxLength' characters. </note>
         <note priority="1" from="meaning">Max Length Error</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/char-counter/char-counter.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.badRequest.title" datatype="html">
+        <source>Bad request error</source>
+        <target state="final">Bad request error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User action error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.badRequest.message" datatype="html">
+        <source>There is a problem with the action you are trying to perform.</source>
+        <target state="final">There is a problem with the action you are trying to perform.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User action error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unauthorized.title" datatype="html">
+        <source>Unauthorized error</source>
+        <target state="final">Unauthorized error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Unauthorized error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unauthorized.message" datatype="html">
+        <source>You must authenticate yourself to get the requested response.</source>
+        <target state="final">You must authenticate yourself to get the requested response.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Unauthorized error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.forbidden.title" datatype="html">
+        <source>Forbidden error</source>
+        <target state="final">Forbidden error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Forbidden error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.forbidden.message" datatype="html">
+        <source>You do not have access rights to the content.</source>
+        <target state="final">You do not have access rights to the content.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Forbidden error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.notFound.title" datatype="html">
+        <source>Not found error</source>
+        <target state="final">Not found error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Not found error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.notFound.message" datatype="html">
+        <source>No data was found.</source>
+        <target state="final">No data was found.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Not found error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.connectivity.title" datatype="html">
+        <source>Internet connection error</source>
+        <target state="final">Internet connection error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Internet connection error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.connectivity.message" datatype="html">
+        <source>Are you connected to the internet? Please check your connection and try again.</source>
+        <target state="final">Are you connected to the internet? Please check your connection and try again.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Internet connection error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unexpected.title" datatype="html">
+        <source>Unexpected error</source>
+        <target state="final">Unexpected error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Unexpected error title</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unexpected.message" datatype="html">
+        <source>Something's gone wrong with our server. Please try again later.</source>
+        <target state="final">Something's gone wrong with our server. Please try again later.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Unexpected error message</note>
+      </trans-unit>
+      <trans-unit id="errorCommonState.error.unknown.title" datatype="html">
+        <source>Unknown error</source>
+        <target state="final">Unknown error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/ui-ang/common-error-state/common-error-state.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Unknown error title</note>
       </trans-unit>
 
 
@@ -8360,7 +8470,6 @@
           Selecting date:
           <x id="INTERPOLATION" equiv-text="-touched': pare" />
         </target>
-
         <note priority="1" from="description">Default selecting date state i18n message</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/input-datepicker/input-datepicker.component.html</context>
@@ -8378,7 +8487,6 @@
           <x id="INTERPOLATION" equiv-text="ng-touched': pa" />
           .
         </target>
-
         <note priority="1" from="description">Default selected date state i18n message</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/input-datepicker/input-datepicker.component.html</context>
@@ -8442,7 +8550,6 @@
           <x id="INTERPOLATION" equiv-text="ms&quot;
   [boundary" />
         </target>
-
         <note priority="1" from="description">Link Label for Screen Reader</note>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/pagination/pagination.component.html</context>

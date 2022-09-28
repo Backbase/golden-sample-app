@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Currency, TransactionItem } from '@backbase/data-ang/transactions';
 
 export interface TransactionDetails {
@@ -21,6 +21,8 @@ export class TransactionDetailsComponent implements OnInit {
   public title = this.route.snapshot.data['title'];
 
   public transaction!: TransactionDetails;
+
+  public transferParams!: Params;
 
   constructor(public route: ActivatedRoute) {}
 
@@ -44,5 +46,13 @@ export class TransactionDetailsComponent implements OnInit {
       date: new Date(transactionItem.bookingDate),
       description: transactionItem.description,
     };
+
+    this.transferParams = {
+      amount: parseFloat(transactionItem.transactionAmountCurrency.amount),
+    };
+
+    if (transactionItem.counterPartyName) {
+      this.transferParams['accountName'] = transactionItem.counterPartyName;
+    }
   }
 }

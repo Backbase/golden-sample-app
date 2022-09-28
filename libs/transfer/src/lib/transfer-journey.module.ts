@@ -15,11 +15,11 @@ import { MakeTransferAccountHttpService } from './services/make-transfer-account
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { CurrencyInputModule } from '@backbase/ui-ang/currency-input';
 import { AccountSelectorModule } from '@backbase/ui-ang/account-selector';
+import { AlertModule } from '@backbase/ui-ang/alert';
 import { InputValidationMessageModule } from '@backbase/ui-ang/input-validation-message';
 import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
 import { MakeTransferRouteTitleResolverService } from './services/make-transfer-route-title-resolver.service';
 import { TRANSLATIONS } from './constants/dynamic-translations';
-import { MakeTransferTitleComponent } from './components/make-transfer-ui/make-transfer-title.component';
 
 const defaultRoute: Route = {
   path: '',
@@ -73,7 +73,6 @@ const defaultRoute: Route = {
     MakeTransferSummaryComponent,
     MakeTransferSummaryViewComponent,
     MakeTransferSuccessViewComponent,
-    MakeTransferTitleComponent,
   ],
   imports: [
     CommonModule,
@@ -84,6 +83,7 @@ const defaultRoute: Route = {
     InputValidationMessageModule,
     ReactiveFormsModule,
     LoadingIndicatorModule,
+    AlertModule,
   ],
   providers: [
     MakeTransferJourneyStoreGuard,
