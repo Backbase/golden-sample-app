@@ -6,37 +6,57 @@ import {
   TransactionsCommunicationService,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
 } from '../../communication';
+import { ArrangementsService } from '../../services/arrangements.service';
 import { TransactionsHttpService } from '../../services/transactions.http.service';
 
 @Component({
   templateUrl: './transactions-view.component.html',
+  styleUrls: ['./transactions-view.component.scss'],
   selector: 'bb-transactions-view',
 })
 export class TransactionsViewComponent {
   public title = this.route.snapshot.data['title'];
+
   public filter = '';
-  public bankAlias$ = this.route.queryParams;
-  public transactions$ = combineLatest([
-    this.transactionsService.transactions$,
-    this.externalCommunicationService?.latestTransaction$ || of(undefined),
-    this.route.queryParams,
-  ]).pipe(
-    map(([transactions, latestTransaction, routeParameters]) => {
-      const transactionsList = latestTransaction
-        ? [latestTransaction, ...(transactions || [])]
-        : transactions;
-      if (routeParameters['id']) {
-        return transactionsList?.filter(
-          (item) => item.arrangementId === routeParameters['id']
+
+  public accountName$ = combineLatest({
+    query: this.route.queryParams,
+    accounts: this.arrangementsService.arrangements$,
+  }).pipe(
+    map(({ query, accounts }) =>
+      accounts.find((x) => x.id === query['account'])
+    ),
+    map((account) => account?.bankAlias ?? '')
+  );
+
+  public transactions$ = combineLatest({
+    transactions: this.transactionsService.transactions$,
+    transfer:
+      this.externalCommunicationService?.latestTransaction$ ?? of(undefined),
+    query: this.route.queryParams,
+  }).pipe(
+    map(({ transactions = [], transfer, query: { account: accountId } }) => {
+      transactions = [...transactions];
+
+      if (transfer) {
+        transactions.unshift(transfer);
+      }
+
+      if (accountId) {
+        transactions = transactions.filter(
+          (item) => item.arrangementId === accountId
         );
-      } else return transactionsList;
+      }
+
+      return transactions;
     })
   );
 
   constructor(
     private readonly route: ActivatedRoute,
-    private router: Router,
+    private readonly router: Router,
     private readonly transactionsService: TransactionsHttpService,
+    private readonly arrangementsService: ArrangementsService,
     @Optional()
     @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE)
     private externalCommunicationService: TransactionsCommunicationService
@@ -44,6 +64,9 @@ export class TransactionsViewComponent {
 
   search(ev: string) {
     this.filter = ev || '';
-    this.router?.navigate([], { queryParams: { search: this.filter } });
+    this.router.navigate([], {
+      queryParams: { search: this.filter },
+      queryParamsHandling: 'merge',
+    });
   }
 }
