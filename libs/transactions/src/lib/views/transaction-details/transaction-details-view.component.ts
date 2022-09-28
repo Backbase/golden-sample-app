@@ -1,40 +1,47 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Currency, TransactionItem } from '@backbase/data-ang/transactions';
 
-export interface ITransactionDetails {
-  id: string;
-  billingStatus: string;
+export interface TransactionDetails {
+  description: string;
   category: string;
-  bookingDate: string;
+  type: string;
+  date: Date;
+  amount: Currency;
+  recepient: string;
+  status: string;
 }
+
 @Component({
   templateUrl: './transaction-details-view.component.html',
   selector: 'bb-transaction-details',
 })
-export class TransactionDetailsComponent implements OnInit, OnDestroy {
-  public transactionDetails: ITransactionDetails | null = null;
-  private sub: Subscription = new Subscription();
-  constructor(public route: ActivatedRoute, private router: Router) {}
+export class TransactionDetailsComponent implements OnInit {
+  public title = this.route.snapshot.data['title'];
+
+  public transaction!: TransactionDetails;
+
+  constructor(public route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.sub.add(
-      this.route.data.subscribe(({ myData }) => {
-        if (myData) {
-          this.transactionDetails = (({
-            id,
-            billingStatus,
-            category,
-            bookingDate,
-          }) => ({ id, billingStatus, category, bookingDate }))(myData);
-        } else {
-          this.router.navigate(['/transactions']);
-        }
-      })
-    );
-  }
+    const transactionItem: TransactionItem | undefined =
+      this.route.snapshot.data['transaction'];
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if (!transactionItem) {
+      throw {
+        message: $localize`Transaction ${this.route.snapshot.params['id']} not found`,
+        name: 'NotFoundError',
+      };
+    }
+
+    this.transaction = {
+      type: `${transactionItem.type} - ${transactionItem.typeGroup}`,
+      recepient: transactionItem.counterPartyName ?? $localize`Unknown`,
+      status: transactionItem.billingStatus ?? $localize`UNKNOWN`,
+      category: transactionItem.category ?? $localize`Uncategorized`,
+      amount: transactionItem.transactionAmountCurrency,
+      date: new Date(transactionItem.bookingDate),
+      description: transactionItem.description,
+    };
   }
 }

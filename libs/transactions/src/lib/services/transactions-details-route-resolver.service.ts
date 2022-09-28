@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { TransactionItem } from '@backbase/data-ang/transactions';
-import { map, Observable } from 'rxjs';
+import { map } from 'rxjs';
 import { TransactionsHttpService } from './transactions.http.service';
 
 @Injectable()
 export class TransactionsDetailsRouteResolverService
   implements Resolve<TransactionItem | null>
 {
-  resolve(route: ActivatedRouteSnapshot): Observable<TransactionItem | null> | TransactionItem {
+  resolve(route: ActivatedRouteSnapshot) {
     const transactionData = this.router.getCurrentNavigation()?.extras
       ?.state as TransactionItem;
 
@@ -17,9 +17,12 @@ export class TransactionsDetailsRouteResolverService
     }
 
     return this.api.transactions$.pipe(
-      map((transactions) => transactions?.find((t) => t.id === route.params['id']) ?? null)
+      map(
+        (transactions) =>
+          transactions?.find((t) => t.id === route.params['id']) ?? null
+      )
     );
   }
 
-  constructor(private router: Router, private api: TransactionsHttpService) { }
+  constructor(private router: Router, private api: TransactionsHttpService) {}
 }

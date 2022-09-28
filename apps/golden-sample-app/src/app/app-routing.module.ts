@@ -20,6 +20,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'error',
+    loadChildren: () =>
+      import('./error-page/error-page.module').then((m) => m.ErrorPageModule),
+  },
+  {
     path: 'transfer',
     loadChildren: () =>
       import('./transfer/transfer-journey-bundle.module').then(
@@ -33,7 +38,7 @@ const routes: Routes = [
       import('./positive-pay/positive-pay-journey-bundle.module').then(
         (m) => m.PositivePayJourneyBundleModule
       ),
-    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard ],
+    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard],
     data: {
       entitlements: triplets.canViewPositivePay,
     },
@@ -44,7 +49,7 @@ const routes: Routes = [
       import('./ach-positive-pay/ach-positive-pay-journey-bundle.module').then(
         (m) => m.AchPositivePayJourneyBundleModule
       ),
-    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard ],
+    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard],
     data: {
       entitlements: triplets.canViewAchRule,
     },
@@ -58,7 +63,7 @@ const routes: Routes = [
     data: {
       entitlements: triplets.canViewTransactions,
     },
-    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard ],
+    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard],
   },
   {
     path: 'accounts',

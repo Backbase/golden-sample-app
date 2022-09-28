@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ACCESS_CONTROL_BASE_PATH } from '@backbase/data-ang/accesscontrol';
@@ -26,6 +26,7 @@ import {
   OAuthService,
   OAuthStorage,
 } from 'angular-oauth2-oidc';
+import { AppErrorHandler } from './app.error-handler';
 import { CookieService } from 'ngx-cookie-service';
 import { authConfig, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -108,6 +109,10 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
       useValue: {
         accessControlBasePath: `${environment.apiRoot}/access-control`,
       },
+    },
+    {
+      provide: ErrorHandler,
+      useClass: AppErrorHandler,
     },
     TemplateRegistry,
   ],
