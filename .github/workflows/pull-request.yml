@@ -10,12 +10,29 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]    
+        os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}      
 
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
@@ -25,7 +42,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
           registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
           scope: '@backbase'
@@ -39,10 +56,22 @@ jobs:
         run: npm run affected:build
 
       - name: Check Formatting
-        run: npm run format:check
+        run: npm run format:check    
 
       - name: Unit test
         run: npm run affected:test
+
+      - name: Install playwright
+        run: | 
+          cd apps/golden-sample-app-e2e
+          npx playwright install-deps
+          npx playwright install
+
+      - name: Run Playwright Tests        
+        continue-on-error: false
+        working-directory: apps/golden-sample-app-e2e      
+        run: |   
+          npx playwright test e2e --reporter=html --config playwright.config.ts
 
       - name: Check Linting
         run: npm run affected:lint
