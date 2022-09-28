@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [14.x, 16.x]    
+        node-version: [14.x, 16.x]
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
@@ -32,7 +32,7 @@ jobs:
       - name: Node ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}      
+          node-version: ${{ matrix.node-version }}
 
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
@@ -56,7 +56,7 @@ jobs:
         run: npm run affected:build
 
       - name: Check Formatting
-        run: npm run format:check    
+        run: npm run format:check
 
       - name: Unit test
         run: npm run affected:test
