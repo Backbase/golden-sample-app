@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { provideRoutes, Route, RouterModule } from '@angular/router';
+import { provideRoutes, RouterModule, Routes } from '@angular/router';
 import { AmountModule } from '@backbase/ui-ang/amount';
 import { BadgeModule } from '@backbase/ui-ang/badge';
 
@@ -14,7 +14,6 @@ import {
 } from './components/transaction-item/transaction-item.component';
 import { TRANSLATIONS } from './constants/dynamic-translations';
 import { FilterTransactionsPipe } from './pipes/filter-transactions.pipe';
-import { ArrangementsService } from './services/arrangements.service';
 import { TransactionsJourneyConfiguration } from './services/transactions-journey-config.service';
 import { TransactionsRouteTitleResolverService } from './services/transactions-route-title-resolver.service';
 import { TransactionsHttpService } from './services/transactions.http.service';
@@ -26,7 +25,7 @@ import {
 } from './extensions';
 import { TransactionsDetailsRouteResolverService } from './services/transactions-details-route-resolver.service';
 
-const defaultRoute: Route[] = [
+const defaultRoutes: Routes = [
   {
     path: '',
     component: TransactionsViewComponent,
@@ -40,14 +39,18 @@ const defaultRoute: Route[] = [
   {
     path: ':id',
     component: TransactionDetailsComponent,
+    data: {
+      title: TRANSLATIONS.transactionDetailsTitle,
+    },
     resolve: {
-      myData: TransactionsDetailsRouteResolverService,
+      title: TransactionsRouteTitleResolverService,
+      transaction: TransactionsDetailsRouteResolverService,
     },
   },
 ];
 
 export interface TransactionsJourneyModuleConfig {
-  route?: Route;
+  routes?: Routes;
   extensionSlots?: TransactionsJourneyExtensionsConfig;
 }
 
@@ -72,20 +75,19 @@ export interface TransactionsJourneyModuleConfig {
   providers: [
     TransactionsHttpService,
     TransactionsJourneyConfiguration,
-    ArrangementsService,
     TransactionsRouteTitleResolverService,
     TransactionsDetailsRouteResolverService,
   ],
 })
 export class TransactionsJourneyModule {
   static forRoot({
-    route,
+    routes,
     extensionSlots,
   }: TransactionsJourneyModuleConfig = {}): ModuleWithProviders<TransactionsJourneyModule> {
     return {
       ngModule: TransactionsJourneyModule,
       providers: [
-        provideRoutes([...(defaultRoute || route)]),
+        provideRoutes(routes || defaultRoutes),
         {
           provide: TRANSACTION_EXTENSIONS_CONFIG,
           useValue: extensionSlots || {},

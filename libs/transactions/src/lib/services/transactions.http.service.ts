@@ -13,14 +13,14 @@ import { TransactionsJourneyConfiguration } from './transactions-journey-config.
 export class TransactionsHttpService {
   public transactions$: Observable<TransactionItem[] | undefined> =
     combineLatest([
-      this.arrangementsService.arrangementIds$,
+      this.arrangementsService.arrangements$,
       of(this.configurationService.pageSize),
     ]).pipe(
       switchMap(([arrangements, pageSize]) =>
         this.transactionsHttpService.getTransactionsWithPost(
           {
             transactionListRequest: {
-              arrangementsIds: arrangements,
+              arrangementsIds: arrangements.map((x) => x.id),
               size: pageSize,
               from: 0,
               orderBy: 'bookingDate',
@@ -31,7 +31,7 @@ export class TransactionsHttpService {
           'body'
         )
       ),
-      shareReplay(),
+      shareReplay()
     );
 
   constructor(

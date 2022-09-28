@@ -12,15 +12,14 @@
     >
       {{ account.displayName }} - {{ account.availableBalance }}
       {{ account.currency }}
-      <button
-        bbButton
-        [color]="'link'"
-        [buttonSize]="'sm'"
+      <br />
+      <a
         [routerLink]="['/transactions']"
-        [queryParams]="{ id: account.id, bankAlias: account.bankAlias }"
+        [queryParams]="{ account: account.id }"
+        i18n="Label for View Transactions link@@user-accounts.view-transactions"
       >
-        View Transactions for this account
-      </button>
+        View Transactions
+      </a>
     </li>
   </ul>
 </div>

@@ -4,7 +4,6 @@ import { provideRoutes, RouterModule } from '@angular/router';
 import { ButtonModule } from '@backbase/ui-ang/button';
 
 import { UserAccountsViewComponent } from './user-accounts-view/user-accounts-view.component';
-import { UserAccountsService } from './user-accounts.service';
 
 @NgModule({
   declarations: [UserAccountsViewComponent],
@@ -16,7 +15,6 @@ import { UserAccountsService } from './user-accounts.service';
         component: UserAccountsViewComponent,
       },
     ]),
-    UserAccountsService,
   ],
 })
 export class UserAccountsModule {}
