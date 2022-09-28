@@ -39,7 +39,7 @@
       </trans-unit>
       <trans-unit id="main.transfer.link.text" datatype="html">
         <source> Make transfer </source>
-        <target state="final"> Make transfer </target>
+        <target state="final"> Overboeking maken </target>
 
         <note priority="1" from="description">make transfer link</note>
         <context-group purpose="location">
@@ -7761,7 +7761,7 @@
       </trans-unit>
       <trans-unit id="transfer.form.fromAccount.label" datatype="html">
         <source>From account</source>
-        <target state="final">From account</target>
+        <target state="final">Van account</target>
 
         <note priority="1" from="description">from account label</note>
         <context-group purpose="location">
@@ -7771,7 +7771,7 @@
       </trans-unit>
       <trans-unit id="transfer.form.toAccount.label" datatype="html">
         <source>To Account</source>
-        <target state="final">To Account</target>
+        <target state="final">Verklaren</target>
 
         <note priority="1" from="description">to account label</note>
 
@@ -7793,7 +7793,7 @@
       </trans-unit>
       <trans-unit id="transfer.form.toAccount.error.required" datatype="html">
         <source> Required field </source>
-        <target state="final"> Required field </target>
+        <target state="final"> Verplicht veld </target>
 
         <note priority="1" from="description">to account required error</note>
 
@@ -7804,7 +7804,7 @@
       </trans-unit>
       <trans-unit id="transfer.form.amount.label" datatype="html">
         <source>Amount</source>
-        <target state="final">Amount</target>
+        <target state="final">Hoeveelheid</target>
 
         <note priority="1" from="description">amount label</note>
 
@@ -7815,7 +7815,7 @@
       </trans-unit>
       <trans-unit id="transfer.form.amount.error.required" datatype="html">
         <source> Required field </source>
-        <target state="final"> Required field </target>
+        <target state="final"> Verplicht veld </target>
 
         <note priority="1" from="description">amount required error</note>
 
@@ -7826,7 +7826,7 @@
       </trans-unit>
       <trans-unit id="transfer.form.submit.text" datatype="html">
         <source> Submit </source>
-        <target state="final"> Submit </target>
+        <target state="final"> Indienen </target>
 
         <note priority="1" from="description">submit button</note>
 
@@ -7837,7 +7837,7 @@
       </trans-unit>
       <trans-unit id="transfer.summary.heading.label" datatype="html">
         <source> Are you sure to send out this transfer? </source>
-        <target state="final"> Are you sure to send out this transfer? </target>
+        <target state="final"> Weet u zeker dat u deze overschrijving wilt versturen? </target>
 
         <note priority="1" from="description">summary heading label</note>
         <context-group purpose="location">
@@ -7847,7 +7847,7 @@
       </trans-unit>
       <trans-unit id="transfer.summary.account.description.label" datatype="html">
         <source>it will be send to account:</source>
-        <target state="final">it will be send to account:</target>
+        <target state="final">het wordt naar de rekening gestuurd:</target>
 
         <note priority="1" from="description">summary account description
       label</note>
@@ -7858,7 +7858,7 @@
       </trans-unit>
       <trans-unit id="transfer.summary.amount.description.label" datatype="html">
         <source>With amount of:</source>
-        <target state="final">With amount of:</target>
+        <target state="final">Met bedrag van:</target>
 
         <note priority="1" from="description">summary amount description
       label</note>
@@ -7869,7 +7869,7 @@
       </trans-unit>
       <trans-unit id="transfer.summary.submit.text" datatype="html">
         <source> Submit </source>
-        <target state="final"> Submit </target>
+        <target state="final"> Indienen </target>
 
         <note priority="1" from="description">submit button</note>
         <context-group purpose="location">
@@ -7879,7 +7879,7 @@
       </trans-unit>
       <trans-unit id="transfer.summary.close.text" datatype="html">
         <source> Close </source>
-        <target state="final"> Close </target>
+        <target state="final"> Annuleren </target>
 
         <note priority="1" from="description">close button</note>
         <context-group purpose="location">
@@ -7889,7 +7889,7 @@
       </trans-unit>
       <trans-unit id="make-transfer-journey.header.text" datatype="html">
         <source>Make a transfer</source>
-        <target state="final">Make a transfer</target>
+        <target state="final">Maak een overboeking</target>
 
         <note priority="1" from="description">header of the page</note>
         <note priority="1" from="meaning">make transfer title</note>
