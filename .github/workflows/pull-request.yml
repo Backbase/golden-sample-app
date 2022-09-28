@@ -14,7 +14,12 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x, 16.x]
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest]
+        angular-version:
+          - 12.0.x
+          - 12.1.x
+          - 12.2.x
+          - 13.0.x
 
     steps:
       - uses: actions/checkout@v3
@@ -29,11 +34,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
         with:
@@ -46,6 +46,11 @@ jobs:
           cache: 'npm'
           registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
           scope: '@backbase'
+
+      - name: Use Angular ${{ matrix.angular-version }}
+        uses: ngworker/angular-versions-action@v4
+        with:
+          angular-version: ${{ matrix.angular-version }}
 
       - name: Install Dependencies
         run: npm ci --legacy-peer-deps
