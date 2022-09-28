@@ -61,17 +61,5 @@ jobs:
       - name: Unit test
         run: npm run affected:test
 
-      - name: Install playwright
-        run: | 
-          cd apps/golden-sample-app-e2e
-          npx playwright install-deps
-          npx playwright install
-
-      - name: Run Playwright Tests        
-        continue-on-error: false
-        working-directory: apps/golden-sample-app-e2e      
-        run: |   
-          npx playwright test e2e --reporter=html --config playwright.config.ts
-
       - name: Check Linting
         run: npm run affected:lint

@@ -8,6 +8,9 @@ jobs:
   playwright:
     name: 'Playwright Tests'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]    
     container:
       image: mcr.microsoft.com/playwright:v1.25.0-focal
 
@@ -17,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: ${{ matrix.node-version }} 
           cache: 'npm'
           registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
           scope: '@backbase'
@@ -28,4 +31,14 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Run Playwright tests
-        run: npm run e2e
+        run: | 
+          cd apps/golden-sample-app-e2e
+          npx playwright install-deps
+          npx playwright install
+
+      - name: Run Playwright Tests        
+        continue-on-error: false
+        working-directory: apps/golden-sample-app-e2e      
+        run: |   
+          npx playwright test e2e --reporter=html --config playwright.config.ts
+          
