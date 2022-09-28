@@ -1,4 +1,5 @@
 import { LocaleSelectorComponent } from './locale-selector.component';
+import { localesCatalog } from './locales-catalog';
 import { LocalesService } from './locales.service';
 
 describe('bb-locale-selector', () => {
@@ -34,7 +35,7 @@ describe('bb-locale-selector', () => {
 
   it(`should call ngOnInit and set current language to correct locale`, () => {
     component.ngOnInit();
-    expect(component.language).toEqual('en');
+    expect(component.language).toEqual(localesCatalog['en']);
   });
 
   it(`should call ngOnInit and set current language to empty string`, () => {
@@ -44,12 +45,14 @@ describe('bb-locale-selector', () => {
     };
     createComponent();
     component.ngOnInit();
-    expect(component.language).toEqual('');
+    expect(component.language).toEqual(undefined);
   });
 
   it('should load all the languages configured', () => {
+    component.ngOnInit();
     const locales = mockLocales.map(
-      (locale) => component.localesCatalog[locale].language
+      (locale) =>
+        component.localesCatalog.find((x) => x.code === locale)?.language
     );
     expect(locales).toEqual(['English', 'Spanish']);
   });
@@ -57,7 +60,10 @@ describe('bb-locale-selector', () => {
   it(`should set a new cookie value and refresh the page
   by calling the respective services after selecting a language`, () => {
     mockLocalesService.setLocaleCookie = jest.fn();
-    component.language = 'es';
+    component.language = {
+      language: 'Spanish',
+      code: 'es',
+    };
     expect(mockLocalesService.setLocaleCookie).toHaveBeenCalledWith('es');
     expect(mockDocument.location.href).toBe(mockDocument.baseURI);
   });

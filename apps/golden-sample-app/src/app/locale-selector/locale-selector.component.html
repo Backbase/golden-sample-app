@@ -1,7 +1,12 @@
-<bb-dropdown-single-select-ui [(ngModel)]="language">
-  <bb-dropdown-single-select-option-ui
-    *ngFor="let locale of locales"
-    [value]="localesCatalog[locale].code"
-    [label]="localesCatalog[locale].language"
-  ></bb-dropdown-single-select-option-ui>
-</bb-dropdown-single-select-ui>
+<bb-dropdown-menu-ui
+  buttonSize="sm"
+  btnColor="secondary"
+  optionLabelKey="language"
+  icon="caret-down"
+  [options]="localesCatalog"
+  (select)="language = $event"
+>
+  <ng-template bbDropdownLabel>
+    <span>{{ language?.language }}</span>
+  </ng-template>
+</bb-dropdown-menu-ui>
