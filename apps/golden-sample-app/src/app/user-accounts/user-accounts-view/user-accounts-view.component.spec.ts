@@ -35,7 +35,7 @@ describe('UserAccountsViewComponent', () => {
 
   it('should render correct ammount of available accounts', () => {
     const accounts = fixture.nativeElement.querySelectorAll(
-      '[data-role="arrangmenet-container"]'
+      '[data-role="arrangement-container"]'
     );
 
     expect(accounts.length).toBe(2);

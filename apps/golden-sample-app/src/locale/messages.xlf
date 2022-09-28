@@ -83,8 +83,8 @@
       <trans-unit id="app.userAccountsView.header" datatype="html">
         <source>
           There are
-          <x id="ICU" equiv-text="{arrangments.length, plural, =0 {no accouints} =1 {account} other
-    {{{ arrangments.length }} accounts}}" />
+          <x id="ICU" equiv-text="{arrangements.length, plural, =0 {no accouints} =1 {account} other
+    {{{ arrangements.length }} accounts}}" />
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>

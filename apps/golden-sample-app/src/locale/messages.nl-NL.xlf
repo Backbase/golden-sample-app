@@ -98,13 +98,13 @@
       <trans-unit id="app.userAccountsView.header" datatype="html">
         <source>
           There are
-          <x id="ICU" equiv-text="{arrangments.length, plural, =0 {no accouints} =1 {account} other
-    {{{ arrangments.length }} accounts}}" />
+          <x id="ICU" equiv-text="{arrangements.length, plural, =0 {no accouints} =1 {account} other
+    {{{ arrangements.length }} accounts}}" />
         </source>
         <target state="final">
           There are
-          <x id="ICU" equiv-text="{arrangments.length, plural, =0 {no accouints} =1 {account} other
-    {{{ arrangments.length }} accounts}}" />
+          <x id="ICU" equiv-text="{arrangements.length, plural, =0 {no accouints} =1 {account} other
+    {{{ arrangements.length }} accounts}}" />
         </target>
 
         <note priority="1" from="description">user accounts header</note>
