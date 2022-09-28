@@ -6,16 +6,16 @@ import { TransactionItem } from '@backbase/data-ang/transactions';
 })
 export class FilterTransactionsPipe implements PipeTransform {
   transform(value: TransactionItem[], text: string): TransactionItem[] {
-    if (!text) {
-      return value;
+    if (text) {
+      const lowerCaseText = text.toLocaleLowerCase();
+      return value.filter(
+        ({ merchant, type, counterPartyName = '' }: TransactionItem) =>
+          merchant?.name.toLocaleLowerCase().includes(lowerCaseText) ||
+          counterPartyName.toLocaleLowerCase().includes(lowerCaseText) ||
+          type.toLocaleLowerCase().includes(lowerCaseText)
+      );
     }
 
-    const lowerCaseText = text.toLocaleLowerCase();
-
-    return value.filter(
-      ({ merchant, type }: TransactionItem) =>
-        merchant?.name.toLocaleLowerCase().includes(lowerCaseText) ||
-        type.toLocaleLowerCase().includes(lowerCaseText)
-    );
+    return value;
   }
 }

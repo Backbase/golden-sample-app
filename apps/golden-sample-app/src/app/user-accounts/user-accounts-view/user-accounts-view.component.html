@@ -1,13 +1,25 @@
-<div *ngIf="arrangements$ | async as arrangments">
+<div *ngIf="arrangements$ | async as arrangements">
   <h1 i18n="user accounts header@@app.userAccountsView.header">
-    There are {arrangments.length, plural, =0 {no accouints} =1 {account} other
-    {{{ arrangments.length }} accounts}}
+    There are {arrangements.length, plural, =0 {no accouints} =1 {account} other
+    {{{ arrangements.length }} accounts}}
   </h1>
 
   <ul>
-    <li *ngFor="let account of arrangments" data-role="arrangmenet-container">
+    <li
+      *ngFor="let account of arrangements"
+      class="bb-block--sm"
+      data-role="arrangement-container"
+    >
       {{ account.displayName }} - {{ account.availableBalance }}
       {{ account.currency }}
+      <br />
+      <a
+        [routerLink]="['/transactions']"
+        [queryParams]="{ account: account.id }"
+        i18n="Label for View Transactions link@@user-accounts.view-transactions"
+      >
+        View Transactions
+      </a>
     </li>
   </ul>
 </div>

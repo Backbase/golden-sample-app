@@ -1,3 +1,5 @@
+@import '~@backbase/ui-ang/scss/1-variables/brand/color';
+
 :host {
   display: flex;
   align-items: center;
@@ -18,6 +20,13 @@
 
   &--negative {
     background-color: RGBA(213, 18, 113, 1);
+  }
+}
+
+:host {
+  &:hover .transactions-item__color-indication {
+    background-color: $color-primary;
+    width: 7px;
   }
 }
 

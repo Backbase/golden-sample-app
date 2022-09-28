@@ -1,0 +1,91 @@
+<div class="row" *ngIf="transaction">
+  <div class="bb-card col-lg-6">
+    <div class="bb-card__header">
+      <h1 class="bb-card__title">{{ title }}</h1>
+    </div>
+    <div class="bb-card__body">
+      <dl *ngIf="transaction" class="row">
+        <div class="col-md-8">
+          <dt
+            i18n="
+              Recepient label for Transaction
+              Details@@transactions.details.recepient"
+          >
+            Recepient:
+          </dt>
+          <dd>
+            {{ transaction.recepient }}
+          </dd>
+        </div>
+
+        <div class="col-md-4">
+          <dt
+            i18n="Date label for Transaction Details@@transactions.details.date"
+          >
+            Date:
+          </dt>
+          <dd>
+            {{ transaction.date | date }}
+          </dd>
+        </div>
+
+        <div class="col-md-8">
+          <dt
+            i18n="
+              Amount label for Transaction Amount@@transactions.details.amount"
+          >
+            Amount:
+          </dt>
+          <dd>
+            <bb-amount-ui
+              [currency]="transaction.amount.currencyCode"
+              [amount]="transaction.amount.amount"
+              [mapCurrency]="true"
+              [showPlusSign]="false"
+              [abbreviate]="false"
+            >
+            </bb-amount-ui>
+          </dd>
+        </div>
+
+        <div class="col-md-4">
+          <dt
+            i18n="
+              Category label for Transaction
+              Details@@transactions.details.category"
+          >
+            Category:
+          </dt>
+          <dd>
+            {{ transaction.category }}
+          </dd>
+        </div>
+
+        <div class="col-md-8">
+          <dt
+            i18n="
+              Description label for Transaction
+              Details@@transactions.details.description"
+          >
+            Description:
+          </dt>
+          <dd>
+            {{ transaction.description }}
+          </dd>
+        </div>
+
+        <div class="col-md-4">
+          <dt
+            i18n="
+              Status label for Transaction Details@@transactions.details.status"
+          >
+            Status:
+          </dt>
+          <dd>
+            {{ transaction.status }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</div>

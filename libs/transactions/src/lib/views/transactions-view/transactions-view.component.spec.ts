@@ -1,8 +1,12 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Router,
+} from '@angular/router';
 import { TransactionItem } from '@backbase/data-ang/transactions';
-import { BehaviorSubject, delay } from 'rxjs';
+import { BehaviorSubject, delay, of } from 'rxjs';
 import {
   TransactionsCommunicationService,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
@@ -16,13 +20,17 @@ import { FilterTransactionsPipe } from '../../pipes/filter-transactions.pipe';
 import { TransactionsHttpService } from '../../services/transactions.http.service';
 import { TransactionsViewComponent } from './transactions-view.component';
 import { By } from '@angular/platform-browser';
+import { ArrangementsService } from '../../services/arrangements.service';
+import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 
 describe('TransactionsViewComponent', () => {
   let transactions$$: BehaviorSubject<TransactionItem[] | undefined>;
+  let arrangements$$: BehaviorSubject<ProductSummaryItem[]>;
   let mockTransactionsHttpService: Pick<
     TransactionsHttpService,
     'transactions$'
   >;
+  let mockArrangementsService: Pick<ArrangementsService, 'arrangements$'>;
   let latestTransactions$$: BehaviorSubject<TransactionItem | undefined>;
   let mockTransactionsCommunicationService:
     | Pick<TransactionsCommunicationService, 'latestTransaction$'>
@@ -37,8 +45,12 @@ describe('TransactionsViewComponent', () => {
     transactions$$ = new BehaviorSubject<TransactionItem[] | undefined>(
       undefined
     );
+    arrangements$$ = new BehaviorSubject<ProductSummaryItem[]>([]);
     mockTransactionsHttpService = {
       transactions$: transactions$$.asObservable(),
+    };
+    mockArrangementsService = {
+      arrangements$: arrangements$$.asObservable(),
     };
     latestTransactions$$ = new BehaviorSubject<TransactionItem | undefined>(
       undefined
@@ -64,11 +76,22 @@ describe('TransactionsViewComponent', () => {
           provide: ActivatedRoute,
           useValue: {
             snapshot: snapshot as ActivatedRouteSnapshot,
+            queryParams: of({}),
+          },
+        },
+        {
+          provide: Router,
+          useValue: {
+            navigate: jest.fn(),
           },
         },
         {
           provide: TransactionsHttpService,
           useValue: mockTransactionsHttpService,
+        },
+        {
+          provide: ArrangementsService,
+          useValue: mockArrangementsService,
         },
         {
           provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
