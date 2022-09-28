@@ -12,15 +12,40 @@
 
     <div class="bb-card__body">
       <div class="bb-block bb-block--md">
-        <bb-text-filter (textChange)="filter = $event || ''"></bb-text-filter>
+        <bb-text-filter (textChange)="search($event)"></bb-text-filter>
       </div>
+
+      <div
+        class="bb-block bb-block--md"
+        *ngIf="accountName$ | async as accountName"
+      >
+        <span i18n="Label for filtered by@@transactions.filters.label"
+          >filtered by:</span
+        >
+
+        <bb-badge-ui
+          [text]="accountName + ' ✕'"
+          title="Remove account filter"
+          i18n-title="
+            Remove label for Account Badge@@transactions.account-filter.remove"
+          class="filters-badge"
+          color="success"
+          routerLink="/transactions"
+          queryParamsHandling="merge"
+          [queryParams]="{ account: null }"
+        >
+        </bb-badge-ui>
+      </div>
+
       <ul *ngIf="transactions$ | async as items; else loading" class="bb-list">
         <li
           *ngFor="let item of items | filterTransactions: filter"
           class="bb-list__item"
           data-role="transactions-view__item-container"
         >
-          <bb-transaction-item [transaction]="item"></bb-transaction-item>
+          <a class="list-link" [routerLink]="['./', item.id]" [state]="item">
+            <bb-transaction-item [transaction]="item"></bb-transaction-item>
+          </a>
         </li>
       </ul>
     </div>
@@ -32,3 +57,5 @@
     <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
   </div>
 </ng-template>
+
+<router-outlet></router-outlet>

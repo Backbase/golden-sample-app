@@ -64,6 +64,22 @@
         </context-group>
         <note priority="1" from="description">Ach Positive pay link</note>
       </trans-unit>
+      <trans-unit id="error-page.title" datatype="html">
+        <source>Page couldn’t load</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/golden-sample-app/src/app/error-page/error-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">Error page label</note>
+      </trans-unit>
+      <trans-unit id="error-page.message" datatype="html">
+        <source>Try to reload the page or contact the system administrator.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/golden-sample-app/src/app/error-page/error-page.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description">Error page message</note>
+      </trans-unit>
       <trans-unit id="app.userAccountsView.header" datatype="html">
         <source> User accounts </source>
         <context-group purpose="location">
@@ -6134,6 +6150,117 @@
         </context-group>
         <note priority="1" from="description">header of the page</note>
         <note priority="1" from="meaning">transactions title</note>
+      </trans-unit>
+      <trans-unit id="transactions-journey.details.text" datatype="html">
+        <source>Transaction Details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/constants/dynamic-translations.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">header of the page</note>
+        <note priority="1" from="meaning">transaction details title</note>
+      </trans-unit>
+      <trans-unit id="transactions.details.recepient" datatype="html">
+        <source> Recepient: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">13,15</context>
+        </context-group>
+        <note priority="1" from="description">Recepient label for Transaction
+              Details</note>
+      </trans-unit>
+      <trans-unit id="transactions.details.date" datatype="html">
+        <source>Date:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <note priority="1" from="description">Date label for Transaction
+              Details</note>
+      </trans-unit>
+      <trans-unit id="transactions.details.amount" datatype="html">
+        <source>Amount:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <note priority="1" from="description">Amount label for Transaction
+              Amount</note>
+      </trans-unit>
+      <trans-unit id="transactions.details.category" datatype="html">
+        <source>Category:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+        <note priority="1" from="description">Category label for Transaction
+              Details</note>
+      </trans-unit>
+      <trans-unit id="transactions.details.description" datatype="html">
+        <source>Description:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+        <note priority="1" from="description">Description label for Transaction
+              Details</note>
+      </trans-unit>
+      <trans-unit id="transactions.details.status" datatype="html">
+        <source>Status:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.html</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+        <note priority="1" from="description">Status label for Transaction
+              Details</note>
+      </trans-unit>
+      <trans-unit id="857011402599994952" datatype="html">
+        <source>
+          Transaction
+          <x id="PH" equiv-text="this.route.snapshot.params['id']" />
+          not found
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4467323362722952678" datatype="html">
+        <source>Unknown</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3169427932576895164" datatype="html">
+        <source>UNKNOWN</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4890031060409002646" datatype="html">
+        <source>Uncategorized</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details/transaction-details-view.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="transactions.filters.label" datatype="html">
+        <source>filtered by:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transactions-view/transactions-view.component.html</context>
+          <context context-type="linenumber">18,23</context>
+        </context-group>
+        <note priority="1" from="description">Label for filtered by</note>
+      </trans-unit>
+      <trans-unit id="transactions.account-filter.remove" datatype="html">
+        <source>Remove account filter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/transactions/src/lib/views/transactions-view/transactions-view.component.html</context>
+          <context context-type="linenumber">22,26</context>
+        </context-group>
+        <note priority="1" from="description">Remove label for Account Badge</note>
       </trans-unit>
       <trans-unit id="transfer.form.fromAccount.label" datatype="html">
         <source>From account</source>

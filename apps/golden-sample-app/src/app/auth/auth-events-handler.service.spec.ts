@@ -3,7 +3,7 @@ import { Subject, Subscription } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AuthEventsHandlerService } from './auth-events-handler.service';
 
-export type WidePropertyTypes<T> = Partial<Record<keyof T, any>>;
+export type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;
 export const mock = <T>(overrides?: WidePropertyTypes<T>) =>
   ({ ...overrides } as jest.Mocked<T>);
 describe('AuthEventsHandlerService', () => {
@@ -134,7 +134,8 @@ describe('AuthEventsHandlerService', () => {
   describe('#ngOnDestroy', () => {
     it('should close events subscription', () => {
       const { service } = getInstance();
-      const subscription: Subscription = (<any>service).eventsSubscription;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const subscription: Subscription = (service as any).eventsSubscription;
 
       expect(subscription.closed).toBe(false);
 

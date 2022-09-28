@@ -36,6 +36,14 @@
             [favorite]="account.favorite || false"
             data-role="arrangmenet-container"
           ></bb-product-item-basic-account-ui>
+          <a
+            [routerLink]="['/transactions']"
+            [queryParams]="{ account: account.id }"
+            i18n="
+              Label for View Transactions link@@user-accounts.view-transactions"
+          >
+            View Transactions
+          </a>
         </div>
       </div>
     </div>

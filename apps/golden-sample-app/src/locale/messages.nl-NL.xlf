@@ -8284,6 +8284,7 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
+
       <trans-unit id="product-item-base-account.status.closed" datatype="html">
         <source> Closed </source>
         <target state="final"> Closed </target>
