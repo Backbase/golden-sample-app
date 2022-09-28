@@ -40,5 +40,5 @@ jobs:
         continue-on-error: false
         working-directory: apps/golden-sample-app-e2e      
         run: |   
-          npx playwright test e2e --reporter=html --config playwright.config.ts
+          npx playwright test e2e --reporter=html --config ../../playwright.config.ts
           
