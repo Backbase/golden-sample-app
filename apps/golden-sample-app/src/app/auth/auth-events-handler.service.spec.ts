@@ -14,6 +14,7 @@ describe('AuthEventsHandlerService', () => {
       refreshToken: jest.fn(),
       revokeTokenAndLogout: jest.fn(),
       initLoginFlow: jest.fn(),
+      hasValidAccessToken: jest.fn().mockReturnValue(true),
     });
     const service = new AuthEventsHandlerService(oAuthService);
     const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
@@ -115,6 +116,18 @@ describe('AuthEventsHandlerService', () => {
 
       expect(oAuthService.revokeTokenAndLogout).toHaveBeenCalledTimes(1);
     });
+    it('should call initLoginFlow when the user does not have a valid access token', () => {
+      const { events$$, oAuthService, scheduler } = getInstance();
+      oAuthService.hasValidAccessToken.mockReturnValue(false);
+
+      scheduler.run(({ flush }) => {
+        events$$.next({ type: 'discovery_document_loaded' });
+        events$$.next({ type: 'token_refresh_error' });
+        flush();
+      });
+
+      expect(oAuthService.initLoginFlow).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('Redirecting to login page', () => {
@@ -134,8 +147,7 @@ describe('AuthEventsHandlerService', () => {
   describe('#ngOnDestroy', () => {
     it('should close events subscription', () => {
       const { service } = getInstance();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const subscription: Subscription = (service as any).eventsSubscription;
+      const subscription: Subscription = (<any>service).eventsSubscription;
 
       expect(subscription.closed).toBe(false);
 

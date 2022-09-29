@@ -26,8 +26,7 @@ export class AuthEventsHandlerService implements OnDestroy {
     return this.oAuthService.events.subscribe({
       next: (event: OAuthEvent) => {
         // Don't handle any events if the document isn't loaded.
-        if (!this.documentLoaded && event.type !== 'discovery_document_loaded')
-          return;
+        if (!this.documentLoaded && event.type !== 'discovery_document_loaded') return;
 
         switch (event.type) {
           case 'discovery_document_loaded':
@@ -43,7 +42,7 @@ export class AuthEventsHandlerService implements OnDestroy {
           case 'code_error':
           case 'session_error':
           case 'session_terminated':
-            this.oAuthService.revokeTokenAndLogout();
+            this.handleTerminatedSession();
             break;
           // Invalid login process is treated as a threat and the user is returned to the login page.
           // As the user is already logged in on the Auth server, they should just be navigated back to the app.
@@ -57,5 +56,17 @@ export class AuthEventsHandlerService implements OnDestroy {
 
   ngOnDestroy(): void {
     this.eventsSubscription.unsubscribe();
+  }
+
+  /**
+   * If user has an access token in storage then log them out.
+   * If not, treat them as already logged out and redirect them to their login page.
+   */
+  private handleTerminatedSession() {
+    if (this.oAuthService.hasValidAccessToken()) {
+      this.oAuthService.revokeTokenAndLogout();
+    } else {
+      this.oAuthService.initLoginFlow();
+    }
   }
 }

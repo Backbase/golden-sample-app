@@ -32,7 +32,7 @@ import { authConfig, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthEventsHandlerService } from './auth/auth-events-handler.service';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './auth/auth.guard';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 
 @NgModule({
