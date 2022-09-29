@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './auth/auth.guard';
 import { triplets } from './services/entitlementsTriplets';
 import { UserContextGuard } from './user-context/user-context.guard';
 

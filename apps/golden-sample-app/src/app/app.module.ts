@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,8 +32,9 @@ import { authConfig, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthEventsHandlerService } from './auth/auth-events-handler.service';
-import { AuthGuard } from './guards/auth.guard';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { IdentityAuthModule } from '@backbase/identity-auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -56,11 +57,16 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
       locales: environment.locales,
     }),
     ButtonModule,
+    IdentityAuthModule,
   ],
   providers: [
     ...(environment.mockProviders || []),
-    AuthGuard,
     { provide: AuthConfig, useValue: authConfig },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     {
       provide: OAuthModuleConfig,
       useValue: {
