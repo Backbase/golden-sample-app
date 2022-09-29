@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, CanActivateChild, CanLoad, UrlTree } from '@angular/router';
+import {
+  CanActivate,
+  CanActivateChild,
+  CanLoad,
+  UrlTree,
+} from '@angular/router';
 import { AuthService } from '@backbase/identity-auth';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { map, Observable } from 'rxjs';
@@ -8,7 +13,10 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
-  constructor(private readonly authService: AuthService, private readonly oAuthService: OAuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly oAuthService: OAuthService
+  ) {}
 
   canLoad(): Observable<boolean | UrlTree> {
     return this.redirectIfUnauthenticated();
@@ -35,7 +43,7 @@ export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
 
         this.oAuthService.initLoginFlow();
         return false;
-      }),
+      })
     );
   }
 }

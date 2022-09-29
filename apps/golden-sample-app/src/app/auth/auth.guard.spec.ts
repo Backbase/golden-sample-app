@@ -23,27 +23,29 @@ describe('AuthGuard', () => {
     return { guard, authService, oAuthService, isAuthenticated$$, scheduler };
   };
 
-  describe.each([{ method: 'canLoad' }, { method: 'canActivate' }, { method: 'canActivateChild' }])(
-    '#$method',
-    ({ method }) => {
-      test('returns true when user is authenticated', () => {
-        const { guard, scheduler, isAuthenticated$$ } = getInstance();
+  describe.each([
+    { method: 'canLoad' },
+    { method: 'canActivate' },
+    { method: 'canActivateChild' },
+  ])('#$method', ({ method }) => {
+    test('returns true when user is authenticated', () => {
+      const { guard, scheduler, isAuthenticated$$ } = getInstance();
 
-        scheduler.run(({ expectObservable }) => {
-          isAuthenticated$$.next(true);
-          expectObservable((<any>guard)[method]()).toBe('x', { x: true });
-        });
+      scheduler.run(({ expectObservable }) => {
+        isAuthenticated$$.next(true);
+        expectObservable((<any>guard)[method]()).toBe('x', { x: true });
       });
+    });
 
-      test('returns false and calls initLoginFlow when user is not authenticated', () => {
-        const { guard, scheduler, isAuthenticated$$, oAuthService } = getInstance();
+    test('returns false and calls initLoginFlow when user is not authenticated', () => {
+      const { guard, scheduler, isAuthenticated$$, oAuthService } =
+        getInstance();
 
-        scheduler.run(({ expectObservable }) => {
-          isAuthenticated$$.next(false);
-          expectObservable((<any>guard)[method]()).toBe('x', { x: false });
-        });
-        expect(oAuthService.initLoginFlow).toHaveBeenCalledTimes(1);
+      scheduler.run(({ expectObservable }) => {
+        isAuthenticated$$.next(false);
+        expectObservable((<any>guard)[method]()).toBe('x', { x: false });
       });
-    },
-  );
+      expect(oAuthService.initLoginFlow).toHaveBeenCalledTimes(1);
+    });
+  });
 });

@@ -26,7 +26,8 @@ export class AuthEventsHandlerService implements OnDestroy {
     return this.oAuthService.events.subscribe({
       next: (event: OAuthEvent) => {
         // Don't handle any events if the document isn't loaded.
-        if (!this.documentLoaded && event.type !== 'discovery_document_loaded') return;
+        if (!this.documentLoaded && event.type !== 'discovery_document_loaded')
+          return;
 
         switch (event.type) {
           case 'discovery_document_loaded':
