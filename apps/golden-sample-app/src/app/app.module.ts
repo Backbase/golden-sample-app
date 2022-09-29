@@ -34,6 +34,7 @@ import { AppComponent } from './app.component';
 import { AuthEventsHandlerService } from './auth/auth-events-handler.service';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { IdentityAuthModule } from '@backbase/identity-auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -56,6 +57,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
       locales: environment.locales,
     }),
     ButtonModule,
+    IdentityAuthModule,
   ],
   providers: [
     ...(environment.mockProviders || []),
