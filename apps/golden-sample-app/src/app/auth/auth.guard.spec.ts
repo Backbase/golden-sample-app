@@ -2,9 +2,9 @@ import { AuthService } from '@backbase/identity-auth';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { ReplaySubject } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { WidePropertyTypes } from './auth-events-handler.service.spec';
 import { AuthGuard } from './auth.guard';
 
+export type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;
 export const mock = <T>(overrides?: WidePropertyTypes<T>) =>
   ({ ...overrides } as jest.Mocked<T>);
 
