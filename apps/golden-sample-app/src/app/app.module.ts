@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,6 +34,7 @@ import { AppComponent } from './app.component';
 import { AuthEventsHandlerService } from './auth/auth-events-handler.service';
 import { AuthGuard } from './auth/auth.guard';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -59,8 +60,12 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
   ],
   providers: [
     ...(environment.mockProviders || []),
-    AuthGuard,
     { provide: AuthConfig, useValue: authConfig },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     {
       provide: OAuthModuleConfig,
       useValue: {
