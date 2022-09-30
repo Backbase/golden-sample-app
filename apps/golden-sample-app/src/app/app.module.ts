@@ -34,7 +34,7 @@ import { AppComponent } from './app.component';
 import { AuthEventsHandlerService } from './auth/auth-events-handler.service';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { IdentityAuthModule } from '@backbase/identity-auth';
+import { AuthService, IdentityAuthModule } from '@backbase/identity-auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -80,7 +80,7 @@ import { IdentityAuthModule } from '@backbase/identity-auth';
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [OAuthService, CookieService, AuthEventsHandlerService],
+      deps: [OAuthService, AuthService, CookieService, AuthEventsHandlerService],
       useFactory:
         (oAuthService: OAuthService, cookieService: CookieService) =>
         async () => {
