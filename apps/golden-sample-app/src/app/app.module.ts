@@ -10,6 +10,7 @@ import {
   EntitlementsModule,
   ENTITLEMENTS_CONFIG,
 } from '@backbase/foundation-ang/entitlements';
+import { AuthService, IdentityAuthModule } from '@backbase/identity-auth';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
@@ -26,15 +27,14 @@ import {
   OAuthService,
   OAuthStorage,
 } from 'angular-oauth2-oidc';
-import { AppErrorHandler } from './app.error-handler';
 import { CookieService } from 'ngx-cookie-service';
 import { authConfig, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppErrorHandler } from './app.error-handler';
 import { AuthEventsHandlerService } from './auth/auth-events-handler.service';
-import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { IdentityAuthModule } from '@backbase/identity-auth';
+import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -80,7 +80,12 @@ import { IdentityAuthModule } from '@backbase/identity-auth';
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [OAuthService, CookieService, AuthEventsHandlerService],
+      deps: [
+        OAuthService,
+        CookieService,
+        AuthEventsHandlerService,
+        AuthService,
+      ],
       useFactory:
         (oAuthService: OAuthService, cookieService: CookieService) =>
         async () => {
