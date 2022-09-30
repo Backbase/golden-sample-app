@@ -82,9 +82,9 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
       multi: true,
       deps: [
         OAuthService,
-        AuthService,
         CookieService,
         AuthEventsHandlerService,
+        AuthService,
       ],
       useFactory:
         (oAuthService: OAuthService, cookieService: CookieService) =>
