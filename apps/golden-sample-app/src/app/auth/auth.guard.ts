@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import {
   CanActivate,
   CanActivateChild,
@@ -15,8 +15,10 @@ import { map, Observable } from 'rxjs';
 export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
   constructor(
     private readonly authService: AuthService,
-    private readonly oAuthService: OAuthService
-  ) {}
+    private readonly oAuthService: OAuthService,
+    @Inject(LOCALE_ID)
+    private readonly locale: string,
+  ) { }
 
   canLoad(): Observable<boolean | UrlTree> {
     return this.redirectIfUnauthenticated();
@@ -41,7 +43,7 @@ export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
           return true;
         }
 
-        this.oAuthService.initLoginFlow();
+        this.oAuthService.initLoginFlow(undefined, { 'ui_locales': this.locale });
         return false;
       })
     );
