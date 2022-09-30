@@ -16,7 +16,7 @@ describe('AuthEventsHandlerService', () => {
       initLoginFlow: jest.fn(),
       hasValidAccessToken: jest.fn().mockReturnValue(true),
     });
-    const service = new AuthEventsHandlerService(oAuthService);
+    const service = new AuthEventsHandlerService(oAuthService, 'en');
     const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
 
     return { service, oAuthService, events$$, scheduler };

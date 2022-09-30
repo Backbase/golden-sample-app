@@ -17,7 +17,7 @@ describe('AuthGuard', () => {
     const oAuthService = mock<OAuthService>({
       initLoginFlow: jest.fn(),
     });
-    const guard = new AuthGuard(authService, oAuthService);
+    const guard = new AuthGuard(authService, oAuthService, 'en');
     const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
 
     return { guard, authService, oAuthService, isAuthenticated$$, scheduler };
