@@ -17,8 +17,8 @@ export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
     private readonly authService: AuthService,
     private readonly oAuthService: OAuthService,
     @Inject(LOCALE_ID)
-    private readonly locale: string,
-  ) { }
+    private readonly locale: string
+  ) {}
 
   canLoad(): Observable<boolean | UrlTree> {
     return this.redirectIfUnauthenticated();
@@ -43,7 +43,7 @@ export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
           return true;
         }
 
-        this.oAuthService.initLoginFlow(undefined, { 'ui_locales': this.locale });
+        this.oAuthService.initLoginFlow(undefined, { ui_locales: this.locale });
         return false;
       })
     );

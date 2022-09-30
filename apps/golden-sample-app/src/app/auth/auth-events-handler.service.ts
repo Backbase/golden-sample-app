@@ -11,7 +11,7 @@ export class AuthEventsHandlerService implements OnDestroy {
   constructor(
     private readonly oAuthService: OAuthService,
     @Inject(LOCALE_ID)
-    private readonly locale: string,
+    private readonly locale: string
   ) {
     this.eventsSubscription = this.getEventsSubscription();
   }
@@ -52,7 +52,9 @@ export class AuthEventsHandlerService implements OnDestroy {
           // Invalid login process is treated as a threat and the user is returned to the login page.
           // As the user is already logged in on the Auth server, they should just be navigated back to the app.
           case 'invalid_nonce_in_state':
-            this.oAuthService.initLoginFlow(undefined, { 'ui_locales': this.locale });
+            this.oAuthService.initLoginFlow(undefined, {
+              ui_locales: this.locale,
+            });
             break;
         }
       },
@@ -71,7 +73,7 @@ export class AuthEventsHandlerService implements OnDestroy {
     if (this.oAuthService.hasValidAccessToken()) {
       this.oAuthService.revokeTokenAndLogout();
     } else {
-      this.oAuthService.initLoginFlow(undefined, { 'ui_locales': this.locale });
+      this.oAuthService.initLoginFlow(undefined, { ui_locales: this.locale });
     }
   }
 }
