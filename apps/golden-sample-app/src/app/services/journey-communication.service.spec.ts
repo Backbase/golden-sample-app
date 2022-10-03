@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Transfer } from '@libs/transfer';
+import { Transfer } from '@backbase-gsa/transfer';
 import { JourneyCommunicationService } from './journey-communication.service';
 
 describe('JourneyCommunicationService', () => {
