@@ -7,7 +7,7 @@ on:
 jobs:
   playwright:
     name: 'Playwright Tests'
-    timeout-minutes: 60
+    timeout-minutes: 5
     runs-on: ubuntu-latest
     strategy:
       matrix:
