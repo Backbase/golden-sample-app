@@ -8,6 +8,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/transactions"],
       "options": {
         "project": "libs/transactions/ng-package.json"
       },

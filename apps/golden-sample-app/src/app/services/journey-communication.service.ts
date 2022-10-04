@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TransactionItem } from '@backbase/data-ang/transactions';
-import { TransactionsCommunicationService } from '@libs/transactions';
-import { MakeTransferCommunicationService, Transfer } from '@libs/transfer';
+import { TransactionsCommunicationService } from '@backbase-gsa/transactions';
+import {
+  MakeTransferCommunicationService,
+  Transfer,
+} from '@backbase-gsa/transfer';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
