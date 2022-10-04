@@ -28,12 +28,12 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-node- 
 
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
         with:
-          main-branch-name: ${{ github.base_ref }}
+          main-branch-name: ${{ github.base_ref }}                     
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -43,15 +43,15 @@ jobs:
           registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
           scope: '@backbase'
 
-      - name: Use Angular ${{ matrix.angular-version }}
-        uses: ngworker/angular-versions-action@v4
-        with:
-          angular-version: ${{ matrix.angular-version }}
-
       - name: Install Dependencies
         run: npm ci --legacy-peer-deps
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Use Angular ${{ matrix.angular-version }}
+        uses: ngworker/angular-versions-action@v4
+        with:
+          angular-version: ${{ matrix.angular-version }}          
 
       - name: Build app
         run: npm run affected:build
@@ -64,5 +64,3 @@ jobs:
 
       - name: Check Linting
         run: npm run affected:lint
-
-        
