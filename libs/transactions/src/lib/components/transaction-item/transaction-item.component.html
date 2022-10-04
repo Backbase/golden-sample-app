@@ -6,11 +6,11 @@
   }"
 ></span>
 <span class="transactions-item__date">{{
-  transaction.valueDate | date: 'MMM. d'
+  transaction.bookingDate | date: 'MMM. d'
 }}</span>
 <span class="transactions-item__description">
   <span class="transactions-item__counterParty">{{
-    transaction.counterPartyName
+    transaction.counterPartyName || transaction.merchant?.name
   }}</span>
   <span class="transactions-item__transactionType">
     {{ transaction.type }}

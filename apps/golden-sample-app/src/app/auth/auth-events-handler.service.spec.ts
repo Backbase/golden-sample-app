@@ -3,7 +3,7 @@ import { Subject, Subscription } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AuthEventsHandlerService } from './auth-events-handler.service';
 
-export type WidePropertyTypes<T> = Partial<Record<keyof T, any>>;
+export type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;
 export const mock = <T>(overrides?: WidePropertyTypes<T>) =>
   ({ ...overrides } as jest.Mocked<T>);
 describe('AuthEventsHandlerService', () => {
@@ -14,8 +14,9 @@ describe('AuthEventsHandlerService', () => {
       refreshToken: jest.fn(),
       revokeTokenAndLogout: jest.fn(),
       initLoginFlow: jest.fn(),
+      hasValidAccessToken: jest.fn().mockReturnValue(true),
     });
-    const service = new AuthEventsHandlerService(oAuthService);
+    const service = new AuthEventsHandlerService(oAuthService, 'en');
     const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
 
     return { service, oAuthService, events$$, scheduler };
@@ -114,6 +115,18 @@ describe('AuthEventsHandlerService', () => {
       });
 
       expect(oAuthService.revokeTokenAndLogout).toHaveBeenCalledTimes(1);
+    });
+    it('should call initLoginFlow when the user does not have a valid access token', () => {
+      const { events$$, oAuthService, scheduler } = getInstance();
+      oAuthService.hasValidAccessToken.mockReturnValue(false);
+
+      scheduler.run(({ flush }) => {
+        events$$.next({ type: 'discovery_document_loaded' });
+        events$$.next({ type: 'token_refresh_error' });
+        flush();
+      });
+
+      expect(oAuthService.initLoginFlow).toHaveBeenCalledTimes(1);
     });
   });
 

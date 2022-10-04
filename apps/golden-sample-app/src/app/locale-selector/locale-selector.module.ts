@@ -1,13 +1,12 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { LOCALES_LIST, LocalesService } from './locales.service';
 import { LocaleSelectorComponent } from './locale-selector.component';
-import { DropdownSingleSelectModule } from '@backbase/ui-ang/dropdown-single-select';
-import { FormsModule } from '@angular/forms';
+import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [LocaleSelectorComponent],
-  imports: [DropdownSingleSelectModule, FormsModule, CommonModule],
+  imports: [DropdownMenuModule, CommonModule],
   exports: [LocaleSelectorComponent],
   providers: [LocalesService],
 })

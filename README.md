@@ -82,6 +82,8 @@ We've provided the `AuthEventsHandlerService` via the `APP_INITIALIZER` which wi
 - When token refresh, code exchange, or session errors occur the user is automatically logged out.
 - A login using an invalid state parameter will be returned to the Auth server. This will likely result in a return to the application, however, in they will now have passed a valid state parameter.
 
+We've also provided an example implementation of an `AuthInterceptor` in the app module. The purpose of this interceptor is to catch 401 errors and attempt to refresh the user's access token. If this refresh is successful the original request will be replayed with the new access token. If the refresh fails, or the original error was not a 401, then we surface the original error to the calling code.
+
 ## Generate an application
 
 Run `ng g @nrwl/angular:app my-app` to generate an application.

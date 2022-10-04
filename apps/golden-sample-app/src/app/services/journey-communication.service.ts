@@ -30,8 +30,12 @@ export class JourneyCommunicationService
     amount,
   }: Transfer): TransactionItem {
     return {
-      valueDate: String(new Date().getTime()),
-      type: 'Transfer to account',
+      id: Date.now().toString(),
+      arrangementId: '',
+      description: 'Transfer to account',
+      bookingDate: new Date().toISOString().substring(0, 10),
+      type: 'Withdrawal',
+      typeGroup: 'payments',
       creditDebitIndicator: 'DBIT',
       transactionAmountCurrency: {
         amount: String(amount),
@@ -41,6 +45,6 @@ export class JourneyCommunicationService
         name: toAccount,
         id: Number(toAccount),
       },
-    } as unknown as TransactionItem;
+    };
   }
 }

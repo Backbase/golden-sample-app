@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './auth/auth.guard';
 import { triplets } from './services/entitlementsTriplets';
+import { UserContextGuard } from './user-context/user-context.guard';
 
 const routes: Routes = [
   {
@@ -19,12 +20,17 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'error',
+    loadChildren: () =>
+      import('./error-page/error-page.module').then((m) => m.ErrorPageModule),
+  },
+  {
     path: 'transfer',
     loadChildren: () =>
       import('./transfer/transfer-journey-bundle.module').then(
         (m) => m.TransferJourneyBundleModule
       ),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, UserContextGuard],
   },
   {
     path: 'positive-pay',
@@ -32,7 +38,7 @@ const routes: Routes = [
       import('./positive-pay/positive-pay-journey-bundle.module').then(
         (m) => m.PositivePayJourneyBundleModule
       ),
-    canActivate: [AuthGuard, EntitlementsGuard],
+    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard],
     data: {
       entitlements: triplets.canViewPositivePay,
     },
@@ -43,7 +49,7 @@ const routes: Routes = [
       import('./ach-positive-pay/ach-positive-pay-journey-bundle.module').then(
         (m) => m.AchPositivePayJourneyBundleModule
       ),
-    canActivate: [AuthGuard, EntitlementsGuard],
+    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard],
     data: {
       entitlements: triplets.canViewAchRule,
     },
@@ -57,7 +63,7 @@ const routes: Routes = [
     data: {
       entitlements: triplets.canViewTransactions,
     },
-    canActivate: [AuthGuard, EntitlementsGuard],
+    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard],
   },
   {
     path: 'accounts',
@@ -65,12 +71,12 @@ const routes: Routes = [
       import('./user-accounts/user-accounts.module').then(
         (m) => m.UserAccountsModule
       ),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, UserContextGuard],
   },
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: 'transactions',
+    redirectTo: 'error',
   },
 ];
 

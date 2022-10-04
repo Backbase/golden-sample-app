@@ -21,7 +21,7 @@ describe('ArrangementsService', () => {
   });
 
   it('should call product summary service to get arrangements', (done) => {
-    service.arrangementIds$.subscribe(() => {
+    service.arrangements$.subscribe(() => {
       expect(
         mockProductSummaryService.getArrangementsByBusinessFunction
       ).toHaveBeenCalled();
@@ -30,9 +30,9 @@ describe('ArrangementsService', () => {
   });
 
   it('should mapp arrangements to their ids', (done) => {
-    service.arrangementIds$.subscribe((received) => {
+    service.arrangements$.subscribe((received) => {
       expect(received.length).toBe(1);
-      expect(received[0]).toBe(arrangementIdMock);
+      expect(received[0].id).toBe(arrangementIdMock);
       done();
     });
   });

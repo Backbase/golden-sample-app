@@ -148,6 +148,7 @@
 
     <!-- Topbar Content Area (a.k.a. Right Topbar Area) -->
     <div class="bb-layout__topbar-content-area">
+      <app-locale-selector class="mx-2"></app-locale-selector>
       <div>
         <a routerLink="/accounts">
           <bb-icon-ui
@@ -155,19 +156,17 @@
             data-role="notifications-icon"
             name="user"
             size="lg"
+            class="mx-2"
           ></bb-icon-ui>
         </a>
-      </div>
-      <div class="mx-4">
-        <app-locale-selector></app-locale-selector>
-      </div>
-      <div>
+
         <a href="#" (click)="logout()" data-role="logout-btn">
           <bb-icon-ui
             color="secondary"
             data-role="notifications-icon"
             name="exit-to-app"
             size="lg"
+            class="mx-2"
           ></bb-icon-ui>
         </a>
       </div>

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID, OnDestroy } from '@angular/core';
 import { OAuthEvent, OAuthService } from 'angular-oauth2-oidc';
 import { Subscription } from 'rxjs';
 
@@ -8,7 +8,11 @@ import { Subscription } from 'rxjs';
 export class AuthEventsHandlerService implements OnDestroy {
   private eventsSubscription: Subscription;
   private documentLoaded = false;
-  constructor(private readonly oAuthService: OAuthService) {
+  constructor(
+    private readonly oAuthService: OAuthService,
+    @Inject(LOCALE_ID)
+    private readonly locale: string
+  ) {
     this.eventsSubscription = this.getEventsSubscription();
   }
 
@@ -43,12 +47,14 @@ export class AuthEventsHandlerService implements OnDestroy {
           case 'code_error':
           case 'session_error':
           case 'session_terminated':
-            this.oAuthService.revokeTokenAndLogout();
+            this.handleTerminatedSession();
             break;
           // Invalid login process is treated as a threat and the user is returned to the login page.
           // As the user is already logged in on the Auth server, they should just be navigated back to the app.
           case 'invalid_nonce_in_state':
-            this.oAuthService.initLoginFlow();
+            this.oAuthService.initLoginFlow(undefined, {
+              ui_locales: this.locale,
+            });
             break;
         }
       },
@@ -57,5 +63,17 @@ export class AuthEventsHandlerService implements OnDestroy {
 
   ngOnDestroy(): void {
     this.eventsSubscription.unsubscribe();
+  }
+
+  /**
+   * If user has an access token in storage then log them out.
+   * If not, treat them as already logged out and redirect them to their login page.
+   */
+  private handleTerminatedSession() {
+    if (this.oAuthService.hasValidAccessToken()) {
+      this.oAuthService.revokeTokenAndLogout();
+    } else {
+      this.oAuthService.initLoginFlow(undefined, { ui_locales: this.locale });
+    }
   }
 }

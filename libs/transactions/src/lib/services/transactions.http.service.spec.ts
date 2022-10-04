@@ -9,7 +9,7 @@ import { TransactionsHttpService } from './transactions.http.service';
 
 describe('TransactionsHttpService', () => {
   let service: TransactionsHttpService;
-  const mockArrangenementsIds = ['arrangement-mock'];
+  const mockArrangenements = [{ id: 'arrangement-mock' }];
   const mockPageSize = 10;
   const mockTransactionItems = [{}, {}] as TransactionItem[];
 
@@ -20,7 +20,7 @@ describe('TransactionsHttpService', () => {
     getTransactionsWithPost: jest.fn(() => of(mockTransactionItems)),
   } as unknown as TransactionClientHttpService;
   const mockArrangementsService = {
-    arrangementIds$: of(mockArrangenementsIds),
+    arrangements$: of(mockArrangenements),
   } as ArrangementsService;
 
   beforeEach(() => {
@@ -40,7 +40,7 @@ describe('TransactionsHttpService', () => {
       ).toHaveBeenCalledWith(
         {
           transactionListRequest: {
-            arrangementsIds: mockArrangenementsIds,
+            arrangementsIds: mockArrangenements.map((a) => a.id),
             size: mockPageSize,
             from: 0,
             orderBy: 'bookingDate',

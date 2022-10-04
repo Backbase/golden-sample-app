@@ -1,13 +1,57 @@
-<div *ngIf="arrangements$ | async as arrangments">
-  <h1 i18n="user accounts header@@app.userAccountsView.header">
-    There are {arrangments.length, plural, =0 {no accouints} =1 {account} other
-    {{{ arrangments.length }} accounts}}
-  </h1>
+<div class="row">
+  <div class="bb-card col-lg-6">
+    <div class="bb-card__header">
+      <h1
+        class="bb-card__title"
+        i18n="user accounts header@@app.userAccountsView.header"
+      >
+        User accounts
+      </h1>
+    </div>
 
-  <ul>
-    <li *ngFor="let account of arrangments" data-role="arrangmenet-container">
-      {{ account.displayName }} - {{ account.availableBalance }}
-      {{ account.currency }}
-    </li>
-  </ul>
+    <div
+      class="bb-card__body"
+      *ngIf="arrangements$ | async as arrangments; else loading"
+    >
+      <p i18n="user accounts summary@@app.userAccountsView.sumary">
+        {arrangments.length, plural, =0 {There are no accounts} =1 {There is an
+        account} other {There are {{ arrangments.length }} accounts} }:
+      </p>
+      <div class="bb-list">
+        <div
+          *ngFor="let account of arrangments"
+          data-role="product"
+          class="bb-list__item"
+        >
+          <bb-product-item-basic-account-ui
+            [title]="account.displayName"
+            [amount]="account.availableBalance"
+            [currency]="account.currency"
+            [productNumber]="account.number"
+            balanceLabel="Available balance"
+            i18n-balanceLabel="
+              User account available balance
+              label@@app.userAccountsView.balanceLabel"
+            [active]="false"
+            [favorite]="account.favorite || false"
+            data-role="arrangement-container"
+          ></bb-product-item-basic-account-ui>
+          <a
+            [routerLink]="['/transactions']"
+            [queryParams]="{ account: account.id }"
+            i18n="
+              Label for View Transactions link@@user-accounts.view-transactions"
+          >
+            View Transactions
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<ng-template #loading>
+  <div data-role="transactions-view__loading-state-container">
+    <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
+  </div>
+</ng-template>

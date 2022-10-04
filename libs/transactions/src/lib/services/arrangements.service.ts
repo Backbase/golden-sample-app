@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ProductSummaryHttpService } from '@backbase/data-ang/arrangements';
-import { map } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ArrangementsService {
-  public arrangementIds$ = this.productSummaryDataHttpService
+  public arrangements$ = this.productSummaryDataHttpService
     .getArrangementsByBusinessFunction(
       {
         businessFunction: 'Product Summary',
@@ -14,7 +16,7 @@ export class ArrangementsService {
       },
       'body'
     )
-    .pipe(map((arrangements) => arrangements.map((ar) => ar.id)));
+    .pipe(shareReplay());
 
   constructor(
     private readonly productSummaryDataHttpService: ProductSummaryHttpService

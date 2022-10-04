@@ -1,5 +1,5 @@
-import { HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ACCESS_CONTROL_BASE_PATH } from '@backbase/data-ang/accesscontrol';
@@ -10,6 +10,7 @@ import {
   EntitlementsModule,
   ENTITLEMENTS_CONFIG,
 } from '@backbase/foundation-ang/entitlements';
+import { AuthService, IdentityAuthModule } from '@backbase/identity-auth';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
@@ -30,8 +31,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { authConfig, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppErrorHandler } from './app.error-handler';
 import { AuthEventsHandlerService } from './auth/auth-events-handler.service';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthInterceptor } from './auth/auth.interceptor';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 
 @NgModule({
@@ -55,11 +57,16 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
       locales: environment.locales,
     }),
     ButtonModule,
+    IdentityAuthModule,
   ],
   providers: [
     ...(environment.mockProviders || []),
-    AuthGuard,
     { provide: AuthConfig, useValue: authConfig },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     {
       provide: OAuthModuleConfig,
       useValue: {
@@ -73,7 +80,12 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [OAuthService, CookieService, AuthEventsHandlerService],
+      deps: [
+        OAuthService,
+        CookieService,
+        AuthEventsHandlerService,
+        AuthService,
+      ],
       useFactory:
         (oAuthService: OAuthService, cookieService: CookieService) =>
         async () => {
@@ -108,6 +120,10 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
       useValue: {
         accessControlBasePath: `${environment.apiRoot}/access-control`,
       },
+    },
+    {
+      provide: ErrorHandler,
+      useClass: AppErrorHandler,
     },
     TemplateRegistry,
   ],
