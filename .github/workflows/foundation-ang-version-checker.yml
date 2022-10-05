@@ -46,7 +46,16 @@ jobs:
           echo "One or more files in the foundation ang folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
           npm i @angular/cli@13.0.0
-          npm run format:check
-          npm run affected:build
-          npm run affected:test
-          npm run affected:lint
+
+      - name: Build app
+        run: npm run affected:build
+
+      - name: Check Formatting
+        run: npm run format:check
+
+      - name: Unit test
+        run: npm run affected:test
+
+      - name: Check Linting
+        run: npm run affected:lint
+

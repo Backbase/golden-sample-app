@@ -10,24 +10,19 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node-version: [16.x]
-        os: [ubuntu-latest]
-
+    runs-on: ubuntu-latest
+    
     steps:
+      - name: Checkout on main
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0   
+
+      - name: Checkout on dev/angular13
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
-      - name: Cache node modules
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          ref: dev/angular13
 
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
@@ -37,7 +32,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
           cache: 'npm'
           registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
           scope: '@backbase'
@@ -46,6 +41,20 @@ jobs:
         run: npm ci --legacy-peer-deps
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Get changed files in the docs folder
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v31
+        with:
+          files: |
+            node_modules/@backbase/foundation-ang/**
+
+      - name: Run step if any file(s) in the foundation ang folder change
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          echo "One or more files in the foundation ang folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+          npm i @angular/cli@13.0.0
 
       - name: Build app
         run: npm run affected:build
