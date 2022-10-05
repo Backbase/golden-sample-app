@@ -88,6 +88,17 @@
       },
       "defaultConfiguration": "development"
     },
+    "e2e": {
+      "builder": "@dot-build/serve-and-run-angular:run",
+      "options": {
+        "devServerTarget": "golden-sample-app:serve",
+        "command": "npx",
+        "args": ["playwright", "test"]
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
     "extract-i18n": {
       "builder": "@angular-devkit/build-angular:extract-i18n",
       "options": {
