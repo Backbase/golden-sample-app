@@ -13,9 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout on main
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0   
+
+      - name: Checkout on dev/angular13
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: dev/angular13
 
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
