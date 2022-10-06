@@ -72,6 +72,7 @@ describe('MakeTransferViewComponent', () => {
         ['../make-transfer-summary'],
         {
           relativeTo: mockActivatedRoute,
+          skipLocationChange: true,
           state: {
             transfer: mockTransfer,
           },

@@ -19,13 +19,15 @@ export class TransactionsViewComponent {
 
   public filter = '';
 
+  private readonly accountId$ = this.route.queryParamMap.pipe(
+    map((params) => params.get('account'))
+  );
+
   public accountName$ = combineLatest({
-    query: this.route.queryParams,
+    accountId: this.accountId$,
     accounts: this.arrangementsService.arrangements$,
   }).pipe(
-    map(({ query, accounts }) =>
-      accounts.find((x) => x.id === query['account'])
-    ),
+    map(({ accountId, accounts }) => accounts.find((x) => x.id === accountId)),
     map((account) => account?.bankAlias ?? '')
   );
 
@@ -33,9 +35,9 @@ export class TransactionsViewComponent {
     transactions: this.transactionsService.transactions$,
     transfer:
       this.externalCommunicationService?.latestTransaction$ ?? of(undefined),
-    query: this.route.queryParams,
+    accountId: this.accountId$,
   }).pipe(
-    map(({ transactions = [], transfer, query: { account: accountId } }) => {
+    map(({ transactions = [], transfer, accountId }) => {
       transactions = [...transactions];
 
       if (transfer) {
@@ -52,6 +54,10 @@ export class TransactionsViewComponent {
     })
   );
 
+  public searchQuery$ = this.route.queryParamMap.pipe(
+    map((params) => params.get('search') ?? '')
+  );
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
@@ -65,7 +71,7 @@ export class TransactionsViewComponent {
   search(ev: string) {
     this.filter = ev || '';
     this.router.navigate([], {
-      queryParams: { search: this.filter },
+      queryParams: { search: this.filter || undefined },
       queryParamsHandling: 'merge',
     });
   }
