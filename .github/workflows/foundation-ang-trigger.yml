@@ -31,14 +31,8 @@ jobs:
 
       #Check with the current foundation-ang version
       - if: github.event.inputs.foundation_ang_version != npm view @backbase/foundation-ang version
-      - name: Build app
-        run: npm run affected:build
-
-      - name: Check Formatting
-        run: npm run format:check
-
-      - name: Unit test
-        run: npm run affected:test
-
-      - name: Check Linting
-        run: npm run affected:lint
+        run: |
+          npm run affected:build
+          npm run format:check
+          npm run affected:test
+          npm run affected:lint
