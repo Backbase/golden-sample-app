@@ -1,13 +1,17 @@
+# Controls when the action will run. The workflow runs when manually triggered using the UI or API
+
 name: Foundation_Ang_On_Demand
 
 on:
   workflow_dispatch:
+    # Inputs the workflow accepts.
     inputs:
       foundation_ang_version:
         description: 'Foundation-ang version'
         required: true
         default: '7.0.0'
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build_web:
     runs-on: ubuntu-latest
@@ -29,7 +33,7 @@ jobs:
           registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
           scope: '@backbase'
 
-      #Check with the current foundation-ang version
+      # Check with the current foundation-ang version
       - if: github.event.inputs.foundation_ang_version != npm view @backbase/foundation-ang version
         run: |
           npm run affected:build
