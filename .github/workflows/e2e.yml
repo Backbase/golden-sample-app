@@ -7,11 +7,7 @@ on:
 jobs:
   playwright:
     name: 'Playwright Tests'
-    timeout-minutes: 5
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
     container:
       image: mcr.microsoft.com/playwright:v1.25.0-focal
 
@@ -21,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
           cache: 'npm'
           registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
           scope: '@backbase'
