@@ -21,7 +21,7 @@ jobs:
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
         with:
-          main-branch-name: ${{ github.base_ref }}
+          main-branch-name: 'main'
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
