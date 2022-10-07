@@ -1,10 +1,8 @@
 categories:
   - title: 'Features'
-    labels:
-      - 'feature'
+    label: 'feature'
   - title: 'Bug Fixes'
-    labels:
-      - 'bug'
+    label: 'bug'
   - title: 'Maintenance'
     label: 'maintenance'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
