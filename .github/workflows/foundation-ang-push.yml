@@ -1,0 +1,38 @@
+name: Push on wf-830-foundation-ang-test checks
+
+on:
+  push:
+    branches:
+      - wf-830-foundation-ang-test
+
+env:
+  FOUNDATION_ANG_VERSION: '7.0.0'      
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: ${{ github.base_ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
+          scope: '@backbase'
+
+      # Check with the current foundation-ang version
+      - if: ${{ env.FOUNDATION_ANG_VERSION }} != npm view @backbase/foundation-ang version
+        run: |
+          npm run affected:build
+          npm run format:check
+          npm run affected:test
+          npm run affected:lint
