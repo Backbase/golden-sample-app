@@ -1,0 +1,45 @@
+name: Push on foundation-ang checks
+
+on:
+  push:
+    branches:
+      - dev/angular13
+
+env:
+  FOUNDATION_ANG_VERSION: '7.0.0'      
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: ${{ github.base_ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
+          scope: '@backbase'
+
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}          
+
+      # Check with the current foundation-ang version
+      - if: ${{ env.FOUNDATION_ANG_VERSION }} != npm view @backbase/foundation-ang version
+        run: |
+          npm run affected:build
+          npm run format:check
+          npm run affected:test
+          npm run affected:lint

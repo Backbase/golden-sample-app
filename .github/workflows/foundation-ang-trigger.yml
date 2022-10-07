@@ -1,0 +1,47 @@
+# Controls when the action will run. The workflow runs when manually triggered using the UI or API
+
+name: Foundation_Ang_On_Demand
+
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      foundation_ang_version:
+        description: 'Foundation-ang version'
+        required: true
+        default: '7.0.0'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build_web:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: ${{ github.base_ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
+          scope: '@backbase'
+
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}   
+
+      # Check with the current foundation-ang version
+      - if: github.event.inputs.foundation_ang_version != npm view @backbase/foundation-ang version
+        run: |
+          npm run affected:build
+          npm run format:check
+          npm run affected:test
+          npm run affected:lint
