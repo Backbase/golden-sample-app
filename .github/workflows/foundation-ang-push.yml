@@ -3,7 +3,7 @@ name: Push on wf-830-foundation-ang-test checks
 on:
   push:
     branches:
-      - wf-830-foundation-ang-test
+      - dev/angular13
 
 env:
   FOUNDATION_ANG_VERSION: '7.0.0'      
