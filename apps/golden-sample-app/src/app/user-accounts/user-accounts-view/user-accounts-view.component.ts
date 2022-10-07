@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ArrangementsService } from '@libs/transactions';
+import { ArrangementsService } from '@backbase-gsa/transactions';
 
 @Component({
   selector: 'app-user-accounts-view',

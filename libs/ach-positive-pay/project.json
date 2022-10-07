@@ -8,6 +8,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/ach-positive-pay"],
       "options": {
         "project": "libs/ach-positive-pay/ng-package.json"
       },
