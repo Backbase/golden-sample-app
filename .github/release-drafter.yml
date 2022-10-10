@@ -1,0 +1,27 @@
+categories:
+  - title: 'Features'
+    label: 'feature'
+  - title: 'Bug Fixes'
+    label: 'bug'
+  - title: 'Maintenance'
+    label: 'maintenance'
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: patch
+template: |
+  ## Changes
+
+  $CHANGES
+
+  ## Contributors
+
+  Thanks to $CONTRIBUTORS for your contributions to this release!
