@@ -40,6 +40,4 @@ jobs:
       - if: ${{ env.FOUNDATION_ANG_VERSION }} != npm view @backbase/foundation-ang version
         run: |
           npm run affected:build
-          npm run format:check
           npm run affected:test
-          npm run affected:lint
