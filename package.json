@@ -2,6 +2,9 @@
   "name": "golden-sample-app",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": "14.15.0"
+  },
   "scripts": {
     "analyze": "webpack-bundle-analyzer dist/golden-sample-app/stats.json",
     "ng": "nx",
