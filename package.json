@@ -17,7 +17,7 @@
     "affected:lint": "nx affected:lint",
     "affected:test": "nx affected:test",
     "xi18n": "ng extract-i18n golden-sample-app --output-path=apps/golden-sample-app/src/locale && xliffmerge --profile apps/golden-sample-app/src/xliffmerge.json nl-NL",
-    "e2e": "npx playwright test",
+    "e2e": "nx e2e",
     "lint": "nx run-many --all --target=lint",
     "format": "prettier --write \"{apps,libs}/**/*.{ts,md,html}\" \"!{apps,libs}/**/coverage\" ",
     "format:check": "prettier --list-different \"{apps,libs}/**/*.{ts,md}\" \"!{apps,libs}/**/coverage\""
@@ -70,6 +70,7 @@
     "@angular/cli": "^13.3.9",
     "@angular/compiler-cli": "^13.3.11",
     "@angular/language-service": "^13.3.11",
+    "@dot-build/serve-and-run-angular": "^1.0.2",
     "@nrwl/angular": "13.10.3",
     "@nrwl/cli": "13.10.3",
     "@nrwl/eslint-plugin-nx": "13.10.3",
