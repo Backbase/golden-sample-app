@@ -36,10 +36,13 @@ jobs:
       - name: Install Dependencies
         run: npm ci --legacy-peer-deps
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}   
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Check with the current foundation-ang version
-      - if: github.event.inputs.foundation_ang_version != npm view @backbase/foundation-ang version
-        run: |
-          npm run affected:build
-          npm run affected:test
+      - name: Install Foundation-ang
+        run: npm install @backbase/foundation-ang@${{ github.event.inputs.foundation_ang_version }}          
+
+      - name: Build app
+        run: npm run affected:build
+
+      - name: Unit test
+        run: npm run affected:test        
