@@ -16,6 +16,8 @@ jobs:
 
   update_release_draft-transactions:
     needs: correct_repository
+    permissions:
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: release-drafter/release-drafter@v5
@@ -26,6 +28,8 @@ jobs:
 
   update_release_draft-transfer:
       needs: correct_repository
+      permissions:
+        pull-requests: write
       runs-on: ubuntu-latest
       steps:
         - uses: release-drafter/release-drafter@v5
