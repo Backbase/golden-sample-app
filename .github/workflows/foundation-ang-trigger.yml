@@ -15,8 +15,6 @@ on:
         required: true
         default: '7.0.0'
 
-env:
-  FOUNDATION_ANG_VERSION: '7.0.0'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -45,12 +43,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-        if: ${{ github.event_name == push }}
-      - name: Install Foundation-ang for push event
-        run: echo "npm install @backbase/foundation-ang@$FOUNDATION_ANG_VERSION!"
-
-        if: ${{ github.event.inputs.environment.foundation_ang_version && github.event_name == workflow_dispatch }}
-      - name: Install Foundation-ang for the manual trigger
+      - name: Install Foundation-ang
         run: npm install @backbase/foundation-ang@${{ github.event.inputs.foundation_ang_version }}
 
       - name: Build app
