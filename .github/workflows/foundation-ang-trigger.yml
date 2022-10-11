@@ -5,7 +5,8 @@ name: Foundation_Ang_On_Demand
 on:
   push:
     branches:
-      - dev/angular13  
+      - dev/angular13
+      - dev/angular12
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
@@ -41,7 +42,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-        if: ${{ github.event_name == push && github.ref_name == dev/angular13 }}
+        if: ${{ github.event_name == push }}
       - name: Install Foundation-ang for push event
         run: echo "npm install @backbase/foundation-ang@$FOUNDATION_ANG_VERSION!"
 
@@ -50,7 +51,7 @@ jobs:
         run: npm install @backbase/foundation-ang@${{ github.event.inputs.foundation_ang_version }}
 
       - name: Build app
-        run: npm run affected:build
+        run: npm run build
 
       - name: Unit test
-        run: npm run affected:test        
+        run: npm run test        
