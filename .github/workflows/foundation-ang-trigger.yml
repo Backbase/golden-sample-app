@@ -44,7 +44,9 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Install Foundation-ang for push event
-        run: npm install @backbase/foundation-ang@latest        
+        env:
+          FOUNDATION_ANG_VER: ${{ npm show @backbase/foundation-ang version }}      
+        run: npm install @backbase/foundation-ang@$FOUNDATION_ANG_VER
         
       # - name: Install Foundation-ang
       #   run: npm install @backbase/foundation-ang@${{ github.event.inputs.foundation_ang_version }}
