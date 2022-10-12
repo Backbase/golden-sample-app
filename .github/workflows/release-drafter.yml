@@ -3,7 +3,7 @@ name: Release Drafter
 on:
   push:
     branches:
-      - WF-867-add-release-draft
+      - WF-868-implement-tasks-whenever-a-release-workflow-is-triggered
   workflow_dispatch:
 
 jobs:
