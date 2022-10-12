@@ -52,10 +52,9 @@ jobs:
 
       - name: Install package
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           latest: ${{ steps.version.outputs.latest }}
         run: |
-          npm install @backbase/foundation-ang@"$latest"          
+          npm install @backbase/foundation-ang@"$latest"      
       
         
       # - name: Install Foundation-ang
