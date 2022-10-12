@@ -5,8 +5,7 @@ name: Foundation_Ang_On_Demand
 on:
   push:
     branches:
-      - dev/angular13
-      - dev/angular12
+      - main
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
