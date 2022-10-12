@@ -53,7 +53,7 @@ jobs:
 
       - name: Install Foundation-ang
         run: |
-          npm install "@backbase/foundation-ang@${{ steps.version.outputs.LATEST_FOUNDATION_ANG_VERSION }}"
+          npm install "@backbase/foundation-ang@${{ steps.version.outputs.LATEST_FOUNDATION_ANG_VERSION }}" --legacy-peer-deps
         
       # - name: Install Foundation-ang
       #   run: npm install @backbase/foundation-ang@${{ github.event.inputs.foundation_ang_version }}
