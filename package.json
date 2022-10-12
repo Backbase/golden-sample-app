@@ -38,7 +38,7 @@
     "@backbase/accessgroup-ui": "^5.11.4",
     "@backbase/arrangement-manager-http-ang": "^2.3.0",
     "@backbase/data-ang": "^4.3.0",
-    "@backbase/foundation-ang": "^7.0.0-beta.1",
+    "@backbase/foundation-ang": "^7.0.0",
     "@backbase/identity-auth": "^1.1.0",
     "@backbase/positive-pay-check-v1-client-ang": "^5.1.0",
     "@backbase/positive-pay-journey-ang": "^2.0.1",
