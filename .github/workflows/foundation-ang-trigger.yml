@@ -3,16 +3,12 @@
 name: Foundation_Ang_On_Demand
 
 on:
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
       foundation_ang_version:
         description: 'Foundation-ang version'
-        required: true
-        default: '7.0.0'
+        required: false
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -38,28 +34,24 @@ jobs:
           registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
           scope: '@backbase'
           
-
       - name: Install Dependencies
         run: npm ci --legacy-peer-deps
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Determine latest version of foundation-ang
-        id: version
+      - name:  Install Foundation-ang if foundation_ang_version's input is not empty
+        if: "${{ github.event.inputs.foundation_ang_version != '' }}"
+        run: npm install @backbase/foundation-ang@${{ github.event.inputs.foundation_ang_version }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}        
+
+      - name: Install Foundation-ang if foundation_ang_version's input if empty
+        if: "${{ github.event.inputs.level == '' }}"
         run: |
           echo "LATEST_FOUNDATION_ANG_VERSION=$(npm show @backbase/foundation-ang version)" >> "$GITHUB_OUTPUT"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}          
-
-      - name: Install Foundation-ang
-        run: |
           npm install "@backbase/foundation-ang@${{ steps.version.outputs.LATEST_FOUNDATION_ANG_VERSION }}" --legacy-peer-deps 
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        
-        
-      # - name: Install Foundation-ang
-      #   run: npm install @backbase/foundation-ang@${{ github.event.inputs.foundation_ang_version }}
 
       - name: Build app
         run: npm run build
