@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - WF-868-implement-tasks-whenever-a-release-workflow-is-triggered
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        uses: ./.github/actions/bump-version
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          npm_token: ${{ secrets.NPM_TOKEN }}

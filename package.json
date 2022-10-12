@@ -44,6 +44,7 @@
     "@backbase/positive-pay-journey-ang": "^2.0.1",
     "@backbase/select-context-widget-ang": "^5.6.2",
     "@backbase/ui-ang": "^8.0.0-pr.68",
+    "@jscutlery/semver": "^2.27.1",
     "@material/animation": "^3.0.0",
     "@ng-bootstrap/ng-bootstrap": "~11.0.1",
     "@ng-select/ng-select": "^8.1.1",
