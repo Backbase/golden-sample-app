@@ -43,14 +43,16 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: get-npm-version
-        id: foundation-ang-latest-version
-        uses: martinbeentjes/npm-get-version-action@main
-        with:
-          path: packages/@backbase/foundation-ang     
+      - name: Determine latest version of foundation-ang
+        id: version
+        run: |
+          echo "latest=$(npm show @backbase/foundation-ang version)" >> "$GITHUB_OUTPUT"
 
-      - name: Install Foundation-ang for push event
-        run: npm install @backbase/foundation-ang@${{ steps.foundation-ang-latest-version.outputs.current-version}}        
+      - name: Install package
+        env:
+          latest: ${{ steps.version.outputs.latest }}
+        run: |
+          npm install @backbase/foundation-ang@"$latest"      
         
       # - name: Install Foundation-ang
       #   run: npm install @backbase/foundation-ang@${{ github.event.inputs.foundation_ang_version }}
