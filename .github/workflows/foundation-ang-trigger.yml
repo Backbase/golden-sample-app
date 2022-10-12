@@ -3,6 +3,9 @@
 name: Foundation_Ang_On_Demand
 
 on:
+  pull_request:
+    branches:
+      - 'main'
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
