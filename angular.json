@@ -38,7 +38,8 @@
             ]
           }
         }
-      }
+      },
+      "tags": ["scope:shared"]
     },
     "golden-sample-app": {
       "projectType": "application",
@@ -138,7 +139,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["type:app"]
     },
     "golden-sample-app-e2e": {
       "root": "apps/golden-sample-app-e2e",
@@ -151,7 +153,9 @@
             "lintFilePatterns": ["apps/golden-sample-app-e2e/**/*.ts"]
           }
         }
-      }
+      },
+      "tags": ["type:app"],
+      "implicitDependencies": ["golden-sample-app"]
     },
     "transactions": {
       "projectType": "library",
@@ -190,7 +194,8 @@
             ]
           }
         }
-      }
+      },
+      "tags": ["scope:shared"]
     },
     "transfer": {
       "projectType": "library",
@@ -229,27 +234,8 @@
             ]
           }
         }
-      }
-    }
-  },
-  "cli": {
-    "analytics": false,
-    "defaultCollection": "@nrwl/angular",
-    "packageManager": "npm"
-  },
-  "defaultProject": "golden-sample-app",
-  "schematics": {
-    "@nrwl/angular:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:library": {
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {
-      "style": "scss"
+      },
+      "tags": ["scope:shared"]
     }
   }
 }
