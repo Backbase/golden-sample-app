@@ -46,7 +46,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}        
 
       - name: Install Foundation-ang if foundation_ang_version's input if empty
-        if: "${{ github.event.inputs.level == '' }}"
+        if: "${{ github.event.inputs.LATEST_FOUNDATION_ANG_VERSION == '' }}"
         run: |
           echo "LATEST_FOUNDATION_ANG_VERSION=$(npm show @backbase/foundation-ang version)" >> "$GITHUB_OUTPUT"
           npm install "@backbase/foundation-ang@${{ steps.version.outputs.LATEST_FOUNDATION_ANG_VERSION }}" --legacy-peer-deps 
