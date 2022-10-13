@@ -1,6 +1,6 @@
 # Controls when the action will run. The workflow runs when manually triggered using the UI or API
 
-name: Foundation_Ang_On_Demand
+name: Test Foundation-ang
 
 on:
   workflow_dispatch:
@@ -39,19 +39,16 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name:  Install Foundation-ang if foundation_ang_version's input is not empty
-        if: "${{ github.event.inputs.foundation_ang_version != '' }}"
-        run: npm install @backbase/foundation-ang@${{ github.event.inputs.foundation_ang_version }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}        
-
-      - name: Install Foundation-ang if foundation_ang_version's input if empty
-        if: "${{ github.event.inputs.LATEST_FOUNDATION_ANG_VERSION == '' }}"
+      - name:  Install Foundation-ang
         run: |
-          echo "LATEST_FOUNDATION_ANG_VERSION=$(npm show @backbase/foundation-ang version)" >> "$GITHUB_OUTPUT"
-          npm install "@backbase/foundation-ang@${{ steps.version.outputs.LATEST_FOUNDATION_ANG_VERSION }}" --legacy-peer-deps 
+          if "${{ github.event.inputs.foundation_ang_version != '' }}"; then
+            npm install @backbase/foundation-ang@${{ github.event.inputs.foundation_ang_version }}
+          else
+            echo "LATEST_FOUNDATION_ANG_VERSION=$(npm show @backbase/foundation-ang version)" >> "$GITHUB_OUTPUT"
+            npm install "@backbase/foundation-ang@${{ steps.version.outputs.LATEST_FOUNDATION_ANG_VERSION }}" --legacy-peer-deps 
+          fi
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}         
 
       - name: Build app
         run: npm run build
