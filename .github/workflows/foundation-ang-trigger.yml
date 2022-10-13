@@ -1,0 +1,53 @@
+name: Test foundation-ang
+run-name: 'Test foundation-ang ${{ github.event.inputs.foundation_ang_version }}'
+
+on:
+  workflow_dispatch:
+    inputs:
+      foundation_ang_version:
+        description: '@backbase/foundation-ang version'
+        required: false
+        default: latest
+
+jobs:
+  build:
+    name: 'Test with Angular ${{ matrix.angular_version }}'
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        angular_version: ['13', '12']
+        include:
+          - angular_version: '13'
+            node_version: '16'
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+        with:
+          ref: 'angular@v${{ matrix.angular_version }}'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node_version || 16 }}
+          cache: 'npm'
+          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
+          scope: '@backbase'
+
+      - name:  Install dependencies
+        run: npm install --legacy-peer-deps
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name:  Install @backbase/foundation-ang
+        run: npm install @backbase/foundation-ang@${{ github.event.inputs.foundation_ang_version }} --legacy-peer-deps
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Build app
+        run: npm run build
+
+      - name: Unit tests
+        run: npm run test
