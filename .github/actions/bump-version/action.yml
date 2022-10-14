@@ -13,12 +13,18 @@ inputs:
 runs:
   using: composite
   steps:
+  
+    - name: install dependencies
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+      run: npm ci
+    
     - name: Version
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
         GITHUB_TOKEN: ${{ inputs.github_token }}
       shell: bash
-      run: npm ci
       run: npx nx affected --base= origin/main~1 --head= HEAD --parallel=1 --target=version
 
     - name: Tag last-release
