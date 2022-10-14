@@ -30,7 +30,7 @@ runs:
       run: npx nx affected --base=last-release --parallel=1 --target=version
 
     - name: Tag last-release
-        shell: bash
-        run: |
+      shell: bash
+      run: |
           git tag -f last-release
           git push origin last-release --force
