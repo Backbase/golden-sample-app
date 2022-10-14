@@ -17,11 +17,12 @@ runs:
     - name: install dependencies
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
-      run: |
-        git config user.name "${{ github.actor }}"
-        git config user.email "${{ github.actor}}@users.noreply.github.com"
       run: npm ci --legacy-peer-deps
-    
+      
+    - name: Setup git user to "GSA Bot"
+        shell: bash
+        run: git config user.email "-" && git config user.name "🤖 GSA Bot"
+        
     - name: Version
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
