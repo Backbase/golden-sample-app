@@ -17,9 +17,8 @@ runs:
     - name: install dependencies
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
-        GITHUB_TOKEN: ${{ inputs.github_token }}
       shell: bash
-      run: npm ci
+      run: npm ci --legacy-peer-deps
     
     - name: Version
       env:
