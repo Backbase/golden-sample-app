@@ -30,8 +30,10 @@ runs:
       run: npx nx affected --base=last-release --parallel=1 --target=version
 
     - name: Push changes
+      shell: bash
       run: git push origin HEAD
     - name: Push tags
+      shell: bash
       run: git push --tags
     - name: Tag last-release
       shell: bash
