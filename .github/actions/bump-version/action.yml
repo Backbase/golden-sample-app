@@ -18,6 +18,9 @@ runs:
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
       shell: bash
+      run: |
+        git config user.name "${{ github.actor }}"
+        git config user.email "${{ github.actor}}@users.noreply.github.com"
       run: npm ci --legacy-peer-deps
     
     - name: Version
