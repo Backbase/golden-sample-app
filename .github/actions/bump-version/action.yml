@@ -29,8 +29,9 @@ runs:
       shell: bash
       run: npx nx affected --base= origin/main~1 --head= HEAD --parallel=1 --target=version
 
-    - name: Tag last-release
+    - name: "Push GIT Tags"
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
       shell: bash
       run: |
-          git tag -f last-release
-          git push origin last-release --force
+        git push origin main --follow-tags
