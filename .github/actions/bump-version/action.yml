@@ -27,11 +27,10 @@ runs:
         NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
         GITHUB_TOKEN: ${{ inputs.github_token }}
       shell: bash
-      run: npx nx affected --base= origin/main~1 --head= HEAD --parallel=1 --target=version
+      run: npx nx affected --base=last-release --parallel=1 --target=version
 
-    - name: "Push GIT Tags"
-      env:
-        GITHUB_TOKEN: ${{ inputs.github_token }}
+    - name: Tag last-release
       shell: bash
       run: |
-        git push origin main --follow-tags
+          git tag -f last-release
+          git push origin last-release --force
