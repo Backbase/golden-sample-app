@@ -12,15 +12,6 @@ inputs:
 runs:
   using: composite
   steps:
-
-   - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
-          scope: '@backbase'
-          
     - name: install dependencies
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm_token }}

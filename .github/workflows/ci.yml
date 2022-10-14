@@ -13,7 +13,13 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
+          scope: '@backbase'   
       - name: Release
         uses: ./.github/actions/bump-version
         with:
