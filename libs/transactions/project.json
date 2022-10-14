@@ -42,7 +42,8 @@
       "executor": "@jscutlery/semver:version",
       "options": {
         "preset": "conventional",
-        "tagPrefix": "transactions@"
+        "tagPrefix": "transactions@",
+        "push": true
       }
     }
   }
