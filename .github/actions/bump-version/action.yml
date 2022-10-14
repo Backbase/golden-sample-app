@@ -18,7 +18,7 @@ runs:
         NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
         GITHUB_TOKEN: ${{ inputs.github_token }}
       shell: bash
-      run: npm nx affected --base= origin/main~1 --head= HEAD --parallel=1 --target=version
+      run: npx nx affected --base= origin/main~1 --head= HEAD --parallel=1 --target=version
 
     - name: Tag last-release
       shell: bash
