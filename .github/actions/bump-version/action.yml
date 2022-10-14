@@ -18,6 +18,7 @@ runs:
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
         GITHUB_TOKEN: ${{ inputs.github_token }}
+      shell: bash
       run: npm ci
     
     - name: Version
