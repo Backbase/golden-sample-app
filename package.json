@@ -20,7 +20,8 @@
     "e2e": "nx e2e",
     "lint": "nx run-many --all --target=lint",
     "format": "prettier --write \"{apps,libs}/**/*.{ts,md,html}\" \"!{apps,libs}/**/coverage\" ",
-    "format:check": "prettier --list-different \"{apps,libs}/**/*.{ts,md}\" \"!{apps,libs}/**/coverage\""
+    "format:check": "prettier --list-different \"{apps,libs}/**/*.{ts,md}\" \"!{apps,libs}/**/coverage\"",
+    "affected:version": "nx affected --base= origin/main~1 --head= HEAD --parallel=1 --target=version"
   },
   "private": true,
   "dependencies": {
