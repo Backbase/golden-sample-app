@@ -19,8 +19,8 @@ jobs:
       matrix:
         angular_version: ['13', '12']
         include:
-          - angular_version: '13'
-            node_version: '16'
+          - angular_version: '12'
+            node_version: '14'
 
     steps:
       - name: Checkout the code
