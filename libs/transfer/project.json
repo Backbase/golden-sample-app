@@ -42,8 +42,7 @@
       "executor": "@jscutlery/semver:version",
       "options": {
         "preset": "conventional",
-        "tagPrefix": "transfer@",
-        "push": true
+        "tagPrefix": "transfer@"
       }
     }
   }
