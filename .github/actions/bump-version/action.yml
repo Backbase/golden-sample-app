@@ -18,16 +18,16 @@ runs:
         NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
         GITHUB_TOKEN: ${{ inputs.github_token }}
       shell: bash
-      run: npm run affected:version
+      run: npx nx affected --base= origin/main~1 --head= HEAD --parallel=1 --target=version
 
     - name: Tag last-release
       shell: bash
       run: git tag -f last-release
 
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ inputs.github_token }}
-        branch: ${{ github.ref }}
-        force: true
-        tags: true
+    # - name: Push changes
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ inputs.github_token }}
+    #     branch: ${{ github.ref }}
+    #     force: true
+    #     tags: true
