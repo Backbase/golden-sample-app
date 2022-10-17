@@ -1,9 +1,9 @@
-name: CI
+name: Release
 
 on:
-  push:
-    branches:
-      - WF-868-implement-tasks-whenever-a-release-workflow-is-triggered
+  release:
+    types:
+      - published
 
 jobs:
   release:
