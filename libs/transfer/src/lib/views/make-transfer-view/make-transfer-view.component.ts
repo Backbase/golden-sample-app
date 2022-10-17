@@ -23,6 +23,7 @@ export class MakeTransferViewComponent {
       this.transferStore.next(transfer);
       this.router.navigate(['../make-transfer-summary'], {
         relativeTo: this.route,
+        skipLocationChange: true,
         state: {
           transfer,
         },

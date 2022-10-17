@@ -26,6 +26,7 @@ export class MakeTransferSummaryViewComponent implements OnDestroy {
       } else {
         this.router.navigate(['../make-transfer-success'], {
           relativeTo: this.route,
+          skipLocationChange: true,
           state: {
             transfer: transfer,
           },
