@@ -1,6 +1,6 @@
 {
   "name": "golden-sample-app",
-  "version": "1.0.1",
+  "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "analyze": "webpack-bundle-analyzer dist/golden-sample-app/stats.json",
@@ -21,7 +21,8 @@
     "lint": "nx run-many --all --target=lint",
     "format": "prettier --write \"{apps,libs}/**/*.{ts,md,html}\" \"!{apps,libs}/**/coverage\" ",
     "format:check": "prettier --list-different \"{apps,libs}/**/*.{ts,md}\" \"!{apps,libs}/**/coverage\"",
-    "affected:version": "nx affected --base= origin/main~1 --head= HEAD --parallel=1 --target=version"
+    "affected:version": "nx affected --base= origin/main~1 --head= HEAD --parallel=1 --target=version",
+    "commit": "cz"
   },
   "private": true,
   "dependencies": {
@@ -85,6 +86,7 @@
     "@types/node": "14.14.33",
     "@typescript-eslint/eslint-plugin": "5.18.0",
     "@typescript-eslint/parser": "5.18.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "8.12.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.22.1",
@@ -100,5 +102,10 @@
     "tslib": "^2.4.0",
     "typescript": "~4.6.4",
     "webpack-bundle-analyzer": "^4.5.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
