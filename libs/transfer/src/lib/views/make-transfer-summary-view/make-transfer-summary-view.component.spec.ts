@@ -96,6 +96,7 @@ describe('MakeTransferSymmaryViewComponent', () => {
         ['../make-transfer-success'],
         {
           relativeTo: mockActivatedRoute,
+          skipLocationChange: true,
           state: {
             transfer: transferMock,
           },

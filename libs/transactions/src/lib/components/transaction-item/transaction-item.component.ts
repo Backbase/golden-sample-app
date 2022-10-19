@@ -8,7 +8,6 @@ import {
   SimpleChanges,
   Type,
 } from '@angular/core';
-import { Params } from '@angular/router';
 import { TransactionItem } from '@backbase/data-ang/transactions';
 import { ViewExtensionDirective } from '@backbase/ui-ang/view-extensions';
 import {
