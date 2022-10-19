@@ -77,6 +77,9 @@ describe('TransactionsViewComponent', () => {
           useValue: {
             snapshot: snapshot as ActivatedRouteSnapshot,
             queryParams: of({}),
+            queryParamMap: of({
+              get: jest.fn(() => ''),
+            }),
           },
         },
         {

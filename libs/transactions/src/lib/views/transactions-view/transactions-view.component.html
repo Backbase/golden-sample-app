@@ -12,7 +12,10 @@
 
     <div class="bb-card__body">
       <div class="bb-block bb-block--md">
-        <bb-text-filter (textChange)="search($event)"></bb-text-filter>
+        <bb-text-filter
+          [text]="searchQuery$ | async"
+          (textChange)="search($event)"
+        ></bb-text-filter>
       </div>
 
       <div
@@ -43,7 +46,7 @@
           class="bb-list__item"
           data-role="transactions-view__item-container"
         >
-          <a class="list-link" [routerLink]="['./', item.id]" [state]="item">
+          <a class="list-link" [routerLink]="['./', item.id]">
             <bb-transaction-item [transaction]="item"></bb-transaction-item>
           </a>
         </li>

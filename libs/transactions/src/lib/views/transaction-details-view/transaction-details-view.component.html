@@ -1,7 +1,37 @@
-<div class="row" *ngIf="transaction">
+<div class="row" *ngIf="view$ | async as view">
   <div class="bb-card col-lg-6">
-    <div class="bb-card__header">
-      <h1 class="bb-card__title">{{ title }}</h1>
+    <div class="bb-card__header header">
+      <h1 class="bb-card__title">
+        {{ title }}
+      </h1>
+
+      <div>
+        <button
+          bbButton
+          class="mx-1"
+          color="link"
+          buttonSize="sm"
+          title="Previous transaction"
+          [circle]="true"
+          [disabled]="!view.previous"
+          [routerLink]="['../', view.previous?.id]"
+        >
+          <bb-icon-ui name="chevron-left" cropped></bb-icon-ui>
+        </button>
+
+        <button
+          bbButton
+          class="mx-1"
+          color="link"
+          buttonSize="sm"
+          title="Following transaction"
+          [circle]="true"
+          [disabled]="!view.following"
+          [routerLink]="['../', view.following?.id]"
+        >
+          <bb-icon-ui name="chevron-right" cropped></bb-icon-ui>
+        </button>
+      </div>
     </div>
 
     <div class="bb-card__body">
@@ -15,7 +45,7 @@
             Recepient:
           </dt>
           <dd>
-            {{ transaction.recepient }}
+            {{ view.details.recepient }}
           </dd>
         </div>
 
@@ -26,7 +56,7 @@
             Date:
           </dt>
           <dd>
-            {{ transaction.date | date }}
+            {{ view.details.date | date }}
           </dd>
         </div>
 
@@ -39,8 +69,8 @@
           </dt>
           <dd>
             <bb-amount-ui
-              [currency]="transaction.amount.currencyCode"
-              [amount]="transaction.amount.amount"
+              [currency]="view.details.amount.currencyCode"
+              [amount]="view.details.amount.amount"
               [mapCurrency]="true"
               [showPlusSign]="false"
               [abbreviate]="false"
@@ -58,7 +88,7 @@
             Category:
           </dt>
           <dd>
-            {{ transaction.category }}
+            {{ view.details.category }}
           </dd>
         </div>
 
@@ -71,7 +101,7 @@
             Description:
           </dt>
           <dd>
-            {{ transaction.description }}
+            {{ view.details.description }}
           </dd>
         </div>
 
@@ -83,7 +113,7 @@
             Status:
           </dt>
           <dd>
-            {{ transaction.status }}
+            {{ view.details.status }}
           </dd>
         </div>
       </dl>
@@ -93,7 +123,7 @@
       <button
         bbButton
         color="secondary"
-        [routerLink]="['/transfer', transferParams, 'make-transfer']"
+        [routerLink]="['/transfer', view.transferParams, 'make-transfer']"
       >
         <bb-icon-ui name="replay" cropped></bb-icon-ui>
         <span i18n="Label for Repeat Transaction@@transaction-details.repeat"
