@@ -1,6 +1,8 @@
 _extends: golden-sample-app:.github/release-drafter.yml
-name-template: 'transfer-v$RESOLVED_VERSION'
-tag-template: 'transfer-v$RESOLVED_VERSION'
-tag-prefix: transfer-v
+name-template: 'transfer@v$RESOLVED_VERSION'
+tag-template: 'transfer@v$RESOLVED_VERSION'
+tag-prefix: transfer@v
+tag_name: $RESOLVED_VERSION
+name: transfer
 include-paths:
   - 'libs/transfer/'

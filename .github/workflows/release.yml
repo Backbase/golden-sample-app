@@ -33,14 +33,13 @@ jobs:
         id: set-project-from-tag
         run: |
           module="$(echo "$github.event.release.tag_name" | sed 's~^\(.*\)-v[0-9.]\+$~\1~')"
-          version= "${{ github.event.release.tag_name }}.split('@v')[1]"
-          echo "extract project: ${{ version }},  ${{ github.event.release.tag_name }}, ${GITHUB_REF_TYPE} ,${GITHUB_REF_NAME}, ${GITHUB_REF}, ${module}, ${RESOLVED_VERSION}"
+          echo "extract project: ${{ github.event.release.name }},  ${{ github.event.release.tag_name }}, ${GITHUB_REF_TYPE} ,${GITHUB_REF_NAME}, ${GITHUB_REF}, ${module}, ${RESOLVED_VERSION}"
           echo "::set-output name=module::$module"
       
       - name: 'Bump'
         id: set-project-from-tag
-        run: cd libs/${{ steps.set-project-from-tag.outputs.module }}
-             npm version ${{ steps.set-project-from-tag.outputs.version }}
+        run: cd libs/${{ github.event.release.name }}
+             npm version ${{ github.event.release.tag_name }}
       
       - name: Commit files
         run: git commit -m "[version bump] Version bumped" -a
