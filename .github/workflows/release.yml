@@ -34,7 +34,7 @@ jobs:
         run: |
           module="$(echo "$github.event.release.tag_name" | sed 's~^\(.*\)-v[0-9.]\+$~\1~')"
           version= "$(echo "$github.event.release.tag_name" | sed 's/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/')"
-          echo "extract project:  ${{ github.event.release.tag_name }}, ${{GITHUB_REF_TYPE}} ,${{GITHUB_REF_NAME}}, ${{GITHUB_REF}}, ${{module}}, ${{version}}"
+          echo "extract project:  ${{ github.event.release.tag_name }}, ${GITHUB_REF_TYPE} ,${GITHUB_REF_NAME}, ${GITHUB_REF}, ${module}, ${version}"
           echo "::set-output name=module::$module"
           echo "::set-output name=version::$version"
       
