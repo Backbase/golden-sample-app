@@ -7,21 +7,23 @@ on:
       - released
 
 jobs:
-  release:
+  bump:
     if: "!contains(github.event.head_commit.message, '[version bump]')"
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v3
-      #   with:
-      #     fetch-depth: 0
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16
-      #     cache: 'npm'
-      #     registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
-      #     scope: '@backbase'   
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
+          scope: '@backbase' 
+      - name: Setup git user to "GSA Bot"
+        run: git config user.email "-" && git config user.name "GSA Bot"  
       # - name: Release
       #   uses: ./.github/actions/bump-version
       #   with:
