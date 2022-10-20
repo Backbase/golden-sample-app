@@ -40,7 +40,7 @@ jobs:
       - name: 'Bump'
         id: set-project-from-tag
         run: cd libs/${{ steps.set-project-from-tag.outputs.module }}
-             npm version ${{ version }}
+             npm version ${{ steps.set-project-from-tag.outputs.version }}
       
       - name: Commit files
         run: git commit -m "[version bump] Version bumped" -a
