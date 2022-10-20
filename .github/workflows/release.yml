@@ -33,19 +33,21 @@ jobs:
         id: set-project-from-tag
         run: |
           module="$(echo "$github.event.release.tag_name" | sed 's~^\(.*\)-v[0-9.]\+$~\1~')"
-          echo "extract project: ${{ github.event.release.name }},  ${{ github.event.release.tag_name }}, ${GITHUB_REF_TYPE} ,${GITHUB_REF_NAME}, ${GITHUB_REF}, ${module}, ${RESOLVED_VERSION}"
+          version= "$(echo "$github.event.release.tag_name" | sed 's/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/')"
+          echo "extract project:  ${{ github.event.release.tag_name }}, ${GITHUB_REF_TYPE} ,${GITHUB_REF_NAME}, ${GITHUB_REF}, ${module}, ${version}"
           echo "::set-output name=module::$module"
+          echo "::set-output name=version::$version"
       
-      - name: 'Bump'
-        id: set-project-from-tag
-        run: cd libs/${{ github.event.release.name }}
-             npm version ${{ github.event.release.tag_name }}
+      # - name: 'Bump'
+      #   id: set-project-from-tag
+      #   run: cd libs/${{ github.event.release.name }}
+      #        npm version ${{ github.event.release.tag_name }}
       
-      - name: Commit files
-        run: git commit -m "[version bump] Version bumped" -a
+      # - name: Commit files
+      #   run: git commit -m "[version bump] Version bumped" -a
       
-      - name: Push Development Version to Main Branch
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
+      # - name: Push Development Version to Main Branch
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: main

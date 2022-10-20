@@ -1,8 +1,6 @@
 _extends: golden-sample-app:.github/release-drafter.yml
-name-template: 'transactions-v$RESOLVED_VERSION'
-tag-template: 'transactions-v$RESOLVED_VERSION'
-tag-prefix: transactions-v
-tag_name: $RESOLVED_VERSION
-name: transactions
+name-template: 'transactions@v$RESOLVED_VERSION'
+tag-template: 'transactions@v$RESOLVED_VERSION'
+tag-prefix: transactions@v
 include-paths:
   - 'libs/transactions/'
