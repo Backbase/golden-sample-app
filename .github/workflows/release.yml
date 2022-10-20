@@ -32,8 +32,8 @@ jobs:
       - name: 'Extract project from tag'
         id: set-project-from-tag
         run: |
-          module= $(node -p "'${{ github.event.release.tag_name }}'.split('-v')[0]")
-          version= $(node -p "'${{ github.event.release.tag_name }}'.split('-v')[1]")
+          module= $(node -p "${{ github.event.release.tag_name }}.split('-v')[0]")
+          version= $(node -p "${{ github.event.release.tag_name }}.split('-v')[1]")
           echo "extract project:  ${{ github.event.release.tag_name }}, ${module}, ${version}"
           echo "::set-output name=module::$module"
           echo "::set-output name=version::$version"
