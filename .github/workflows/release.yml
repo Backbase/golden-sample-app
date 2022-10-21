@@ -39,7 +39,6 @@ jobs:
 
       
       - name: 'Bump'
-        id: set-project-from-tag
         run: cd libs/${{ steps.set-project-from-tag.outputs.module }};
              npm version ${{ steps.set-project-from-tag.outputs.version }}
       
