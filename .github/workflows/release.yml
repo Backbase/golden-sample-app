@@ -22,7 +22,7 @@ jobs:
           registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
           scope: '@backbase' 
       - name: Setup git user to "GSA Bot"
-        run: git config user.email "-" && git config user.name "GSA Bot"  
+        run: git config user.email "actions@github.com" && git config user.name "GitHub Actions"
       # - name: Release
       #   uses: ./.github/actions/bump-version
       #   with:
@@ -49,4 +49,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
+          branch: WF-868-implement-tasks-whenever-a-release-workflow-is-triggered
