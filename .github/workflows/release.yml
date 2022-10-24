@@ -7,7 +7,7 @@ on:
 
 jobs:
   release:
-    if: "!contains(github.event.head_commit.message, '[version bump]')"
+    if: "!contains(github.event.head_commit.message, '[auto commit]')"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -37,8 +37,16 @@ jobs:
         run: cd libs/${{ steps.set-project-from-tag.outputs.module }} &&
              npm version ${{ steps.set-project-from-tag.outputs.version }}
       
+      # - name: Update Changelog
+      #   if: ${{ steps.set-project-from-tag.outputs.module }} && ${{ steps.set-project-from-tag.outputs.version }}
+      #   uses: stefanzweifel/changelog-updater-action@v1
+      #   with:
+      #     latest-version: ${{ steps.set-project-from-tag.outputs.version}}
+      #     release-notes: ${{ github.event.release.body }}
+      #     path-to-changelog: 'libs/${{ steps.set-project-from-tag.outputs.module }}
+      
       - name: Commit files
-        run: git commit -m "[version bump] Version bumped for ${{ github.event.release.tag_name }}" -a
+        run: git commit -m "[auto commit] Version bumped for ${{ github.event.release.tag_name }}" -a
       
       - name: Push Changes to Main Branch
         uses: ad-m/github-push-action@master
