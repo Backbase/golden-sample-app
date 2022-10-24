@@ -21,7 +21,7 @@ jobs:
           cache: 'npm'
           registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
           scope: '@backbase' 
-      - name: Setup git user to "GSA Bot"
+      - name: Setup git user to "GSA Action"
         run: git config user.email "actions@github.com" && git config user.name "GitHub Actions"
       - name: 'Extract project from tag'
         id: set-project-from-tag
@@ -29,8 +29,8 @@ jobs:
           module=$(echo "${{ github.event.release.tag_name }}" | awk -F"-v" '{print $1}')
           version=$(echo "${{ github.event.release.tag_name }}" | awk -F"-v" '{print $2}')
           echo "extract project:  ${{ github.event.release.tag_name }}, ${module}, ${version}"
-          run: echo "module=$module" >> $GITHUB_OUTPUT
-          run: echo "version=$version" >> $GITHUB_OUTPUT
+          echo "module=$module" >> $GITHUB_OUTPUT
+          echo "version=$version" >> $GITHUB_OUTPUT
       
       - name: 'Bump'
         if: ${{ steps.set-project-from-tag.outputs.module }} && ${{ steps.set-project-from-tag.outputs.version }}
