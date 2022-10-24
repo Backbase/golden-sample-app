@@ -6,7 +6,7 @@ on:
       - published
 
 jobs:
-  bump:
+  release:
     if: "!contains(github.event.head_commit.message, '[version bump]')"
     runs-on: ubuntu-latest
     steps:
@@ -23,29 +23,23 @@ jobs:
           scope: '@backbase' 
       - name: Setup git user to "GSA Bot"
         run: git config user.email "actions@github.com" && git config user.name "GitHub Actions"
-      # - name: Release
-      #   uses: ./.github/actions/bump-version
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     npm_token: ${{ secrets.NPM_TOKEN }}
       - name: 'Extract project from tag'
         id: set-project-from-tag
         run: |
-          module=$(echo "${{ github.event.release.tag_name }}" | awk -F"-v" '{print $1}')
-          version=$(echo "${{ github.event.release.tag_name }}" | awk -F"-v" '{print $2}')
+          module=$(echo "${{ github.event.release.tag_name }}" | awk -F"@v" '{print $1}')
+          version=$(echo "${{ github.event.release.tag_name }}" | awk -F"@v" '{print $2}')
           echo "extract project:  ${{ github.event.release.tag_name }}, ${module}, ${version}"
-          echo "::set-output name=module::$module"
-          echo "::set-output name=version::$version"
-
+          run: echo "module=$module" >> $GITHUB_OUTPUT
+          run: echo "version=$version" >> $GITHUB_OUTPUT
       
       - name: 'Bump'
-        run: cd libs/${{ steps.set-project-from-tag.outputs.module }};
+        run: cd libs/${{ steps.set-project-from-tag.outputs.module }} &&
              npm version ${{ steps.set-project-from-tag.outputs.version }}
       
       - name: Commit files
         run: git commit -m "[version bump] Version bumped" -a
       
-      - name: Push Development Version to Main Branch
+      - name: Push Changes to Main Branch
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

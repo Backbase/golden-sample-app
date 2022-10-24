@@ -1,6 +1,7 @@
 _extends: golden-sample-app:.github/release-drafter.yml
-name-template: 'ach-positive-pay-v$RESOLVED_VERSION'
-tag-template: 'ach-positive-pay-v$RESOLVED_VERSION'
-tag-prefix: ach-positive-pay-v
+name-template: 'ach-positive-pay@v$RESOLVED_VERSION'
+tag-template: 'ach-positive-pay@v$RESOLVED_VERSION'
+tag-prefix: ach-positive-pay@v
+
 include-paths:
   - 'libs/ach-positive-pay/'
