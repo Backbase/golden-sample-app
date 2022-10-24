@@ -33,11 +33,12 @@ jobs:
           run: echo "version=$version" >> $GITHUB_OUTPUT
       
       - name: 'Bump'
+        if: ${{ steps.set-project-from-tag.outputs.module }} && ${{ steps.set-project-from-tag.outputs.version }}
         run: cd libs/${{ steps.set-project-from-tag.outputs.module }} &&
              npm version ${{ steps.set-project-from-tag.outputs.version }}
       
       - name: Commit files
-        run: git commit -m "[version bump] Version bumped" -a
+        run: git commit -m "[version bump] Version bumped for ${{ steps.set-project-from-tag.outputs.module }}" -a
       
       - name: Push Changes to Main Branch
         uses: ad-m/github-push-action@master
