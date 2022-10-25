@@ -32,7 +32,7 @@
     "@angular/forms": "^13.3.11",
     "@angular/localize": "^13.3.11",
     "@angular/platform-browser": "^13.3.11",
-    "@angular/platform-browser-dynamic": "^13.3.11",
+    "@angular/platform-browser-dynamic": "^14.2.7",
     "@angular/router": "^13.3.11",
     "@backbase/accessgroup-common-ang": "^6.11.3",
     "@backbase/accessgroup-ui": "^5.11.4",
