@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  release:
+    if: "!contains(github.event.head_commit.message, '[auto commit]')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
+          scope: '@backbase' 
+      - name: Setup git user to "GSA Action"
+        run: git config user.email "actions@github.com" && git config user.name "GitHub Actions"
+      - name: 'Extract project from tag'
+        id: set-project-from-tag
+        run: |
+          module=$(echo "${{ github.event.release.tag_name }}" | awk -F"@v" '{print $1}')
+          version=$(echo "${{ github.event.release.tag_name }}" | awk -F"@v" '{print $2}')
+          echo "extract project:  ${{ github.event.release.tag_name }}, ${module}, ${version}"
+          echo "module=$module" >> $GITHUB_OUTPUT
+          echo "version=$version" >> $GITHUB_OUTPUT
+      
+      - name: 'Bump'
+        if: ${{ steps.set-project-from-tag.outputs.module }} && ${{ steps.set-project-from-tag.outputs.version }}
+        run: cd libs/${{ steps.set-project-from-tag.outputs.module }} &&
+             npm version ${{ steps.set-project-from-tag.outputs.version }}
+      
+      # - name: Update Changelog
+      #   if: ${{ steps.set-project-from-tag.outputs.module }} && ${{ steps.set-project-from-tag.outputs.version }}
+      #   uses: stefanzweifel/changelog-updater-action@v1
+      #   with:
+      #     latest-version: ${{ steps.set-project-from-tag.outputs.version}}
+      #     release-notes: ${{ github.event.release.body }}
+      #     path-to-changelog: 'libs/${{ steps.set-project-from-tag.outputs.module }}
+      
+      - name: Commit files
+        run: git commit -m "[auto commit] Version bumped for ${{ github.event.release.tag_name }}" -a
+      
+      - name: Push Changes to Main Branch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main

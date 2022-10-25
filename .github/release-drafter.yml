@@ -1,9 +1,16 @@
 categories:
-  - title: 'Features'
-    labels: 
-      - 'enhancement'
-  - title: 'Bug Fixes'
-    label: 'bug'
+  - title: "📚 Documentation"
+    labels:
+      - "documentation"
+  - title: "🚀 New Features"
+    labels:
+      - "enhancement"
+  - title: "🐛 Bug Fixes"
+    labels:
+      - "bug"
+  - title: "🧰 Maintenance"
+    labels:
+      - "maintenance"
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 version-resolver:
   major:
@@ -27,6 +34,17 @@ autolabeler:
       - '/feature\/.+/'
     body:
       - '/WF-[0-9]{1,4}/'
+    - label: 'major'
+    title:
+      - '/major/i'
+    - label: 'minor'
+    title:
+      - '/minor/i'
+    - label: 'patch'
+    title:
+      - '/patch/i'
+      
+    
 template: |
   ## Changes
 
