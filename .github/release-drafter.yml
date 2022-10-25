@@ -1,16 +1,16 @@
 categories:
-  - title: "📚 Documentation"
+  - title: '📚 Documentation'
     labels:
-      - "documentation"
-  - title: "🚀 New Features"
+      - 'documentation'
+  - title: '🚀 New Features'
     labels:
-      - "enhancement"
-  - title: "🐛 Bug Fixes"
+      - 'enhancement'
+  - title: '🐛 Bug Fixes'
     labels:
-      - "bug"
-  - title: "🧰 Maintenance"
+      - 'bug'
+  - title: '🧰 Maintenance'
     labels:
-      - "maintenance"
+      - 'maintenance'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 version-resolver:
   major:
