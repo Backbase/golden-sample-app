@@ -3,11 +3,14 @@ name: Release Drafter
 on:
   push:
     branches:
-      - main
+      - testing/release-drafter
+      - test/angular-v*
+
   workflow_dispatch:
 
 jobs:
   correct_repository:
+    if: github.ref_name === 'testing/release-drafter'
     runs-on: ubuntu-latest
     steps:
     - name: fail on fork
@@ -15,6 +18,7 @@ jobs:
       run: exit 1
 
   update_release_draft-transactions:
+    if: github.ref_name === 'testing/release-drafter'
     needs: correct_repository
     permissions:
       contents: write
@@ -28,6 +32,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   update_release_draft-transfer:
+      if: github.ref_name === 'testing/release-drafter'
       needs: correct_repository
       permissions:
         contents: write
@@ -39,3 +44,21 @@ jobs:
             config-name: release-drafter-transfer.yml
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+
+      - name: Get Angular version
+        id: get-angular-version
+        run: |
+          version=$(node -p "require('./package-lock.json').dependencies['@angular/core'].version.split('.').shift()")
+          echo "::set-output name=version::$version"
+
+      - name: Update tag
+        run: |
+          tag='angular@v${{ steps.get-angular-version.outputs.version }}'
+          git tag $tag -f
+          git push origin $tag -f
