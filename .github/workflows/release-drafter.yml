@@ -3,14 +3,14 @@ name: Release Drafter
 on:
   push:
     branches:
-      - testing/release-drafter
+      - main
       - test/angular-v*
 
   workflow_dispatch:
 
 jobs:
   correct_repository:
-    if: github.ref_name == 'testing/release-drafter'
+    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
     steps:
     - name: fail on fork
@@ -18,7 +18,7 @@ jobs:
       run: exit 1
 
   update_release_draft-transactions:
-    if: github.ref_name == 'testing/release-drafter'
+    if: github.ref_name == 'main'
     needs: correct_repository
     permissions:
       contents: write
@@ -32,7 +32,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   update_release_draft-transfer:
-      if: github.ref_name == 'testing/release-drafter'
+      if: github.ref_name == 'main'
       needs: correct_repository
       permissions:
         contents: write
