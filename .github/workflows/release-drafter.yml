@@ -4,22 +4,21 @@ on:
   push:
     branches:
       - main
-      
+
   pull_request:
     types: [opened, reopened, synchronize]
 
   workflow_dispatch:
 
 jobs:
-  correct_repository:
-    runs-on: ubuntu-latest
-    steps:
-    - name: fail on fork
-      if: github.repository_owner != 'Backbase'
-      run: exit 1
+  # correct_repository:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: fail on fork
+  #     if: github.repository_owner != 'Backbase'
+  #     run: exit 1
 
   update_release_draft-transactions:
-    needs: correct_repository
     permissions:
       contents: write
       pull-requests: write
@@ -32,7 +31,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   update_release_draft-transfer:
-      needs: correct_repository
       permissions:
         contents: write
         pull-requests: write
