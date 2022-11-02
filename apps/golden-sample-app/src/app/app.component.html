@@ -144,6 +144,29 @@
           </span>
         </a>
       </li>
+      <li class="bb-layout__horizontal-nav-item">
+        <a
+          class="bb-layout__horizontal-nav-link"
+          routerLink="/make-a-payment"
+          routerLinkActive="bb-layout__horizontal-nav-link--active"
+          #makeAPaymentRouterLink="routerLinkActive"
+          [attr.aria-current]="
+            makeAPaymentRouterLink.isActive ? 'page' : undefined
+          "
+        >
+          <bb-icon-ui
+            class="bb-layout__vertical-nav-item-icon"
+            name="verified-user"
+          ></bb-icon-ui>
+
+          <span
+            class="bb-layout__horizontal-nav-item-description"
+            i18n="Make a Payment Link@@main.make-a-payment.link.text"
+          >
+            Make A Payment
+          </span>
+        </a>
+      </li>
     </ul>
 
     <!-- Topbar Content Area (a.k.a. Right Topbar Area) -->

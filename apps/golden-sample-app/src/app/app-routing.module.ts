@@ -74,6 +74,14 @@ const routes: Routes = [
     canActivate: [AuthGuard, UserContextGuard],
   },
   {
+    path: 'make-a-payment',
+    loadChildren: () =>
+      import('./custom-payment/initiate-payment-journey-bundle.module').then(
+        (m) => m.CustomPaymentJourneyBundleModule
+      ),
+    canActivate: [AuthGuard, UserContextGuard],
+  },
+  {
     path: '**',
     pathMatch: 'full',
     redirectTo: 'error',

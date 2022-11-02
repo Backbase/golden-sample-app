@@ -24,10 +24,6 @@ This golden sample provides examples of the code structure, configuration, and b
   - [Experimental branches](#experimental-branches)
   - [Further help](#further-help)
 
-
-
-
-
 ## Overview of the app
 This project is a complete reference implementation for building a new Angular single page application(SPA) with Backbase components and libraries.  It includes best practices that front-end developers can use to build their own web applications.
 
@@ -52,6 +48,7 @@ The project uses the latest versions of the tools and libraries.
       - Do not forget, that communication service from the application level should be provided to the journeys modules in the bundle files (to avoid breaking lazy loading). Check the [`transactions-journey-bundle.module.ts`](https://github.com/Backbase/golden-sample-app/blob/master/apps/golden-sample-app/src/app/transactions/transactions-journey-bundle.module.ts)
     - The general explanation of the communication service idea and  its theoretical underlying can be found in [Understand communication between journeys](https://community.backbase.com/documentation/foundation_angular/latest/communicate_between_journeys)
   - Simple examples of journeys such as [transactions](https://github.com/Backbase/golden-sample-app/tree/master/libs/transactions) and [transfer](https://github.com/Backbase/golden-sample-app/tree/master/libs/transfer)
+  - [How to](./apps/golden-sample-app/src/app/custom-payment/README.md) add a custom component to Initiate Payments Journey
 
 ## Prerequisites
 - Install the following VSCode extensions:  

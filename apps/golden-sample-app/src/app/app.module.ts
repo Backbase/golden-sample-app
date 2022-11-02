@@ -5,12 +5,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ACCESS_CONTROL_BASE_PATH } from '@backbase/data-ang/accesscontrol';
 import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/data-ang/arrangements';
 import { TRANSACTIONS_BASE_PATH } from '@backbase/data-ang/transactions';
+import { CONTACT_MANAGER_BASE_PATH } from '@backbase/contact-manager-http-ang';
+import { PAYMENT_ORDER_BASE_PATH } from '@backbase/payment-order-http-ang';
 import { TemplateRegistry } from '@backbase/foundation-ang/core';
 import {
   EntitlementsModule,
   ENTITLEMENTS_CONFIG,
 } from '@backbase/foundation-ang/entitlements';
 import { AuthService, IdentityAuthModule } from '@backbase/identity-auth';
+import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
@@ -58,6 +61,7 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
     }),
     ButtonModule,
     IdentityAuthModule,
+    TransactionSigningModule,
   ],
   providers: [
     ...(environment.mockProviders || []),
@@ -114,6 +118,14 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
     {
       provide: ACCESS_CONTROL_BASE_PATH,
       useValue: environment.apiRoot + '/access-control',
+    },
+    {
+      provide: PAYMENT_ORDER_BASE_PATH,
+      useValue: environment.apiRoot + '/payment-order-service',
+    },
+    {
+      provide: CONTACT_MANAGER_BASE_PATH,
+      useValue: environment.apiRoot + '/contact-manager',
     },
     {
       provide: ENTITLEMENTS_CONFIG,
