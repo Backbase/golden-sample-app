@@ -46,11 +46,12 @@ jobs:
       #     path-to-changelog: 'libs/${{ steps.set-project-from-tag.outputs.module }}
       
       - name: Commit files
-        run: git commit -m "[auto commit] Version bumped for ${{ github.event.release.tag_name }}" -a
+        run:  |
+          git commit -m "[auto commit] Version bumped for ${{ github.event.release.tag_name }}" -a
+          git push origin feature/release-drafter
       
-      - name: Push Changes to Main Branch
-        run: git push
-        # uses: ad-m/github-push-action@master
-        # with:
-        #   github_token: ${{ secrets.GITHUB_TOKEN }}
-        #   branch: main
+      # - name: Push Changes to Main Branch
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: main
