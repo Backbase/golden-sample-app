@@ -48,7 +48,7 @@ jobs:
       - name: Commit files
         run:  |
           git commit -m "[auto commit] Version bumped for ${{ github.event.release.tag_name }}" -a
-          git push origin feature/release-drafter
+          git push origin feature/release-drafter -f
       
       # - name: Push Changes to Main Branch
       #   uses: ad-m/github-push-action@master
