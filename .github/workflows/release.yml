@@ -49,7 +49,8 @@ jobs:
         run: git commit -m "[auto commit] Version bumped for ${{ github.event.release.tag_name }}" -a
       
       - name: Push Changes to Main Branch
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
+        run: git push
+        # uses: ad-m/github-push-action@master
+        # with:
+        #   github_token: ${{ secrets.GITHUB_TOKEN }}
+        #   branch: main
