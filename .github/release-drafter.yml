@@ -34,13 +34,13 @@ autolabeler:
       - '/feature\/.+/'
     body:
       - '/WF-[0-9]{1,4}/'
-    - label: 'major'
+  - label: 'major'
     title:
       - '/major/i'
-    - label: 'minor'
+  - label: 'minor'
     title:
       - '/minor/i'
-    - label: 'patch'
+  - label: 'patch'
     title:
       - '/patch/i'
       
