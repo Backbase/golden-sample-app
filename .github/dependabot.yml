@@ -11,3 +11,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    ignore:
+      # Ignore all major updates for all dependencies
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
