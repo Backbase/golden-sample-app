@@ -8,11 +8,14 @@ import { TRANSACTIONS_BASE_PATH } from '@backbase/data-ang/transactions';
 import { TemplateRegistry } from '@backbase/foundation-ang/core';
 import {
   EntitlementsModule,
-  ENTITLEMENTS_CONFIG
+  ENTITLEMENTS_CONFIG,
 } from '@backbase/foundation-ang/entitlements';
 import { AuthService, IdentityAuthModule } from '@backbase/identity-auth';
 import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';
-import { INITIATE_PAYMENT_JOURNEY_CONTACT_MANAGER_BASE_PATH, INITIATE_PAYMENT_JOURNEY_PAYMENT_ORDER_BASE_PATH } from '@backbase/initiate-payment-journey-ang';
+import {
+  INITIATE_PAYMENT_JOURNEY_CONTACT_MANAGER_BASE_PATH,
+  INITIATE_PAYMENT_JOURNEY_PAYMENT_ORDER_BASE_PATH,
+} from '@backbase/initiate-payment-journey-ang';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
@@ -27,7 +30,7 @@ import {
   OAuthModule,
   OAuthModuleConfig,
   OAuthService,
-  OAuthStorage
+  OAuthStorage,
 } from 'angular-oauth2-oidc';
 import { CookieService } from 'ngx-cookie-service';
 import { authConfig, environment } from '../environments/environment';
