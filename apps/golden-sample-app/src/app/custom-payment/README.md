@@ -6,7 +6,7 @@ Scope of this example is to explain how to create a custom component and connect
 
 ## Initate Payments Journey
 
-Initiate Payment journey allows customers create or edit a payment. The journey is fully customizable with a TypeScript configuration to support different payment types. Check the documentation on backbase.io to learn more about internal workings of the journey and out-of-the-box configurations for different payment types.
+Initiate Payment journey allows customers create or edit a payment. The journey is fully customizable with a TypeScript configuration to support different payment types, guide on this topic can be found [here](https://community.backbase.com/documentation/Business-Apps-USA/latest/configure_initiate_payment_journey). Check included links or the documentation on backbase.io to learn more about internal workings of the journey and [out-of-the-box configurations](https://community.backbase.com/documentation/Business-Apps-USA/latest/initiate_payment_web_journey) for different payment types.
 
 ### Create a payment
 
