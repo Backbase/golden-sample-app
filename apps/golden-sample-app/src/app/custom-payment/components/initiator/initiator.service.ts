@@ -3,8 +3,7 @@ import {
   ProductSummaryHttpService,
   ProductSummaryItem,
 } from '@backbase/arrangement-manager-http-ang';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, map } from 'rxjs';
 import { AccountSelectorItems } from './initiator.model';
 
 const DUMMY_REQUEST_PARAMS = {
