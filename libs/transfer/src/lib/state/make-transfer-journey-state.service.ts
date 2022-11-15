@@ -1,15 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import {
-  catchError,
-  EMPTY,
-  map,
-  Observable,
-  of,
-  switchMap,
-  tap,
-  throwError,
-} from 'rxjs';
+import { EMPTY, Observable, of, throwError } from 'rxjs';
+import { tap, switchMap, map, catchError } from 'rxjs/operators';
 import { Account, Transfer } from '../model/Account';
 import { MakeTransferAccountHttpService } from '../services/make-transfer-accounts.http.service';
 

@@ -4,7 +4,8 @@ import {
   ProductSummaryHttpService,
 } from '@backbase/data-ang/arrangements';
 import { Injectable } from '@angular/core';
-import { catchError, map, of } from 'rxjs';
+import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Transfer } from '../model/Account';
 
 @Injectable()

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, Subject, takeUntil } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { MakeTransferCommunicationService } from '../../services/make-transfer-communication.service';
 import {
   MakeTransferJourneyState,
