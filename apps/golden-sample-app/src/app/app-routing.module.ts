@@ -78,9 +78,6 @@ const routes: Routes = [
   {
     path: 'transfer-internal',
     component: ViewWrapperComponent,
-    data: {
-      title: $localize`:Make a Payment Link@@main.make-a-payment.link.text:Make internal payment`,
-    },
     loadChildren: () =>
       import('./custom-payment/initiate-payment-journey-bundle.module').then(
         (m) => m.CustomPaymentJourneyBundleModule
