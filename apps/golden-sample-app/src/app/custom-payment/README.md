@@ -10,6 +10,9 @@ Initiate Payment journey allows customers create or edit a payment. The journey 
 
 ### Create a payment
 
+**!important**
+As of now, this is a code-sample only, do not expect, that feature is working e2e.
+
 In a nutshell, when making a payment, the bank customer enters the following information in a payments form:
 
 1. From account / Debit account / Initiator
