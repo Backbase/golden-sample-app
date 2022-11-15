@@ -185,7 +185,8 @@ export const customPaymentConfig: InitiatePaymentConfig = {
     enableSavePaymentAsTemplate: false,
     reviewScreenType: ReviewScreens.ADAPTED,
     isModalView: false,
-    header: () => $localize`:Make a Payment Link@@main.make-a-payment.link.text:Make internal payment (custom)`,
+    header: () =>
+      $localize`:Make a Payment Link@@main.make-a-payment.link.text:Make internal payment (custom)`,
   },
   /**
    * Use hooks to perform additiona logic at different stages of Payments journey. For eg,
