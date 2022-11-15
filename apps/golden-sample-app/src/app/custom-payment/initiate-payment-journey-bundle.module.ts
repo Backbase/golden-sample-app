@@ -16,7 +16,7 @@ import { customPaymentConfig } from './custom-payment.config';
   imports: [
     AccountSelectorModule,
     CommonModule,
-    InitiatePaymentJourneyModule.forRoot()
+    InitiatePaymentJourneyModule.forRoot(),
   ],
   providers: [
     {
