@@ -29,7 +29,7 @@ All out-of-the-box configurations define the above mandatory fields and in addit
 
 ## Custom Initiator Component
 
-The task is to replace the existing component used inside the `initiator` configuration group and replace it with a custom component. The example is valid not only for `initiator` group, but for any of the group of any of the component, current documentation is aimed to show the general principals steps-by-step.
+The task is to replace the existing component used inside the `initiator` configuration group with a custome one and apply this change to the configuration. The example is valid not only for `initiator` group, but for any of the group of any of the component, current documentation is aimed to show the general principals steps-by-step.
 
 Each configuration group adheres to certain defined types. For example, the out-of-the-box component for `initiator` follows types defined in the interface `InitiatorDetails`. Similarly, counterparty, remittanceInfo and schedule configuration groups adhere to types defined in `CounterPartyDetails`, `RemittanceDetails` and `ScheduleItem` respectively.
 
