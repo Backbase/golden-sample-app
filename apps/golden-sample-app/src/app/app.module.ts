@@ -11,6 +11,11 @@ import {
   ENTITLEMENTS_CONFIG,
 } from '@backbase/foundation-ang/entitlements';
 import { AuthService, IdentityAuthModule } from '@backbase/identity-auth';
+import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';
+import {
+  INITIATE_PAYMENT_JOURNEY_CONTACT_MANAGER_BASE_PATH,
+  INITIATE_PAYMENT_JOURNEY_PAYMENT_ORDER_BASE_PATH,
+} from '@backbase/initiate-payment-journey-ang';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
@@ -58,6 +63,7 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
     }),
     ButtonModule,
     IdentityAuthModule,
+    TransactionSigningModule,
   ],
   providers: [
     ...(environment.mockProviders || []),
@@ -114,6 +120,14 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
     {
       provide: ACCESS_CONTROL_BASE_PATH,
       useValue: environment.apiRoot + '/access-control',
+    },
+    {
+      provide: INITIATE_PAYMENT_JOURNEY_PAYMENT_ORDER_BASE_PATH,
+      useValue: environment.apiRoot + '/payment-order-service',
+    },
+    {
+      provide: INITIATE_PAYMENT_JOURNEY_CONTACT_MANAGER_BASE_PATH,
+      useValue: environment.apiRoot + '/contact-manager',
     },
     {
       provide: ENTITLEMENTS_CONFIG,
