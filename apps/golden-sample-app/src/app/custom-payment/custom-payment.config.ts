@@ -101,7 +101,7 @@ const remittanceInfo: PaymentFormGroup = {
       name: RemittanceInfoFields.amountCurrencyGroup,
       options: {
         label: 'Amount',
-        cssClasses: ['d-block', 'col-md-6', 'align-top'],
+        cssClasses: ['d-block', 'align-top'],
         currencies: ['USD'],
         defaultValue: {
           amount: '0.00',
@@ -131,7 +131,7 @@ const remittanceInfo: PaymentFormGroup = {
         rows: 2,
         maxLength: 140,
         helperText: $localize`:@@internal-config.add-memo-helper-text: (Optional)`,
-        cssClasses: ['col-md-6', 'bb-block', 'bb-block--lg'],
+        cssClasses: ['bb-block', 'bb-block--lg'],
       },
     },
   ],

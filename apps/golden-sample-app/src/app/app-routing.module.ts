@@ -1,7 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
 import { AuthGuard } from './auth/auth.guard';
+import { ViewWrapperComponent } from './components/view-wrapper/view-wrapper.component';
 import { triplets } from './services/entitlementsTriplets';
 import { UserContextGuard } from './user-context/user-context.guard';
 
@@ -75,6 +77,10 @@ const routes: Routes = [
   },
   {
     path: 'transfer-internal',
+    component: ViewWrapperComponent,
+    data: {
+      title: $localize`:Make a Payment Link@@main.make-a-payment.link.text:Make internal payment`,
+    },
     loadChildren: () =>
       import('./custom-payment/initiate-payment-journey-bundle.module').then(
         (m) => m.CustomPaymentJourneyBundleModule
@@ -89,7 +95,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  declarations: [ViewWrapperComponent],
+  imports: [RouterModule.forRoot(routes), CommonModule],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
