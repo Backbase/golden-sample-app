@@ -1,24 +1,26 @@
 categories:
-  - title: '📚 Documentation'
-    labels:
-      - 'documentation'
-  - title: '🚀 New Features'
+  - title: 'Added'
     labels:
       - 'enhancement'
-  - title: '🐛 Bug Fixes'
+  - title: 'Fixed'
     labels:
       - 'bug'
-  - title: '🧰 Maintenance'
+  - title: 'Changed'
     labels:
       - 'maintenance'
+  - title: 'Internal'
+    labels:
+      - 'internal'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 version-resolver:
   major:
     labels:
       - 'major'
+      - 'enhancement'
   minor:
     labels:
       - 'minor'
+      - 'bug'
   patch:
     labels:
       - 'patch'
