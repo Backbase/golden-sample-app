@@ -45,11 +45,11 @@
             View Transactions |
           </a>
           <a
-            (click)="addTofavorites(account)"
+            (click)="updateFavorite(account)"
             class="link"
-            i18n="Label for Add to Favorites link@@user-accounts.add-favorites"
           >
-            Add to Favorites
+            <span i18n="Label for Add to Favorites link@@user-accounts.add-favorites" *ngIf="!account.favorite">Add to Favorites</span> 
+            <span i18n="Label for Remove from Favorites link@@user-accounts.remove-favorites" *ngIf="account.favorite">Remove from Favorites</span> 
           </a>
         </div>
       </div>

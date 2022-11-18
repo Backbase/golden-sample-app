@@ -213,20 +213,24 @@
         </context-group>
       </trans-unit>
       <trans-unit id="user-accounts.view-transactions" datatype="html">
-        <source> View Transactions </source>
-        <target state="final"> Transacties bekijken </target>
+        <source> View Transactions | </source>
+        <target state="final"> View Transactions | </target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
           <context context-type="linenumber">45,54</context>
         </context-group>
         <note priority="1" from="description">Label for View Transactions link</note>
       </trans-unit><trans-unit id="user-accounts.add-favorites" datatype="html">
-        <source> Add to Favorites </source><target state="final"> Add to Favorites </target>
+        <source>Add to Favorites</source><target state="final">Add to Favorites</target>
+        
+        <note priority="1" from="description">Label for Add to Favorites link</note>
+      <context-group purpose="location"><context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context><context context-type="linenumber">51</context></context-group></trans-unit><trans-unit id="user-accounts.remove-favorites" datatype="html">
+        <source>Remove from Favorites</source><target state="final">Remove from Favorites</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/user-accounts/user-accounts-view/user-accounts-view.component.html</context>
-          <context context-type="linenumber">49,58</context>
+          <context context-type="linenumber">52,61</context>
         </context-group>
-        <note priority="1" from="description">Label for Add to Favorites link</note>
+        <note priority="1" from="description">Label for Remove from Favorites link</note>
       </trans-unit>
       <trans-unit id="limits.edit.action-button.save" datatype="html">
         <source>Save</source>
@@ -14855,20 +14859,20 @@ export const reviewI"/>" has been saved</target>
         <note priority="1" from="description">Recepient label for Transaction
               Details</note>
         
-      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.html</context><context context-type="linenumber">45</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.html</context><context context-type="linenumber">49</context></context-group></trans-unit>
       <trans-unit id="transactions.details.date" datatype="html">
         <source> Date: </source>
         <target state="final"> Date: </target>
 
         <note priority="1" from="description">Date label for Transaction Details</note>
         
-      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.html</context><context context-type="linenumber">56</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.html</context><context context-type="linenumber">60</context></context-group></trans-unit>
       <trans-unit id="transactions.details.amount" datatype="html">
         <source> Amount: </source>
         <target state="final"> Amount: </target>
         
         <note priority="1" from="description">Amount label for Transaction Amount</note>
-      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.html</context><context context-type="linenumber">68</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.html</context><context context-type="linenumber">72</context></context-group></trans-unit>
       <trans-unit id="transactions.details.category" datatype="html">
         <source> Category: </source>
         <target state="final"> Category: </target>
@@ -14876,7 +14880,7 @@ export const reviewI"/>" has been saved</target>
         <note priority="1" from="description">Category label for Transaction
               Details</note>
         
-      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.html</context><context context-type="linenumber">88</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.html</context><context context-type="linenumber">92</context></context-group></trans-unit>
       <trans-unit id="transactions.details.description" datatype="html">
         <source> Description: </source>
         <target state="final"> Description: </target>
@@ -14884,44 +14888,44 @@ export const reviewI"/>" has been saved</target>
         <note priority="1" from="description">Description label for Transaction
               Details</note>
         
-      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.html</context><context context-type="linenumber">101</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.html</context><context context-type="linenumber">105</context></context-group></trans-unit>
       <trans-unit id="transactions.details.status" datatype="html">
         <source> Status: </source>
         <target state="final"> Status: </target>
 
         <note priority="1" from="description">Status label for Transaction Details</note>
         
-      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.html</context><context context-type="linenumber">113</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.html</context><context context-type="linenumber">117</context></context-group></trans-unit>
       <trans-unit id="transaction-details.repeat" datatype="html">
         <source>Repeat transaction</source>
         <target state="final">Herhaal transactie</target>
         <note priority="1" from="description">Label for Repeat Transaction</note>
         
-      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.html</context><context context-type="linenumber">130</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.html</context><context context-type="linenumber">134</context></context-group></trans-unit>
       <trans-unit id="857011402599994952" datatype="html">
         <source>Transaction <x id="PH" equiv-text="id"/> not found</source>
         <target state="final">Transaction <x id="PH" equiv-text="id"/> not found</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.ts</context><context context-type="linenumber">61</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.ts</context><context context-type="linenumber">64</context></context-group></trans-unit>
       <trans-unit id="4467323362722952678" datatype="html">
         <source>Unknown</source>
         <target state="final">Unknown</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.ts</context><context context-type="linenumber">77</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.ts</context><context context-type="linenumber">80</context></context-group></trans-unit>
       <trans-unit id="3169427932576895164" datatype="html">
         <source>UNKNOWN</source>
         <target state="final">UNKNOWN</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.ts</context><context context-type="linenumber">78</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.ts</context><context context-type="linenumber">81</context></context-group></trans-unit>
       <trans-unit id="4890031060409002646" datatype="html">
         <source>Uncategorized</source>
         <target state="final">Uncategorized</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.ts</context><context context-type="linenumber">79</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">libs/transactions/src/lib/views/transaction-details-view/transaction-details-view.component.ts</context><context context-type="linenumber">82</context></context-group></trans-unit>
       <trans-unit id="transactions.filters.label" datatype="html">
         <source>filtered by:</source>
         <target state="final">gefilterd op:</target>
