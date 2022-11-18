@@ -20,6 +20,7 @@ import { InputValidationMessageModule } from '@backbase/ui-ang/input-validation-
 import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
 import { MakeTransferRouteTitleResolverService } from './services/make-transfer-route-title-resolver.service';
 import { TRANSLATIONS } from './constants/dynamic-translations';
+import { TrackerModule } from '@backbase/foundation-ang/observability';
 
 const defaultRoute: Route = {
   path: '',
@@ -84,6 +85,9 @@ const defaultRoute: Route = {
     ReactiveFormsModule,
     LoadingIndicatorModule,
     AlertModule,
+    TrackerModule.forJourney({
+      journeyName: 'transfer',
+    }),
   ],
   providers: [
     MakeTransferJourneyStoreGuard,
