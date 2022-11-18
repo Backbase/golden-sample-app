@@ -10,13 +10,17 @@ import { AddtoFavoritesTrackerEvent } from '../../model/tracker-events';
 export class UserAccountsViewComponent {
   public arrangements$ = this.arrangementsService.arrangements$;
 
-  constructor(private readonly arrangementsService: ArrangementsService,
+  constructor(
+    private readonly arrangementsService: ArrangementsService,
     @Optional() private readonly tracker?: Tracker
   ) {}
 
   addTofavorites(account: ProductSummaryItem) {
-    const event = new AddtoFavoritesTrackerEvent({accountId: account?.id, accountName: account?.name});
+    const event = new AddtoFavoritesTrackerEvent({
+      accountId: account?.id,
+      accountName: account?.name,
+    });
     this.tracker?.publish(event);
-    account.favorite=true;
+    account.favorite = true;
   }
 }

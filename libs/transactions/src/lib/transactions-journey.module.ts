@@ -11,7 +11,6 @@ import { ButtonModule } from '@backbase/ui-ang/button';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 
-
 import { TextFilterComponent } from './components/text-filter/text-filter.component';
 import {
   TransactionItemComponent,

@@ -2,7 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Optional } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Currency, TransactionItem } from '@backbase/data-ang/transactions';
-import { ScreenViewTrackerEventPayload, Tracker } from '@backbase/foundation-ang/observability';
+import {
+  ScreenViewTrackerEventPayload,
+  Tracker,
+} from '@backbase/foundation-ang/observability';
 import { combineLatest, map } from 'rxjs';
 import { TransactionsHttpService } from '../../services/transactions.http.service';
 import { TransactionDetailsTrackerEvent } from '../../model/tracker-events';
@@ -95,7 +98,7 @@ export class TransactionDetailsComponent {
 
     return params;
   }
-  
+
   trackNavigation($event: ScreenViewTrackerEventPayload) {
     this.tracker?.publish(new TransactionDetailsTrackerEvent($event));
   }

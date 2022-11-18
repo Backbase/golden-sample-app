@@ -6,7 +6,10 @@ import {
   TransactionsCommunicationService,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
 } from '../../communication';
-import { ScreenViewTrackerEventPayload, Tracker } from '@backbase/foundation-ang/observability';
+import {
+  ScreenViewTrackerEventPayload,
+  Tracker,
+} from '@backbase/foundation-ang/observability';
 import { ArrangementsService } from '../../services/arrangements.service';
 import { TransactionsHttpService } from '../../services/transactions.http.service';
 import { TransactionListTrackerEvent } from '../../model/tracker-events';

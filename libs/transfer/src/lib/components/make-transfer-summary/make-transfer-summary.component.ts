@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Optional, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Optional,
+  Output,
+} from '@angular/core';
 import { Transfer } from '../../model/Account';
 import { TransferSubmitEvent } from '../../model/tracker-events';
 import { Tracker } from '@backbase/foundation-ang/observability';
@@ -11,7 +17,7 @@ export class MakeTransferSummaryComponent {
   @Output() submitTransfer = new EventEmitter<void>();
   @Output() closeTransfer = new EventEmitter<void>();
 
-  constructor( @Optional() private readonly tracker?: Tracker) {}
+  constructor(@Optional() private readonly tracker?: Tracker) {}
 
   submit(): void {
     this.tracker?.publish(new TransferSubmitEvent({}));

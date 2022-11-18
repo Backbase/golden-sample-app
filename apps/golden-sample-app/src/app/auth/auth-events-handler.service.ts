@@ -1,7 +1,16 @@
-import { Inject, Injectable, LOCALE_ID, OnDestroy, Optional } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  LOCALE_ID,
+  OnDestroy,
+  Optional,
+} from '@angular/core';
 import { OAuthEvent, OAuthService } from 'angular-oauth2-oidc';
 import { Subscription } from 'rxjs';
-import { Tracker, SessionTimeoutTrackerEvent } from '@backbase/foundation-ang/observability';
+import {
+  Tracker,
+  SessionTimeoutTrackerEvent,
+} from '@backbase/foundation-ang/observability';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,7 +21,7 @@ export class AuthEventsHandlerService implements OnDestroy {
     private readonly oAuthService: OAuthService,
     @Inject(LOCALE_ID)
     private readonly locale: string,
-    @Optional() private readonly tracker?: Tracker,
+    @Optional() private readonly tracker?: Tracker
   ) {
     this.eventsSubscription = this.getEventsSubscription();
   }

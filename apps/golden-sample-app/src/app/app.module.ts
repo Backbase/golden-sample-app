@@ -43,7 +43,6 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -68,8 +67,8 @@ import { TrackerModule } from '@backbase/foundation-ang/observability';
     IdentityAuthModule,
     TransactionSigningModule,
     TrackerModule.forRoot({
-      handler: AnalyticsService
-    })
+      handler: AnalyticsService,
+    }),
   ],
   providers: [
     ...(environment.mockProviders || []),
