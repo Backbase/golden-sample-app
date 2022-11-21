@@ -14,7 +14,7 @@ export class UserContextComponent {
     private userContextGuard: UserContextGuard,
     private authService: OAuthService,
     private router: Router
-  ) { }
+  ) {}
 
   selectContextSuccess(serviceAgreement: { id: string }) {
     this.userContextService.setServiceAgreementId(serviceAgreement.id);
