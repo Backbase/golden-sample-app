@@ -7,12 +7,9 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { ServiceAgreementHttpService } from '@backbase/data-ang/accesscontrol';
-import { CookieService } from 'ngx-cookie-service';
-import { Observable, of } from 'rxjs';
-import { catchError, map, mapTo } from 'rxjs/operators';
-
-const COOKIE_KEY = 'USER_CONTEXT';
+import { ServiceAgreementHttpService } from '@backbase/accesscontrol-http-ang';
+import { Observable, of, tap } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 /**
  * Guard checks if user has the valid service agreement context.
@@ -27,10 +24,9 @@ const COOKIE_KEY = 'USER_CONTEXT';
 })
 export class UserContextGuard implements CanActivate, CanActivateChild {
   private targetUrl: string | undefined;
-  private cookieValid = false;
+  private contextValid = false;
 
   constructor(
-    private readonly cookieService: CookieService,
     private readonly router: Router,
     private readonly serviceAgreementService: ServiceAgreementHttpService
   ) {}
@@ -38,18 +34,18 @@ export class UserContextGuard implements CanActivate, CanActivateChild {
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> {
+  ) {
     return this.canActivate(childRoute, state);
   }
 
-  canActivate(
-    _next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> {
+  canActivate(_next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     this.targetUrl = state.url;
 
-    return this.validateUserContextCookie().pipe(
-      map((isValid) => isValid || this.getSelectContextUrlTree())
+    return (
+      this.contextValid ||
+      this.validateUserContextCookie().pipe(
+        map((isValid) => isValid || this.getSelectContextUrlTree())
+      )
     );
   }
 
@@ -66,23 +62,10 @@ export class UserContextGuard implements CanActivate, CanActivateChild {
    * associated with the cookie value.
    */
   private validateUserContextCookie(): Observable<boolean> {
-    const cookieIsSet = this.cookieService.check(COOKIE_KEY);
-    if (!cookieIsSet) {
-      this.cookieValid = false;
-      return of(false);
-    }
-
-    if (this.cookieValid) {
-      return of(true);
-    }
-
     return this.serviceAgreementService.getServiceAgreementContext().pipe(
-      mapTo(true),
+      map(() => true),
       catchError(() => of(false)),
-      map((valid) => {
-        this.cookieValid = valid;
-        return this.cookieValid;
-      })
+      tap((result) => (this.contextValid = result))
     );
   }
 }

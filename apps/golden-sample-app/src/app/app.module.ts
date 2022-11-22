@@ -40,6 +40,7 @@ import { AppErrorHandler } from './app.error-handler';
 import { AuthEventsHandlerService } from './auth/auth-events-handler.service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
+import { UserContextInterceptor } from './user-context/user-context.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -71,6 +72,11 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserContextInterceptor,
       multi: true,
     },
     {

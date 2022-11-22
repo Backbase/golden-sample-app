@@ -75,15 +75,13 @@
       "builder": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "development": {
-          "browserTarget": "golden-sample-app:build:development",
-          "proxyConfig": "./proxy.conf.json"
+          "browserTarget": "golden-sample-app:build:development"
         },
         "production": {
           "browserTarget": "golden-sample-app:build:production"
         },
         "nl": {
-          "browserTarget": "golden-sample-app:build:nl",
-          "proxyConfig": "./proxy.conf.json"
+          "browserTarget": "golden-sample-app:build:nl"
         }
       },
       "defaultConfiguration": "development"
