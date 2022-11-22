@@ -16,13 +16,11 @@ export class UserAccountsViewComponent {
   ) {}
 
   updateFavorite(account: ProductSummaryItem) {
-    const event = !account.favorite ? new AddToFavoritesTrackerEvent({
-      accountId: account?.id,
-      accountName: account?.name,
-    }) : new RemoveFromFavoritesTrackerEvent({
-      accountId: account?.id,
-      accountName: account?.name,
-    });
+    const accountObj = {
+      accountId: account.id,
+      accountName: account.name,
+    };
+    const event = !account.favorite ? new AddToFavoritesTrackerEvent({...accountObj}) : new RemoveFromFavoritesTrackerEvent({...accountObj});
     this.tracker?.publish(event);
     account.favorite = !account.favorite;
   }
