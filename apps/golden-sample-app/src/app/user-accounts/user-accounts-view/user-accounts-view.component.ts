@@ -16,7 +16,7 @@ export class UserAccountsViewComponent {
   ) {}
 
   updateFavorite(account: ProductSummaryItem) {
-    const event = !account.favorite ? new AddtoFavoritesTrackerEvent({
+    const event = !account.favorite ? new AddToFavoritesTrackerEvent({
       accountId: account?.id,
       accountName: account?.name,
     }) : new RemoveFromFavoritesTrackerEvent({
