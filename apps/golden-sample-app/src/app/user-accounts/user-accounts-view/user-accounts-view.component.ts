@@ -2,7 +2,7 @@ import { Component, Optional } from '@angular/core';
 import { ArrangementsService } from '@backbase-gsa/transactions';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { Tracker } from '@backbase/foundation-ang/observability';
-import { AddtoFavoritesTrackerEvent, RemoveFromFavoritesTrackerEvent } from '../../model/tracker-events';
+import { AddToFavoritesTrackerEvent, RemoveFromFavoritesTrackerEvent } from '../../model/tracker-events';
 @Component({
   selector: 'app-user-accounts-view',
   templateUrl: './user-accounts-view.component.html',
