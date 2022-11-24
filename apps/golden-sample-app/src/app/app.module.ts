@@ -42,6 +42,7 @@ import { AnalyticsService } from './services/analytics.service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
+import { UserContextInterceptor } from './user-context/user-context.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -76,6 +77,11 @@ import { TrackerModule } from '@backbase/foundation-ang/observability';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserContextInterceptor,
       multi: true,
     },
     {
