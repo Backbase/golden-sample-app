@@ -1,6 +1,0 @@
-{
-  "context": "/api",
-  "target": "https://app.prd.sdbx.live.backbaseservices.com/",
-  "secure": false,
-  "changeOrigin": true
-}

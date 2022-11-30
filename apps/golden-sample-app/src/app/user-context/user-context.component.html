@@ -7,7 +7,7 @@
       [includeCurrentContext]="false"
       [showSearchAfter]="5"
       (back)="logout()"
-      (selectContextSuccess)="redirect()"
+      (selectContextSuccess)="selectContextSuccess($event)"
     ></bb-select-context-widget>
   </div>
 </div>
