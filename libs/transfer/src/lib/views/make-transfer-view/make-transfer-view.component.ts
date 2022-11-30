@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MakeTransferJourneyConfiguration } from '../../services/make-transfer-journey-config.service';
 import { Transfer } from '../../model/Account';
@@ -8,6 +8,8 @@ import {
   MakeTransferJourneyState,
   TransferLoadingStatus,
 } from '../../state/make-transfer-journey-state.service';
+import { TransferSubmitEvent } from '../../model/tracker-events';
+import { Tracker } from '@backbase/foundation-ang/observability';
 
 @Component({
   templateUrl: 'make-transfer-view.component.html',
@@ -20,6 +22,7 @@ export class MakeTransferViewComponent {
 
   submitTransfer(transfer: Transfer | undefined): void {
     if (transfer !== undefined) {
+      this.tracker?.publish(new TransferSubmitEvent({}));
       this.transferStore.next(transfer);
       this.router.navigate(['../make-transfer-summary'], {
         relativeTo: this.route,
@@ -40,7 +43,8 @@ export class MakeTransferViewComponent {
     private readonly router: Router,
     private readonly transferStore: MakeTransferJourneyState,
     private readonly permissions: MakeTransferPermissionsService,
-    public readonly config: MakeTransferJourneyConfiguration
+    public readonly config: MakeTransferJourneyConfiguration,
+    @Optional() private readonly tracker?: Tracker
   ) {
     transferStore.loadAccounts();
   }

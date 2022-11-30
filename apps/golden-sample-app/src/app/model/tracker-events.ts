@@ -7,7 +7,7 @@ export class AddToFavoritesTrackerEvent extends UserActionTrackerEvent<{
 }
 
 export class RemoveFromFavoritesTrackerEvent extends UserActionTrackerEvent<{
-    payload: { accountId: string; accountName?: string };
-  }> {
-    readonly name = 'remove_from_favorites';
-  }
+  payload: { accountId: string; accountName?: string };
+}> {
+  readonly name = 'remove_from_favorites';
+}
