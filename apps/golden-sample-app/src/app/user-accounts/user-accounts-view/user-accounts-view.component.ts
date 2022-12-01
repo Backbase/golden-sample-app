@@ -1,6 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Optional } from '@angular/core';
 import { ArrangementsService } from '@backbase-gsa/transactions';
-
+import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
+import { Tracker } from '@backbase/foundation-ang/observability';
+import {
+  AddToFavoritesTrackerEvent,
+  RemoveFromFavoritesTrackerEvent,
+} from '../../model/tracker-events';
 @Component({
   selector: 'app-user-accounts-view',
   templateUrl: './user-accounts-view.component.html',
@@ -8,5 +13,20 @@ import { ArrangementsService } from '@backbase-gsa/transactions';
 export class UserAccountsViewComponent {
   public arrangements$ = this.arrangementsService.arrangements$;
 
-  constructor(private readonly arrangementsService: ArrangementsService) {}
+  constructor(
+    private readonly arrangementsService: ArrangementsService,
+    @Optional() private readonly tracker?: Tracker
+  ) {}
+
+  updateFavorite(account: ProductSummaryItem) {
+    const accountObj = {
+      accountId: account.id,
+      accountName: account.name,
+    };
+    const event = !account.favorite
+      ? new AddToFavoritesTrackerEvent({ ...accountObj })
+      : new RemoveFromFavoritesTrackerEvent({ ...accountObj });
+    this.tracker?.publish(event);
+    account.favorite = !account.favorite;
+  }
 }
