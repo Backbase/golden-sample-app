@@ -14,7 +14,7 @@ export {
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
 } from './lib/communication';
 
-// export these events to be available as public API and will be avaiable on Develope hub
+// export these events to be available as public API
 export {
   TransactionDetailsTrackerEvent,
   TransactionListTrackerEvent,
