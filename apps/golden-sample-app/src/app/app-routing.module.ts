@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './auth/guard/auth.guard';
 import { ViewWrapperComponent } from './components/view-wrapper/view-wrapper.component';
 import { triplets } from './services/entitlementsTriplets';
 import { UserContextGuard } from './user-context/user-context.guard';

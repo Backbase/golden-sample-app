@@ -37,12 +37,13 @@ import { authConfig, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppErrorHandler } from './app.error-handler';
-import { AuthEventsHandlerService } from './auth/auth-events-handler.service';
+import { AuthEventsHandlerService } from './auth/auth-events-handler/auth-events-handler.service';
 import { AnalyticsService } from './services/analytics.service';
-import { AuthInterceptor } from './auth/auth.interceptor';
+import { AuthInterceptor } from './auth/interceptor/auth.interceptor';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { UserContextInterceptor } from './user-context/user-context.interceptor';
+import { ActivityMonitorModule } from './auth/activity-monitor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -70,6 +71,7 @@ import { UserContextInterceptor } from './user-context/user-context.interceptor'
     TrackerModule.forRoot({
       handler: AnalyticsService,
     }),
+    ActivityMonitorModule,
   ],
   providers: [
     ...(environment.mockProviders || []),
