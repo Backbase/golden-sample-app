@@ -1,5 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivityMonitorService, AuthService, TickEvent } from '@backbase/identity-auth';
+import {
+  ActivityMonitorService,
+  AuthService,
+  TickEvent,
+} from '@backbase/identity-auth';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { filter, map, share, take } from 'rxjs';
 
@@ -11,16 +15,18 @@ import { filter, map, share, take } from 'rxjs';
 export class ActivityMonitorComponent implements OnInit {
   private readonly events$ = this.activityMonitorService.events.pipe(share());
   private readonly openTypes = ['start', 'tick'];
-  readonly isOpen$ = this.events$.pipe(map(({ type }) => this.openTypes.includes(type)));
+  readonly isOpen$ = this.events$.pipe(
+    map(({ type }) => this.openTypes.includes(type))
+  );
   readonly remaining$ = this.events$.pipe(
     filter(({ type }) => type === 'tick'),
-    map((event) => (event as TickEvent).remaining),
+    map((event) => (event as TickEvent).remaining)
   );
 
   constructor(
     private readonly activityMonitorService: ActivityMonitorService,
     private readonly oAuthService: OAuthService,
-    private readonly authService: AuthService,
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +38,7 @@ export class ActivityMonitorComponent implements OnInit {
     this.events$
       .pipe(
         filter(({ type }) => type === 'end'),
-        take(1),
+        take(1)
       )
       .subscribe({
         next: () => {
