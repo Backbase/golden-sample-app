@@ -87,7 +87,8 @@ const routes: Routes = [
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: 'error',
+    loadChildren: () =>
+      import('./error-page/error-page.module').then((m) => m.ErrorPageModule),
   },
 ];
 

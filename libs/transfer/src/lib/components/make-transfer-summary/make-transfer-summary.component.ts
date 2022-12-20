@@ -1,6 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Optional,
+  Output,
+} from '@angular/core';
 import { Transfer } from '../../model/Account';
-
 @Component({
   selector: 'bb-make-transfer-summary',
   templateUrl: 'make-transfer-summary.component.html',

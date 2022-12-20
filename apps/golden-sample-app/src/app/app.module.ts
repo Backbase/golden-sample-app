@@ -38,8 +38,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppErrorHandler } from './app.error-handler';
 import { AuthEventsHandlerService } from './auth/auth-events-handler.service';
+import { AnalyticsService } from './services/analytics.service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
+import { TrackerModule } from '@backbase/foundation-ang/observability';
+import { UserContextInterceptor } from './user-context/user-context.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -64,6 +67,9 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
     ButtonModule,
     IdentityAuthModule,
     TransactionSigningModule,
+    TrackerModule.forRoot({
+      handler: AnalyticsService,
+    }),
   ],
   providers: [
     ...(environment.mockProviders || []),
@@ -71,6 +77,11 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserContextInterceptor,
       multi: true,
     },
     {

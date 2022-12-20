@@ -9,6 +9,7 @@ import { InputTextModule } from '@backbase/ui-ang/input-text';
 import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { IconModule } from '@backbase/ui-ang/icon';
+import { TrackerModule } from '@backbase/foundation-ang/observability';
 
 import { TextFilterComponent } from './components/text-filter/text-filter.component';
 import {
@@ -74,6 +75,9 @@ export interface TransactionsJourneyModuleConfig {
     ButtonModule,
     IconModule,
     BadgeModule,
+    TrackerModule.forJourney({
+      journeyName: 'transactions',
+    }),
   ],
   providers: [
     TransactionsHttpService,

@@ -6,9 +6,13 @@ import {
   TransactionsCommunicationService,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
 } from '../../communication';
+import {
+  ScreenViewTrackerEventPayload,
+  Tracker,
+} from '@backbase/foundation-ang/observability';
 import { ArrangementsService } from '../../services/arrangements.service';
 import { TransactionsHttpService } from '../../services/transactions.http.service';
-
+import { TransactionListTrackerEvent } from '../../model/tracker-events';
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
@@ -65,7 +69,8 @@ export class TransactionsViewComponent {
     private readonly arrangementsService: ArrangementsService,
     @Optional()
     @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE)
-    private externalCommunicationService: TransactionsCommunicationService
+    private externalCommunicationService: TransactionsCommunicationService,
+    @Optional() private tracker?: Tracker
   ) {}
 
   search(ev: string) {
@@ -74,5 +79,9 @@ export class TransactionsViewComponent {
       queryParams: { search: this.filter || undefined },
       queryParamsHandling: 'merge',
     });
+  }
+
+  trackNavigation($event: ScreenViewTrackerEventPayload) {
+    this.tracker?.publish(new TransactionListTrackerEvent($event));
   }
 }
