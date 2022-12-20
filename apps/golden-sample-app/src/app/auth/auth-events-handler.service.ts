@@ -1,7 +1,16 @@
-import { Inject, Injectable, LOCALE_ID, OnDestroy } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  LOCALE_ID,
+  OnDestroy,
+  Optional,
+} from '@angular/core';
 import { OAuthEvent, OAuthService } from 'angular-oauth2-oidc';
 import { Subscription } from 'rxjs';
-
+import {
+  Tracker,
+  SessionTimeoutTrackerEvent,
+} from '@backbase/foundation-ang/observability';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,7 +20,8 @@ export class AuthEventsHandlerService implements OnDestroy {
   constructor(
     private readonly oAuthService: OAuthService,
     @Inject(LOCALE_ID)
-    private readonly locale: string
+    private readonly locale: string,
+    @Optional() private readonly tracker?: Tracker
   ) {
     this.eventsSubscription = this.getEventsSubscription();
   }
@@ -70,6 +80,7 @@ export class AuthEventsHandlerService implements OnDestroy {
    * If not, treat them as already logged out and redirect them to their login page.
    */
   private handleTerminatedSession() {
+    this.tracker?.publish(new SessionTimeoutTrackerEvent());
     if (this.oAuthService.hasValidAccessToken()) {
       this.oAuthService.revokeTokenAndLogout();
     } else {
