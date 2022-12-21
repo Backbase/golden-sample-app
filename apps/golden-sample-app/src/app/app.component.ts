@@ -6,6 +6,7 @@ import {
   LogoutTrackerEvent,
   Tracker,
 } from '@backbase/foundation-ang/observability';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
