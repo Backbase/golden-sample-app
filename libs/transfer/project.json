@@ -1,7 +1,6 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "root": "libs/transfer",
   "sourceRoot": "libs/transfer/src",
   "prefix": "bb",
   "tags": ["scope:transfer", "type:feature"],
@@ -25,7 +24,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/transfer/jest.config.js",
+        "jestConfig": "libs/transfer/jest.config.ts",
         "passWithNoTests": true
       }
     },

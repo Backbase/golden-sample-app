@@ -42,7 +42,7 @@
 
       <ul *ngIf="transactions$ | async as items; else loading" class="bb-list">
         <li
-          *ngFor="let item of items | filterTransactions: filter"
+          *ngFor="let item of items | filterTransactions : filter"
           class="bb-list__item"
           data-role="transactions-view__item-container"
         >

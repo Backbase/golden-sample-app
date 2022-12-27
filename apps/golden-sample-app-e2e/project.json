@@ -1,12 +1,12 @@
 {
-  "root": "apps/golden-sample-app-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/golden-sample-app-e2e/src",
   "projectType": "application",
   "tags": ["type:app"],
   "implicitDependencies": ["golden-sample-app"],
-  "architect": {
+  "targets": {
     "lint": {
-      "builder": "@nrwl/linter:eslint",
+      "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": ["apps/golden-sample-app-e2e/**/*.ts"]
       }
