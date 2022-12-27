@@ -18,7 +18,7 @@ import {
   take,
   throwError,
 } from 'rxjs';
-import { isInvalidToken401 } from './auth.utils';
+import { isInvalidToken401 } from '../utils/auth.utils';
 
 /**
  * Reads Authentication header of HTTP responses to find 'invalid_token' errors.

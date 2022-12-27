@@ -9,7 +9,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { share } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AuthInterceptor } from './auth.interceptor';
-import * as utils from './auth.utils';
+import * as utils from '../utils/auth.utils';
 
 export type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;
 export const mock = <T>(overrides?: WidePropertyTypes<T>) =>

@@ -1,0 +1,25 @@
+<bb-modal-ui [isOpen]="isOpen" [modalOptions]="modalOptions">
+  <bb-modal-header-ui>
+    <ng-template bbCustomModalHeader>
+      <bb-header-ui
+        headingType="h3"
+        heading="Your session is about to expire"
+      ></bb-header-ui>
+    </ng-template>
+  </bb-modal-header-ui>
+
+  <bb-modal-body-ui data-role="activity-monitor-body">
+    <ng-template bbCustomModalBody>
+      <ng-container [ngPlural]="remaining">
+        <ng-template ngPluralCase="=1">
+          Due to inactivity your session will expire in 1 second. Perform any
+          action to stay logged in.
+        </ng-template>
+        <ng-template ngPluralCase="other">
+          Due to inactivity your session will expire in {{ remaining }} seconds.
+          Perform any action to stay logged in.
+        </ng-template>
+      </ng-container>
+    </ng-template>
+  </bb-modal-body-ui>
+</bb-modal-ui>
