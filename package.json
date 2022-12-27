@@ -50,7 +50,7 @@
     "@ng-select/ng-select": "^8.3.0",
     "@ngrx/component-store": "14.0.2",
     "@ngrx/effects": "14.0.2",
-    "@ngrx/store": "14.0.2",
+    "@ngrx/store": "14.3.2",
     "@ngx-formly/core": "^6.0.4",
     "angular-oauth2-oidc": "^13.0.1",
     "bignumber.js": "^9.0.1",
