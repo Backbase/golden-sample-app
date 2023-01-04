@@ -82,7 +82,7 @@ export class AuthEventsHandlerService implements OnDestroy {
   private handleTerminatedSession() {
     this.tracker?.publish(new SessionTimeoutTrackerEvent());
     if (this.oAuthService.hasValidAccessToken()) {
-      this.oAuthService.revokeTokenAndLogout();
+      this.oAuthService.logOut();
     } else {
       this.oAuthService.initLoginFlow(undefined, { ui_locales: this.locale });
     }

@@ -22,6 +22,6 @@ export class UserContextComponent {
   }
 
   logout() {
-    this.authService.revokeTokenAndLogout();
+    this.authService.logOut();
   }
 }
