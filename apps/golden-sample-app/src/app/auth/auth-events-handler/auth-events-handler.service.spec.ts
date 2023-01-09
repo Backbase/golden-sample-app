@@ -61,7 +61,7 @@ describe('AuthEventsHandlerService', () => {
   });
 
   describe('Revoking tokens and logging out', () => {
-    it('should revoke tokens and log out the user when refresh token errors', () => {
+    it('should log out the user when refresh token errors', () => {
       const { events$$, oAuthService, scheduler } = getInstance();
 
       scheduler.run(({ flush }) => {
@@ -72,7 +72,7 @@ describe('AuthEventsHandlerService', () => {
 
       expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
-    it('should revoke tokens and log out the user when token errors', () => {
+    it('should log out the user when token errors', () => {
       const { events$$, oAuthService, scheduler } = getInstance();
 
       scheduler.run(({ flush }) => {
@@ -83,7 +83,7 @@ describe('AuthEventsHandlerService', () => {
 
       expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
-    it('should revoke tokens and log out the user when code exchange errors', () => {
+    it('should log out the user when code exchange errors', () => {
       const { events$$, oAuthService, scheduler } = getInstance();
 
       scheduler.run(({ flush }) => {
@@ -94,7 +94,7 @@ describe('AuthEventsHandlerService', () => {
 
       expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
-    it('should revoke tokens and log out the user when the session errors', () => {
+    it('should log out the user when the session errors', () => {
       const { events$$, oAuthService, scheduler } = getInstance();
 
       scheduler.run(({ flush }) => {
@@ -105,7 +105,7 @@ describe('AuthEventsHandlerService', () => {
 
       expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
-    it('should revoke tokens and log out the user when the session is terminated', () => {
+    it('should log out the user when the session is terminated', () => {
       const { events$$, oAuthService, scheduler } = getInstance();
 
       scheduler.run(({ flush }) => {
