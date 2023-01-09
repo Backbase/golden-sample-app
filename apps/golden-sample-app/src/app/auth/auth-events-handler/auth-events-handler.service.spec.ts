@@ -60,7 +60,7 @@ describe('AuthEventsHandlerService', () => {
     });
   });
 
-  describe('Revoking tokens and logging out', () => {
+  describe('Logging out', () => {
     it('should log out the user when refresh token errors', () => {
       const { events$$, oAuthService, scheduler } = getInstance();
 
