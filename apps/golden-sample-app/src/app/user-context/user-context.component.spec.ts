@@ -21,10 +21,8 @@ describe('UserContextComponent', () => {
   > = {
     getTargetUrl: jest.fn(),
   };
-  const mockOAuthService: jest.Mocked<
-    Pick<OAuthService, 'revokeTokenAndLogout'>
-  > = {
-    revokeTokenAndLogout: jest.fn(),
+  const mockOAuthService: jest.Mocked<Pick<OAuthService, 'logOut'>> = {
+    logOut: jest.fn(),
   };
 
   beforeEach(async () => {
