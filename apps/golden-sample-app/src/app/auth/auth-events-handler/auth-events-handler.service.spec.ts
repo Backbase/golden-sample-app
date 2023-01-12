@@ -12,7 +12,7 @@ describe('AuthEventsHandlerService', () => {
     const oAuthService = mock<OAuthService>({
       events: events$$.asObservable(),
       refreshToken: jest.fn(),
-      revokeTokenAndLogout: jest.fn(),
+      logOut: jest.fn(),
       initLoginFlow: jest.fn(),
       hasValidAccessToken: jest.fn().mockReturnValue(true),
     });
@@ -60,8 +60,8 @@ describe('AuthEventsHandlerService', () => {
     });
   });
 
-  describe('Revoking tokens and logging out', () => {
-    it('should revoke tokens and log out the user when refresh token errors', () => {
+  describe('Logging out', () => {
+    it('should log out the user when refresh token errors', () => {
       const { events$$, oAuthService, scheduler } = getInstance();
 
       scheduler.run(({ flush }) => {
@@ -70,9 +70,9 @@ describe('AuthEventsHandlerService', () => {
         flush();
       });
 
-      expect(oAuthService.revokeTokenAndLogout).toHaveBeenCalledTimes(1);
+      expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
-    it('should revoke tokens and log out the user when token errors', () => {
+    it('should log out the user when token errors', () => {
       const { events$$, oAuthService, scheduler } = getInstance();
 
       scheduler.run(({ flush }) => {
@@ -81,9 +81,9 @@ describe('AuthEventsHandlerService', () => {
         flush();
       });
 
-      expect(oAuthService.revokeTokenAndLogout).toHaveBeenCalledTimes(1);
+      expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
-    it('should revoke tokens and log out the user when code exchange errors', () => {
+    it('should log out the user when code exchange errors', () => {
       const { events$$, oAuthService, scheduler } = getInstance();
 
       scheduler.run(({ flush }) => {
@@ -92,9 +92,9 @@ describe('AuthEventsHandlerService', () => {
         flush();
       });
 
-      expect(oAuthService.revokeTokenAndLogout).toHaveBeenCalledTimes(1);
+      expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
-    it('should revoke tokens and log out the user when the session errors', () => {
+    it('should log out the user when the session errors', () => {
       const { events$$, oAuthService, scheduler } = getInstance();
 
       scheduler.run(({ flush }) => {
@@ -103,9 +103,9 @@ describe('AuthEventsHandlerService', () => {
         flush();
       });
 
-      expect(oAuthService.revokeTokenAndLogout).toHaveBeenCalledTimes(1);
+      expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
-    it('should revoke tokens and log out the user when the session is terminated', () => {
+    it('should log out the user when the session is terminated', () => {
       const { events$$, oAuthService, scheduler } = getInstance();
 
       scheduler.run(({ flush }) => {
@@ -114,7 +114,7 @@ describe('AuthEventsHandlerService', () => {
         flush();
       });
 
-      expect(oAuthService.revokeTokenAndLogout).toHaveBeenCalledTimes(1);
+      expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
     it('should call initLoginFlow when the user does not have a valid access token', () => {
       const { events$$, oAuthService, scheduler } = getInstance();

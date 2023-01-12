@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@backbase/ui-ang/scss/main';
+@use '@angular/cdk';
 
-// @import '@angular/cdk/ally';
-// @include cdk-a11y();
+@import '~@backbase/ui-ang/scss/main';
 
+@include cdk.a11y-visually-hidden();
 
 @import './styles_theme-overrides.scss';
 
