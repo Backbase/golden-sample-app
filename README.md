@@ -49,7 +49,7 @@ The project uses the latest versions of the tools and libraries.
     - The general explanation of the communication service idea and  its theoretical underlying can be found in [Understand communication between journeys](https://community.backbase.com/documentation/foundation_angular/latest/communicate_between_journeys)
   - Simple examples of journeys such as [transactions](https://github.com/Backbase/golden-sample-app/tree/master/libs/transactions) and [transfer](https://github.com/Backbase/golden-sample-app/tree/master/libs/transfer)
   - [How to](./apps/golden-sample-app/src/app/custom-payment/README.md) add a custom component to Initiate Payments Journey
-  - Analytics: Integrate Analytics in your application or journey using @backbase/foundation-ang@7.2.0-beta.2. Check the example code in <TODO:ADD FILES>
+  - Analytics: Integrate Analytics in your application or journey using @backbase/foundation-ang@8.0.0. Check the detailed documentation [here](https://community.backbase.com/documentation/foundation_angular/latest/analytics-tracker-web)
 
 ## Prerequisites
 - Install the following VSCode extensions:  
