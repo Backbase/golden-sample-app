@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  OnDestroy,
-  Optional,
-} from '@angular/core';
+import { Injectable, OnDestroy, Optional } from '@angular/core';
 import { OAuthEvent, OAuthService } from 'angular-oauth2-oidc';
 import { Subscription } from 'rxjs';
 import {
@@ -58,7 +54,7 @@ export class AuthEventsHandlerService implements OnDestroy {
             this.documentLoaded = true;
             break;
 
-          // Handle locale changes when the user logs in. 
+          // Handle locale changes when the user logs in.
           case 'token_received':
             this.updateLocale();
             break;
@@ -103,7 +99,7 @@ export class AuthEventsHandlerService implements OnDestroy {
       this.oAuthService.logOut();
     } else {
       this.oAuthService.initLoginFlow(undefined, {
-        ui_locales: this.localesService.currentLocale
+        ui_locales: this.localesService.currentLocale,
       });
     }
   }

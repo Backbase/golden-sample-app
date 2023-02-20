@@ -23,7 +23,11 @@ describe('LocalesService', () => {
       } as Location,
     };
 
-    service = new LocalesService(locationStrategy, mockLocale, document as Document);
+    service = new LocalesService(
+      locationStrategy,
+      mockLocale,
+      document as Document
+    );
   });
 
   describe('currentLocale', () => {
@@ -49,9 +53,7 @@ describe('LocalesService', () => {
         locationStrategy.path.mockReturnValueOnce('/en/some/path');
 
         service.setLocale('nl');
-        expect(document.location.href).toEqual(
-          '/nl/some/path'
-        );
+        expect(document.location.href).toEqual('/nl/some/path');
       });
 
       it('should not redirect when new locale is the same as current locale', () => {
@@ -60,9 +62,7 @@ describe('LocalesService', () => {
         document.location.href = '/en/some/path';
 
         service.setLocale('en');
-        expect(document.location.href).toEqual(
-          '/en/some/path'
-        );
+        expect(document.location.href).toEqual('/en/some/path');
       });
     });
 
@@ -79,9 +79,7 @@ describe('LocalesService', () => {
         locationStrategy.path.mockReturnValueOnce('/test-app/en/some/path');
 
         service.setLocale('nl');
-        expect(document.location.href).toEqual(
-          '/test-app/nl/some/path'
-        );
+        expect(document.location.href).toEqual('/test-app/nl/some/path');
       });
 
       it('should not redirect when new locale is the same as current locale', () => {
@@ -89,9 +87,7 @@ describe('LocalesService', () => {
         locationStrategy.path.mockReturnValueOnce('/test-app/en/some/path');
 
         service.setLocale('en');
-        expect(document.location.href).toEqual(
-          '/test-app/en/some/path'
-        );
+        expect(document.location.href).toEqual('/test-app/en/some/path');
       });
     });
   });

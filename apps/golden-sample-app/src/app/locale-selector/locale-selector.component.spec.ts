@@ -5,18 +5,16 @@ import { LocalesService } from './locales.service';
 describe('bb-locale-selector', () => {
   let component: LocaleSelectorComponent;
   const mockLocales = ['en', 'es'];
-  let mockLocalesService: Pick<
-    LocalesService,
-    'setLocale' | 'currentLocale'
-  > = {
-    currentLocale: 'en',
-    setLocale: jest.fn(),
-  };
+  let mockLocalesService: Pick<LocalesService, 'setLocale' | 'currentLocale'> =
+    {
+      currentLocale: 'en',
+      setLocale: jest.fn(),
+    };
 
   function createComponent() {
     component = new LocaleSelectorComponent(
       mockLocalesService as LocalesService,
-      mockLocales,
+      mockLocales
     );
   }
 

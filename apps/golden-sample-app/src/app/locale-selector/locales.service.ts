@@ -21,16 +21,24 @@ export class LocalesService {
     const currentLocale = this.locale;
 
     // Get base href without locale
-    const baseHref = this.location.getBaseHref().replace(new RegExp(`/${currentLocale}/?$`), '');
+    const baseHref = this.location
+      .getBaseHref()
+      .replace(new RegExp(`/${currentLocale}/?$`), '');
 
-    const cookieValue = `${encodeURIComponent('bb-locale')}=${encodeURIComponent(locale)}`;
+    const cookieValue = `${encodeURIComponent(
+      'bb-locale'
+    )}=${encodeURIComponent(locale)}`;
     const cookiePath = `path=${baseHref === '' ? '/' : baseHref}`;
 
-    this.document.cookie = [cookieValue, cookiePath, COOKIE_ATTRIBUTES].join('; ');
+    this.document.cookie = [cookieValue, cookiePath, COOKIE_ATTRIBUTES].join(
+      '; '
+    );
 
     if (locale !== currentLocale) {
       // Get path without base href and locale
-      const path = this.location.path(true).replace(new RegExp(`^${baseHref}/${currentLocale}/?`), '');
+      const path = this.location
+        .path(true)
+        .replace(new RegExp(`^${baseHref}/${currentLocale}/?`), '');
 
       this.document.location.href = `${baseHref}/${locale}/${path}`;
     }

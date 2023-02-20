@@ -14,7 +14,7 @@ export class LocaleSelectorComponent implements OnInit {
 
   constructor(
     private localeService: LocalesService,
-    @Inject(LOCALES_LIST) public locales: Array<string>,
+    @Inject(LOCALES_LIST) public locales: Array<string>
   ) {}
 
   set language(value: string | object | Locale | undefined) {
