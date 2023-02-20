@@ -30,6 +30,14 @@
       "configurations": {
         "production": {
           "baseHref": "${BASE_HREF::-1}",
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            },
+            "fonts": true
+          },
           "budgets": [
             {
               "type": "initial",

@@ -1,23 +1,12 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, InjectionToken, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { LOCALES_LIST, LocalesService } from './locales.service';
 import { localesCatalog } from './locales-catalog';
 
 type Locale = typeof localesCatalog[string];
 
-export const documentWrapper = new InjectionToken<Document>(
-  'wrapper for document service'
-);
-
 @Component({
   selector: 'app-locale-selector',
   templateUrl: 'locale-selector.component.html',
-  providers: [
-    {
-      provide: documentWrapper,
-      useExisting: DOCUMENT,
-    },
-  ],
 })
 export class LocaleSelectorComponent implements OnInit {
   localesCatalog: Array<Locale> = [];
@@ -25,8 +14,7 @@ export class LocaleSelectorComponent implements OnInit {
 
   constructor(
     private localeService: LocalesService,
-    @Inject(LOCALES_LIST) public locales: Array<string>,
-    @Inject(documentWrapper) private document: Document
+    @Inject(LOCALES_LIST) public locales: Array<string>
   ) {}
 
   set language(value: string | object | Locale | undefined) {
@@ -34,8 +22,7 @@ export class LocaleSelectorComponent implements OnInit {
       return;
     }
 
-    this.localeService.setLocaleCookie((value as Locale).code);
-    this.document.location.href = this.document.baseURI;
+    this.localeService.setLocale((value as Locale).code);
   }
 
   get language(): Locale | undefined {

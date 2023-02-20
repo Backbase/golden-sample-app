@@ -1,11 +1,13 @@
 import { OAuthEvent, OAuthService } from 'angular-oauth2-oidc';
 import { Subject, Subscription } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { LocalesService } from '../../locale-selector/locales.service';
 import { AuthEventsHandlerService } from './auth-events-handler.service';
 
 export type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;
 export const mock = <T>(overrides?: WidePropertyTypes<T>) =>
   ({ ...overrides } as jest.Mocked<T>);
+
 describe('AuthEventsHandlerService', () => {
   const getInstance = () => {
     const events$$ = new Subject<OAuthEvent>();
@@ -15,11 +17,16 @@ describe('AuthEventsHandlerService', () => {
       logOut: jest.fn(),
       initLoginFlow: jest.fn(),
       hasValidAccessToken: jest.fn().mockReturnValue(true),
+      getAccessToken: jest.fn().mockReturnValue('1.eyJsb2NhbGUiOiAibmwifQ=='),
     });
-    const service = new AuthEventsHandlerService(oAuthService, 'en');
+    const localeService = mock<LocalesService>({
+      setLocale: jest.fn(),
+      currentLocale: 'en',
+    });
+    const service = new AuthEventsHandlerService(oAuthService, localeService);
     const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
 
-    return { service, oAuthService, events$$, scheduler };
+    return { service, oAuthService, localeService, events$$, scheduler };
   };
 
   describe('Document load', () => {
@@ -43,6 +50,20 @@ describe('AuthEventsHandlerService', () => {
       });
 
       expect(oAuthService.refreshToken).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('Receiving a new token', () => {
+    it('should update the locale when a new token is received', () => {
+      const { events$$, localeService, scheduler } = getInstance();
+
+      scheduler.run(({ flush }) => {
+        events$$.next({ type: 'discovery_document_loaded' });
+        events$$.next({ type: 'token_received' });
+        flush();
+      });
+
+      expect(localeService.setLocale).toHaveBeenCalledTimes(1);
     });
   });
 
