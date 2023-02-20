@@ -1,22 +1,39 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, LocationStrategy } from '@angular/common';
 import { Inject, Injectable, InjectionToken, LOCALE_ID } from '@angular/core';
+
 export const LOCALES_LIST = new InjectionToken<Array<string>>(
   'List of locales available'
 );
+
+// Use 2038 year to avoid issues with some browsers that don't support dates after 2038
 const COOKIE_ATTRIBUTES =
-  'Path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT;secure;samesite=Lax;';
+  'expires=Tue, 19 Jan 2038 04:14:07 GMT; secure; samesite=Lax;';
+
 @Injectable()
 export class LocalesService {
   constructor(
+    private location: LocationStrategy,
     @Inject(LOCALE_ID) private locale: string,
     @Inject(DOCUMENT) private document: Document
   ) {}
-  setLocaleCookie(value: string) {
-    this.document.cookie =
-      encodeURIComponent('bb-locale') +
-      '=' +
-      encodeURIComponent(value) +
-      `;${COOKIE_ATTRIBUTES}`;
+
+  setLocale(locale: string) {
+    const currentLocale = this.locale;
+
+    // Get base href without locale
+    const baseHref = this.location.getBaseHref().replace(new RegExp(`/${currentLocale}/?$`), '');
+
+    const cookieValue = `${encodeURIComponent('bb-locale')}=${encodeURIComponent(locale)}`;
+    const cookiePath = `path=${baseHref === '' ? '/' : baseHref}`;
+
+    this.document.cookie = [cookieValue, cookiePath, COOKIE_ATTRIBUTES].join('; ');
+
+    if (locale !== currentLocale) {
+      // Get path without base href and locale
+      const path = this.location.path(true).replace(new RegExp(`^${baseHref}/${currentLocale}/?`), '');
+
+      this.document.location.href = `${baseHref}/${locale}/${path}`;
+    }
   }
 
   get currentLocale() {
