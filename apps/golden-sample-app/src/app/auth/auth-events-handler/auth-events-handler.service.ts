@@ -109,7 +109,7 @@ export class AuthEventsHandlerService implements OnDestroy {
    */
   private updateLocale() {
     const token = parseJwt(this.oAuthService.getAccessToken());
-    if (token) {
+    if (token && token.locale) {
       this.localesService.setLocale(token.locale);
     }
   }
