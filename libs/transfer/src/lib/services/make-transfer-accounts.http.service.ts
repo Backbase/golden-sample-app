@@ -6,6 +6,10 @@ import {
 import { Injectable } from '@angular/core';
 import { map, of } from 'rxjs';
 import { Transfer } from '../model/Account';
+import {
+  ErrorStatus,
+  ErrorStatusEnum,
+} from '../state/make-transfer-journey-state.service';
 
 @Injectable()
 export class MakeTransferAccountHttpService {
@@ -44,6 +48,15 @@ export class MakeTransferAccountHttpService {
   makeTransfer(_transfer: Transfer) {
     // save transfer in api
     return of({});
+  }
+
+  checkErrorStatus(status: number): ErrorStatus {
+    switch (status) {
+      case 404:
+        return ErrorStatusEnum.NOT_FOUND;
+      default:
+        return ErrorStatusEnum.UNKNOWN_ERROR;
+    }
   }
 
   constructor(

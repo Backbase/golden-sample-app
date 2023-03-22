@@ -112,10 +112,7 @@ export class MakeTransferJourneyState extends ComponentStore<MakeTransferState> 
         this.patchState({
           account: undefined,
           loadingStatus: TransferLoadingStatus.ERROR,
-          errorStatus:
-            response.status === 404
-              ? ErrorStatusEnum.NOT_FOUND
-              : ErrorStatusEnum.UNKNOWN_ERROR,
+          errorStatus: this.apiService.checkErrorStatus(response.status),
         });
         return of();
       })
