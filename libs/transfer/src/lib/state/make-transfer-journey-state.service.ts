@@ -77,13 +77,17 @@ export class MakeTransferJourneyState extends ComponentStore<MakeTransferState> 
         return this.apiService.getAccountById(firstItem.id);
       }),
       switchMap((account) =>
-        this.apiService.accountBalance(100).pipe(
-          map((amount) => ({
-            id: account.id,
-            name: account.name,
-            amount,
-          }))
-        )
+        this.apiService
+          .accountBalance(
+            account.product?.productKind?.externalKindId as string
+          )
+          .pipe(
+            map((amount) => ({
+              id: account.id,
+              name: account.name,
+              amount,
+            }))
+          )
       ),
       tap((account) => {
         this.patchState({

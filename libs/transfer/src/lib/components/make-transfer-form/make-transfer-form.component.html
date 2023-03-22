@@ -1,13 +1,17 @@
 <form [formGroup]="makeTransferForm" (ngSubmit)="transfer()">
   <div class="bb-block bb-block--xl">
     <div class="bb-block bb-block--md">
-      <label i18n="from account label@@transfer.form.fromAccount.label" class="form-label"        
+      <label
+        i18n="from account label@@transfer.form.fromAccount.label"
+        class="form-label"
         >From account</label
       >
       <input type="text" class="form-control" formControlName="fromAccount" />
     </div>
     <div class="bb-block bb-block--md">
-      <label i18n="to account label@@transfer.form.toAccount.label" class="form-label"
+      <label
+        i18n="to account label@@transfer.form.toAccount.label"
+        class="form-label"
         >To Account</label
       >
       <input
@@ -34,11 +38,13 @@
     </div>
 
     <div class="bb-block bb-block--md">
-      <label i18n="amount label@@transfer.form.amount.label" class="form-label">Amount</label>
+      <label i18n="amount label@@transfer.form.amount.label" class="form-label"
+        >Amount</label
+      >
       <bb-currency-input-ui
         [currencyLabel]="'Amount'"
         formControlName="amount"
-        [currencies]="['EUR']"
+        [currencies]="currencies"
       >
         <div bbValidationMessage>
           <bb-input-validation-message-ui

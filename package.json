@@ -36,7 +36,7 @@
     "@angular/router": "^14.2.12",
     "@backbase/accessgroup-common-ang": "^6.11.3",
     "@backbase/accessgroup-ui": "^5.11.4",
-    "@backbase/arrangement-manager-http-ang": "^2.3.0",
+    "@backbase/arrangement-manager-http-ang": "~3.3.0",
     "@backbase/data-ang": "^4.3.0",
     "@backbase/foundation-ang": "^8.0.0",
     "@backbase/identity-auth": "^1.5.0",

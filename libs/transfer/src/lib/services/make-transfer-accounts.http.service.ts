@@ -21,9 +21,12 @@ export class MakeTransferAccountHttpService {
     );
   }
 
-  accountBalance(accountKind: number) {
+  accountBalance(productKind: string) {
     return this.balanceDataHttpService
-      .getAggregations({ productKindIds: [accountKind] })
+      .getAggregations({
+        externalProductKindIds: [productKind],
+        includeTotals: true,
+      })
       .pipe(
         map((item) => {
           const balances = item[0]?.aggregatedBalances?.[0];
