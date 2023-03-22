@@ -4,8 +4,9 @@ import {
   ProductSummaryHttpService,
 } from '@backbase/data-ang/arrangements';
 import { Injectable } from '@angular/core';
-import { catchError, map, of } from 'rxjs';
+import { map, of } from 'rxjs';
 import { Transfer } from '../model/Account';
+import { ErrorStatus, ErrorStatusEnum } from '@backbase-gsa/transfer';
 
 @Injectable()
 export class MakeTransferAccountHttpService {
@@ -31,8 +32,7 @@ export class MakeTransferAccountHttpService {
         map((item) => {
           const balances = item[0]?.aggregatedBalances?.[0];
           return parseInt(balances?.amount || '0', 10);
-        }),
-        catchError(() => of(300))
+        })
       );
   }
 
@@ -45,6 +45,15 @@ export class MakeTransferAccountHttpService {
   makeTransfer(_transfer: Transfer) {
     // save transfer in api
     return of({});
+  }
+
+  checkErrorStatus(status: number): ErrorStatus {
+    switch (status) {
+      case 404:
+        return ErrorStatusEnum.NOT_FOUND;
+      default:
+        return ErrorStatusEnum.UNKNOWN_ERROR;
+    }
   }
 
   constructor(

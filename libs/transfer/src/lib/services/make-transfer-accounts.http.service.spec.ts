@@ -3,6 +3,7 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { ErrorStatusEnum } from '@backbase-gsa/transfer';
 import { MakeTransferAccountHttpService } from './make-transfer-accounts.http.service';
 
 describe('MakeTransferAccountHttpService', () => {
@@ -35,5 +36,10 @@ describe('MakeTransferAccountHttpService', () => {
     );
     expect(req.request.method).toBe('GET');
     req.flush(account);
+  });
+
+  it('should return error code based on error status', () => {
+    const status = service.checkErrorStatus(404);
+    expect(status).toBe(ErrorStatusEnum.NOT_FOUND);
   });
 });

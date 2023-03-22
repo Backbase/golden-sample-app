@@ -44,6 +44,7 @@ describe('MakeTransferSymmaryViewComponent', () => {
         transferState: TransferOperationStatus.SUCCESSFUL,
         account: undefined,
         loadingStatus: 0,
+        errorStatus: undefined,
       }),
       makeTransfer: jest.fn(),
     };

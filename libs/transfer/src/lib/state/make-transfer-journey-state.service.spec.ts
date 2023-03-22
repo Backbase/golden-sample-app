@@ -1,8 +1,10 @@
 import { of } from 'rxjs';
-import { takeLast } from 'rxjs/operators';
 import { Transfer } from '../model/Account';
 import { MakeTransferAccountHttpService } from '../services/make-transfer-accounts.http.service';
-import { MakeTransferJourneyState } from './make-transfer-journey-state.service';
+import {
+  ErrorStatusEnum,
+  MakeTransferJourneyState,
+} from './make-transfer-journey-state.service';
 
 describe('MakeTransferJourneyState', () => {
   let service: MakeTransferJourneyState;

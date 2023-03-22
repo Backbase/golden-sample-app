@@ -32,7 +32,7 @@ export class MakeTransferFormComponent implements OnInit {
     description: string
   ): (control: AbstractControl) => unknown {
     return (control: AbstractControl) => {
-      const amount = control.value.amount as number;
+      const amount = control?.value?.amount as number;
 
       if (amount > value) {
         return {
