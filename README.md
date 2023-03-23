@@ -2,8 +2,8 @@
 
 This golden sample provides examples of the code structure, configuration, and best practices for using the Backbase Angular tools.
 
-
 ## Table of Contents
+
 - [Golden Sample Angular App](#golden-sample-angular-app)
   - [Table of Contents](#table-of-contents)
   - [Overview of the app](#overview-of-the-app)
@@ -25,14 +25,15 @@ This golden sample provides examples of the code structure, configuration, and b
   - [Further help](#further-help)
 
 ## Overview of the app
+
 This project is a complete reference implementation for building a new Angular single page application(SPA) with Backbase components and libraries.  It includes best practices that front-end developers can use to build their own web applications.
 
 This README provides an overview and set-up of the app, and further guidance is provided as comments in the code to further guide you.
 
 The project uses the latest versions of the tools and libraries.
   
- 
- ### Components included in the app
+### Components included in the app
+
   - Auth module: define authentication
   - Locale selector for SPA: support multiple languages. Check the example codes [here](https://github.com/Backbase/golden-sample-app/tree/master/apps/golden-sample-app/src/app/locale-selector)
   - Entitlements: configure [entitlements](https://community.backbase.com/documentation/foundation_angular/latest/entitlements) for different scenarios. Check the example code in the [`app.component.html`](https://github.com/Backbase/golden-sample-app/blob/738df3de9fb15f96c9fa2017d00269ced63bebaa/apps/golden-sample-app/src/app/app.component.html#L50) and [`entitlementsTriplets.ts`](https://github.com/Backbase/golden-sample-app/blob/master/apps/golden-sample-app/src/app/services/entitlementsTriplets.ts)
@@ -52,11 +53,11 @@ The project uses the latest versions of the tools and libraries.
   - Analytics: Integrate Analytics in your application or journey using @backbase/foundation-ang@8.0.0. Check the detailed documentation [here](https://community.backbase.com/documentation/foundation_angular/latest/analytics-tracker-web)
 
 ## Prerequisites
-- Install the following VSCode extensions:  
+
+- Install the following VSCode extensions:
 
     - [nrwl.angular-console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console): to find and run the Nx Commands.
-    - [firsttris.vscode-jest-runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner): to isolated tests while you are developing. 
-
+    - [firsttris.vscode-jest-runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner): to isolated tests while you are developing.
 
 - For AWS environments with specific WAF configurations, you may need to use `http://0.0.0.0:4200/` when accessing the app locally, in order to successfully authenticate.
 
@@ -72,9 +73,7 @@ The project uses the latest versions of the tools and libraries.
       ```
         @backbase:registry=https://repo.backbase.com/api/npm/npm-backbase/
         //repo.backbase.com/api/npm/npm-backbase/:_authToken=<YOUR_UNIQUE_AUTHENTICATION_TOKEN>     
-      ``` 
-
-      
+      ```
 
 ## Authentication
 
@@ -114,10 +113,13 @@ Run `ng g @nrwl/angular:lib my-lib` to generate a library.
 
 Libraries can be shared across libraries and applications. You can import them from `@backbase/mylib`.
 
-
 ## Load app on a development server
 
 Run `npm run start` for a dev server. Navigate to <http://0.0.0.0:4200/>. The app will automatically reload if you change any of the source files.
+
+## User credentials
+
+Credentials to login can be found [here](https://backbase.io/developers/documentation/api-sandbox/runtime_data/user_credentials/).
 
 ## Code scaffolding
 
@@ -125,10 +127,10 @@ Run `ng g component my-component --project=my-app` to generate a new component.
 
 ## Build
 
-To run the project on a development server, run 
+To run the project on a development server, run
 `ng build my-app
 
-The build artifacts are stored in the `dist/` directory. 
+The build artifacts are stored in the `dist/` directory.
 
 To build the app to production, use the `--prod` flag.
 
@@ -140,7 +142,7 @@ Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
 
 Run `nx affected:test` to execute the unit tests affected by a change.
 
--  Running end-to-end tests
+- Running end-to-end tests
 
 Run `npx playwright test`
 
