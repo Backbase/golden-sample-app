@@ -1,4 +1,17 @@
 <ng-container *ngIf="(vm$ | async)! as data">
+  <ng-container *ngIf="errorAlert$ | async as error" [ngSwitch]="error">
+    <bb-alert-ui
+      modifier="error"
+      [dismissible]="true"
+      [title]="error"
+      (close)="hideErrorAlert()"
+    >
+      <span data-role="error-message">
+        <p *ngSwitchCase="'NOT_FOUND'">Not found error</p>
+        <p *ngSwitchCase="'UNKNOWN_ERROR'">There was an {{ error }}</p>
+      </span>
+    </bb-alert-ui>
+  </ng-container>
   <ng-container *ngIf="(limit$ | async)! as limit">
     <bb-make-transfer-form
       *ngIf="!isLoading(data.loadingStatus); else loadingIndicator"

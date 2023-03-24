@@ -5,11 +5,13 @@ import { Transfer } from '../../model/Account';
 import { map } from 'rxjs/operators';
 import { MakeTransferPermissionsService } from '../../services/make-transfer-permissions.service';
 import {
+  ErrorStatus,
   MakeTransferJourneyState,
   TransferLoadingStatus,
 } from '../../state/make-transfer-journey-state.service';
 import { TransferSubmitEvent } from '../../model/tracker-events';
 import { Tracker } from '@backbase/foundation-ang/observability';
+import { Observable } from 'rxjs';
 
 @Component({
   templateUrl: 'make-transfer-view.component.html',
@@ -18,6 +20,9 @@ export class MakeTransferViewComponent {
   vm$ = this.transferStore.vm$;
   limit$ = this.permissions.unlimitedAmountPerTransaction$.pipe(
     map((resolve) => (!resolve ? this.config.maxTransactionAmount : 0))
+  );
+  errorAlert$: Observable<ErrorStatus> | null = this.vm$.pipe(
+    map((data) => data.errorStatus)
   );
 
   submitTransfer(transfer: Transfer | undefined): void {
@@ -36,6 +41,10 @@ export class MakeTransferViewComponent {
 
   isLoading(status: TransferLoadingStatus) {
     return status === TransferLoadingStatus.LOADING;
+  }
+
+  hideErrorAlert(): void {
+    this.errorAlert$ = null;
   }
 
   constructor(

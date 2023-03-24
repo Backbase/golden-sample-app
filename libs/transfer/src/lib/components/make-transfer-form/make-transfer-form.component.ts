@@ -21,6 +21,7 @@ export class MakeTransferFormComponent implements OnInit {
   @Output() submitTransfer = new EventEmitter<Transfer | undefined>();
 
   makeTransferForm!: FormGroup;
+  currencies = ['USD', 'EUR'];
 
   private getControl(field: string): AbstractControl | undefined {
     return this.makeTransferForm.controls[field];
@@ -31,7 +32,7 @@ export class MakeTransferFormComponent implements OnInit {
     description: string
   ): (control: AbstractControl) => unknown {
     return (control: AbstractControl) => {
-      const amount = control.value.amount as number;
+      const amount = control?.value?.amount as number;
 
       if (amount > value) {
         return {
@@ -77,7 +78,7 @@ export class MakeTransferFormComponent implements OnInit {
     this.makeTransferForm = this.fb.group({
       fromAccount: [
         {
-          value: `${this.showMaskIndicator ? '*****' : this.account?.name}: €${
+          value: `${this.showMaskIndicator ? '*****' : this.account?.name}: ${
             this.account?.amount
           }`,
           disabled: true,

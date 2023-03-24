@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import {
@@ -26,11 +27,19 @@ export enum TransferLoadingStatus {
   DONE = 2,
 }
 
+export enum ErrorStatusEnum {
+  NOT_FOUND = 'NOT_FOUND',
+  UNKNOWN_ERROR = 'UNKNOWN_ERROR',
+}
+
+export type ErrorStatus = ErrorStatusEnum | undefined;
+
 export interface MakeTransferState {
   transfer: Transfer | undefined;
   account: Account | undefined;
   transferState: TransferOperationStatus;
   loadingStatus: TransferLoadingStatus;
+  errorStatus: ErrorStatus;
 }
 
 const defaultMakeTransferState: MakeTransferState = {
@@ -38,6 +47,7 @@ const defaultMakeTransferState: MakeTransferState = {
   account: undefined,
   transferState: TransferOperationStatus.INIT,
   loadingStatus: TransferLoadingStatus.NOT_STARTED,
+  errorStatus: undefined,
 };
 
 @Injectable()
@@ -50,17 +60,20 @@ export class MakeTransferJourneyState extends ComponentStore<MakeTransferState> 
   readonly account$ = this.select(({ account }) => account);
   readonly transferState$ = this.select(({ transferState }) => transferState);
   readonly loadingStatus$ = this.select(({ loadingStatus }) => loadingStatus);
+  readonly errorStatus$ = this.select(({ errorStatus }) => errorStatus);
 
   readonly vm$ = this.select(
     this.transfer$,
     this.account$,
     this.transferState$,
     this.loadingStatus$,
-    (transfer, account, transferState, loadingStatus) => ({
+    this.errorStatus$,
+    (transfer, account, transferState, loadingStatus, errorStatus) => ({
       transfer,
       account,
       transferState,
       loadingStatus,
+      errorStatus,
     })
   );
 
@@ -77,13 +90,17 @@ export class MakeTransferJourneyState extends ComponentStore<MakeTransferState> 
         return this.apiService.getAccountById(firstItem.id);
       }),
       switchMap((account) =>
-        this.apiService.accountBalance(100).pipe(
-          map((amount) => ({
-            id: account.id,
-            name: account.name,
-            amount,
-          }))
-        )
+        this.apiService
+          .accountBalance(
+            account.product?.productKind?.externalKindId as string
+          )
+          .pipe(
+            map((amount) => ({
+              id: account.id,
+              name: account.name,
+              amount,
+            }))
+          )
       ),
       tap((account) => {
         this.patchState({
@@ -91,10 +108,11 @@ export class MakeTransferJourneyState extends ComponentStore<MakeTransferState> 
           loadingStatus: TransferLoadingStatus.DONE,
         });
       }),
-      catchError(() => {
+      catchError((response: HttpErrorResponse) => {
         this.patchState({
           account: undefined,
           loadingStatus: TransferLoadingStatus.ERROR,
+          errorStatus: this.apiService.checkErrorStatus(response.status),
         });
         return of();
       })
