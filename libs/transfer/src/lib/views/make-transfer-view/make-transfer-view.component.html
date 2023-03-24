@@ -1,23 +1,5 @@
 <ng-container *ngIf="(vm$ | async)! as data">
-  <ng-container *ngIf="errorAlert$ | async as error">
-    <ng-container
-      [ngTemplateOutlet]="errorTemplate"
-      [ngTemplateOutletContext]="{ error: error }"
-    ></ng-container>
-  </ng-container>
-  <ng-container *ngIf="(limit$ | async)! as limit">
-    <bb-make-transfer-form
-      *ngIf="!isLoading(data.loadingStatus); else loadingIndicator"
-      [account]="data.account"
-      [showMaskIndicator]="config.maskIndicator"
-      (submitTransfer)="submitTransfer($event)"
-      [maxLimit]="limit"
-    ></bb-make-transfer-form>
-  </ng-container>
-</ng-container>
-
-<ng-template #errorTemplate let-error="error">
-  <ng-container *ngIf="error" [ngSwitch]="error">
+  <ng-container *ngIf="errorAlert$ | async as error" [ngSwitch]="error">
     <bb-alert-ui
       modifier="error"
       [dismissible]="true"
@@ -30,7 +12,16 @@
       </span>
     </bb-alert-ui>
   </ng-container>
-</ng-template>
+  <ng-container *ngIf="(limit$ | async)! as limit">
+    <bb-make-transfer-form
+      *ngIf="!isLoading(data.loadingStatus); else loadingIndicator"
+      [account]="data.account"
+      [showMaskIndicator]="config.maskIndicator"
+      (submitTransfer)="submitTransfer($event)"
+      [maxLimit]="limit"
+    ></bb-make-transfer-form>
+  </ng-container>
+</ng-container>
 
 <ng-template #loadingIndicator>
   <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
