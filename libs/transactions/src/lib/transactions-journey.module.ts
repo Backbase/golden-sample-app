@@ -21,6 +21,11 @@ import {
   TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
 } from './extensions';
+import { FunctionGroupFormWidgetModule } from '@backbase/entitlements-ang';
+import { FunctionGroupFormPreferencesService, FunctionGroupFormService,FunctionGroupFormRouterService, FunctionGroupFormBuilderService, FunctionGroupFormApprovalService } from '@backbase/function-group-form-widget-ang';
+
+import { BackbaseCoreModule, ItemModel, RouterService } from '@backbase/foundation-ang/core';
+import { of } from 'rxjs';
 
 const defaultRoute: Route = {
   path: '',
@@ -53,12 +58,27 @@ export interface TransactionsJourneyModuleConfig {
     AmountModule,
     InputTextModule,
     LoadingIndicatorModule,
+    FunctionGroupFormWidgetModule,
+    BackbaseCoreModule.withConfig({
+      classMap: { TransactionsViewComponent },
+    }),
   ],
   providers: [
     TransactionsHttpService,
     TransactionsJourneyConfiguration,
     ArrangementsService,
     TransactionsRouteTitleResolverService,
+    FunctionGroupFormPreferencesService,
+    FunctionGroupFormService,
+    FunctionGroupFormBuilderService,
+    FunctionGroupFormApprovalService,
+    FunctionGroupFormRouterService,
+    RouterService,
+    {
+      provide: ItemModel,
+      useValue: new ItemModel('panel-container-01', { classId: 'PanelContainerComponent' }, of()),
+    }
+    
   ],
 })
 export class TransactionsJourneyModule {

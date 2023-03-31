@@ -1,3 +1,616 @@
+<bb-function-group-form-container (save)="save.emit()" (cancel)="cancel.emit()"></bb-function-group-form-container>
+<ng-template bbFunctionGroupFormContainerCustomizable let-hostRef let-form="context.form"
+  let-functionGroup="context.functionGroup" let-functionGroupCopy="context.functionGroupCopy"
+  let-functionGroupId="context.functionGroupId" let-functionGroupCopyId="context.functionGroupCopyId"
+  let-serviceAgreement="context.serviceAgreement" let-error="context.error"
+  let-selectedBusinessFunctions="context.selectedBusinessFunctions"
+  let-availableBusinessFunctions="context.availableBusinessFunctions"
+  let-businessFunctionError="context.businessFunctionError" let-loading="context.loading"
+  let-showRequiredError="context.showRequiredError"
+  let-showPermissionsRequiredError="context.showPermissionsRequiredError"
+  let-showPrivilegeRequiredError="context.showPrivilegeRequiredError"
+  let-businessFunctionsCount="context.businessFunctionsCount" let-approvalLevel="context.approvalLevel"
+  let-approvalLevels="context.approvalLevels" let-isDiscardChangesModalOpen="context.isDiscardChangesModalOpen">
+  <ng-container *ngIf="!error; else errorStateTemplate">
+    <ng-container *ngIf="!loading; else loadingIndicatorTemplate">
+      <ng-container *ngIf="!(hostRef.type === 'SYSTEM' && hostRef.copyId) else copyErrorTemplate">
+        <ng-container
+          *ngIf="hostRef.isEditEnabled(functionGroup, functionGroupId, serviceAgreement); else editErrorTemplate">
+          <form [formGroup]="form">
+            <bb-function-group-form-header data-role="function-group-form-header"
+              [copyFunctionGroup]="functionGroupCopy" [isCreateForm]="!functionGroupId"
+              [submitDisabled]="hostRef.submitDisabled" [type]="functionGroup?.type" (cancel)="hostRef.onCancel()"
+              (submit)="onSubmit(hostRef)"></bb-function-group-form-header>
+
+            <bb-alert-ui *ngIf="functionGroupCopy" [dismissible]="true" modifier="info" data-role="limit-copy-msg"
+              i18n-title="Limits copy@@function-group-form-container.label.copy.limit"
+              title="Limits that are applied to a source Job Role will not be copied. You can set up limits after you save new Job Role.">
+              
+            </bb-alert-ui>
+
+            <bb-alert-ui *ngIf="showRequiredError" [dismissible]="true" modifier="warning"
+              i18n-title="Fill the mandatory fields to proceed@@function-group-form-container.label.error.mandatory-fields"
+              title="Fill the mandatory fields to proceed"
+              (close)="closeMandatoryFieldAlert(hostRef)">
+            </bb-alert-ui>
+
+            <bb-alert-ui *ngIf="showPermissionsRequiredError && !showRequiredError" [dismissible]="true"
+              modifier="warning"
+              i18n-title="No permissions added to this role yet. Add permissions to this role.@@function-group-form-container.label.error.no-permissions-field"
+              title="No permissions added to this role yet. Add permissions to this role."
+              (close)="closeMandatoryFieldAlert(hostRef)">
+            </bb-alert-ui>
+
+            <bb-alert-ui *ngIf="showPrivilegeRequiredError && !showPermissionsRequiredError && !showRequiredError"
+              [dismissible]="true" modifier="warning"
+              i18n-title="Select which exact permissions you would like to activate for this profile by clicking on the checkboxes.@@function-group-form-container.label.error.no-privileges-field"
+              title="Select which exact permissions you would like to activate for this profile by clicking on the checkboxes"
+              (close)="closeMandatoryFieldAlert(hostRef)">
+            </bb-alert-ui>
+
+            <bb-function-group-form-inputs [approvalLevels]="approvalLevels" [approvalLevel]="form.get('approvalLevel')"
+              [description]="form.get('description')" [name]="form.get('name')" [type]="form.get('type').value">
+            </bb-function-group-form-inputs>
+
+            <ng-template bbFunctionGroupFormInputsCustomizable let-name="context.name"
+              let-description="context.description" let-approvalLevel="context.approvalLevel"
+              let-approvalLevels="context.approvalLevels" let-hostRef>
+
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <bb-input-text-ui [disabled]="hostRef.isSystemType()" forbiddenCharacters [formControl]="name"
+                      ngDefaultControl label="Job Role Title"
+                      i18n-label="Job Role Title@@function-group-form-inputs.label.job-role-title"
+                      placeholder="Type role title"
+                      i18n-placeholder="Job Role Placeholder@@function-group-form-inputs.label.job-role-title-placeholder"
+                      data-role="function-group-title-label"></bb-input-text-ui>
+                    <bb-input-validation-message-ui [showErrors]="!hostRef.isFieldValid('name')">
+                      <span *ngIf="hostRef.hasError('name', 'required')" data-role="function-group-title-required-label"
+                        i18n="Job Role Title required error@@function-group-form-inputs.label.error.job-role-title-required">
+                        Field is required.
+                      </span>
+                      <span *ngIf="hostRef.hasError('name', 'maxlength')"
+                        data-role="function-group-title-max-length-label"
+                        i18n="Job Role Title max length error@@function-group-form-inputs.label.error.job-role-title-maxlength">
+                        Field has maxlength of 128.
+                      </span>
+                      <span *ngIf="hostRef.hasError('name', 'pattern')" data-role="function-group-title-pattern-label"
+                        i18n="Job Role Title pattern error@@function-group-form-inputs.label.error.job-role-title-pattern">
+                        Field must not start or end with empty space.
+                      </span>
+                      <span *ngIf="hostRef.hasError('name', 'forbiddenCharacter')"
+                        data-role="data-group-description-special-label"
+                        i18n="Account Group Name Description pattern error@@data-group-form-inputs.label.error.not-allowed-caractere">
+                        Not allowed characters
+                      </span>
+                    </bb-input-validation-message-ui>
+                  </div>
+                </div>
+
+                <div class="col-6" *ngIf="approvalLevels">
+                  <bb-dropdown-single-select-ui data-role="approval-level-label" label="Approval Level"
+                    i18n-label="Approval Level@@function-group-form-inputs.label.approval-level"
+                    [options]="approvalLevels.approvalTypes" placeholder="- Set approval level -"
+                    i18n-placeholder="Set Approval Level@@function-group-form-inputs.label.approval-level-placeholder"
+                    [defaultOptionAsPlaceholder]="true" displayAttributePath="name" [formControl]="approvalLevel"
+                    ngDefaultControl>
+                  </bb-dropdown-single-select-ui>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <bb-textarea-ui [ngClass]="{'ng-touched ng-dirty ng-invalid' : !hostRef.isFieldValid('description')}"
+                  [disabled]="hostRef.isSystemType()" forbiddenCharacters [formControl]="description" ngDefaultControl
+                  label="Description"
+                  i18n-label="Job Role Description@@function-group-form-inputs.label.job-role-description"
+                  placeholder="Enter description"
+                  i18n-placeholder="Enter description@@function-group-form-inputs.label.job-role-description-placeholder"
+                  [minLength]="1" [rows]="3" [cols]="50" wrap="hard" data-role="function-group-edit-description-label">
+                </bb-textarea-ui>
+                <bb-input-validation-message-ui [showErrors]="!hostRef.isFieldValid('description')">
+                  <span *ngIf="hostRef.hasError('description', 'required')"
+                    data-role="function-group-description-required-label"
+                    i18n="Job Role description required error@@function-group-form-inputs.label.error.job-role-description-required">
+                    Field is required.
+                  </span>
+                  <span *ngIf="hostRef.hasError('description', 'maxlength')"
+                    data-role="function-group-description-max-length-label"
+                    i18n="Job Role Description max length error@@function-group-form-inputs.label.error.job-role-description-maxlength">
+                    Field has maxlength of 255.
+                  </span>
+                  <span *ngIf="hostRef.hasError('description', 'pattern')"
+                    data-role="function-group-description-pattern-label"
+                    i18n="Job Role Description pattern error@@function-group-form-inputs.label.error.job-role-description-pattern">
+                    Field must not start or end with empty space.
+                  </span>
+                  <span *ngIf="hostRef.hasError('description', 'forbiddenCharacter')"
+                    data-role="data-group-forbidden-caractere-special-label"
+                    i18n="@@data-group-form-inputs.label.error.data-group-special-pattern">
+                    Not allowed characters
+                  </span>
+                </bb-input-validation-message-ui>
+              </div>
+            </ng-template>
+
+            <div class="bb-stack">
+              <bb-function-group-form-time-bounds class="bb-stack__item bb-stack__item--fill"
+                [serviceAgreement]="serviceAgreement" [validFromDate]="form.get('validFromDate')"
+                [validUntilDate]="form.get('validUntilDate')" [validFromTime]="form.get('validFromTime')"
+                [validUntilTime]="form.get('validUntilTime')" [type]="form.get('type').value">
+              </bb-function-group-form-time-bounds>
+              <ng-template bbFunctionGroupFormTimeBoundsCustomizable let-hostRef
+                let-validFromEnabled="context.validFromEnabled" let-validUntilEnabled="context.validUntilEnabled"
+                let-validFromDate="context.validFromDate" let-validFromTime="context.validFromTime"
+                let-validUntilDate="context.validUntilDate" let-validUntilTime="context.validUntilTime"
+                let-isOpen="context.isOpen">
+                <bb-collapsible-ui data-role="function-group-time-accordion" [isOpen]="isOpen">
+                  <ng-template bbCollapsibleHeader>
+                    <div (click)="hostRef.toggleOpen()" (keyup.enter)="hostRef.toggleOpen()" tabindex="0" role="button"
+                      class="bb-block bb-block--md">
+                      <div class="bb-stack">
+                        <div class="bb-stack__item">
+                          <div class="bb-stack">
+                            <span class="bb-text-semi-bold bb-stack__item bb-stack__item--spacing-sm"
+                              data-role="function-group-time-accordion-bold-text"
+                              i18n="Set role activation dates@@function-group-form-time-bounds.label.set-role-activation-dates">
+                              Set role activation dates
+                            </span>
+                            <span class="bb-text-support bb-stack__item"
+                              data-role="function-group-time-accordion-regular-text"
+                              i18n="Role is active as default@@function-group-form-time-bounds.label.role-is-active-as-default">
+                              (Role is active as default)
+                            </span>
+                          </div>
+                        </div>
+                        <bb-icon-ui class="bb-stack__item bb-stack__item--push-right" color="muted"
+                          [name]="isOpen ? 'toggle-up' : 'toggle-down'"></bb-icon-ui>
+                      </div>
+                      <hr />
+                    </div>
+                  </ng-template>
+                  <ng-template bbCollapsibleBody>
+                    <div class="bb-stack bb-stack--align-top bb-block bb-block--md">
+                      <div class="bb-stack__item bb-stack__item--spacing-md">
+                        <bb-input-datepicker-ui [disabled]="hostRef.isSystemType()" [formControl]="validFromDate"
+                          [minDate]="minDate" [maxDate]="validUntilDate.value"
+                          [overrideDateFormat]="pageConfig.locale === 'fr-FR' ? 'dd/MM/yyyy' : 'MM/dd/yyyy'"
+                          label="Start Date" i18n-label="Start Date@@function-group-form-time-bounds.label.start-date"
+                          (blur)="hostRef.triggerValidation()" data-role="function-group-edit-start-date-label">
+                        </bb-input-datepicker-ui>
+
+                        <bb-input-validation-message-ui [showErrors]="!hostRef.isFieldValid('validFromDate')">
+                          <div *ngIf="hostRef.hasError('validFromDate', 'invalidDateFormat')"
+                            i18n="Please provide valid format@@function-group-form-time-bounds.label.error.valid-from-date-invalid-format">
+                            Please provide valid date format!</div>
+                          <div
+                            *ngIf="!hostRef.hasError('validFromDate', 'invalidDateFormat') && hostRef.hasError('validFromDate', 'dateGreaterThanMaxDate')"
+                            i18n="Date must be before@@function-group-form-time-bounds.label.error.valid-from-date-must-be-before">
+                            The selected date cannot be greater than the end date</div>
+                          <div
+                            *ngIf="!hostRef.hasError('validFromDate', 'invalidDateFormat') && hostRef.hasError('validFromDate', 'dateLessThanMinDate')"
+                            i18n="Date must be after@@function-group-form-time-bounds.label.error.valid-from-date-must-be-after">
+                            Date must be after {{hostRef.getDateFromNgbStruct(hostRef.getMinDate('validFrom')) |
+                            date:'shortDate'}}</div>
+                        </bb-input-validation-message-ui>
+                      </div>
+
+                      <div class="bb-stack__item bb-stack__item--spacing-xl">
+                        <div class="bb-text-semi-bold bb-block bb-block--sm"
+                          i18n="Time@@function-group-form-time-bounds.label.time-from-label"
+                          data-role="time-picker-from-label">Time
+                        </div>
+                        <bb-input-timepicker-ui [disabled]="hostRef.isSystemType()" [formControl]="validFromTime"
+                          [max]="validUntilTime.value" [readonly]="!validFromEnabled || !validFromDate?.value"
+                          label="Time" data-role="time-picker-from"
+                          i18n-label="Time@@function-group-form-time-bounds.label.time-from"
+                          (ngModelChange)="triggerValidation(hostRef, validFromTime, validUntilTime)">
+                        </bb-input-timepicker-ui>
+
+                        <bb-input-validation-message-ui [showErrors]="!hostRef.isFieldValid('validFromTime')">
+                          <span *ngIf="hostRef.hasError('validFromTime', 'maxTime')"
+                            i18n="Time should not exceed@@function-group-form-time-bounds.label.error.valid-from-time-must-be-before">The
+                            selected time cannot be greater than the end time</span>
+                        </bb-input-validation-message-ui>
+                      </div>
+
+                      <div class="bb-stack__item">
+                        <bb-input-datepicker-ui [disabled]="hostRef.isSystemType()" [formControl]="validUntilDate"
+                          [minDate]="validFromDate.value"
+                          [overrideDateFormat]="pageConfig.locale === 'fr-FR' ? 'dd/MM/yyyy' : 'MM/dd/yyyy'"
+                          label="End Date" i18n-label="End Date@@function-group-form-time-bounds.label.end-date"
+                          (blur)="hostRef.triggerValidation()" data-role="function-group-edit-end-date-label">
+                        </bb-input-datepicker-ui>
+
+                        <bb-input-validation-message-ui [showErrors]="!hostRef.isFieldValid('validUntilDate')">
+                          <div *ngIf="hostRef.hasError('validUntilDate', 'invalidDateFormat')"
+                            i18n="Please provide valid format@@function-group-form-time-bounds.label.error.valid-until-date-invalid-format">
+                            Please provide valid format!</div>
+                          <div
+                            *ngIf="!hostRef.hasError('validUntilDate', 'invalidDateFormat') && hostRef.hasError('validUntilDate', 'dateLessThanMinDate')"
+                            i18n="Date must be after@@function-group-form-time-bounds.label.error.valid-until-date-must-be-after">
+                            The selected date cannot be less than the start date</div>
+                        </bb-input-validation-message-ui>
+                      </div>
+
+                      <div class="bb-stack__item">
+                        <div class="bb-text-semi-bold bb-block bb-block--sm"
+                          i18n="Time@@function-group-form-time-bounds.label.time-until-label"
+                          data-role="time-picker-until-label">Time
+                        </div>
+                        <bb-input-timepicker-ui [disabled]="hostRef.isSystemType()" [formControl]="validUntilTime"
+                          [min]="validFromTime.value" [readonly]="!validUntilEnabled || !validUntilDate.value"
+                          label="Time" data-role="time-picker-until"
+                          i18n-label="Time@@function-group-form-time-bounds.label.time-until"
+                          (ngModelChange)="triggerValidation(hostRef, validUntilTime, validFromTime)">
+                        </bb-input-timepicker-ui>
+
+                        <bb-input-validation-message-ui [showErrors]="!hostRef.isFieldValid('validUntilTime')"
+                          class="bb-date-time-bounds__error-message">
+                          <span *ngIf="hostRef.hasError('validUntilTime', 'minTime')"
+                            i18n="Time should be after@@function-group-form-time-bounds.label.error.valid-until-time-must-be-after">The
+                            selected time cannot be less than the start time</span>
+                        </bb-input-validation-message-ui>
+                      </div>
+                    </div>
+                    <hr />
+                  </ng-template>
+                </bb-collapsible-ui>
+              </ng-template>
+            </div>
+
+            <div>
+              <div class="bb-stack">
+                <div class="bb-stack__item">
+                  <div class="bb-stack">
+                    <div class="bb-stack__item--spacing-sm bb-highlight" data-role="permissions-in-role"><span
+                        i18n="Permissions in this role@@function-group-form.label.permissions-in-role">Permissions in
+                        this role</span>&nbsp;<span>({{businessFunctionsCount}})</span>
+                    </div>
+                    <bb-icon-ui class="bb-stack__item custom-info-icon" name="info" color="muted"
+                      data-role="permission-tooltip"
+                      bbTooltip="These are the permissions that users assigned to this role will be able to perform"
+                      i18n-bbTooltip="Permissions in this role tooltip@@function-group-form.label.tooltip.permissions-in-role"
+                      aria-label="These are the permissions that users assigned to this role will be able to perform"
+                      i18n-aria-label="Permissions in this role tooltip@@function-group-form.label.aria.permissions-in-role"
+                      triggers="hover"></bb-icon-ui>
+                  </div>
+                </div>
+
+                <div *ngIf="businessFunctionsCount > 0" class="bb-stack__item bb-stack__item--push-right">
+                  <button #addRolesButton bbButton color="orange-empty" (click)="hostRef.openBusinessFunctionsModal()"
+                    data-role="add-role-permission" buttonSize="sm"
+                    [disabled]="hostRef.isSystemType(form.get('type').value)">
+                    <bb-icon-ui name="add" [cropped]="true"></bb-icon-ui>
+                    <span i18n="Add Role Permissions(s)@@function-group-form.label.add-role-permissions">
+                      Add Role Permission(s)
+                    </span>
+                  </button>
+                </div>
+              </div>
+
+              <div *ngIf="businessFunctionsCount > 0; else noBusinessFunctionsSelectedTemplate">
+                <bb-function-group-form-permission-matrix *ngIf="selectedBusinessFunctions"
+                  [businessFunctions]="selectedBusinessFunctions"
+                  (removeBusinessFunction)="hostRef.removeBusinessFunction($event)" [form]="form">
+                </bb-function-group-form-permission-matrix>
+                <ng-template bbFunctionGroupFormPermissionMatrixCustomizable let-hostRef let-form="context.form">
+                  <div>
+                    <hr>
+                    <div class="row no-gutters">
+                      <div class="col-3"></div>
+                      <div class="col-9">
+                        <div class="row no-gutters">
+                          <div class="col-11">
+                            <div class="row no-gutters bb-subheader bb-subheader--regular" data-role="list-privileges">
+                              <bb-input-checkbox-ui label="All"
+                                i18n-label="All@@function-group-form-permission-matrix.label.all" class="col"
+                                [attr.data-role]="'All'" [ngModel]="hostRef.allChecked()"
+                                [ngModelOptions]="{standalone: true}"
+                                [disabled]="hostRef.isSystemType(form.get('type').value)"
+                                (click)="hostRef.toggleAll($event)" (keyup.space)="hostRef.toggleAll($event)">
+                              </bb-input-checkbox-ui>
+                              <bb-input-checkbox-ui label="Execute"
+                                i18n-label="Execute@@function-group-form-permission-matrix.label.execute" class="col"
+                                [attr.data-role]="'Execute'" [ngModel]="hostRef.allPrivilegesOfTypeChecked('execute')"
+                                [ngModelOptions]="{standalone: true}"
+                                [disabled]="hostRef.isSystemType(form.get('type').value)"
+                                (click)="hostRef.togglePrivilege($event, 'execute')"
+                                (keyup.space)="hostRef.togglePrivilege($event, 'execute')"></bb-input-checkbox-ui>
+                              <bb-input-checkbox-ui label="View"
+                                i18n-label="View@@function-group-form-permission-matrix.label.view" class="col"
+                                [attr.data-role]="'View'" [ngModel]="hostRef.allPrivilegesOfTypeChecked('view')"
+                                [ngModelOptions]="{standalone: true}"
+                                [disabled]="hostRef.isSystemType(form.get('type').value)"
+                                (click)="hostRef.togglePrivilege($event, 'view')"
+                                (keyup.space)="hostRef.togglePrivilege($event, 'view')"></bb-input-checkbox-ui>
+                              <bb-input-checkbox-ui label="Create"
+                                i18n-label="Create@@function-group-form-permission-matrix.label.create" class="col"
+                                [attr.data-role]="'Create'" [ngModel]="hostRef.allPrivilegesOfTypeChecked('create')"
+                                [ngModelOptions]="{standalone: true}"
+                                [disabled]="hostRef.isSystemType(form.get('type').value)"
+                                (click)="hostRef.togglePrivilege($event, 'create')"
+                                (keyup.space)="hostRef.togglePrivilege($event, 'create')"></bb-input-checkbox-ui>
+                              <bb-input-checkbox-ui label="Edit"
+                                i18n-label="Edit@@function-group-form-permission-matrix.label.edit" class="col"
+                                [attr.data-role]="'Edit'" [ngModel]="hostRef.allPrivilegesOfTypeChecked('edit')"
+                                [ngModelOptions]="{standalone: true}"
+                                [disabled]="hostRef.isSystemType(form.get('type').value)"
+                                (click)="hostRef.togglePrivilege($event, 'edit')"
+                                (keyup.space)="hostRef.togglePrivilege($event, 'edit')"></bb-input-checkbox-ui>
+                              <bb-input-checkbox-ui label="Delete"
+                                i18n-label="Delete@@function-group-form-permission-matrix.label.delete" class="col"
+                                [attr.data-role]="'Delete'" [ngModel]="hostRef.allPrivilegesOfTypeChecked('delete')"
+                                [ngModelOptions]="{standalone: true}"
+                                [disabled]="hostRef.isSystemType(form.get('type').value)"
+                                (click)="hostRef.togglePrivilege($event, 'delete')"
+                                (keyup.space)="hostRef.togglePrivilege($event, 'delete')"></bb-input-checkbox-ui>
+                              <bb-input-checkbox-ui label="Approve"
+                                i18n-label="Approve@@function-group-form-permission-matrix.label.approve" class="col"
+                                [ngModel]="hostRef.allPrivilegesOfTypeChecked('approve')"
+                                [ngModelOptions]="{standalone: true}"
+                                [disabled]="hostRef.isSystemType(form.get('type').value)"
+                                (click)="hostRef.togglePrivilege($event, 'approve')"
+                                (keyup.space)="hostRef.togglePrivilege($event, 'approve')"></bb-input-checkbox-ui>
+                              <bb-input-checkbox-ui label="Cancel"
+                                i18n-label="Cancel@@function-group-form-permission-matrix.label.cancel" class="col"
+                                [ngModel]="hostRef.allPrivilegesOfTypeChecked('cancel')"
+                                [ngModelOptions]="{standalone: true}"
+                                [disabled]="hostRef.isSystemType(form.get('type').value)"
+                                (click)="hostRef.togglePrivilege($event, 'cancel')"
+                                (keyup.space)="hostRef.togglePrivilege($event, 'cancel')"></bb-input-checkbox-ui>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                  </div>
+                  <div [formGroup]="form">
+                    <div formArrayName="groupedBusinessFunctions">
+                      <ng-container
+                        *ngFor="let businessFunctionGroup of form.controls['groupedBusinessFunctions'].controls; let groupIndex=index">
+                        <ng-container [formGroupName]="groupIndex">
+                          <bb-collapsible-ui [isOpen]="true">
+                            <ng-template bbCollapsibleHeader let-toggle="toggle" let-isOpen="isOpen">
+                              <div (click)="toggle()" (keyup.enter)="toggle()"
+                                class="bb-stack bb-stack--density-md bb-block bb-block--md" role="button" tabindex="0">
+                                <span class="sr-only" aria-label="Group of business functions"
+                                  i18n-aria-label="Group of business functions@@function-group-form-permission-matrix.aria.group-of-business-functions"></span>
+                                <bb-function-group-form-business-function-group-name
+                                  class="bb-stack__item bb-text-semi-bold"
+                                  [groupKey]="businessFunctionGroup.value.groupKey">
+                                </bb-function-group-form-business-function-group-name>
+                  
+                                <bb-icon-ui class="bb-stack__item"
+                                  [attr.data-role]="businessFunctionGroup.value.groupKey" color="muted"
+                                  [name]="isOpen ? 'toggle-up' : 'toggle-down'"></bb-icon-ui>
+                              </div>
+                            </ng-template>
+                            <ng-template bbCollapsibleBody>
+                              <div formArrayName="businessFunctions">
+                                <div
+                                  *ngFor="let businessFunction of businessFunctionGroup.controls['businessFunctions'].controls; let i=index"
+                                  class="row no-gutters">
+                                  <div class="col-3">
+                                    <bb-function-group-form-business-function-name
+                                      class="bb-business-function__name bb-subtitle"
+                                      [businessFunction]="hostRef.getBusinessFunction(businessFunction.value.functionId)"
+                                      [attr.data-role]="businessFunction.value.functionId">
+                                    </bb-function-group-form-business-function-name>
+                                    <ng-template bbFunctionGroupFormBusinessFunctionNameCustomizable let-hostRef
+                                      let-businessFunction="context.businessFunction">
+                                     
+                                    </ng-template>
+                                  </div>
+                                  <ng-container [formGroupName]="i">
+                                    <ng-container formGroupName="assignedPrivileges">
+                                      <div class="col-9">
+                                        <div class="row no-gutters">
+                                          <div class="col-11">
+                                            <div class="row no-gutters">
+                                              <bb-input-checkbox-ui aria-label="Toggle all for business function"
+                                                i18n-aria-label="Toggle all for business function@@function-group-form-permission-matrix.label.aria.toggle-all-for-business-function"
+                                                class="col" name="allPrivilegesForBusinessFunctionChecked"
+                                                [disabled]="hostRef.isSystemType(form.get('type').value)"
+                                                [attr.data-role]="businessFunction.value.functionId + '-all'"
+                                                ngDefaultControl
+                                                [ngModel]="hostRef.allPrivilegesForBusinessFunctionChecked(businessFunction.value)"
+                                                [ngModelOptions]="{standalone: true}"
+                                                (click)="hostRef.toggleBusinessFunction($event, businessFunction.value)"
+                                                (keyup.space)="hostRef.toggleBusinessFunction($event, businessFunction.value)">
+                                              </bb-input-checkbox-ui>
+                                              <bb-input-checkbox-ui aria-label="Execute privilege"
+                                                i18n-aria-label="Execute privilege@@function-group-form-permission-matrix.label.aria.privilege-execute"
+                                                class="col"
+                                                [disabled]="hostRef.isSystemType(form.get('type').value) || !hostRef.isKeySupport('execute', businessFunction.value.assignedPrivileges)"
+                                                formControlName="execute"
+                                                [attr.data-role]="businessFunction.value.functionId + '-execute'">
+                                              </bb-input-checkbox-ui>
+                                              <bb-input-checkbox-ui aria-label="View privilege"
+                                                i18n-aria-label="View privilege@@function-group-form-permission-matrix.label.aria.privilege-view"
+                                                class="col"
+                                                [disabled]="hostRef.isSystemType(form.get('type').value) || !hostRef.isKeySupport('view', businessFunction.value.assignedPrivileges)"
+                                                formControlName="view"
+                                                [attr.data-role]="businessFunction.value.functionId + '-view'">
+                                              </bb-input-checkbox-ui>
+                                              <bb-input-checkbox-ui aria-label="Create privilege"
+                                                i18n-aria-label="Create privilege@@function-group-form-permission-matrix.label.aria.privilege-create"
+                                                class="col"
+                                                [disabled]="hostRef.isSystemType(form.get('type').value) || !hostRef.isKeySupport('create', businessFunction.value.assignedPrivileges)"
+                                                formControlName="create"
+                                                [attr.data-role]="businessFunction.value.functionId + '-create'">
+                                              </bb-input-checkbox-ui>
+                                              <bb-input-checkbox-ui aria-label="Edit privilege"
+                                                i18n-aria-label="Edit privilege@@function-group-form-permission-matrix.label.aria.privilege-edit"
+                                                class="col"
+                                                [disabled]="hostRef.isSystemType(form.get('type').value) || !hostRef.isKeySupport('edit', businessFunction.value.assignedPrivileges)"
+                                                formControlName="edit"
+                                                [attr.data-role]="businessFunction.value.functionId + '-edit'">
+                                              </bb-input-checkbox-ui>
+                                              <bb-input-checkbox-ui aria-label="Delete privilege"
+                                                i18n-aria-label="Delete privilege@@function-group-form-permission-matrix.label.aria.privilege-delete"
+                                                class="col"
+                                                [disabled]="hostRef.isSystemType(form.get('type').value) || !hostRef.isKeySupport('delete', businessFunction.value.assignedPrivileges)"
+                                                formControlName="delete"
+                                                [attr.data-role]="businessFunction.value.functionId + '-delete'">
+                                              </bb-input-checkbox-ui>
+                                              <bb-input-checkbox-ui aria-label="Approve privilege"
+                                                i18n-aria-label="Approve privilege@@function-group-form-permission-matrix.label.aria.privilege-approve"
+                                                class="col"
+                                                [disabled]="hostRef.isSystemType(form.get('type').value) || !hostRef.isKeySupport('approve', businessFunction.value.assignedPrivileges)"
+                                                formControlName="approve"
+                                                [attr.data-role]="businessFunction.value.functionId + '-approve'">
+                                              </bb-input-checkbox-ui>
+                                              <bb-input-checkbox-ui aria-label="Cancel privilege"
+                                                i18n-aria-label="Cancel privilege@@function-group-form-permission-matrix.label.aria.privilege-cancel"
+                                                class="col"
+                                                [disabled]="hostRef.isSystemType(form.get('type').value) || !hostRef.isKeySupport('cancel', businessFunction.value.assignedPrivileges)"
+                                                formControlName="cancel"
+                                                [attr.data-role]="businessFunction.value.functionId + '-cancel'">
+                                              </bb-input-checkbox-ui>
+                                            </div>
+                                          </div>
+                                          <div class="col-1 bb-text-align-right">
+                                            <button [disabled]="hostRef.isSystemType(form.get('type').value)" bbButton
+                                              (click)="hostRef.onRemoveBusinessFunction(businessFunction)"
+                                              aria-label="Remove Business Function"
+                                              i18n-aria-label="Remove Business Function@@function-group-form-permission-matrix.label.aria.remove-business-function"
+                                              [circle]="true" [color]="$any('icon-link')">
+                                              <bb-icon-ui name="delete"
+                                                [attr.data-role]="businessFunction.value.functionId + '-icon-delete'">
+                                              </bb-icon-ui>
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </ng-container>
+                                  </ng-container>
+                                </div>
+                              </div>
+                            </ng-template>
+                          </bb-collapsible-ui>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+
+              <ng-template #noBusinessFunctionsSelectedTemplate>
+                <div class="bb-state-container bb-text-align-center">
+                  <bb-empty-state-ui data-role="empty-state" title="No permissions in this job role"
+                    i18n-title="No permissions in this role@@function-group-form.permissions.empty.title"
+                    subtitle="Adding permissions to a job role defines what a user assigned to this job role can perform."
+                    i18n-subtitle="Adding permissions defines what user can do@@function-group-form.permissions.empty.subtitle"
+                    iconModifier="error-outline" iconColor="muted" iconSize="xxl"></bb-empty-state-ui>
+
+                  <div class="bb-state-container__footer">
+                    <button bbButton (click)="hostRef.openBusinessFunctionsModal()" data-role="add-role-permissions"
+                      [disabled]="hostRef.isSystemType(form.get('type').value)" color="orange">
+                      <bb-icon-ui name="add" [cropped]="true"></bb-icon-ui>
+                      <span
+                        i18n="Add Role Permissions(s)@@function-group-form.permissions.empty.label.add-role-permissions">
+                        Add Role Permission(s)
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+
+            </div>
+          </form>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #loadingIndicatorTemplate>
+    <div class="bb-state-container">
+      <bb-loading-indicator-ui>
+      </bb-loading-indicator-ui>
+    </div>
+  </ng-template>
+
+  <ng-template #errorStateTemplate>
+    <div class="bb-state-container">
+      <bb-function-group-form-error [error]="error">
+      </bb-function-group-form-error>
+    </div>
+  </ng-template>
+
+  <ng-template #copyErrorTemplate>
+    <bb-function-group-form-error data-role="copy-error">
+    </bb-function-group-form-error>
+  </ng-template>
+
+  <ng-template #editErrorTemplate>
+    <bb-function-group-form-error data-role="edit-error">
+    </bb-function-group-form-error>
+  </ng-template>
+
+  <bb-modal-ui [isOpen]="isDiscardChangesModalOpen" (cancel)="hostRef.resolveDiscardChanges(false)"
+    data-role="discard-changes-modal">
+    <bb-modal-header-ui data-role="discard-changes-modal-title" class="biat-modal-header-ui biat-modal-has-warning"
+      title="Lose changes?" i18n-title="Lose changes@@function-group-form-container.edit.label.discard.title">
+    </bb-modal-header-ui>
+    <bb-modal-body-ui class="biat-modal-body-ui">
+      <ng-template bbCustomModalBody>
+        <div *ngIf="functionGroupId" i18n="Lose changes@@function-group-form-container.edit.label.discard.message">
+          Are you sure you want to stop editing this job role? You will lose any changes made.
+        </div>
+        <div *ngIf="!functionGroupId" i18n="Lose changes@@function-group-form-container.create.label.discard.message">
+          Are you sure you want to stop creating this job role? You will lose any changes made.
+        </div>
+      </ng-template>
+    </bb-modal-body-ui>
+    <bb-modal-footer-ui class="biat-modal-footer-ui">
+      <ng-template bbCustomModalFooter>
+        <div class="bb-button-bar">
+          <button bbButton color="orange" class="bb-button-bar__button" (click)="hostRef.resolveDiscardChanges(true)"
+            data-role="discard-changes-modal-discard-button"
+            i18n="Discard@@function-group-form-container.label.discard.discard-button">Lose changes</button>
+          <button bbButton color="orange-empty" class="bb-button-bar__button"
+            (click)="hostRef.resolveDiscardChanges(false)" data-role="discard-changes-modal-cancel-button"
+            i18n="Cancel@@function-group-form-container.label.discard.cancel-button">Cancel</button>
+        </div>
+      </ng-template>
+    </bb-modal-footer-ui>
+  </bb-modal-ui>
+</ng-template>
+
+<ng-template bbFunctionGroupFormHeaderCustomizable let-hostRef let-isCreateForm="context.isCreateForm">
+  <div class="block-highlight mb-4">
+    <div class="bb-stack">
+      <div class="bb-stack--item bb-stack__item--fill">
+        <bb-header-ui *ngIf="isCreateForm && !hostRef.copyFunctionGroup" class="bb-stack__item" headingType="h4"
+          heading="Create Job Role" i18n-heading="Create Job Role@@function-group-form-header.label.create"
+          data-role="function-group-create-label"></bb-header-ui>
+
+        <bb-header-ui *ngIf="isCreateForm && hostRef.copyFunctionGroup" class="bb-stack__item" headingType="h4"
+          heading="{{hostRef.copyFunctionGroup.name}} Job Role"
+          i18n-heading="Copy Job Role@@function-group-form-header.label.copy" data-role="function-group-copy-label">
+        </bb-header-ui>
+
+        <bb-header-ui *ngIf="!isCreateForm" class="bb-stack__item" headingType="h4" heading="Edit Job Role"
+          i18n-heading="Edit Job Role@@function-group-form-header.label.edit" data-role="function-group-edit-label">
+        </bb-header-ui>
+      </div>
+      <div class="bb-stack__item bb-stack__item--align-top">
+        <div class="bb-button-bar bb-button-bar--reverse">
+          <button bbButton class="bb-button-bar__button" data-role="function-group-cancel-btn" color="orange-empty"
+            type="button" (click)="hostRef.onCancel()">
+            <span i18n="Cancel Button|Button to cancel@@function-group-form-header.label.cancelButton">Cancel</span>
+          </button>
+          <button bbButton data-role="function-group-save-btn" color="orange" type="submit"
+            [disabled]="hostRef.submitDisabled && !hostRef.copyFunctionGroup" (click)="hostRef.onSubmit()">
+            <span i18n="Save button|Button to save form@@function-group-form-header.label.saveButton">Save</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 <div class="row">
   <div class="bb-card col-md-6">
     <div class="bb-card__body">
