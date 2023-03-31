@@ -77,7 +77,7 @@
     "@dot-build/serve-and-run-angular": "^1.0.2",
     "@nrwl/angular": "14.8.6",
     "@nrwl/cli": "14.8.6",
-    "@nrwl/eslint-plugin-nx": "14.8.6",
+    "@nrwl/eslint-plugin-nx": "14.8.8",
     "@nrwl/jest": "14.8.6",
     "@nrwl/linter": "14.8.6",
     "@nrwl/workspace": "14.8.6",
