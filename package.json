@@ -80,7 +80,7 @@
     "@nrwl/eslint-plugin-nx": "14.8.6",
     "@nrwl/jest": "14.8.6",
     "@nrwl/linter": "14.8.6",
-    "@nrwl/workspace": "14.8.6",
+    "@nrwl/workspace": "14.8.8",
     "@playwright/test": "^1.18.1",
     "@types/jest": "28.1.8",
     "@types/node": "14.14.33",
