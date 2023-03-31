@@ -35,10 +35,16 @@ export class LocalesService {
     );
 
     if (locale !== currentLocale) {
+      const fullPath = this.location.path(true);
+      const basePathRegex = new RegExp(`^${baseHref}/${currentLocale}/?`);
+
+      // Check if path includes base href and locale
+      if (!basePathRegex.test(fullPath)) {
+        return;
+      }
+
       // Get path without base href and locale
-      const path = this.location
-        .path(true)
-        .replace(new RegExp(`^${baseHref}/${currentLocale}/?`), '');
+      const path = fullPath.replace(basePathRegex, '');
 
       this.document.location.href = `${baseHref}/${locale}/${path}`;
     }

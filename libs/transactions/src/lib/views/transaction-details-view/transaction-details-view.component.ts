@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Optional } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Currency, TransactionItem } from '@backbase/data-ang/transactions';
+import { Currency, TransactionItem } from '@backbase/transactions-http-ang';
 import {
   ScreenViewTrackerEventPayload,
   Tracker,

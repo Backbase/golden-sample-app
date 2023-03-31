@@ -1,7 +1,7 @@
 import {
   TransactionClientHttpService,
   TransactionItem,
-} from '@backbase/data-ang/transactions';
+} from '@backbase/transactions-http-ang';
 import { of } from 'rxjs';
 import { ArrangementsService } from './arrangements.service';
 import { TransactionsJourneyConfiguration } from './transactions-journey-config.service';

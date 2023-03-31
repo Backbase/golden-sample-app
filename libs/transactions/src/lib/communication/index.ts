@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { TransactionItem } from '@backbase/data-ang/transactions';
+import { TransactionItem } from '@backbase/transactions-http-ang';
 import { Observable } from 'rxjs';
 
 export interface TransactionsCommunicationService {

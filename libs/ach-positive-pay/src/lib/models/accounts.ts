@@ -1,4 +1,4 @@
-import { ProductSummaryItem } from '@backbase/data-ang/arrangements';
+import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 
 export interface AccountsViewModel {
   accounts: ProductSummaryItem[];

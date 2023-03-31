@@ -1,4 +1,4 @@
-import { ProductSummaryHttpService } from '@backbase/data-ang/arrangements';
+import { ProductSummaryHttpService } from '@backbase/arrangement-manager-http-ang';
 import { of } from 'rxjs';
 import { AccountSelectorItems } from './initiator.model';
 import { InitiatorService } from './initiator.service';

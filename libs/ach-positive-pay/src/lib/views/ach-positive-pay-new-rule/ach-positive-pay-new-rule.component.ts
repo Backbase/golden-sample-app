@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AchPositivePayHttpService } from '../../services/ach-positive-pay.http.service';
 import { NotificationService } from '@backbase/ui-ang/notification';
 import { ACH_POSITIVE_PAY_TRANSLATIONS } from '../../constants/dynamic-translations';
-import { ProductSummaryItem } from '@backbase/data-ang/arrangements';
+import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { Observable } from 'rxjs';
 
 @Component({

@@ -3,7 +3,7 @@ import {
   GetTransactionsWithPostRequestParams,
   TransactionClientHttpService,
   TransactionItem,
-} from '@backbase/data-ang/transactions';
+} from '@backbase/transactions-http-ang';
 import { combineLatest, Observable, of } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
 import { ArrangementsService } from './arrangements.service';

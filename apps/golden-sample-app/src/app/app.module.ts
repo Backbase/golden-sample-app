@@ -2,9 +2,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ACCESS_CONTROL_BASE_PATH } from '@backbase/data-ang/accesscontrol';
-import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/data-ang/arrangements';
-import { TRANSACTIONS_BASE_PATH } from '@backbase/data-ang/transactions';
+import { ACCESS_CONTROL_BASE_PATH } from '@backbase/accesscontrol-http-ang';
+import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/arrangement-manager-http-ang';
+import { TRANSACTIONS_BASE_PATH } from '@backbase/transactions-http-ang';
 import { TemplateRegistry } from '@backbase/foundation-ang/core';
 import {
   EntitlementsModule,

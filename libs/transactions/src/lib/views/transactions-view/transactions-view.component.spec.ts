@@ -5,7 +5,7 @@ import {
   ActivatedRouteSnapshot,
   Router,
 } from '@angular/router';
-import { TransactionItem } from '@backbase/data-ang/transactions';
+import { TransactionItem } from '@backbase/transactions-http-ang';
 import { BehaviorSubject, delay, of } from 'rxjs';
 import {
   TransactionsCommunicationService,

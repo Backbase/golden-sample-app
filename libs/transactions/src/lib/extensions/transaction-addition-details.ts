@@ -1,4 +1,4 @@
-import { TransactionItem } from '@backbase/data-ang/transactions';
+import { TransactionItem } from '@backbase/transactions-http-ang';
 import { ViewExtensionComponent } from '@backbase/ui-ang/view-extensions';
 
 export type TransactionAdditionalDetailsContext = Pick<
