@@ -4,7 +4,7 @@ import { NotificationService } from '@backbase/ui-ang/notification';
 import { of, throwError } from 'rxjs';
 import { AchPositivePayHttpService } from '../../services/ach-positive-pay.http.service';
 import { AchPositivePayNewRuleComponent } from './ach-positive-pay-new-rule.component';
-import { ProductSummaryItem } from '@backbase/data-ang/arrangements';
+import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 
 describe('AchPositivePayNewRuleComponent', () => {
   let component: AchPositivePayNewRuleComponent;

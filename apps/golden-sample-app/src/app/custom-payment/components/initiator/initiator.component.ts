@@ -12,12 +12,12 @@ import { InitiatorService } from './initiator.service';
 @Component({
   selector: 'app-payment-initiator',
   template: `
-    <div [ngClass]="options?.cssClasses || ''">
+    <div [ngClass]="options.cssClasses || ''">
       <label class="d-block">
-        <span> {{ options?.label }} </span>
+        <span> {{ options.label }} </span>
       </label>
       <bb-account-selector-ui
-        placeholder="{{ options?.placeholder }}"
+        placeholder="{{ options.placeholder }}"
         [items]="debitAccounts$ | async"
         [markFirst]="true"
         [highlight]="false"

@@ -2,7 +2,7 @@ import {
   ArrangementsHttpService,
   BalancesHttpService,
   ProductSummaryHttpService,
-} from '@backbase/data-ang/arrangements';
+} from '@backbase/arrangement-manager-http-ang';
 import { Injectable } from '@angular/core';
 import { map, of } from 'rxjs';
 import { Transfer } from '../model/Account';

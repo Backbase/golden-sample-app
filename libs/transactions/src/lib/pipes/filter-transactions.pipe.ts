@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { TransactionItem } from '@backbase/data-ang/transactions';
+import { TransactionItem } from '@backbase/transactions-http-ang';
 
 @Pipe({
   name: 'filterTransactions',

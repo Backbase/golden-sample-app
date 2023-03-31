@@ -35,17 +35,6 @@ const routes: Routes = [
     canActivate: [AuthGuard, UserContextGuard],
   },
   {
-    path: 'positive-pay',
-    loadChildren: () =>
-      import('./positive-pay/positive-pay-journey-bundle.module').then(
-        (m) => m.PositivePayJourneyBundleModule
-      ),
-    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard],
-    data: {
-      entitlements: triplets.canViewPositivePay,
-    },
-  },
-  {
     path: 'ach-positive-pay',
     loadChildren: () =>
       import('./ach-positive-pay/ach-positive-pay-journey-bundle.module').then(

@@ -8,7 +8,7 @@ import {
   SimpleChanges,
   Type,
 } from '@angular/core';
-import { TransactionItem } from '@backbase/data-ang/transactions';
+import { TransactionItem } from '@backbase/transactions-http-ang';
 import { ViewExtensionDirective } from '@backbase/ui-ang/view-extensions';
 import {
   TRANSACTION_EXTENSIONS_CONFIG,

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ProductSummaryItem } from '@backbase/data-ang/arrangements';
+import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { Observable } from 'rxjs';
 import { AchRule } from '../models/ach-rule';
 

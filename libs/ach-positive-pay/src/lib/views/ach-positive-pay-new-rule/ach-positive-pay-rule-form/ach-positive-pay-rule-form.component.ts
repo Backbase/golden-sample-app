@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ProductSummaryItem } from '@backbase/data-ang/arrangements';
+import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { ACH_POSITIVE_PAY_TRANSLATIONS } from '../../../constants/dynamic-translations';
 
 @Component({

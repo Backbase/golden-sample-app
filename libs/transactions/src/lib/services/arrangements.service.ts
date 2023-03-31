@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ProductSummaryHttpService } from '@backbase/data-ang/arrangements';
+import { ProductSummaryHttpService } from '@backbase/arrangement-manager-http-ang';
 import { shareReplay } from 'rxjs/operators';
 
 @Injectable({
