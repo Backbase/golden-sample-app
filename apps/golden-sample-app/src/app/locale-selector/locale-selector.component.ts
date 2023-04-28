@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { LOCALES_LIST, LocalesService } from './locales.service';
 import { localesCatalog } from './locales-catalog';
 
-type Locale = typeof localesCatalog[string];
+type Locale = (typeof localesCatalog)[string];
 
 @Component({
   selector: 'app-locale-selector',
