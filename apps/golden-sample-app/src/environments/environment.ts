@@ -18,7 +18,7 @@ const mockProviders: Provider[] = [
 
 export const environment: Environment = {
   production: false,
-  apiRoot: 'https://app.prd.sdbx.live.backbaseservices.com/api',
+  apiRoot: '/api',
   mockProviders,
   locales: ['en-US', 'nl-NL'],
   common: {
@@ -29,7 +29,7 @@ export const environment: Environment = {
 export const authConfig: AuthConfig = {
   // Url of the Identity Provider
   issuer:
-    'https://identity.prd.sdbx.live.backbaseservices.com/auth/realms/retail',
+    'https://identity.prd.sdbxaz.azure.backbaseservices.com/auth/realms/customer',
 
   // URL of the SPA to redirect the user to after login
   redirectUri: document.baseURI,
