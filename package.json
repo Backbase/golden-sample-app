@@ -34,6 +34,7 @@
     "@angular/platform-browser": "^14.2.12",
     "@angular/platform-browser-dynamic": "^14.2.12",
     "@angular/router": "^14.2.12",
+    "@backbase/accesscontrol-v3-http-ang": "^1.1.0",
     "@backbase/accesscontrol-http-ang": "^3.3.2",
     "@backbase/arrangement-manager-http-ang": "^3.3.1",
     "@backbase/foundation-ang": "^8.0.0",
@@ -106,4 +107,3 @@
     "webpack-bundle-analyzer": "^4.5.0"
   }
 }
-
