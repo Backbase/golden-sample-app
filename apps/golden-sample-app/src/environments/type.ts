@@ -9,5 +9,6 @@ export interface Environment {
   apiRoot: string;
   locales: string[];
   mockProviders?: Provider[];
+  mockEnabled?: boolean;
   common: sharedJourneyConfiguration;
 }

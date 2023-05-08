@@ -20,15 +20,10 @@ export const environment: Environment = {
   common: {
     designSlimMode: false,
   },
+  mockEnabled: true,
 };
 
 export const authConfig: AuthConfig = {
-  issuer:
-    'https://identity.prd.sdbxaz.azure.backbaseservices.com/auth/realms/customer',
-  redirectUri: document.baseURI,
-  clientId: 'bb-web-client',
-  responseType: 'code',
-  scope: 'openid',
   requireHttps: false,
   showDebugInformation: true,
   logoutUrl: document.baseURI + 'logout',
