@@ -97,32 +97,34 @@ import { ActivityMonitorModule } from './auth/activity-monitor';
       },
     },
     { provide: OAuthStorage, useFactory: () => localStorage },
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      deps: [
-        OAuthService,
-        CookieService,
-        AuthEventsHandlerService,
-        AuthService,
-      ],
-      useFactory:
-        (oAuthService: OAuthService, cookieService: CookieService) =>
-        async () => {
-          // Remove this if auth cookie is not needed for the app
-          oAuthService.events.subscribe(({ type }) => {
-            if (type === 'token_received' || type === 'token_refreshed') {
-              // Set the cookie on the app domain
-              cookieService.set(
-                'Authorization',
-                `Bearer ${oAuthService.getAccessToken()}`
-              );
-            }
-          });
+    environment.mockEnabled
+      ? []
+      : {
+          provide: APP_INITIALIZER,
+          multi: true,
+          deps: [
+            OAuthService,
+            CookieService,
+            AuthEventsHandlerService,
+            AuthService,
+          ],
+          useFactory:
+            (oAuthService: OAuthService, cookieService: CookieService) =>
+            async () => {
+              // Remove this if auth cookie is not needed for the app
+              oAuthService.events.subscribe(({ type }) => {
+                if (type === 'token_received' || type === 'token_refreshed') {
+                  // Set the cookie on the app domain
+                  cookieService.set(
+                    'Authorization',
+                    `Bearer ${oAuthService.getAccessToken()}`
+                  );
+                }
+              });
 
-          await oAuthService.loadDiscoveryDocumentAndTryLogin();
+              await oAuthService.loadDiscoveryDocumentAndTryLogin();
+            },
         },
-    },
     {
       provide: TRANSACTIONS_BASE_PATH,
       useValue: environment.apiRoot + '/transaction-manager',
