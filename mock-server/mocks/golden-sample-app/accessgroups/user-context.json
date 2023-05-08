@@ -1,14 +1,14 @@
 {
-  "name": "Sample request",
+  "name": "accessgroups/user-context",
   "request": {
-    "url": "/sample-request/sample",
-    "method": "GET"
+    "url": "/access-control/client-api/v3/accessgroups/user-context",
+    "method": "POST"
   },
   "responses": {
     "ok": {
-      "stats": "200",
+      "stats": "204",
       "default": true,
-      "data": {}
+      "data": { "serviceAgreementId": "12345ed2abc2134" }
     },
     "internal_server_error": {
       "status": 500,
