@@ -1,0 +1,21 @@
+{
+  "name": "Sample request",
+  "request": {
+    "url": "/sample-request/sample",
+    "method": "GET"
+  },
+  "responses": {
+    "ok": {
+      "default": true,
+      "data": {
+        "some": "thing"
+      }
+    },
+    "internal_server_error": {
+      "status": 500,
+      "data": {
+        "message": "Internal server error"
+      }
+    }
+  }
+}
