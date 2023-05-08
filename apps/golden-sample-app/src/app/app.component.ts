@@ -6,6 +6,7 @@ import {
   LogoutTrackerEvent,
   Tracker,
 } from '@backbase/foundation-ang/observability';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,8 @@ export class AppComponent {
     public layoutService: LayoutService,
     @Optional() private readonly tracker?: Tracker
   ) {
-    this.isAuthenticated = oAuthService.hasValidAccessToken();
+    this.isAuthenticated =
+      environment.mockEnabled ?? oAuthService.hasValidAccessToken();
   }
 
   logout(): void {
