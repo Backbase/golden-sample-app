@@ -1,0 +1,40 @@
+{
+  "name": "serviceagreements/context",
+  "request": {
+    "url": "/access-control/client-api/v2/accessgroups/serviceagreements/context",
+    "method": "GET"
+  },
+  "responses": {
+    "ok": {
+      "stats": "200",
+      "default": true,
+      "data": {
+        "additions": {},
+        "creatorLegalEntity": "12345ed1abc2134",
+        "status": "ENABLED",
+        "id": "12345ed2abc2134",
+        "externalId": "sa_sdbxaz-ankit",
+        "approvalId": null,
+        "name": "Ankit",
+        "description": "Master Service Agreement for Ankit",
+        "isMaster": true,
+        "validFromDate": null,
+        "validFromTime": null,
+        "validUntilDate": null,
+        "validUntilTime": null
+      }
+    },
+    "internal_server_error": {
+      "status": 500,
+      "data": {
+        "message": "Internal server error"
+      }
+    },
+    "not_found": {
+      "status": 404,
+      "data": {
+        "message": "Not found!"
+      }
+    }
+  }
+}

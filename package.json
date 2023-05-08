@@ -7,6 +7,7 @@
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
     "start": "ng serve",
+    "start:mocks": "nx serve -c mocks",
     "start:nl": "ng serve golden-sample-app:serve:nl",
     "start:docker": "docker-compose up --build",
     "test": "nx run-many --target=test --all",
