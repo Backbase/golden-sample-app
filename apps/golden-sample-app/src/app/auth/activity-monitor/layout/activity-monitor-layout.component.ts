@@ -9,6 +9,7 @@ import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 export class ActivityMonitorLayoutComponent {
   @Input() isOpen = false;
   @Input() remaining!: number;
+  @Input() countdownDuration!: number;
   readonly modalOptions: NgbModalOptions = {
     keyboard: false,
     backdrop: 'static',
