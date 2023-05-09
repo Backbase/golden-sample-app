@@ -28,11 +28,10 @@ jobs:
           node-version: 16
           cache: 'npm'
           registry-url: 'https://repo.backbase.com/api/npm/npm-backbase/'
-          scope: 'backbase'
-          always-auth: true
+          scope: '@backbase'
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -62,10 +61,12 @@ jobs:
           node-version: 16
           cache: 'npm'
           registry-url: 'https://repo.backbase.com/api/npm/npm-backbase/'
-          scope: 'backbase'
+          scope: '@backbase'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
