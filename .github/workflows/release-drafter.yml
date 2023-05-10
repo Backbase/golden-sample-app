@@ -53,7 +53,7 @@ jobs:
       - name: Get Angular version
         id: get-angular-version
         run: |
-          version=$(node -p "require('./package-lock.json').dependencies['@angular/core'].version.split('.').shift()")
+          version=$(node -p "require('./package-lock.json').packages[""].dependencies['@angular/core'].version.split('.').shift()")
           echo "::set-output name=version::$version"
 
       - name: Update tag
@@ -61,4 +61,3 @@ jobs:
           tag='angular@v${{ steps.get-angular-version.outputs.version }}'
           git tag $tag -f
           git push origin $tag -f
-          
