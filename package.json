@@ -75,7 +75,7 @@
     "@angular/compiler-cli": "^14.2.12",
     "@angular/language-service": "^14.2.12",
     "@dot-build/serve-and-run-angular": "^1.0.2",
-    "@nrwl/angular": "^14.8.6",
+    "@nrwl/angular": "^16.1.4",
     "@nrwl/cli": "^14.8.6",
     "@nrwl/eslint-plugin-nx": "^14.8.6",
     "@nrwl/jest": "^14.8.6",
