@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MakeTransferJourneyState } from '@backbase-gsa/transfer-journey-data-access';
+import { MakeTransferJourneyState } from '@backbase-gsa/internal-transfer-data-access';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

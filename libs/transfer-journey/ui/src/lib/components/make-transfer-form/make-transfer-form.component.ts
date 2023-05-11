@@ -10,8 +10,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { TRANSLATIONS } from '@backbase-gsa/transfer-journey-util';
-import { Account, Transfer } from '@backbase-gsa/transfer-journey-util';
+import { TRANSLATIONS } from '@backbase-gsa/internal-transfer-util';
+import { Account, Transfer } from '@backbase-gsa/internal-transfer-util';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

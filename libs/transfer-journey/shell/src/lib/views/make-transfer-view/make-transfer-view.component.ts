@@ -1,15 +1,15 @@
 import { Component, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MakeTransferJourneyConfiguration } from '@backbase-gsa/transfer-journey-data-access';
-import { Transfer } from '@backbase-gsa/transfer-journey-util';
+import { MakeTransferJourneyConfiguration } from '@backbase-gsa/internal-transfer-data-access';
+import { Transfer } from '@backbase-gsa/internal-transfer-util';
 import { map } from 'rxjs/operators';
-import { MakeTransferPermissionsService } from '@backbase-gsa/transfer-journey-data-access';
+import { MakeTransferPermissionsService } from '@backbase-gsa/internal-transfer-data-access';
 import {
   ErrorStatus,
   MakeTransferJourneyState,
   TransferLoadingStatus,
-} from '@backbase-gsa/transfer-journey-data-access';
-import { TransferSubmitEvent } from '@backbase-gsa/transfer-journey-util';
+} from '@backbase-gsa/internal-transfer-data-access';
+import { TransferSubmitEvent } from '@backbase-gsa/internal-transfer-util';
 import { Tracker } from '@backbase/foundation-ang/observability';
 import { Observable } from 'rxjs';
 

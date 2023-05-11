@@ -86,7 +86,7 @@ export class InitiatorComponent implements OnInit, PaymentFormField {
 
   private getValidationMessage(key: string): string {
     return (
-      this.options?.validationMessages?.find((field) => field.name === key)
+      this.options?.validationMessages?.find((field: any) => field.name === key)
         ?.message || ''
     );
   }

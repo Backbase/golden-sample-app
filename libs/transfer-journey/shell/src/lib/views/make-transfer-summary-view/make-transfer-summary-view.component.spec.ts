@@ -8,7 +8,7 @@ import { MakeTransferCommunicationService } from '../../services/make-transfer-c
 import {
   MakeTransferJourneyState,
   TransferOperationStatus,
-} from '@backbase-gsa/transfer-journey-data-access';
+} from '@backbase-gsa/internal-transfer-data-access';
 import { MakeTransferSummaryViewComponent } from './make-transfer-summary-view.component';
 
 describe('MakeTransferSymmaryViewComponent', () => {

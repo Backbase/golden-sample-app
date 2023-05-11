@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Transfer } from '@backbase-gsa/transfer-journey-util';
+import { Transfer } from '@backbase-gsa/internal-transfer-util';
 import { ButtonModule } from '@backbase/ui-ang/button';
 
 @Component({

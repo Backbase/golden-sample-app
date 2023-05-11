@@ -26,14 +26,17 @@
       "@backbase-gsa/transfer-journey": [
         "libs/transfer-journey/shell/src/index.ts"
       ],
-      "@backbase-gsa/transfer-journey-data-access": [
+      "@backbase-gsa/internal-transfer-data-access": [
         "libs/transfer-journey/data-access/src/index.ts"
       ],
-      "@backbase-gsa/transfer-journey-ui": [
+      "@backbase-gsa/internal-transfer-ui": [
         "libs/transfer-journey/ui/src/index.ts"
       ],
-      "@backbase-gsa/transfer-journey-util": [
+      "@backbase-gsa/internal-transfer-util": [
         "libs/transfer-journey/util/src/index.ts"
+      ],
+      "@backbase/internal-transfer-feature": [
+        "libs/transfer-journey/feature/src/index.ts"
       ]
     }
   },
