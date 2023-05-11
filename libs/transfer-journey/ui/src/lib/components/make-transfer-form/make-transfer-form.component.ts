@@ -17,7 +17,13 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'bb-make-transfer-form',
   templateUrl: 'make-transfer-form.component.html',
-  imports: [CommonModule, ReactiveFormsModule, InputValidationMessageModule, CurrencyInputModule, ButtonModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    InputValidationMessageModule,
+    CurrencyInputModule,
+    ButtonModule,
+  ],
   standalone: true,
 })
 export class MakeTransferFormComponent implements OnInit {
