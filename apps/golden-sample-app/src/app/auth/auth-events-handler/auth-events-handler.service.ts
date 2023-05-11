@@ -1,10 +1,11 @@
 import { Injectable, OnDestroy, Optional } from '@angular/core';
+import {
+  SessionTimeoutTrackerEvent,
+  Tracker,
+} from '@backbase/foundation-ang/observability';
+import { AuthService } from '@backbase/identity-auth';
 import { OAuthEvent, OAuthService } from 'angular-oauth2-oidc';
 import { Subscription } from 'rxjs';
-import {
-  Tracker,
-  SessionTimeoutTrackerEvent,
-} from '@backbase/foundation-ang/observability';
 import { LocalesService } from '../../locale-selector/locales.service';
 
 function parseJwt(token: string): { locale: string } | undefined {
@@ -26,6 +27,7 @@ export class AuthEventsHandlerService implements OnDestroy {
 
   constructor(
     private readonly oAuthService: OAuthService,
+    private readonly authService: AuthService,
     private readonly localesService: LocalesService,
     @Optional() private readonly tracker?: Tracker
   ) {
@@ -76,9 +78,7 @@ export class AuthEventsHandlerService implements OnDestroy {
           // Invalid login process is treated as a threat and the user is returned to the login page.
           // As the user is already logged in on the Auth server, they should just be navigated back to the app.
           case 'invalid_nonce_in_state':
-            this.oAuthService.initLoginFlow(undefined, {
-              ui_locales: this.localesService.currentLocale,
-            });
+            this.authService.initLoginFlow();
             break;
         }
       },
@@ -98,9 +98,7 @@ export class AuthEventsHandlerService implements OnDestroy {
     if (this.oAuthService.hasValidAccessToken()) {
       this.oAuthService.logOut();
     } else {
-      this.oAuthService.initLoginFlow(undefined, {
-        ui_locales: this.localesService.currentLocale,
-      });
+      this.authService.initLoginFlow();
     }
   }
 

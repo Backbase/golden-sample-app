@@ -1,5 +1,4 @@
 import { AuthService } from '@backbase/identity-auth';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { ReplaySubject } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AuthGuard } from './auth.guard';
@@ -13,14 +12,12 @@ describe('AuthGuard', () => {
     const isAuthenticated$$ = new ReplaySubject<boolean>(1);
     const authService = mock<AuthService>({
       isAuthenticated$: isAuthenticated$$.asObservable(),
-    });
-    const oAuthService = mock<OAuthService>({
       initLoginFlow: jest.fn(),
     });
-    const guard = new AuthGuard(authService, oAuthService, 'en');
+    const guard = new AuthGuard(authService);
     const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
 
-    return { guard, authService, oAuthService, isAuthenticated$$, scheduler };
+    return { guard, authService, isAuthenticated$$, scheduler };
   };
 
   describe.each([
@@ -38,14 +35,14 @@ describe('AuthGuard', () => {
     });
 
     test('returns false and calls initLoginFlow when user is not authenticated', () => {
-      const { guard, scheduler, isAuthenticated$$, oAuthService } =
+      const { guard, scheduler, isAuthenticated$$, authService } =
         getInstance();
 
       scheduler.run(({ expectObservable }) => {
         isAuthenticated$$.next(false);
         expectObservable((<any>guard)[method]()).toBe('x', { x: false });
       });
-      expect(oAuthService.initLoginFlow).toHaveBeenCalledTimes(1);
+      expect(authService.initLoginFlow).toHaveBeenCalledTimes(1);
     });
   });
 });

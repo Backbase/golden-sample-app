@@ -46,7 +46,7 @@ export class ActivityMonitorComponent implements OnInit {
           if (this.oAuthService.hasValidAccessToken()) {
             this.oAuthService.logOut();
           } else {
-            this.oAuthService.initLoginFlow();
+            this.authService.initLoginFlow();
           }
         },
       });
