@@ -14,9 +14,12 @@ import {
 import {
   debitMockTransaction,
   transactionsMock,
-  FilterTransactionsPipe
+  FilterTransactionsPipe,
 } from '@backbase-gsa/internal-transactions-util';
-import { TransactionsHttpService, ArrangementsService } from '@backbase-gsa/internal-transactions-data-access';
+import {
+  TransactionsHttpService,
+  ArrangementsService,
+} from '@backbase-gsa/internal-transactions-data-access';
 import { TransactionsViewComponent } from './transactions-view.component';
 import { By } from '@angular/platform-browser';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
@@ -64,10 +67,7 @@ describe('TransactionsViewComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [
-        TransactionsViewComponent,
-        FilterTransactionsPipe,
-      ],
+      declarations: [TransactionsViewComponent, FilterTransactionsPipe],
       providers: [
         {
           provide: ActivatedRoute,

@@ -10,7 +10,10 @@ import {
   ScreenViewTrackerEventPayload,
   Tracker,
 } from '@backbase/foundation-ang/observability';
-import { ArrangementsService, TransactionsHttpService } from '@backbase-gsa/internal-transactions-data-access';
+import {
+  ArrangementsService,
+  TransactionsHttpService,
+} from '@backbase-gsa/internal-transactions-data-access';
 import { TransactionListTrackerEvent } from '../../config/model/tracker-events';
 @Component({
   templateUrl: './transactions-view.component.html',

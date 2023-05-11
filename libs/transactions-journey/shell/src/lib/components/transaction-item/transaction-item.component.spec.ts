@@ -1,9 +1,4 @@
-import {
-  Component,
-  QueryList,
-  TemplateRef,
-  ViewChildren,
-} from '@angular/core';
+import { Component, QueryList, TemplateRef, ViewChildren } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AmountModule } from '@backbase/ui-ang/amount';
 import {
