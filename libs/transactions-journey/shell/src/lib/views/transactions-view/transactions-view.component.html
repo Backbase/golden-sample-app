@@ -1,0 +1,64 @@
+<div class="row" (bbTrackNavigation)="trackNavigation($event)">
+  <div class="bb-card col-lg-6">
+    <div class="bb-card__header">
+      <h1
+        class="bb-card__title"
+        *ngIf="title !== ''"
+        data-role="transactions-view__title"
+      >
+        {{ title }}
+      </h1>
+    </div>
+
+    <div class="bb-card__body">
+      <div class="bb-block bb-block--md">
+        <bb-text-filter
+          [text]="searchQuery$ | async"
+          (textChange)="search($event)"
+        ></bb-text-filter>
+      </div>
+
+      <div
+        class="bb-block bb-block--md"
+        *ngIf="accountName$ | async as accountName"
+      >
+        <span i18n="Label for filtered by@@transactions.filters.label"
+          >filtered by:</span
+        >
+
+        <bb-badge-ui
+          [text]="accountName + ' ✕'"
+          title="Remove account filter"
+          i18n-title="
+            Remove label for Account Badge@@transactions.account-filter.remove"
+          class="filters-badge"
+          color="success"
+          routerLink="/transactions"
+          queryParamsHandling="merge"
+          [queryParams]="{ account: null }"
+        >
+        </bb-badge-ui>
+      </div>
+
+      <ul *ngIf="transactions$ | async as items; else loading" class="bb-list">
+        <li
+          *ngFor="let item of items | filterTransactions : filter"
+          class="bb-list__item"
+          data-role="transactions-view__item-container"
+        >
+          <a class="list-link" [routerLink]="['./', item.id]">
+            <bb-transaction-item [transaction]="item"></bb-transaction-item>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div data-role="transactions-view__loading-state-container">
+    <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
+  </div>
+</ng-template>
+
+<router-outlet></router-outlet>

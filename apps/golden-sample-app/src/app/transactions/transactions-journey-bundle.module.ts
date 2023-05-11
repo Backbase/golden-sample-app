@@ -3,7 +3,7 @@ import {
   TransactionsJourneyConfiguration,
   TransactionsJourneyModule,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
-} from '@backbase-gsa/transactions';
+} from '@backbase-gsa/transactions-journey';
 import { environment } from '../../environments/environment';
 import { JourneyCommunicationService } from '../services/journey-communication.service';
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';

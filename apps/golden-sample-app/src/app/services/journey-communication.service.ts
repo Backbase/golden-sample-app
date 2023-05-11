@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TransactionItem } from '@backbase/transactions-http-ang';
-import { TransactionsCommunicationService } from '@backbase-gsa/transactions';
+import { TransactionsCommunicationService } from '@backbase-gsa/transactions-journey';
 import {
   MakeTransferCommunicationService,
   Transfer,

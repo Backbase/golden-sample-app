@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import {
   TransactionAdditionalDetailsComponent,
   TransactionAdditionalDetailsContext,
-} from '@backbase-gsa/transactions';
+} from '@backbase-gsa/transactions-journey';
 
 @Component({
   selector: 'app-custom-txn-info',

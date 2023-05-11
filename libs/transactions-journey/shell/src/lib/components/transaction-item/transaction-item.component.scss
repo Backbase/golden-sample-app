@@ -1,0 +1,48 @@
+@import '~@backbase/ui-ang/scss/1-variables/brand/color';
+
+:host {
+  display: flex;
+  align-items: center;
+}
+
+:host > * {
+  padding: 10px 15px;
+}
+
+.transactions-item__color-indication {
+  width: 5px;
+  align-self: stretch;
+  padding: 0;
+
+  &--positive {
+    background-color: RGBA(18, 165, 128, 1);
+  }
+
+  &--negative {
+    background-color: RGBA(213, 18, 113, 1);
+  }
+}
+
+:host {
+  &:hover .transactions-item__color-indication {
+    background-color: $color-primary;
+    width: 7px;
+  }
+}
+
+.transactions-item__description {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.transactions-item__transactionType {
+  font-size: .8rem;
+  color: gray;
+}
+
+.transactions-item__amount {
+  &.negative {
+    color: rgb(209, 76, 76);
+  }
+}

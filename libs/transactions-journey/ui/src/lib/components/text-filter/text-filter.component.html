@@ -1,0 +1,10 @@
+<bb-input-text-ui
+  placeholder="filter transactions by type"
+  aria-label="filter transactions"
+  i18n-aria-label="
+    filter transaction aria label@@transaction.form.filter.aria-label"
+  i18n-placeholder="
+    filter transaction placeholder@@transaction.form.filter.placeholder"
+  [ngModel]="text"
+  (ngModelChange)="textChange.emit($event)"
+></bb-input-text-ui>

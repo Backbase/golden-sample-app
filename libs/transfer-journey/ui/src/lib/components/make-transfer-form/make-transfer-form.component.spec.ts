@@ -10,7 +10,7 @@ describe('MakeTransferFormComponent', () => {
   const formBuilder = new FormBuilder();
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MakeTransferFormComponent],
+      imports: [MakeTransferFormComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: FormBuilder, useValue: formBuilder },
