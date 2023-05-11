@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {
   TransactionsJourneyConfiguration,
-  TransactionsJourneyModule,
+  TransactionsJourneyShellModule,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
 } from '@backbase-gsa/transactions-journey';
 import { environment } from '../../environments/environment';
@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 @NgModule({
   imports: [
     CommonModule,
-    TransactionsJourneyModule.forRoot({
+    TransactionsJourneyShellModule.forRoot({
       extensionSlots: {
         transactionItemAdditionalDetails:
           TransactionItemAdditionalDetailsComponent,

@@ -83,13 +83,13 @@ export interface TransactionsJourneyModuleConfig {
     TransactionsRouteTitleResolverService,
   ],
 })
-export class TransactionsJourneyModule {
+export class TransactionsJourneyShellModule {
   static forRoot({
     routes,
     extensionSlots,
-  }: TransactionsJourneyModuleConfig = {}): ModuleWithProviders<TransactionsJourneyModule> {
+  }: TransactionsJourneyModuleConfig = {}): ModuleWithProviders<TransactionsJourneyShellModule> {
     return {
-      ngModule: TransactionsJourneyModule,
+      ngModule: TransactionsJourneyShellModule,
       providers: [
         provideRoutes(routes || defaultRoutes),
         {
