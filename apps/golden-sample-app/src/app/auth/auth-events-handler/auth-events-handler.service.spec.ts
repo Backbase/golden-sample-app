@@ -3,6 +3,7 @@ import { Subject, Subscription } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { LocalesService } from '../../locale-selector/locales.service';
 import { AuthEventsHandlerService } from './auth-events-handler.service';
+import { AuthService } from '@backbase/identity-auth';
 
 export type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;
 export const mock = <T>(overrides?: WidePropertyTypes<T>) =>
@@ -15,18 +16,31 @@ describe('AuthEventsHandlerService', () => {
       events: events$$.asObservable(),
       refreshToken: jest.fn(),
       logOut: jest.fn(),
-      initLoginFlow: jest.fn(),
       hasValidAccessToken: jest.fn().mockReturnValue(true),
       getAccessToken: jest.fn().mockReturnValue('1.eyJsb2NhbGUiOiAibmwifQ=='),
+    });
+    const authService = mock<AuthService>({
+      initLoginFlow: jest.fn(),
     });
     const localeService = mock<LocalesService>({
       setLocale: jest.fn(),
       currentLocale: 'en',
     });
-    const service = new AuthEventsHandlerService(oAuthService, localeService);
+    const service = new AuthEventsHandlerService(
+      oAuthService,
+      authService,
+      localeService
+    );
     const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
 
-    return { service, oAuthService, localeService, events$$, scheduler };
+    return {
+      service,
+      oAuthService,
+      authService,
+      localeService,
+      events$$,
+      scheduler,
+    };
   };
 
   describe('Document load', () => {
@@ -138,7 +152,7 @@ describe('AuthEventsHandlerService', () => {
       expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
     it('should call initLoginFlow when the user does not have a valid access token', () => {
-      const { events$$, oAuthService, scheduler } = getInstance();
+      const { events$$, oAuthService, authService, scheduler } = getInstance();
       oAuthService.hasValidAccessToken.mockReturnValue(false);
 
       scheduler.run(({ flush }) => {
@@ -147,13 +161,13 @@ describe('AuthEventsHandlerService', () => {
         flush();
       });
 
-      expect(oAuthService.initLoginFlow).toHaveBeenCalledTimes(1);
+      expect(authService.initLoginFlow).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('Redirecting to login page', () => {
     it('should redirect the user to the login page when they use an invalid nonce state', () => {
-      const { events$$, oAuthService, scheduler } = getInstance();
+      const { events$$, authService, scheduler } = getInstance();
 
       scheduler.run(({ flush }) => {
         events$$.next({ type: 'discovery_document_loaded' });
@@ -161,7 +175,7 @@ describe('AuthEventsHandlerService', () => {
         flush();
       });
 
-      expect(oAuthService.initLoginFlow).toHaveBeenCalledTimes(1);
+      expect(authService.initLoginFlow).toHaveBeenCalledTimes(1);
     });
   });
 
