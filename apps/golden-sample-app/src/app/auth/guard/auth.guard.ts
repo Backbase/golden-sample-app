@@ -7,7 +7,8 @@ import {
 } from '@angular/router';
 import { AuthService } from '@backbase/identity-auth';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { map, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +38,8 @@ export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
    * If not, treat them as logged out.
    */
   private redirectIfUnauthenticated(): Observable<boolean | UrlTree> {
+    if (environment.mockEnabled) return of(true);
+
     return this.authService.isAuthenticated$.pipe(
       map((loggedIn) => {
         if (loggedIn) {

@@ -1,0 +1,226 @@
+{
+  "name": "context/arrangements",
+  "request": {
+    "url": "/arrangement-manager/client-api/v2/productsummary/context/arrangements",
+    "method": "GET"
+  },
+  "responses": {
+    "ok": {
+      "stats": "200",
+      "default": true,
+      "data": [
+        {
+          "id": "jb007-007-1010a-nkit12",
+          "legalEntityIds": ["12345ed1abc2134"],
+          "name": "Ankit's Current Account",
+          "bankAlias": "Ankit's Current Account",
+          "BBAN": "************0025",
+          "currency": "USD",
+          "externalTransferAllowed": true,
+          "productKindName": "Current Account",
+          "productTypeName": "Current Account",
+          "BIC": "WFAP007",
+          "bankBranchCode": "007123456",
+          "creditAccount": true,
+          "debitAccount": true,
+          "bookedBalance": 9693.25,
+          "availableBalance": 560748.75,
+          "creditLimit": 551055.5,
+          "accruedInterest": 5.57694,
+          "productId": "a23se4rd5-5678-123we-3456d",
+          "visible": true,
+          "accountOpeningDate": "2023-03-02T13:31:51Z",
+          "accountInterestRate": 3.0,
+          "creditLimitUsage": 0.0,
+          "creditLimitInterestRate": 2.0,
+          "accountHolderNames": "Ankit P",
+          "lastUpdateDate": "2023-05-07T22:43:51Z",
+          "favorite": false,
+          "product": {
+            "externalId": "current-account",
+            "externalTypeId": "current-account",
+            "typeName": "Current Account",
+            "productKind": {
+              "id": 1,
+              "externalKindId": "kind1",
+              "kindName": "Current Account",
+              "kindUri": "current-account"
+            }
+          },
+          "state": { "externalStateId": "Active", "state": "Active" },
+          "displayName": "Ankit's Current Account",
+          "debitCards": [],
+          "unmaskableAttributes": ["BBAN"]
+        },
+        {
+          "id": "10qwer-abc1234-6789orm",
+          "legalEntityIds": ["12345ed1abc2134"],
+          "name": "Savings INACTIVE LOCK 1",
+          "bankAlias": "Savings INACTIVE LOCK 1",
+          "BBAN": "************1995",
+          "currency": "USD",
+          "externalTransferAllowed": true,
+          "productKindName": "Savings Account",
+          "productTypeName": "Savings Account",
+          "BIC": "WFAP007",
+          "bankBranchCode": "007123456",
+          "creditAccount": false,
+          "debitAccount": false,
+          "bookedBalance": 15508.37,
+          "availableBalance": 15508.37,
+          "accruedInterest": 0.0,
+          "productId": "0789-aq23-56ty-213we-34ertyuu",
+          "visible": true,
+          "accountOpeningDate": "2023-03-02T13:31:58Z",
+          "accountHolderNames": "Ankit P",
+          "lastUpdateDate": "2023-05-05T18:19:12Z",
+          "favorite": false,
+          "product": {
+            "externalId": "savings-account",
+            "externalTypeId": "savings-account",
+            "typeName": "Savings Account",
+            "productKind": {
+              "id": 2,
+              "externalKindId": "kind2",
+              "kindName": "Savings Account",
+              "kindUri": "savings-account"
+            }
+          },
+          "state": { "externalStateId": "Inactive", "state": "Inactive" },
+          "displayName": "Savings INACTIVE LOCK 1",
+          "debitCards": [],
+          "unmaskableAttributes": ["BBAN"]
+        },
+        {
+          "id": "621e9eaf-42c4-4097-85df-2ff9288a6396",
+          "legalEntityIds": ["12345ed1abc2134"],
+          "name": "Ankit's Savings Account 1",
+          "bankAlias": "Ankit's Savings Account 1",
+          "BBAN": "************0026",
+          "currency": "USD",
+          "externalTransferAllowed": true,
+          "productKindName": "Savings Account",
+          "productTypeName": "Savings Account",
+          "BIC": "WFAP007",
+          "bankBranchCode": "007123456",
+          "creditAccount": true,
+          "debitAccount": true,
+          "bookedBalance": 13705.88,
+          "availableBalance": 13705.88,
+          "accruedInterest": 0.0,
+          "productId": "0789-aq23-56ty-213we-34ertyuu",
+          "visible": true,
+          "accountOpeningDate": "2023-03-02T13:31:53Z",
+          "accountHolderNames": "Ankit P",
+          "lastUpdateDate": "2023-05-07T22:43:51Z",
+          "favorite": false,
+          "product": {
+            "externalId": "savings-account",
+            "externalTypeId": "savings-account",
+            "typeName": "Savings Account",
+            "productKind": {
+              "id": 2,
+              "externalKindId": "kind2",
+              "kindName": "Savings Account",
+              "kindUri": "savings-account"
+            }
+          },
+          "state": { "externalStateId": "Active", "state": "Active" },
+          "displayName": "Ankit's Savings Account 1",
+          "debitCards": [],
+          "unmaskableAttributes": ["BBAN"]
+        },
+        {
+          "id": "0jb123wer456tgyhuj9869",
+          "legalEntityIds": ["12345ed1abc2134"],
+          "name": "Ankit's Savings Account 2",
+          "bankAlias": "Ankit's Savings Account 2",
+          "BBAN": "************0027",
+          "currency": "USD",
+          "externalTransferAllowed": true,
+          "productKindName": "Savings Account",
+          "productTypeName": "Savings Account",
+          "BIC": "WFAP007",
+          "bankBranchCode": "007123456",
+          "creditAccount": true,
+          "debitAccount": true,
+          "bookedBalance": 8502.32,
+          "availableBalance": 8502.32,
+          "accruedInterest": 0.0,
+          "productId": "0789-aq23-56ty-213we-34ertyuu",
+          "visible": true,
+          "accountOpeningDate": "2023-03-02T13:31:56Z",
+          "accountHolderNames": "Ankit P",
+          "lastUpdateDate": "2023-05-07T22:43:40Z",
+          "favorite": false,
+          "product": {
+            "externalId": "savings-account",
+            "externalTypeId": "savings-account",
+            "typeName": "Savings Account",
+            "productKind": {
+              "id": 2,
+              "externalKindId": "kind2",
+              "kindName": "Savings Account",
+              "kindUri": "savings-account"
+            }
+          },
+          "state": { "externalStateId": "Active", "state": "Active" },
+          "displayName": "Ankit's Savings Account 2",
+          "debitCards": [],
+          "unmaskableAttributes": ["BBAN"]
+        },
+        {
+          "id": "007j-jb1234-ank123-it-pt",
+          "legalEntityIds": ["12345ed1abc2134"],
+          "name": "Savings CLOSE 1",
+          "bankAlias": "Savings CLOSE 1",
+          "BBAN": "************1883",
+          "currency": "USD",
+          "externalTransferAllowed": true,
+          "productKindName": "Savings Account",
+          "productTypeName": "Savings Account",
+          "BIC": "WFAP007",
+          "bankBranchCode": "007123456",
+          "creditAccount": false,
+          "debitAccount": false,
+          "bookedBalance": 0,
+          "availableBalance": 0,
+          "accruedInterest": 0.0,
+          "productId": "0789-aq23-56ty-213we-34ertyuu",
+          "visible": true,
+          "accountOpeningDate": "2023-03-02T13:31:59Z",
+          "accountHolderNames": "Ankit P",
+          "lastUpdateDate": "2023-05-05T18:19:12Z",
+          "favorite": false,
+          "product": {
+            "externalId": "savings-account",
+            "externalTypeId": "savings-account",
+            "typeName": "Savings Account",
+            "productKind": {
+              "id": 2,
+              "externalKindId": "kind2",
+              "kindName": "Savings Account",
+              "kindUri": "savings-account"
+            }
+          },
+          "state": { "externalStateId": "Closed", "state": "Closed" },
+          "displayName": "Savings CLOSE 1",
+          "debitCards": [],
+          "unmaskableAttributes": ["BBAN"]
+        }
+      ]
+    },
+    "internal_server_error": {
+      "status": 500,
+      "data": {
+        "message": "Internal server error"
+      }
+    },
+    "not_found": {
+      "status": 404,
+      "data": {
+        "message": "Not found!"
+      }
+    }
+  }
+}

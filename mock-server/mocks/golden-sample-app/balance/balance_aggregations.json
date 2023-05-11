@@ -1,0 +1,37 @@
+{
+  "name": "balances/aggregations",
+  "request": {
+    "url": "/arrangement-manager/client-api/v2/balances/aggregations",
+    "method": "GET"
+  },
+  "responses": {
+    "ok": {
+      "stats": "200",
+      "default": true,
+      "data": [
+        {
+          "numberOfArrangements": 1,
+          "aggregatedBalances": [
+            {
+              "amount": "9693.2500000000",
+              "currencyCode": "USD",
+              "numberOfArrangements": 1
+            }
+          ]
+        }
+      ]
+    },
+    "internal_server_error": {
+      "status": 500,
+      "data": {
+        "message": "Internal server error"
+      }
+    },
+    "not_found": {
+      "status": 404,
+      "data": {
+        "message": "Not found!"
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "accessgroups/user-context",
+  "request": {
+    "url": "/access-control/client-api/v3/accessgroups/user-context",
+    "method": "POST"
+  },
+  "responses": {
+    "ok": {
+      "stats": "204",
+      "default": true,
+      "data": { "serviceAgreementId": "12345ed2abc2134" }
+    },
+    "internal_server_error": {
+      "status": 500,
+      "data": {
+        "message": "Internal server error"
+      }
+    },
+    "not_found": {
+      "status": 404,
+      "data": {
+        "message": "Not found!"
+      }
+    }
+  }
+}
