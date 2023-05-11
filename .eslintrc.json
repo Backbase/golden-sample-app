@@ -17,11 +17,21 @@
                 "onlyDependOnLibsWithTags": ["*"]
               },
               {
+                "sourceTag": "type:shell",
+                "onlyDependOnLibsWithTags": [
+                  "type:util",
+                  "type:data-access",
+                  "type:ui",
+                  "type:feature"
+                ]
+              },
+              {
                 "sourceTag": "type:feature",
                 "onlyDependOnLibsWithTags": [
                   "type:feature",
                   "type:ui",
                   "type:data",
+                  "type:data-access",
                   "type:util"
                 ]
               },
@@ -32,6 +42,10 @@
               {
                 "sourceTag": "type:data",
                 "onlyDependOnLibsWithTags": ["type:data", "type:util"]
+              },
+              {
+                "sourceTag": "type:data-access",
+                "onlyDependOnLibsWithTags": ["type:util", "type:data-access"]
               },
               {
                 "sourceTag": "type:util",

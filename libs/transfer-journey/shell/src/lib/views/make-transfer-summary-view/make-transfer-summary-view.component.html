@@ -1,0 +1,6 @@
+<bb-make-transfer-summary
+  *ngIf="(vm$ | async)! as vm"
+  [transfer]="vm.transfer"
+  (submitTransfer)="submit()"
+  (closeTransfer)="close()"
+></bb-make-transfer-summary>

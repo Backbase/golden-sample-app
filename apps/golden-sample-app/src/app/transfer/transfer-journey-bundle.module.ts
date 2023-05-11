@@ -3,7 +3,7 @@ import {
   MakeTransferCommunicationService,
   MakeTransferJourneyConfiguration,
   TransferJourneyModule,
-} from '@backbase-gsa/transfer';
+} from '@backbase-gsa/transfer-journey';
 import { environment } from '../../environments/environment';
 import { JourneyCommunicationService } from '../services/journey-communication.service';
 

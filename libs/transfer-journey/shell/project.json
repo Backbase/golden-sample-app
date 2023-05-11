@@ -1,0 +1,27 @@
+{
+  "name": "transfer-journey-shell",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/transfer-journey/shell/src",
+  "prefix": "backbase",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/transfer-journey/shell"],
+      "options": {
+        "jestConfig": "libs/transfer-journey/shell/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/transfer-journey/shell/**/*.ts",
+          "libs/transfer-journey/shell/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:transfer-journey", "type:shell"]
+}

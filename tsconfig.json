@@ -22,7 +22,19 @@
     "paths": {
       "@backbase-gsa/ach-positive-pay": ["libs/ach-positive-pay/src/index.ts"],
       "@backbase-gsa/transactions": ["libs/transactions/src/index.ts"],
-      "@backbase-gsa/transfer": ["libs/transfer/src/index.ts"]
+      "@backbase-gsa/transfer": ["libs/transfer/src/index.ts"],
+      "@backbase-gsa/transfer-journey": [
+        "libs/transfer-journey/shell/src/index.ts"
+      ],
+      "@backbase-gsa/transfer-journey-data-access": [
+        "libs/transfer-journey/data-access/src/index.ts"
+      ],
+      "@backbase-gsa/transfer-journey-ui": [
+        "libs/transfer-journey/ui/src/index.ts"
+      ],
+      "@backbase-gsa/transfer-journey-util": [
+        "libs/transfer-journey/util/src/index.ts"
+      ]
     }
   },
   "angularCompilerOptions": {

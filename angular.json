@@ -6,6 +6,10 @@
     "golden-sample-app": "apps/golden-sample-app",
     "golden-sample-app-e2e": "apps/golden-sample-app-e2e",
     "transactions": "libs/transactions",
-    "transfer": "libs/transfer"
+    "transfer": "libs/transfer",
+    "transfer-journey-data-access": "libs/transfer-journey/data-access",
+    "transfer-journey-shell": "libs/transfer-journey/shell",
+    "transfer-journey-ui": "libs/transfer-journey/ui",
+    "transfer-journey-util": "libs/transfer-journey/util"
   }
 }

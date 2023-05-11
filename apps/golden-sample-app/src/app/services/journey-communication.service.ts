@@ -5,7 +5,7 @@ import { TransactionsCommunicationService } from '@backbase-gsa/transactions';
 import {
   MakeTransferCommunicationService,
   Transfer,
-} from '@backbase-gsa/transfer';
+} from '@backbase-gsa/transfer-journey';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

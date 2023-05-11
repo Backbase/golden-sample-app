@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="bb-card col-lg-6">
+    <div class="bb-card__header">
+      <h1 class="bb-card__title">{{ title }}</h1>
+    </div>
+
+    <div class="bb-card__body">
+      <bb-alert-ui
+        *ngIf="accountName"
+        title="Transfer Alert"
+        modifier="info"
+        [message]="repeatMessage"
+        i18n-title="A title for Repeat Transfer Alert@@transfer.repeat.title"
+        data-role="alert-multiple-lines"
+      ></bb-alert-ui>
+
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
