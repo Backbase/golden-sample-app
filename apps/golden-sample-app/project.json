@@ -76,6 +76,20 @@
           "sourceMap": true,
           "namedChunks": true,
           "localize": ["nl-NL"]
+        },
+        "mocks": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/golden-sample-app/src/environments/environment.ts",
+              "with": "apps/golden-sample-app/src/environments/environment.mocks.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
@@ -92,6 +106,10 @@
         },
         "nl": {
           "browserTarget": "golden-sample-app:build:nl"
+        },
+        "mocks": {
+          "browserTarget": "golden-sample-app:build:mocks",
+          "proxyConfig": "./apps/golden-sample-app/proxy.mocks.conf.json"
         }
       },
       "defaultConfiguration": "development"

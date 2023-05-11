@@ -15,6 +15,7 @@ import { filter, map, share, take } from 'rxjs';
 export class ActivityMonitorComponent implements OnInit {
   private readonly events$ = this.activityMonitorService.events.pipe(share());
   private readonly openTypes = ['start', 'tick'];
+  readonly countdownDuration = 30;
   readonly isOpen$ = this.events$.pipe(
     map(({ type }) => this.openTypes.includes(type))
   );
@@ -57,7 +58,7 @@ export class ActivityMonitorComponent implements OnInit {
         if (loggedIn) {
           this.activityMonitorService.start({
             maxInactivityDuration: 300,
-            countdownDuration: 30,
+            countdownDuration: this.countdownDuration,
           });
         } else {
           this.activityMonitorService.stop();

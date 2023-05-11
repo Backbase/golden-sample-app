@@ -121,6 +121,10 @@ Run `npm run start` for a dev server. Navigate to <http://0.0.0.0:4200/>. The ap
 
 Credentials to login can be found [here](https://backbase.io/developers/documentation/api-sandbox/runtime_data/user_credentials/).
 
+## Running the app with Mocks
+
+Run `npm run mock-server` for bringing up the mock server followed by `npm run start:mocks` for running the application locally with mocks.
+
 ## Code scaffolding
 
 Run `ng g component my-component --project=my-app` to generate a new component.
