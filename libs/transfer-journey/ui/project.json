@@ -5,6 +5,22 @@
   "sourceRoot": "libs/transfer-journey/ui/src",
   "prefix": "bb",
   "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/transfer-journey/ui"],
+      "options": {
+        "project": "libs/transfer-journey/ui/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transfer-journey/ui/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transfer-journey/ui/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/transfer-journey/ui"],

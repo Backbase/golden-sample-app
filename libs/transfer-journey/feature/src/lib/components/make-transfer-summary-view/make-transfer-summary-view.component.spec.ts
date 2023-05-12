@@ -4,10 +4,10 @@ import {
   Router,
 } from '@angular/router';
 import { of } from 'rxjs';
-import { MakeTransferCommunicationService } from '../../services/make-transfer-communication.service';
 import {
+  MakeTransferCommunicationService,
   MakeTransferJourneyState,
-  TransferOperationStatus,
+  TransferOperationStatus
 } from '@backbase-gsa/internal-transfer-data-access';
 import { MakeTransferSummaryViewComponent } from './make-transfer-summary-view.component';
 

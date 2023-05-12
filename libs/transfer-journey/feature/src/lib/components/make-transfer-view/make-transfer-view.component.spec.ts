@@ -4,10 +4,8 @@ import {
   Router,
 } from '@angular/router';
 import { of } from 'rxjs';
-import { Transfer } from '@backbase-gsa/internal-transfer-util';
-import { MakeTransferJourneyConfiguration } from '@backbase-gsa/internal-transfer-data-access';
-import { MakeTransferJourneyState } from '@backbase-gsa/internal-transfer-data-access';
-import { MakeTransferPermissionsService } from '@backbase-gsa/internal-transfer-data-access';
+import { Transfer } from '@backbase-gsa/internal-transfer-shared-data';
+import { MakeTransferJourneyConfiguration, MakeTransferJourneyState, MakeTransferPermissionsService } from '@backbase-gsa/internal-transfer-data-access';
 import { MakeTransferViewComponent } from './make-transfer-view.component';
 
 describe('MakeTransferViewComponent', () => {

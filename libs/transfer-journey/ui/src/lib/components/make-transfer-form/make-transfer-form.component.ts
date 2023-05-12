@@ -1,17 +1,16 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { InputValidationMessageModule } from '@backbase/ui-ang/input-validation-message';
-import { CurrencyInputModule } from '@backbase/ui-ang/currency-input';
-import { ButtonModule } from '@backbase/ui-ang/button';
 import {
+  ReactiveFormsModule,
   AbstractControl,
   FormBuilder,
   FormGroup,
-  Validators,
+  Validators
 } from '@angular/forms';
-import { TRANSLATIONS } from '@backbase-gsa/internal-transfer-util';
-import { Account, Transfer } from '@backbase-gsa/internal-transfer-util';
+import { InputValidationMessageModule } from '@backbase/ui-ang/input-validation-message';
+import { CurrencyInputModule } from '@backbase/ui-ang/currency-input';
+import { ButtonModule } from '@backbase/ui-ang/button';
+import { TRANSLATIONS, Account, Transfer } from '@backbase-gsa/internal-transfer-shared-data';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

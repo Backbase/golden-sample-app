@@ -3,7 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/transfer-journey/feature/src",
-  "prefix": "backbase",
+  "prefix": "bb",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",

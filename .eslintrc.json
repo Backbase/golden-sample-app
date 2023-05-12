@@ -22,7 +22,8 @@
                   "type:util",
                   "type:data-access",
                   "type:ui",
-                  "type:feature"
+                  "type:feature",
+                  "type:shared-data"
                 ]
               },
               {
@@ -32,20 +33,25 @@
                   "type:ui",
                   "type:data",
                   "type:data-access",
-                  "type:util"
+                  "type:util",
+                  "type:shared-data"
                 ]
               },
               {
                 "sourceTag": "type:ui",
-                "onlyDependOnLibsWithTags": ["type:ui", "type:util"]
+                "onlyDependOnLibsWithTags": ["type:ui", "type:util", "type:shared-data"]
               },
               {
                 "sourceTag": "type:data",
                 "onlyDependOnLibsWithTags": ["type:data", "type:util"]
               },
               {
+                "sourceTag": "type:shared-data",
+                "onlyDependOnLibsWithTags": ["type:shared-data", "type:util"]
+              },
+              {
                 "sourceTag": "type:data-access",
-                "onlyDependOnLibsWithTags": ["type:util", "type:data-access"]
+                "onlyDependOnLibsWithTags": ["type:util", "type:data-access", "type:shared-data"]
               },
               {
                 "sourceTag": "type:util",
