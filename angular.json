@@ -12,8 +12,9 @@
     "transactions-journey-util": "libs/transactions-journey/util",
     "transfer": "libs/transfer",
     "transfer-journey-data-access": "libs/transfer-journey/data-access",
+    "transfer-journey-feature": "libs/transfer-journey/feature",
+    "transfer-journey-shared-data": "libs/transfer-journey/shared-data",
     "transfer-journey-shell": "libs/transfer-journey/shell",
-    "transfer-journey-ui": "libs/transfer-journey/ui",
-    "transfer-journey-util": "libs/transfer-journey/util"
+    "transfer-journey-ui": "libs/transfer-journey/ui"
   }
 }

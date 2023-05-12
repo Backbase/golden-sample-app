@@ -29,10 +29,10 @@ describe('ActivityMonitorComponent', () => {
     const oAuthService = mock<OAuthService>({
       hasValidAccessToken: jest.fn(),
       logOut: jest.fn(),
-      initLoginFlow: jest.fn(),
     });
     const authService = mock<AuthService>({
       isAuthenticated$,
+      initLoginFlow: jest.fn(),
     });
     const component = new ActivityMonitorComponent(
       activityMonitorService,
@@ -134,8 +134,13 @@ describe('ActivityMonitorComponent', () => {
       });
     });
     it('should init login flow when end event is emitted and user has invalid access token', async () => {
-      const { component, scheduler, activityEvents, oAuthService } =
-        getInstance();
+      const {
+        component,
+        scheduler,
+        activityEvents,
+        oAuthService,
+        authService,
+      } = getInstance();
       const { endEvent } = getData();
 
       scheduler.run(({ flush }) => {
@@ -145,7 +150,7 @@ describe('ActivityMonitorComponent', () => {
         activityEvents.next(endEvent);
         flush();
 
-        expect(oAuthService.initLoginFlow).toHaveBeenCalled();
+        expect(authService.initLoginFlow).toHaveBeenCalled();
       });
     });
   });

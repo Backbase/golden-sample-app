@@ -4,7 +4,7 @@ import {
   Router,
 } from '@angular/router';
 import { of } from 'rxjs';
-import { MakeTransferJourneyState } from '@backbase-gsa/transfer-journey-data-access';
+import { MakeTransferJourneyState } from '@backbase-gsa/internal-transfer-data-access';
 import { MakeTransferSuccessViewComponent } from './make-transfer-success-view.component';
 
 describe('MakeTransferSuccessViewComponent', () => {

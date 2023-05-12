@@ -11,8 +11,8 @@ import {
   tap,
   throwError,
 } from 'rxjs';
-import { Account, Transfer } from '@backbase-gsa/transfer-journey-util';
-import { MakeTransferAccountHttpService } from '../services/make-transfer-accounts.http.service';
+import { Account, Transfer } from '@backbase-gsa/internal-transfer-shared-data';
+import { MakeTransferAccountHttpService } from './make-transfer-accounts.http.service';
 
 export enum TransferOperationStatus {
   INIT = 0,

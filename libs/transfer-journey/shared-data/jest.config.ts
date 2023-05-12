@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'transfer-journey-util',
+  displayName: 'transfer-journey-shared-data',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/transfer-journey/util',
+  coverageDirectory: '../../../coverage/libs/transfer-journey/shared-data',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

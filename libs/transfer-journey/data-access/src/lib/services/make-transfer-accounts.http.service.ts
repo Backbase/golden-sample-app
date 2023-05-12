@@ -5,7 +5,7 @@ import {
 } from '@backbase/arrangement-manager-http-ang';
 import { Injectable } from '@angular/core';
 import { map, of } from 'rxjs';
-import { Transfer } from '@backbase-gsa/transfer-journey-util';
+import { Transfer } from '@backbase-gsa/internal-transfer-shared-data';
 import {
   ErrorStatus,
   ErrorStatusEnum,

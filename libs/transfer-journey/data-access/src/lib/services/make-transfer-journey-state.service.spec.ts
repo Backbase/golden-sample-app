@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
-import { Transfer } from '@backbase-gsa/transfer-journey-util';
-import { MakeTransferAccountHttpService } from '../services/make-transfer-accounts.http.service';
+import { Transfer } from '@backbase-gsa/internal-transfer-shared-data';
+import { MakeTransferAccountHttpService } from './make-transfer-accounts.http.service';
 import { MakeTransferJourneyState } from './make-transfer-journey-state.service';
 
 describe('MakeTransferJourneyState', () => {
