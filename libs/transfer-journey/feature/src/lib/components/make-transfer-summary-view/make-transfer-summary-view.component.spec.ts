@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 import {
   MakeTransferCommunicationService,
   MakeTransferJourneyState,
-  TransferOperationStatus
+  TransferOperationStatus,
 } from '@backbase-gsa/internal-transfer-data-access';
 import { MakeTransferSummaryViewComponent } from './make-transfer-summary-view.component';
 

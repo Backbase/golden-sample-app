@@ -8,9 +8,12 @@ import {
   ErrorStatus,
   MakeTransferJourneyState,
   TransferLoadingStatus,
-  MakeTransferPermissionsService, 
+  MakeTransferPermissionsService,
 } from '@backbase-gsa/internal-transfer-data-access';
-import {   Transfer, TransferSubmitEvent } from '@backbase-gsa/internal-transfer-shared-data';
+import {
+  Transfer,
+  TransferSubmitEvent,
+} from '@backbase-gsa/internal-transfer-shared-data';
 import { MakeTransferFormComponent } from '@backbase-gsa/internal-transfer-ui';
 
 import { map } from 'rxjs/operators';
@@ -19,8 +22,16 @@ import { Observable } from 'rxjs';
 
 @Component({
   templateUrl: 'make-transfer-view.component.html',
-  imports: [NgIf, NgSwitchCase, AsyncPipe, NgSwitch, AlertModule, MakeTransferFormComponent, LoadingIndicatorModule],
-  standalone: true
+  imports: [
+    NgIf,
+    NgSwitchCase,
+    AsyncPipe,
+    NgSwitch,
+    AlertModule,
+    MakeTransferFormComponent,
+    LoadingIndicatorModule,
+  ],
+  standalone: true,
 })
 export class MakeTransferViewComponent {
   vm$ = this.transferStore.vm$;

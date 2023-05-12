@@ -1,12 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { provideRoutes, Route, RouterModule } from '@angular/router';
-import { MakeTransferFormComponent, MakeTransferSummaryComponent } from '@backbase-gsa/internal-transfer-ui';
+import {
+  MakeTransferFormComponent,
+  MakeTransferSummaryComponent,
+} from '@backbase-gsa/internal-transfer-ui';
 import { MakeTransferJourneyStoreGuard } from './make-transfer-journey-store-guard';
 import { TransferJourneyComponent } from './transfer-journey.component';
-import { MakeTransferSuccessViewComponent, MakeTransferSummaryViewComponent, MakeTransferViewComponent } from '@backbase-gsa/internal-transfer-feature';
+import {
+  MakeTransferSuccessViewComponent,
+  MakeTransferSummaryViewComponent,
+  MakeTransferViewComponent,
+} from '@backbase-gsa/internal-transfer-feature';
 import { MakeTransferJourneyConfiguration } from '@backbase-gsa/internal-transfer-data-access';
-import { MakeTransferPermissionsService, MakeTransferAccountHttpService, MakeTransferRouteTitleResolverService } from '@backbase-gsa/internal-transfer-data-access';
+import {
+  MakeTransferPermissionsService,
+  MakeTransferAccountHttpService,
+  MakeTransferRouteTitleResolverService,
+} from '@backbase-gsa/internal-transfer-data-access';
 import { TRANSLATIONS } from '@backbase-gsa/internal-transfer-shared-data';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { AlertModule } from '@backbase/ui-ang/alert';
@@ -56,9 +67,7 @@ const defaultRoute: Route = {
 };
 
 @NgModule({
-  declarations: [
-    TransferJourneyComponent
-  ],
+  declarations: [TransferJourneyComponent],
   imports: [
     CommonModule,
     RouterModule,

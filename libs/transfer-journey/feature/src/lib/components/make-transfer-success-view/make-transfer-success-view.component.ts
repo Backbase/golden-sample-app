@@ -8,7 +8,7 @@ import { ButtonModule } from '@backbase/ui-ang/button';
 @Component({
   templateUrl: 'make-transfer-success-view.component.html',
   imports: [AsyncPipe, NgIf, ButtonModule],
-  standalone: true
+  standalone: true,
 })
 export class MakeTransferSuccessViewComponent {
   transfer$ = this.transferStore.transfer$;

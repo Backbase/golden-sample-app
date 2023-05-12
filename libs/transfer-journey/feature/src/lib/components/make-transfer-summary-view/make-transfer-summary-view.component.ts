@@ -5,14 +5,14 @@ import { filter } from 'rxjs';
 import {
   MakeTransferCommunicationService,
   MakeTransferJourneyState,
-  TransferOperationStatus
+  TransferOperationStatus,
 } from '@backbase-gsa/internal-transfer-data-access';
 import { MakeTransferSummaryComponent } from '@backbase-gsa/internal-transfer-ui';
 
 @Component({
   templateUrl: 'make-transfer-summary-view.component.html',
-  imports: [NgIf, AsyncPipe,  MakeTransferSummaryComponent],
-  standalone: true
+  imports: [NgIf, AsyncPipe, MakeTransferSummaryComponent],
+  standalone: true,
 })
 export class MakeTransferSummaryViewComponent implements OnDestroy {
   vm$ = this.transferStore.vm$;
@@ -52,7 +52,7 @@ export class MakeTransferSummaryViewComponent implements OnDestroy {
     private readonly router: Router,
     @Optional()
     private externalCommunicationService: MakeTransferCommunicationService
-  ) { }
+  ) {}
 
   ngOnDestroy(): void {
     this.successfulOperation.unsubscribe();

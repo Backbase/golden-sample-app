@@ -5,12 +5,16 @@ import {
   AbstractControl,
   FormBuilder,
   FormGroup,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { InputValidationMessageModule } from '@backbase/ui-ang/input-validation-message';
 import { CurrencyInputModule } from '@backbase/ui-ang/currency-input';
 import { ButtonModule } from '@backbase/ui-ang/button';
-import { TRANSLATIONS, Account, Transfer } from '@backbase-gsa/internal-transfer-shared-data';
+import {
+  TRANSLATIONS,
+  Account,
+  Transfer,
+} from '@backbase-gsa/internal-transfer-shared-data';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
