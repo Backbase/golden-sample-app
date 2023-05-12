@@ -1,0 +1,43 @@
+{
+  "name": "transfer-journey-feature",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/transfer-journey/feature/src",
+  "prefix": "bb",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/transfer-journey/feature"],
+      "options": {
+        "project": "libs/transfer-journey/feature/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transfer-journey/feature/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transfer-journey/feature/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/transfer-journey/feature"],
+      "options": {
+        "jestConfig": "libs/transfer-journey/feature/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/transfer-journey/feature/**/*.ts",
+          "libs/transfer-journey/feature/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:transfer-journey", "type:feature"]
+}

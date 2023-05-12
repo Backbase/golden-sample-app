@@ -1,0 +1,43 @@
+{
+  "name": "transfer-journey-ui",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/transfer-journey/ui/src",
+  "prefix": "bb",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/transfer-journey/ui"],
+      "options": {
+        "project": "libs/transfer-journey/ui/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transfer-journey/ui/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transfer-journey/ui/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/transfer-journey/ui"],
+      "options": {
+        "jestConfig": "libs/transfer-journey/ui/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/transfer-journey/ui/**/*.ts",
+          "libs/transfer-journey/ui/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:transfer-journey", "type:ui"]
+}

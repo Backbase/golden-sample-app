@@ -1,0 +1,43 @@
+<div>
+  <p i18n="summary heading label@@transfer.summary.heading.label">
+    Are you sure to send out this transfer?
+  </p>
+  <strong
+    i18n="
+      summary account description
+      label@@transfer.summary.account.description.label"
+    >it will be send to account:</strong
+  >
+  <br />
+  <span data-role="transfer-account-destination">{{
+    transfer?.toAccount
+  }}</span>
+  <br />
+  <strong
+    i18n="
+      summary amount description
+      label@@transfer.summary.amount.description.label"
+    >With amount of:</strong
+  >
+  <br />
+  <span data-role="transfer-amount">{{ transfer?.amount }}</span>
+</div>
+<div class="bb-button-bar">
+  <button
+    bbButton
+    class="bb-button-bar__button"
+    i18n="submit button@@transfer.summary.submit.text"
+    (click)="submit()"
+  >
+    Submit
+  </button>
+  <button
+    bbButton
+    class="bb-button-bar__button"
+    color="secondary"
+    i18n="close button@@transfer.summary.close.text"
+    (click)="close()"
+  >
+    Close
+  </button>
+</div>

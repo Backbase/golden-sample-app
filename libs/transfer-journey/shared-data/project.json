@@ -1,0 +1,43 @@
+{
+  "name": "transfer-journey-shared-data",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/transfer-journey/shared-data/src",
+  "prefix": "backbase",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/transfer-journey/shared-data"],
+      "options": {
+        "project": "libs/transfer-journey/shared-data/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transfer-journey/shared-data/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transfer-journey/shared-data/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/transfer-journey/shared-data"],
+      "options": {
+        "jestConfig": "libs/transfer-journey/shared-data/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/transfer-journey/shared-data/**/*.ts",
+          "libs/transfer-journey/shared-data/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:shared-data"]
+}
