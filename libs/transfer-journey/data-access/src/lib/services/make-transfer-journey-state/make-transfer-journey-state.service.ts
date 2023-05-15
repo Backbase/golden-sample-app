@@ -12,7 +12,7 @@ import {
   throwError,
 } from 'rxjs';
 import { Account, Transfer } from '@backbase-gsa/internal-transfer-shared-data';
-import { MakeTransferAccountHttpService } from './make-transfer-accounts.http.service';
+import { MakeTransferAccountHttpService } from '../make-transfer-accounts/make-transfer-accounts.http.service';
 
 export enum TransferOperationStatus {
   INIT = 0,

@@ -1,0 +1,37 @@
+<span
+  class="transactions-item__color-indication"
+  [ngClass]="{
+    'transactions-item__color-indication--positive': isAmountPositive,
+    'transactions-item__color-indication--negative': !isAmountPositive
+  }"
+></span>
+<span class="transactions-item__date">{{
+  transaction.bookingDate | date : 'MMM. d'
+}}</span>
+<span class="transactions-item__description">
+  <span class="transactions-item__counterParty">{{
+    transaction.counterPartyName || transaction.merchant?.name
+  }}</span>
+  <span class="transactions-item__transactionType">
+    {{ transaction.type }}
+    <ng-container
+      *ngIf="additionsDetails"
+      bbTransactionsItemAdditions
+      [componentType]="additionsDetails"
+      [context]="additionsDetailsContext"
+    ></ng-container>
+  </span>
+</span>
+<span
+  class="transactions-item__amount"
+  [ngClass]="{ negative: !isAmountPositive }"
+>
+  <bb-amount-ui
+    [currency]="transaction.transactionAmountCurrency.currencyCode"
+    [amount]="transaction.transactionAmountCurrency.amount"
+    [mapCurrency]="true"
+    [showPlusSign]="false"
+    [abbreviate]="false"
+  >
+  </bb-amount-ui>
+</span>

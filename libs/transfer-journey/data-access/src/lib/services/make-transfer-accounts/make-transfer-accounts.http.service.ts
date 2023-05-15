@@ -9,7 +9,7 @@ import { Transfer } from '@backbase-gsa/internal-transfer-shared-data';
 import {
   ErrorStatus,
   ErrorStatusEnum,
-} from './make-transfer-journey-state.service';
+} from '../make-transfer-journey-state/make-transfer-journey-state.service';
 
 @Injectable()
 export class MakeTransferAccountHttpService {
