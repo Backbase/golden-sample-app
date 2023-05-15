@@ -1,4 +1,4 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   ActivatedRoute,
@@ -10,20 +10,23 @@ import { BehaviorSubject, delay, of } from 'rxjs';
 import {
   TransactionsCommunicationService,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
-} from '../../services/communication';
+} from '@backbase-gsa/internal-transactions-data-access';
 import {
   debitMockTransaction,
   transactionsMock,
-  FilterTransactionsPipe,
 } from '@backbase-gsa/internal-transactions-util';
-import {
-  TransactionsHttpService,
-  ArrangementsService,
-} from '@backbase-gsa/internal-transactions-data-access';
+import { FilterTransactionsPipe } from '@backbase-gsa/internal-transactions-util';
+import { TransactionsHttpService, ArrangementsService  } from '@backbase-gsa/internal-transactions-data-access';
 import { TransactionsViewComponent } from './transactions-view.component';
 import { By } from '@angular/platform-browser';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 
+@Component({
+  selector: "bb-text-filter-component",
+  standalone: true,
+  template: "",
+})
+class MockTextFilterComponent {}
 describe('TransactionsViewComponent', () => {
   let transactions$$: BehaviorSubject<TransactionItem[] | undefined>;
   let arrangements$$: BehaviorSubject<ProductSummaryItem[]>;
@@ -67,7 +70,10 @@ describe('TransactionsViewComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [TransactionsViewComponent, FilterTransactionsPipe],
+      declarations: [
+        TransactionsViewComponent,
+      ],
+      imports: [MockTextFilterComponent, FilterTransactionsPipe],
       providers: [
         {
           provide: ActivatedRoute,

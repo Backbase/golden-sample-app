@@ -7,6 +7,8 @@
     "golden-sample-app-e2e": "apps/golden-sample-app-e2e",
     "transactions": "libs/transactions",
     "transactions-journey-data-access": "libs/transactions-journey/data-access",
+    "transactions-journey-feature": "libs/transactions-journey/feature",
+    "transactions-journey-shared-data": "libs/transactions-journey/shared-data",
     "transactions-journey-shell": "libs/transactions-journey/shell",
     "transactions-journey-ui": "libs/transactions-journey/ui",
     "transactions-journey-util": "libs/transactions-journey/util",

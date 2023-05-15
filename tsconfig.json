@@ -21,22 +21,17 @@
     "lib": ["es2020", "dom"],
     "paths": {
       "@backbase-gsa/ach-positive-pay": ["libs/ach-positive-pay/src/index.ts"],
-      "@backbase-gsa/transactions": ["libs/transactions/src/index.ts"],
-      "@backbase-gsa/transactions-journey": [
-        "libs/transactions-journey/shell/src/index.ts"
-      ],
       "@backbase-gsa/internal-transactions-data-access": [
         "libs/transactions-journey/data-access/src/index.ts"
+      ],
+      "@backbase-gsa/internal-transactions-feature": [
+        "libs/transactions-journey/feature/src/index.ts"
       ],
       "@backbase-gsa/internal-transactions-ui": [
         "libs/transactions-journey/ui/src/index.ts"
       ],
       "@backbase-gsa/internal-transactions-util": [
         "libs/transactions-journey/util/src/index.ts"
-      ],  
-      "@backbase-gsa/transfer": ["libs/transfer/src/index.ts"],
-      "@backbase-gsa/transfer-journey": [
-        "libs/transfer-journey/shell/src/index.ts"
       ],
       "@backbase-gsa/internal-transfer-data-access": [
         "libs/transfer-journey/data-access/src/index.ts"
@@ -44,11 +39,22 @@
       "@backbase-gsa/internal-transfer-feature": [
         "libs/transfer-journey/feature/src/index.ts"
       ],
+      "@backbase-gsa/internal-transfer-shared-data": [
+        "libs/transfer-journey/shared-data/src/index.ts"
+      ],
       "@backbase-gsa/internal-transfer-ui": [
         "libs/transfer-journey/ui/src/index.ts"
       ],
-      "@backbase-gsa/internal-transfer-shared-data": [
-        "libs/transfer-journey/shared-data/src/index.ts"
+      "@backbase-gsa/transactions": ["libs/transactions/src/index.ts"],
+      "@backbase-gsa/transactions-journey": [
+        "libs/transactions-journey/shell/src/index.ts"
+      ],
+      "@backbase-gsa/transfer": ["libs/transfer/src/index.ts"],
+      "@backbase-gsa/transfer-journey": [
+        "libs/transfer-journey/shell/src/index.ts"
+      ],
+      "@backbase/internal-transactions-shared-data": [
+        "libs/transactions-journey/shared-data/src/index.ts"
       ]
     }
   },

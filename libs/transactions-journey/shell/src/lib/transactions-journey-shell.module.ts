@@ -11,21 +11,15 @@ import { IconModule } from '@backbase/ui-ang/icon';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 
 import { TextFilterComponent } from '@backbase-gsa/internal-transactions-ui';
+
+import { TRANSLATIONS } from '@backbase/internal-transactions-shared-data';
+import { TransactionsJourneyConfiguration, TransactionsRouteTitleResolverService } from '@backbase-gsa/internal-transactions-data-access';
 import {
-  TransactionItemComponent,
-  TransactionItemAdditionalDetailsDirective,
-} from './components/transaction-item/transaction-item.component';
-import { TRANSLATIONS } from './config/constants/dynamic-translations';
-import { FilterTransactionsPipe } from '@backbase-gsa/internal-transactions-util';
-import { TransactionsJourneyConfiguration } from '@backbase-gsa/internal-transactions-data-access';
-import { TransactionsRouteTitleResolverService } from '@backbase-gsa/internal-transactions-data-access';
-import { TransactionsHttpService } from '@backbase-gsa/internal-transactions-data-access';
-import { TransactionsViewComponent } from './views/transactions-view/transactions-view.component';
-import { TransactionDetailsComponent } from './views/transaction-details-view/transaction-details-view.component';
-import {
+  TransactionsViewComponent,
+  TransactionDetailsComponent,
   TRANSACTION_EXTENSIONS_CONFIG,
-  TransactionsJourneyExtensionsConfig,
-} from './extensions';
+  TransactionsJourneyExtensionsConfig
+} from '@backbase-gsa/internal-transactions-feature';
 
 const defaultRoutes: Routes = [
   {
@@ -56,13 +50,7 @@ export interface TransactionsJourneyModuleConfig {
 }
 
 @NgModule({
-  declarations: [
-    TransactionsViewComponent,
-    TransactionItemComponent,
-    FilterTransactionsPipe,
-    TransactionItemAdditionalDetailsDirective,
-    TransactionDetailsComponent,
-  ],
+  declarations: [TransactionsViewComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -73,12 +61,12 @@ export interface TransactionsJourneyModuleConfig {
     IconModule,
     BadgeModule,
     TextFilterComponent,
+    TransactionDetailsComponent,
     TrackerModule.forJourney({
       journeyName: 'transactions',
     }),
   ],
   providers: [
-    TransactionsHttpService,
     TransactionsJourneyConfiguration,
     TransactionsRouteTitleResolverService,
   ],

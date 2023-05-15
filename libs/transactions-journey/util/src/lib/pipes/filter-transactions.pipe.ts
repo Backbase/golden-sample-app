@@ -3,6 +3,7 @@ import { TransactionItem } from '@backbase/transactions-http-ang';
 
 @Pipe({
   name: 'filterTransactions',
+  standalone: true
 })
 export class FilterTransactionsPipe implements PipeTransform {
   transform(value: TransactionItem[], text: string): TransactionItem[] {

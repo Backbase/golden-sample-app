@@ -2,13 +2,13 @@ export * from './lib/transactions-journey-shell.module';
 export {
   TransactionsCommunicationService,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
-} from './lib/services/communication';
+} from '@backbase-gsa/internal-transactions-data-access';
 export {
   // don't export the private config injection token
   TransactionsJourneyExtensionsConfig,
   TransactionAdditionalDetailsComponent,
   TransactionAdditionalDetailsContext,
-} from './lib/extensions';
+} from '@backbase-gsa/internal-transactions-feature';
 export {
   TransactionsJourneyConfiguration,
   ArrangementsService,

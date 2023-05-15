@@ -1,6 +1,5 @@
 import { Component, QueryList, TemplateRef, ViewChildren } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AmountModule } from '@backbase/ui-ang/amount';
 import {
   creditMockTransaction,
   debitMockTransaction,
@@ -55,11 +54,10 @@ describe('TransactionItemComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [
-        TransactionItemComponent,
         TestTransactionItemComponent,
         TestComponent,
       ],
-      imports: [AmountModule],
+      imports: [TransactionItemComponent],
       providers: [
         { provide: TransactionsJourneyConfiguration, useValue: mockConfig },
         {

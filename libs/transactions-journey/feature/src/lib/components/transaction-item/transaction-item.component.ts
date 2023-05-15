@@ -16,12 +16,23 @@ import {
   TransactionAdditionalDetailsComponent,
   TransactionAdditionalDetailsContext,
 } from '../../extensions';
+import { AmountModule } from '@backbase/ui-ang/amount';
+import { CommonModule } from '@angular/common';
+
+
+@Directive({
+  selector: '[bbTransactionsItemAdditions]',
+  standalone: true,
+})
+export class TransactionItemAdditionalDetailsDirective extends ViewExtensionDirective<TransactionAdditionalDetailsContext> {}
 
 @Component({
   selector: 'bb-transaction-item',
   templateUrl: './transaction-item.component.html',
   styleUrls: ['./transaction-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ AmountModule, TransactionItemAdditionalDetailsDirective, CommonModule ],
+  standalone: true
 })
 export class TransactionItemComponent implements OnChanges {
   @Input()
@@ -58,8 +69,3 @@ export class TransactionItemComponent implements OnChanges {
     }
   }
 }
-
-@Directive({
-  selector: '[bbTransactionsItemAdditions]',
-})
-export class TransactionItemAdditionalDetailsDirective extends ViewExtensionDirective<TransactionAdditionalDetailsContext> {}
