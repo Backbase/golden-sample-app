@@ -13,12 +13,16 @@ import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { TextFilterComponent } from '@backbase-gsa/internal-transactions-ui';
 
 import { TRANSLATIONS } from '@backbase/internal-transactions-shared-data';
-import { TransactionsJourneyConfiguration, TransactionsRouteTitleResolverService } from '@backbase-gsa/internal-transactions-data-access';
+import {
+  TransactionsJourneyConfiguration,
+  TransactionsRouteTitleResolverService,
+} from '@backbase-gsa/internal-transactions-data-access';
 import {
   TransactionsViewComponent,
   TransactionDetailsComponent,
   TRANSACTION_EXTENSIONS_CONFIG,
-  TransactionsJourneyExtensionsConfig
+  TransactionsJourneyExtensionsConfig,
+  TransactionsViewModule,
 } from '@backbase-gsa/internal-transactions-feature';
 
 const defaultRoutes: Routes = [
@@ -50,7 +54,6 @@ export interface TransactionsJourneyModuleConfig {
 }
 
 @NgModule({
-  declarations: [TransactionsViewComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -62,6 +65,7 @@ export interface TransactionsJourneyModuleConfig {
     BadgeModule,
     TextFilterComponent,
     TransactionDetailsComponent,
+    TransactionsViewModule,
     TrackerModule.forJourney({
       journeyName: 'transactions',
     }),

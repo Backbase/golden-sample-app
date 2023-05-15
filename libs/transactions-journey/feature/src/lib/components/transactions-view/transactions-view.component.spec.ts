@@ -16,15 +16,18 @@ import {
   transactionsMock,
 } from '@backbase-gsa/internal-transactions-util';
 import { FilterTransactionsPipe } from '@backbase-gsa/internal-transactions-util';
-import { TransactionsHttpService, ArrangementsService  } from '@backbase-gsa/internal-transactions-data-access';
+import {
+  TransactionsHttpService,
+  ArrangementsService,
+} from '@backbase-gsa/internal-transactions-data-access';
 import { TransactionsViewComponent } from './transactions-view.component';
 import { By } from '@angular/platform-browser';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 
 @Component({
-  selector: "bb-text-filter-component",
+  selector: 'bb-text-filter-component',
   standalone: true,
-  template: "",
+  template: '',
 })
 class MockTextFilterComponent {}
 describe('TransactionsViewComponent', () => {
@@ -70,9 +73,7 @@ describe('TransactionsViewComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [
-        TransactionsViewComponent,
-      ],
+      declarations: [TransactionsViewComponent],
       imports: [MockTextFilterComponent, FilterTransactionsPipe],
       providers: [
         {

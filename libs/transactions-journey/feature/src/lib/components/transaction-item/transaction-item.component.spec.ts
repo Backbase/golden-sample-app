@@ -53,10 +53,7 @@ describe('TransactionItemComponent', () => {
     // mockTemplateService.additionalDetailsTemplate = undefined;
 
     await TestBed.configureTestingModule({
-      declarations: [
-        TestTransactionItemComponent,
-        TestComponent,
-      ],
+      declarations: [TestTransactionItemComponent, TestComponent],
       imports: [TransactionItemComponent],
       providers: [
         { provide: TransactionsJourneyConfiguration, useValue: mockConfig },

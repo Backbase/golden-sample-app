@@ -3,20 +3,23 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ScreenViewTrackerEventPayload, Tracker } from '@backbase/foundation-ang/observability';
+import {
+  ScreenViewTrackerEventPayload,
+  Tracker,
+} from '@backbase/foundation-ang/observability';
 
 import {
   TransactionsCommunicationService,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
   ArrangementsService,
-  TransactionsHttpService
+  TransactionsHttpService,
 } from '@backbase-gsa/internal-transactions-data-access';
-import { TransactionListTrackerEvent } from '@backbase/internal-transactions-shared-data';
 
+import { TransactionListTrackerEvent } from '@backbase/internal-transactions-shared-data';
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
-  selector: 'bb-transactions-view'
+  selector: 'bb-transactions-view',
 })
 export class TransactionsViewComponent {
   public title = this.route.snapshot.data['title'];

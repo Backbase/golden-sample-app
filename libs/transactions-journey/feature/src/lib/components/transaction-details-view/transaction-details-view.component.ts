@@ -1,11 +1,16 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Optional } from '@angular/core';
-import { ActivatedRoute, Params, RouterLink, RouterModule } from '@angular/router';
+import {
+  ActivatedRoute,
+  Params,
+  RouterLink,
+  RouterModule,
+} from '@angular/router';
 import { Currency, TransactionItem } from '@backbase/transactions-http-ang';
 import {
   ScreenViewTrackerEventPayload,
   Tracker,
-  TrackerModule
+  TrackerModule,
 } from '@backbase/foundation-ang/observability';
 import { combineLatest, map } from 'rxjs';
 import { TransactionsHttpService } from '@backbase-gsa/internal-transactions-data-access';
@@ -34,8 +39,15 @@ interface TransactionDetailsView {
   templateUrl: './transaction-details-view.component.html',
   selector: 'bb-transaction-details',
   styleUrls: ['./transaction-details-view.component.scss'],
-  imports: [ TrackerModule, ButtonModule, AmountModule, IconModule, RouterModule, CommonModule ],
-  standalone: true
+  imports: [
+    TrackerModule,
+    ButtonModule,
+    AmountModule,
+    IconModule,
+    RouterModule,
+    CommonModule,
+  ],
+  standalone: true,
 })
 export class TransactionDetailsComponent {
   public readonly title = this.route.snapshot.data['title'];
