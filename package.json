@@ -44,7 +44,7 @@
     "@backbase/initiate-payment-journey-ang": "^3.0.5",
     "@backbase/select-context-widget-ang": "^7.0.4",
     "@backbase/transactions-http-ang": "^3.1.2",
-    "@backbase/ui-ang": "^9.0.0-beta.1",
+    "@backbase/ui-ang": "^9.0.0",
     "@material/animation": "^3.1.0",
     "@ng-bootstrap/ng-bootstrap": "^13.1.1",
     "@ng-select/ng-select": "^9.1.0",
