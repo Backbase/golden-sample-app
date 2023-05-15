@@ -3,7 +3,7 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { ErrorStatusEnum } from './make-transfer-journey-state.service';
+import { ErrorStatusEnum } from '../make-transfer-journey-state/make-transfer-journey-state.service';
 import { MakeTransferAccountHttpService } from './make-transfer-accounts.http.service';
 
 describe('MakeTransferAccountHttpService', () => {
