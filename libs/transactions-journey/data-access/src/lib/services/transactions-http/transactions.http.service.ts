@@ -6,8 +6,8 @@ import {
 } from '@backbase/transactions-http-ang';
 import { combineLatest, Observable, of } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
-import { ArrangementsService } from './arrangements.service';
-import { TransactionsJourneyConfiguration } from './transactions-journey-config.service';
+import { ArrangementsService } from '../arrangements/arrangements.service';
+import { TransactionsJourneyConfiguration } from '../transactions-journey-config/transactions-journey-config.service';
 
 @Injectable()
 export class TransactionsHttpService {

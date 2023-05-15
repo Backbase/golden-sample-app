@@ -3,8 +3,8 @@ import {
   TransactionItem,
 } from '@backbase/transactions-http-ang';
 import { of } from 'rxjs';
-import { ArrangementsService } from './arrangements.service';
-import { TransactionsJourneyConfiguration } from './transactions-journey-config.service';
+import { ArrangementsService } from '../arrangements/arrangements.service';
+import { TransactionsJourneyConfiguration } from '../transactions-journey-config/transactions-journey-config.service';
 import { TransactionsHttpService } from './transactions.http.service';
 
 describe('TransactionsHttpService', () => {
