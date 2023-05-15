@@ -48,7 +48,7 @@ const defaultRoutes: Routes = [
   },
 ];
 
-export interface TransactionsJourneyModuleConfig {
+interface TransactionsJourneyModuleConfig {
   routes?: Routes;
   extensionSlots?: TransactionsJourneyExtensionsConfig;
 }
