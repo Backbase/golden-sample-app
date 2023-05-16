@@ -21,6 +21,21 @@
     "lib": ["es2020", "dom"],
     "paths": {
       "@backbase-gsa/ach-positive-pay": ["libs/ach-positive-pay/src/index.ts"],
+      "@backbase-gsa/ach-positive-pay-journey": [
+        "libs/ach-positive-pay-journey/shell/src/index.ts"
+      ],
+      "@backbase-gsa/internal-ach-positive-pay-data-access": [
+        "libs/ach-positive-pay-journey/data-access/src/index.ts"
+      ],
+      "@backbase-gsa/internal-ach-positive-pay-feature": [
+        "libs/ach-positive-pay-journey/feature/src/index.ts"
+      ],
+      "@backbase-gsa/internal-ach-positive-pay-shared-data": [
+        "libs/ach-positive-pay-journey/shared-data/src/index.ts"
+      ],
+      "@backbase-gsa/internal-ach-positive-pay-ui": [
+        "libs/ach-positive-pay-journey/ui/src/index.ts"
+      ],
       "@backbase-gsa/internal-transactions-data-access": [
         "libs/transactions-journey/data-access/src/index.ts"
       ],

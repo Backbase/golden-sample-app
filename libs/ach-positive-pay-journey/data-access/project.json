@@ -1,0 +1,43 @@
+{
+  "name": "ach-positive-pay-journey-data-access",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/ach-positive-pay-journey/data-access/src",
+  "prefix": "bb",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/ach-positive-pay-journey/data-access"],
+      "options": {
+        "project": "libs/ach-positive-pay-journey/data-access/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/ach-positive-pay-journey/data-access/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/ach-positive-pay-journey/data-access/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ach-positive-pay-journey/data-access"],
+      "options": {
+        "jestConfig": "libs/ach-positive-pay-journey/data-access/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ach-positive-pay-journey/data-access/**/*.ts",
+          "libs/ach-positive-pay-journey/data-access/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:ach-positive-pay-journey", "type:data-access"]
+}

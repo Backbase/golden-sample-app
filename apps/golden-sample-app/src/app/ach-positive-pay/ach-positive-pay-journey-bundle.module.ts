@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { AchPositivePayJourneyModule } from '@backbase-gsa/ach-positive-pay';
+import { AchPositivePayJourneyShellModule } from '@backbase-gsa/ach-positive-pay-journey';
 
 @NgModule({
-  imports: [AchPositivePayJourneyModule.forRoot()],
+  imports: [AchPositivePayJourneyShellModule.forRoot()],
 })
 export class AchPositivePayJourneyBundleModule {}
