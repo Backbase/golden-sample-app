@@ -4,10 +4,7 @@ import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
 import { Routes, provideRoutes } from '@angular/router';
 
 @NgModule({
-
-  imports: [
-    EntitlementsModule,
-  ]
+  imports: [EntitlementsModule],
 })
 export class AchPositivePayJourneyShellModule {
   static forRoot(

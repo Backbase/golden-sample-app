@@ -6,7 +6,7 @@ import { HeadingModule } from '@backbase/ui-ang/heading';
 @Component({
   selector: 'bb-ach-positive-pay-journey',
   templateUrl: './ach-positive-pay-journey.component.html',
-  imports: [ HeadingModule, RouterModule ],
+  imports: [HeadingModule, RouterModule],
   standalone: true,
 })
 export class AchPositivePayJourneyComponent {

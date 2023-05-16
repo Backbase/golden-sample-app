@@ -5,6 +5,6 @@ import { EmptyStateModule } from '@backbase/ui-ang/empty-state';
   selector: 'bb-ach-positive-pay-rules',
   templateUrl: './ach-positive-pay-rules.component.html',
   imports: [EmptyStateModule],
-  standalone: true
+  standalone: true,
 })
 export class AchPositivePayRulesComponent {}

@@ -17,8 +17,15 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'bb-ach-positive-pay-new-rule',
   templateUrl: './ach-positive-pay-new-rule.component.html',
-  imports: [ModalModule, HeaderModule, AlertModule, AchPositivePayRuleFormComponent, LoadButtonModule, CommonModule],
-  standalone: true
+  imports: [
+    ModalModule,
+    HeaderModule,
+    AlertModule,
+    AchPositivePayRuleFormComponent,
+    LoadButtonModule,
+    CommonModule,
+  ],
+  standalone: true,
 })
 export class AchPositivePayNewRuleComponent implements OnInit {
   loading = false;

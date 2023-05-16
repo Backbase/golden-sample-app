@@ -10,8 +10,13 @@ import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase-gsa/internal-ach-positi
 @Component({
   selector: 'bb-ach-positive-pay-rule-form',
   templateUrl: './ach-positive-pay-rule-form.component.html',
-  imports: [AccountSelectorModule, DropdownSingleSelectModule, InputTextModule, ReactiveFormsModule],
-  standalone: true
+  imports: [
+    AccountSelectorModule,
+    DropdownSingleSelectModule,
+    InputTextModule,
+    ReactiveFormsModule,
+  ],
+  standalone: true,
 })
 export class AchPositivePayRuleFormComponent {
   @Input() form!: FormGroup;

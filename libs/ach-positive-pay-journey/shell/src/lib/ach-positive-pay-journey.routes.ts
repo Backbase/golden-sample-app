@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
-import { AchPositivePayJourneyComponent, AchPositivePayNewRuleComponent } from '@backbase-gsa/internal-ach-positive-pay-feature';
+import {
+  AchPositivePayJourneyComponent,
+  AchPositivePayNewRuleComponent,
+} from '@backbase-gsa/internal-ach-positive-pay-feature';
 import { AchPositivePayRulesComponent } from '@backbase-gsa/internal-ach-positive-pay-ui';
 import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
 import { PERMISSIONS } from '@backbase-gsa/internal-ach-positive-pay-shared-data';
