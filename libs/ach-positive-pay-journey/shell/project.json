@@ -1,0 +1,43 @@
+{
+  "name": "ach-positive-pay-journey-shell",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/ach-positive-pay-journey/shell/src",
+  "prefix": "bb",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/ach-positive-pay-journey/shell"],
+      "options": {
+        "project": "libs/ach-positive-pay-journey/shell/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/ach-positive-pay-journey/shell/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/ach-positive-pay-journey/shell/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ach-positive-pay-journey/shell"],
+      "options": {
+        "jestConfig": "libs/ach-positive-pay-journey/shell/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ach-positive-pay-journey/shell/**/*.ts",
+          "libs/ach-positive-pay-journey/shell/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:ach-positive-pay-journey", "type:shell"]
+}
