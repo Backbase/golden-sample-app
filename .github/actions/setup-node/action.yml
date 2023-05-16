@@ -22,7 +22,7 @@ runs:
     ##
     - name: Cache node modules
       id: cache
-      uses: actions/cache@3
+      uses: actions/cache@v3
       env:
         cache-name: cache-node-modules
       with:
@@ -36,7 +36,7 @@ runs:
           ${{ runner.os }}-
 
     - name: Setup Node.js
-      uses: actions/setup/node@3
+      uses: actions/setup/node@v3
       with:
         node-version: 16
         cache: "npm"
