@@ -20,7 +20,6 @@
     "module": "es2020",
     "lib": ["es2020", "dom"],
     "paths": {
-      "@backbase-gsa/ach-positive-pay": ["libs/ach-positive-pay/src/index.ts"],
       "@backbase-gsa/ach-positive-pay-journey": [
         "libs/ach-positive-pay-journey/shell/src/index.ts"
       ],
@@ -60,11 +59,9 @@
       "@backbase-gsa/internal-transfer-ui": [
         "libs/transfer-journey/ui/src/index.ts"
       ],
-      "@backbase-gsa/transactions": ["libs/transactions/src/index.ts"],
       "@backbase-gsa/transactions-journey": [
         "libs/transactions-journey/shell/src/index.ts"
       ],
-      "@backbase-gsa/transfer": ["libs/transfer/src/index.ts"],
       "@backbase-gsa/transfer-journey": [
         "libs/transfer-journey/shell/src/index.ts"
       ],
