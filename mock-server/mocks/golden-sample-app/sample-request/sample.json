@@ -6,7 +6,7 @@
   },
   "responses": {
     "ok": {
-      "stats": "200",
+      "stats": 200,
       "default": true,
       "data": {}
     },

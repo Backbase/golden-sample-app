@@ -1,0 +1,39 @@
+{
+  "name": "payment-orders",
+  "request": {
+    "url": "/payment-order-service/client-api/v3/payment-orders",
+    "method": "POST"
+  },
+  "responses": {
+    "ok": {
+      "stats": 201,
+      "default": true,
+      "data": {
+        "id": "qwe123-asd3a-34456-asdsd-2344ertf5",
+        "status": "ENTERED"
+      }
+    },
+    "internal_server_error": {
+      "status": 500,
+      "data": {
+        "message": "Internal server error"
+      }
+    },
+    "access_denied": {
+      "status": 401,
+      "data": {
+        "message": "Access to requested resource denied.",
+        "key": "GENERAL_ERROR",
+        "errors": [
+          {
+            "message": "Resource access denied due to invalid credentials.",
+            "key": "common.api.token",
+            "context": {
+              "accessToken": "expired"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
