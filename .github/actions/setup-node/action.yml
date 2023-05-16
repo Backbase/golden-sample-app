@@ -16,6 +16,11 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        ref: main
+
     ##
     # Creates a cache of project's node_module and Angular's cache.
     # This cache will always be fetched while nothing changes in the lock file.
