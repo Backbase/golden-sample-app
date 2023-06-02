@@ -3,7 +3,6 @@ import { Component, Optional } from '@angular/core';
 import {
   ActivatedRoute,
   Params,
-  RouterLink,
   RouterModule,
 } from '@angular/router';
 import { Currency, TransactionItem } from '@backbase/transactions-http-ang';

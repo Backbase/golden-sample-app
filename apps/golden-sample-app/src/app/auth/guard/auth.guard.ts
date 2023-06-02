@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  CanActivateChild,
-  CanLoad,
-  UrlTree,
-} from '@angular/router';
+import { UrlTree } from '@angular/router';
 import { AuthService } from '@backbase/identity-auth';
 import { Observable, map, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -12,7 +7,7 @@ import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
+export class AuthGuard {
   constructor(private readonly authService: AuthService) {}
 
   canLoad(): Observable<boolean | UrlTree> {

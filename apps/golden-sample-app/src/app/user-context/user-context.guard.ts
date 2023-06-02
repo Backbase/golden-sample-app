@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
-  CanActivateChild,
   Router,
   RouterStateSnapshot,
   UrlTree,
@@ -22,7 +20,7 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class UserContextGuard implements CanActivate, CanActivateChild {
+export class UserContextGuard {
   private targetUrl: string | undefined;
   private contextValid = false;
 
