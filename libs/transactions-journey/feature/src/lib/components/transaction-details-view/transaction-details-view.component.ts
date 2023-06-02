@@ -76,7 +76,7 @@ export class TransactionDetailsComponent {
     all: TransactionItem[]
   ): TransactionDetailsView {
     const transaction = all.find((item) => item.id === id);
-
+    console.log("testing");
     if (!transaction) {
       throw new HttpErrorResponse({
         status: 404,
