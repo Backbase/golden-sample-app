@@ -1,6 +1,0 @@
-{
-  "context": "/api",
-  "target": "https://app.prd.sdbxaz.azure.backbaseservices.com/",
-  "secure": false,
-  "changeOrigin": true
-}

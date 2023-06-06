@@ -18,7 +18,7 @@ const mockProviders: Provider[] = [
 
 export const environment: Environment = {
   production: false,
-  apiRoot: '/api',
+  apiRoot: 'https://app.prd.sdbxaz.azure.backbaseservices.com/api',
   mockProviders,
   locales: ['en-US', 'nl-NL'],
   common: {
