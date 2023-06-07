@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { ArrangementsService } from '@backbase-gsa/transactions';
+import { ArrangementsService } from '@backbase-gsa/transactions-journey';
 import { UserAccountsViewComponent } from './user-accounts-view.component';
 
 describe('UserAccountsViewComponent', () => {

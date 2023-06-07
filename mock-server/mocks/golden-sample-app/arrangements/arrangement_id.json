@@ -1,0 +1,68 @@
+{
+  "name": "arrangements",
+  "request": {
+    "url": "/api/arrangement-manager/client-api/v2/arrangements/jb007-007-1010a-nkit12",
+    "method": "GET"
+  },
+  "responses": {
+    "ok": {
+      "stats": "200",
+      "default": true,
+      "data": {
+        "id": "jb007-007-1010a-nkit12",
+        "legalEntityIds": ["12345ed1abc2134"],
+        "name": "Ankit's Current Account",
+        "bankAlias": "Ankit's Current Account",
+        "BBAN": "************0025",
+        "currency": "USD",
+        "externalTransferAllowed": true,
+        "productKindName": "Current Account",
+        "productTypeName": "Current Account",
+        "BIC": "WFAP007",
+        "bankBranchCode": "007123456",
+        "creditAccount": true,
+        "debitAccount": true,
+        "bookedBalance": 9693.25,
+        "availableBalance": 560748.75,
+        "creditLimit": 551055.5,
+        "accruedInterest": 5.57694,
+        "productId": "a23se4rd5-5678-123we-3456d",
+        "visible": true,
+        "accountOpeningDate": "2023-03-02T13:31:51Z",
+        "accountInterestRate": 3.0,
+        "creditLimitUsage": 0.0,
+        "creditLimitInterestRate": 2.0,
+        "accountHolderNames": "Ankit P",
+        "lastUpdateDate": "2023-05-07T22:43:51Z",
+        "favorite": false,
+        "product": {
+          "externalId": "current-account",
+          "externalTypeId": "current-account",
+          "typeName": "Current Account",
+          "productKind": {
+            "id": 1,
+            "externalKindId": "kind1",
+            "kindName": "Current Account",
+            "kindUri": "current-account"
+          }
+        },
+        "state": { "externalStateId": "Active", "state": "Active" },
+        "displayName": "Ankit's Current Account",
+        "debitCards": [],
+        "unmaskableAttributes": ["BBAN"]
+      }
+    },
+    "internal_server_error": {
+      "status": 500,
+      "data": {
+        "message": "Internal server error"
+      }
+    },
+    "not_found": {
+      "status": 404,
+      "data": {
+        "message": "Not found!"
+      }
+    }
+  }
+}

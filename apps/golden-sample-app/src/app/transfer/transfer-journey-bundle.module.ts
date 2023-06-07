@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import {
   MakeTransferCommunicationService,
   MakeTransferJourneyConfiguration,
-  TransferJourneyModule,
-} from '@backbase-gsa/transfer';
+  TransferJourneyShellModule,
+} from '@backbase-gsa/transfer-journey';
 import { environment } from '../../environments/environment';
 import { JourneyCommunicationService } from '../services/journey-communication.service';
 
 @NgModule({
-  imports: [TransferJourneyModule.forRoot()],
+  imports: [TransferJourneyShellModule.forRoot()],
   providers: [
     {
       provide: MakeTransferJourneyConfiguration,

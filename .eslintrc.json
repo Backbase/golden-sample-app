@@ -17,21 +17,41 @@
                 "onlyDependOnLibsWithTags": ["*"]
               },
               {
+                "sourceTag": "type:shell",
+                "onlyDependOnLibsWithTags": [
+                  "type:util",
+                  "type:data-access",
+                  "type:ui",
+                  "type:feature",
+                  "type:shared-data"
+                ]
+              },
+              {
                 "sourceTag": "type:feature",
                 "onlyDependOnLibsWithTags": [
                   "type:feature",
                   "type:ui",
                   "type:data",
-                  "type:util"
+                  "type:data-access",
+                  "type:util",
+                  "type:shared-data"
                 ]
               },
               {
                 "sourceTag": "type:ui",
-                "onlyDependOnLibsWithTags": ["type:ui", "type:util"]
+                "onlyDependOnLibsWithTags": ["type:ui", "type:util", "type:shared-data"]
               },
               {
                 "sourceTag": "type:data",
                 "onlyDependOnLibsWithTags": ["type:data", "type:util"]
+              },
+              {
+                "sourceTag": "type:shared-data",
+                "onlyDependOnLibsWithTags": ["type:shared-data", "type:util"]
+              },
+              {
+                "sourceTag": "type:data-access",
+                "onlyDependOnLibsWithTags": ["type:util", "type:data-access", "type:shared-data"]
               },
               {
                 "sourceTag": "type:util",

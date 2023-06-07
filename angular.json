@@ -2,10 +2,23 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "version": 2,
   "projects": {
-    "ach-positive-pay": "libs/ach-positive-pay",
+    "ach-positive-pay-journey-data-access": "libs/ach-positive-pay-journey/data-access",
+    "ach-positive-pay-journey-feature": "libs/ach-positive-pay-journey/feature",
+    "ach-positive-pay-journey-shared-data": "libs/ach-positive-pay-journey/shared-data",
+    "ach-positive-pay-journey-shell": "libs/ach-positive-pay-journey/shell",
+    "ach-positive-pay-journey-ui": "libs/ach-positive-pay-journey/ui",
     "golden-sample-app": "apps/golden-sample-app",
     "golden-sample-app-e2e": "apps/golden-sample-app-e2e",
-    "transactions": "libs/transactions",
-    "transfer": "libs/transfer"
+    "transactions-journey-data-access": "libs/transactions-journey/data-access",
+    "transactions-journey-feature": "libs/transactions-journey/feature",
+    "transactions-journey-shared-data": "libs/transactions-journey/shared-data",
+    "transactions-journey-shell": "libs/transactions-journey/shell",
+    "transactions-journey-ui": "libs/transactions-journey/ui",
+    "transactions-journey-util": "libs/transactions-journey/util",
+    "transfer-journey-data-access": "libs/transfer-journey/data-access",
+    "transfer-journey-feature": "libs/transfer-journey/feature",
+    "transfer-journey-shared-data": "libs/transfer-journey/shared-data",
+    "transfer-journey-shell": "libs/transfer-journey/shell",
+    "transfer-journey-ui": "libs/transfer-journey/ui"
   }
 }

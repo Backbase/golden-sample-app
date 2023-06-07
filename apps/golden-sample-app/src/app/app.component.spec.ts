@@ -5,6 +5,7 @@ import { LayoutService } from '@backbase/ui-ang/layout';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { of } from 'rxjs';
 import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -67,5 +68,12 @@ describe('AppComponent', () => {
     };
     component.focusMainContainer(mockEvent as MouseEvent);
     expect(focus).toHaveBeenCalled();
+  });
+
+  describe('When data is mock', () => {
+    it('should set the isAuthenticated to true', () => {
+      environment.mockEnabled = true;
+      expect(component.isAuthenticated).toBe(true);
+    });
   });
 });
