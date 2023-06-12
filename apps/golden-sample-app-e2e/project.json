@@ -7,7 +7,7 @@
   "implicitDependencies": ["golden-sample-app"],
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["apps/golden-sample-app-e2e/**/*.ts"]
       }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, CanActivate, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable()
-export class MakeTransferJourneyStoreGuard implements CanActivate {
+export class MakeTransferJourneyStoreGuard {
   canActivate() {
     const state = this.router.getCurrentNavigation()?.extras?.state;
     if (!state || !state['transfer']) {
