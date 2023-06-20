@@ -47,7 +47,7 @@ describe('TransactionsViewComponent', () => {
 
   const setup = (
     snapshot: Pick<ActivatedRouteSnapshot, 'data'>,
-    delayFlag: boolean = false
+    delayFlag = false
   ) => {
     transactions$$ = new BehaviorSubject<TransactionItem[] | undefined>(
       undefined

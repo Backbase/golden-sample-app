@@ -38,7 +38,7 @@ runs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 16
+        node-version: 18
         cache: "npm"
         registry-url: "https://repo.backbase.com/api/npm/npm-backbase/"
         scope: "@backbase"
@@ -50,7 +50,7 @@ runs:
     ##
     - name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true'
-      run: npm ci --ignore-scripts
+      run: npm ci --force --ignore-scripts
       shell: bash
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm-auth-token }}

@@ -131,7 +131,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "apps/golden-sample-app/src/**/*.ts",
@@ -140,7 +140,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "apps/golden-sample-app/jest.config.ts",
         "passWithNoTests": true
