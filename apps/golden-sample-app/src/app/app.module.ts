@@ -6,7 +6,6 @@ import { ACCESS_CONTROL_BASE_PATH as ACCESS_CONTROL_V3_BASE_PATH } from '@backba
 import { ACCESS_CONTROL_BASE_PATH } from '@backbase/accesscontrol-http-ang';
 import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/arrangement-manager-http-ang';
 import { TRANSACTIONS_BASE_PATH } from '@backbase/transactions-http-ang';
-import { TemplateRegistry } from '@backbase/foundation-ang/core';
 import {
   EntitlementsModule,
   ENTITLEMENTS_CONFIG,
@@ -159,7 +158,6 @@ import { ActivityMonitorModule } from './auth/activity-monitor';
       provide: ErrorHandler,
       useClass: AppErrorHandler,
     },
-    TemplateRegistry,
   ],
   bootstrap: [AppComponent],
 })
