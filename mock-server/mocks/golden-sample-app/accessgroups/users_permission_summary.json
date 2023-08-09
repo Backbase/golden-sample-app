@@ -1,12 +1,12 @@
 {
   "name": "accessgroups/users/permissions/summary",
   "request": {
-    "url": "/access-control/client-api/v2/accessgroups/users/permissions/summary",
+    "url": "/access-control/client-api/v3/accessgroups/users/permissions/summary",
     "method": "GET"
   },
   "responses": {
     "ok": {
-      "stats": "200",
+      "status": "200",
       "default": true,
       "data": [
         {

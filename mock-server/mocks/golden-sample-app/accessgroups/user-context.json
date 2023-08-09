@@ -6,7 +6,7 @@
   },
   "responses": {
     "ok": {
-      "stats": "204",
+      "status": "204",
       "default": true,
       "data": { "serviceAgreementId": "12345ed2abc2134" }
     },
