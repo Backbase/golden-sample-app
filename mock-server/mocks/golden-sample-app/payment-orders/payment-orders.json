@@ -6,7 +6,7 @@
   },
   "responses": {
     "ok": {
-      "stats": 201,
+      "status": 201,
       "default": true,
       "data": {
         "id": "qwe123-asd3a-34456-asdsd-2344ertf5",
