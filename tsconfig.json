@@ -16,9 +16,9 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "skipLibCheck": true,
-    "target": "es2017",
-    "module": "es2020",
-    "lib": ["es2020", "dom"],
+    "target": "es2020",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
     "paths": {
       "@backbase-gsa/ach-positive-pay-journey": [
         "libs/ach-positive-pay-journey/shell/src/index.ts"
