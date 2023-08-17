@@ -2,10 +2,10 @@
   "name": "@backbase-gsa/internal-transfer-shared-data",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^14.2.0",
-    "@angular/core": "^14.2.0"
+    "@angular/common": "^16.1.3",
+    "@angular/core": "^16.1.3"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.1"
   }
 }
