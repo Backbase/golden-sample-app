@@ -119,7 +119,7 @@ Run `npm run start` for a dev server. Navigate to <http://0.0.0.0:4200/>. The ap
 
 ## User credentials
 
-Credentials to login can be found [here](https://backbase.io/developers/documentation/api-sandbox/runtime_data/user_credentials/).
+Credentials to login can be found [here](https://backbase.io/developers/documentation/ebp-sandbox/runtime-data/retail-user-credentials/).
 
 ## Running the app with Mocks
 
