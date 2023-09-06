@@ -65,6 +65,11 @@ const routes: Routes = [
     canActivate: [AuthGuard, UserContextGuard],
   },
   {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('dashboard/Module').then((m) => m.RemoteEntryModule),
+  },
+  {
     path: 'transfer-internal',
     component: ViewWrapperComponent,
     loadChildren: () =>

@@ -69,6 +69,28 @@
           </span>
         </a>
       </li>
+      <li class="bb-layout__horizontal-nav-item">
+        <a
+          class="bb-layout__horizontal-nav-link"
+          routerLink="/dashboard"
+          routerLinkActive="bb-layout__horizontal-nav-link--active"
+          #makeTransferRouterLink="routerLinkActive"
+          [attr.aria-current]="
+            makeTransferRouterLink.isActive ? 'page' : undefined
+          "
+        >
+          <bb-icon-ui
+            class="bb-layout__vertical-nav-item-icon"
+            name="note"
+          ></bb-icon-ui>
+          <span
+            class="bb-layout__horizontal-nav-item-description"
+            i18n="dashboard link@@main.dashboard.link.text"
+          >
+            Dashboard (Nucoro)
+          </span>
+        </a>
+      </li>
       <li
         class="bb-layout__horizontal-nav-item"
         *bbIfEntitlements="triplets.canViewTransactions"
