@@ -13,6 +13,7 @@
     "build": "nx build --configuration=production",
     "build:stats": "ng build --configuration=production --stats-json",
     "build:docker": "docker build -t golden-sample-app:latest .",
+    "build:start:docker": "rm -rf ./dist && npm run build && npm run start:docker",
     "mock-server": "node ./mock-server/mock-server.js -- golden-sample-app",
     "affected:build": "nx affected:build --configuration=production",
     "affected:lint": "nx affected:lint",
