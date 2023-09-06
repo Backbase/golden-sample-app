@@ -14,19 +14,23 @@
   "tags": ["type:app"],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/golden-sample-app",
         "index": "apps/golden-sample-app/src/index.html",
         "main": "apps/golden-sample-app/src/main.ts",
-        "polyfills": "apps/golden-sample-app/src/polyfills.ts",
+        "polyfills": ["zone.js", "apps/golden-sample-app/src/polyfills.ts"],
         "tsConfig": "apps/golden-sample-app/tsconfig.app.json",
         "assets": [
           "apps/golden-sample-app/src/favicon.ico",
           "apps/golden-sample-app/src/assets"
         ],
         "styles": ["apps/golden-sample-app/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/golden-sample-app/webpack.config.js"
+        }
       },
       "configurations": {
         "production": {
@@ -58,7 +62,10 @@
             }
           ],
           "outputHashing": "all",
-          "localize": true
+          "localize": true,
+          "customWebpackConfig": {
+            "path": "apps/golden-sample-app/webpack.prod.config.js"
+          }
         },
         "development": {
           "buildOptimizer": false,
@@ -95,7 +102,11 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nx/angular:module-federation-dev-server",
+      "options": {
+        "port": 4200,
+        "publicHost": "http://localhost:4200"
+      },
       "configurations": {
         "development": {
           "browserTarget": "golden-sample-app:build:development"
@@ -144,6 +155,13 @@
       "options": {
         "jestConfig": "apps/golden-sample-app/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "golden-sample-app:build",
+        "port": 4200
       }
     }
   }
