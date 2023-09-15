@@ -19,6 +19,8 @@
     "target": "es2020",
     "module": "esnext",
     "lib": ["es2020", "dom"],
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@backbase-gsa/ach-positive-pay-journey": [
         "libs/ach-positive-pay-journey/shell/src/index.ts"
@@ -67,7 +69,8 @@
       ],
       "@backbase/internal-transactions-shared-data": [
         "libs/transactions-journey/shared-data/src/index.ts"
-      ]
+      ],
+      "package-json": ["package.json"]
     }
   },
   "angularCompilerOptions": {
