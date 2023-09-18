@@ -60,8 +60,8 @@
       "@backbase/internal-transactions-feature-transaction-details-view": [
         "libs/transactions-journey/feature-transaction-details-view/src/index.ts"
       ],
-      "@backbase/internal-transactions-feature-transaction-item": [
-        "libs/transactions-journey/feature-transaction-item/src/index.ts"
+      "@backbase/internal-transactions-feature-transaction-view": [
+        "libs/transactions-journey/feature-transaction-view/src/index.ts"
       ],
       "@backbase/internal-transactions-shared-data": [
         "libs/transactions-journey/shared-data/src/index.ts"
