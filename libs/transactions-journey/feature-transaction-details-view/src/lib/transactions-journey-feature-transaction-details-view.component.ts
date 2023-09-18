@@ -31,9 +31,12 @@ interface TransactionDetailsView {
 }
 
 @Component({
-  templateUrl: './transactions-journey-feature-transaction-details-view.component.html',
+  templateUrl:
+    './transactions-journey-feature-transaction-details-view.component.html',
   selector: 'bb-transaction-details',
-  styleUrls: ['./transactions-journey-feature-transaction-details-view.component.scss'],
+  styleUrls: [
+    './transactions-journey-feature-transaction-details-view.component.scss',
+  ],
   imports: [
     TrackerModule,
     ButtonModule,

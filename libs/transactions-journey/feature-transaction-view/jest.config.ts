@@ -4,7 +4,8 @@ export default {
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {},
-  coverageDirectory: '../../../coverage/libs/transactions-journey/feature-transaction-view',
+  coverageDirectory:
+    '../../../coverage/libs/transactions-journey/feature-transaction-view',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
