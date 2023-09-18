@@ -10,25 +10,18 @@ send all your tracker events to the analytics system (eg: google analytics/segme
 @Injectable()
 export class AnalyticsService extends TrackerHandler {
   register(): void {
-    this.tracker.subscribeAll((event) => {
-      console.log('EVENT TRACKER', event);
-    });
-
-    // this.tracker.subscribe(ScreenResizeEvent, event => {
-    //   console.log(event);
-    // });
-  }
-
-  initOpenTelemetry(): void {
-    console.log('initOpenTelemetry', environment);
     this.openTelemetryConfig = {
       appName: packageInfo.name,
       appVersion: packageInfo.version,
       apiKey: environment.bbApiKey,
       env: 'local',
-      isProduction: true,
+      isProduction: environment.production,
       isEnabled: environment.isTelemetryTracerEnabled,
       url: environment.telemetryCollectorURL,
     };
+
+    this.tracker.subscribeAll((event) => {
+      console.log('EVENT TRACKER', event);
+    });
   }
 }
