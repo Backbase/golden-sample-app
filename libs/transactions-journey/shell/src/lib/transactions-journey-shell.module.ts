@@ -19,12 +19,11 @@ import {
 } from '@backbase-gsa/internal-transactions-data-access';
 import {
   TransactionsViewComponent,
-  TransactionDetailsComponent,
   TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
   TransactionsViewModule,
-} from '@backbase-gsa/internal-transactions-feature';
-
+} from 'libs/transactions-journey/feature-transaction-view/src';
+import { TransactionDetailsComponent } from '@backbase/internal-transactions-feature-transaction-details-view';
 const defaultRoutes: Routes = [
   {
     path: '',
