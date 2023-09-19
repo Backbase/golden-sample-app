@@ -1,7 +1,5 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -9,71 +7,13 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "skipLibCheck": true,
-    "target": "es2020",
-    "module": "esnext",
-    "lib": ["es2020", "dom"],
-    "paths": {
-      "@backbase-gsa/ach-positive-pay-journey": [
-        "libs/ach-positive-pay-journey/shell/src/index.ts"
-      ],
-      "@backbase-gsa/internal-ach-positive-pay-data-access": [
-        "libs/ach-positive-pay-journey/data-access/src/index.ts"
-      ],
-      "@backbase-gsa/internal-ach-positive-pay-feature": [
-        "libs/ach-positive-pay-journey/feature/src/index.ts"
-      ],
-      "@backbase-gsa/internal-ach-positive-pay-shared-data": [
-        "libs/ach-positive-pay-journey/shared-data/src/index.ts"
-      ],
-      "@backbase-gsa/internal-ach-positive-pay-ui": [
-        "libs/ach-positive-pay-journey/ui/src/index.ts"
-      ],
-      "@backbase-gsa/internal-transactions-data-access": [
-        "libs/transactions-journey/data-access/src/index.ts"
-      ],
-      "@backbase-gsa/internal-transactions-feature": [
-        "libs/transactions-journey/feature/src/index.ts"
-      ],
-      "@backbase-gsa/internal-transactions-ui": [
-        "libs/transactions-journey/ui/src/index.ts"
-      ],
-      "@backbase-gsa/internal-transactions-util": [
-        "libs/transactions-journey/util/src/index.ts"
-      ],
-      "@backbase-gsa/internal-transfer-data-access": [
-        "libs/transfer-journey/data-access/src/index.ts"
-      ],
-      "@backbase-gsa/internal-transfer-feature": [
-        "libs/transfer-journey/feature/src/index.ts"
-      ],
-      "@backbase-gsa/internal-transfer-shared-data": [
-        "libs/transfer-journey/shared-data/src/index.ts"
-      ],
-      "@backbase-gsa/internal-transfer-ui": [
-        "libs/transfer-journey/ui/src/index.ts"
-      ],
-      "@backbase-gsa/transactions-journey": [
-        "libs/transactions-journey/shell/src/index.ts"
-      ],
-      "@backbase-gsa/transfer-journey": [
-        "libs/transfer-journey/shell/src/index.ts"
-      ],
-      "@backbase/internal-transactions-shared-data": [
-        "libs/transactions-journey/shared-data/src/index.ts"
-      ]
-    }
+    "downlevelIteration": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": true,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "extends": "./tsconfig.base.json"
 }

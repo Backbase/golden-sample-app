@@ -1,5 +1,5 @@
 {
-  "name": "@backbase/internal-transactions-shared-data",
+  "name": "@backbase-gsa/internal-transactions-shared-data",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^16.1.3",
