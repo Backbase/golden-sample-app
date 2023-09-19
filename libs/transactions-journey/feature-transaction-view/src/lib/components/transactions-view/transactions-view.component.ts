@@ -15,9 +15,7 @@ import {
   TransactionsHttpService,
 } from '@backbase-gsa/internal-transactions-data-access';
 
-import {
-  TransactionListTrackerEvent,
-} from '@backbase-gsa/internal-transactions-shared-data';
+import { TransactionListTrackerEvent } from '@backbase-gsa/internal-transactions-shared-data';
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
@@ -89,5 +87,4 @@ export class TransactionsViewComponent {
   trackNavigation($event: ScreenViewTrackerEventPayload) {
     this.tracker?.publish(new TransactionListTrackerEvent($event));
   }
-
 }

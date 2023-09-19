@@ -18,9 +18,7 @@ import {
 } from '../../extensions';
 import { AmountModule } from '@backbase/ui-ang/amount';
 import { CommonModule } from '@angular/common';
-import {
-  IconMap
-} from '@backbase-gsa/internal-transactions-shared-data';
+import { IconMap } from '@backbase-gsa/internal-transactions-shared-data';
 @Directive({
   selector: '[bbTransactionsItemAdditions]',
   standalone: true,
@@ -75,6 +73,7 @@ export class TransactionItemComponent implements OnChanges {
         counterPartyAccountNumber: this.transaction.counterPartyAccountNumber,
       };
     }
-    this.iconName = IconMap[this.categoryName?.toLowerCase().replace(/\s/g, '') ?? 'default'];
+    this.iconName =
+      IconMap[this.categoryName?.toLowerCase().replace(/\s/g, '') ?? 'default'];
   }
 }
