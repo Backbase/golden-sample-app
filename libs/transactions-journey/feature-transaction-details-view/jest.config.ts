@@ -1,10 +1,10 @@
 /* eslint-disable */
 export default {
-  displayName: 'transactions-journey-feature',
+  displayName: 'transactions-journey-feature-transaction-details-view',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: {},
-  coverageDirectory: '../../../coverage/libs/transactions-journey/feature',
+  coverageDirectory:
+    '../../../coverage/libs/transactions-journey/feature-transaction-details-view',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

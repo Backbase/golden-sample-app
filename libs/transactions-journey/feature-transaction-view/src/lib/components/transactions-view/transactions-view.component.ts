@@ -18,7 +18,7 @@ import {
 import {
   IconMap,
   TransactionListTrackerEvent,
-} from '@backbase/internal-transactions-shared-data';
+} from '@backbase-gsa/internal-transactions-shared-data';
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
