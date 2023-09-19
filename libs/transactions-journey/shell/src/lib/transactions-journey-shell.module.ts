@@ -12,18 +12,18 @@ import { TrackerModule } from '@backbase/foundation-ang/observability';
 
 import { TextFilterComponent } from '@backbase-gsa/internal-transactions-ui';
 
-import { TRANSLATIONS } from '@backbase/internal-transactions-shared-data';
+import { TRANSLATIONS } from '@backbase-gsa/internal-transactions-shared-data';
 import {
   TransactionsJourneyConfiguration,
   TransactionsRouteTitleResolverService,
 } from '@backbase-gsa/internal-transactions-data-access';
-import { TransactionDetailsComponent } from '@backbase/internal-transactions-feature-transaction-details-view';
+import { TransactionDetailsComponent } from '@backbase-gsa/internal-transactions-feature-transaction-details-view';
 import {
   TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
   TransactionsViewComponent,
   TransactionsViewModule,
-} from '@backbase/internal-transactions-feature-transaction-view';
+} from '@backbase-gsa/internal-transactions-feature-transaction-view';
 const defaultRoutes: Routes = [
   {
     path: '',

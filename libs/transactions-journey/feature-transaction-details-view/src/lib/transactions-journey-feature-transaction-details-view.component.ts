@@ -9,7 +9,7 @@ import {
 } from '@backbase/foundation-ang/observability';
 import { combineLatest, map } from 'rxjs';
 import { TransactionsHttpService } from '@backbase-gsa/internal-transactions-data-access';
-import { TransactionDetailsTrackerEvent } from '@backbase/internal-transactions-shared-data';
+import { TransactionDetailsTrackerEvent } from '@backbase-gsa/internal-transactions-shared-data';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { AmountModule } from '@backbase/ui-ang/amount';
 import { IconModule } from '@backbase/ui-ang/icon';

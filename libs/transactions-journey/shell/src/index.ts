@@ -8,7 +8,7 @@ export {
   TransactionsJourneyExtensionsConfig,
   TransactionAdditionalDetailsComponent,
   TransactionAdditionalDetailsContext,
-} from 'libs/transactions-journey/feature-transaction-view/src';
+} from '@backbase-gsa/internal-transactions-feature-transaction-view';
 export {
   TransactionsJourneyConfiguration,
   ArrangementsService,
