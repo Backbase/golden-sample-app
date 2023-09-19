@@ -5,6 +5,23 @@
   "sourceRoot": "libs/transactions-journey/feature-transaction-view/src",
   "prefix": "backbase",
   "targets": {
+
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/transactions-journey/feature-transaction-view"],
+      "options": {
+        "project": "libs/transactions-journey/feature-transaction-view/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transactions-journey/feature-transaction-view/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transactions-journey/feature-transaction-view/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/transactions-journey/feature-transaction-view"],

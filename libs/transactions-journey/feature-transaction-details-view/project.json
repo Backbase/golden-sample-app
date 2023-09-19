@@ -6,6 +6,22 @@
   "tags": ["scope:transaction-details-view-journey", "type:feature"],
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/transactions-journey/feature-transaction-details-view"],
+      "options": {
+        "project": "libs/transactions-journey/feature-transaction-details-view/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transactions-journey/feature-transaction-details-view/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transactions-journey/data-access/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
