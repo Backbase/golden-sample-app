@@ -49,7 +49,7 @@
           <a class="list-link" [routerLink]="['./', item.id]">
             <bb-transaction-item
               [transaction]="item"
-              [iconName]="getIconMap(item.category?.toLocaleLowerCase())"
+              [categoryName]="item.category"
             ></bb-transaction-item>
           </a>
         </li>
