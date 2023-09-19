@@ -47,7 +47,10 @@
           data-role="transactions-view__item-container"
         >
           <a class="list-link" [routerLink]="['./', item.id]">
-            <bb-transaction-item [transaction]="item"></bb-transaction-item>
+            <bb-transaction-item
+              [transaction]="item"
+              [iconName]="getIconMap(item.category?.toLocaleLowerCase())"
+            ></bb-transaction-item>
           </a>
         </li>
       </ul>

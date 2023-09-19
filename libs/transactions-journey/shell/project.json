@@ -5,6 +5,23 @@
   "sourceRoot": "libs/transactions-journey/shell/src",
   "prefix": "bb",
   "targets": {
+
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/transactions-journey/shell"],
+      "options": {
+        "project": "libs/transactions-journey/shell/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transactions-journey/shell/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transactions-journey/shell/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/transactions-journey/shell"],

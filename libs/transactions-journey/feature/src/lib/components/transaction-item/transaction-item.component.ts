@@ -40,6 +40,8 @@ export class TransactionItemAdditionalDetailsDirective extends ViewExtensionDire
 export class TransactionItemComponent implements OnChanges {
   @Input()
   public transaction!: TransactionItem;
+  @Input()
+  public iconName!: string;
 
   public amount = 0;
   public isAmountPositive = true;

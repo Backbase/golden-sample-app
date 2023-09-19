@@ -15,7 +15,10 @@ import {
   TransactionsHttpService,
 } from '@backbase-gsa/internal-transactions-data-access';
 
-import { TransactionListTrackerEvent } from '@backbase/internal-transactions-shared-data';
+import {
+  IconMap,
+  TransactionListTrackerEvent,
+} from '@backbase/internal-transactions-shared-data';
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
@@ -25,6 +28,8 @@ export class TransactionsViewComponent {
   public title = this.route.snapshot.data['title'];
 
   public filter = '';
+
+  public iconMap = IconMap;
 
   private readonly accountId$ = this.route.queryParamMap.pipe(
     map((params) => params.get('account'))
@@ -86,5 +91,9 @@ export class TransactionsViewComponent {
 
   trackNavigation($event: ScreenViewTrackerEventPayload) {
     this.tracker?.publish(new TransactionListTrackerEvent($event));
+  }
+
+  getIconMap(categoryName: string | undefined) {
+    return this.iconMap[categoryName?.replace(/\s/g, '') ?? 'default'];
   }
 }
