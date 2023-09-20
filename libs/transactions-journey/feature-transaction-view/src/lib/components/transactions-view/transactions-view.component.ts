@@ -15,7 +15,7 @@ import {
   TransactionsHttpService,
 } from '@backbase-gsa/internal-transactions-data-access';
 
-import { TransactionListTrackerEvent } from '@backbase/internal-transactions-shared-data';
+import { TransactionListTrackerEvent } from '@backbase-gsa/internal-transactions-shared-data';
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],

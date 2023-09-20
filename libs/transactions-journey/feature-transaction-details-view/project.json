@@ -1,0 +1,50 @@
+{
+  "name": "transactions-journey-feature-transaction-details-view",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/transactions-journey/feature-transaction-details-view/src",
+  "prefix": "backbase",
+  "tags": ["scope:transaction-details-view-journey", "type:feature"],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/transactions-journey/feature-transaction-details-view"],
+      "options": {
+        "project": "libs/transactions-journey/feature-transaction-details-view/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transactions-journey/feature-transaction-details-view/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transactions-journey/data-access/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/transactions-journey/feature-transaction-details-view/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/transactions-journey/feature-transaction-details-view/**/*.ts",
+          "libs/transactions-journey/feature-transaction-details-view/**/*.html"
+        ]
+      }
+    }
+  }
+}

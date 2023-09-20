@@ -23,7 +23,12 @@
         "tsConfig": "apps/golden-sample-app/tsconfig.app.json",
         "assets": [
           "apps/golden-sample-app/src/favicon.ico",
-          "apps/golden-sample-app/src/assets"
+          "apps/golden-sample-app/src/assets",
+          {
+            "glob": "**/*",
+            "input": "libs/transactions-journey/assets",
+            "output": "assets/transactions-journey"
+          }
         ],
         "styles": ["apps/golden-sample-app/src/styles.scss"],
         "scripts": []

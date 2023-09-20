@@ -1,5 +1,5 @@
 {
-  "name": "@backbase-gsa/internal-transactions-feature",
+  "name": "@backbase-gsa/internal-transactions-feature-transaction-details-view",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^16.1.3",
