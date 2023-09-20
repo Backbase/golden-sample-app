@@ -14,4 +14,5 @@ export interface Environment {
   isTelemetryTracerEnabled?: boolean;
   bbApiKey?: string;
   telemetryCollectorURL?: string;
+  env?: string;
 }
