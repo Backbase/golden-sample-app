@@ -65,7 +65,8 @@
       ],
       "@backbase-gsa/internal-transactions-shared-data": [
         "libs/transactions-journey/shared-data/src/index.ts"
-      ]
+      ],
+      "package-json": ["package.json"]
     }
   }
 }
