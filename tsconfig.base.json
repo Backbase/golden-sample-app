@@ -3,6 +3,8 @@
   "compilerOptions": {
     "sourceMap": true,
     "declaration": false,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -65,7 +67,8 @@
       ],
       "@backbase-gsa/internal-transactions-shared-data": [
         "libs/transactions-journey/shared-data/src/index.ts"
-      ]
+      ],
+      "package-json": ["package.json"]
     }
   }
 }

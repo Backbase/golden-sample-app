@@ -21,6 +21,10 @@ export const environment: Environment = {
     designSlimMode: false,
   },
   mockEnabled: true,
+  isTelemetryTracerEnabled: true,
+  bbApiKey: '27d4d4ee-afc1-4190-adc4-b9d30d39badb',
+  telemetryCollectorURL: 'https://botel.bartbase.com/v1/traces',
+  env: 'mock',
 };
 
 export const authConfig: AuthConfig = {
