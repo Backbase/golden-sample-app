@@ -31,6 +31,7 @@ export class JourneyCommunicationService
     amount,
   }: Transfer): TransactionItem {
     return {
+      state: 'COMPLETED',
       id: Date.now().toString(),
       arrangementId: '',
       description: 'Transfer to account',
