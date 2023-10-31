@@ -8,6 +8,10 @@ export const environment: Environment = {
   common: {
     designSlimMode: false,
   },
+  isTelemetryTracerEnabled: true,
+  bbApiKey: 'a554d1b4-6514-4f33-8211-3f52a03ca142',
+  telemetryCollectorURL: 'https://botel.bartbase.com/v1/traces',
+  env: 'production',
 };
 
 export const authConfig: AuthConfig = {

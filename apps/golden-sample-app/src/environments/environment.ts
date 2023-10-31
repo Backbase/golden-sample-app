@@ -25,7 +25,7 @@ export const environment: Environment = {
     designSlimMode: false,
   },
   isTelemetryTracerEnabled: true,
-  bbApiKey: '27d4d4ee-afc1-4190-adc4-b9d30d39badb',
+  bbApiKey: 'a554d1b4-6514-4f33-8211-3f52a03ca142',
   telemetryCollectorURL: 'https://botel.bartbase.com/v1/traces',
   env: 'local',
 };
