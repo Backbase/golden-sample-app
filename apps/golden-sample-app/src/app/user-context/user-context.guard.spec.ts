@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { ServiceAgreementHttpService } from '@backbase/accesscontrol-http-ang';
+import { ServiceAgreementsHttpService } from '@backbase/accesscontrol-v3-http-ang';
 import { cold } from 'jest-marbles';
 import { of } from 'rxjs';
 
@@ -24,10 +24,13 @@ describe('UserContextGuard', () => {
     }),
   } as Pick<Router, 'createUrlTree'> as any;
 
-  const mockServiceAgreementHttpService: jest.Mocked<ServiceAgreementHttpService> =
+  const mockServiceAgreementHttpService: jest.Mocked<ServiceAgreementsHttpService> =
     {
       getServiceAgreementContext: jest.fn(),
-    } as Pick<ServiceAgreementHttpService, 'getServiceAgreementContext'> as any;
+    } as Pick<
+      ServiceAgreementsHttpService,
+      'getServiceAgreementContext'
+    > as any;
 
   function createGuard(validationRequestMarbles?: string) {
     mockServiceAgreementHttpService.getServiceAgreementContext.mockReturnValue(

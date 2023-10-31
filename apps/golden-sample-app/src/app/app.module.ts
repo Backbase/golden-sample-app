@@ -2,8 +2,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ACCESS_CONTROL_BASE_PATH as ACCESS_CONTROL_V3_BASE_PATH } from '@backbase/accesscontrol-v3-http-ang';
-import { ACCESS_CONTROL_BASE_PATH } from '@backbase/accesscontrol-http-ang';
+import {
+  ACCESS_CONTROL_BASE_PATH,
+  ACCESS_CONTROL_BASE_PATH as ACCESS_CONTROL_V3_BASE_PATH,
+} from '@backbase/accesscontrol-v3-http-ang';
 import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/arrangement-manager-http-ang';
 import { TRANSACTIONS_BASE_PATH } from '@backbase/transactions-http-ang';
 import {
