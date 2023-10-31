@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { ServiceAgreementHttpService } from '@backbase/accesscontrol-http-ang';
+import { ServiceAgreementsHttpService } from '@backbase/accesscontrol-v3-http-ang';
 import { Observable, of, tap } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -26,7 +26,7 @@ export class UserContextGuard {
 
   constructor(
     private readonly router: Router,
-    private readonly serviceAgreementService: ServiceAgreementHttpService
+    private readonly serviceAgreementService: ServiceAgreementsHttpService
   ) {}
 
   canActivateChild(

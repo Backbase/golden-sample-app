@@ -1,7 +1,7 @@
 {
   "name": "serviceagreements/context",
   "request": {
-    "url": "/access-control/client-api/v2/accessgroups/serviceagreements/context",
+    "url": "/access-control/client-api/v3/accessgroups/service-agreements/context",
     "method": "GET"
   },
   "responses": {
