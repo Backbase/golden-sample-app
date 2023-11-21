@@ -11,6 +11,7 @@ export interface Environment {
   mockProviders?: Provider[];
   mockEnabled?: boolean;
   common: sharedJourneyConfiguration;
+  apiSandboxKey?: string;
   isTelemetryTracerEnabled?: boolean;
   bbApiKey?: string;
   telemetryCollectorURL?: string;
