@@ -51,3 +51,5 @@ Thumbs.db
 test-results/
 playwright-report/
 .ngapimock
+allure-results/
+test-output/
