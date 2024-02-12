@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import { test } from '../page-objects/test-runner';
-import { wrongUser } from '../data/users';
+import { wrongUser } from '../data/credentials';
 import { Screen } from '../page-objects/screen';
 
 const i18n = {

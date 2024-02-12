@@ -1,7 +1,7 @@
 import { User } from '../../data/data-types/user';
 import { LanguageSelector } from '../ui-components/language-selector';
 import { BasePage } from './_base-page';
-import { defaultUser } from '../../data/users';
+import { defaultUser } from '../../data/credentials';
 
 // TODO Remove or update while using on project
 export class IdentityPage extends BasePage {
