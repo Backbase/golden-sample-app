@@ -1,24 +1,22 @@
-import { expect, Locator } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
+import { LocatorOptions } from '../../utils/locator-options';
+import { isLocator } from 'apps/golden-sample-app-e2e/utils/playwright-utils';
 
 export abstract class BaseComponent {
-  constructor(protected root: Locator) {}
+  get page(): Page { 
+    if (isLocator(this.accessor)) 
+      throw new Error('Root locator is not defined');
+    return this.accessor as Page; 
+  }
+  get root(): Locator {
+    if (!isLocator(this.accessor)) 
+      throw new Error('Root locator is not defined');
+    return this.accessor as Locator; 
+  }
 
-  $(
-    selector: string | Locator,
-    options?: {
-      has?: Locator;
-      hasNot?: Locator;
-      hasNotText?: string | RegExp;
-      hasText?: string | RegExp;
-    },
-  ): Locator {
+  constructor(private accessor: Page | Locator) { }
+  
+  $(selector: string, options?: LocatorOptions): Locator {
     return this.root.locator(selector, options);
-  }
-
-  async toBeVisible() {
-    await expect(this.root).toBeVisible();
-  }
-  async toBeHidden() {
-    await expect(this.root).not.toBeVisible();
   }
 }

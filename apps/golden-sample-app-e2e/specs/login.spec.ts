@@ -13,7 +13,6 @@ const i18n = {
   },
 };
 
-// TODO Remove or update while using on project
 test.describe.configure({ mode: 'parallel' });
 
 test.describe('@feature @i18n Login tests', () => {
@@ -25,10 +24,6 @@ test.describe('@feature @i18n Login tests', () => {
       await expect.soft(identityPage.passwordLabel, { message: `Expect Password label: "${i18n.identity.password}"` })
         .toHaveText(i18n.identity.password);
     });
-    // await test.step('Validate Login Form visual layout', async () => {
-    //   await expect(identityPage.loginForm)
-    //     .toHaveScreenshot(`en-translation.png`);
-    // });
     await test.step(
       `Fill in credentials: "${wrongUser.username}/${wrongUser.password}"`,
       async () => {
@@ -43,10 +38,6 @@ test.describe('@feature @i18n Login tests', () => {
       await expect(identityPage.errorMessage, { message: `Expect error message: "${i18n.identity.error}"` })
         .toHaveText(i18n.identity.error);
     });
-    // await test.step('Validate Failed login error visual layout', async () => {
-    //   await expect(identityPage.errorMessage)
-    //     .toHaveScreenshot(`en-error.png`);
-    // });
   });
 
 });
