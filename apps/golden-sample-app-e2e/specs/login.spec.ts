@@ -1,7 +1,6 @@
 import { expect } from '@playwright/test';
 import { test } from '../page-objects/test-runner';
 import { wrongUser } from '../data/credentials';
-import { Screen } from '../page-objects/screen';
 
 const i18n = {
   identity: {
@@ -16,8 +15,9 @@ const i18n = {
 test.describe.configure({ mode: 'parallel' });
 
 test.describe('@feature @i18n Login tests', () => {
-  test.use({ startFrom: Screen.loggedOut });
+
   test('Empty user name', async ({ identityPage }) => {
+    identityPage.open();
     await test.step('Validate Input fields labels', async () => {
       await expect.soft(identityPage.userNameLabel, { message: `Expect Username label: "${i18n.identity.username}"` })
         .toHaveText(i18n.identity.username);
