@@ -10,6 +10,7 @@ on:
 
 jobs:
   build:
+    name: 'Build'
     runs-on: ubuntu-latest
 
     steps:
@@ -40,7 +41,7 @@ jobs:
         run: npm run affected:lint
 
   playwright:
-    name: "Playwright Tests"
+    name: 'Playwright Tests'
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.32.1-focal
