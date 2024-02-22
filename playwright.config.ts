@@ -24,6 +24,7 @@ const config: PlaywrightTestConfig = {
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     video: 'on-first-retry',
+    headless: true,
     viewport: {
       width: Number(process.env['SCREEN_WIDTH']) || 1280,
       height: Number(process.env['SCREEN_HEIGHT']) || 720,
