@@ -8,7 +8,7 @@ export abstract class BasePage {
   constructor(
     public page: Page,
     public testInfo: TestInfo,
-    options?: Partial<{ url: string; title: string | RegExp }>,
+    options?: Partial<{ url: string; title: string | RegExp }>
   ) {
     this.url = options?.url || '';
     this.title = options?.title || '';

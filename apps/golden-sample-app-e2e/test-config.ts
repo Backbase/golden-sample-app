@@ -11,9 +11,9 @@ export class TestConfig {
   }
 
   init(
-    options: Partial<{ user: User; url: string; }> = {
+    options: Partial<{ user: User; url: string }> = {
       url: this.baseUrl,
-    },
+    }
   ) {
     if (options.url) {
       this.baseUrl = options.url;

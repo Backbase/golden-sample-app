@@ -9,7 +9,7 @@ export const test = baseTest.extend<{
 }>({
   identityPage: async ({ page }, use, testInfo) => {
     await use(
-      new IdentityPage(page, testInfo, { url: testConfig.appBaseUrl() }),
+      new IdentityPage(page, testInfo, { url: testConfig.appBaseUrl() })
     );
   },
 });
