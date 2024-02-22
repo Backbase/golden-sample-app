@@ -24,7 +24,7 @@ const config: PlaywrightTestConfig = {
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     video: 'on-first-retry',
-    headless: true,
+    headless: process.env['HEADLESS']?.toLowerCase() !== 'false',
     viewport: {
       width: Number(process.env['SCREEN_WIDTH']) || 1280,
       height: Number(process.env['SCREEN_HEIGHT']) || 720,
@@ -39,7 +39,6 @@ const config: PlaywrightTestConfig = {
       name: 'Web Chrome',
       use: {
         ...devices['Desktop Chrome'],
-        headless: process.env['HEADLESS']?.toLowerCase() === 'true',
         launchOptions: {
           chromiumSandbox: false,
           args: [

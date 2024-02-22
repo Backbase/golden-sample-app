@@ -3,7 +3,7 @@ import config from '../../playwright.config';
 import 'dotenv/config';
 
 export class TestConfig {
-  baseUrl = config.use?.baseURL || 'http://localhost:4200';
+  baseUrl = config.use?.baseURL || 'BASE URL UNDEFINED';
   locale = 'en';
 
   appBaseUrl() {
