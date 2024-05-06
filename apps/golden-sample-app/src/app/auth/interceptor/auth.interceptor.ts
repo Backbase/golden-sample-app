@@ -1,23 +1,23 @@
 import {
   HttpEvent,
   HttpHandler,
+  HttpHeaders,
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { OAuthService, TokenResponse } from 'angular-oauth2-oidc';
+import { Observable, ReplaySubject, from, throwError } from 'rxjs';
 import {
   catchError,
   exhaustMap,
-  from,
   map,
-  Observable,
-  ReplaySubject,
   share,
   switchMap,
   take,
-  throwError,
-} from 'rxjs';
+} from 'rxjs/operators';
+
+import { Injectable } from '@angular/core';
+import { environment } from './../../../environments/environment.prod';
 import { isInvalidToken401 } from '../utils/auth.utils';
 
 /**
@@ -48,23 +48,23 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    if (!request.url.includes('/auth')) {
+      request = request.clone({
+        headers: new HttpHeaders({
+          'X-SDBXAZ-API-KEY': environment.sandboxApiKey,
+        }),
+      });
+    }
+
     return next.handle(request).pipe(
       catchError((error) => {
         if (isInvalidToken401(error)) {
           this.triggerRefresh$$.next();
+
           return this.refreshToken$.pipe(
             take(1),
             catchError(() => throwError(() => error)),
-            switchMap((token) =>
-              next.handle(
-                request.clone({
-                  headers: request.headers.set(
-                    'Authorization',
-                    'Bearer ' + token
-                  ),
-                })
-              )
-            )
+            switchMap((token) => this.handleTokenRefresh(request, next, token))
           );
         }
         return throwError(() => error);
@@ -72,5 +72,21 @@ export class AuthInterceptor implements HttpInterceptor {
     );
   }
 
-  private readonly refreshToken = () => from(this.oAuthService.refreshToken());
+  private handleTokenRefresh(
+    request: HttpRequest<unknown>,
+    next: HttpHandler,
+    token: string
+  ): Observable<HttpEvent<unknown>> {
+    return next.handle(
+      request.clone({
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${token}`,
+        }),
+      })
+    );
+  }
+
+  private refreshToken(): Observable<TokenResponse> {
+    return from(this.oAuthService.refreshToken());
+  }
 }
