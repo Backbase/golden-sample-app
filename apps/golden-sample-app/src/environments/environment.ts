@@ -2,11 +2,11 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
+import { AuthConfig } from 'angular-oauth2-oidc';
+import { Environment } from './type';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Provider } from '@angular/core';
-import { AuthConfig } from 'angular-oauth2-oidc';
-import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
-import { Environment } from './type';
 
 const mockProviders: Provider[] = [
   {
@@ -18,7 +18,7 @@ const mockProviders: Provider[] = [
 
 export const environment: Environment = {
   production: false,
-  apiRoot: 'https://app.prd.sdbxaz.azure.backbaseservices.com/api',
+  apiRoot: 'https://app.dev.sdbxaz.azure.backbaseservices.com/api',
   mockProviders,
   locales: ['en-US', 'nl-NL'],
   common: {
@@ -28,12 +28,13 @@ export const environment: Environment = {
   bbApiKey: 'a554d1b4-6514-4f33-8211-3f52a03ca142',
   telemetryCollectorURL: 'https://rum-collector.backbase.io/v1/traces',
   env: 'local',
+  sandboxApiKey: 'sandbox-testing-api-key',
 };
 
 export const authConfig: AuthConfig = {
   // Url of the Identity Provider
   issuer:
-    'https://identity.prd.sdbxaz.azure.backbaseservices.com/auth/realms/customer',
+    'https://identity.dev.sdbxaz.azure.backbaseservices.com/auth/realms/customer',
 
   // URL of the SPA to redirect the user to after login
   redirectUri: document.baseURI,
