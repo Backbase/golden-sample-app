@@ -48,14 +48,6 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    if (!request.url.includes('/auth')) {
-      request = request.clone({
-        headers: new HttpHeaders({
-          'X-SDBXAZ-API-KEY': environment.sandboxApiKey,
-        }),
-      });
-    }
-
     return next.handle(request).pipe(
       catchError((error) => {
         if (isInvalidToken401(error)) {
@@ -81,6 +73,7 @@ export class AuthInterceptor implements HttpInterceptor {
       request.clone({
         headers: new HttpHeaders({
           Authorization: `Bearer ${token}`,
+          'X-SDBXAZ-API-KEY': environment.sandboxApiKey,
         }),
       })
     );
