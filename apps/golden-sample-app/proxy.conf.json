@@ -2,5 +2,8 @@
   "context": "/api",
   "target": "https://app.dev.sdbxaz.azure.backbaseservices.com/",
   "secure": false,
-  "changeOrigin": true
+  "changeOrigin": true,
+  "headers": {
+    "X-SDBXAZ-API-KEY": "goldensample-25481CBA-0A08-4B77-810D-D3875BAEEF5E"
+  }
 }
