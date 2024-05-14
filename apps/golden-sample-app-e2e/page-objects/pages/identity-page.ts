@@ -1,5 +1,5 @@
-import { User } from '../../data/data-types/user';
 import { BasePage } from './_base-page';
+import { User } from '../../data/data-types/user';
 import { defaultUser } from '../../data/credentials';
 
 export class IdentityPage extends BasePage {
@@ -7,8 +7,8 @@ export class IdentityPage extends BasePage {
   userNameLabel = this.$('label[for="username"]');
   password = this.$('#password');
   passwordLabel = this.$('label[for="password"]');
-  errorMessage = this.$('#input-error');
-  loginButton = this.$('.btn[value="Log in"]');
+  errorMessage = this.$('div[data-role="login-template__alert"]');
+  loginButton = this.$('.btn[name="login"]');
   loginForm = this.$('.identity-container__panel');
 
   async login(user: User = defaultUser) {

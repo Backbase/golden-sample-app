@@ -8,7 +8,7 @@ const i18n = {
     password: 'Password',
     loginButton: 'Log in',
     error:
-      'Incorrect username or passwordPlease check your credentials and try again.',
+      'Incorrect username or passwordPlease check your details and try again',
   },
 };
 

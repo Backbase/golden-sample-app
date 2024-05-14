@@ -12,6 +12,7 @@
   <span class="transactions-item__counterParty"
     >{{ transaction.counterPartyName || transaction.merchant?.name }}
     <img
+      *ngIf="iconName"
       src="./assets/transactions-journey/{{ iconName }}"
       width="20"
       height="20"
