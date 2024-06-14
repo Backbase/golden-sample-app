@@ -51,6 +51,21 @@ const config: PlaywrightTestConfig = {
         },
       },
     },
+    {
+      name: 'mobile-safari',
+      use: {
+        ...devices['iPhone 13'],
+      },
+    },
+    {
+      name: 'mobile-chrome',
+      use: {
+        ...devices['Desktop Chrome'],
+        isMobile: true,
+        //Pixel 7 dimensions from Chrome
+        viewport: { width: 915, height: 412 },
+      },
+    },
   ],
 };
 
