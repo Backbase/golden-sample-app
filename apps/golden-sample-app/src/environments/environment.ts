@@ -28,7 +28,7 @@ export const environment: Environment = {
   bbApiKey: 'a554d1b4-6514-4f33-8211-3f52a03ca142',
   telemetryCollectorURL: 'https://rum-collector.backbase.io/v1/traces',
   env: 'local',
-  sandboxApiKey: 'goldensample-25481CBA-0A08-4B77-810D-D3875BAEEF5E',
+  sandboxApiKey: '<place-your-api-key-here>',
 };
 
 export const authConfig: AuthConfig = {
