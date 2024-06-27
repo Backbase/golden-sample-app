@@ -15,4 +15,5 @@ export interface Environment {
   bbApiKey?: string;
   telemetryCollectorURL?: string;
   env?: string;
+  sandboxApiKey: string;
 }
