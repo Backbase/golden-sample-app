@@ -25,18 +25,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/transactions-journey/ui"],
       "options": {
-        "jestConfig": "libs/transactions-journey/ui/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/transactions-journey/ui/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/transactions-journey/ui/**/*.ts",
-          "libs/transactions-journey/ui/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:transactions-journey", "type:ui"]

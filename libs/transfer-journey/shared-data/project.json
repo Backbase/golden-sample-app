@@ -25,18 +25,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/transfer-journey/shared-data"],
       "options": {
-        "jestConfig": "libs/transfer-journey/shared-data/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/transfer-journey/shared-data/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/transfer-journey/shared-data/**/*.ts",
-          "libs/transfer-journey/shared-data/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:shared", "type:shared-data"]

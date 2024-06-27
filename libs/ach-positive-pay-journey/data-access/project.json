@@ -29,18 +29,11 @@
         "{workspaceRoot}/coverage/libs/ach-positive-pay-journey/data-access"
       ],
       "options": {
-        "jestConfig": "libs/ach-positive-pay-journey/data-access/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/ach-positive-pay-journey/data-access/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/ach-positive-pay-journey/data-access/**/*.ts",
-          "libs/ach-positive-pay-journey/data-access/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:ach-positive-pay-journey", "type:data-access"]
