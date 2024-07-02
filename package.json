@@ -39,7 +39,7 @@
     "@angular/router": "^17.1.3",
     "@backbase/accesscontrol-v3-http-ang": "^2.0.0",
     "@backbase/arrangement-manager-http-ang": "^4.0.0",
-    "@backbase/foundation-ang": "^10.0.0",
+    "@backbase/foundation-ang": "^10.1.0",
     "@backbase/identity-auth": "^4.0.0",
     "@backbase/initiate-payment-journey-ang": "5.1.0",
     "@backbase/internal-accessgroup-shared-data-access": "4.1.0",
