@@ -1,21 +1,23 @@
-import { Validators } from '@angular/forms';
 import '@angular/localize/init';
+
 import {
-  Frequencies,
-  ScheduleFields,
   CounterPartyFields,
+  Frequencies,
   InitiatePaymentConfig,
   InitiatorFields,
   PaymentBaseFields,
   PaymentComponents,
   PaymentFormGroup,
+  PaymentHooksCallbackFn,
   PaymentHooksParams,
   PaymentTypeConfig,
   RemittanceInfoFields,
   ReviewScreens,
-  PaymentHooksCallbackFn,
+  ScheduleFields,
 } from '@backbase/initiate-payment-journey-ang';
+
 import { InitiatorComponent } from './components/initiator/initiator.component';
+import { Validators } from '@angular/forms';
 
 /**
  * Configuration group contains 1 field:
@@ -189,15 +191,15 @@ export const customPaymentConfig: InitiatePaymentConfig = {
       $localize`:Make a Payment Link@@main.make-a-payment.link.text:Make internal payment (custom)`,
   },
   /**
-   * Use hooks to perform additiona logic at different stages of Payments journey. For eg,
+   * Use hooks to perform additional logic at different stages of Payments journey. For eg,
    * 1. Use onSave hook to perform some action(s) before a payment is saved for validation
    * 2. Use onSubmit hook to perform some action(s) before a payment is submitted for processing
    */
   hooks: {
-    onSave: (({ form, doneFn }: PaymentHooksParams) => {
+    onSave: (({ doneFn }: PaymentHooksParams) => {
       doneFn();
     }) as PaymentHooksCallbackFn,
-    onSubmit: (({ form, doneFn }: PaymentHooksParams) => {
+    onSubmit: (({ doneFn }: PaymentHooksParams) => {
       doneFn();
     }) as PaymentHooksCallbackFn,
   },

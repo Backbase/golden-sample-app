@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Observable, map } from 'rxjs';
 import {
   ProductSummaryHttpService,
   ProductSummaryItem,
 } from '@backbase/arrangement-manager-http-ang';
-import { Observable, map } from 'rxjs';
+
 import { AccountSelectorItems } from './initiator.model';
+import { Injectable } from '@angular/core';
 
 const DUMMY_REQUEST_PARAMS = {
   businessFunction: 'A2A Transfer',
@@ -19,7 +20,7 @@ export class InitiatorService {
     this.productSummaryHttpService
       .getArrangementsByBusinessFunction(DUMMY_REQUEST_PARAMS)
       .pipe(
-        map((arrangements: Array<ProductSummaryItem>): AccountSelectorItems => {
+        map((arrangements: ProductSummaryItem[]): AccountSelectorItems => {
           return arrangements.map((arrangement) => {
             return {
               id: arrangement.id,
