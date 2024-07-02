@@ -27,18 +27,11 @@
         "{workspaceRoot}/coverage/libs/transactions-journey/shared-data"
       ],
       "options": {
-        "jestConfig": "libs/transactions-journey/shared-data/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/transactions-journey/shared-data/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/transactions-journey/shared-data/**/*.ts",
-          "libs/transactions-journey/shared-data/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:shared", "type:shared-data"]

@@ -6,3 +6,5 @@ messages.xlf
 messages.*.xlf
 
 .angular
+
+/.nx/cache
