@@ -21,6 +21,7 @@ export const environment: Environment = {
   apiRoot: 'https://app.prd.sdbxaz.azure.backbaseservices.com/api',
   mockProviders,
   locales: ['en-US', 'nl-NL'],
+  apiSandboxKey: 'sandboxApiKey',
   common: {
     designSlimMode: false,
   },

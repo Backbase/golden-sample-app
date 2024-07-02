@@ -46,6 +46,7 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { UserContextInterceptor } from './user-context/user-context.interceptor';
 import { ActivityMonitorModule } from './auth/activity-monitor';
+import {ApiSandboxInterceptor} from "../environments/api-sandbox-interceptor";
 import packageInfo from 'package-json';
 
 @NgModule({
@@ -165,6 +166,11 @@ import packageInfo from 'package-json';
       useValue: {
         accessControlBasePath: `${environment.apiRoot}/access-control`,
       },
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiSandboxInterceptor,
+      multi: true,
     },
     {
       provide: ErrorHandler,
