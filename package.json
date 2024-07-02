@@ -84,7 +84,6 @@
     "@ng-apimock/core": "^3.11.0",
     "@ng-apimock/dev-interface": "^3.2.1",
     "@nx/angular": "17.3.0",
-    "@nx/eslint": "17.3.0",
     "@nx/eslint-plugin": "17.3.0",
     "@nx/jest": "17.3.0",
     "@nx/js": "17.3.0",
@@ -113,11 +112,12 @@
     "ng-packagr": "17.1.2",
     "ngx-i18nsupport": "^0.17.1",
     "nx": "17.3.0",
-    "prettier": "^2.8.8",
+    "prettier": "^2.8.1",
     "ts-jest": "29.1.0",
     "ts-node": "^10.9.1",
     "tslib": "^2.4.0",
     "typescript": "^5.3.3",
-    "webpack-bundle-analyzer": "^4.5.0"
+    "webpack-bundle-analyzer": "^4.5.0",
+    "@nx/eslint": "17.3.0"
   }
 }
