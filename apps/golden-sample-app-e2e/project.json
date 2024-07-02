@@ -1,0 +1,21 @@
+{
+  "name": "golden-sample-app-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "tags": [],
+  "implicitDependencies": ["golden-sample-app"],
+  "targets": {
+    "e2e-safari-mobile": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx playwright test --project 'mobile-safari' --grep '@visual.+@responsive|@responsive.+@visual' --workers=2"
+      }
+    },
+    "e2e-chrome-mobile": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx playwright test --project 'mobile-chrome' --grep '@visual.+@responsive|@responsive.+@visual' --workers=2"
+      }
+    }
+  }
+}
