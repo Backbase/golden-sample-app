@@ -8,7 +8,9 @@
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
-      "outputs": ["{workspaceRoot}/dist/libs/transactions-journey/feature-transaction-details-view"],
+      "outputs": [
+        "{workspaceRoot}/dist/libs/transactions-journey/feature-transaction-details-view"
+      ],
       "options": {
         "project": "libs/transactions-journey/feature-transaction-details-view/ng-package.json"
       },
@@ -26,25 +28,12 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/transactions-journey/feature-transaction-details-view/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "jestConfig": "libs/transactions-journey/feature-transaction-details-view/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/transactions-journey/feature-transaction-details-view/**/*.ts",
-          "libs/transactions-journey/feature-transaction-details-view/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     }
   }
 }

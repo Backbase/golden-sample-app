@@ -35,6 +35,15 @@
       "@backbase-gsa/internal-transactions-feature": [
         "libs/transactions-journey/feature/src/index.ts"
       ],
+      "@backbase-gsa/internal-transactions-feature-transaction-details-view": [
+        "libs/transactions-journey/feature-transaction-details-view/src/index.ts"
+      ],
+      "@backbase-gsa/internal-transactions-feature-transaction-view": [
+        "libs/transactions-journey/feature-transaction-view/src/index.ts"
+      ],
+      "@backbase-gsa/internal-transactions-shared-data": [
+        "libs/transactions-journey/shared-data/src/index.ts"
+      ],
       "@backbase-gsa/internal-transactions-ui": [
         "libs/transactions-journey/ui/src/index.ts"
       ],
@@ -58,15 +67,6 @@
       ],
       "@backbase-gsa/transfer-journey": [
         "libs/transfer-journey/shell/src/index.ts"
-      ],
-      "@backbase-gsa/internal-transactions-feature-transaction-details-view": [
-        "libs/transactions-journey/feature-transaction-details-view/src/index.ts"
-      ],
-      "@backbase-gsa/internal-transactions-feature-transaction-view": [
-        "libs/transactions-journey/feature-transaction-view/src/index.ts"
-      ],
-      "@backbase-gsa/internal-transactions-shared-data": [
-        "libs/transactions-journey/shared-data/src/index.ts"
       ],
       "package-json": ["package.json"]
     }

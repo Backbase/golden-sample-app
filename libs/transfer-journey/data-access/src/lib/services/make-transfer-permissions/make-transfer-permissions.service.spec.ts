@@ -9,7 +9,7 @@ describe('MakeTransferPermissionsService', () => {
     };
   beforeEach(() => {
     service = new MakeTransferPermissionsService(
-      <ConditionsService>mockConditionsService
+      mockConditionsService as ConditionsService
     );
   });
 

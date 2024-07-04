@@ -27,18 +27,11 @@
         "{workspaceRoot}/coverage/libs/transactions-journey/data-access"
       ],
       "options": {
-        "jestConfig": "libs/transactions-journey/data-access/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/transactions-journey/data-access/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/transactions-journey/data-access/**/*.ts",
-          "libs/transactions-journey/data-access/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:transactions-journey", "type:data-access"]

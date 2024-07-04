@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { OAuthEvent, OAuthService } from 'angular-oauth2-oidc';
 import { Subject, Subscription } from 'rxjs';
-import { TestScheduler } from 'rxjs/testing';
-import { LocalesService } from '../../locale-selector/locales.service';
+
 import { AuthEventsHandlerService } from './auth-events-handler.service';
 import { AuthService } from '@backbase/identity-auth';
+import { LocalesService } from '../../locale-selector/locales.service';
+import { TestScheduler } from 'rxjs/testing';
 
 export type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;
 export const mock = <T>(overrides?: WidePropertyTypes<T>) =>
@@ -182,7 +184,7 @@ describe('AuthEventsHandlerService', () => {
   describe('#ngOnDestroy', () => {
     it('should close events subscription', () => {
       const { service } = getInstance();
-      const subscription: Subscription = (<any>service).eventsSubscription;
+      const subscription: Subscription = (service as any).eventsSubscription;
 
       expect(subscription.closed).toBe(false);
 

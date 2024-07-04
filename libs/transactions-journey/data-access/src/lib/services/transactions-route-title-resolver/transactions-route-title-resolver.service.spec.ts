@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TransactionsJourneyConfiguration } from '../transactions-journey-config/transactions-journey-config.service';
 import { TransactionsRouteTitleResolverService } from './transactions-route-title-resolver.service';
 

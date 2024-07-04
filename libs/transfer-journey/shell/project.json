@@ -25,18 +25,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/transfer-journey/shell"],
       "options": {
-        "jestConfig": "libs/transfer-journey/shell/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/transfer-journey/shell/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/transfer-journey/shell/**/*.ts",
-          "libs/transfer-journey/shell/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:transfer-journey", "type:shell"]

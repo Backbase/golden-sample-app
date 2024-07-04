@@ -1,8 +1,10 @@
-import { UserContextInterceptor } from './user-context.interceptor';
-import { MemoryStorage } from 'angular-oauth2-oidc';
-import { UserContextService } from './user-context.service';
 import { HttpHandler, HttpRequest } from '@angular/common/http';
+
 import { EMPTY } from 'rxjs';
+import { MemoryStorage } from 'angular-oauth2-oidc';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { UserContextInterceptor } from './user-context.interceptor';
+import { UserContextService } from './user-context.service';
 
 describe('UserContextInterceptor', () => {
   function setupInterceptor(
