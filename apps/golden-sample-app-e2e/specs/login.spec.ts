@@ -14,7 +14,7 @@ const i18n = {
 
 test.describe.configure({ mode: 'parallel' });
 
-test.describe('@feature @i18n Login tests', () => {
+test.describe('@feature @i18n @e2e Login tests', () => {
   test('Empty user name', async ({ identityPage }) => {
     identityPage.open();
     await test.step('Validate Input fields labels', async () => {
