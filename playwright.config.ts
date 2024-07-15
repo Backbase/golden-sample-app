@@ -73,13 +73,13 @@ const config: PlaywrightTestConfig = {
     {
       command: 'npm run mock-server',
       url: 'http://localhost:9999/dev-interface',
-      timeout: 30 * 1000,
+      timeout: 60 * 1000,
       reuseExistingServer: false,
     },
     {
       command: 'npx nx serve -c=mocks --port=4201',
       url: 'http://localhost:4201/',
-      timeout: 30 * 1000,
+      timeout: 60 * 1000,
       reuseExistingServer: false,
     },
     {
