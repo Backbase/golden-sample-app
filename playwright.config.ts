@@ -20,6 +20,7 @@ const config: PlaywrightTestConfig = {
   globalSetup: require.resolve(__dirname + '/global-setup.ts'),
   use: {
     trace: 'retain-on-failure',
+    baseURL: process.env['BASE_URL'] || 'http://localhost:4200/',
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     video: 'on-first-retry',
@@ -35,9 +36,8 @@ const config: PlaywrightTestConfig = {
   },
   projects: [
     {
-      name: 'Web Chrome',
+      name: 'web-chrome',
       use: {
-        baseURL: 'http://localhost:4200/',
         ...devices['Desktop Chrome'],
         launchOptions: {
           chromiumSandbox: false,
@@ -73,19 +73,13 @@ const config: PlaywrightTestConfig = {
     {
       command: 'npm run mock-server',
       url: 'http://localhost:9999/dev-interface',
-      timeout: 60 * 1000,
+      timeout: 30 * 1000,
       reuseExistingServer: false,
     },
     {
       command: 'npx nx serve -c=mocks --port=4201',
       url: 'http://localhost:4201/',
-      timeout: 60 * 1000,
-      reuseExistingServer: false,
-    },
-    {
-      command: 'npm run start',
-      url: 'http://localhost:4200/',
-      timeout: 60 * 1000,
+      timeout: 120 * 1000,
       reuseExistingServer: false,
     },
   ],

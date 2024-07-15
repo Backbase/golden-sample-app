@@ -123,7 +123,7 @@
       "options": {
         "devServerTarget": "golden-sample-app:serve",
         "command": "npx",
-        "args": ["playwright", "test"]
+        "args": ["playwright", "test", "--project", "web-chrome", "--grep", "@e2e"]
       },
       "configurations": {
         "production": {}
