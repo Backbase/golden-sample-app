@@ -7,7 +7,7 @@ export class VisualValidator {
   constructor(
     protected page: Page,
     protected skip = false,
-    protected rtl = false,
+    protected rtl = false
   ) {
     this.rtlPrefix = rtl ? `rtl-` : ``;
   }
@@ -17,7 +17,10 @@ export class VisualValidator {
     if (options?.waitBefore) {
       await this.page.waitForTimeout(options.waitBefore);
     }
-    await expect(this.page).toHaveScreenshot(this.screenName(name), { fullPage: true, maxDiffPixelRatio: 0.01 });
+    await expect(this.page).toHaveScreenshot(this.screenName(name), {
+      fullPage: true,
+      maxDiffPixelRatio: 0.01,
+    });
   }
 
   async test(name: string, options?: VisualPageTypes) {
@@ -41,15 +44,25 @@ export class VisualValidator {
     await this.testElement('bb-showcase', name);
   }
 
-  async testElement(element: Locator | string, name: string, options?: VisualTypes) {
+  async testElement(
+    element: Locator | string,
+    name: string,
+    options?: VisualTypes
+  ) {
     if (this.skip) return;
-    const locator = typeof element === 'string' ? this.page.locator(element) : element;
+    const locator =
+      typeof element === 'string' ? this.page.locator(element) : element;
     await expect(locator).toHaveScreenshot(this.screenName(name), options);
   }
 
-  async testElementWithMask(element: Locator | string, name: string, options: { mask: string[] }) {
+  async testElementWithMask(
+    element: Locator | string,
+    name: string,
+    options: { mask: string[] }
+  ) {
     if (this.skip) return;
-    const locator = typeof element === 'string' ? this.page.locator(element) : element;
+    const locator =
+      typeof element === 'string' ? this.page.locator(element) : element;
     await expect(locator).toHaveScreenshot(this.screenName(name), {
       mask: options.mask.map((selector) => locator.locator(selector)),
       maxDiffPixelRatio: 0.01,
