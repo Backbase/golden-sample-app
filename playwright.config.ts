@@ -20,7 +20,6 @@ const config: PlaywrightTestConfig = {
   globalSetup: require.resolve(__dirname + '/global-setup.ts'),
   use: {
     trace: 'retain-on-failure',
-    baseURL: process.env['BASE_URL'] || 'http://localhost:4200/',
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     video: 'on-first-retry',
@@ -38,6 +37,7 @@ const config: PlaywrightTestConfig = {
     {
       name: 'Web Chrome',
       use: {
+        baseURL: 'http://localhost:4200/',
         ...devices['Desktop Chrome'],
         launchOptions: {
           chromiumSandbox: false,
