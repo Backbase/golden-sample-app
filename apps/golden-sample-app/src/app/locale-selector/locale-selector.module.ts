@@ -1,8 +1,9 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
 import { LOCALES_LIST, LocalesService } from './locales.service';
-import { LocaleSelectorComponent } from './locale-selector.component';
-import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
+import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
+import { LocaleSelectorComponent } from './locale-selector.component';
 
 @NgModule({
   declarations: [LocaleSelectorComponent],
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class LocaleSelectorModule {
   static forRoot(config: {
+    // eslint-disable-next-line @typescript-eslint/array-type
     locales: Array<string>;
   }): ModuleWithProviders<LocaleSelectorModule> {
     return {

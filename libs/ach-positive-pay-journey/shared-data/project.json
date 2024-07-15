@@ -29,18 +29,11 @@
         "{workspaceRoot}/coverage/libs/ach-positive-pay-journey/shared-data"
       ],
       "options": {
-        "jestConfig": "libs/ach-positive-pay-journey/shared-data/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/ach-positive-pay-journey/shared-data/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/ach-positive-pay-journey/shared-data/**/*.ts",
-          "libs/ach-positive-pay-journey/shared-data/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:ach-positive-pay-journey", "type:shared-data"]

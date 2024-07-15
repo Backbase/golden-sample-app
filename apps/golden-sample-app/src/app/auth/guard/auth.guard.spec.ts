@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { AuthService } from '@backbase/identity-auth';
 import { ReplaySubject } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';

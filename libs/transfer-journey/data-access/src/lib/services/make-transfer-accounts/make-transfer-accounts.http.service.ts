@@ -3,13 +3,14 @@ import {
   BalancesHttpService,
   ProductSummaryHttpService,
 } from '@backbase/arrangement-manager-http-ang';
-import { Injectable } from '@angular/core';
-import { map, of } from 'rxjs';
-import { Transfer } from '@backbase-gsa/internal-transfer-shared-data';
 import {
   ErrorStatus,
   ErrorStatusEnum,
 } from '../make-transfer-journey-state/make-transfer-journey-state.service';
+import { map, of } from 'rxjs';
+
+import { Injectable } from '@angular/core';
+import { Transfer } from '@backbase-gsa/internal-transfer-shared-data';
 
 @Injectable()
 export class MakeTransferAccountHttpService {
@@ -46,6 +47,7 @@ export class MakeTransferAccountHttpService {
   }
 
   makeTransfer(_transfer: Transfer) {
+    console.log(_transfer);
     // save transfer in api
     return of({});
   }

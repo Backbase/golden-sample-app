@@ -9,12 +9,12 @@ type Locale = (typeof localesCatalog)[string];
   templateUrl: 'locale-selector.component.html',
 })
 export class LocaleSelectorComponent implements OnInit {
-  localesCatalog: Array<Locale> = [];
+  localesCatalog: Locale[] = [];
   private currentLanguage: Locale | undefined;
 
   constructor(
     private localeService: LocalesService,
-    @Inject(LOCALES_LIST) public locales: Array<string>
+    @Inject(LOCALES_LIST) public locales: string[]
   ) {}
 
   set language(value: string | object | Locale | undefined) {
@@ -31,7 +31,7 @@ export class LocaleSelectorComponent implements OnInit {
 
   ngOnInit() {
     this.localesCatalog = this.locales.reduce(
-      (acc: Array<Locale>, locale) => [...acc, localesCatalog[locale]],
+      (acc: Locale[], locale) => [...acc, localesCatalog[locale]],
       []
     );
 

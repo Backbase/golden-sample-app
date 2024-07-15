@@ -5,7 +5,6 @@
   "sourceRoot": "libs/transactions-journey/shell/src",
   "prefix": "bb",
   "targets": {
-
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/transactions-journey/shell"],
@@ -26,18 +25,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/transactions-journey/shell"],
       "options": {
-        "jestConfig": "libs/transactions-journey/shell/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/transactions-journey/shell/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/transactions-journey/shell/**/*.ts",
-          "libs/transactions-journey/shell/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:transactions-journey", "type:shell"]

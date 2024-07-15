@@ -1,6 +1,7 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { InputTextModule } from '@backbase/ui-ang/input-text';
 
 @Component({
@@ -11,6 +12,6 @@ import { InputTextModule } from '@backbase/ui-ang/input-text';
   standalone: true,
 })
 export class TextFilterComponent {
-  @Output() textChange: EventEmitter<string> = new EventEmitter();
+  @Output() textChange = new EventEmitter<string>();
   @Input() text: string | null = '';
 }

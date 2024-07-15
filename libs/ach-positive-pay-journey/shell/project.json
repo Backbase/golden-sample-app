@@ -27,18 +27,11 @@
         "{workspaceRoot}/coverage/libs/ach-positive-pay-journey/shell"
       ],
       "options": {
-        "jestConfig": "libs/ach-positive-pay-journey/shell/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/ach-positive-pay-journey/shell/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/ach-positive-pay-journey/shell/**/*.ts",
-          "libs/ach-positive-pay-journey/shell/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:ach-positive-pay-journey", "type:shell"]
