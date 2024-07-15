@@ -16,6 +16,12 @@
       "options": {
         "command": "npx playwright test --project 'mobile-chrome' --grep '@visual.+@responsive|@responsive.+@visual' --workers=2"
       }
+    },
+    "e2e-all-mobile": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx playwright test --project 'mobile-chrome' --project 'mobile-safari' --grep '@visual.+@responsive|@responsive.+@visual' --workers=2"
+      }
     }
   }
 }

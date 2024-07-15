@@ -20,7 +20,8 @@
     "affected:test": "nx affected:test",
     "xi18n": "ng extract-i18n golden-sample-app --output-path=apps/golden-sample-app/src/locale && xliffmerge --profile apps/golden-sample-app/src/xliffmerge.json nl-NL",
     "e2e": "nx e2e",
-    "e2e-test": "npx playwright test --update-snapshots",
+    "e2e-test": "npx playwright test --project 'Web Chrome'",
+    "e2e-test-responsive": "npx playwright test --project 'mobile-chrome' --project 'mobile-safari' --grep '@visual.+@responsive|@responsive.+@visual' --workers=2",
     "lint": "nx run-many --all --target=lint",
     "format": "prettier --write \"{apps,libs}/**/*.{ts,md,html}\" \"!{apps,libs}/**/coverage\" ",
     "format:check": "prettier --list-different \"{apps,libs}/**/*.{ts,md}\" \"!{apps,libs}/**/coverage\""
