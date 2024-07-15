@@ -85,7 +85,7 @@ const config: PlaywrightTestConfig = {
     {
       command: 'npm run start',
       url: 'http://localhost:4200/',
-      timeout: 30 * 1000,
+      timeout: 60 * 1000,
       reuseExistingServer: false,
     },
   ],
