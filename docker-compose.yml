@@ -18,3 +18,4 @@ services:
       AUTH_CLIENT_ID: bb-web-client
       LOCALES: en,nl
       FALLBACK_LOCALE: nl
+      TEST_ENV: '{"issuer":"https://identity.dev.rndce.azure.backbaseservices.com/auth/realms/employee"}'

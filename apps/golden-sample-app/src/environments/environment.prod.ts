@@ -42,4 +42,12 @@ export const authConfig: AuthConfig = {
   showDebugInformation: true,
 
   logoutUrl: document.baseURI + 'logout',
+
+  // @ts-expect-error hello
+  testEnv: '${TEST_ENV}',
 };
+
+console.warn('should work with js 1', '${TEST_ENV}');
+// @ts-expect-error hello
+console.warn('should work with js 2', authConfig.testEnv);
+console.warn('should allow parse json', JSON.parse('${TEST_ENV}'));
