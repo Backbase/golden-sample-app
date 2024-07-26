@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { ThemeService } from "./theme-service";
 
 @Component({
@@ -9,13 +9,10 @@ export class ThemeExporterComponent{
   @Input()
   theme = ThemeService.THEMES[0];
 
-  @Output()
-  setTheme = new EventEmitter<string>();
-
   themes = ThemeService.THEMES;
 
-  onSelect(theme: string) {
-    console.log(theme);
-    //this.setTheme.emit(theme);
+  onSelect(theme: any) {
+    ThemeService.setTheme(theme);
+    this.theme = theme;
   }
 }

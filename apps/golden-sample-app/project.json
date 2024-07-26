@@ -30,7 +30,19 @@
             "output": "assets/transactions-journey"
           }
         ],
-        "styles": ["apps/golden-sample-app/src/styles.scss"],
+        "styles": [
+          "apps/golden-sample-app/src/styles.scss",
+          {
+            "input": "apps/golden-sample-app/src/styles.scss",
+            "bundleName": "theme-default",
+            "inject": false
+          },
+          {
+            "input": "apps/golden-sample-app/src/themes/theme-premium/main.scss",
+            "bundleName": "theme-premium",
+            "inject": false
+          }
+        ],
         "scripts": []
       },
       "configurations": {

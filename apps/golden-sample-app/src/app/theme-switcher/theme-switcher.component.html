@@ -1,5 +1,6 @@
 <div class="theme-selector">
   <bb-dropdown-menu-ui
+    (select)="onSelect($event)"
     [options]="themes"
     ariaLabel="theme selector"
     container="body"

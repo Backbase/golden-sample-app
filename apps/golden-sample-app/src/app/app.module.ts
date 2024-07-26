@@ -48,6 +48,7 @@ import { UserContextInterceptor } from './user-context/user-context.interceptor'
 import { ActivityMonitorModule } from './auth/activity-monitor';
 import packageInfo from 'package-json';
 import { ThemeExporterModule } from './theme-switcher/theme-switcher.component.module';
+import { ThemeService } from './theme-switcher/theme-service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -172,6 +173,7 @@ import { ThemeExporterModule } from './theme-switcher/theme-switcher.component.m
       provide: ErrorHandler,
       useClass: AppErrorHandler,
     },
+    ThemeService,
   ],
   bootstrap: [AppComponent],
 })
