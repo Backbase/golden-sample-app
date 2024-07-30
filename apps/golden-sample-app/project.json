@@ -31,11 +31,10 @@
           }
         ],
         "styles": [
-          "apps/golden-sample-app/src/styles.scss",
           {
             "input": "apps/golden-sample-app/src/styles.scss",
             "bundleName": "theme-default",
-            "inject": false
+            "inject": true
           },
           {
             "input": "apps/golden-sample-app/src/themes/theme-premium/main.scss",
