@@ -10,9 +10,9 @@ export class ThemeSwitcherComponent {
 
   @Input() theme = ThemeManagerService.THEMES[0];
 
-  themes = ThemeManagerService.THEMES;
+  protected themes = ThemeManagerService.THEMES;
 
-  onSelect(theme: string | object) {
+  protected onSelect(theme: string | object) {
     if (typeof theme === 'string') {
       this.themeManagerService.setTheme(theme);
       this.theme = theme;
