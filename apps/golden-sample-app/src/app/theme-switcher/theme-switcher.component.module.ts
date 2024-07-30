@@ -1,11 +1,11 @@
 import { DropdownMenuModule } from "@backbase/ui-ang/dropdown-menu";
-import { ThemeExporterComponent } from "./theme-switcher.component";
+import { ThemeSwitcherComponent } from "./theme-switcher.component";
 import { NgModule } from "@angular/core";
 
 @NgModule({
-  declarations: [ ThemeExporterComponent ],
+  declarations: [ ThemeSwitcherComponent ],
   imports: [ DropdownMenuModule ],
-  exports: [ ThemeExporterComponent ],
+  exports: [ ThemeSwitcherComponent ],
 })
-export class ThemeExporterModule {
+export class ThemeSwitcherModule {
 }

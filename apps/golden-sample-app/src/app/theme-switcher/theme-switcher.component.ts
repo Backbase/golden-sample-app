@@ -1,18 +1,22 @@
 import { Component, Input } from "@angular/core";
-import { ThemeService } from "./theme-service";
+import { ThemeManagerService } from "./theme-service";
 
 @Component({
 selector: 'app-theme-switcher',
 templateUrl: './theme-switcher.component.html',
 })
-export class ThemeExporterComponent{
-  @Input()
-  theme = ThemeService.THEMES[0];
+export class ThemeSwitcherComponent{
 
-  themes = ThemeService.THEMES;
+  constructor(private themeManagerService: ThemeManagerService){}
 
-  onSelect(theme: any) {
-    ThemeService.setTheme(theme);
-    this.theme = theme;
+  @Input()theme = ThemeManagerService.THEMES[0];
+
+  themes = ThemeManagerService.THEMES;
+
+  onSelect(theme: string | object) {
+    if(typeof theme === 'string'){
+      this.themeManagerService.setTheme(theme);
+      this.theme = theme;
+    }
   }
 }
