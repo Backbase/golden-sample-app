@@ -46,7 +46,7 @@
     "@backbase/internal-accessgroup-shared-data-access": "4.1.0",
     "@backbase/select-context-widget-ang": "8.2.0",
     "@backbase/transactions-http-ang": "^4.0.0",
-    "@backbase/ui-ang": "^11.0.0",
+    "@backbase/ui-ang": "^11.11.0",
     "@material/animation": "^3.0.0",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "@ng-select/ng-select": "^12.0.0",

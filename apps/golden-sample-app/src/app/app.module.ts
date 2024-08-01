@@ -47,6 +47,8 @@ import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { UserContextInterceptor } from './user-context/user-context.interceptor';
 import { ActivityMonitorModule } from './auth/activity-monitor';
 import packageInfo from 'package-json';
+import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
+import { ThemeManagerService } from './theme-switcher/theme-service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -62,6 +64,7 @@ import packageInfo from 'package-json';
     NgbDropdownModule,
     AvatarModule,
     EntitlementsModule,
+    ThemeSwitcherModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     OAuthModule.forRoot(),
@@ -170,6 +173,7 @@ import packageInfo from 'package-json';
       provide: ErrorHandler,
       useClass: AppErrorHandler,
     },
+    ThemeManagerService,
   ],
   bootstrap: [AppComponent],
 })
