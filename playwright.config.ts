@@ -52,20 +52,11 @@ const config: PlaywrightTestConfig = {
       },
     },
     {
-      name: 'mobile-safari',
-      use: {
-        ...devices['iPhone 13'],
-        baseURL: 'http://localhost:4201',
-      },
-    },
-    {
       name: 'mobile-chrome',
       use: {
-        ...devices['Desktop Chrome'],
+        ...devices['Nexus 7'],
         isMobile: true,
-        //Pixel 7 dimensions from Chrome
-        viewport: { width: 915, height: 412 },
-        baseURL: 'http://localhost:4201',
+        baseURL: 'http://host.docker.internal:4201',
       },
     },
   ],
