@@ -56,7 +56,7 @@ const config: PlaywrightTestConfig = {
       use: {
         ...devices['Nexus 7'],
         isMobile: true,
-        baseURL: 'http://host.docker.internal:4201',
+        baseURL: 'http://localhost:4201',
       },
     },
   ],
