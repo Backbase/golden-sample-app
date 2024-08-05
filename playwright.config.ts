@@ -36,7 +36,7 @@ const config: PlaywrightTestConfig = {
   },
   projects: [
     {
-      name: 'Web Chrome',
+      name: 'web-chrome',
       use: {
         ...devices['Desktop Chrome'],
         launchOptions: {
@@ -50,6 +50,28 @@ const config: PlaywrightTestConfig = {
           ],
         },
       },
+    },
+    {
+      name: 'mobile-chrome',
+      use: {
+        ...devices['Nexus 7'],
+        isMobile: true,
+        baseURL: 'http://localhost:4201',
+      },
+    },
+  ],
+  webServer: [
+    {
+      command: 'npm run mock-server',
+      url: 'http://localhost:9999/dev-interface',
+      timeout: 30 * 1000,
+      reuseExistingServer: false,
+    },
+    {
+      command: 'npx nx serve -c=mocks --port=4201',
+      url: 'http://localhost:4201/',
+      timeout: 120 * 1000,
+      reuseExistingServer: false,
     },
   ],
 };
