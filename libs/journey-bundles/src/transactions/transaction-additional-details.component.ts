@@ -5,7 +5,7 @@ import {
 } from '@backbase-gsa/transactions-journey';
 
 @Component({
-  selector: 'app-custom-txn-info',
+  selector: 'backbase-custom-txn-info',
   styleUrls: ['./transaction-additional-details.component.scss'],
   templateUrl: './transaction-additional-details.component.html',
 })
