@@ -4,6 +4,7 @@ import { AuthService } from '@backbase/identity-auth';
 import { ReplaySubject } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AuthGuard } from './auth.guard';
+import { EnvironmentService } from '../environment/environment.service';
 
 export type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;
 export const mock = <T>(overrides?: WidePropertyTypes<T>) =>
@@ -16,7 +17,11 @@ describe('AuthGuard', () => {
       isAuthenticated$: isAuthenticated$$.asObservable(),
       initLoginFlow: jest.fn(),
     });
-    const guard = new AuthGuard(authService);
+    const envService = mock<EnvironmentService>({
+      environment: null,
+      initializeEnvironment: jest.fn(),
+    });
+    const guard = new AuthGuard(authService, envService);
     const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
 
     return { guard, authService, isAuthenticated$$, scheduler };

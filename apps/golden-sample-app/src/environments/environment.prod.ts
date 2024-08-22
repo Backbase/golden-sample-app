@@ -1,5 +1,10 @@
 import { AuthConfig } from 'angular-oauth2-oidc';
-import { Environment } from './type';
+import { Environment } from '@backbase-gsa/shared';
+import {
+  ACH_POSITIVE_PAY_JOURNEY_BUNDLE,
+  CUSTOM_PAYMENT_JOURNEY_BUNDLE,
+  TRANSACTIONS_JOURNEY_BUNDLE, TRANSFER_JOURNEY_BUNDLE
+} from '@backbase-gsa/journey-bundles';
 
 export const environment: Environment = {
   production: true,
@@ -12,6 +17,12 @@ export const environment: Environment = {
   bbApiKey: 'a554d1b4-6514-4f33-8211-3f52a03ca142',
   telemetryCollectorURL: 'https://rum-collector.backbase.io/v1/traces',
   env: 'production',
+  journeyBundles: [
+    ACH_POSITIVE_PAY_JOURNEY_BUNDLE,
+    CUSTOM_PAYMENT_JOURNEY_BUNDLE,
+    TRANSACTIONS_JOURNEY_BUNDLE,
+    TRANSFER_JOURNEY_BUNDLE
+  ]
 };
 
 export const authConfig: AuthConfig = {

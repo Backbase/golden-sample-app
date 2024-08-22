@@ -2,9 +2,9 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserContextComponent } from './user-context.component';
 import { Router } from '@angular/router';
-import { UserContextGuard } from './user-context.guard';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { UserContextService } from './user-context.service';
+import { UserContextGuard } from '@backbase-gsa/shared';
 
 describe('UserContextComponent', () => {
   let fixture: ComponentFixture<UserContextComponent>;

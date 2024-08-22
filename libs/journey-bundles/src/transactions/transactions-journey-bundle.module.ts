@@ -2,12 +2,11 @@ import { NgModule } from '@angular/core';
 import {
   TransactionsJourneyConfiguration,
   TransactionsJourneyModule,
-  TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+  TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE
 } from '@backbase-gsa/transactions-journey';
-import { environment } from '../../environments/environment';
-import { JourneyCommunicationService } from '../services/journey-communication.service';
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
 import { CommonModule } from '@angular/common';
+import { EnvironmentService, JourneyCommunicationService } from '@backbase-gsa/shared';
 
 @NgModule({
   imports: [
@@ -15,23 +14,25 @@ import { CommonModule } from '@angular/common';
     TransactionsJourneyModule.forRoot({
       extensionSlots: {
         transactionItemAdditionalDetails:
-          TransactionItemAdditionalDetailsComponent,
-      },
-    }),
+        TransactionItemAdditionalDetailsComponent
+      }
+    })
   ],
   declarations: [TransactionItemAdditionalDetailsComponent],
   providers: [
     {
       provide: TransactionsJourneyConfiguration,
-      useValue: {
+      deps: [EnvironmentService],
+      useFactory: (envService: EnvironmentService) => ({
         pageSize: 10,
-        slimMode: environment.common.designSlimMode,
-      } as TransactionsJourneyConfiguration,
+        slimMode: envService.environment?.common.designSlimMode
+      } as TransactionsJourneyConfiguration)
     },
     {
       provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
-      useExisting: JourneyCommunicationService,
-    },
-  ],
+      useExisting: JourneyCommunicationService
+    }
+  ]
 })
-export class TransactionsJourneyBundleModule {}
+export class TransactionsJourneyBundleModule {
+}

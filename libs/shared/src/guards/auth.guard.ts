@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { UrlTree } from '@angular/router';
 import { AuthService } from '@backbase/identity-auth';
 import { Observable, map, of } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { EnvironmentService } from '../environment/environment.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService, private readonly envService: EnvironmentService) {}
 
   canLoad(): Observable<boolean | UrlTree> {
     return this.redirectIfUnauthenticated();
@@ -27,7 +27,7 @@ export class AuthGuard {
    * If not, treat them as logged out.
    */
   private redirectIfUnauthenticated(): Observable<boolean | UrlTree> {
-    if (environment.mockEnabled) return of(true);
+    if (this.envService.environment?.mockEnabled) return of(true);
 
     return this.authService.isAuthenticated$.pipe(
       map((loggedIn) => {

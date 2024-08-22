@@ -1,0 +1,38 @@
+{
+  "name": "journey-bundles",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/journey-bundles/src",
+  "prefix": "backbase",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/journey-bundles"],
+      "options": {
+        "project": "libs/journey-bundles/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/journey-bundles/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/journey-bundles/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/journey-bundles"
+      ],
+      "options": {
+        "jestConfig": "libs/journey-bundles/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": ["scope:shared"]
+}
