@@ -1,5 +1,6 @@
 import { Provider } from '@angular/core';
 import { Route } from '@angular/router';
+import { Navigation } from '../interfaces/navigation.type';
 
 export interface sharedJourneyConfiguration {
   designSlimMode: boolean;
@@ -10,6 +11,7 @@ export interface Environment {
   apiRoot: string;
   locales: string[];
   journeyBundles: Route[],
+  journeyNavigation: Navigation[],
   mockProviders?: Provider[];
   mockEnabled?: boolean;
   common: sharedJourneyConfiguration;

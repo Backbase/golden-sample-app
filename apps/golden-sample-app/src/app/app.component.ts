@@ -16,6 +16,7 @@ import { EnvironmentService, triplets } from '@backbase-gsa/shared';
 export class AppComponent {
   triplets = triplets;
   isAuthenticated = false;
+  journeys = environment.journeyNavigation;
 
   constructor(
     private oAuthService: OAuthService,

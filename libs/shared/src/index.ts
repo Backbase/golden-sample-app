@@ -6,6 +6,7 @@ export { EnvironmentService } from './environment/environment.service';
 
 // Interfaces
 export { Environment, sharedJourneyConfiguration } from './environment/type';
+export { Navigation } from './interfaces/navigation.type';
 
 // Guards
 export { AuthGuard } from './guards/auth.guard';
