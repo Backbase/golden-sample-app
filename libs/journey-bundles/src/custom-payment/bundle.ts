@@ -1,4 +1,8 @@
-import { AuthGuard, UserContextGuard, ViewWrapperComponent } from '@backbase-gsa/shared';
+import {
+  AuthGuard,
+  UserContextGuard,
+  ViewWrapperComponent,
+} from '@backbase-gsa/shared';
 
 export const CUSTOM_PAYMENT_JOURNEY_BUNDLE = {
   path: 'transfer-internal',
@@ -8,4 +12,4 @@ export const CUSTOM_PAYMENT_JOURNEY_BUNDLE = {
       (m) => m.CustomPaymentJourneyBundleModule
     ),
   canActivate: [AuthGuard, UserContextGuard],
-}
+};

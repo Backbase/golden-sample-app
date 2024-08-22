@@ -5,9 +5,7 @@ import { ActivatedRoute, RouterOutlet } from '@angular/router';
   templateUrl: './view-wrapper.component.html',
   styles: [],
   standalone: true,
-  imports: [
-    RouterOutlet
-  ]
+  imports: [RouterOutlet],
 })
 export class ViewWrapperComponent {
   @Input()

@@ -2,9 +2,12 @@ import { NgModule } from '@angular/core';
 import {
   MakeTransferCommunicationService,
   MakeTransferJourneyConfiguration,
-  TransferJourneyShellModule
+  TransferJourneyShellModule,
 } from '@backbase-gsa/transfer-journey';
-import { JourneyCommunicationService, EnvironmentService } from '@backbase-gsa/shared';
+import {
+  JourneyCommunicationService,
+  EnvironmentService,
+} from '@backbase-gsa/shared';
 
 @NgModule({
   imports: [TransferJourneyShellModule.forRoot()],
@@ -12,17 +15,17 @@ import { JourneyCommunicationService, EnvironmentService } from '@backbase-gsa/s
     {
       provide: MakeTransferJourneyConfiguration,
       deps: [EnvironmentService],
-      useFactory: (envService: EnvironmentService) => ({
-        maskIndicator: false,
-        maxTransactionAmount: 100,
-        slimMode: envService.environment?.common.designSlimMode
-      } as MakeTransferJourneyConfiguration)
+      useFactory: (envService: EnvironmentService) =>
+        ({
+          maskIndicator: false,
+          maxTransactionAmount: 100,
+          slimMode: envService.environment?.common.designSlimMode,
+        } as MakeTransferJourneyConfiguration),
     },
     {
       provide: MakeTransferCommunicationService,
-      useExisting: JourneyCommunicationService
-    }
-  ]
+      useExisting: JourneyCommunicationService,
+    },
+  ],
 })
-export class TransferJourneyBundleModule {
-}
+export class TransferJourneyBundleModule {}

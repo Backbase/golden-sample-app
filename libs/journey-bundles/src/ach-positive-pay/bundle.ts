@@ -11,4 +11,4 @@ export const ACH_POSITIVE_PAY_JOURNEY_BUNDLE = {
   data: {
     entitlements: triplets.canViewAchRule,
   },
-}
+};

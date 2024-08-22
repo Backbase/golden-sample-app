@@ -34,5 +34,5 @@
       "executor": "@nx/eslint:lint"
     }
   },
-  "tags": ["scope:shared"]
+  "tags": ["type:feature"]
 }

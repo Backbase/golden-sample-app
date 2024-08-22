@@ -11,4 +11,4 @@ export const TRANSACTIONS_JOURNEY_BUNDLE = {
     entitlements: triplets.canViewTransactions,
   },
   canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard],
-}
+};

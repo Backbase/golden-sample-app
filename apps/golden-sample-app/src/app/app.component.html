@@ -47,60 +47,52 @@
 
     <!-- Navigation Items-->
     <ul *ngIf="isAuthenticated" class="bb-layout__horizontal-nav">
-      @for (journey of journeys; track journey) {
-        @if(journey.permissions) {
-          <li *bbIfEntitlements="journey.permissions"
-              class="bb-layout__horizontal-nav-item">
-            <a
-              class="bb-layout__horizontal-nav-link"
-              [routerLink]="journey.route"
-              routerLinkActive="bb-layout__horizontal-nav-link--active"
-              #routerLink="routerLinkActive"
-              [attr.aria-current]="
-            routerLink.isActive ? 'page' : undefined
-          "
-            >
-              @if (journey.icon) {
-                <bb-icon-ui
-                  class="bb-layout__vertical-nav-item-icon"
-                  [name]="journey.icon"
-                ></bb-icon-ui>
-              }
+      @for (journey of journeys; track journey) { @if(journey.permissions) {
+      <li
+        *bbIfEntitlements="journey.permissions"
+        class="bb-layout__horizontal-nav-item"
+      >
+        <a
+          class="bb-layout__horizontal-nav-link"
+          [routerLink]="journey.route"
+          routerLinkActive="bb-layout__horizontal-nav-link--active"
+          #routerLink="routerLinkActive"
+          [attr.aria-current]="routerLink.isActive ? 'page' : undefined"
+        >
+          @if (journey.icon) {
+          <bb-icon-ui
+            class="bb-layout__vertical-nav-item-icon"
+            [name]="journey.icon"
+          ></bb-icon-ui>
+          }
 
-              <span
-                class="bb-layout__horizontal-nav-item-description"
-              >
+          <span class="bb-layout__horizontal-nav-item-description">
             {{ journey.name }}
           </span>
-            </a>
-          </li>
-        } @else {
-          <li class="bb-layout__horizontal-nav-item">
-            <a
-              class="bb-layout__horizontal-nav-link"
-              [routerLink]="journey.route"
-              routerLinkActive="bb-layout__horizontal-nav-link--active"
-              #routerLink="routerLinkActive"
-              [attr.aria-current]="
-            routerLink.isActive ? 'page' : undefined
-          "
-            >
-              @if (journey.icon) {
-                <bb-icon-ui
-                  class="bb-layout__vertical-nav-item-icon"
-                  [name]="journey.icon"
-                ></bb-icon-ui>
-              }
+        </a>
+      </li>
+      } @else {
+      <li class="bb-layout__horizontal-nav-item">
+        <a
+          class="bb-layout__horizontal-nav-link"
+          [routerLink]="journey.route"
+          routerLinkActive="bb-layout__horizontal-nav-link--active"
+          #routerLink="routerLinkActive"
+          [attr.aria-current]="routerLink.isActive ? 'page' : undefined"
+        >
+          @if (journey.icon) {
+          <bb-icon-ui
+            class="bb-layout__vertical-nav-item-icon"
+            [name]="journey.icon"
+          ></bb-icon-ui>
+          }
 
-              <span
-                class="bb-layout__horizontal-nav-item-description"
-              >
+          <span class="bb-layout__horizontal-nav-item-description">
             {{ journey.name }}
           </span>
-            </a>
-          </li>
-        }
-      }
+        </a>
+      </li>
+      } }
     </ul>
 
     <!-- Topbar Content Area (a.k.a. Right Topbar Area) -->

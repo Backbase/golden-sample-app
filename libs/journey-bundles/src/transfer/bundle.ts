@@ -7,4 +7,4 @@ export const TRANSFER_JOURNEY_BUNDLE = {
       (m) => m.TransferJourneyBundleModule
     ),
   canActivate: [AuthGuard, UserContextGuard],
-}
+};

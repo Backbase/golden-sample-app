@@ -8,7 +8,10 @@ import { EnvironmentService } from '../environment/environment.service';
   providedIn: 'root',
 })
 export class AuthGuard {
-  constructor(private readonly authService: AuthService, private readonly envService: EnvironmentService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly envService: EnvironmentService
+  ) {}
 
   canLoad(): Observable<boolean | UrlTree> {
     return this.redirectIfUnauthenticated();

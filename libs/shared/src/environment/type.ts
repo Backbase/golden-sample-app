@@ -10,8 +10,8 @@ export interface Environment {
   production: boolean;
   apiRoot: string;
   locales: string[];
-  journeyBundles: Route[],
-  journeyNavigation: Navigation[],
+  journeyBundles: Route[];
+  journeyNavigation: Navigation[];
   mockProviders?: Provider[];
   mockEnabled?: boolean;
   common: sharedJourneyConfiguration;
