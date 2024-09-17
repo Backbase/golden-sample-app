@@ -6,6 +6,7 @@ import {
   PaymentFormFieldConfig,
   PaymentFormFieldOptions,
 } from '@backbase/initiate-payment-journey-ang';
+
 import { AccountSelectorItem } from './initiator.model';
 import { InitiatorService } from './initiator.service';
 
@@ -86,6 +87,7 @@ export class InitiatorComponent implements OnInit, PaymentFormField {
 
   private getValidationMessage(key: string): string {
     return (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.options?.validationMessages?.find((field: any) => field.name === key)
         ?.message || ''
     );

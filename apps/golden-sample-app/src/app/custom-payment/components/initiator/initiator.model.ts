@@ -6,4 +6,4 @@ export interface AccountSelectorItem {
   number?: string;
 }
 
-export type AccountSelectorItems = Array<AccountSelectorItem>;
+export type AccountSelectorItems = AccountSelectorItem[];

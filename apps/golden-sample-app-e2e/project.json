@@ -1,15 +1,14 @@
 {
   "name": "golden-sample-app-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/golden-sample-app-e2e/src",
   "projectType": "application",
-  "tags": ["type:app"],
+  "tags": [],
   "implicitDependencies": ["golden-sample-app"],
   "targets": {
-    "lint": {
-      "executor": "@nx/linter:eslint",
+    "e2e-chrome-mobile": {
+      "executor": "nx:run-commands",
       "options": {
-        "lintFilePatterns": ["apps/golden-sample-app-e2e/**/*.ts"]
+        "command": "npx playwright test --project 'mobile-chrome' --grep '@visual.+@responsive|@responsive.+@visual' --workers=2"
       }
     }
   }

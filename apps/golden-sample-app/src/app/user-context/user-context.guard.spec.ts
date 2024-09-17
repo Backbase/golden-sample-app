@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UserContextGuard } from './user-context.guard';
 import {
   ActivatedRouteSnapshot,

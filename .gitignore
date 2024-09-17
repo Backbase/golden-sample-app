@@ -47,7 +47,11 @@ testem.log
 .DS_Store
 Thumbs.db
 
+.ssh
 .angular
 test-results/
 playwright-report/
 .ngapimock
+allure-results/
+test-output/
+.nx/cache

@@ -25,18 +25,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/transfer-journey/data-access"],
       "options": {
-        "jestConfig": "libs/transfer-journey/data-access/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/transfer-journey/data-access/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/transfer-journey/data-access/**/*.ts",
-          "libs/transfer-journey/data-access/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:transfer-journey", "type:data-access"]
