@@ -46,7 +46,7 @@ import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { UserContextInterceptor } from './user-context/user-context.interceptor';
 import { ActivityMonitorModule } from './auth/activity-monitor';
-import {ApiSandboxInterceptor} from "../environments/api-sandbox-interceptor";
+import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
 import packageInfo from 'package-json';
 import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
 import { ThemeManagerService } from './theme-switcher/theme-service';
