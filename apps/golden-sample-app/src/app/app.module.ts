@@ -49,9 +49,10 @@ import { ActivityMonitorModule } from './auth/activity-monitor';
 import packageInfo from 'package-json';
 import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
 import { ThemeManagerService } from './theme-switcher/theme-service';
+import { GlobalLinkHandlerDirective } from './directives/global-link-handler.directive';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, GlobalLinkHandlerDirective],
   imports: [
     BrowserModule,
     AppRoutingModule,
