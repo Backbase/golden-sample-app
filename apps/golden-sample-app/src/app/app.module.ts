@@ -50,6 +50,7 @@ import packageInfo from 'package-json';
 import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
 import { ThemeManagerService } from './theme-switcher/theme-service';
 import { GlobalLinkHandlerDirective } from './directives/global-link-handler.directive';
+import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 
 @NgModule({
   declarations: [AppComponent, GlobalLinkHandlerDirective],
@@ -175,6 +176,7 @@ import { GlobalLinkHandlerDirective } from './directives/global-link-handler.dir
       useClass: AppErrorHandler,
     },
     ThemeManagerService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })
