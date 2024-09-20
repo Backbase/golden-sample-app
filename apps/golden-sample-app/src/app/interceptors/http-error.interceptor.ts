@@ -4,35 +4,47 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Tracker, TrackerEvent, TrackerEventPayload } from '@backbase/foundation-ang/observability';
+import {
+  Tracker,
+  TrackerEvent,
+  TrackerEventPayload,
+} from '@backbase/foundation-ang/observability';
 
 interface ClientErrorTrackerEventPayload extends TrackerEventPayload {
-    status: number;
-    statusText: string;
+  status: number;
+  statusText: string;
 }
 
 interface ServerErrorTrackerEventPayload extends TrackerEventPayload {
-    status: number;
-    statusText: string;
+  status: number;
+  statusText: string;
 }
 
-class ClientErrorTrackerEvent extends TrackerEvent<'client-error', ClientErrorTrackerEventPayload> {
-    readonly name = 'client-error';
+class ClientErrorTrackerEvent extends TrackerEvent<
+  'client-error',
+  ClientErrorTrackerEventPayload
+> {
+  readonly name = 'client-error';
 }
-class ServerErrorTrackerEvent extends TrackerEvent<'server-error', ServerErrorTrackerEventPayload> {
-    readonly name = 'server-error';
+class ServerErrorTrackerEvent extends TrackerEvent<
+  'server-error',
+  ServerErrorTrackerEventPayload
+> {
+  readonly name = 'server-error';
 }
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
-
   constructor(private tracker: Tracker) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status >= 400 && error.status < 600) {
@@ -42,15 +54,27 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           if (error.status >= 500) {
             console.error('Server error occurred:', error.message);
 
-            switch(error.status) {
-                case 500: 
-                default: this.tracker?.publish(new ServerErrorTrackerEvent({ status: error.status, statusText: error.statusText }));
+            switch (error.status) {
+              case 500:
+              default:
+                this.tracker?.publish(
+                  new ServerErrorTrackerEvent({
+                    status: error.status,
+                    statusText: error.statusText,
+                  })
+                );
             }
           } else if (error.status >= 400) {
             console.error('Client error occurred:', error.message);
-            switch(error.status) {
-                case 400: 
-                default: this.tracker?.publish(new ClientErrorTrackerEvent({ status: error.status, statusText: error.statusText }));
+            switch (error.status) {
+              case 400:
+              default:
+                this.tracker?.publish(
+                  new ClientErrorTrackerEvent({
+                    status: error.status,
+                    statusText: error.statusText,
+                  })
+                );
             }
           }
         }
