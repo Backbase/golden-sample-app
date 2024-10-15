@@ -62,17 +62,24 @@
       "@backbase-gsa/internal-transfer-ui": [
         "libs/transfer-journey/ui/src/index.ts"
       ],
+      "@backbase-gsa/journey-bundles/ach-positive-pay": [
+        "libs/journey-bundles/ach-positive-pay/src/index.ts"
+      ],
+      "@backbase-gsa/journey-bundles/custom-payment": [
+        "libs/journey-bundles/custom-payment/src/index.ts"
+      ],
+      "@backbase-gsa/journey-bundles/transactions": [
+        "libs/journey-bundles/transactions/src/index.ts"
+      ],
+      "@backbase-gsa/journey-bundles/transfer": [
+        "libs/journey-bundles/transfer/src/index.ts"
+      ],
+      "@backbase-gsa/shared": ["libs/shared/src/index.ts"],
       "@backbase-gsa/transactions-journey": [
         "libs/transactions-journey/shell/src/index.ts"
       ],
       "@backbase-gsa/transfer-journey": [
         "libs/transfer-journey/shell/src/index.ts"
-      ],
-      "@backbase-gsa/shared": [
-        "libs/shared/src/index.ts"
-      ],
-      "@backbase-gsa/journey-bundles": [
-        "libs/journey-bundles/src/index.ts"
       ],
       "package-json": ["package.json"]
     }
