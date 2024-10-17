@@ -17,6 +17,10 @@
                 "onlyDependOnLibsWithTags": ["*"]
               },
               {
+                "sourceTag": "type:bundle",
+                "onlyDependOnLibsWithTags": ["*"]
+              },
+              {
                 "sourceTag": "type:shell",
                 "onlyDependOnLibsWithTags": [
                   "type:util",
