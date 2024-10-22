@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { UserContextGuard } from './user-context.guard';
 import { UserContextService } from './user-context.service';
+import { UserContextGuard } from '@backbase-gsa/shared';
 
 @Component({
   selector: 'app-user-context',
