@@ -53,7 +53,7 @@
     "@ngrx/component-store": "17.0.1",
     "@ngrx/effects": "17.0.1",
     "@ngrx/store": "17.0.1",
-    "@ngx-formly/core": "^6.3.9",
+    "@ngx-formly/core": "^6.3.10",
     "@popperjs/core": "^2.10.2",
     "angular-oauth2-oidc": "^17.0.0",
     "bignumber.js": "^9.1.1",
