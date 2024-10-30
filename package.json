@@ -59,7 +59,7 @@
     "bignumber.js": "^9.1.1",
     "bootstrap": "^5.3.0",
     "ngx-cookie-service": "^17.0.0",
-    "ngx-mask": "^17.0.0",
+    "ngx-mask": "^17.1.8",
     "ngx-quill": "^24.0.0",
     "playwright": "1.41.2",
     "postcss-preset-env": "^8.4.2",
