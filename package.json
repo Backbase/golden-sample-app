@@ -86,7 +86,7 @@
     "@ng-apimock/dev-interface": "^3.2.1",
     "@nx/angular": "17.3.2",
     "@nx/eslint-plugin": "17.3.2",
-    "@nx/jest": "17.3.0",
+    "@nx/jest": "17.3.2",
     "@nx/js": "17.3.0",
     "@nx/workspace": "17.3.2",
     "@playwright/test": "1.42.1",
