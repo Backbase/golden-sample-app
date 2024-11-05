@@ -104,7 +104,7 @@
       "configurations": {
         "development": {
           "browserTarget": "golden-sample-app:build:development",
-          "proxyConfig": "./apps/golden-sample-app/proxy.conf.json"
+          "proxyConfig": "./apps/golden-sample-app/proxy.config.ts"
         },
         "production": {
           "browserTarget": "golden-sample-app:build:production"
