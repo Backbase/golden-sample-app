@@ -54,5 +54,5 @@ playwright-report/
 .ngapimock
 allure-results/
 test-output/
-.nx/cache
 .env
+.nx
