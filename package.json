@@ -72,7 +72,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "17.1.4",
     "@angular-devkit/core": "17.3.11",
-    "@angular-devkit/schematics": "17.1.4",
+    "@angular-devkit/schematics": "17.3.11",
     "@angular-eslint/builder": "^17.5.3",
     "@angular-eslint/eslint-plugin": "17.5.3",
     "@angular-eslint/eslint-plugin-template": "17.0.1",
