@@ -150,6 +150,8 @@ Run `nx affected:test` to execute the unit tests affected by a change.
 
 Run `npx playwright test`
 
+For more information on playwright tests see [playwright-readme.md](/apps/golden-sample-app-e2e/playwright-readme.md).
+
 ## Understand your workspace
 
 Run `nx dep-graph` to see a diagram of the dependencies of your projects.
