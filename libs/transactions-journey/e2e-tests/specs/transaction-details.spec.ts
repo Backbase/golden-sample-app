@@ -28,7 +28,7 @@ export function testTransactionDetails(
         expect(details['Status']).toEqual(data.status);
       });
 
-      test('should', async ({ detailsPage }) => {
+      test('should test', async ({ detailsPage }) => {
         const details = await detailsPage.getDetails();
         expect(details['Category']).toEqual(data.category);
         expect(details['Description']).toEqual(data.description);
