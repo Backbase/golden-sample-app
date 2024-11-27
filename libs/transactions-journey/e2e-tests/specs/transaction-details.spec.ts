@@ -1,6 +1,6 @@
 import { expect, TestType } from '@playwright/test';
-import { TransactionDetailsPage } from '../page-object/transaction-details.page';
 import { TRANSACTION_DETAILS } from '../data/transaction-details.data';
+import { TransactionDetailsPage } from '../page-object/transaction-details.page';
 
 export interface TransactionDetailsFixture {
   detailsPage: TransactionDetailsPage;
@@ -19,7 +19,16 @@ export function testTransactionDetails(
         await detailsPage.navigate(data.id);
       });
 
-      test('should display correct transaction details', async ({ detailsPage }) => {
+      test('should display correct transaction details', async ({
+        detailsPage,
+      }) => {
+        const details = await detailsPage.getDetails();
+        expect(details['Category']).toEqual(data.category);
+        expect(details['Description']).toEqual(data.description);
+        expect(details['Status']).toEqual(data.status);
+      });
+
+      test('should', async ({ detailsPage }) => {
         const details = await detailsPage.getDetails();
         expect(details['Category']).toEqual(data.category);
         expect(details['Description']).toEqual(data.description);
