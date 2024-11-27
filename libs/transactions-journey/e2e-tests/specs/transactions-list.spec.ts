@@ -3,8 +3,8 @@ import { TransactionsListPage } from '../page-object/transactions-list.page';
 import { TRANSACTIONS_LIST } from '../data/transactions-list.data';
 
 export interface TransactionsListFixture {
-  page: TransactionsListPage;
-  data?: typeof TRANSACTIONS_LIST;
+  listPage: TransactionsListPage;
+  listData?: typeof TRANSACTIONS_LIST;
 }
 
 export function testTransactionsList(
@@ -12,21 +12,21 @@ export function testTransactionsList(
 ) {
   test.describe('Transactions', () => {
     test.describe('Transactions list', () => {
-      let listData: typeof TRANSACTIONS_LIST;
+      let data: typeof TRANSACTIONS_LIST;
 
-      test.beforeEach(async ({ page, data }) => {
-        listData = data ?? TRANSACTIONS_LIST;
-        await page.navigate();
+      test.beforeEach(async ({ listPage, listData }) => {
+        data = listData ?? TRANSACTIONS_LIST;
+        await listPage.navigate();
       });
 
-      test('should display transactions', async ({ page }) => {
-        const transactionsNumber = await page.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(listData.size);
+      test('should display transactions', async ({ listPage }) => {
+        const transactionsNumber = await listPage.getTransactionsNumber();
+        expect(transactionsNumber).toEqual(data.size);
       });
-      test('should filter transactions', async ({ page }) => {
-        await page.searchTransactions(listData.searchTerm);
-        const transactionsNumber = await page.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(listData.size);
+      test('should filter transactions', async ({ listPage }) => {
+        await listPage.searchTransactions(data.searchTerm);
+        const transactionsNumber = await listPage.getTransactionsNumber();
+        expect(transactionsNumber).toEqual(data.size);
       });
     });
   });
