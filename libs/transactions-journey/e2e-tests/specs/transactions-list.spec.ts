@@ -1,6 +1,6 @@
 import { expect, TestType } from '@playwright/test';
-import { TransactionsListPage } from '../page-object/transactions-list.page';
 import { TRANSACTIONS_LIST } from '../data/transactions-list.data';
+import { TransactionsListPage } from '../page-object/transactions-list.page';
 
 export interface TransactionsListFixture {
   listPage: TransactionsListPage;
