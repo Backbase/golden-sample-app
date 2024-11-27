@@ -65,6 +65,9 @@
       "@backbase-gsa/transactions-journey": [
         "libs/transactions-journey/shell/src/index.ts"
       ],
+      "@backbase-gsa/transactions-journey/e2e-tests": [
+        "libs/transactions-journey/e2e-tests/index.ts"
+      ],
       "@backbase-gsa/transfer-journey": [
         "libs/transfer-journey/shell/src/index.ts"
       ],
