@@ -51,7 +51,7 @@
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "@ng-select/ng-select": "^12.0.0",
     "@ngrx/component-store": "17.0.1",
-    "@ngrx/effects": "17.0.1",
+    "@ngrx/effects": "17.2.0",
     "@ngrx/store": "17.2.0",
     "@ngx-formly/core": "^6.3.10",
     "@popperjs/core": "^2.10.2",
