@@ -52,7 +52,7 @@ const routes: Routes = [
         (m) => m.TransactionsJourneyBundleModule
       ),
     data: {
-      entitlements: triplets.canViewTransactions,
+     // entitlements: triplets.canViewTransactions,
     },
     canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard],
   },

@@ -114,7 +114,8 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "development": {
-          "buildTarget": "golden-sample-app:build:development"
+          "buildTarget": "golden-sample-app:build:development",
+           "proxyConfig": "./apps/golden-sample-app/proxy.stg-ebp.conf.js"
         },
         "production": {
           "buildTarget": "golden-sample-app:build:production"
