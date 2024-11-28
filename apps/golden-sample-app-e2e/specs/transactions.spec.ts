@@ -6,6 +6,7 @@ test.beforeEach(async ({ page }) => {
 test.describe.configure({ mode: 'parallel' });
 
 test.describe('@feature @responsive @visual Transaction page tests', () => {
+  // `visual` is a fixture that provides the `testFullPage` and `testWithMask` functions in the examples below.
   test('Validate responsiveness of the transactions page', async ({
     visual,
   }) => {
