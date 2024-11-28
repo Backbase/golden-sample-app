@@ -4,4 +4,4 @@ export const TRANSACTION_DETAILS = {
   description: 'Beer Bar Salt Lake',
   status: 'BILLED',
   id: '007jb5',
-} as const;
+};

@@ -49,6 +49,7 @@ const config: PlaywrightTestConfig = {
             '--disable-dev-shm-usage',
           ],
         },
+        baseURL: 'http://localhost:4201',
       },
     },
     {

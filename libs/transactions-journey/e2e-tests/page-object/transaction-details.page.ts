@@ -4,10 +4,13 @@ import { TRANSACTION_DETAILS_LOCATORS } from '../locators/transaction-details.lo
 export class TransactionDetailsPage {
   private readonly locators = TRANSACTION_DETAILS_LOCATORS;
 
-  constructor(private page: Page) {}
+  constructor(
+    private readonly page: Page,
+    private readonly config: { baseURL?: string } = {}
+  ) {}
 
   async navigate(id: string) {
-    await this.page.goto(`transactions/${id}`);
+    await this.page.goto(`${this.config.baseURL}/transactions/${id}`);
   }
 
   async getDetails() {
