@@ -31,16 +31,16 @@ export function testTransactionsList(
       test('should filter transactions with KLM input', async ({
         listPage,
       }) => {
-        await listPage.searchTransactions('KLM');
+        await listPage.searchTransactions(data.searchExpectations[0].term);
         const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(7);
+        expect(transactionsNumber).toEqual(data.searchExpectations[0].count);
       });
-      test('should filter transactions with Hard input', async ({
+      test('should filter transactions with Cafe input', async ({
         listPage,
       }) => {
-        await listPage.searchTransactions('Hard');
+        await listPage.searchTransactions(data.searchExpectations[1].term);
         const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(3);
+        expect(transactionsNumber).toEqual(data.searchExpectations[0].count);
       });
     });
   });
