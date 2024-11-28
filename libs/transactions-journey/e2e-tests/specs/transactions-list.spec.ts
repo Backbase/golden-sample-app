@@ -40,7 +40,7 @@ export function testTransactionsList(
       }) => {
         await listPage.searchTransactions(data.searchExpectations[1].term);
         const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(data.searchExpectations[0].count);
+        expect(transactionsNumber).toEqual(data.searchExpectations[1].count);
       });
     });
   });
