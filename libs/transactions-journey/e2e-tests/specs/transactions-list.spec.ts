@@ -28,6 +28,20 @@ export function testTransactionsList(
         const transactionsNumber = await listPage.getTransactionsNumber();
         expect(transactionsNumber).toEqual(data.searchedSize);
       });
+      test('should filter transactions with IKEA input', async ({
+        listPage,
+      }) => {
+        await listPage.searchTransactions('IKEA');
+        const transactionsNumber = await listPage.getTransactionsNumber();
+        expect(transactionsNumber).toEqual(1);
+      });
+      test('should filter transactions with Amazon input', async ({
+        listPage,
+      }) => {
+        await listPage.searchTransactions('Amazon');
+        const transactionsNumber = await listPage.getTransactionsNumber();
+        expect(transactionsNumber).toEqual(2);
+      });
     });
   });
 }
