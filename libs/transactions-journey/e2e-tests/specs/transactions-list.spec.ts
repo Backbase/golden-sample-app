@@ -26,7 +26,7 @@ export function testTransactionsList(
       test('should filter transactions', async ({ listPage }) => {
         await listPage.searchTransactions(data.searchTerm);
         const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(data.size);
+        expect(transactionsNumber).toEqual(data.searchedSize);
       });
     });
   });
