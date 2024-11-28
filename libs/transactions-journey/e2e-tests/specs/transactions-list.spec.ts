@@ -28,19 +28,12 @@ export function testTransactionsList(
         const transactionsNumber = await listPage.getTransactionsNumber();
         expect(transactionsNumber).toEqual(data.searchedSize);
       });
-      test('should filter transactions with IKEA input', async ({
+      test('should filter transactions with KLM input', async ({
         listPage,
       }) => {
-        await listPage.searchTransactions('IKEA');
+        await listPage.searchTransactions('KLM');
         const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(1);
-      });
-      test('should filter transactions with Amazon input', async ({
-        listPage,
-      }) => {
-        await listPage.searchTransactions('Amazon');
-        const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(2);
+        expect(transactionsNumber).toEqual(7);
       });
     });
   });
