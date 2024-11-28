@@ -19,11 +19,13 @@ export function testTransactionDetails(
         await detailsPage.navigate(data.id);
       });
 
-      test('should display correct transaction details', async ({ detailsPage }) => {
+      test('should display correct transaction details', async ({
+        detailsPage,
+      }) => {
         const details = await detailsPage.getDetails();
-        expect(details['Category']).toEqual(data.category);
-        expect(details['Description']).toEqual(data.description);
-        expect(details['Status']).toEqual(data.status);
+        expect(details['Category:']).toEqual(data.category);
+        expect(details['Description:']).toEqual(data.description);
+        expect(details['Status:']).toEqual(data.status);
       });
     });
   });
