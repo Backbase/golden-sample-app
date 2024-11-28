@@ -35,6 +35,13 @@ export function testTransactionsList(
         const transactionsNumber = await listPage.getTransactionsNumber();
         expect(transactionsNumber).toEqual(7);
       });
+      test('should filter transactions with Hard input', async ({
+        listPage,
+      }) => {
+        await listPage.searchTransactions('Hard');
+        const transactionsNumber = await listPage.getTransactionsNumber();
+        expect(transactionsNumber).toEqual(3);
+      });
     });
   });
 }
