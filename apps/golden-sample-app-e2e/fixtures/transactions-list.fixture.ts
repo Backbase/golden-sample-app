@@ -1,8 +1,8 @@
-import { test as baseTest } from '@playwright/test';
 import {
   TransactionsListFixture,
   TransactionsListPage,
 } from '@backbase-gsa/transactions-journey/e2e-tests';
+import { test as baseTest } from '@playwright/test';
 
 export const test = baseTest.extend<TransactionsListFixture>({
   listPage: async ({ page, baseURL }, use) => {
@@ -13,5 +13,9 @@ export const test = baseTest.extend<TransactionsListFixture>({
     size: 10,
     searchedSize: 3,
     searchTerm: 'cafe',
+    searchExpectations: [
+      { term: 'KLM', count: 7 },
+      { term: 'cafe', count: 3 },
+    ],
   },
 });
