@@ -1,6 +1,6 @@
 import { expect, TestType } from '@playwright/test';
-import { TransactionsListPage } from '../page-object/transactions-list.page';
 import { TRANSACTIONS_LIST } from '../data/transactions-list.data';
+import { TransactionsListPage } from '../page-object/transactions-list.page';
 
 export interface TransactionsListFixture {
   listPage: TransactionsListPage;
@@ -24,9 +24,23 @@ export function testTransactionsList(
         expect(transactionsNumber).toEqual(data.size);
       });
       test('should filter transactions', async ({ listPage }) => {
-        await listPage.searchTransactions(data.searchTerm);
+        await listPage.searchTransactions(data.searchExpectations[1].term);
         const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(data.searchedSize);
+        expect(transactionsNumber).toEqual(data.searchExpectations[1].count);
+      });
+      test('should filter transactions with KLM input', async ({
+        listPage,
+      }) => {
+        await listPage.searchTransactions(data.searchExpectations[0].term);
+        const transactionsNumber = await listPage.getTransactionsNumber();
+        expect(transactionsNumber).toEqual(data.searchExpectations[0].count);
+      });
+      test('should filter transactions with Cafe input', async ({
+        listPage,
+      }) => {
+        await listPage.searchTransactions(data.searchExpectations[1].term);
+        const transactionsNumber = await listPage.getTransactionsNumber();
+        expect(transactionsNumber).toEqual(data.searchExpectations[1].count);
       });
     });
   });
