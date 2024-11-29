@@ -24,9 +24,9 @@ export function testTransactionsList(
         expect(transactionsNumber).toEqual(data.size);
       });
       test('should filter transactions', async ({ listPage }) => {
-        await listPage.searchTransactions(data.searchTerm);
+        await listPage.searchTransactions(data.searchExpectations[1].term);
         const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(data.searchedSize);
+        expect(transactionsNumber).toEqual(data.searchExpectations[1].count);
       });
       test('should filter transactions with KLM input', async ({
         listPage,

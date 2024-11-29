@@ -11,8 +11,6 @@ export const test = baseTest.extend<TransactionsListFixture>({
   },
   listData: {
     size: 10,
-    searchedSize: 3,
-    searchTerm: 'cafe',
     searchExpectations: [
       { term: 'KLM', count: 7 },
       { term: 'cafe', count: 3 },
