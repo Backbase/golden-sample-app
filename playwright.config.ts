@@ -95,12 +95,6 @@ const config: PlaywrightTestConfig = {
       timeout: 30 * 1000,
       reuseExistingServer: true,
     },
-    // {
-    //   command: 'npx nx serve -c=mocks --port=4201',
-    //   url: 'http://localhost:4201/',
-    //   timeout: 120 * 1000,
-    //   reuseExistingServer: false,
-    // },
   ],
 };
 
