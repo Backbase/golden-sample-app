@@ -10,6 +10,28 @@
       "options": {
         "command": "npx playwright test --project 'mobile-chrome' --grep '@visual.+@responsive|@responsive.+@visual' --workers=2"
       }
+    },
+    "e2e-localhost-ebp-sndbx": {
+      "executor": "@dot-build/serve-and-run-angular:run",
+      "options": {
+        "devServerTarget": "golden-sample-app:serve:ebp-sndbox",
+        "command": "npx playwright",
+        "args": [
+          "test",
+          "--project=localhost-ebp-sndbx"
+        ]
+      }
+    },
+    "e2e-localhost-mocks": {
+      "executor": "@dot-build/serve-and-run-angular:run",
+      "options": {
+        "devServerTarget": "golden-sample-app:serve:mocks",
+        "command": "npx playwright",
+        "args": [
+          "test",
+          "--project=localhost-mocked"
+        ]
+      }
     }
   }
 }
