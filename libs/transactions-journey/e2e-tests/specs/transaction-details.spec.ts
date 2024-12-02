@@ -1,6 +1,6 @@
 import { expect, TestType } from '@playwright/test';
-import { TransactionDetailsPage } from '../page-object/transaction-details.page';
 import { TRANSACTION_DETAILS } from '../data/transaction-details.data';
+import { TransactionDetailsPage } from '../page-object/transaction-details.page';
 
 export interface TransactionDetailsFixture {
   detailsPage: TransactionDetailsPage;
