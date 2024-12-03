@@ -82,7 +82,7 @@ const config: PlaywrightTestConfig = {
           chromiumSandbox: false,
           args: ['--disable-infobars', '--no-sandbox', '--incognito'],
         },
-        configPath: join(__dirname, 'apps/golden-sample-app-e2e/config/ebp-sndbx.config.json'),
+        configPath: join(__dirname, 'apps/golden-sample-app-e2e/config/ebp-snbx.config.json'),
         baseURL: 'http://localhost:4200/',
       },
     },

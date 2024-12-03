@@ -19,6 +19,11 @@ export class TransactionsListPage {
   }
 
   async getTransactionsNumber() {
+    await this.waitForVisibleTransactions();
     return this.page.locator(this.locators.transaction).count();
+  }
+
+  async waitForVisibleTransactions() {
+    await this.page.waitForSelector(this.locators.transaction);
   }
 }

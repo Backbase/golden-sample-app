@@ -14,6 +14,8 @@ export class TransactionDetailsPage {
   }
 
   async getDetails() {
+    await this.waitForVisibleDetails();
+
     const details: Record<string, string> = {};
     const items = await this.page.locator(this.locators.item).all();
 
@@ -24,5 +26,9 @@ export class TransactionDetailsPage {
     }
 
     return details;
+  }
+
+  async waitForVisibleDetails() {
+    await this.page.waitForSelector(this.locators.item);
   }
 }

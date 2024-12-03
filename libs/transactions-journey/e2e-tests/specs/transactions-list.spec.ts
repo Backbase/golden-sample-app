@@ -7,7 +7,7 @@ export interface TransactionsListFixture {
   listData?: typeof TRANSACTIONS_LIST;
 }
 
-export function testTransactionsList(
+export function testTransactionsListHappyPath(
   test: TestType<TransactionsListFixture, TransactionsListFixture>
 ) {
   test.describe('Transactions', () => {
@@ -24,23 +24,30 @@ export function testTransactionsList(
         expect(transactionsNumber).toEqual(data.size);
       });
       test('should filter transactions', async ({ listPage }) => {
-        await listPage.searchTransactions(data.searchExpectations[1].term);
-        const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(data.searchExpectations[1].count);
+        for (const expectation of data.searchExpectations) {
+          await listPage.searchTransactions(expectation.term);
+          const transactionsNumber = await listPage.getTransactionsNumber();
+          expect(transactionsNumber).toEqual(expectation.count);
+        }
       });
-      test('should filter transactions with KLM input', async ({
-        listPage,
-      }) => {
-        await listPage.searchTransactions(data.searchExpectations[0].term);
-        const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(data.searchExpectations[0].count);
+    });
+  });
+}
+
+export function testTransactionsListErrorsHandling(
+  test: TestType<TransactionsListFixture, TransactionsListFixture>
+) {
+  test.describe('Transactions', () => {
+    test.describe('Transactions list', () => {
+      let data: typeof TRANSACTIONS_LIST;
+
+      test.beforeEach(async ({ listPage, listData }) => {
+        data = listData ?? TRANSACTIONS_LIST;
+        await listPage.navigate();
       });
-      test('should filter transactions with Cafe input', async ({
-        listPage,
-      }) => {
-        await listPage.searchTransactions(data.searchExpectations[1].term);
-        const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(data.searchExpectations[1].count);
+
+      test('[errors test placeholder]', async () => {
+        expect(data).toBeDefined();
       });
     });
   });

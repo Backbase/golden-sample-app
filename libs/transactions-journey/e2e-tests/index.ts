@@ -12,6 +12,7 @@ export {
   TransactionDetailsFixture,
 } from './specs/transaction-details.spec';
 export {
-  testTransactionsList,
+  testTransactionsListHappyPath,
+  testTransactionsListErrorsHandling,
   TransactionsListFixture,
 } from './specs/transactions-list.spec';

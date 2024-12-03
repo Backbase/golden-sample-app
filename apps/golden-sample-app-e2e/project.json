@@ -18,7 +18,8 @@
         "command": "npx playwright",
         "args": [
           "test",
-          "--project=localhost-ebp-sndbx"
+          "--project=localhost-ebp-sndbx",
+          "--grep-invert '@visual'"
         ]
       }
     },
@@ -29,7 +30,8 @@
         "command": "npx playwright",
         "args": [
           "test",
-          "--project=localhost-mocked"
+          "--project=localhost-mocked",
+          "--grep-invert '@e2e'"
         ]
       }
     }
