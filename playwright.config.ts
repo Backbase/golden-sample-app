@@ -61,31 +61,6 @@ const config: PlaywrightTestConfig = {
         baseURL: 'http://localhost:4201',
       },
     },
-    {
-      name: 'localhost-mocked',
-      use: {
-        ...devices['Desktop Chrome'],
-        headless: true,
-        launchOptions: {
-          chromiumSandbox: false,
-          args: ['--disable-infobars', '--no-sandbox', '--incognito'],
-        },
-        baseURL: 'http://localhost:4200/',
-      },
-    },
-    {
-      name: 'localhost-ebp-sndbx',
-      use: {
-        ...devices['Desktop Chrome'],
-        headless: true,
-        launchOptions: {
-          chromiumSandbox: false,
-          args: ['--disable-infobars', '--no-sandbox', '--incognito'],
-        },
-        configPath: join(__dirname, 'apps/golden-sample-app-e2e/config/ebp-sndbx.config.json'),
-        baseURL: 'http://localhost:4200/',
-      },
-    },
   ],
   
   webServer: [

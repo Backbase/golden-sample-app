@@ -18,6 +18,7 @@
         "command": "npx playwright",
         "args": [
           "test",
+          "--config=playwright.localhost.config.ts",
           "--project=localhost-ebp-sndbx"
         ]
       }
@@ -29,6 +30,7 @@
         "command": "npx playwright",
         "args": [
           "test",
+          "--config=playwright.localhost.config.ts",
           "--project=localhost-mocked"
         ]
       }
