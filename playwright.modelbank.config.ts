@@ -16,7 +16,7 @@ export default defineConfig<any>({
         configPath: join(__dirname, 'src/config/ephemeral.config.json'),
         baseURL: process.env.REMOTE_URL || 'http://localhost:4200',
       },
-      testMatch: /mb-.*\.(e2e-spec|spec)\.ts/, // temporary solution until all other files are prefixed with "mocked-"
+      testIgnore: /mocked-.*/, // we want to run every test here except mocked ones
     },
     {
       name: 'remote-bus-stg',
@@ -26,7 +26,7 @@ export default defineConfig<any>({
         configPath: join(__dirname, 'src/config/bus-stg.config.json'),
         baseURL: 'https://business.bus-stg.reference.azure.backbaseservices.com',
       },
-      testMatch: /mb-.*\.(e2e-spec|spec)\.ts/, // temporary solution until all other files are prefixed with "mocked-"
+      testMatch: /mb-.*\.(e2e-spec|spec)\.ts/, // we just want to run mb- tests
     },
     {
       name: 'remote-bus-stable',

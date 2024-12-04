@@ -17,5 +17,5 @@ export const test = baseTest.extend<TransactionDetailsFixture>({
       await use(transactionDetailSandboxData);
     }
   },
-  userType: 'userWithTransactionList',
+  userType: 'userWithNoContext',
 });
