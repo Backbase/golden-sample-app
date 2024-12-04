@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Page, Route } from '@playwright/test';
 import { TRANSACTIONS_LIST_LOCATORS } from '../locators/transactions-list.locators';
 
 export class TransactionsListPage {
@@ -19,6 +19,23 @@ export class TransactionsListPage {
   }
 
   async getTransactionsNumber() {
+    await this.waitForVisibleTransactions();
+
     return this.page.locator(this.locators.transaction).count();
+  }
+
+  async getTransactionListError() {
+    await this.page.route(
+      '**/transaction-manager/client-api/v2/transactions',
+      async (route: Route) => {
+        await route.fulfill({
+          status: 500,
+        });
+      }
+    );
+  }
+
+  async waitForVisibleTransactions() {
+    await this.page.waitForSelector(this.locators.transaction);
   }
 }

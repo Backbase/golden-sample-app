@@ -18,7 +18,9 @@
         "command": "npx playwright",
         "args": [
           "test",
-          "--project=localhost-ebp-sndbx"
+          "--config=playwright.localhost.config.ts",
+          "--project=localhost-ebp-sndbx",
+          "--grep-invert '@visual'"
         ]
       }
     },
@@ -29,7 +31,21 @@
         "command": "npx playwright",
         "args": [
           "test",
-          "--project=localhost-mocked"
+          "--config=playwright.localhost.config.ts",
+          "--project=localhost-mocked",
+          "--grep-invert '@e2e'"
+        ]
+      }
+    },
+    "e2e-modelbank-stg": {
+      "executor": "@dot-build/serve-and-run-angular:run",
+      "options": {
+        "command": "npx playwright",
+        "args": [
+          "test",
+          "--config=playwright.modelbank.config.ts",
+          "--project=remote-bus-stg",
+          "--grep-invert '@e2e'"
         ]
       }
     }

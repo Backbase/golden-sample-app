@@ -2,18 +2,21 @@ import {
   TransactionsListFixture,
   TransactionsListPage,
 } from '@backbase-gsa/transactions-journey/e2e-tests';
-import { test as baseTest } from '@playwright/test';
+import { test as baseTest } from '../page-objects/test-runner';
+import { transactionListMockData, transactionListSandboxData } from '../data/transaction-list.data';
 
 export const test = baseTest.extend<TransactionsListFixture>({
   listPage: async ({ page, baseURL }, use) => {
     const pageObject = new TransactionsListPage(page, { baseURL });
     await use(pageObject);
   },
-  listData: {
-    size: 10,
-    searchExpectations: [
-      { term: 'KLM', count: 7 },
-      { term: 'cafe', count: 3 },
-    ],
+
+  listData: async ({ page, baseURL }, use, workerInfo) => {
+    if (workerInfo.project.name.includes('mocked')) {
+      await use(transactionListMockData);
+    } else {
+      await use(transactionListSandboxData);
+    }
   },
+  userType: 'userWithNoContext',
 });

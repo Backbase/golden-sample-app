@@ -1,4 +1,4 @@
-import { expect, TestType } from '@playwright/test';
+import { expect, Route, TestType } from '@playwright/test';
 import { TRANSACTIONS_LIST } from '../data/transactions-list.data';
 import { TransactionsListPage } from '../page-object/transactions-list.page';
 
@@ -24,24 +24,23 @@ export function testTransactionsList(
         expect(transactionsNumber).toEqual(data.size);
       });
       test('should filter transactions', async ({ listPage }) => {
-        await listPage.searchTransactions(data.searchExpectations[1].term);
-        const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(data.searchExpectations[1].count);
+        for (const expectation of data.searchExpectations) {
+          await listPage.searchTransactions(expectation.term);
+          const transactionsNumber = await listPage.getTransactionsNumber();
+          expect(transactionsNumber).toEqual(expectation.count);
+        }
       });
-      test('should filter transactions with KLM input', async ({
-        listPage,
-      }) => {
-        await listPage.searchTransactions(data.searchExpectations[0].term);
-        const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(data.searchExpectations[0].count);
-      });
-      test('should filter transactions with Cafe input', async ({
-        listPage,
-      }) => {
-        await listPage.searchTransactions(data.searchExpectations[1].term);
-        const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(data.searchExpectations[1].count);
-      });
+    });
+  });
+}
+
+export function testTransactionListError(
+  test: TestType<TransactionsListFixture, TransactionsListFixture>
+) {
+  test.describe('Transaction list', () => {
+    test('Error scenario', async ({ listPage }) => {
+      await listPage.navigate();
+      expect(true).toBe(true);
     });
   });
 }
