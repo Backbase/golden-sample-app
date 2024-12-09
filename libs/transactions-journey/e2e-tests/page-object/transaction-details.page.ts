@@ -1,9 +1,9 @@
 import { Page } from '@playwright/test';
-import { TRANSACTION_DETAILS_LOCATORS } from '../locators/transaction-details.locators';
 
 export class TransactionDetailsPage {
-  private readonly locators = TRANSACTION_DETAILS_LOCATORS;
-
+  private readonly itemLocator = 'bb-transaction-details dl > div';
+  private readonly itemTitleLocator = 'dt';
+  private readonly itemValueLocator = 'dd';
   constructor(
     private readonly page: Page,
     private readonly config: { baseURL?: string } = {}
@@ -17,11 +17,11 @@ export class TransactionDetailsPage {
     await this.waitForVisibleDetails();
 
     const details: Record<string, string> = {};
-    const items = await this.page.locator(this.locators.item).all();
+    const items = await this.page.locator(this.itemLocator).all();
 
     for (const item of items) {
-      const title = await item.locator(this.locators.itemTitle).innerText();
-      const value = await item.locator(this.locators.itemValue).innerText();
+      const title = await item.locator(this.itemTitleLocator).innerText();
+      const value = await item.locator(this.itemValueLocator).innerText();
       details[title] = value;
     }
 
@@ -29,6 +29,6 @@ export class TransactionDetailsPage {
   }
 
   async waitForVisibleDetails() {
-    await this.page.waitForSelector(this.locators.item);
+    await this.page.waitForSelector(this.itemLocator);
   }
 }

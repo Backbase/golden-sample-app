@@ -1,9 +1,10 @@
 import { Page, Route } from '@playwright/test';
-import { TRANSACTIONS_LIST_LOCATORS } from '../locators/transactions-list.locators';
 
 export class TransactionsListPage {
-  private readonly locators = TRANSACTIONS_LIST_LOCATORS;
-
+  private readonly searchInputLocator =
+    'bb-transactions-view bb-input-text-ui input';
+  private readonly transactionLocator =
+    'bb-transactions-view bb-transaction-item';
   constructor(
     private readonly page: Page,
     private readonly config: { baseURL?: string } = {}
@@ -14,14 +15,14 @@ export class TransactionsListPage {
   }
 
   async searchTransactions(searchTerm: string) {
-    const searchInput = this.page.locator(this.locators.searchInput);
+    const searchInput = this.page.locator(this.searchInputLocator);
     await searchInput.fill(searchTerm);
   }
 
   async getTransactionsNumber() {
     await this.waitForVisibleTransactions();
 
-    return this.page.locator(this.locators.transaction).count();
+    return this.page.locator(this.transactionLocator).count();
   }
 
   async getTransactionListError() {
@@ -36,6 +37,6 @@ export class TransactionsListPage {
   }
 
   async waitForVisibleTransactions() {
-    await this.page.waitForSelector(this.locators.transaction);
+    await this.page.waitForSelector(this.transactionLocator);
   }
 }
