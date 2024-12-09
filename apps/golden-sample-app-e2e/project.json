@@ -44,8 +44,7 @@
         "args": [
           "test",
           "--config=playwright.modelbank.config.ts",
-          "--project=remote-bus-stg",
-          "--grep-invert '@e2e'"
+          "--project=remote-bus-stg"
         ]
       }
     }

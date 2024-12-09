@@ -1,13 +1,12 @@
 import { Page } from '@playwright/test';
-import { TRANSACTION_DETAILS_LOCATORS } from '../locators/transaction-details.locators';
+import { TRANSACTIONS_LOCATORS } from '../locators/transactions.locators';
 
 export class TransactionDetailsPage {
-  private readonly locators = TRANSACTION_DETAILS_LOCATORS;
-
   constructor(
     private readonly page: Page,
     private readonly config: { baseURL?: string } = {}
   ) {}
+  private readonly locators = TRANSACTIONS_LOCATORS;
 
   async navigate(id: string) {
     await this.page.goto(`${this.config.baseURL}/transactions/${id}`);
