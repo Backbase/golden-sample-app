@@ -1,21 +1,18 @@
 import { expect, TestType } from '@playwright/test';
-import { TRANSACTION_DETAILS } from '../data/transaction-details.data';
-import { TransactionDetailsPage } from '../page-object/transaction-details.page';
-
-export interface TransactionDetailsFixture {
-  detailsPage: TransactionDetailsPage;
-  detailsData?: typeof TRANSACTION_DETAILS;
-}
+import {
+  TransactionFixture,
+  TransactionDetailDataType,
+} from '../model/transaction';
 
 export function testTransactionDetails(
-  test: TestType<TransactionDetailsFixture, TransactionDetailsFixture>
+  test: TestType<TransactionFixture, TransactionFixture>
 ) {
   test.describe('Transactions', () => {
     test.describe('Transaction details', () => {
-      let data: typeof TRANSACTION_DETAILS;
+      let data: TransactionDetailDataType;
 
       test.beforeEach(async ({ detailsPage, detailsData }) => {
-        data = detailsData ?? TRANSACTION_DETAILS;
+        data = detailsData;
         await detailsPage.navigate(data.id);
       });
 

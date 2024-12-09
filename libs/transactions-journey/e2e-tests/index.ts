@@ -1,3 +1,4 @@
+// Export everything from the tests lib from journey.
 export * from './locators/transaction-details.locators';
 export * from './locators/transactions-list.locators';
 
@@ -6,3 +7,5 @@ export * from './page-object/transactions-list.page';
 
 export * from './specs/transaction-details.spec';
 export * from './specs/transactions-list.spec';
+
+export * from './model';
