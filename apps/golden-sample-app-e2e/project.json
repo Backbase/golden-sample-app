@@ -33,7 +33,7 @@
           "test",
           "--config=playwright.localhost.config.ts",
           "--project=localhost-mocked",
-          "--grep-invert '@visual'"
+          "--grep-invert '@e2e'"
         ]
       }
     },
