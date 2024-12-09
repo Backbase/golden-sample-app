@@ -1,6 +1,3 @@
-export * from './data/transaction-details.data';
-export * from './data/transactions-list.data';
-
 export * from './locators/transaction-details.locators';
 export * from './locators/transactions-list.locators';
 
