@@ -3,7 +3,10 @@ import {
   TransactionDetailsFixture,
   TransactionDetailsPage,
 } from '@backbase-gsa/transactions-journey/e2e-tests';
-import { transactionDetailMocksData, transactionDetailSandboxData } from '../data/transactions-detail.data';
+import {
+  transactionDetailMocksData,
+  transactionDetailSandboxData,
+} from '../data/transactions-detail.data';
 
 export const test = baseTest.extend<TransactionDetailsFixture>({
   detailsPage: async ({ page, baseURL }, use) => {

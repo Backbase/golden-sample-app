@@ -3,7 +3,10 @@ import {
   TransactionsListPage,
 } from '@backbase-gsa/transactions-journey/e2e-tests';
 import { test as baseTest } from '../page-objects/test-runner';
-import { transactionListMockData, transactionListSandboxData } from '../data/transaction-list.data';
+import {
+  transactionListMockData,
+  transactionListSandboxData,
+} from '../data/transaction-list.data';
 
 export const test = baseTest.extend<TransactionsListFixture>({
   listPage: async ({ page, baseURL }, use) => {
