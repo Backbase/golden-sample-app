@@ -19,12 +19,12 @@ export const test = baseTest.extend<TransactionFixture>({
     await use(pageObject);
   },
   detailsData: async ({ page, baseURL }, use, workerInfo) => {
-     // Based on the project name in the configurations, it passes data to the test
+    // Based on the project name in the configurations, it passes data to the test
     if (workerInfo.project.name.includes('mocked')) {
       // passing mock data to check against mocks
       await use(transactionDetailMocksData);
     } else {
-       // passing sandbox enc related data to check against sandbox env
+      // passing sandbox enc related data to check against sandbox env
       await use(transactionDetailSandboxData);
     }
   },
@@ -36,10 +36,10 @@ export const test = baseTest.extend<TransactionFixture>({
   listData: async ({ page, baseURL }, use, workerInfo) => {
     // Based on the project name in the configurations, it passes data to the test
     if (workerInfo.project.name.includes('mocked')) {
-       // passing mock data to check against mocks
+      // passing mock data to check against mocks
       await use(transactionListMockData);
     } else {
-       // passing sandbox enc related data to check against sandbox env
+      // passing sandbox enc related data to check against sandbox env
       await use(transactionListSandboxData);
     }
   },
