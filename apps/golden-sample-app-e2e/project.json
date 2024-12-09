@@ -33,7 +33,7 @@
           "test",
           "--config=playwright.localhost.config.ts",
           "--project=localhost-mocked",
-          "--grep-invert 'visual'"
+          "--grep-invert '@e2e'"
         ]
       }
     },
@@ -44,8 +44,7 @@
         "args": [
           "test",
           "--config=playwright.modelbank.config.ts",
-          "--project=remote-bus-stg",
-          "--grep-invert '@visual'"
+          "--project=remote-bus-stg"
         ]
       }
     }

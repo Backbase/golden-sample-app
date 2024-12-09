@@ -1,21 +1,18 @@
-import { expect, Route, TestType } from '@playwright/test';
-import { TRANSACTIONS_LIST } from '../data/transactions-list.data';
-import { TransactionsListPage } from '../page-object/transactions-list.page';
-
-export interface TransactionsListFixture {
-  listPage: TransactionsListPage;
-  listData?: typeof TRANSACTIONS_LIST;
-}
+import { expect, TestType } from '@playwright/test';
+import {
+  TransactionFixture,
+  TransactionListDataType,
+} from '../model/transaction';
 
 export function testTransactionsList(
-  test: TestType<TransactionsListFixture, TransactionsListFixture>
+  test: TestType<TransactionFixture, TransactionFixture>
 ) {
   test.describe('Transactions', () => {
     test.describe('Transactions list', () => {
-      let data: typeof TRANSACTIONS_LIST;
+      let data: TransactionListDataType;
 
       test.beforeEach(async ({ listPage, listData }) => {
-        data = listData ?? TRANSACTIONS_LIST;
+        data = listData;
         await listPage.navigate();
       });
 
@@ -35,7 +32,7 @@ export function testTransactionsList(
 }
 
 export function testTransactionListError(
-  test: TestType<TransactionsListFixture, TransactionsListFixture>
+  test: TestType<TransactionFixture, TransactionFixture>
 ) {
   test.describe('Transaction list', () => {
     test('Error scenario', async ({ listPage }) => {

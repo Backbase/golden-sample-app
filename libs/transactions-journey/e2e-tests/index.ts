@@ -1,15 +1,8 @@
-export { TRANSACTION_DETAILS } from './data/transaction-details.data';
-export { TRANSACTIONS_LIST } from './data/transactions-list.data';
+// Export everything from the tests lib from journey.
+export * from './page-object/transaction-details.page';
+export * from './page-object/transactions-list.page';
 
-export { TransactionDetailsPage } from './page-object/transaction-details.page';
-export { TransactionsListPage } from './page-object/transactions-list.page';
+export * from './specs/transaction-details.spec';
+export * from './specs/transactions-list.spec';
 
-export {
-  TransactionDetailsFixture,
-  testTransactionDetails,
-} from './specs/transaction-details.spec';
-export {
-  TransactionsListFixture,
-  testTransactionListError,
-  testTransactionsList,
-} from './specs/transactions-list.spec';
+export * from './model';

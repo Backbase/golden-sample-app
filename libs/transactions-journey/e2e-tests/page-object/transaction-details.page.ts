@@ -1,13 +1,12 @@
 import { Page } from '@playwright/test';
+import { TRANSACTIONS_LOCATORS } from '../locators/transactions.locators';
 
 export class TransactionDetailsPage {
-  private readonly itemLocator = 'bb-transaction-details dl > div';
-  private readonly itemTitleLocator = 'dt';
-  private readonly itemValueLocator = 'dd';
   constructor(
     private readonly page: Page,
     private readonly config: { baseURL?: string } = {}
   ) {}
+  private readonly locators = TRANSACTIONS_LOCATORS;
 
   async navigate(id: string) {
     await this.page.goto(`${this.config.baseURL}/transactions/${id}`);
@@ -17,11 +16,11 @@ export class TransactionDetailsPage {
     await this.waitForVisibleDetails();
 
     const details: Record<string, string> = {};
-    const items = await this.page.locator(this.itemLocator).all();
+    const items = await this.page.locator(this.locators.item).all();
 
     for (const item of items) {
-      const title = await item.locator(this.itemTitleLocator).innerText();
-      const value = await item.locator(this.itemValueLocator).innerText();
+      const title = await item.locator(this.locators.itemTitle).innerText();
+      const value = await item.locator(this.locators.itemValue).innerText();
       details[title] = value;
     }
 
@@ -29,6 +28,6 @@ export class TransactionDetailsPage {
   }
 
   async waitForVisibleDetails() {
-    await this.page.waitForSelector(this.itemLocator);
+    await this.page.waitForSelector(this.locators.item);
   }
 }
