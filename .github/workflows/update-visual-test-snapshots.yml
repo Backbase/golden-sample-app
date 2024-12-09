@@ -27,7 +27,7 @@ jobs:
         run: git config user.email "actions@github.com" && git config user.name "GitHub Actions"
       - name: Commit changes
         run: git commit -m "Update Playwright visual test snapshots"
-      - name: Push Changes to Main Branch
+      - name: Push Changes to target branch
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
