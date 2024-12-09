@@ -56,8 +56,11 @@ jobs:
         run: npx playwright install --with-deps chromium firefox webkit
         shell: bash
 
-      - name: Run Playwright e2e tests
-        run: HOME=/root npm run e2e
+      - name: Run Playwright e2e tests on sandbox
+        run: HOME=/root npm run e2e:localhost:sndbx
+
+      - name: Run Playwright e2e tests with mocks
+        run: HOME=/root npm run e2e:mocks
 
       - name: Run Playwright e2e responsive tests with mocks
         run: HOME=/root npm run e2e-test-responsive
