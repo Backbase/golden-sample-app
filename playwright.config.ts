@@ -49,7 +49,7 @@ const config: PlaywrightTestConfig = {
             '--disable-dev-shm-usage',
           ],
         },
-        baseURL: 'http://localhost:4201',
+        baseURL: 'http://localhost:4200/',
       },
     },
     {
@@ -61,7 +61,6 @@ const config: PlaywrightTestConfig = {
       },
     },
   ],
-  
   webServer: [
     {
       command: 'npm run mock-server',

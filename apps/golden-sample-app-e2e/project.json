@@ -20,7 +20,7 @@
           "test",
           "--config=playwright.localhost.config.ts",
           "--project=localhost-ebp-sndbx",
-          "--grep '@e2e'"
+          "--grep='@e2e'"
         ]
       }
     },
@@ -33,7 +33,7 @@
           "test",
           "--config=playwright.localhost.config.ts",
           "--project=localhost-mocked",
-          "--grep '@e2e'",
+          "--grep='@e2e'",
           "--grep-invert '@identity'"
         ]
       }
