@@ -10,6 +10,44 @@
       "options": {
         "command": "npx playwright test --project 'mobile-chrome' --grep '@visual.+@responsive|@responsive.+@visual' --workers=2"
       }
+    },
+    "e2e-localhost-ebp-sndbx": {
+      "executor": "@dot-build/serve-and-run-angular:run",
+      "options": {
+        "devServerTarget": "golden-sample-app:serve:ebp-sndbox",
+        "command": "npx playwright",
+        "args": [
+          "test",
+          "--config=playwright.localhost.config.ts",
+          "--project=localhost-ebp-sndbx",
+          "--grep='@e2e'"
+        ]
+      }
+    },
+    "e2e-localhost-mocks": {
+      "executor": "@dot-build/serve-and-run-angular:run",
+      "options": {
+        "devServerTarget": "golden-sample-app:serve:mocks",
+        "command": "npx playwright",
+        "args": [
+          "test",
+          "--config=playwright.localhost.config.ts",
+          "--project=localhost-mocked",
+          "--grep='@e2e'",
+          "--grep-invert '@identity'"
+        ]
+      }
+    },
+    "e2e-modelbank-stg": {
+      "executor": "@dot-build/serve-and-run-angular:run",
+      "options": {
+        "command": "npx playwright",
+        "args": [
+          "test",
+          "--config=playwright.modelbank.config.ts",
+          "--project=remote-bus-stg"
+        ]
+      }
     }
   }
 }
