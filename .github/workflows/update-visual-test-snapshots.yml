@@ -10,23 +10,31 @@ on:
 jobs:
   update_snapshots:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.32.1-focal
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 
+
       - name: Set up Node.js
         uses: ./.github/actions/node-step
         with:
           npm-auth-token: ${{ secrets.NPM_TOKEN }}
+
       - name: Install browsers
         run: npx playwright install --with-deps chromium firefox webkit
         shell: bash
+
       - name: Run update snapshots
         run: HOME=/root npm run e2e-update-snapshots
+
       - name: Setup git user to "GSA Action"
         run: git config user.email "actions@github.com" && git config user.name "GitHub Actions"
+
       - name: Commit changes
         run: git commit -m "Update Playwright visual test snapshots"
+        
       - name: Push Changes to target branch
         uses: ad-m/github-push-action@master
         with:
