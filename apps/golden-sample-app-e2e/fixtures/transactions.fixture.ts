@@ -1,4 +1,4 @@
-import { test as baseTest } from '../page-objects/test-runner';
+import { testWithAuth as baseTest } from '../page-objects/test-runner';
 import {
   TransactionFixture,
   TransactionDetailsPage,

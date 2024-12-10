@@ -10,11 +10,9 @@ export const test = baseTest.extend<{
   // Pages
   identityPage: IdentityPage;
   visual: VisualValidator;
+  // Configuration
   configPath: string;
   config: { users: Record<string, User> };
-  // Authentication
-  userType: string;
-  user: User;
 }>({
   identityPage: async ({ page }, use, testInfo) => {
     await use(
@@ -28,6 +26,13 @@ export const test = baseTest.extend<{
   config: async ({ configPath }, use) => {
     await use(configPath ? readFile(configPath) : { users: {} });
   },
+});
+
+export const testWithAuth = test.extend<{
+  // Authentication
+  userType: string;
+  user: User;
+}>({
   userType: ['', { option: true }],
   user: async ({ config, userType }, use) => {
     await use(config.users[userType]);
