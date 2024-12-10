@@ -3,12 +3,9 @@
 
 name: Update Visual Test Snapshots
 on:
-  workflow_dispatch: # Allow manual triggers
-    inputs:
-      target_branch:
-        description: "The branch to push the updated snapshots to"
-        required: true
-        default: ""
+  pull_request:
+    branches:
+      - main
 
 jobs:
   update_snapshots:
@@ -31,4 +28,5 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.event.inputs.target_branch }}
+          branch: 'QAH-354-Add-GHA-for-updating-visual-test-snapshots'
+          
