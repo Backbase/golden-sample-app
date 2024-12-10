@@ -18,6 +18,9 @@ jobs:
         uses: ./.github/actions/node-step
         with:
           npm-auth-token: ${{ secrets.NPM_TOKEN }}
+      - name: Install browsers
+        run: npx playwright install --with-deps chromium firefox webkit
+        shell: bash
       - name: Run update snapshots
         run: HOME=/root npm run e2e-update-snapshots
       - name: Setup git user to "GSA Action"
@@ -29,4 +32,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: 'QAH-354-Add-GHA-for-updating-visual-test-snapshots'
-          
