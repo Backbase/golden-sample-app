@@ -8,6 +8,9 @@ import { join } from 'path';
 export default defineConfig<any>({
   ...baseConfig,
   projects: [
+    /**
+     * Configuration for running tests with mock env
+     */
     {
       name: 'localhost-mocked',
       use: {
@@ -20,6 +23,9 @@ export default defineConfig<any>({
         baseURL: 'http://localhost:4200/',
       },
     },
+     /**
+     * Configuration for running tests with sandbox env running locally and proxying to sandbox
+     */
     {
       name: 'localhost-ebp-sndbx',
       use: {
@@ -32,7 +38,24 @@ export default defineConfig<any>({
         configPath: join(__dirname, 'apps/golden-sample-app-e2e/config/ebp-sndbx.config.json'),
         baseURL: 'http://localhost:4200/',
       },
-      testIgnore: /mocked-.*/,
+      testIgnore: /mocked-.*/, // We dont want to run tests which are created for mocks only
+    },
+     /**
+     * Configuration for running tests with sandbox env running locally and proxying to sandbox
+     */
+     {
+      name: 'localhost-mb-stg',
+      use: {
+        ...devices['Desktop Chrome'],
+        headless: true,
+        launchOptions: {
+          chromiumSandbox: false,
+          args: ['--disable-infobars', '--no-sandbox', '--incognito'],
+        },
+        configPath: join(__dirname, 'apps/golden-sample-app-e2e/config/mb-stg.config.json'),
+        baseURL: 'http://localhost:4200/',
+      },
+      testIgnore: /mocked-.*/, // We dont want to run tests which are created for mocks only
     },
   ],
   webServer: [
