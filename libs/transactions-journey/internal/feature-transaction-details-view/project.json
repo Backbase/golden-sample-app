@@ -1,0 +1,37 @@
+{
+  "name": "transactions-journey-feature-transaction-details-view",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/transactions-journey/internal/feature-transaction-details-view/src",
+  "prefix": "backbase",
+  "projectType": "library",
+  "tags": ["scope:transaction-details-view-journey", "type:feature"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/internal/{projectRoot}"],
+      "options": {
+        "project": "libs/transactions-journey/internal/feature-transaction-details-view/ng-package.internal.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transactions-journey/internal/feature-transaction-details-view/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transactions-journey/data-access/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/transactions-journey/internal/feature-transaction-details-view/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  }
+}
