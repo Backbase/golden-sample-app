@@ -1,0 +1,36 @@
+{
+  "name": "transactions-journey-shell",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/transactions-journey/src",
+  "prefix": "bb",
+  "tags": ["scope:transactions-journey", "type:shell"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/transactions-journey/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transactions-journey/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transactions-journey/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/transactions-journey"],
+      "options": {
+        "jestConfig": "libs/transactions-journey/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
