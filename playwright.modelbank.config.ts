@@ -38,12 +38,12 @@ export default defineConfig<any>({
      * 
      */
     {
-      name: 'remote-bus-stable',
+      name: 'remote-mb-stable',
       use: {
         ...devices['Desktop Chrome'],
         viewport: { width: 1723, height: 896 },
-        configPath: join(__dirname, 'src/config/bus-stable.config.json'),
-        baseURL: 'https://business.bus-stable.reference.azure.backbaseservices.com',
+        configPath: join(__dirname, 'src/config/mb-stable.config.json'),
+        baseURL: 'https://business.mb-stable.reference.azure.backbaseservices.com',
       },
       testMatch: /mb-.*\.(e2e-spec|spec)\.ts/, // we just want to run all tests with file names starting from  mb-*.ts.
     },

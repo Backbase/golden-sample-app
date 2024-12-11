@@ -6,12 +6,12 @@ import {
 } from '@backbase-gsa/transactions-journey/e2e-tests';
 import {
   transactionDetailMocksData,
-  transactionDetailSandboxData,
-} from '../data/transactions-detail.data';
-import {
   transactionListMockData,
+} from '../data/mocks-data';
+import {
+  transactionDetailSandboxData,
   transactionListSandboxData,
-} from '../data/transaction-list.data';
+} from '../data/sandbox-api-data';
 
 export const test = baseTest.extend<TransactionFixture>({
   detailsPage: async ({ page, baseURL }, use) => {
