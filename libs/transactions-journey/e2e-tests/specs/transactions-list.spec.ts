@@ -28,22 +28,15 @@ export function testTransactionsList(
           });
         }
       });
-    }
-  );
-}
 
-export function testTransactionListError(
-  test: TestType<TransactionFixture, TransactionFixture>
-) {
-  test.describe(
-    'Transactions list',
-    { tag: ['@e2e', '@transactions', '@transactions-details'] },
-    () => {
-      test('should display correct error state', async ({ listPage }) => {
-        await listPage.navigate();
-        // Error test placeholder
-        expect(true).toBe(true);
-      });
+      test(
+        'should display correct error state',
+        { tag: ['@error-handling'] },
+        async ({ listPage }) => {
+          // Error state test placeholder
+          expect(true).toBe(true);
+        }
+      );
     }
   );
 }
