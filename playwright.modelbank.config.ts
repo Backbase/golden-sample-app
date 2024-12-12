@@ -1,7 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 import 'dotenv/config';
-import { config as baseConfig, TestOptions}  from './playwright.config';
+import  baseConfig from './playwright.config';
 import { join } from 'path';
+import { TestOptions } from './test.model';
 
 export default defineConfig<TestOptions>({
   ...baseConfig,

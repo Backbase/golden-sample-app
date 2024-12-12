@@ -1,5 +1,5 @@
 import { User } from './data/data-types/user';
-import { config } from '../../playwright.config';
+import config from '../../playwright.config';
 import 'dotenv/config';
 
 export class TestConfig {

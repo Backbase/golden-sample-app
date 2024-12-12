@@ -5,7 +5,7 @@ import { testConfig } from '../test-config';
 import { User } from '../data/data-types/user';
 import { readFile } from '../utils/read-file';
 import 'dotenv/config';
-import { TestOptions } from '../../../playwright.config';
+import { TestOptions } from '../../../test.model';
 
 interface TestRunnerOptions extends TestOptions {
   identityPage: IdentityPage;

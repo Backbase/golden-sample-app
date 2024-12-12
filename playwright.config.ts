@@ -1,12 +1,8 @@
 import { PlaywrightTestConfig, devices } from '@playwright/test';
 import 'dotenv/config';
 
-export interface TestOptions {
-  configPath: string;
-}
-
 // Reference: https://playwright.dev/docs/test-configuration
-export const config: PlaywrightTestConfig = {
+const config: PlaywrightTestConfig = {
   timeout: (Number(process.env['TIMEOUT']) || 120) * 1000,
   testDir: './apps/golden-sample-app-e2e/specs/',
   retries: process.env['CI'] ? 1 : 0,
@@ -79,3 +75,5 @@ export const config: PlaywrightTestConfig = {
     },
   ],
 };
+
+export default config;
