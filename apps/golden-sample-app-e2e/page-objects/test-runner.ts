@@ -5,15 +5,15 @@ import { testConfig } from '../test-config';
 import { User } from '../data/data-types/user';
 import { readFile } from '../utils/read-file';
 import 'dotenv/config';
+import {TestOptions } from '../../../playwright.config';
 
-export const test = baseTest.extend<{
-  // Pages
+interface TestRunnerOptions extends TestOptions {
   identityPage: IdentityPage;
   visual: VisualValidator;
-  // Configuration
-  configPath: string;
   config: { users: Record<string, User> };
-}>({
+};
+
+export const test = baseTest.extend<TestRunnerOptions>({
   identityPage: async ({ page }, use, testInfo) => {
     await use(
       new IdentityPage(page, testInfo, { url: testConfig.appBaseUrl() })
