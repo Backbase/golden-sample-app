@@ -124,7 +124,7 @@
           "buildTarget": "golden-sample-app:build:nl"
         },
         "mocks": {
-          "proxyConfig": "./apps/golden-sample-app/proxy.mocks.conf.json",
+          "proxyConfig": "./apps/golden-sample-app/proxy.mocks.conf.js",
           "buildTarget": "golden-sample-app:build:mocks"
         },
         "ebp-sndbox": {
