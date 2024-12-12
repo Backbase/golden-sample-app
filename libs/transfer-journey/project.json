@@ -1,0 +1,36 @@
+{
+  "name": "transfer-journey-shell",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/transfer-journey/src",
+  "prefix": "bb",
+  "tags": ["scope:transfer-journey", "type:shell"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/transfer-journey/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transfer-journey/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transfer-journey/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/transfer-journey"],
+      "options": {
+        "jestConfig": "libs/transfer-journey/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
