@@ -5,12 +5,13 @@ import { testConfig } from '../test-config';
 import { User } from '../data/data-types/user';
 import { readFile } from '../utils/read-file';
 import 'dotenv/config';
-import { TestOptions } from '../../../test.model';
+import { TestEnvironment, TestOptions } from '../../../test.model';
 
 interface TestRunnerOptions extends TestOptions {
   identityPage: IdentityPage;
   visual: VisualValidator;
   config: { users: Record<string, User> };
+  env: TestEnvironment;
 }
 
 export const test = baseTest.extend<TestRunnerOptions>({
@@ -25,6 +26,10 @@ export const test = baseTest.extend<TestRunnerOptions>({
   configPath: ['', { option: true }],
   config: async ({ configPath }, use) => {
     await use(configPath ? readFile(configPath) : { users: {} });
+  },
+  testEnvironment: [TestEnvironment.MOCKS, { option: true }],
+  env: async ({ testEnvironment }, use) => {
+    await use(testEnvironment);
   },
 });
 

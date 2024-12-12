@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 import 'dotenv/config';
 import  baseConfig from './playwright.config';
 import { join } from 'path';
-import { TestOptions } from './test.model';
+import { TestOptions, TestEnvironment } from './test.model';
 
 
 export default defineConfig<TestOptions>({
@@ -20,6 +20,7 @@ export default defineConfig<TestOptions>({
           chromiumSandbox: false,
           args: ['--disable-infobars', '--no-sandbox', '--incognito'],
         },
+        testEnvironment: TestEnvironment.MOCKS,
         baseURL: 'http://localhost:4200/',
       },
     },
@@ -36,6 +37,7 @@ export default defineConfig<TestOptions>({
           args: ['--disable-infobars', '--no-sandbox', '--incognito'],
         },
         configPath: join(__dirname, 'apps/golden-sample-app-e2e/config/ebp-sndbx.config.json'),
+        testEnvironment: TestEnvironment.SANDBOX,
         baseURL: 'http://localhost:4200/',
       },
       testIgnore: /mocked-.*/, // We dont want to run tests which are created for mocks only
