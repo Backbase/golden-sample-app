@@ -5,13 +5,13 @@ import { testConfig } from '../test-config';
 import { User } from '../data/data-types/user';
 import { readFile } from '../utils/read-file';
 import 'dotenv/config';
-import {TestOptions } from '../../../playwright.config';
+import { TestOptions } from '../../../playwright.config';
 
 interface TestRunnerOptions extends TestOptions {
   identityPage: IdentityPage;
   visual: VisualValidator;
   config: { users: Record<string, User> };
-};
+}
 
 export const test = baseTest.extend<TestRunnerOptions>({
   identityPage: async ({ page }, use, testInfo) => {
