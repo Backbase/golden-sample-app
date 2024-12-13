@@ -20,7 +20,9 @@ export interface TransactionDetailDataType {
 
 export interface TransactionFixture {
   detailsPage: TransactionDetailsPage;
-  detailsData: TransactionDetailDataType;
   listPage: TransactionsListPage;
-  listData: TransactionListDataType;
+  data: {
+    details: TransactionDetailDataType;
+    list: TransactionListDataType;
+  };
 }

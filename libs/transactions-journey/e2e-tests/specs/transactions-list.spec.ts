@@ -12,13 +12,13 @@ export function testTransactionsList(
         await listPage.navigate();
       });
 
-      test('should display transactions', async ({ listPage, listData }) => {
+      test('should display transactions', async ({ listPage, data }) => {
         const transactionsNumber = await listPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(listData.size);
+        expect(transactionsNumber).toEqual(data.list.size);
       });
 
-      test('should filter transactions', async ({ listPage, listData }) => {
-        for (const expectation of listData.searchExpectations) {
+      test('should filter transactions', async ({ listPage, data }) => {
+        for (const expectation of data.list.searchExpectations) {
           await test.step(`Search transactions by "${expectation.term}" term`, async () => {
             await listPage.searchTransactions(expectation.term);
           });

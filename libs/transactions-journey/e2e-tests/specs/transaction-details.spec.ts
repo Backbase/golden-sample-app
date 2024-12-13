@@ -8,18 +8,18 @@ export function testTransactionDetails(
     'Transactions details',
     { tag: ['@e2e', '@transactions', '@transactions-details'] },
     () => {
-      test.beforeEach(async ({ detailsPage, detailsData }) => {
-        await detailsPage.navigate(detailsData.id);
+      test.beforeEach(async ({ detailsPage, data }) => {
+        await detailsPage.navigate(data.details.id);
       });
 
       test('should display correct transaction details', async ({
         detailsPage,
-        detailsData,
+        data,
       }) => {
         const details = await detailsPage.getDetails();
-        expect(details['Category:']).toEqual(detailsData.category);
-        expect(details['Description:']).toEqual(detailsData.description);
-        expect(details['Status:']).toEqual(detailsData.status);
+        expect(details['Category:']).toEqual(data.details.category);
+        expect(details['Description:']).toEqual(data.details.description);
+        expect(details['Status:']).toEqual(data.details.status);
       });
     }
   );
