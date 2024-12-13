@@ -12,15 +12,16 @@ import {
   transactionDetailSandboxData,
   transactionListSandboxData,
 } from '../data/sandbox-api-data';
+import { TestEnvironment } from 'test.model';
 
 export const test = baseTest.extend<TransactionFixture>({
   detailsPage: async ({ page, baseURL }, use) => {
     const pageObject = new TransactionDetailsPage(page, { baseURL });
     await use(pageObject);
   },
-  detailsData: async ({ page, baseURL }, use, workerInfo) => {
-    // Based on the project name in the configurations, it passes data to the test
-    if (workerInfo.project.name.includes('mocked')) {
+  detailsData: async ({ env }, use) => {
+    // Based on the configurations, it passes data to the test
+    if (env === TestEnvironment.MOCKS) {
       // passing mock data to check against mocks
       await use(transactionDetailMocksData);
     } else {
@@ -33,9 +34,9 @@ export const test = baseTest.extend<TransactionFixture>({
     await use(pageObject);
   },
 
-  listData: async ({ page, baseURL }, use, workerInfo) => {
-    // Based on the project name in the configurations, it passes data to the test
-    if (workerInfo.project.name.includes('mocked')) {
+  listData: async ({ env }, use, workerInfo) => {
+    // Based on the configurations, it passes data to the test
+    if (env === TestEnvironment.MOCKS) {
       // passing mock data to check against mocks
       await use(transactionListMockData);
     } else {
