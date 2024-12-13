@@ -6,3 +6,4 @@ export * from './specs/transaction-details.spec';
 export * from './specs/transactions-list.spec';
 
 export * from './model';
+export * from './fixture/transactions';
