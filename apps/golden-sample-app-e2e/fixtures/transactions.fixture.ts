@@ -1,8 +1,8 @@
 import { testWithAuth as baseTest } from '../page-objects/test-runner';
+import { mergeTests } from '@playwright/test';
 import {
   TransactionFixture,
-  TransactionDetailsPage,
-  TransactionsListPage,
+  test as transferTest,
 } from '@backbase-gsa/transactions-journey/e2e-tests';
 import {
   transactionDetailMocksData,
@@ -14,11 +14,11 @@ import {
 } from '../data/sandbox-api-data';
 import { TestEnvironment } from 'test.model';
 
-export const test = baseTest.extend<TransactionFixture>({
-  detailsPage: async ({ page, baseURL }, use) => {
-    const pageObject = new TransactionDetailsPage(page, { baseURL });
-    await use(pageObject);
-  },
+export const test = mergeTests(
+  baseTest,
+  transferTest
+).extend<TransactionFixture>({
+  // overrode default data based on environment config
   detailsData: async ({ env }, use) => {
     // Based on the configurations, it passes data to the test
     if (env === TestEnvironment.MOCKS) {
@@ -29,11 +29,7 @@ export const test = baseTest.extend<TransactionFixture>({
       await use(transactionDetailSandboxData);
     }
   },
-  listPage: async ({ page, baseURL }, use) => {
-    const pageObject = new TransactionsListPage(page, { baseURL });
-    await use(pageObject);
-  },
-
+  // overrode default data based on environment config
   listData: async ({ env }, use, workerInfo) => {
     // Based on the configurations, it passes data to the test
     if (env === TestEnvironment.MOCKS) {
