@@ -14,31 +14,29 @@ import {
 } from '../data/sandbox-api-data';
 import { TestEnvironment } from 'test.model';
 
+// Transactions test data per Env type
+const testData: Partial<
+  Record<TestEnvironment, Pick<TransactionFixture, 'detailsData' | 'listData'>>
+> = {
+  // Mock data to run tests against mocks
+  [TestEnvironment.MOCKS]: {
+    detailsData: transactionDetailMocksData,
+    listData: transactionListMockData,
+  },
+  // Sandbox data to run tests against sandbox env
+  [TestEnvironment.SANDBOX]: {
+    detailsData: transactionDetailSandboxData,
+    listData: transactionListSandboxData,
+  },
+};
+
 export const test = mergeTests(
   baseTest,
   transferTest
 ).extend<TransactionFixture>({
   // overrode default data based on environment config
-  detailsData: async ({ env }, use) => {
-    // Based on the configurations, it passes data to the test
-    if (env === TestEnvironment.MOCKS) {
-      // passing mock data to check against mocks
-      await use(transactionDetailMocksData);
-    } else {
-      // passing sandbox enc related data to check against sandbox env
-      await use(transactionDetailSandboxData);
-    }
-  },
-  // overrode default data based on environment config
-  listData: async ({ env }, use, workerInfo) => {
-    // Based on the configurations, it passes data to the test
-    if (env === TestEnvironment.MOCKS) {
-      // passing mock data to check against mocks
-      await use(transactionListMockData);
-    } else {
-      // passing sandbox enc related data to check against sandbox env
-      await use(transactionListSandboxData);
-    }
-  },
+  detailsData: async ({ env }, use) => await use(testData[env]!.detailsData),
+  listData: async ({ env }, use) => await use(testData[env]!.listData),
+  // type of the user
   userType: 'userWithNoContext',
 });
