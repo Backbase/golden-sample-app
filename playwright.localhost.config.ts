@@ -40,7 +40,7 @@ export default defineConfig<TestOptions>({
         testEnvironment: TestEnvironment.SANDBOX,
         baseURL: 'http://localhost:4200/',
       },
-      testIgnore: /mocked-.*/, // We dont want to run tests which are created for mocks only
+      testIgnore: /mocked-.*/, // We don't want to run tests which are created for mocks only
     },
      /**
      * Configuration for running tests with sandbox env running locally and proxying to sandbox
@@ -57,7 +57,7 @@ export default defineConfig<TestOptions>({
         configPath: join(__dirname, 'apps/golden-sample-app-e2e/config/mb-stg.config.json'),
         baseURL: 'http://localhost:4200/',
       },
-      testIgnore: /mocked-.*/, // We dont want to run tests which are created for mocks only
+      testIgnore: /mocked-.*/, // We don't want to run tests which are created for mocks only
     },
   ],
   webServer: [
