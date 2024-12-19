@@ -1,0 +1,38 @@
+{
+  "name": "transactions-journey-ui",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/transactions-journey/internal/ui/src",
+  "prefix": "backbase",
+  "tags": ["scope:transactions-journey", "type:ui"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/internal/{projectRoot}"],
+      "options": {
+        "project": "libs/transactions-journey/internal/ui/ng-package.internal.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transactions-journey/internal/ui/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transactions-journey/internal/ui/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/transactions-journey/internal/ui"
+      ],
+      "options": {
+        "jestConfig": "libs/transactions-journey/internal/ui/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

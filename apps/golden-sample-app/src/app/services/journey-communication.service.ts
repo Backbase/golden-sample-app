@@ -6,7 +6,7 @@ import {
 } from '@backbase/transactions-http-ang';
 import { TransactionsCommunicationService } from '@backbase-gsa/transactions-journey';
 import { MakeTransferCommunicationService } from '@backbase-gsa/transfer-journey';
-import { Transfer } from '@backbase-gsa/internal-transfer-shared-data';
+import { Transfer } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

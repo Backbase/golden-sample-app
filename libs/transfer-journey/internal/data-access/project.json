@@ -1,0 +1,38 @@
+{
+  "name": "transfer-journey-data-access",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/transfer-journey/internal/data-access/src",
+  "prefix": "bb",
+  "tags": ["scope:transfer-journey", "type:data-access"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/internal/{projectRoot}"],
+      "options": {
+        "project": "libs/transfer-journey/internal/data-access/ng-package.internal.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transfer-journey/internal/data-access/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transfer-journey/internal/data-access/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/transfer-journey/internal/data-access"
+      ],
+      "options": {
+        "jestConfig": "libs/transfer-journey/internal/data-access/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
