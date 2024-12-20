@@ -1,6 +1,11 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and update visual test snapshots for playwright tests.
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
+permissions:
+  contents: write
+  packages: write
+  id-token: write
+
 name: Update Visual Test Snapshots
 on:
   pull_request:
@@ -33,7 +38,9 @@ jobs:
         run: git config user.email "actions@github.com" && git config user.name "GitHub Actions"
 
       - name: Commit changes
-        run: git commit -m "Update Playwright visual test snapshots"
+        uses: EndBug/add-and-commit@v9
+        with:
+          commit: "Update Playwright visual test snapshots"
         
       - name: Push Changes to target branch
         uses: ad-m/github-push-action@master
