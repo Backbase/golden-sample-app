@@ -34,9 +34,6 @@ jobs:
       - name: Run update snapshots
         run: HOME=/root npm run e2e-update-snapshots
 
-      - name: Setup git user to "GSA Action"
-        run: git config user.email "actions@github.com" && git config user.name "GitHub Actions"
-
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
