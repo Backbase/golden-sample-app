@@ -1,7 +1,7 @@
 import { test } from '../page-objects/test-runner';
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('transactions');
+test.beforeEach(async ({ page, baseURL }) => {
+  await page.goto(`${baseURL}/transactions`);
 });
 test.describe.configure({ mode: 'parallel' });
 
