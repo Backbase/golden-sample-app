@@ -99,6 +99,18 @@ We've provided the `AuthEventsHandlerService` via the `APP_INITIALIZER` which wi
 
 We've also provided an example implementation of an `AuthInterceptor` in the app module. The purpose of this interceptor is to catch 401 errors and attempt to refresh the user's access token. If this refresh is successful the original request will be replayed with the new access token. If the refresh fails, or the original error was not a 401, then we surface the original error to the calling code.
 
+### How to use API Sandbox endpoints
+
+Since API Sandbox requires an individual API Key to allow requests to go through the services, you need to request a new API Key for yourself. You can do this by sending an email to `api-sandbox-support@backbase.com`.
+
+When you receive your API Key, you can add it to your environment file. For example, in `environment.ts`:
+
+```ts
+export const environment: Environment = {
+  apiSandboxKey: 'YOUR_API_KEY'
+}
+```
+
 ## Generate an application
 
 Run `ng g @nx/angular:app my-app` to generate an application.
