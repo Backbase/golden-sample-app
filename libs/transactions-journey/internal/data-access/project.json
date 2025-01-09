@@ -1,0 +1,38 @@
+{
+  "name": "transactions-journey-data-access",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/transactions-journey/internal/data-access/src",
+  "prefix": "backbase",
+  "tags": ["scope:transactions-journey", "type:data-access"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/internal/{projectRoot}"],
+      "options": {
+        "project": "libs/transactions-journey/internal/data-access/ng-package.internal.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/transactions-journey/internal/data-access/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/transactions-journey/internal/data-access/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/transactions-journey/internal/data-access"
+      ],
+      "options": {
+        "jestConfig": "libs/transactions-journey/internal/data-access/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

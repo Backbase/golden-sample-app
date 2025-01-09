@@ -7,7 +7,7 @@ const config: PlaywrightTestConfig = {
   testDir: './apps/golden-sample-app-e2e/specs/',
   retries: process.env['CI'] ? 1 : 0,
   grep: process.env['TEST_TAG'] ? RegExp(process.env['TEST_TAG']) : undefined,
-  outputDir: process.env['OUTPUT_DIR'] || './test-output',
+  outputDir: process.env['OUTPUT_DIR'] ?? './test-output',
   forbidOnly: !!process.env['CI'],
   workers: process.env['CI'] ? 4 : 1,
   expect: {
@@ -20,7 +20,7 @@ const config: PlaywrightTestConfig = {
   globalSetup: require.resolve(__dirname + '/global-setup.ts'),
   use: {
     trace: 'retain-on-failure',
-    baseURL: process.env['BASE_URL'] || 'http://localhost:4200/',
+    baseURL: process.env['BASE_URL'] ?? 'http://localhost:4200/',
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     video: 'on-first-retry',
