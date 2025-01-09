@@ -15,9 +15,13 @@ This golden sample provides examples of the code structure, configuration, and b
   - [Generate an application](#generate-an-application)
   - [Generate a library](#generate-a-library)
   - [Load app on a development server](#load-app-on-a-development-server)
+  - [User credentials](#user-credentials)
+  - [Running the app with Mocks](#running-the-app-with-mocks)
   - [Code scaffolding](#code-scaffolding)
   - [Build](#build)
   - [Tests](#tests)
+    - [Running unit tests](#running-unit-tests)
+    - [Running end-to-end tests](#running-end-to-end-tests)
   - [Understand your workspace](#understand-your-workspace)
   - [Running with docker](#running-with-docker)
   - [Package as a runnable Docker container](#package-as-a-runnable-docker-container)
@@ -95,6 +99,18 @@ We've provided the `AuthEventsHandlerService` via the `APP_INITIALIZER` which wi
 
 We've also provided an example implementation of an `AuthInterceptor` in the app module. The purpose of this interceptor is to catch 401 errors and attempt to refresh the user's access token. If this refresh is successful the original request will be replayed with the new access token. If the refresh fails, or the original error was not a 401, then we surface the original error to the calling code.
 
+### How to use API Sandbox endpoints
+
+Since API Sandbox requires an individual API Key to allow requests to go through the services, you need to request a new API Key for yourself. You can do this by sending an email to `api-sandbox-support@backbase.com`.
+
+When you receive your API Key, you can add it to your environment file. For example, in `environment.ts`:
+
+```ts
+export const environment: Environment = {
+  apiSandboxKey: 'YOUR_API_KEY'
+}
+```
+
 ## Generate an application
 
 Run `ng g @nx/angular:app my-app` to generate an application.
@@ -140,15 +156,24 @@ To build the app to production, use the `--prod` flag.
 
 ## Tests
 
-- Running unit tests
+### Running unit tests
 
 Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
 
 Run `nx affected:test` to execute the unit tests affected by a change.
 
-- Running end-to-end tests
+### Running end-to-end tests
 
-Run `npx playwright test`
+Run `npm run e2e` to run the default e2e tests suite that runs on the CI.
+
+Use one of the following commands to run a different set of tests:
+
+- `npm run e2e-test-mocks` - run all the tests against mocks data,
+- `npm run e2e-test-sndbx-all` - run all the tests against sandbox env,
+- `npm run e2e-test-sndbx-ci` - run sandbox CI tests suite,
+- `npm run e2e-test-responsive` - run only visual mobile tests.
+
+For more information on playwright tests see [playwright-readme.md](/apps/golden-sample-app-e2e/playwright-readme.md).
 
 ## Understand your workspace
 

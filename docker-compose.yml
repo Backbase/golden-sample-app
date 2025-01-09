@@ -18,3 +18,4 @@ services:
       AUTH_CLIENT_ID: bb-web-client
       LOCALES: en,nl
       FALLBACK_LOCALE: nl
+      X-SDBXAZ-API-KEY: sandboxApiKey

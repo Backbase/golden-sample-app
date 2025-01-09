@@ -50,7 +50,7 @@ runs:
     ##
     - name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true'
-      run: npm ci --force --ignore-scripts
+      run: npm ci --ignore-scripts
       shell: bash
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm-auth-token }}
