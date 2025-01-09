@@ -1,0 +1,38 @@
+{
+  "name": "ach-positive-pay-journey-shared-data",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/ach-positive-pay-journey/internal/shared-data/src",
+  "prefix": "bb",
+  "tags": ["scope:ach-positive-pay-journey", "type:shared-data"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/internal/{projectRoot}"],
+      "options": {
+        "project": "libs/ach-positive-pay-journey/internal/shared-data/ng-package.internal.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/ach-positive-pay-journey/internal/shared-data/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/ach-positive-pay-journey/internal/shared-data/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/ach-positive-pay-journey/internal/shared-data"
+      ],
+      "options": {
+        "jestConfig": "libs/ach-positive-pay-journey/internal/shared-data/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

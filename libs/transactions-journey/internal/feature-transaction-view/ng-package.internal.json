@@ -1,0 +1,7 @@
+{
+  "$schema": "../../../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../../../dist/internal/libs/transactions-journey/internal/feature-transaction-view",
+  "lib": {
+    "entryFile": "src/index.ts"
+  }
+}
