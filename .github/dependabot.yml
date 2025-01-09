@@ -7,6 +7,7 @@ updates:
     schedule:
       # Check for updates to GitHub Actions every weekday
       interval: "daily"
+
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -15,3 +16,8 @@ updates:
       # Ignore all major updates for all dependencies
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
