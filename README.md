@@ -161,6 +161,8 @@ Use one of the following commands to run a different set of tests:
 - `npm run e2e-test-sndbx-ci` - run sandbox CI tests suite,
 - `npm run e2e-test-responsive` - run only visual mobile tests.
 
+For more information on playwright tests see [playwright-readme.md](/apps/golden-sample-app-e2e/playwright-readme.md).
+
 ## Understand your workspace
 
 Run `nx dep-graph` to see a diagram of the dependencies of your projects.
