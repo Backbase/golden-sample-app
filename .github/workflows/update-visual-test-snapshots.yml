@@ -36,6 +36,7 @@ jobs:
         
       - name: Push Changes to target branch
         run: |
-          git config --add safe.directory /__w/golden-sample-app/golden-sample-app
+          git config --global --add safe.directory /__w/golden-sample-app/golden-sample-app
+          git add -A
           git commit -m "Update Playwright visual test snapshots"
           git push origin QAH-354-Add-GHA-for-updating-visual-test-snapshots
