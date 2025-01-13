@@ -261,6 +261,24 @@
             "create": true,
             "delete": true
           }
+        },
+        {
+          "additions": {},
+          "resource": "Payments",
+          "function": "ManagePositivePay",
+          "permissions": {
+            "view": true,
+            "create": false
+          }
+        },
+        {
+          "additions": {},
+          "resource": "Payments",
+          "function": "AchPositivePay",
+          "permissions": {
+            "view": true,
+            "create": false
+          }
         }
       ]
     },
