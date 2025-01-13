@@ -35,7 +35,7 @@ jobs:
         run: HOME=/root npm run e2e-update-snapshots
         
       - name: Push Changes to target branch
-        run: >
+        run: |
           git config --global --add safe.directory /__w/golden-sample-app/golden-sample-app
           git commit -m "Update Playwright visual test snapshots"
           git push origin QAH-354-Add-GHA-for-updating-visual-test-snapshots
