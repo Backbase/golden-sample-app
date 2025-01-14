@@ -264,7 +264,7 @@
         },
         {
           "additions": {},
-          "resource": "Payments",
+          "resource": "EntPayments",
           "function": "ManagePositivePay",
           "permissions": {
             "view": true,
@@ -273,7 +273,7 @@
         },
         {
           "additions": {},
-          "resource": "Payments",
+          "resource": "EntPayments",
           "function": "AchPositivePay",
           "permissions": {
             "view": true,

@@ -71,7 +71,7 @@
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'Payments.AchPositivePay.create AND Payments.ManagePositivePay.create OR Payments.AchPositivePay.view'"
+        *bbIfEntitlements="'EntPayments.AchPositivePay.create AND EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view'"
       >
         <a
           class="bb-layout__horizontal-nav-link"
@@ -97,7 +97,7 @@
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'Payments.AchPositivePay.create AND (Payments.ManagePositivePay.create OR Payments.AchPositivePay.view)'"
+        *bbIfEntitlements="'EntPayments.AchPositivePay.create AND (EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view)'"
       >
         <a
           class="bb-layout__horizontal-nav-link"
@@ -123,7 +123,7 @@
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'((Payments.ManagePositivePay.create OR Payments.AchPositivePay.view) AND Payments.AchPositivePay.view) OR Payments.ManagePositivePay.create'"
+        *bbIfEntitlements="'((EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR EntPayments.ManagePositivePay.create'"
       >
         <a
           class="bb-layout__horizontal-nav-link"
@@ -149,7 +149,7 @@
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'!((Payments.ManagePositivePay.create OR Payments.AchPositivePay.view) AND Payments.AchPositivePay.view) OR Payments.ManagePositivePay.create'"
+        *bbIfEntitlements="'!((EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR EntPayments.ManagePositivePay.create'"
       >
         <a
           class="bb-layout__horizontal-nav-link"
@@ -175,7 +175,7 @@
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'!(!(Payments.ManagePositivePay.create OR Payments.AchPositivePay.view) AND Payments.AchPositivePay.view) OR !Payments.ManagePositivePay.create'"
+        *bbIfEntitlements="'!(!(EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR !EntPayments.ManagePositivePay.create'"
       >
         <a
           class="bb-layout__horizontal-nav-link"
