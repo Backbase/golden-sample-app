@@ -23,7 +23,7 @@
           "--config=playwright.localhost.config.ts",
           "--project=localhost-ebp-sndbx",
           "--grep='@e2e'",
-          "--grep-invert='@error-handling'"
+          "--grep-invert='@@mocks-only'"
         ]
       }
     },

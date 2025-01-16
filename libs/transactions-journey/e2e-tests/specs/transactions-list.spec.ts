@@ -31,7 +31,7 @@ export function testTransactionsList(
 
       test(
         'should display correct error state',
-        { tag: ['@error-handling'] },
+        { tag: ['@mocks-only'] },
         async ({ listPage }) => {
           // Error state test placeholder
           expect(true).toBe(true);
