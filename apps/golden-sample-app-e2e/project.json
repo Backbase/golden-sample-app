@@ -23,7 +23,7 @@
           "--config=playwright.localhost.config.ts",
           "--project=localhost-ebp-sndbx",
           "--grep='@e2e'",
-          "--grep-invert='@@mocks-only'"
+          "--grep-invert='@mocks-only|@ephemeral-only'"
         ]
       }
     },
@@ -37,7 +37,7 @@
           "--config=playwright.localhost.config.ts",
           "--project=localhost-mocked",
           "--grep='@e2e'",
-          "--grep-invert='@identity'"
+          "--grep-invert='@identity'" 
         ]
       }
     },
@@ -48,7 +48,20 @@
         "args": [
           "test",
           "--config=playwright.modelbank.config.ts",
-          "--project=remote-bus-stg"
+          "--project=remote-bus-stg",
+          "--grep-invert='@mocks-only|@ephemeral-only'" // we want to run only test which are for model bank
+        ]
+      }
+    },
+    "e2e-ephemeral": {
+      "executor": "@dot-build/serve-and-run-angular:run",
+      "options": {
+        "command": "npx playwright",
+        "args": [
+          "test",
+          "--config=playwright.ephemeral.config.ts",
+          "--project=remote-ephemeral",
+          "--grep-invert='@mock-only'" // we want to run all tests except teh onces which can be run only with mocks
         ]
       }
     }
