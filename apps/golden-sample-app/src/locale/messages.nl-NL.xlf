@@ -854,17 +854,19 @@
         <source>Select an account</source><target state="final">Select an account</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">apps/golden-sample-app/src/app/custom-payment/custom-payment.config.ts</context><context context-type="linenumber">66</context></context-group><context-group purpose="location"><context context-type="sourcefile">libs/shared-payments/util/src/lib/payment-type-configs/internal-transfer.ts</context><context context-type="linenumber">84</context></context-group><note from="description" priority="1">This string is used as a placeholder for the beneficiary account selection field in the custom payment form and in the internal transfer form. It is presented to the user when they need to select an account to transfer to. This placeholder is located in the custom payment form layout and in the internal transfer form layout.</note><note from="meaning" priority="1">Beneficiary Placeholder - 'Select an account'</note></trans-unit><trans-unit id="8097214044447094499" datatype="html">
-        <source>Beneficiary Required Field Validation Message - 'Please select an account from the list to transfer to'|This string is used as a validation message for the beneficiary account selection field in the custom payment form. It is presented to the user when they attempt to submit the form without selecting an account to transfer to. This message is located in the custom payment form layout.@@internal-config.beneficiary-required-messag:Please select an account from the list to transfer to</source><target state="final">Beneficiary Required Field Validation Message - 'Please select an account from the list to transfer to'|This string is used as a validation message for the beneficiary account selection field in the custom payment form. It is presented to the user when they attempt to submit the form without selecting an account to transfer to. This message is located in the custom payment form layout.@@internal-config.beneficiary-required-messag:Please select an account from the list to transfer to</target>
+      <context-group purpose="location"><context context-type="sourcefile">apps/golden-sample-app/src/app/custom-payment/custom-payment.config.ts</context><context context-type="linenumber">66</context></context-group><context-group purpose="location"><context context-type="sourcefile">libs/shared-payments/util/src/lib/payment-type-configs/internal-transfer.ts</context><context context-type="linenumber">84</context></context-group><note from="description" priority="1">This string is used as a placeholder for the beneficiary account selection field in the custom payment form and in the internal transfer form. It is presented to the user when they need to select an account to transfer to. This placeholder is located in the custom payment form layout and in the internal transfer form layout.</note><note from="meaning" priority="1">Beneficiary Placeholder - 'Select an account'</note></trans-unit><trans-unit id="internal-config.beneficiary-required-messag" datatype="html">
+        <source>Please select an account from the list to transfer to</source><target state="final">Please select an account from the list to transfer to</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/custom-payment/custom-payment.config.ts</context>
           <context context-type="linenumber">71</context>
         </context-group>
+        <note priority="1" from="description">This string is used as a validation message for the beneficiary account selection field in the custom payment form. It is presented to the user when they attempt to submit the form without selecting an account to transfer to. This message is located in the custom payment form layout.</note>
+        <note priority="1" from="meaning">Beneficiary Required Field Validation Message - 'Please select an account from the list to transfer to'</note>
       </trans-unit><trans-unit id="internal-config.remittance-info-heading" datatype="html">
         <source>Payment details</source><target state="final">Payment details</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">apps/golden-sample-app/src/app/custom-payment/custom-payment.config.ts</context><context context-type="linenumber">95</context></context-group><context-group purpose="location"><context context-type="sourcefile">libs/shared-payments/util/src/lib/payment-type-configs/internal-transfer.ts</context><context context-type="linenumber">147</context></context-group></trans-unit><trans-unit id="internal-config.amount-label" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">apps/golden-sample-app/src/app/custom-payment/custom-payment.config.ts</context><context context-type="linenumber">95</context></context-group><context-group purpose="location"><context context-type="sourcefile">libs/shared-payments/util/src/lib/payment-type-configs/internal-transfer.ts</context><context context-type="linenumber">147</context></context-group><note from="description" priority="1">This string is used as a heading for the remittance info as a header in the custom payment journey.It is presented to the user when they need to check the remittent of payment details</note><note from="meaning" priority="1">Payment details heading - 'Payment details'</note></trans-unit><trans-unit id="internal-config.amount-label" datatype="html">
         <source>Amount</source><target state="final">Amount</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/custom-payment/custom-payment.config.ts</context>
@@ -887,12 +889,14 @@
         <source>Internal Transfer</source><target state="final">Internal Transfer</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">apps/golden-sample-app/src/app/custom-payment/custom-payment.config.ts</context><context context-type="linenumber">172</context></context-group><context-group purpose="location"><context context-type="sourcefile">libs/shared-payments/util/src/lib/payment-type-configs/internal-transfer.ts</context><context context-type="linenumber">503</context></context-group><note from="description" priority="1">This string is used as the name for the internal transfer payment type configuration. It is presented to the user when they are selecting or viewing the internal transfer payment type. This name is located in the internal transfer payment type configuration.</note><note from="meaning" priority="1">Internal Transfer Name - 'Internal Transfer'</note></trans-unit><trans-unit id="6590764864647190839" datatype="html">
-        <source>Business Function for Internal Transfer - 'A2A Transfer'|This string is used as the business function identifier for the internal transfer payment type configuration. It is used internally to specify the type of business function associated with the internal transfer. This identifier is located in the internal transfer payment type configuration.@@internal-config.business-function:A2A Transfer</source><target state="final">Business Function for Internal Transfer - 'A2A Transfer'|This string is used as the business function identifier for the internal transfer payment type configuration. It is used internally to specify the type of business function associated with the internal transfer. This identifier is located in the internal transfer payment type configuration.@@internal-config.business-function:A2A Transfer</target>
+      <context-group purpose="location"><context context-type="sourcefile">apps/golden-sample-app/src/app/custom-payment/custom-payment.config.ts</context><context context-type="linenumber">172</context></context-group><context-group purpose="location"><context context-type="sourcefile">libs/shared-payments/util/src/lib/payment-type-configs/internal-transfer.ts</context><context context-type="linenumber">503</context></context-group><note from="description" priority="1">This string is used as the name for the internal transfer payment type configuration. It is presented to the user when they are selecting or viewing the internal transfer payment type. This name is located in the internal transfer payment type configuration.</note><note from="meaning" priority="1">Internal Transfer Name - 'Internal Transfer'</note></trans-unit><trans-unit id="internal-config.business-function" datatype="html">
+        <source>A2A Transfer</source><target state="final">A2A Transfer</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/custom-payment/custom-payment.config.ts</context>
           <context context-type="linenumber">175</context>
         </context-group>
+        <note priority="1" from="description">This string is used as the business function identifier for the internal transfer payment type configuration. It is used internally to specify the type of business function associated with the internal transfer. This identifier is located in the internal transfer payment type configuration.</note>
+        <note priority="1" from="meaning">Business Function for Internal Transfer - 'A2A Transfer'</note>
       </trans-unit>
       <trans-unit id="app.userAccountsView.header" datatype="html">
         <source> User accounts </source>
@@ -12790,12 +12794,14 @@
         </context-group>
         <note priority="1" from="description">This string is used as a placeholder for the status field in the transaction details view when the transaction's billing status is not available. It is presented to the user when they view the details of a transaction that does not have a billing status. This placeholder is located in the transaction details view component.</note>
         <note priority="1" from="meaning">Unknown Status - 'UNKNOWN'</note>
-      </trans-unit><trans-unit id="7501350682839099165" datatype="html">
-        <source>Uncategorized Category - 'Uncategorized'|This string is used as a placeholder for the category field in the transaction details view when the transaction's category is not available. It is presented to the user when they view the details of a transaction that does not have a category. This placeholder is located in the transaction details view component.@@transactions-journey.uncategorized-category:Uncategorized</source><target state="final">Uncategorized Category - 'Uncategorized'|This string is used as a placeholder for the category field in the transaction details view when the transaction's category is not available. It is presented to the user when they view the details of a transaction that does not have a category. This placeholder is located in the transaction details view component.@@transactions-journey.uncategorized-category:Uncategorized</target>
+      </trans-unit><trans-unit id="transactions-journey.uncategorized-category" datatype="html">
+        <source>Uncategorized</source><target state="final">Uncategorized</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/transactions-journey/internal/feature-transaction-details-view/src/lib/transactions-journey-feature-transaction-details-view.component.ts</context>
           <context context-type="linenumber">105</context>
         </context-group>
+        <note priority="1" from="description">This string is used as a placeholder for the category field in the transaction details view when the transaction's category is not available. It is presented to the user when they view the details of a transaction that does not have a category. This placeholder is located in the transaction details view component.</note>
+        <note priority="1" from="meaning">Uncategorized Category - 'Uncategorized'</note>
       </trans-unit>
       
       
@@ -12966,9 +12972,9 @@
         <source>Making Repeated Transfer for <x id="PH" equiv-text="this.accountName"/></source>
         <target state="final">Making Repeated Transfer for <x id="PH" equiv-text="this.accountName"/></target>
 
-        <note priority="1" from="description">This string is used as a message for the repeat transfer alert in the transfer journey component. It is presented to the user when they are making a repeated transfer for the specified account. This message is located in the transfer journey component layout.</note>
+        <note priority="1" from="description">A message for Repeat Transfer Alert</note>
         
-      <context-group purpose="location"><context context-type="sourcefile">libs/transfer-journey/src/lib/transfer-journey.component.ts</context><context context-type="linenumber">15</context></context-group><note from="meaning" priority="1">Repeat Transfer Alert Message - 'Making Repeated Transfer for ${this.accountName}'</note></trans-unit><trans-unit id="bb-account-selector-ui.primary-balance-label.available" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">libs/transfer-journey/src/lib/transfer-journey.component.ts</context><context context-type="linenumber">15</context></context-group></trans-unit><trans-unit id="bb-account-selector-ui.primary-balance-label.available" datatype="html">
         <source>Available</source><target state="final">Available</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/ui-ang/account-selector/account-selector.component.html</context>
