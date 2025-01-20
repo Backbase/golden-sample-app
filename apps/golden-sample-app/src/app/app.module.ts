@@ -1,4 +1,4 @@
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -51,136 +51,124 @@ import packageInfo from 'package-json';
 import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
 import { ThemeManagerService } from './theme-switcher/theme-service';
 
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    DropdownMenuModule,
-    IconModule,
-    LayoutModule,
-    LogoModule,
-    NgbDropdownModule,
-    AvatarModule,
-    EntitlementsModule,
-    ThemeSwitcherModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
-    OAuthModule.forRoot(),
-    LocaleSelectorModule.forRoot({
-      locales: environment.locales,
-    }),
-    ButtonModule,
-    IdentityAuthModule,
-    TransactionSigningModule,
-    TrackerModule.forRoot({
-      handler: AnalyticsService,
-      openTelemetryConfig: {
-        appName: packageInfo.name,
-        appVersion: packageInfo.version,
-        apiKey: environment.bbApiKey,
-        env: 'local',
-        isProduction: environment.production,
-        isEnabled: environment.isTelemetryTracerEnabled,
-        url: environment.telemetryCollectorURL,
-      },
-    }),
-    ActivityMonitorModule,
-  ],
-  providers: [
-    ...(environment.mockProviders || []),
-    { provide: AuthConfig, useValue: authConfig },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: UserContextInterceptor,
-      multi: true,
-    },
-    {
-      provide: OAuthModuleConfig,
-      useValue: {
-        resourceServer: {
-          allowedUrls: [environment.apiRoot],
-          sendAccessToken: true,
+@NgModule({ declarations: [AppComponent],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        DropdownMenuModule,
+        IconModule,
+        LayoutModule,
+        LogoModule,
+        NgbDropdownModule,
+        AvatarModule,
+        EntitlementsModule,
+        ThemeSwitcherModule,
+        StoreModule.forRoot({}),
+        EffectsModule.forRoot([]),
+        OAuthModule.forRoot(),
+        LocaleSelectorModule.forRoot({
+            locales: environment.locales,
+        }),
+        ButtonModule,
+        IdentityAuthModule,
+        TransactionSigningModule,
+        TrackerModule.forRoot({
+            handler: AnalyticsService,
+            openTelemetryConfig: {
+                appName: packageInfo.name,
+                appVersion: packageInfo.version,
+                apiKey: environment.bbApiKey,
+                env: 'local',
+                isProduction: environment.production,
+                isEnabled: environment.isTelemetryTracerEnabled,
+                url: environment.telemetryCollectorURL,
+            },
+        }),
+        ActivityMonitorModule], providers: [
+        ...(environment.mockProviders || []),
+        { provide: AuthConfig, useValue: authConfig },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
         },
-      },
-    },
-    { provide: OAuthStorage, useFactory: () => localStorage },
-    environment.mockEnabled
-      ? []
-      : {
-          provide: APP_INITIALIZER,
-          multi: true,
-          deps: [
-            OAuthService,
-            CookieService,
-            AuthEventsHandlerService,
-            AuthService,
-          ],
-          useFactory:
-            (oAuthService: OAuthService, cookieService: CookieService) =>
-            async () => {
-              // Remove this if auth cookie is not needed for the app
-              oAuthService.events.subscribe(({ type }) => {
-                if (type === 'token_received' || type === 'token_refreshed') {
-                  // Set the cookie on the app domain
-                  cookieService.set(
-                    'Authorization',
-                    `Bearer ${oAuthService.getAccessToken()}`
-                  );
-                }
-              });
-
-              await oAuthService.loadDiscoveryDocumentAndTryLogin();
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: UserContextInterceptor,
+            multi: true,
+        },
+        {
+            provide: OAuthModuleConfig,
+            useValue: {
+                resourceServer: {
+                    allowedUrls: [environment.apiRoot],
+                    sendAccessToken: true,
+                },
             },
         },
-    {
-      provide: TRANSACTIONS_BASE_PATH,
-      useValue: environment.apiRoot + '/transaction-manager',
-    },
-    {
-      provide: ARRANGEMENT_MANAGER_BASE_PATH,
-      useValue: environment.apiRoot + '/arrangement-manager',
-    },
-    {
-      provide: ACCESS_CONTROL_BASE_PATH,
-      useValue: environment.apiRoot + '/access-control',
-    },
-    {
-      provide: ACCESS_CONTROL_V3_BASE_PATH,
-      useValue: environment.apiRoot + '/access-control',
-    },
-    {
-      provide: INITIATE_PAYMENT_JOURNEY_PAYMENT_ORDER_BASE_PATH,
-      useValue: environment.apiRoot + '/payment-order-service',
-    },
-    {
-      provide: INITIATE_PAYMENT_JOURNEY_CONTACT_MANAGER_BASE_PATH,
-      useValue: environment.apiRoot + '/contact-manager',
-    },
-    {
-      provide: ENTITLEMENTS_CONFIG,
-      useValue: {
-        accessControlBasePath: `${environment.apiRoot}/access-control`,
-      },
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ApiSandboxInterceptor,
-      multi: true,
-    },
-    {
-      provide: ErrorHandler,
-      useClass: AppErrorHandler,
-    },
-    ThemeManagerService,
-  ],
-  bootstrap: [AppComponent],
-})
+        { provide: OAuthStorage, useFactory: () => localStorage },
+        environment.mockEnabled
+            ? []
+            : {
+                provide: APP_INITIALIZER,
+                multi: true,
+                deps: [
+                    OAuthService,
+                    CookieService,
+                    AuthEventsHandlerService,
+                    AuthService,
+                ],
+                useFactory: (oAuthService: OAuthService, cookieService: CookieService) => async () => {
+                    // Remove this if auth cookie is not needed for the app
+                    oAuthService.events.subscribe(({ type }) => {
+                        if (type === 'token_received' || type === 'token_refreshed') {
+                            // Set the cookie on the app domain
+                            cookieService.set('Authorization', `Bearer ${oAuthService.getAccessToken()}`);
+                        }
+                    });
+                    await oAuthService.loadDiscoveryDocumentAndTryLogin();
+                },
+            },
+        {
+            provide: TRANSACTIONS_BASE_PATH,
+            useValue: environment.apiRoot + '/transaction-manager',
+        },
+        {
+            provide: ARRANGEMENT_MANAGER_BASE_PATH,
+            useValue: environment.apiRoot + '/arrangement-manager',
+        },
+        {
+            provide: ACCESS_CONTROL_BASE_PATH,
+            useValue: environment.apiRoot + '/access-control',
+        },
+        {
+            provide: ACCESS_CONTROL_V3_BASE_PATH,
+            useValue: environment.apiRoot + '/access-control',
+        },
+        {
+            provide: INITIATE_PAYMENT_JOURNEY_PAYMENT_ORDER_BASE_PATH,
+            useValue: environment.apiRoot + '/payment-order-service',
+        },
+        {
+            provide: INITIATE_PAYMENT_JOURNEY_CONTACT_MANAGER_BASE_PATH,
+            useValue: environment.apiRoot + '/contact-manager',
+        },
+        {
+            provide: ENTITLEMENTS_CONFIG,
+            useValue: {
+                accessControlBasePath: `${environment.apiRoot}/access-control`,
+            },
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ApiSandboxInterceptor,
+            multi: true,
+        },
+        {
+            provide: ErrorHandler,
+            useClass: AppErrorHandler,
+        },
+        ThemeManagerService,
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}
