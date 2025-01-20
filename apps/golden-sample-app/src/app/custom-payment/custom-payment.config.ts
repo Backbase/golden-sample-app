@@ -68,7 +68,7 @@ const counterParty: PaymentFormGroup = {
         validationMessages: [
           {
             name: 'required',
-            message: $localize`Beneficiary Required Field Validation Message - 'Please select an account from the list to transfer to'|This string is used as a validation message for the beneficiary account selection field in the custom payment form. It is presented to the user when they attempt to submit the form without selecting an account to transfer to. This message is located in the custom payment form layout.@@internal-config.beneficiary-required-messag:Please select an account from the list to transfer to`,
+            message: $localize`:Beneficiary Required Field Validation Message - 'Please select an account from the list to transfer to'|This string is used as a validation message for the beneficiary account selection field in the custom payment form. It is presented to the user when they attempt to submit the form without selecting an account to transfer to. This message is located in the custom payment form layout.@@internal-config.beneficiary-required-messag:Please select an account from the list to transfer to`,
           },
         ],
       },
@@ -172,7 +172,7 @@ export const INTERNAL_TRANSFERS: PaymentTypeConfig = {
   name: $localize`:Internal Transfer Name - 'Internal Transfer'|This string is used as the name for the internal transfer payment type configuration. It is presented to the user when they are selecting or viewing the internal transfer payment type. This name is located in the internal transfer payment type configuration.@@internal-config.name:Internal Transfer`,
   // dummy payment type and business function for the sake of this example
   paymentType: 'INTERNAL_TRANSFER',
-  businessFunction: $localize`Business Function for Internal Transfer - 'A2A Transfer'|This string is used as the business function identifier for the internal transfer payment type configuration. It is used internally to specify the type of business function associated with the internal transfer. This identifier is located in the internal transfer payment type configuration.@@internal-config.business-function:A2A Transfer`,
+  businessFunction: $localize`:Business Function for Internal Transfer - 'A2A Transfer'|This string is used as the business function identifier for the internal transfer payment type configuration. It is used internally to specify the type of business function associated with the internal transfer. This identifier is located in the internal transfer payment type configuration.@@internal-config.business-function:A2A Transfer`,
   // customFields property needs to be set here too due to a known bug
   customFields: {
     customInitiator: InitiatorComponent,
