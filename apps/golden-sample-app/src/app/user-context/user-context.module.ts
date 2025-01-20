@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SelectContextWidgetModule } from '@backbase/select-context-widget-ang';
+import { SelectContextModule } from '@backbase/select-context';
 import { UserContextComponent } from './user-context.component';
 
 @NgModule({
   declarations: [UserContextComponent],
   imports: [
     CommonModule,
-    SelectContextWidgetModule,
+    SelectContextModule,
     RouterModule.forChild([
       {
         path: '',
