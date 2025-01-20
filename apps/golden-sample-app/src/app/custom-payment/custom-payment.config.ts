@@ -126,7 +126,7 @@ const remittanceInfo: PaymentFormGroup = {
       type: PaymentComponents.textarea,
       name: RemittanceInfoFields.description,
       options: {
-        label: $localize`Add Note Label - 'Add Note'|This string is used as a label for the note input field in the custom payment form. It is presented to the user when they need to add a note or description for the transfer. This label is located in the custom payment form layout.@@internal-config.add-note-label:Add Note`,
+        label: $localize`:Add Note Label - 'Add Note'|This string is used as a label for the note input field in the custom payment form. It is presented to the user when they need to add a note or description for the transfer. This label is located in the custom payment form layout.@@internal-config.add-note-label:Add Note`,
         placeholder: $localize`:Add Note Placeholder - 'Enter transfer description'|This string is used as a placeholder for the note input field in the custom payment form. It is presented to the user when they need to add a note or description for the transfer. This placeholder is located in the custom payment form layout.@@internal-config.add-Enter transfer description-placeholder:Enter transfer description`,
         showCharCounter: true,
         minLength: 0,
