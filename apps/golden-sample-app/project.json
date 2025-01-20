@@ -105,7 +105,8 @@
               "replace": "apps/golden-sample-app/src/environments/environment.ts",
               "with": "apps/golden-sample-app/src/environments/environment.mocks.ts"
             }
-          ]
+          ],
+          "localize": ["nl-NL"]
         }
       },
       "defaultConfiguration": "production"
