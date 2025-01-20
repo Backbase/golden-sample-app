@@ -3,7 +3,12 @@
     <div class="bb-card__header">
       <h1
         class="bb-card__title"
-        i18n="user accounts header@@app.userAccountsView.header"
+        i18n="
+          User accounts header - 'User accounts'|This string is used as the
+          header for the user accounts view page. It is presented to the user as
+          the title of the page when they view their user accounts. This header
+          is located at the top of the user accounts view
+          page.@@app.userAccountsView.header"
       >
         User accounts
       </h1>
@@ -13,7 +18,7 @@
       class="bb-card__body"
       *ngIf="arrangements$ | async as arrangments; else loading"
     >
-      <p i18n="user accounts summary@@app.userAccountsView.sumary">
+      <p>
         {arrangments.length, plural, =0 {There are no accounts} =1 {There is an
         account} other {There are {{ arrangments.length }} accounts} }:
       </p>
@@ -30,8 +35,12 @@
             [productNumber]="account.number"
             balanceLabel="Available balance"
             i18n-balanceLabel="
-              User account available balance
-              label@@app.userAccountsView.balanceLabel"
+              User account available balance label - 'Available balance'|This
+              string is used as the label for the available balance field in the
+              user accounts view. It is presented to the user to indicate the
+              available balance of their account. This label is located in the
+              body section of the user accounts view
+              page.@@app.userAccountsView.balanceLabel"
             [active]="false"
             [favorite]="account.favorite || false"
             data-role="arrangement-container"
@@ -40,7 +49,12 @@
             [routerLink]="['/transactions']"
             [queryParams]="{ account: account.id }"
             i18n="
-              Label for View Transactions link@@user-accounts.view-transactions"
+              Label for View Transactions link - 'View Transactions'|This string
+              is used as the label for a link that navigates to the transactions
+              page. It is presented to the user as a link to view transactions
+              related to a specific account. This label is located in the body
+              section of the user accounts view
+              page.@@user-accounts.view-transactions"
           >
             View Transactions
           </a>
@@ -48,14 +62,23 @@
           <a routerLink="./" (click)="updateFavorite(account)" class="link">
             <span
               i18n="
-                Label for Add to Favorites link@@user-accounts.add-favorites"
+                Label for Add to Favorites link - 'Add to Favorites'|This string
+                is used as the label for a link that adds an account to the
+                user's favorites. It is presented to the user as a link to mark
+                an account as a favorite. This label is located in the body
+                section of the user accounts view
+                page.@@user-accounts.add-favorites"
               *ngIf="!account.favorite"
               >Add to Favorites</span
             >
             <span
               i18n="
-                Label for Remove from Favorites
-                link@@user-accounts.remove-favorites"
+                Label for Remove from Favorites link - 'Remove from
+                Favorites'|This string is used as the label for a link that
+                removes an account from the user's favorites. It is presented to
+                the user as a link to unmark an account as a favorite. This
+                label is located in the body section of the user accounts view
+                page.@@user-accounts.remove-favorites"
               *ngIf="account.favorite"
               >Remove from Favorites</span
             >

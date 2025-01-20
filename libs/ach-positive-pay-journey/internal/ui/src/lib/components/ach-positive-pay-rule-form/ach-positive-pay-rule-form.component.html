@@ -4,8 +4,12 @@
       id="ach-blocker-rule-checking-account-selector-label"
       for="ach-blocker-rule-checking-account-selector"
       i18n="
-        Checking Account label|Label for Checking account selector
-        field@@ach-positive-pay-journey.new-blocker-rule.checking-account"
+        Checking Account label - 'Checking Account'|This string is used as the
+        label for the Checking Account selector field in the ACH Positive Pay
+        rule form. It is presented to the user when they need to select a
+        checking account for the ACH Positive Pay rule. This label is located in
+        the ACH Positive Pay rule form
+        layout.@@ach-positive-pay-journey.new-blocker-rule.checking-account"
       class="form-label"
     >
       Checking Account
@@ -16,8 +20,12 @@
       dropdownPosition="bottom"
       placeholder="Select an account"
       i18n-placeholder="
-        Select account placeholder|Text displayed on empty Account
-        Selector@@ach-positive-pay-journey.new-blocker-rule.account-selector-placeholder"
+        Select account placeholder - 'Select an account'|This string is used as
+        the placeholder text for the Account Selector field in the ACH Positive
+        Pay rule form. It is presented to the user when they need to select an
+        account for the ACH Positive Pay rule. This placeholder is located in
+        the ACH Positive Pay rule form
+        layout.@@ach-positive-pay-journey.new-blocker-rule.account-selector-placeholder"
       [items]="accounts"
       (change)="onCheckingAccountSelect($event)"
       ariaLabelledby="ach-blocker-rule-checking-account-selector-label"
@@ -35,8 +43,12 @@
         id="ach-blocker-rule-payment-types"
         label="Payment type"
         i18n-label="
-          Payment type|Label for blocker rule's payment type
-          field@@ach-positive-pay-journey.new-blocker-rule.payment-type.label"
+          Payment type label - 'Payment type'|This string is used as the label
+          for the blocker rule's payment type field in the ACH Positive Pay rule
+          form. It is presented to the user when they need to select the payment
+          type for the ACH Positive Pay rule. This label is located in the ACH
+          Positive Pay rule form
+          layout.@@ach-positive-pay-journey.new-blocker-rule.payment-type.label"
         aria-describedby="ach-blocker-rule-payment-types-required-error"
         formControlName="paymentTypes"
         placeholder="Select"
@@ -55,8 +67,12 @@
         formControlName="companyId"
         label="Company ID"
         i18n-label="
-          Company ID|Label for blocker rule's company ID
-          field@@ach-positive-pay-journey.new-blocker-rule.company-id.label"
+          Company ID label - 'Company ID'|This string is used as the label for
+          the blocker rule's company ID field in the ACH Positive Pay rule form.
+          It is presented to the user when they need to enter the company ID for
+          the ACH Positive Pay rule. This label is located in the ACH Positive
+          Pay rule form
+          layout.@@ach-positive-pay-journey.new-blocker-rule.company-id.label"
         aria-describedby="ach-blocker-company-id-required-error"
         data-role="ach-positive-pay-new-blocker-rule-company-id-input"
       ></bb-input-text-ui>
@@ -68,8 +84,12 @@
       <label
         for="ach-blocker-rule-company-name"
         i18n="
-          Company name|Label for blocker rule's company name
-          field@@ach-positive-pay-journey.new-blocker-rule.company-name.label"
+          Company name label- 'Company name'|This string is used as the label
+          for the blocker rule's company name field in the ACH Positive Pay rule
+          form. It is presented to the user when they need to enter the company
+          name for the ACH Positive Pay rule. This label is located in the ACH
+          Positive Pay rule form
+          layout.@@ach-positive-pay-journey.new-blocker-rule.company-name.label"
         class="form-label"
       >
         Company name
@@ -82,8 +102,12 @@
       formControlName="companyName"
       placeholder="Enter company name"
       i18n-placeholder="
-        Enter company name|Placeholder for the company name input
-        field@@ach-positive-pay-journey.new-blocker-rule.company-name.placeholder"
+        Enter company name placeholder - 'Enter company name'|This string is
+        used as the placeholder for the company name input field in the ACH
+        Positive Pay rule form. It is presented to the user when they need to
+        enter the company name for the ACH Positive Pay rule. This placeholder
+        is located in the ACH Positive Pay rule form
+        layout.@@ach-positive-pay-journey.new-blocker-rule.company-name.placeholder"
       data-role="ach-positive-pay-new-blocker-rule-company-name-input"
     ></bb-input-text-ui>
   </div>

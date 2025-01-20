@@ -12,7 +12,7 @@ export class TransferJourneyComponent {
 
   public accountName: string = this.route.snapshot.params['accountName'];
 
-  public repeatMessage = $localize`:A message for Repeat Transfer Alert@@transfer.repeat.message:Making Repeated Transfer for ${this.accountName}`;
+  public repeatMessage = $localize`:Repeat Transfer Alert Message - 'Making Repeated Transfer for \${this.accountName}'|This string is used as a message for the repeat transfer alert in the transfer journey component. It is presented to the user when they are making a repeated transfer for the specified account. This message is located in the transfer journey component layout.@@transfer.repeat.message:Making Repeated Transfer for ${this.accountName}`;
 
   constructor(private route: ActivatedRoute) {}
 }
