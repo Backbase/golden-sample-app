@@ -7,7 +7,7 @@
     "ng": "nx",
     "start": "nx serve",
     "start:mocks": "npm run mock-server & nx serve -c=mocks",
-    "start:nl": "nx serve -c=mocks",
+    "start:nl": "nx serve golden-sample-app:serve:nl",
     "start:docker": "docker-compose up --build",
     "test": "nx run-many --target=test --all",
     "build": "nx build --configuration=production",
