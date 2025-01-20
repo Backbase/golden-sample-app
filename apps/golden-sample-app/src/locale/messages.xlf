@@ -1060,12 +1060,14 @@
         <note priority="1" from="description">This string is used as a validation message for the amount input field in the custom payment form. It is presented to the user when the funding account balance is less than the payment amount. This message is located in the custom payment form layout.</note>
         <note priority="1" from="meaning">Funding Balance Validation Message - 'Funding account balance is less than payment amount.</note>
       </trans-unit>
-      <trans-unit id="2008884491277435387" datatype="html">
-        <source>Add Note Label - 'Add Note'|This string is used as a label for the note input field in the custom payment form. It is presented to the user when they need to add a note or description for the transfer. This label is located in the custom payment form layout.@@internal-config.add-note-label:Add Note</source>
+      <trans-unit id="internal-config.add-note-label" datatype="html">
+        <source>Add Note</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/golden-sample-app/src/app/custom-payment/custom-payment.config.ts</context>
           <context context-type="linenumber">129</context>
         </context-group>
+        <note priority="1" from="description">This string is used as a label for the note input field in the custom payment form. It is presented to the user when they need to add a note or description for the transfer. This label is located in the custom payment form layout.</note>
+        <note priority="1" from="meaning">Add Note Label - 'Add Note'</note>
       </trans-unit>
       <trans-unit id="internal-config.add-Enter transfer description-placeholder" datatype="html">
         <source>Enter transfer description</source>
