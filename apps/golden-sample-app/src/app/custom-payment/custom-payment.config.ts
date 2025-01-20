@@ -92,7 +92,7 @@ const remittanceInfo: PaymentFormGroup = {
       name: PaymentComponents.header,
       options: {
         cssClasses: ['col-12', 'pb-0', 'pt-2', 'bb-fieldset__heading'],
-        heading: $localize`:@@internal-config.remittance-info-heading:Payment details`,
+        heading: $localize`:Payment details heading - 'Payment details'|This string is used as a heading for the remittance info as a header in the custom payment journey.It is presented to the user when they need to check the remittent of payment details@@internal-config.remittance-info-heading:Payment details`,
         headingType: 'h2',
         headingClasses: ['mb-0'],
         separatorLine: true,
