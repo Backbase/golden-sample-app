@@ -25,7 +25,7 @@ jobs:
           scope: "@backbase"
 
       - name: Install deps
-        run: npm install --legacy-peer-deps
+        run: npm install --force
         shell: bash
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
