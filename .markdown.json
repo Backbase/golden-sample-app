@@ -1,0 +1,9 @@
+{
+  "build": "README.md",
+  "files": [
+    ".documentation/main.md"
+  ],
+  "tableOfContents": {
+		"heading": "<!-- NOTE: This README.md is auto-generated. Changes made directly to this file may be overwritten. Update the corresponding '.md' files in the '.documentation' folder instead. -->\n\n# Table of Contents"
+	}
+}

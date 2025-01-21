@@ -4,9 +4,9 @@
 
 Scope of this example is to explain how to create a custom component and connect it with the out-of-the-box Initiate Payments Journey. The component in this example replaces the out-of-the-box `intiator` group but it can also be used to replace any other configuration group such as `counterparty`, `remittanceInfo` and `schedule` or add a new `additions` configuration group.
 
-## Initate Payments Journey
+## Initiate Payments Journey
 
-Initiate Payment journey allows customers create or edit a payment. The journey is fully customizable with a TypeScript configuration to support different payment types, guide on this topic can be found [here](https://community.backbase.com/documentation/Business-Apps-USA/latest/configure_initiate_payment_journey). Check included links or the documentation on backbase.io to learn more about internal workings of the journey and [out-of-the-box configurations](https://community.backbase.com/documentation/Business-Apps-USA/latest/initiate_payment_web_journey) for different payment types.
+Initiate Payment journey allows customers create or edit a payment. The journey is fully customizable with a TypeScript configuration to support different payment types, guide on this topic can be found [here](https://backbase.io/documentation/business-banking-usa/2024.12/payments/web/initiate-payment-configuration). Check included links or the documentation on backbase.io to learn more about internal workings of the journey and [out-of-the-box configurations](https://backbase.io/documentation/business-banking-usa/2024.12/payments/web/initiate-payment-understand) for different payment types.
 
 ### Create a payment
 

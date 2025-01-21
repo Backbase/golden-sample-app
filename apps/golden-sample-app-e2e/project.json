@@ -3,12 +3,66 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "tags": [],
-  "implicitDependencies": ["golden-sample-app"],
+  "implicitDependencies": [
+    "golden-sample-app"
+  ],
   "targets": {
     "e2e-chrome-mobile": {
       "executor": "nx:run-commands",
       "options": {
         "command": "npx playwright test --project 'mobile-chrome' --grep '@visual.+@responsive|@responsive.+@visual' --workers=2"
+      }
+    },
+    "e2e-localhost-ebp-sndbx": {
+      "executor": "@dot-build/serve-and-run-angular:run",
+      "options": {
+        "devServerTarget": "golden-sample-app:serve:ebp-sndbox",
+        "command": "npx playwright",
+        "args": [
+          "test",
+          "--config=playwright.localhost.config.ts",
+          "--project=localhost-ebp-sndbx",
+          "--grep='@e2e'",
+          "--grep-invert='@mocks-only|@ephemeral-only'"
+        ]
+      }
+    },
+    "e2e-localhost-mocks": {
+      "executor": "@dot-build/serve-and-run-angular:run",
+      "options": {
+        "devServerTarget": "golden-sample-app:serve:mocks",
+        "command": "npx playwright",
+        "args": [
+          "test",
+          "--config=playwright.localhost.config.ts",
+          "--project=localhost-mocked",
+          "--grep='@e2e'",
+          "--grep-invert='@identity'" 
+        ]
+      }
+    },
+    "e2e-modelbank-stg": {
+      "executor": "@dot-build/serve-and-run-angular:run",
+      "options": {
+        "command": "npx playwright",
+        "args": [
+          "test",
+          "--config=playwright.modelbank.config.ts",
+          "--project=remote-bus-stg",
+          "--grep-invert='@mocks-only|@ephemeral-only'" // we want to run only test which are for model bank
+        ]
+      }
+    },
+    "e2e-ephemeral": {
+      "executor": "@dot-build/serve-and-run-angular:run",
+      "options": {
+        "command": "npx playwright",
+        "args": [
+          "test",
+          "--config=playwright.ephemeral.config.ts",
+          "--project=remote-ephemeral",
+          "--grep-invert='@mock-only'" // we want to run all tests except teh onces which can be run only with mocks
+        ]
       }
     }
   }
