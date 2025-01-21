@@ -55,3 +55,4 @@ playwright-report/
 allure-results/
 test-output/
 .nx
+/.local/
