@@ -50,9 +50,11 @@ import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
 import packageInfo from 'package-json';
 import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
 import { ThemeManagerService } from './theme-switcher/theme-service';
+import { GlobalLinkHandlerDirective } from './directives/global-link-handler.directive';
+import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, GlobalLinkHandlerDirective],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -180,6 +182,7 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
       useClass: AppErrorHandler,
     },
     ThemeManagerService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
