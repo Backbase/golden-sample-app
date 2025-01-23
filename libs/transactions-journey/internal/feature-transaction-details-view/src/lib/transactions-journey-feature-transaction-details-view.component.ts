@@ -78,7 +78,7 @@ export class TransactionDetailsComponent {
     if (!transaction) {
       throw new HttpErrorResponse({
         status: 404,
-        statusText: $localize`Transaction ${id} not found`,
+        statusText: $localize`:Transaction Not Found Status Text - 'Transaction \${id} not found'|This string is used as the status text for an HTTP error response when a transaction with the specified ID is not found. It is presented to the user when they attempt to view a transaction that does not exist. This status text is located in the transaction details view component.@@transactions-journey.transaction-not-found-status-text:Transaction ${id} not found`,
       });
     }
 
@@ -94,9 +94,15 @@ export class TransactionDetailsComponent {
       following,
       details: {
         type: `${transaction.type} - ${transaction.typeGroup}`,
-        recepient: transaction.counterPartyName ?? $localize`Unknown`,
-        status: transaction.billingStatus ?? $localize`UNKNOWN`,
-        category: transaction.category ?? $localize`Uncategorized`,
+        recepient:
+          transaction.counterPartyName ??
+          $localize`:Unknown Recipient - 'Unknown'|This string is used as a placeholder for the recipient field in the transaction details view when the recipient's name is not available. It is presented to the user when they view the details of a transaction that does not have a recipient's name. This placeholder is located in the transaction details view component.@@transactions-journey.unknown-recipient:Unknown`,
+        status:
+          transaction.billingStatus ??
+          $localize`:Unknown Status - 'UNKNOWN'|This string is used as a placeholder for the status field in the transaction details view when the transaction's billing status is not available. It is presented to the user when they view the details of a transaction that does not have a billing status. This placeholder is located in the transaction details view component.@@transactions-journey.unknown-status:UNKNOWN`,
+        category:
+          transaction.category ??
+          $localize`:Uncategorized Category - 'Uncategorized'|This string is used as a placeholder for the category field in the transaction details view when the transaction's category is not available. It is presented to the user when they view the details of a transaction that does not have a category. This placeholder is located in the transaction details view component.@@transactions-journey.uncategorized-category:Uncategorized`,
         amount: transaction.transactionAmountCurrency,
         date: new Date(transaction.bookingDate),
         description: transaction.description,
