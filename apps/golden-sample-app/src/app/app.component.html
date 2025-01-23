@@ -13,17 +13,22 @@
   <nav class="bb-layout__topbar">
     <!-- Skip to content -->
     <button
-      i18n-aria-label="
-        Move focus to beginning of content|Value for aria-label saying that this
-        button will move the focus to the beginning of the content
-      "
       aria-label="skip to content"
+      i18n-aria-label="
+        Move focus to beginning of content - 'skip to content'|This string is
+        used as the aria-label for a button that moves the focus to the
+        beginning of the content. It is presented to the user as an
+        accessibility feature to quickly navigate to the main content section.
+        This aria-label is located in the topbar area of the
+        layout.@@move-focus-to-beginning-of-content"
       class="bb-layout__skip-to-content"
       (click)="focusMainContainer($event)"
       i18n="
-        Skip to content|Text to enforce the user to click to put focus on the
-        main content section
-      "
+        Skip to content - 'Skip to content'|This string is used as the text for
+        a button that moves the focus to the beginning of the content. It is
+        presented to the user as an accessibility feature to quickly navigate to
+        the main content section. This text is located in the topbar area of the
+        layout.@@skip-to-content"
     >
       Skip to Content
     </button>
@@ -33,8 +38,11 @@
       class="bb-layout__nav-expand-marker"
       aria-label="Toggle sidebar"
       i18n-aria-label="
-        Sidebar Toggler|Button for toggling sidebar
-        state@@bb-layout.sidebar_toggler"
+        Sidebar Toggler - 'Toggle sidebar'|This string is used as the aria-label
+        for a button that toggles the sidebar state. It is presented to the user
+        as an accessibility feature to indicate the button's function. This
+        aria-label is located in the topbar area of the
+        layout.@@bb-layout.sidebar_toggler"
       [attr.aria-expanded]="layoutService.navigationExpanded$ | async"
       (click)="layoutService.toggleNav()"
     >
@@ -64,7 +72,12 @@
           ></bb-icon-ui>
           <span
             class="bb-layout__horizontal-nav-item-description"
-            i18n="make transfer link@@main.transfer.link.text"
+            i18n="
+              Make transfer link - 'Make transfer'|This string is used as the
+              text for a link that navigates to the transfer page. It is
+              presented to the user as a navigation item in the horizontal
+              navigation bar. This text is located in the navigation items
+              section of the layout.@@main.transfer.link.text"
           >
             Make transfer
           </span>
@@ -90,7 +103,12 @@
           ></bb-icon-ui>
           <span
             class="bb-layout__horizontal-nav-item-description"
-            i18n="transactions list link@@main.transactions.link.text"
+            i18n="
+              Transactions list link - 'Transactions List'|This string is used
+              as the text for a link that navigates to the transactions list
+              page. It is presented to the user as a navigation item in the
+              horizontal navigation bar. This text is located in the navigation
+              items section of the layout.@@main.transactions.link.text"
           >
             Transactions List
           </span>
@@ -115,7 +133,12 @@
           ></bb-icon-ui>
           <span
             class="bb-layout__horizontal-nav-item-description"
-            i18n="Positive pay link@@main.positive-pay.link.text"
+            i18n="
+              Positive pay link - 'Positive Pay'|This string is used as the text
+              for a link that navigates to the Positive Pay page. It is
+              presented to the user as a navigation item in the horizontal
+              navigation bar. This text is located in the navigation items
+              section of the layout.@@main.positive-pay.link.text"
           >
             Positive Pay
           </span>
@@ -141,7 +164,12 @@
 
           <span
             class="bb-layout__horizontal-nav-item-description"
-            i18n="Ach Positive pay link@@main.ach-positive-pay.link.text"
+            i18n="
+              Ach Positive pay link - 'ACH Positive Pay'|This string is used as
+              the text for a link that navigates to the ACH Positive Pay page.
+              It is presented to the user as a navigation item in the horizontal
+              navigation bar. This text is located in the navigation items
+              section of the layout.@@main.ach-positive-pay.link.text"
           >
             ACH Positive Pay
           </span>
@@ -164,7 +192,12 @@
 
           <span
             class="bb-layout__horizontal-nav-item-description"
-            i18n="Make a Payment Link@@main.make-a-payment.link.text"
+            i18n="
+              Make a Payment Link - 'Make internal payment'|This string is used
+              as the text for a link that navigates to the internal payment
+              page. It is presented to the user as a navigation item in the
+              horizontal navigation bar. This text is located in the navigation
+              items section of the layout.@@main.make-a-payment.link.text"
           >
             Make internal payment
           </span>

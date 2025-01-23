@@ -22,7 +22,13 @@
         class="bb-block bb-block--md"
         *ngIf="accountName$ | async as accountName"
       >
-        <span i18n="Label for filtered by@@transactions.filters.label"
+        <span
+          i18n="
+            Label for filtered by - 'filtered by:'|This string is used as the
+            label for the filter section in the transactions view. It is
+            presented to the user to indicate the criteria by which the
+            transactions are filtered. This label is located in the transactions
+            view component.@@transactions.filters.label"
           >filtered by:</span
         >
 
@@ -30,7 +36,12 @@
           [text]="accountName + ' ✕'"
           title="Remove account filter"
           i18n-title="
-            Remove label for Account Badge@@transactions.account-filter.remove"
+            Remove account label for Account Badge - 'Remove account
+            filter'|This string is used as the title for the remove account
+            filter button in the transactions view. It is presented to the user
+            as a tooltip when they hover over the button to remove the account
+            filter. This title is located in the transactions view
+            component.@@transactions.account-filter.remove"
           class="filters-badge"
           color="success"
           routerLink="/transactions"
