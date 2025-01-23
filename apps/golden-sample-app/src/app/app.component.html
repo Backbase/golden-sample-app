@@ -85,6 +85,136 @@
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
+        *bbIfEntitlements="'EntPayments.AchPositivePay.create AND EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view'"
+      >
+        <a
+          class="bb-layout__horizontal-nav-link"
+          routerLink="/transactions"
+          routerLinkActive="bb-layout__horizontal-nav-link--active"
+          #transactionsListRouterLink="routerLinkActive"
+          [attr.aria-current]="
+            transactionsListRouterLink.isActive ? 'page' : undefined
+          "
+        >
+          <bb-icon-ui
+            class="bb-layout__vertical-nav-item-icon"
+            name="transactions"
+            size="md"
+          ></bb-icon-ui>
+          <span
+            class="bb-layout__horizontal-nav-item-description"
+            i18n="transactions list link@@main.transactions.link.text"
+          >
+            Entitlements test - No grouping.
+          </span>
+        </a>
+      </li>
+      <li
+        class="bb-layout__horizontal-nav-item"
+        *bbIfEntitlements="'EntPayments.AchPositivePay.create AND (EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view)'"
+      >
+        <a
+          class="bb-layout__horizontal-nav-link"
+          routerLink="/transactions"
+          routerLinkActive="bb-layout__horizontal-nav-link--active"
+          #transactionsListRouterLink="routerLinkActive"
+          [attr.aria-current]="
+            transactionsListRouterLink.isActive ? 'page' : undefined
+          "
+        >
+          <bb-icon-ui
+            class="bb-layout__vertical-nav-item-icon"
+            name="transactions"
+            size="md"
+          ></bb-icon-ui>
+          <span
+            class="bb-layout__horizontal-nav-item-description"
+            i18n="transactions list link@@main.transactions.link.text"
+          >
+            Entitlements test - Grouping.
+          </span>
+        </a>
+      </li>
+      <li
+        class="bb-layout__horizontal-nav-item"
+        *bbIfEntitlements="'((EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR EntPayments.ManagePositivePay.create'"
+      >
+        <a
+          class="bb-layout__horizontal-nav-link"
+          routerLink="/transactions"
+          routerLinkActive="bb-layout__horizontal-nav-link--active"
+          #transactionsListRouterLink="routerLinkActive"
+          [attr.aria-current]="
+            transactionsListRouterLink.isActive ? 'page' : undefined
+          "
+        >
+          <bb-icon-ui
+            class="bb-layout__vertical-nav-item-icon"
+            name="transactions"
+            size="md"
+          ></bb-icon-ui>
+          <span
+            class="bb-layout__horizontal-nav-item-description"
+            i18n="transactions list link@@main.transactions.link.text"
+          >
+            Entitlements test - Nested groups.
+          </span>
+        </a>
+      </li>
+      <li
+        class="bb-layout__horizontal-nav-item"
+        *bbIfEntitlements="'!((EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR EntPayments.ManagePositivePay.create'"
+      >
+        <a
+          class="bb-layout__horizontal-nav-link"
+          routerLink="/transactions"
+          routerLinkActive="bb-layout__horizontal-nav-link--active"
+          #transactionsListRouterLink="routerLinkActive"
+          [attr.aria-current]="
+            transactionsListRouterLink.isActive ? 'page' : undefined
+          "
+        >
+          <bb-icon-ui
+            class="bb-layout__vertical-nav-item-icon"
+            name="transactions"
+            size="md"
+          ></bb-icon-ui>
+          <span
+            class="bb-layout__horizontal-nav-item-description"
+            i18n="transactions list link@@main.transactions.link.text"
+          >
+            Entitlements test - Using NOT operators on groups.
+          </span>
+        </a>
+      </li>
+      <li
+        class="bb-layout__horizontal-nav-item"
+        *bbIfEntitlements="'!(!(EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR !EntPayments.ManagePositivePay.create'"
+      >
+        <a
+          class="bb-layout__horizontal-nav-link"
+          routerLink="/transactions"
+          routerLinkActive="bb-layout__horizontal-nav-link--active"
+          #transactionsListRouterLink="routerLinkActive"
+          [attr.aria-current]="
+            transactionsListRouterLink.isActive ? 'page' : undefined
+          "
+        >
+          <bb-icon-ui
+            class="bb-layout__vertical-nav-item-icon"
+            name="transactions"
+            size="md"
+          ></bb-icon-ui>
+          <span
+            class="bb-layout__horizontal-nav-item-description"
+            i18n="transactions list link@@main.transactions.link.text"
+          >
+            Entitlements test - Using multiple NOT operators on groups.
+          </span>
+        </a>
+      </li>
+      <li
+        class="bb-layout__horizontal-nav-item"
         *bbIfEntitlements="triplets.canViewTransactions"
       >
         <a
@@ -220,7 +350,7 @@
           ></bb-icon-ui>
         </a>
 
-        <a href="#" (click)="logout()" data-role="logout-btn">
+        <a href="#" (click)="logout()" data-role="logout-btn" aria-label="Logout">
           <bb-icon-ui
             color="secondary"
             data-role="notifications-icon"
@@ -228,6 +358,7 @@
             size="lg"
             class="mx-2"
           ></bb-icon-ui>
+          <span class="sr-only">Logout</span>
         </a>
       </div>
     </div>
