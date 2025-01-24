@@ -36,6 +36,7 @@ jobs:
         
       - name: Push Changes to target branch
         run: |
+          git checkout QAH-354-Add-GHA-for-updating-visual-test-snapshots
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config --global --add safe.directory /__w/golden-sample-app/golden-sample-app
