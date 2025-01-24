@@ -1,0 +1,9 @@
+<!-- .documentation/journeys/communication-service.md -->
+#### Communication service or how to communicate between journeys !heading
+
+  - There are 3 parts of the communication chain:
+    - Source journey (the one that will send some data or signal) should define and export. Check the [`make-transfer-communication.service.ts`](https://github.com/Backbase/golden-sample-app/blob/main/libs/transfer-journey/internal/data-access/src/lib/services/make-transfer-communication/make-transfer-communication.service.ts)
+    - The destination journey (the one that will receive the data of signal) should also define the interface of the service that it expects. Check the [`communication/index.ts`](https://github.com/Backbase/golden-sample-app/blob/main/libs/transactions-journey/internal/data-access/src/lib/services/transactions-journey-communication/transactions-journey-communication.service.ts)
+    - The actual implementation of the service lives on the application level and must implement both of the available interfaces (or abstract classes) from source and destination journeys. Check the example [`journey-communication.service.ts`](https://github.com/Backbase/golden-sample-app/blob/main/apps/golden-sample-app/src/app/services/journey-communication.service.ts)
+    - Do not forget, that communication service from the application level should be provided to the journeys modules in the bundle files (to avoid breaking lazy loading). Check the [`transactions-journey-bundle.module.ts`](https://github.com/Backbase/golden-sample-app/blob/main/apps/golden-sample-app/src/app/transactions/transactions-journey-bundle.module.ts)
+  - The general explanation of the communication service idea and its theoretical underlying can be found in [Understand communication between journeys](https://backbase.io/documentation/web-devkit/journey-development-advanced/communication-between-journeys)

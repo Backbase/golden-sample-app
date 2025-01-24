@@ -5,6 +5,7 @@ export const environment: Environment = {
   production: true,
   apiRoot: '${API_ROOT}',
   locales: '${LOCALES}'.split(','),
+  apiSandboxKey: '${X-SDBXAZ-API-KEY}',
   common: {
     designSlimMode: false,
   },
