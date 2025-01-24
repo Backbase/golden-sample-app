@@ -36,13 +36,13 @@ jobs:
         
       - name: Push Changes to target branch
         run: |
+          echo "Setting safe.directory"
+          git config --global --add safe.directory /__w/golden-sample-app/golden-sample-app
           echo "Checking out target branch"
           git checkout QAH-354-Add-GHA-for-updating-visual-test-snapshots
           echo "Setting up git user"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          echo "Setting safe.directory"
-          git config --global --add safe.directory /__w/golden-sample-app/golden-sample-app
           git add -A
           git commit -m "Update Playwright visual test snapshots"
           git push origin QAH-354-Add-GHA-for-updating-visual-test-snapshots
