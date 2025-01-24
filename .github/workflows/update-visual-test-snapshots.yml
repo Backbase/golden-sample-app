@@ -36,7 +36,6 @@ jobs:
         
       - name: Push Changes to target branch
         run: |
-          git config user.email "actions@github.com" && git config user.name "GitHub Actions"
           git config --global --add safe.directory /__w/golden-sample-app/golden-sample-app
           git add -A
           git commit -m "Update Playwright visual test snapshots"
