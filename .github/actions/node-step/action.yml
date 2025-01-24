@@ -16,25 +16,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    ##
-    # Creates a cache of project's node_module and Angular's cache.
-    # This cache will always be fetched while nothing changes in the lock file.
-    ##
-    - name: Cache node modules
-      id: cache
-      uses: actions/cache@v4
-      env:
-        cache-name: cache-node-modules
-      with:
-        path: |
-          ${{ inputs.working-directory }}/node_modules
-          ${{ inputs.working-directory }}/node_modules/.cache
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles(format('{0}/**/package-lock.json', inputs.working-directory)) }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
-
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
@@ -50,7 +31,7 @@ runs:
     ##
     - name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true'
-      run: npm ci --ignore-scripts
+      run: npm ci --ignore-scripts --force
       shell: bash
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm-auth-token }}

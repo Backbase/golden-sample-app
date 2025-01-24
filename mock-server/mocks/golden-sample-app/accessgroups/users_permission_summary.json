@@ -261,6 +261,24 @@
             "create": true,
             "delete": true
           }
+        },
+        {
+          "additions": {},
+          "resource": "EntPayments",
+          "function": "ManagePositivePay",
+          "permissions": {
+            "view": true,
+            "create": false
+          }
+        },
+        {
+          "additions": {},
+          "resource": "EntPayments",
+          "function": "AchPositivePay",
+          "permissions": {
+            "view": true,
+            "create": false
+          }
         }
       ]
     },
