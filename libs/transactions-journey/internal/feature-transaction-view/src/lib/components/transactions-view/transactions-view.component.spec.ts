@@ -107,8 +107,8 @@ describe('TransactionsViewComponent', () => {
         },
         {
           provide: TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
-          useValue: {}
-        }
+          useValue: {},
+        },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });

@@ -1,4 +1,4 @@
-import "@angular/localize/init";
+import '@angular/localize/init';
 import { MakeTransferSummaryComponent } from './make-transfer-summary.component';
 import { Translations } from './translations.provider';
 

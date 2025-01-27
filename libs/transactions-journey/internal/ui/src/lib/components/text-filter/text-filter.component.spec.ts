@@ -1,4 +1,4 @@
-import "@angular/localize/init";
+import '@angular/localize/init';
 import { TextFilterComponent } from './text-filter.component';
 import { Translations } from './translations.provider';
 
