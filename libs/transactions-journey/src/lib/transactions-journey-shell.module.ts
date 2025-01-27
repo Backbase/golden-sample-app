@@ -24,6 +24,7 @@ import {
   TransactionsViewComponent,
   TransactionsViewModule,
 } from '@backbase-gsa/transactions-journey/internal/feature-transaction-view';
+import { TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS } from 'libs/transactions-journey/internal/ui/src/lib/components/text-filter/translations.provider';
 const defaultRoutes: Routes = [
   {
     path: '',
@@ -72,6 +73,10 @@ interface TransactionsJourneyModuleConfig {
   providers: [
     TransactionsJourneyConfiguration,
     TransactionsRouteTitleResolverService,
+    {
+      provide: TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS,
+      useValue: {}
+    }
   ],
 })
 export class TransactionsJourneyModule {

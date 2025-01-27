@@ -16,7 +16,7 @@ import {
 } from '@backbase-gsa/transactions-journey/internal/data-access';
 
 import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
-import { TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS } from './translations.provider';
+import { TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS, Translations } from './translations.provider';
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
@@ -66,11 +66,7 @@ export class TransactionsViewComponent {
     map((params) => params.get('search') ?? '')
   );
 
-  overridingTranslations = Inject(
-    TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS
-  );
-
-  translations = {
+  public readonly translations: Translations = {
     'transactions.filters.label':
       this.overridingTranslations['transactions.details.recepient'] ||
       $localize`:Label for filtered by - 'filtered by:'|This string is used as the
@@ -93,6 +89,8 @@ export class TransactionsViewComponent {
     private readonly router: Router,
     private readonly transactionsService: TransactionsHttpService,
     private readonly arrangementsService: ArrangementsService,
+    @Inject(TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS)
+    private overridingTranslations: { [key: string]: string } = {},
     @Optional()
     @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE)
     private externalCommunicationService: TransactionsCommunicationService,

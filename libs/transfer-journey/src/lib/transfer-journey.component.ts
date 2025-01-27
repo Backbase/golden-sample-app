@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MakeTransferJourneyState } from '@backbase-gsa/transfer-journey/internal/data-access';
 import { ActivatedRoute } from '@angular/router';
-import { TRANSFER_JOURNEY_TRANSLATIONS } from './translations.provider';
+import { TRANSFER_JOURNEY_TRANSLATIONS, Translations } from './translations.provider';
 
 @Component({
   selector: 'bb-transfer-journey',
@@ -9,9 +9,7 @@ import { TRANSFER_JOURNEY_TRANSLATIONS } from './translations.provider';
   providers: [MakeTransferJourneyState],
 })
 export class TransferJourneyComponent {
-  overridingTranslations = Inject(TRANSFER_JOURNEY_TRANSLATIONS);
-
-  translations = {
+  public readonly translations: Translations = {
     'transfer.repeat.title':
       this.overridingTranslations['transfer.repeat.title'] ||
       $localize`:Title for Repeat Transfer Alert - 'Transfer Alert'|This string is used as the title 
@@ -25,5 +23,12 @@ export class TransferJourneyComponent {
 
   public repeatMessage = $localize`:A message for Repeat Transfer Alert@@transfer.repeat.message:Making Repeated Transfer for ${this.accountName}`;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    @Inject(TRANSFER_JOURNEY_TRANSLATIONS)
+    private overridingTranslations: Translations
+  ) {
+    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    this.overridingTranslations = this.overridingTranslations || {};
+  }
 }

@@ -21,6 +21,8 @@ import {
 import { TRANSLATIONS } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { AlertModule } from '@backbase/ui-ang/alert';
+import { TRANSFER_JOURNEY_TRANSLATIONS } from './translations.provider';
+import { TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS } from 'libs/transfer-journey/internal/ui/src/lib/components/make-transfer-form/translations.provider';
 
 const defaultRoute: Route = {
   path: '',
@@ -87,6 +89,14 @@ const defaultRoute: Route = {
     MakeTransferPermissionsService,
     MakeTransferAccountHttpService,
     MakeTransferRouteTitleResolverService,
+    {
+      provide: TRANSFER_JOURNEY_TRANSLATIONS,
+      useValue: {}
+    },
+    {
+      provide: TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS,
+      useValue: {}
+    }
   ],
   exports: [TransferJourneyComponent],
 })

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { EmptyStateModule } from '@backbase/ui-ang/empty-state';
-import { ACH_POSITIVE_PAY_RULES_TRANSLATIONS } from './translations.provider';
+import { ACH_POSITIVE_PAY_RULES_TRANSLATIONS, Translations } from './translations.provider';
 
 @Component({
   selector: 'bb-ach-positive-pay-rules',
@@ -9,9 +9,7 @@ import { ACH_POSITIVE_PAY_RULES_TRANSLATIONS } from './translations.provider';
   standalone: true,
 })
 export class AchPositivePayRulesComponent {
-  overridingTranslations = Inject(ACH_POSITIVE_PAY_RULES_TRANSLATIONS);
-
-  translations = {
+  public readonly translations: Translations = {
     'ach-positive-pay.view-rules.empty-state.title':
       this.overridingTranslations[
         'ach-positive-pay.view-rules.empty-state.title'
@@ -30,4 +28,11 @@ export class AchPositivePayRulesComponent {
       display. This subtitle is located in the ACH rules list
       view.@@ach-positive-pay.view-rules.empty-state.subtitle:You don't have any ACH rules to be displayed.`,
   };
+  constructor(
+    @Inject(ACH_POSITIVE_PAY_RULES_TRANSLATIONS)
+    private overridingTranslations: Translations
+  ) {
+    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    this.overridingTranslations = this.overridingTranslations || {};
+  }
 }

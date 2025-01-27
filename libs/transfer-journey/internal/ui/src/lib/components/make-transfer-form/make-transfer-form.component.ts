@@ -23,7 +23,7 @@ import {
   Transfer,
 } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { ActivatedRoute } from '@angular/router';
-import { TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS } from './translations.provider';
+import { TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS, Translations } from './translations.provider';
 
 @Component({
   selector: 'bb-make-transfer-form',
@@ -47,11 +47,7 @@ export class MakeTransferFormComponent implements OnInit {
   makeTransferForm!: FormGroup;
   currencies = ['USD', 'EUR'];
 
-  overridingTranslations = Inject(
-    TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS
-  );
-
-  translations = {
+  public readonly translations: Translations = {
     'transfer.form.fromAccount.label':
       this.overridingTranslations['transfer.form.fromAccount.label'] ||
       $localize`:From account label - 'From account'|This string is used as the label for the
@@ -148,7 +144,15 @@ export class MakeTransferFormComponent implements OnInit {
     return !!control && control.touched && control.invalid;
   }
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {}
+  constructor(
+    private fb: FormBuilder, 
+    private route: ActivatedRoute,
+    @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS)
+    private overridingTranslations: Translations
+  ) {
+    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    this.overridingTranslations = this.overridingTranslations || {};
+  }
 
   ngOnInit(): void {
     const accountName: string =

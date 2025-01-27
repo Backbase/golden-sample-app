@@ -6,7 +6,7 @@ import { InputTextModule } from '@backbase/ui-ang/input-text';
 
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
-import { ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS } from './translations.provider';
+import { ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS, Translations } from './translations.provider';
 
 @Component({
   selector: 'bb-ach-positive-pay-rule-form',
@@ -27,9 +27,7 @@ export class AchPositivePayRuleFormComponent {
   @Output() selectAccountId: EventEmitter<ProductSummaryItem> =
     new EventEmitter<ProductSummaryItem>();
 
-  overridingTranslations = Inject(ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS);
-
-  translations = {
+  public readonly translations: Translations = {
     'ach-positive-pay-journey.new-blocker-rule.checking-account':
       this.overridingTranslations[
         'ach-positive-pay-journey.new-blocker-rule.checking-account'
@@ -91,6 +89,14 @@ export class AchPositivePayRuleFormComponent {
         is located in the ACH Positive Pay rule form
         layout.@@ach-positive-pay-journey.new-blocker-rule.company-name.placeholder:Enter company name`,
   };
+
+  constructor(
+    @Inject(ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS)
+    private overridingTranslations: Translations
+  ) {
+    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    this.overridingTranslations = this.overridingTranslations || {};
+  }
 
   readonly paymentTypes = [
     ACH_POSITIVE_PAY_TRANSLATIONS.creditPaymentType,

@@ -14,7 +14,7 @@ import { ButtonModule } from '@backbase/ui-ang/button';
 import { AmountModule } from '@backbase/ui-ang/amount';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { CommonModule } from '@angular/common';
-import { TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS } from './translations.provider';
+import { TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS, Translations } from './translations.provider';
 
 interface TransactionDetailsView {
   transferParams: Params;
@@ -64,11 +64,7 @@ export class TransactionDetailsComponent {
     })
   );
 
-  overridingTranslations = Inject(
-    TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS
-  );
-
-  translations = {
+  public readonly translations: Translations = {
     'transactions.details.recepient':
       this.overridingTranslations['transactions.details.recepient'] ||
       $localize`:Recepient label for Transaction Details - 'Recepient:'|This
@@ -127,8 +123,13 @@ export class TransactionDetailsComponent {
   constructor(
     public route: ActivatedRoute,
     private api: TransactionsHttpService,
+    @Inject(TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS)
+    private overridingTranslations: Translations,
     @Optional() private tracker?: Tracker
-  ) {}
+  ) {
+    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    this.overridingTranslations = this.overridingTranslations || {};
+  }
 
   getTransactionView(
     id: string,

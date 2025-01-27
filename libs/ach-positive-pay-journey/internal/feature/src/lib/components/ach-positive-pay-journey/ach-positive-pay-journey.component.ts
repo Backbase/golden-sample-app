@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PERMISSIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
 import { HeadingModule } from '@backbase/ui-ang/heading';
-import { ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS } from './translations.provider';
+import { ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS, Translations } from './translations.provider';
 
 @Component({
   selector: 'bb-ach-positive-pay-journey',
@@ -13,9 +13,7 @@ import { ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS } from './translations.provider';
 export class AchPositivePayJourneyComponent {
   permissions = PERMISSIONS;
 
-  overridingTranslations = Inject(ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS);
-
-  translations = {
+  public readonly translations: Translations = {
     'ach-positive-pay-journey.heading.title':
       this.overridingTranslations['ach-positive-pay-journey.heading.title'] ||
       $localize`:ACH positive pay title - 'ACH Positive Pay'|This string is used as the
@@ -36,8 +34,13 @@ export class AchPositivePayJourneyComponent {
 
   constructor(
     private readonly router: Router,
-    private readonly route: ActivatedRoute
-  ) {}
+    private readonly route: ActivatedRoute,
+    @Inject(ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS)
+    private overridingTranslations: Translations
+  ) {
+    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    this.overridingTranslations = this.overridingTranslations || {};
+  }
 
   openNewBlockerModal() {
     this.router.navigate([{ outlets: { modal: 'new' } }], {

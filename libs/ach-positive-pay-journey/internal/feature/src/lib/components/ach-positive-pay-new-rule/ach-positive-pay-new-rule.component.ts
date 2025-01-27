@@ -13,7 +13,7 @@ import { AlertModule } from '@backbase/ui-ang/alert';
 import { AchPositivePayRuleFormComponent } from '@backbase-gsa/ach-positive-pay-journey/internal/ui';
 import { LoadButtonModule } from '@backbase/ui-ang/load-button';
 import { CommonModule } from '@angular/common';
-import { ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS } from './translations.provider';
+import { ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS, Translations } from './translations.provider';
 
 @Component({
   selector: 'bb-ach-positive-pay-new-rule',
@@ -31,9 +31,7 @@ import { ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS } from './translations.provider'
 export class AchPositivePayNewRuleComponent implements OnInit {
   loading = false;
 
-  overridingTranslations = Inject(ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS);
-
-  translations = {
+  public readonly translations: Translations = {
     'ach-positive-pay.new-rule.title':
       this.overridingTranslations['ach-positive-pay.new-rule.title'] ||
       $localize`:ACH positive pay title - 'New ACH Rule'|This string is used as the
@@ -85,8 +83,13 @@ export class AchPositivePayNewRuleComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly fb: FormBuilder,
     private readonly achPositivePayService: AchPositivePayHttpService,
-    private readonly notificationService: NotificationService
-  ) {}
+    private readonly notificationService: NotificationService,
+    @Inject(ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS)
+    private overridingTranslations: Translations
+  ) {
+    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    this.overridingTranslations = this.overridingTranslations || {};
+  }
 
   ngOnInit(): void {
     this.achRuleForm = this.fb.group({
