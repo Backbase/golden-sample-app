@@ -9,9 +9,7 @@ import { TRANSFER_JOURNEY_TRANSLATIONS } from './translations.provider';
   providers: [MakeTransferJourneyState],
 })
 export class TransferJourneyComponent {
-  overridingTranslations = Inject(
-    TRANSFER_JOURNEY_TRANSLATIONS
-  );
+  overridingTranslations = Inject(TRANSFER_JOURNEY_TRANSLATIONS);
 
   translations = {
     'transfer.repeat.title':
@@ -19,7 +17,7 @@ export class TransferJourneyComponent {
       $localize`:Title for Repeat Transfer Alert - 'Transfer Alert'|This string is used as the title 
       for the Repeat Transfer Alert. It is presented to the user when they are alerted about a repeat 
       transfer. This title is located in the transfer journey component.@@transfer.repeat.title:Transfer Alert`,
-  }
+  };
 
   public title: string = this.route.snapshot.firstChild?.data['title'] ?? '';
 
