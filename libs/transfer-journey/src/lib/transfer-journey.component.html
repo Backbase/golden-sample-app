@@ -7,10 +7,9 @@
     <div class="bb-card__body">
       <bb-alert-ui
         *ngIf="accountName"
-        title="Transfer Alert"
+        [attr.title]="translations['transfer.repeat.title']"
         modifier="info"
         [message]="repeatMessage"
-        i18n-title="A title for Repeat Transfer Alert@@transfer.repeat.title"
         data-role="alert-multiple-lines"
       ></bb-alert-ui>
 

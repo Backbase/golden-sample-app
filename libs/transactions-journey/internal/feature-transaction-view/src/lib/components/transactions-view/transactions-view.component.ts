@@ -16,6 +16,7 @@ import {
 } from '@backbase-gsa/transactions-journey/internal/data-access';
 
 import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
+import { TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS } from './translations.provider';
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
@@ -64,6 +65,28 @@ export class TransactionsViewComponent {
   public searchQuery$ = this.route.queryParamMap.pipe(
     map((params) => params.get('search') ?? '')
   );
+
+  overridingTranslations = Inject(
+    TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS
+  );
+
+  translations = {
+    'transactions.filters.label':
+      this.overridingTranslations['transactions.details.recepient'] ||
+      $localize`:Label for filtered by - 'filtered by:'|This string is used as the
+            label for the filter section in the transactions view. It is
+            presented to the user to indicate the criteria by which the
+            transactions are filtered. This label is located in the transactions
+            view component.@@transactions.filters.label:filtered by`,
+    'transactions.account-filter.remove':
+      this.overridingTranslations['transactions.account-filter.remove'] ||
+      $localize`:Remove account label for Account Badge - 'Remove account
+            filter'|This string is used as the title for the remove account
+            filter button in the transactions view. It is presented to the user
+            as a tooltip when they hover over the button to remove the account
+            filter. This title is located in the transactions view
+            component.@@transactions.account-filter.remove:Remove account filter`,
+  };
 
   constructor(
     private readonly route: ActivatedRoute,

@@ -13,36 +13,17 @@
   <nav class="bb-layout__topbar">
     <!-- Skip to content -->
     <button
-      aria-label="skip to content"
-      i18n-aria-label="
-        Move focus to beginning of content - 'skip to content'|This string is
-        used as the aria-label for a button that moves the focus to the
-        beginning of the content. It is presented to the user as an
-        accessibility feature to quickly navigate to the main content section.
-        This aria-label is located in the topbar area of the
-        layout.@@move-focus-to-beginning-of-content"
+      [attr.aria-label]="translations['move-focus-to-beginning-of-content']"
       class="bb-layout__skip-to-content"
       (click)="focusMainContainer($event)"
-      i18n="
-        Skip to content - 'Skip to content'|This string is used as the text for
-        a button that moves the focus to the beginning of the content. It is
-        presented to the user as an accessibility feature to quickly navigate to
-        the main content section. This text is located in the topbar area of the
-        layout.@@skip-to-content"
     >
-      Skip to Content
+      {{ translations['skip-to-content'] }}
     </button>
 
     <!-- Hamburger -->
     <button
       class="bb-layout__nav-expand-marker"
-      aria-label="Toggle sidebar"
-      i18n-aria-label="
-        Sidebar Toggler - 'Toggle sidebar'|This string is used as the aria-label
-        for a button that toggles the sidebar state. It is presented to the user
-        as an accessibility feature to indicate the button's function. This
-        aria-label is located in the topbar area of the
-        layout.@@bb-layout.sidebar_toggler"
+      [attr.aria-label]="translations['bb-layout.sidebar_toggler']"
       [attr.aria-expanded]="layoutService.navigationExpanded$ | async"
       (click)="layoutService.toggleNav()"
     >
@@ -70,22 +51,16 @@
             class="bb-layout__vertical-nav-item-icon"
             name="payments"
           ></bb-icon-ui>
-          <span
-            class="bb-layout__horizontal-nav-item-description"
-            i18n="
-              Make transfer link - 'Make transfer'|This string is used as the
-              text for a link that navigates to the transfer page. It is
-              presented to the user as a navigation item in the horizontal
-              navigation bar. This text is located in the navigation items
-              section of the layout.@@main.transfer.link.text"
-          >
-            Make transfer
+          <span class="bb-layout__horizontal-nav-item-description">
+            {{ translations['main.transfer.link.text'] }}
           </span>
         </a>
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'EntPayments.AchPositivePay.create AND EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view'"
+        *bbIfEntitlements="
+          'EntPayments.AchPositivePay.create AND EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view'
+        "
       >
         <a
           class="bb-layout__horizontal-nav-link"
@@ -101,17 +76,16 @@
             name="transactions"
             size="md"
           ></bb-icon-ui>
-          <span
-            class="bb-layout__horizontal-nav-item-description"
-            i18n="transactions list link@@main.transactions.link.text"
-          >
-            Entitlements test - No grouping.
+          <span class="bb-layout__horizontal-nav-item-description">
+            {{ translations['main.entitlements-test-no-grouping.text'] }}
           </span>
         </a>
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'EntPayments.AchPositivePay.create AND (EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view)'"
+        *bbIfEntitlements="
+          'EntPayments.AchPositivePay.create AND (EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view)'
+        "
       >
         <a
           class="bb-layout__horizontal-nav-link"
@@ -127,17 +101,16 @@
             name="transactions"
             size="md"
           ></bb-icon-ui>
-          <span
-            class="bb-layout__horizontal-nav-item-description"
-            i18n="transactions list link@@main.transactions.link.text"
-          >
-            Entitlements test - Grouping.
+          <span class="bb-layout__horizontal-nav-item-description">
+            {{ translations['main.entitlements-test-grouping.text'] }}
           </span>
         </a>
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'((EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR EntPayments.ManagePositivePay.create'"
+        *bbIfEntitlements="
+          '((EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR EntPayments.ManagePositivePay.create'
+        "
       >
         <a
           class="bb-layout__horizontal-nav-link"
@@ -153,17 +126,16 @@
             name="transactions"
             size="md"
           ></bb-icon-ui>
-          <span
-            class="bb-layout__horizontal-nav-item-description"
-            i18n="transactions list link@@main.transactions.link.text"
-          >
-            Entitlements test - Nested groups.
+          <span class="bb-layout__horizontal-nav-item-description">
+            {{ translations['main.entitlements-test-nested-groups.text'] }}
           </span>
         </a>
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'!((EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR EntPayments.ManagePositivePay.create'"
+        *bbIfEntitlements="
+          '!((EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR EntPayments.ManagePositivePay.create'
+        "
       >
         <a
           class="bb-layout__horizontal-nav-link"
@@ -179,17 +151,20 @@
             name="transactions"
             size="md"
           ></bb-icon-ui>
-          <span
-            class="bb-layout__horizontal-nav-item-description"
-            i18n="transactions list link@@main.transactions.link.text"
-          >
-            Entitlements test - Using NOT operators on groups.
+          <span class="bb-layout__horizontal-nav-item-description">
+            {{
+              translations[
+                'main.entitlements-test-using-not-operators-on-groups.text'
+              ]
+            }}
           </span>
         </a>
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'!(!(EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR !EntPayments.ManagePositivePay.create'"
+        *bbIfEntitlements="
+          '!(!(EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR !EntPayments.ManagePositivePay.create'
+        "
       >
         <a
           class="bb-layout__horizontal-nav-link"
@@ -205,11 +180,12 @@
             name="transactions"
             size="md"
           ></bb-icon-ui>
-          <span
-            class="bb-layout__horizontal-nav-item-description"
-            i18n="transactions list link@@main.transactions.link.text"
-          >
-            Entitlements test - Using multiple NOT operators on groups.
+          <span class="bb-layout__horizontal-nav-item-description">
+            {{
+              translations[
+                'main.entitlements-test-using-multiple-not-operators-on-groups.text'
+              ]
+            }}
           </span>
         </a>
       </li>
@@ -231,16 +207,8 @@
             name="transactions"
             size="md"
           ></bb-icon-ui>
-          <span
-            class="bb-layout__horizontal-nav-item-description"
-            i18n="
-              Transactions list link - 'Transactions List'|This string is used
-              as the text for a link that navigates to the transactions list
-              page. It is presented to the user as a navigation item in the
-              horizontal navigation bar. This text is located in the navigation
-              items section of the layout.@@main.transactions.link.text"
-          >
-            Transactions List
+          <span class="bb-layout__horizontal-nav-item-description">
+            {{ translations['main.transactions.link.text'] }}
           </span>
         </a>
       </li>
@@ -261,16 +229,8 @@
             class="bb-layout__vertical-nav-item-icon"
             name="note"
           ></bb-icon-ui>
-          <span
-            class="bb-layout__horizontal-nav-item-description"
-            i18n="
-              Positive pay link - 'Positive Pay'|This string is used as the text
-              for a link that navigates to the Positive Pay page. It is
-              presented to the user as a navigation item in the horizontal
-              navigation bar. This text is located in the navigation items
-              section of the layout.@@main.positive-pay.link.text"
-          >
-            Positive Pay
+          <span class="bb-layout__horizontal-nav-item-description">
+            {{ translations['main.positive-pay.link.text'] }}
           </span>
         </a>
       </li>
@@ -292,16 +252,8 @@
             name="verified-user"
           ></bb-icon-ui>
 
-          <span
-            class="bb-layout__horizontal-nav-item-description"
-            i18n="
-              Ach Positive pay link - 'ACH Positive Pay'|This string is used as
-              the text for a link that navigates to the ACH Positive Pay page.
-              It is presented to the user as a navigation item in the horizontal
-              navigation bar. This text is located in the navigation items
-              section of the layout.@@main.ach-positive-pay.link.text"
-          >
-            ACH Positive Pay
+          <span class="bb-layout__horizontal-nav-item-description">
+            {{ translations['main.ach-positive-pay.link.text'] }}
           </span>
         </a>
       </li>
@@ -320,16 +272,8 @@
             name="verified-user"
           ></bb-icon-ui>
 
-          <span
-            class="bb-layout__horizontal-nav-item-description"
-            i18n="
-              Make a Payment Link - 'Make internal payment'|This string is used
-              as the text for a link that navigates to the internal payment
-              page. It is presented to the user as a navigation item in the
-              horizontal navigation bar. This text is located in the navigation
-              items section of the layout.@@main.make-a-payment.link.text"
-          >
-            Make internal payment
+          <span class="bb-layout__horizontal-nav-item-description">
+            {{ translations['main.make-a-payment.link.text'] }}
           </span>
         </a>
       </li>
@@ -350,7 +294,12 @@
           ></bb-icon-ui>
         </a>
 
-        <a href="#" (click)="logout()" data-role="logout-btn" aria-label="Logout">
+        <a
+          href="#"
+          (click)="logout()"
+          data-role="logout-btn"
+          aria-label="Logout"
+        >
           <bb-icon-ui
             color="secondary"
             data-role="notifications-icon"
