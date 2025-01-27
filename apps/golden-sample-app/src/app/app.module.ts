@@ -50,6 +50,7 @@ import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
 import packageInfo from 'package-json';
 import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
 import { ThemeManagerService } from './theme-switcher/theme-service';
+import { USER_ACCOUNTS_TRANSLATIONS } from './user-accounts/user-accounts-view/translations.provider';
 
 @NgModule({
   declarations: [AppComponent],
@@ -180,6 +181,17 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
       useClass: AppErrorHandler,
     },
     ThemeManagerService,
+    {
+      provide: USER_ACCOUNTS_TRANSLATIONS,
+      useValue: {
+        'app.userAccountsView.header':
+        $localize`User accounts header - 'User accounts'|This string is used as the
+            header for the user accounts view page. It is presented to the user as
+            the title of the page when they view their user accounts. This header
+            is located at the top of the user accounts view
+            page.@@app.userAccountsView.header:Cuentas de usuario`,
+      }
+    }
   ],
   bootstrap: [AppComponent],
 })

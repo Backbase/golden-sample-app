@@ -1,25 +1,35 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { Transfer } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { ButtonModule } from '@backbase/ui-ang/button';
-import { TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS } from './translations.provider';
+import { TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS, Translations } from './translations.provider';
 
 @Component({
   selector: 'bb-make-transfer-summary',
   templateUrl: 'make-transfer-summary.component.html',
   imports: [ButtonModule],
   standalone: true,
+  providers: [
+    {
+      provide: TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS,
+      useValue: {
+        'transfer.summary.close.text': $localize`:meaning|description@@customid:Cerrar`,
+      },
+    }
+  ]
 })
 export class MakeTransferSummaryComponent {
   @Input() transfer: Transfer | undefined;
   @Output() submitTransfer = new EventEmitter<void>();
   @Output() closeTransfer = new EventEmitter<void>();
 
-  overridingTranslations = Inject(
-    TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS
-  );
+  translations: Translations;
 
-  translations = {
-    'transfer.summary.heading.label':
+  constructor(
+    @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS)
+    private overridingTranslations: { [key: string]: string } = {}
+  ) {
+    this.translations = {
+      'transfer.summary.heading.label':
       this.overridingTranslations['transfer.summary.heading.label'] ||
       $localize`:Summary heading label - 'Are you sure to send out this transfer'|This string is used as the label for the
   header of the summary's transfer in the summary of the transfer before proceeding with it. It is presented to the user when
@@ -53,7 +63,8 @@ export class MakeTransferSummaryComponent {
     'Close' button in the transfer summary form. It is presented to the user as the button to be
     pressed to close the modal and cancel the transfer. This label is
     located in the make a transfer summary form layout@@transfer.summary.close.text:Close`,
-  };
+    };
+  }
 
   submit(): void {
     this.submitTransfer.emit();
