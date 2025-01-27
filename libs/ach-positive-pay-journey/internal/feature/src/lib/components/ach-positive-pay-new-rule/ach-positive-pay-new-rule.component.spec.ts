@@ -5,6 +5,7 @@ import { of, throwError } from 'rxjs';
 import { AchPositivePayHttpService } from '@backbase-gsa/ach-positive-pay-journey/internal/data-access';
 import { AchPositivePayNewRuleComponent } from './ach-positive-pay-new-rule.component';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
+import { Translations } from './translations.provider';
 
 describe('AchPositivePayNewRuleComponent', () => {
   let component: AchPositivePayNewRuleComponent;
@@ -33,7 +34,8 @@ describe('AchPositivePayNewRuleComponent', () => {
       mockActivatedRoute,
       mockFormBuilder as FormBuilder,
       mockAchPositivePayService as AchPositivePayHttpService,
-      mockNotificationService as NotificationService
+      mockNotificationService as NotificationService,
+      {} as Translations
     );
   };
   beforeEach(() => {

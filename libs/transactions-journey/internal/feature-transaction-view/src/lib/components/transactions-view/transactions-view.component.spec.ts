@@ -23,6 +23,7 @@ import {
 import { TransactionsViewComponent } from './transactions-view.component';
 import { By } from '@angular/platform-browser';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
+import { TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS } from './translations.provider';
 
 @Component({
   selector: 'bb-text-filter-component',
@@ -104,6 +105,10 @@ describe('TransactionsViewComponent', () => {
           provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
           useValue: mockTransactionsCommunicationService,
         },
+        {
+          provide: TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
+          useValue: {}
+        }
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
