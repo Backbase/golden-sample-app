@@ -25,6 +25,7 @@ import {
   TransactionsViewModule,
 } from '@backbase-gsa/transactions-journey/internal/feature-transaction-view';
 import { TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS } from 'libs/transactions-journey/internal/ui/src/lib/components/text-filter/translations.provider';
+import { TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS } from 'libs/transactions-journey/internal/feature-transaction-details-view/src/lib/translations.provider';
 const defaultRoutes: Routes = [
   {
     path: '',
@@ -75,8 +76,19 @@ interface TransactionsJourneyModuleConfig {
     TransactionsRouteTitleResolverService,
     {
       provide: TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS,
-      useValue: {}
-    }
+      useValue: {},
+    },
+    {
+      provide: TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS,
+      useValue: {
+        'transaction-details.repeat': $localize`:Label for Repeat Transaction - 'Repeat transaction'|This string is
+              used as a label for the 'Repeat transaction' button. It is
+              presented to the user in the transaction details view when they
+              want to repeat a previous transaction. This label is located
+              within the transaction details section of the
+              layout.@@transaction-details.repeat:Repeat - overriden`,
+      },
+    },
   ],
 })
 export class TransactionsJourneyModule {

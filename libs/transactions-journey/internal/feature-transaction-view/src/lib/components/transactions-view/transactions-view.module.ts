@@ -32,8 +32,8 @@ import { TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS } from './translatio
     TransactionsHttpService,
     {
       provide: TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
-      useValue: {}
-    }
+      useValue: {},
+    },
   ],
   exports: [TransactionsViewComponent],
 })

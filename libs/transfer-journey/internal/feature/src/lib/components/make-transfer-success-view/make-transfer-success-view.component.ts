@@ -4,7 +4,10 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MakeTransferJourneyState } from '@backbase-gsa/transfer-journey/internal/data-access';
 import { ButtonModule } from '@backbase/ui-ang/button';
-import { TRANSFER_JOURNEY_MAKE_TRANSFER_SUCCESS_VIEW_TRANSLATIONS, Translations } from './translations.provider';
+import {
+  TRANSFER_JOURNEY_MAKE_TRANSFER_SUCCESS_VIEW_TRANSLATIONS,
+  Translations,
+} from './translations.provider';
 
 @Component({
   templateUrl: 'make-transfer-success-view.component.html',

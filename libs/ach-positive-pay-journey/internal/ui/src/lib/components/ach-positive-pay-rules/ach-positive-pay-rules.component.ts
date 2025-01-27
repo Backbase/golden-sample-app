@@ -1,6 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { EmptyStateModule } from '@backbase/ui-ang/empty-state';
-import { ACH_POSITIVE_PAY_RULES_TRANSLATIONS, Translations } from './translations.provider';
+import {
+  ACH_POSITIVE_PAY_RULES_TRANSLATIONS,
+  Translations,
+} from './translations.provider';
 
 @Component({
   selector: 'bb-ach-positive-pay-rules',

@@ -1,7 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MakeTransferJourneyState } from '@backbase-gsa/transfer-journey/internal/data-access';
 import { ActivatedRoute } from '@angular/router';
-import { TRANSFER_JOURNEY_TRANSLATIONS, Translations } from './translations.provider';
+import {
+  TRANSFER_JOURNEY_TRANSLATIONS,
+  Translations,
+} from './translations.provider';
 
 @Component({
   selector: 'bb-transfer-journey',

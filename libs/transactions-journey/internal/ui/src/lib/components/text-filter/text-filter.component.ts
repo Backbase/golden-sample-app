@@ -3,7 +3,10 @@ import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from '@backbase/ui-ang/input-text';
-import { TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS, Translations } from './translations.provider';
+import {
+  TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS,
+  Translations,
+} from './translations.provider';
 
 @Component({
   selector: 'bb-text-filter',
@@ -16,7 +19,7 @@ export class TextFilterComponent {
   @Output() textChange = new EventEmitter<string>();
   @Input() text: string | null = '';
 
-  public readonly translations: Translations= {
+  public readonly translations: Translations = {
     'transaction.form.filter.aria-label':
       this.overridingTranslations['transaction.form.filter.aria-label'] ||
       $localize`:Filter transaction aria label - 'filter transactions'|This string is used as

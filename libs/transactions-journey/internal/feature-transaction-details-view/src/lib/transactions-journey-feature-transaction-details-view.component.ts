@@ -14,7 +14,10 @@ import { ButtonModule } from '@backbase/ui-ang/button';
 import { AmountModule } from '@backbase/ui-ang/amount';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { CommonModule } from '@angular/common';
-import { TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS, Translations } from './translations.provider';
+import {
+  TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS,
+  Translations,
+} from './translations.provider';
 
 interface TransactionDetailsView {
   transferParams: Params;
@@ -67,7 +70,7 @@ export class TransactionDetailsComponent {
   public readonly translations: Translations = {
     'transactions.details.recepient':
       this.overridingTranslations['transactions.details.recepient'] ||
-      $localize`:Recepient label for Transaction Details - 'Recepient:'|This
+      $localize`:Recepient label for Transaction Details - 'Recepient'|This
                 string is used as the label for the recipient field in the
                 transaction details view. It is presented to the user when they
                 view the details of a transaction. This label is located in the
@@ -75,21 +78,21 @@ export class TransactionDetailsComponent {
                 component.@@transactions.details.recepient:Recipient`,
     'transactions.details.date':
       this.overridingTranslations['transactions.details.date'] ||
-      $localize`:Date label for Transaction Details - 'Date:'|This string is used
+      $localize`:Date label for Transaction Details - 'Date'|This string is used
                 as the label for the date field in the transaction details view.
                 It is presented to the user when they view the details of a
                 transaction. This label is located in the transaction details
                 view component.@@transactions.details.date:Date`,
     'transactions.details.amount':
       this.overridingTranslations['transactions.details.amount'] ||
-      $localize`:Amount label for Transaction Amount - 'Amount:'|This string is
+      $localize`:Amount label for Transaction Amount - 'Amount'|This string is
                 used as the label for the amount field in the transaction
                 details view. It is presented to the user when they view the
                 details of a transaction. This label is located in the
                 transaction details view component.@@transactions.details.amount:Amount`,
     'transactions.details.category':
       this.overridingTranslations['transactions.details.category'] ||
-      $localize`:Category label for Transaction Details - 'Category:'|This string
+      $localize`:Category label for Transaction Details - 'Category'|This string
                 is used as the label for the category field in the transaction
                 details view. It is presented to the user when they view the
                 details of a transaction. This label is located in the
@@ -97,7 +100,7 @@ export class TransactionDetailsComponent {
                 component.@@transactions.details.category:Category`,
     'transactions.details.description':
       this.overridingTranslations['transactions.details.description'] ||
-      $localize`:Description label for Transaction Details - 'Description:'|This
+      $localize`:Description label for Transaction Details - 'Description'|This
                 string is used as the label for the description field in the
                 transaction details view. It is presented to the user when they
                 view the details of a transaction. This label is located in the
@@ -105,7 +108,7 @@ export class TransactionDetailsComponent {
                 component.@@transactions.details.description:Description`,
     'transactions.details.status':
       this.overridingTranslations['transactions.details.status'] ||
-      $localize`:Status label for Transaction Details - 'Status:'|This string is
+      $localize`:Status label for Transaction Details - 'Status'|This string is
                 used as the label for the status field in the transaction
                 details view. It is presented to the user when they view the
                 details of a transaction. This label is located in the

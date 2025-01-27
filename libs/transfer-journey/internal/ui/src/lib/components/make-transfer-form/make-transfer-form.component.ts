@@ -23,7 +23,10 @@ import {
   Transfer,
 } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { ActivatedRoute } from '@angular/router';
-import { TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS, Translations } from './translations.provider';
+import {
+  TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS,
+  Translations,
+} from './translations.provider';
 
 @Component({
   selector: 'bb-make-transfer-form',
@@ -145,7 +148,7 @@ export class MakeTransferFormComponent implements OnInit {
   }
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS)
     private overridingTranslations: Translations

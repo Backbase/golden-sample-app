@@ -16,7 +16,10 @@ import {
 } from '@backbase-gsa/transactions-journey/internal/data-access';
 
 import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
-import { TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS, Translations } from './translations.provider';
+import {
+  TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
+  Translations,
+} from './translations.provider';
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],

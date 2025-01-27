@@ -184,7 +184,7 @@ import { APP_TRANSLATIONS } from './translations.provider';
     {
       provide: APP_TRANSLATIONS,
       useValue: {},
-    }
+    },
   ],
   bootstrap: [AppComponent],
 })

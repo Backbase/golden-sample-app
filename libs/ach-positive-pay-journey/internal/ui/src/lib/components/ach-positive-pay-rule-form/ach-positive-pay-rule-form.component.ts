@@ -6,7 +6,10 @@ import { InputTextModule } from '@backbase/ui-ang/input-text';
 
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
-import { ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS, Translations } from './translations.provider';
+import {
+  ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS,
+  Translations,
+} from './translations.provider';
 
 @Component({
   selector: 'bb-ach-positive-pay-rule-form',

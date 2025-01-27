@@ -13,7 +13,10 @@ import { AlertModule } from '@backbase/ui-ang/alert';
 import { AchPositivePayRuleFormComponent } from '@backbase-gsa/ach-positive-pay-journey/internal/ui';
 import { LoadButtonModule } from '@backbase/ui-ang/load-button';
 import { CommonModule } from '@angular/common';
-import { ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS, Translations } from './translations.provider';
+import {
+  ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS,
+  Translations,
+} from './translations.provider';
 
 @Component({
   selector: 'bb-ach-positive-pay-new-rule',

@@ -2,7 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PERMISSIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
 import { HeadingModule } from '@backbase/ui-ang/heading';
-import { ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS, Translations } from './translations.provider';
+import {
+  ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS,
+  Translations,
+} from './translations.provider';
 
 @Component({
   selector: 'bb-ach-positive-pay-journey',

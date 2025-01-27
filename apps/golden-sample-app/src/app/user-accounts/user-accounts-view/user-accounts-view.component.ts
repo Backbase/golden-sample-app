@@ -6,7 +6,10 @@ import {
   AddToFavoritesTrackerEvent,
   RemoveFromFavoritesTrackerEvent,
 } from '../../model/tracker-events';
-import { Translations, USER_ACCOUNTS_TRANSLATIONS } from './translations.provider';
+import {
+  Translations,
+  USER_ACCOUNTS_TRANSLATIONS,
+} from './translations.provider';
 
 @Component({
   selector: 'app-user-accounts-view',

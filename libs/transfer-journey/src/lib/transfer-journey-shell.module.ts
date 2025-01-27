@@ -91,12 +91,19 @@ const defaultRoute: Route = {
     MakeTransferRouteTitleResolverService,
     {
       provide: TRANSFER_JOURNEY_TRANSLATIONS,
-      useValue: {}
+      useValue: {},
     },
     {
       provide: TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS,
-      useValue: {}
-    }
+      useValue: {
+        'transfer.form.toAccount.error.required': $localize`:To account required error message - 'Required field'|This string
+              is used as the error message for the 'To Account' field in the
+              transfer form when the field is required but not filled. It is
+              presented to the user when they need to fill in the 'To Account'
+              field. This error message is located in the transfer form
+              layout.@@transfer.form.toAccount.error.required:Required field`,
+      },
+    },
   ],
   exports: [TransferJourneyComponent],
 })
