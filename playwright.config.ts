@@ -1,5 +1,8 @@
 import { PlaywrightTestConfig, devices } from '@playwright/test';
+import { initA11yExpect } from './apps/golden-sample-app-e2e/utils/a11y/a11y-expect';
 import 'dotenv/config';
+
+initA11yExpect();
 
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
@@ -68,8 +71,8 @@ const config: PlaywrightTestConfig = {
       reuseExistingServer: false,
     },
     {
-      command: 'npx nx serve -c=mocks --port=4201',
-      url: 'http://localhost:4201/',
+      command: 'npx nx serve -c=mocks --port=4200',
+      url: 'http://localhost:4200/',
       timeout: 120 * 1000,
       reuseExistingServer: false,
     },
