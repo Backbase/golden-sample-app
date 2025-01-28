@@ -5,7 +5,7 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": [],
+    "types": ["@angular/localize/init"],
     "target": "ES2022",
     "useDefineForClassFields": false
   },
