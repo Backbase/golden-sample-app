@@ -21,7 +21,7 @@ export class A11yScanner {
   constructor(
     page: Page,
     protected testInfo: TestInfo,
-    options?: { include: Locator | string; disableRules: [] },
+    options?: { include: Locator | string; disableRules: [] }
   ) {
     this.axeBuilder = new AxeBuilder({ page }).withTags([
       'wcag2a',
@@ -82,7 +82,7 @@ export class A11yScanner {
       `Page have ${this.violations.length} accessibility issues in ${
         nodes.length
       } areas of the html code\nPlease find more details in attachment "accessibility-scan-results"\n${shortA11YReport(
-        this.violations,
+        this.violations
       )}`;
     return {
       message,

@@ -85,7 +85,9 @@
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'EntPayments.AchPositivePay.create AND EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view'"
+        *bbIfEntitlements="
+          'EntPayments.AchPositivePay.create AND EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view'
+        "
       >
         <a
           class="bb-layout__horizontal-nav-link"
@@ -111,7 +113,9 @@
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'EntPayments.AchPositivePay.create AND (EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view)'"
+        *bbIfEntitlements="
+          'EntPayments.AchPositivePay.create AND (EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view)'
+        "
       >
         <a
           class="bb-layout__horizontal-nav-link"
@@ -137,7 +141,9 @@
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'((EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR EntPayments.ManagePositivePay.create'"
+        *bbIfEntitlements="
+          '((EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR EntPayments.ManagePositivePay.create'
+        "
       >
         <a
           class="bb-layout__horizontal-nav-link"
@@ -163,7 +169,9 @@
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'!((EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR EntPayments.ManagePositivePay.create'"
+        *bbIfEntitlements="
+          '!((EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR EntPayments.ManagePositivePay.create'
+        "
       >
         <a
           class="bb-layout__horizontal-nav-link"
@@ -189,7 +197,9 @@
       </li>
       <li
         class="bb-layout__horizontal-nav-item"
-        *bbIfEntitlements="'!(!(EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR !EntPayments.ManagePositivePay.create'"
+        *bbIfEntitlements="
+          '!(!(EntPayments.ManagePositivePay.create OR EntPayments.AchPositivePay.view) AND EntPayments.AchPositivePay.view) OR !EntPayments.ManagePositivePay.create'
+        "
       >
         <a
           class="bb-layout__horizontal-nav-link"
@@ -350,7 +360,12 @@
           ></bb-icon-ui>
         </a>
 
-        <a href="#" (click)="logout()" data-role="logout-btn" aria-label="Logout">
+        <a
+          href="#"
+          (click)="logout()"
+          data-role="logout-btn"
+          aria-label="Logout"
+        >
           <bb-icon-ui
             color="secondary"
             data-role="notifications-icon"

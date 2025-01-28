@@ -8,12 +8,12 @@ export const initA11yExpect = () => {};
 expect.extend({
   async toBeAccessible(
     pageObject: { page: Page; testInfo: TestInfo },
-    options?: { include: Locator | string; disableRules: [] },
+    options?: { include: Locator | string; disableRules: [] }
   ): Promise<{ message: () => string; pass: boolean }> {
     const axeScanner = new A11yScanner(
       pageObject.page,
       pageObject.testInfo,
-      options,
+      options
     );
     await axeScanner.analyze();
 

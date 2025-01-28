@@ -42,6 +42,7 @@ const config: PlaywrightTestConfig = {
       name: 'web-chrome',
       use: {
         ...devices['Desktop Chrome'],
+        baseURL: 'http://localhost:4201',
         launchOptions: {
           chromiumSandbox: false,
           args: [
@@ -71,8 +72,8 @@ const config: PlaywrightTestConfig = {
       reuseExistingServer: false,
     },
     {
-      command: 'npx nx serve -c=mocks --port=4200',
-      url: 'http://localhost:4200/',
+      command: 'npx nx serve -c=mocks --port=4201',
+      url: 'http://localhost:4201/',
       timeout: 120 * 1000,
       reuseExistingServer: false,
     },

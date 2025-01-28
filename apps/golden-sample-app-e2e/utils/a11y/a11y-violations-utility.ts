@@ -2,7 +2,7 @@ import type { Result, NodeResult } from 'axe-core';
 import { Page } from '@playwright/test';
 
 export const getSelectorsForViolatedElements = (
-  violations: Result[],
+  violations: Result[]
 ): string[] => {
   const selectors: string[] = [];
   violations.forEach((violation) => {
@@ -28,7 +28,7 @@ export const modifyViewPortSize = async (page: Page): Promise<void> => {
   if (await page.locator(modalWindowSelector).isVisible()) {
     const currentViewportSize = page.viewportSize();
     const modalWindowHeight: number = await page.evaluate(
-      `document.querySelector('${modalWindowSelector}').offsetHeight`,
+      `document.querySelector('${modalWindowSelector}').offsetHeight`
     );
 
     if (modalWindowHeight > currentViewportSize.height) {
@@ -50,7 +50,7 @@ const getOffsetValuesRecursive = (element) => {
 
 const generateHighlightingStyle = (
   position: { offsetTop: number; offsetLeft: number },
-  size: { height: number; width: number },
+  size: { height: number; width: number }
 ): string => {
   return `border-width: 1px border-style: solid; border-color: #eb34c9; box-shadow: 0 0 10px 4px #e267ff; height: ${size.height}px; width: ${size.width}px; 
     position: absolute; left: ${position.offsetLeft}px; top: ${position.offsetTop}px; z-index: 9999999;`;
@@ -68,13 +68,13 @@ const generateHighlightingStyle = (
  */
 export const highlightViolations = async (
   page: Page,
-  violations: string[],
+  violations: string[]
 ): Promise<void> => {
   for (const selector of violations) {
     const elementPosition = await page.evaluate(
       // eslint-disable-next-line @typescript-eslint/no-loop-func
       (s) => getOffsetValuesRecursive(document.querySelector(s)),
-      selector,
+      selector
     );
 
     // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -108,7 +108,7 @@ export const highlightViolations = async (
  */
 export const highlightViolationsOnPage = async (
   page: Page,
-  violations: Result[],
+  violations: Result[]
 ): Promise<void> => {
   await modifyViewPortSize(page);
   await highlightViolations(page, getSelectorsForViolatedElements(violations));
