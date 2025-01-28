@@ -25,7 +25,6 @@ import {
 import { TRANSLATIONS } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { AlertModule } from '@backbase/ui-ang/alert';
-import { MakeTransferFormTranslations } from '@backbase-gsa/transfer-journey/internal/ui';
 
 const defaultRoute: Route = {
   path: '',
