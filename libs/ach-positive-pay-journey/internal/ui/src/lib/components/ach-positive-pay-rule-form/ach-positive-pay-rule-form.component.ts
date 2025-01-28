@@ -1,15 +1,25 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  InjectionToken,
+  Input,
+  Output,
+} from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import '@angular/localize/init';
 import { AccountSelectorModule } from '@backbase/ui-ang/account-selector';
 import { DropdownSingleSelectModule } from '@backbase/ui-ang/dropdown-single-select';
 import { InputTextModule } from '@backbase/ui-ang/input-text';
 
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
-import {
-  ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS,
-  Translations,
-} from './translations.provider';
+
+export const ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS =
+  new InjectionToken<Translations>('ach_positive_pay_rule_form_translations');
+export interface Translations {
+  [key: string]: string;
+}
 
 @Component({
   selector: 'bb-ach-positive-pay-rule-form',

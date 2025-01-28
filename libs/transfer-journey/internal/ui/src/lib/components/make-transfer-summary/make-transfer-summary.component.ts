@@ -1,10 +1,21 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  InjectionToken,
+  Input,
+  Output,
+} from '@angular/core';
 import { Transfer } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { ButtonModule } from '@backbase/ui-ang/button';
-import {
-  TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS,
-  Translations,
-} from './translations.provider';
+
+export const TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS =
+  new InjectionToken<Translations>(
+    'transfer_journey_make_transfer_summary_translations'
+  );
+export interface Translations {
+  [key: string]: string;
+}
 
 @Component({
   selector: 'bb-make-transfer-summary',

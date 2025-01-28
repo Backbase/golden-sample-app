@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, InjectionToken, OnInit } from '@angular/core';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -13,10 +13,12 @@ import { AlertModule } from '@backbase/ui-ang/alert';
 import { AchPositivePayRuleFormComponent } from '@backbase-gsa/ach-positive-pay-journey/internal/ui';
 import { LoadButtonModule } from '@backbase/ui-ang/load-button';
 import { CommonModule } from '@angular/common';
-import {
-  ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS,
-  Translations,
-} from './translations.provider';
+
+export const ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS =
+  new InjectionToken<Translations>('ach_positive_pay_new_rule_translations');
+export interface Translations {
+  [key: string]: string;
+}
 
 @Component({
   selector: 'bb-ach-positive-pay-new-rule',

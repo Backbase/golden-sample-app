@@ -1,6 +1,8 @@
 import '@angular/localize/init';
-import { MakeTransferSummaryComponent } from './make-transfer-summary.component';
-import { Translations } from './translations.provider';
+import {
+  MakeTransferSummaryComponent,
+  Translations,
+} from './make-transfer-summary.component';
 
 describe('MakeTransferSummaryComponent', () => {
   let component: MakeTransferSummaryComponent;

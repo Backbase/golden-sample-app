@@ -1,10 +1,13 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, InjectionToken } from '@angular/core';
 import { MakeTransferJourneyState } from '@backbase-gsa/transfer-journey/internal/data-access';
 import { ActivatedRoute } from '@angular/router';
-import {
-  TRANSFER_JOURNEY_TRANSLATIONS,
-  Translations,
-} from './translations.provider';
+
+export const TRANSFER_JOURNEY_TRANSLATIONS = new InjectionToken<Translations>(
+  'transfer_journey_translations'
+);
+export interface Translations {
+  [key: string]: string;
+}
 
 @Component({
   selector: 'bb-transfer-journey',

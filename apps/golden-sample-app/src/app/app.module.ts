@@ -1,4 +1,8 @@
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,7 +41,7 @@ import {
 import { CookieService } from 'ngx-cookie-service';
 import { authConfig, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { APP_TRANSLATIONS, AppComponent } from './app.component';
 import { AppErrorHandler } from './app.error-handler';
 import { AuthEventsHandlerService } from './auth/auth-events-handler/auth-events-handler.service';
 import { AnalyticsService } from './services/analytics.service';
@@ -50,14 +54,13 @@ import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
 import packageInfo from 'package-json';
 import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
 import { ThemeManagerService } from './theme-switcher/theme-service';
-import { APP_TRANSLATIONS } from './translations.provider';
 
 @NgModule({
   declarations: [AppComponent],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     BrowserAnimationsModule,
     DropdownMenuModule,
     IconModule,
@@ -137,7 +140,6 @@ import { APP_TRANSLATIONS } from './translations.provider';
                   );
                 }
               });
-
               await oAuthService.loadDiscoveryDocumentAndTryLogin();
             },
         },
@@ -181,11 +183,11 @@ import { APP_TRANSLATIONS } from './translations.provider';
       useClass: AppErrorHandler,
     },
     ThemeManagerService,
+    provideHttpClient(withInterceptorsFromDi()),
     {
       provide: APP_TRANSLATIONS,
       useValue: {},
     },
   ],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}

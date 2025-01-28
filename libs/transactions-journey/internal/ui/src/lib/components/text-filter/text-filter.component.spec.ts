@@ -1,6 +1,5 @@
 import '@angular/localize/init';
-import { TextFilterComponent } from './text-filter.component';
-import { Translations } from './translations.provider';
+import { TextFilterComponent, Translations } from './text-filter.component';
 
 describe('TextFilterComponent', () => {
   let component: TextFilterComponent;

@@ -6,8 +6,10 @@ import {
 } from '@angular/router';
 import { of } from 'rxjs';
 import { MakeTransferJourneyState } from '@backbase-gsa/transfer-journey/internal/data-access';
-import { MakeTransferSuccessViewComponent } from './make-transfer-success-view.component';
-import { Translations } from './translations.provider';
+import {
+  MakeTransferSuccessViewComponent,
+  Translations,
+} from './make-transfer-success-view.component';
 
 describe('MakeTransferSuccessViewComponent', () => {
   let component: MakeTransferSuccessViewComponent;

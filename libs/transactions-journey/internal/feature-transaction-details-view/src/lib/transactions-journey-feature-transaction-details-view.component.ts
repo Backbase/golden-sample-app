@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Inject, Optional } from '@angular/core';
+import { Component, Inject, InjectionToken, Optional } from '@angular/core';
 import { ActivatedRoute, Params, RouterModule } from '@angular/router';
 import { Currency, TransactionItem } from '@backbase/transactions-http-ang';
 import {
@@ -14,10 +14,14 @@ import { ButtonModule } from '@backbase/ui-ang/button';
 import { AmountModule } from '@backbase/ui-ang/amount';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { CommonModule } from '@angular/common';
-import {
-  TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS,
-  Translations,
-} from './translations.provider';
+
+export const TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS =
+  new InjectionToken<Translations>(
+    'transactions_journey_transaction_details_view_translations'
+  );
+export interface Translations {
+  [key: string]: string;
+}
 
 interface TransactionDetailsView {
   transferParams: Params;

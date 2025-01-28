@@ -1,4 +1,4 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { Component, Inject, InjectionToken, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -16,10 +16,15 @@ import {
 } from '@backbase-gsa/transactions-journey/internal/data-access';
 
 import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
-import {
-  TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
-  Translations,
-} from './translations.provider';
+
+export const TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS =
+  new InjectionToken<Translations>(
+    'transactions_journey_transaction_view_translations'
+  );
+export interface Translations {
+  [key: string]: string;
+}
+
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],

@@ -1,4 +1,4 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { Component, Inject, InjectionToken, Optional } from '@angular/core';
 import { LayoutService } from '@backbase/ui-ang/layout';
 import { triplets } from './services/entitlementsTriplets';
 import { OAuthService } from 'angular-oauth2-oidc';
@@ -7,7 +7,13 @@ import {
   Tracker,
 } from '@backbase/foundation-ang/observability';
 import { environment } from '../environments/environment';
-import { APP_TRANSLATIONS, Translations } from './translations.provider';
+
+export const APP_TRANSLATIONS = new InjectionToken<Translations>(
+  'app_translations'
+);
+export interface Translations {
+  [key: string]: string;
+}
 
 @Component({
   selector: 'app-root',

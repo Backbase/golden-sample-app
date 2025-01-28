@@ -1,13 +1,18 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, InjectionToken } from '@angular/core';
 import { AsyncPipe, NgIf } from '@angular/common';
+import '@angular/localize/init';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { MakeTransferJourneyState } from '@backbase-gsa/transfer-journey/internal/data-access';
 import { ButtonModule } from '@backbase/ui-ang/button';
-import {
-  TRANSFER_JOURNEY_MAKE_TRANSFER_SUCCESS_VIEW_TRANSLATIONS,
-  Translations,
-} from './translations.provider';
+
+export const TRANSFER_JOURNEY_MAKE_TRANSFER_SUCCESS_VIEW_TRANSLATIONS =
+  new InjectionToken<Translations>(
+    'transfer_journey_make_transfer_success_view_translations'
+  );
+export interface Translations {
+  [key: string]: string;
+}
 
 @Component({
   templateUrl: 'make-transfer-success-view.component.html',

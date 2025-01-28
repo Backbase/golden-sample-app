@@ -3,9 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '@backbase/ui-ang/notification';
 import { of, throwError } from 'rxjs';
 import { AchPositivePayHttpService } from '@backbase-gsa/ach-positive-pay-journey/internal/data-access';
-import { AchPositivePayNewRuleComponent } from './ach-positive-pay-new-rule.component';
+import {
+  AchPositivePayNewRuleComponent,
+  Translations,
+} from './ach-positive-pay-new-rule.component';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
-import { Translations } from './translations.provider';
 
 describe('AchPositivePayNewRuleComponent', () => {
   let component: AchPositivePayNewRuleComponent;

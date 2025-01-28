@@ -1,6 +1,8 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { AchPositivePayJourneyComponent } from './ach-positive-pay-journey.component';
-import { Translations } from './translations.provider';
+import {
+  AchPositivePayJourneyComponent,
+  Translations,
+} from './ach-positive-pay-journey.component';
 
 describe('AchPositivePayJourneyComponent', () => {
   let component: AchPositivePayJourneyComponent;

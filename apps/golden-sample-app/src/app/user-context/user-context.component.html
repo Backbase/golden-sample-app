@@ -1,6 +1,6 @@
 <div class="container-fluid">
-  <div lcass="card">
-    <bb-select-context-widget
+  <div class="card">
+    <bb-select-context
       data-role="user-context-selector"
       class="card-body"
       [pageSize]="7"
@@ -8,6 +8,6 @@
       [showSearchAfter]="5"
       (back)="logout()"
       (selectContextSuccess)="selectContextSuccess($event)"
-    ></bb-select-context-widget>
+    ></bb-select-context>
   </div>
 </div>

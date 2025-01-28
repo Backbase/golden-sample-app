@@ -1,11 +1,13 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, InjectionToken } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PERMISSIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
 import { HeadingModule } from '@backbase/ui-ang/heading';
-import {
-  ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS,
-  Translations,
-} from './translations.provider';
+
+export const ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS =
+  new InjectionToken<Translations>('ach_positive_pay_journey_translations');
+export interface Translations {
+  [key: string]: string;
+}
 
 @Component({
   selector: 'bb-ach-positive-pay-journey',

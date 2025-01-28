@@ -5,6 +5,7 @@ import {
   Output,
   EventEmitter,
   Inject,
+  InjectionToken,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -23,10 +24,14 @@ import {
   Transfer,
 } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { ActivatedRoute } from '@angular/router';
-import {
-  TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS,
-  Translations,
-} from './translations.provider';
+
+export const TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS =
+  new InjectionToken<Translations>(
+    'transfer_journey_make_transfter_form_translations'
+  );
+export interface Translations {
+  [key: string]: string;
+}
 
 @Component({
   selector: 'bb-make-transfer-form',

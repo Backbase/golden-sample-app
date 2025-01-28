@@ -1,12 +1,24 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  InjectionToken,
+  Input,
+  Output,
+} from '@angular/core';
+import '@angular/localize/init';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from '@backbase/ui-ang/input-text';
-import {
-  TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS,
-  Translations,
-} from './translations.provider';
+
+export const TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS =
+  new InjectionToken<Translations>(
+    'transactions_journey_text_filter_translations'
+  );
+export interface Translations {
+  [key: string]: string;
+}
 
 @Component({
   selector: 'bb-text-filter',
@@ -38,7 +50,7 @@ export class TextFilterComponent {
 
   constructor(
     @Inject(TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS)
-    private overridingTranslations: Translations
+    private readonly overridingTranslations: Translations
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};

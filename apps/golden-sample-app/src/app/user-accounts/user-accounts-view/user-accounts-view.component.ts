@@ -1,4 +1,4 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { Component, Inject, InjectionToken, Optional } from '@angular/core';
 import { ArrangementsService } from '@backbase-gsa/transactions-journey';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { Tracker } from '@backbase/foundation-ang/observability';
@@ -6,10 +6,13 @@ import {
   AddToFavoritesTrackerEvent,
   RemoveFromFavoritesTrackerEvent,
 } from '../../model/tracker-events';
-import {
-  Translations,
-  USER_ACCOUNTS_TRANSLATIONS,
-} from './translations.provider';
+
+export const USER_ACCOUNTS_TRANSLATIONS = new InjectionToken<Translations>(
+  'user_accounts_translations'
+);
+export interface Translations {
+  [key: string]: string;
+}
 
 @Component({
   selector: 'app-user-accounts-view',

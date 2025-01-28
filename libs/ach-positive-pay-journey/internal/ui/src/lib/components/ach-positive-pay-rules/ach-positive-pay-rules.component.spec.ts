@@ -1,5 +1,7 @@
-import { AchPositivePayRulesComponent } from './ach-positive-pay-rules.component';
-import { Translations } from './translations.provider';
+import {
+  AchPositivePayRulesComponent,
+  Translations,
+} from './ach-positive-pay-rules.component';
 
 describe('AchPositivePayRulesComponent', () => {
   let component: AchPositivePayRulesComponent;

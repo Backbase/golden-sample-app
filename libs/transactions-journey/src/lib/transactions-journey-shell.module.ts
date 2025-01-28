@@ -10,22 +10,27 @@ import { ButtonModule } from '@backbase/ui-ang/button';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 
-import { TextFilterComponent } from '@backbase-gsa/transactions-journey/internal/ui';
+import {
+  TextFilterComponent,
+  TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS,
+} from '@backbase-gsa/transactions-journey/internal/ui';
 
 import { TRANSLATIONS } from '@backbase-gsa/transactions-journey/internal/shared-data';
 import {
   TransactionsJourneyConfiguration,
   TransactionsRouteTitleResolverService,
 } from '@backbase-gsa/transactions-journey/internal/data-access';
-import { TransactionDetailsComponent } from '@backbase-gsa/transactions-journey/internal/feature-transaction-details-view';
+import {
+  TransactionDetailsComponent,
+  TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS,
+} from '@backbase-gsa/transactions-journey/internal/feature-transaction-details-view';
 import {
   TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
   TransactionsViewComponent,
   TransactionsViewModule,
 } from '@backbase-gsa/transactions-journey/internal/feature-transaction-view';
-import { TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS } from 'libs/transactions-journey/internal/ui/src/lib/components/text-filter/translations.provider';
-import { TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS } from 'libs/transactions-journey/internal/feature-transaction-details-view/src/lib/translations.provider';
+
 const defaultRoutes: Routes = [
   {
     path: '',

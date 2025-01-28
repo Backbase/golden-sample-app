@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LayoutService } from '@backbase/ui-ang/layout';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { of } from 'rxjs';
-import { AppComponent } from './app.component';
+import { APP_TRANSLATIONS, AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 
 describe('AppComponent', () => {
@@ -27,6 +27,7 @@ describe('AppComponent', () => {
       providers: [
         { provide: LayoutService, useValue: mockLayoutService },
         { provide: OAuthService, useValue: mockOAuthService },
+        { provide: APP_TRANSLATIONS, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

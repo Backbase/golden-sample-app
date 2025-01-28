@@ -4,9 +4,13 @@ import { provideRoutes, Route, RouterModule } from '@angular/router';
 import {
   MakeTransferFormComponent,
   MakeTransferSummaryComponent,
+  TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS,
 } from '@backbase-gsa/transfer-journey/internal/ui';
 import { MakeTransferJourneyStoreGuard } from './make-transfer-journey-store-guard';
-import { TransferJourneyComponent } from './transfer-journey.component';
+import {
+  TRANSFER_JOURNEY_TRANSLATIONS,
+  TransferJourneyComponent,
+} from './transfer-journey.component';
 import {
   MakeTransferSuccessViewComponent,
   MakeTransferSummaryViewComponent,
@@ -21,8 +25,7 @@ import {
 import { TRANSLATIONS } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { AlertModule } from '@backbase/ui-ang/alert';
-import { TRANSFER_JOURNEY_TRANSLATIONS } from './translations.provider';
-import { TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS } from 'libs/transfer-journey/internal/ui/src/lib/components/make-transfer-form/translations.provider';
+import { MakeTransferFormTranslations } from '@backbase-gsa/transfer-journey/internal/ui';
 
 const defaultRoute: Route = {
   path: '',
