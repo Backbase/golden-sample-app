@@ -1,4 +1,8 @@
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -53,10 +57,10 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
 
 @NgModule({
   declarations: [AppComponent],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     BrowserAnimationsModule,
     DropdownMenuModule,
     IconModule,
@@ -136,7 +140,6 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
                   );
                 }
               });
-
               await oAuthService.loadDiscoveryDocumentAndTryLogin();
             },
         },
@@ -180,7 +183,7 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
       useClass: AppErrorHandler,
     },
     ThemeManagerService,
+    provideHttpClient(withInterceptorsFromDi()),
   ],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}
