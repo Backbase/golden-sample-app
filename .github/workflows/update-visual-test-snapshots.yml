@@ -1,0 +1,48 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and update visual test snapshots for playwright tests.
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+permissions:
+  contents: write
+  packages: write
+  id-token: write
+
+name: Update Visual Test Snapshots
+on:
+  workflow_dispatch: # Allow manual triggers
+    inputs:
+      target_branch:
+        description: "The branch to push the updated snapshots to"
+        required: true
+        type: string
+
+jobs:
+  update_snapshots:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.32.1-focal
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: Set up Node.js
+        uses: ./.github/actions/node-step
+        with:
+          npm-auth-token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Install browsers
+        run: npx playwright install --with-deps chromium firefox webkit
+        shell: bash
+
+      - name: Run update snapshots
+        run: HOME=/root npm run e2e-update-snapshots
+        
+      - name: Push Changes to target branch
+        run: |
+          git config --global --add safe.directory /__w/golden-sample-app/golden-sample-app
+          git checkout ${{ github.event.inputs.target_branch }}
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Update Playwright visual test snapshots"
+          git push origin ${{ github.event.inputs.target_branch }}

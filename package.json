@@ -24,6 +24,7 @@
     "e2e-test-sndbx-all": "nx run golden-sample-app-e2e:e2e-localhost-ebp-sndbx",
     "e2e-test-sndbx-ci": "nx run golden-sample-app-e2e:e2e-localhost-ebp-sndbx --args='test --config=playwright.localhost.config.ts --project=localhost-ebp-sndbx --grep=@identity'",
     "e2e-test-responsive": "npx playwright test --project 'mobile-chrome' --grep '@visual.+@responsive|@responsive.+@visual' --workers=2",
+    "e2e-update-snapshots": "npx playwright test --project 'mobile-chrome' --grep '@visual' --update-snapshots --workers=1",
     "lint": "nx run-many --all --target=lint",
     "format": "prettier --write \"{apps,libs}/**/*.{ts,md,html}\" \"!{apps,libs}/**/coverage\" ",
     "format:check": "prettier --list-different \"{apps,libs}/**/*.{ts,md}\" \"!{apps,libs}/**/coverage\"",
