@@ -14,6 +14,7 @@ import {
   ArrangementsService,
   TransactionsHttpService,
 } from '@backbase-gsa/transactions-journey/internal/data-access';
+import { $localize } from '@angular/localize/init';
 
 import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
 

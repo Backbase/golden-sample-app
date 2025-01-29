@@ -4,6 +4,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MakeTransferJourneyState } from '@backbase-gsa/transfer-journey/internal/data-access';
 import { ButtonModule } from '@backbase/ui-ang/button';
+import { $localize } from '@angular/localize/init';
 
 export interface Translations {
   [key: string]: string;
