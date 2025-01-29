@@ -39,4 +39,12 @@ Due to the nature of **Playwright visual not being platform-agnostic** if you wa
 
 ### Creating Visual Tests
 
-Visual tests are almost like any other playwright test. In the examples inside this repo a [visual-validator](../golden-sample-app-e2e/utils/visual-validator.ts) util has been created that contains methods for carrying out visual validation. These are accessed using fixtures in the regular playwright manner and are defined in the [test-runner](../golden-sample-app-e2e/page-objects/test-runner.ts). This should make the tests easier to maintain. An example spec with visual tests can be viewed in the [transactions.spec.ts](../golden-sample-app-e2e/specs/transactions.spec.ts).
+Visual tests are almost like any other playwright test. In the examples inside this repo a [visual-validator](../golden-sample-app-e2e/utils/visual-validator.ts) util has been created that contains methods for carrying out visual validation. These are accessed using fixtures in the regular playwright manner and are defined in the [test-runner](../golden-sample-app-e2e/page-objects/test-runner.ts). This should make the tests easier to maintain. An example spec with visual tests can be viewed in the [transactions.visual.spec.ts](../golden-sample-app-e2e/specs/transactions.visual.spec.ts).
+
+## Accessibility Tests
+
+Accessibility testing is carried out using the [axe-core/playwright](https://www.npmjs.com/package/@axe-core/playwright) npm library. This uses the standard set of [axe rules](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md) for checking a subset of accessibility criteria. Automated accessiblity tests using axe-core are not substitute for manual testing but should compliment manual testing.
+
+### Creating Accessibility Tests
+
+Accessibily tests are written in the same way as any other playwright test. The examples in this repo we use an [accessibility](../golden-sample-app-e2e/utils/a11y/a11y-expect.ts) util that extends playwright expect so that it can be used as you would other playwright assertions. An example spec with accessibily tests can be viewed in the [transactions.a11y.spec.ts](../golden-sample-app-e2e/specs/transactions.a11y.spec.ts).
