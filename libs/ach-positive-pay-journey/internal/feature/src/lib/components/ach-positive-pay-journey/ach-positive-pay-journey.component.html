@@ -5,23 +5,13 @@
   "
 >
   <bb-heading-ui
-    heading="ACH Positive Pay"
-    i18n-heading="
-      ACH positive pay title - 'ACH Positive Pay'|This string is used as the
-      title for the heading in the ACH Positive Pay journey component. It is
-      presented to the user as the main heading of the page when they are
-      viewing the ACH Positive Pay journey. This title is located at the top of
-      the ACH Positive Pay journey page.@@ach-positive-pay-journey.heading.title"
+    [heading]="translations['ach-positive-pay-journey.heading.title']"
     headingType="h1"
     headingClasses="bb-heading-widget__heading"
     customClassName="bb-heading-widget--de-elevated"
-    buttonTitle="New ACH Blocker"
-    i18n-buttonTitle="
-      New ACH Blocker - 'New ACH Blocker'|This string is used as the label for a
-      button that opens the New ACH Blocker dialog with a form. It is presented
-      to the user as a button to create a new ACH Blocker. This button is
-      located in the ACH Positive Pay journey
-      page.@@ach-positive-pay-journey.heading.new-blocker.button"
+    [attr.buttonTitle]="
+      translations['ach-positive-pay-journey.heading.new-blocker.button']
+    "
     iconClasses="add"
     buttonClasses="btn btn-primary"
     (buttonAction)="openNewBlockerModal()"
@@ -30,13 +20,7 @@
 
 <ng-template #headingWithTitleOnlyTemplate>
   <bb-heading-ui
-    heading="ACH Positive Pay"
-    i18n-heading="
-      ACH positive pay title - 'ACH Positive Pay'|This string is used as the
-      title for the heading in the ACH Positive Pay journey component. It is
-      presented to the user as the main heading of the page when they are
-      viewing the ACH Positive Pay journey. This title is located at the top of
-      the ACH Positive Pay journey page.@@ach-positive-pay-journey.heading.title"
+    [heading]="translations['ach-positive-pay-journey.heading.title']"
     headingType="h1"
     headingClasses="bb-heading-widget__heading"
     customClassName="bb-heading-widget--de-elevated"

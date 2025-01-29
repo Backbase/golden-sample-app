@@ -1,4 +1,4 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { Component, Inject, Input, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -16,6 +16,10 @@ import {
 } from '@backbase-gsa/transactions-journey/internal/data-access';
 
 import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
+
+export interface Translations {
+  [key: string]: string;
+}
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
@@ -25,6 +29,22 @@ export class TransactionsViewComponent {
   public title = this.route.snapshot.data['title'];
 
   public filter = '';
+
+  @Input() public readonly translations: Translations = {};
+
+  public readonly defaultTranslations: Translations = {
+    'transactions.filters.label': $localize`:Label for filtered by - 'filtered by:'|This string is used as the
+            label for the filter section in the transactions view. It is
+            presented to the user to indicate the criteria by which the
+            transactions are filtered. This label is located in the transactions
+            view component.@@transactions.filters.label:filtered by`,
+    'transactions.account-filter.remove': $localize`:Remove account label for Account Badge - 'Remove account
+            filter'|This string is used as the title for the remove account
+            filter button in the transactions view. It is presented to the user
+            as a tooltip when they hover over the button to remove the account
+            filter. This title is located in the transactions view
+            component.@@transactions.account-filter.remove:Remove account filter`,
+  };
 
   private readonly accountId$ = this.route.queryParamMap.pipe(
     map((params) => params.get('account'))
@@ -74,7 +94,12 @@ export class TransactionsViewComponent {
     @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE)
     private externalCommunicationService: TransactionsCommunicationService,
     @Optional() private tracker?: Tracker
-  ) {}
+  ) {
+    this.translations = {
+      ...this.defaultTranslations,
+      ...this.translations,
+    };
+  }
 
   search(ev: string) {
     this.filter = ev || '';

@@ -8,13 +8,7 @@
       <bb-header-ui
         headingClasses="modal-title"
         headingType="h2"
-        heading="New ACH Rule"
-        i18n-heading="
-          ACH positive pay title - 'New ACH Rule'|This string is used as the
-          title for the heading in the ACH Positive Pay journey component. It is
-          presented to the user as the main heading of the page when they are
-          viewing the ACH Positive Pay journey. This title is located at the top
-          of the ACH Positive Pay journey page@@ach-positive-pay.new-rule.title"
+        [heading]="translations['ach-positive-pay.new-rule.title']"
         data-role="ach-positive-pay-new-rule-title"
       >
       </bb-header-ui>
@@ -30,14 +24,7 @@
           data-role="ach-positive-pay-new-rule-alert-error"
         >
           <bb-alert-ui
-            title="Unknown error occurred. Try to submit the form again."
-            i18n-title="
-              Server Error - 'Unknown error occurred. Try to submit the form
-              again.'|This string is used as the title for an alert message that
-              is displayed when the server throws an error. It is presented to
-              the user when an unknown error occurs while submitting the form.
-              This message is located in the ACH Positive Pay new rule
-              component.@@ach-positive-pay.error.default.title"
+            [title]="translations['ach-positive-pay.error.default.title']"
             [dismissible]="true"
             (close)="hideError()"
           >
@@ -63,15 +50,9 @@
           type="submit"
           [isLoading]="loading"
           data-role="ach-positive-pay-new-rule-submit-button"
-          i18n="
-            Submit button label - 'Submit'|This string is used as the label for
-            the 'Submit' button. It is presented to the user when they are
-            submitting a new rule in the ACH Positive Pay feature. This label is
-            located within the modal footer section of the
-            layout.@@ach-positive-pay.new-rule.submit-button"
           (click)="submitRule()"
         >
-          Submit
+          {{ translations['ach-positive-pay.new-rule.submit-button'] }}
         </bb-load-button-ui>
 
         <button
@@ -80,15 +61,9 @@
           type="button"
           color="link"
           data-role="ach-positive-pay-new-rule-cancel-button"
-          i18n="
-            Cancel button label - 'Cancel'|This string is used as the label for
-            the 'Cancel' button. It is presented to the user when they want to
-            cancel the entry of a new check in the ACH Positive Pay feature.
-            This label is located within the modal footer section of the
-            layout.@@ach-positive-pay.new-rule.cancel-button"
           (click)="closeModal()"
         >
-          Cancel
+          {{ translations['ach-positive-pay.new-rule.cancel-button'] }}
         </button>
       </div>
     </ng-template>
