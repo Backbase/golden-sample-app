@@ -1,4 +1,4 @@
-name: "Setup Node Environment"
+name: 'Setup Node Environment'
 description: >
   Set up node environment and install NPM dependencies.
   Node modules and Angular cache are cached, and installation is skipped if retrieved.
@@ -8,22 +8,22 @@ inputs:
       Path relative to the repository root, in which commands should be executed.
       Default value is `.` (root folder).
     required: false
-    default: "."
+    default: '.'
   npm-auth-token:
-    description: ""
+    description: ''
     required: true
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: 20
-        cache: "npm"
-        registry-url: "https://repo.backbase.com/api/npm/npm-backbase/"
-        scope: "@backbase"
-        cache-dependency-path: "**/package-lock.json"
+        cache: 'npm'
+        registry-url: 'https://repo.backbase.com/api/npm/npm-backbase/'
+        scope: '@backbase'
+        cache-dependency-path: '**/package-lock.json'
 
     ##
     # Install NPM dependencies
@@ -31,7 +31,7 @@ runs:
     ##
     - name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true'
-      run: npm ci --ignore-scripts --force
+      run: npm ci --ignore-scripts
       shell: bash
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm-auth-token }}
