@@ -52,7 +52,7 @@ export interface Translations {
 })
 export class TransactionDetailsComponent {
   public readonly title = this.route.snapshot.data['title'];
-  @Input() public readonly translations: Translations = {};
+  @Input() public translations: Translations = {};
 
   public readonly defaultTranslations: Translations = {
     'transactions.details.recepient': $localize`:Recepient label for Transaction Details - 'Recepient'|This
@@ -114,6 +114,12 @@ export class TransactionDetailsComponent {
     private api: TransactionsHttpService,
     @Optional() private tracker?: Tracker
   ) {
+    this.route.data.subscribe((data) => {
+      if (data['translation']) {
+        this.translations = data['translation'];
+      }
+    });
+
     this.translations = {
       ...this.defaultTranslations,
       ...this.translations,

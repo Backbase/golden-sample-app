@@ -31,7 +31,7 @@ export class TransactionsViewComponent {
 
   public filter = '';
 
-  @Input() public readonly translations: Translations = {};
+  @Input() public translations: Translations = {};
 
   public readonly defaultTranslations: Translations = {
     'transactions.filters.label': $localize`:Label for filtered by - 'filtered by:'|This string is used as the
@@ -96,6 +96,12 @@ export class TransactionsViewComponent {
     private externalCommunicationService: TransactionsCommunicationService,
     @Optional() private tracker?: Tracker
   ) {
+    this.route.data.subscribe((data) => {
+      if (data['translation']) {
+        this.translations = data['translation'];
+      }
+    });
+
     this.translations = {
       ...this.defaultTranslations,
       ...this.translations,

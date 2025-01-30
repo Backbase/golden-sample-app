@@ -30,6 +30,7 @@ const defaultRoutes: Routes = [
     component: TransactionsViewComponent,
     data: {
       title: TRANSLATIONS.transactionsTitle,
+      translation: TRANSLATIONS, // this is just to show on how translations can be overridden
     },
     resolve: {
       title: TransactionsRouteTitleResolverService,
@@ -40,6 +41,7 @@ const defaultRoutes: Routes = [
     component: TransactionDetailsComponent,
     data: {
       title: TRANSLATIONS.transactionDetailsTitle,
+      translation: TRANSLATIONS, // this is just to show on how translations can be overridden
     },
     resolve: {
       title: TransactionsRouteTitleResolverService,
