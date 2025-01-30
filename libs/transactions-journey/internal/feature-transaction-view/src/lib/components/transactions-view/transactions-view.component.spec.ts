@@ -20,12 +20,10 @@ import {
   TransactionsHttpService,
   ArrangementsService,
 } from '@backbase-gsa/transactions-journey/internal/data-access';
-import {
-  TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
-  TransactionsViewComponent,
-} from './transactions-view.component';
+import { TransactionsViewComponent } from './transactions-view.component';
 import { By } from '@angular/platform-browser';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
+import { TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS } from '../../../translations-catalog';
 
 @Component({
   selector: 'bb-text-filter-component',

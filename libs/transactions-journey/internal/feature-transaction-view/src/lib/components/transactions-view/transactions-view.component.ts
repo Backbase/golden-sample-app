@@ -1,4 +1,4 @@
-import { Component, Inject, InjectionToken, Optional } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -16,21 +16,17 @@ import {
 } from '@backbase-gsa/transactions-journey/internal/data-access';
 
 import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
-
-export const TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS =
-  new InjectionToken<Translations>(
-    'transactions_journey_transaction_view_translations'
-  );
-export interface Translations {
-  'transactions.filters.label'?: string;
-  'transactions.account-filter.remove'?: string;
-  [key: string]: string | undefined;
-}
+import {
+  TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
+  transactionsJourneyTransactionViewTranslations,
+  TransactionsJourneyTransactionViewTranslations,
+} from '../../../translations-catalog';
 
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
   selector: 'bb-transactions-view',
+  standalone: false,
 })
 export class TransactionsViewComponent {
   public title = this.route.snapshot.data['title'];
@@ -76,21 +72,9 @@ export class TransactionsViewComponent {
     map((params) => params.get('search') ?? '')
   );
 
-  public readonly translations: Translations = {
-    'transactions.filters.label':
-      $localize`:Label for filtered by - 'filtered by:'|This string is used as the
-            label for the filter section in the transactions view. It is
-            presented to the user to indicate the criteria by which the
-            transactions are filtered. This label is located in the transactions
-            view component.@@transactions.filters.label:filtered by`,
-    'transactions.account-filter.remove':
-      $localize`:Remove account label for Account Badge - 'Remove account
-            filter'|This string is used as the title for the remove account
-            filter button in the transactions view. It is presented to the user
-            as a tooltip when they hover over the button to remove the account
-            filter. This title is located in the transactions view
-            component.@@transactions.account-filter.remove:Remove account filter`,
-  };
+  private readonly defaultTranslations: TransactionsJourneyTransactionViewTranslations =
+    transactionsJourneyTransactionViewTranslations;
+  public readonly translations: TransactionsJourneyTransactionViewTranslations;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -98,15 +82,18 @@ export class TransactionsViewComponent {
     private readonly transactionsService: TransactionsHttpService,
     private readonly arrangementsService: ArrangementsService,
     @Inject(TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS)
-    private overridingTranslations: { [key: string]: string } = {},
+    private readonly overridingTranslations: { [key: string]: string } = {},
     @Optional()
     @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE)
-    private externalCommunicationService: TransactionsCommunicationService,
-    @Optional() private tracker?: Tracker
+    private readonly externalCommunicationService: TransactionsCommunicationService,
+    @Optional() private readonly tracker?: Tracker
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
-    this.translations = { ...this.translations, ...this.overridingTranslations };
+    this.translations = {
+      ...this.defaultTranslations,
+      ...this.overridingTranslations,
+    };
   }
 
   search(ev: string) {

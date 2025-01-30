@@ -5,7 +5,6 @@ import {
   Output,
   EventEmitter,
   Inject,
-  InjectionToken,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -24,21 +23,11 @@ import {
   Transfer,
 } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { ActivatedRoute } from '@angular/router';
-
-export const TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS =
-  new InjectionToken<Translations>(
-    'transfer_journey_make_transfter_form_translations'
-  );
-export interface Translations {
-  'transfer.form.fromAccount.label'?: string;
-  'transfer.form.toAccount.label'?: string;
-  'transfer.form.toAccount.placeholder'?: string;
-  'transfer.form.toAccount.error.required'?: string;
-  'transfer.form.amount.label'?: string;
-  'transfer.form.amount.error.required'?: string;
-  'transfer.form.submit.text'?: string;
-  [key: string]: string | undefined;
-}
+import {
+  TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS,
+  transferJourneyMakeTransferFormTranslations,
+  TransferJourneyMakeTransferFormTranslations,
+} from '../../../translations-catalog';
 
 @Component({
   selector: 'bb-make-transfer-form',
@@ -62,50 +51,23 @@ export class MakeTransferFormComponent implements OnInit {
   makeTransferForm!: FormGroup;
   currencies = ['USD', 'EUR'];
 
-  public readonly translations: Translations = {
-    'transfer.form.fromAccount.label':
-      $localize`:From account label - 'From account'|This string is used as the label for the
-        'From Account' field in the transfer form. It is presented to the user when
-        they need to specify the source account for the transfter. This label is
-        located in the transfer form layout@@transfer.form.fromAccount.label:From account`,
-    'transfer.form.toAccount.label':
-      $localize`:To account label - 'To Account'|This string is used as the label for
-          the 'To Account' field in the transfer form. It is presented to the
-          user when they need to specify the destination account for the
-          transfer. This label is located in the transfer form
-          layout.@@transfer.form.toAccount.label:To account`,
-    'transfer.form.toAccount.placeholder':
-      $localize`:From account placeholder - 'type an account name'|This string is used
-          as the placeholder for the 'From Account' field in the transfer form.
-          It is presented to the user when they need to type the name of the
-          account from which the transfer will be made. This placeholder is
-          located in the transfer form
-          layout.@@transfer.form.toAccount.placeholder:type an account name`,
-    'transfer.form.toAccount.error.required':
-      $localize`:To account required error message - 'Required field'|This string
-              is used as the error message for the 'To Account' field in the
-              transfer form when the field is required but not filled. It is
-              presented to the user when they need to fill in the 'To Account'
-              field. This error message is located in the transfer form
-              layout.@@transfer.form.toAccount.error.required:Required field`,
-    'transfer.form.amount.label':
-      $localize`:Amount label - 'Amount'|This string is used as the label for the
-      'Amount' field in the transfer form. It is presented to the user when
-      they need to specify the amount to be transferred. This label is
-      located in the transfer form layout@@transfer.form.amount.label:Amount`,
-    'transfer.form.amount.error.required':
-      $localize`:Amount required error - 'Required field'|This string
-              is used as the error message for the 'Amount' field in the
-              transfer form when the field is required but not filled. It is
-              presented to the user when they need to fill in the 'Amount'
-              field. This error message is located in the transfer form
-              layout.@@transfer.form.amount.error.required:Required field`,
-    'transfer.form.submit.text':
-      $localize`:Submit button label - 'Submit'|This string is used as the label for the
-      'Submit' button in the transfer form. It is presented to the user as the button to be
-      pressed when the data in form is ready to make a transfer. This label is
-      located in the transfer form layout@@transfer.form.submit.text:Submit`,
-  };
+  private readonly defaultTranslations: TransferJourneyMakeTransferFormTranslations =
+    transferJourneyMakeTransferFormTranslations;
+  public readonly translations: TransferJourneyMakeTransferFormTranslations;
+
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly route: ActivatedRoute,
+    @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS)
+    private readonly overridingTranslations: TransferJourneyMakeTransferFormTranslations
+  ) {
+    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    this.overridingTranslations = this.overridingTranslations || {};
+    this.translations = {
+      ...this.defaultTranslations,
+      ...this.overridingTranslations,
+    };
+  }
 
   private getControl(field: string): AbstractControl | undefined {
     return this.makeTransferForm.controls[field];
@@ -150,17 +112,6 @@ export class MakeTransferFormComponent implements OnInit {
     const control = this.getControl(field);
 
     return !!control && control.touched && control.invalid;
-  }
-
-  constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS)
-    private overridingTranslations: Translations
-  ) {
-    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
-    this.overridingTranslations = this.overridingTranslations || {};
-    this.translations = { ...this.translations, ...this.overridingTranslations };
   }
 
   ngOnInit(): void {

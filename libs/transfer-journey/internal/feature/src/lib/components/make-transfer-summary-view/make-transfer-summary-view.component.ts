@@ -17,7 +17,7 @@ import { MakeTransferSummaryComponent } from '@backbase-gsa/transfer-journey/int
 export class MakeTransferSummaryViewComponent implements OnDestroy {
   vm$ = this.transferStore.vm$;
 
-  private successfulOperation = this.transferStore.vm$
+  private readonly successfulOperation = this.transferStore.vm$
     .pipe(
       filter(
         ({ transferState }) =>
@@ -51,7 +51,7 @@ export class MakeTransferSummaryViewComponent implements OnDestroy {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     @Optional()
-    private externalCommunicationService: MakeTransferCommunicationService
+    private readonly externalCommunicationService: MakeTransferCommunicationService
   ) {}
 
   ngOnDestroy(): void {

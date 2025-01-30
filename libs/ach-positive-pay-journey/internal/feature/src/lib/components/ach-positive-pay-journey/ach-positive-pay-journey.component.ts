@@ -2,14 +2,11 @@ import { Component, Inject, InjectionToken } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PERMISSIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
 import { HeadingModule } from '@backbase/ui-ang/heading';
-
-export const ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS =
-  new InjectionToken<Translations>('ach_positive_pay_journey_translations');
-export interface Translations {
-  'ach-positive-pay-journey.heading.title'?: string;
-  'ach-positive-pay-journey.heading.new-blocker.button'?: string;
-  [key: string]: string | undefined;
-}
+import {
+  ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS,
+  achPositivePayJourneyTranslations,
+  AchPositivePayJourneyTranslations,
+} from '../../../translations-catalog';
 
 @Component({
   selector: 'bb-ach-positive-pay-journey',
@@ -20,30 +17,22 @@ export interface Translations {
 export class AchPositivePayJourneyComponent {
   permissions = PERMISSIONS;
 
-  public readonly translations: Translations = {
-    'ach-positive-pay-journey.heading.title':
-      $localize`:ACH positive pay title - 'ACH Positive Pay'|This string is used as the
-      title for the heading in the ACH Positive Pay journey component. It is
-      presented to the user as the main heading of the page when they are
-      viewing the ACH Positive Pay journey. This title is located at the top of
-      the ACH Positive Pay journey page.@@ach-positive-pay-journey.heading.title:ACH Positive Pay`,
-    'ach-positive-pay-journey.heading.new-blocker.button':
-      $localize`:New ACH Blocker - 'New ACH Blocker'|This string is used as the label for a
-      button that opens the New ACH Blocker dialog with a form. It is presented
-      to the user as a button to create a new ACH Blocker. This button is
-      located in the ACH Positive Pay journey
-      page.@@ach-positive-pay-journey.heading.new-blocker.button:New ACH Blocker`,
-  };
+  private readonly defaultTranslations: AchPositivePayJourneyTranslations =
+    achPositivePayJourneyTranslations;
+  public readonly translations: AchPositivePayJourneyTranslations;
 
   constructor(
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     @Inject(ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS)
-    private overridingTranslations: Translations
+    private readonly overridingTranslations: AchPositivePayJourneyTranslations
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
-    this.translations = { ...this.translations, ...this.overridingTranslations };
+    this.translations = {
+      ...this.defaultTranslations,
+      ...this.overridingTranslations,
+    };
   }
 
   openNewBlockerModal() {

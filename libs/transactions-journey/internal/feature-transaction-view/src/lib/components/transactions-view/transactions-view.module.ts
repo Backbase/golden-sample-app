@@ -11,11 +11,9 @@ import { TextFilterComponent } from '@backbase-gsa/transactions-journey/internal
 import { FilterTransactionsPipe } from '@backbase-gsa/transactions-journey/internal/util';
 
 import { TransactionItemComponent } from '../transaction-item/transaction-item.component';
-import {
-  TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
-  TransactionsViewComponent,
-} from './transactions-view.component';
+import { TransactionsViewComponent } from './transactions-view.component';
 import { AmountModule } from '@backbase/ui-ang/amount';
+import { TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS } from '../../../translations-catalog';
 
 @NgModule({
   declarations: [TransactionsViewComponent],

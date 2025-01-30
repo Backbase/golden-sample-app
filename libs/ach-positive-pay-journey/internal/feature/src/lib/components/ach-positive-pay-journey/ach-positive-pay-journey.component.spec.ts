@@ -1,8 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  AchPositivePayJourneyComponent,
-  Translations,
-} from './ach-positive-pay-journey.component';
+import { AchPositivePayJourneyComponent } from './ach-positive-pay-journey.component';
+import { AchPositivePayJourneyTranslations } from '../../../translations-catalog';
 
 describe('AchPositivePayJourneyComponent', () => {
   let component: AchPositivePayJourneyComponent;
@@ -15,7 +13,7 @@ describe('AchPositivePayJourneyComponent', () => {
     component = new AchPositivePayJourneyComponent(
       mockRouter as Router,
       mockActivatedRoute,
-      {} as Translations
+      {} as AchPositivePayJourneyTranslations
     );
   });
 

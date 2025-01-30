@@ -1,13 +1,10 @@
-import { Component, Inject, InjectionToken } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { EmptyStateModule } from '@backbase/ui-ang/empty-state';
-
-export const ACH_POSITIVE_PAY_RULES_TRANSLATIONS =
-  new InjectionToken<Translations>('ach_positive_pay_rules_translations');
-export interface Translations {
-  'ach-positive-pay.view-rules.empty-state.title'?: string;
-  'ach-positive-pay.view-rules.empty-state.subtitle'?: string;
-  [key: string]: string | undefined;
-}
+import {
+  ACH_POSITIVE_PAY_RULES_TRANSLATIONS,
+  AchPositivePayRulesTranslations,
+  achPositivePayRulesTranslations,
+} from '../../../translations-catalog';
 
 @Component({
   selector: 'bb-ach-positive-pay-rules',
@@ -16,25 +13,18 @@ export interface Translations {
   standalone: true,
 })
 export class AchPositivePayRulesComponent {
-  public readonly translations: Translations = {
-    'ach-positive-pay.view-rules.empty-state.title':
-      $localize`:ACH rules list empty state title - 'No rules'|This string is used as the
-      title for the empty state of the ACH rules list. It is presented to the
-      user when there are no ACH rules to display. This title is located in the
-      ACH rules list view.@@ach-positive-pay.view-rules.empty-state.title:No rules`,
-    'ach-positive-pay.view-rules.empty-state.subtitle':
-      $localize`:ACH rules list empty state subtitle - 'You don't have any ACH rules to be
-      displayed.'|This string is used as the subtitle for the empty state of the
-      ACH rules list. It is presented to the user when there are no ACH rules to
-      display. This subtitle is located in the ACH rules list
-      view.@@ach-positive-pay.view-rules.empty-state.subtitle:You don't have any ACH rules to be displayed.`,
-  };
+  private readonly defaultTranslations: AchPositivePayRulesTranslations =
+    achPositivePayRulesTranslations;
+  public readonly translations: AchPositivePayRulesTranslations;
   constructor(
     @Inject(ACH_POSITIVE_PAY_RULES_TRANSLATIONS)
-    private overridingTranslations: Translations
+    private readonly overridingTranslations: AchPositivePayRulesTranslations
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
-    this.translations = { ...this.translations, ...this.overridingTranslations };
+    this.translations = {
+      ...this.defaultTranslations,
+      ...this.overridingTranslations,
+    };
   }
 }

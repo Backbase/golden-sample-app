@@ -20,7 +20,15 @@ describe('MakeTransferFormComponent', () => {
     route = TestBed.inject(ActivatedRoute);
   });
   beforeEach(() => {
-    component = new MakeTransferFormComponent(formBuilder, route, {});
+    component = new MakeTransferFormComponent(formBuilder, route, {
+      'transfer.form.fromAccount.label': '',
+      'transfer.form.toAccount.label': '',
+      'transfer.form.toAccount.placeholder': '',
+      'transfer.form.toAccount.error.required': '',
+      'transfer.form.amount.label': '',
+      'transfer.form.amount.error.required': '',
+      'transfer.form.submit.text': '',
+    });
   });
 
   it('should create', () => {

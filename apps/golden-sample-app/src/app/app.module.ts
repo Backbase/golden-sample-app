@@ -41,7 +41,7 @@ import {
 import { CookieService } from 'ngx-cookie-service';
 import { authConfig, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import { APP_TRANSLATIONS, AppComponent } from './app.component';
+import { AppComponent } from './app.component';
 import { AppErrorHandler } from './app.error-handler';
 import { AuthEventsHandlerService } from './auth/auth-events-handler/auth-events-handler.service';
 import { AnalyticsService } from './services/analytics.service';
@@ -54,6 +54,7 @@ import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
 import packageInfo from 'package-json';
 import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
 import { ThemeManagerService } from './theme-switcher/theme-service';
+import { APP_TRANSLATIONS } from './translations-catalog';
 
 @NgModule({
   declarations: [AppComponent],
@@ -94,7 +95,7 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
     ActivityMonitorModule,
   ],
   providers: [
-    ...(environment.mockProviders || []),
+    ...(environment.mockProviders ?? []),
     { provide: AuthConfig, useValue: authConfig },
     {
       provide: HTTP_INTERCEPTORS,

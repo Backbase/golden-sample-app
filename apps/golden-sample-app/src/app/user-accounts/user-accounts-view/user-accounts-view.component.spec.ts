@@ -2,10 +2,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { ArrangementsService } from '@backbase-gsa/transactions-journey';
-import {
-  USER_ACCOUNTS_TRANSLATIONS,
-  UserAccountsViewComponent,
-} from './user-accounts-view.component';
+import { UserAccountsViewComponent } from './user-accounts-view.component';
+import { USER_ACCOUNTS_TRANSLATIONS } from '../translations-catalog';
 describe('UserAccountsViewComponent', () => {
   let fixture: ComponentFixture<UserAccountsViewComponent>;
 

@@ -1,13 +1,13 @@
 import '@angular/localize/init';
-import {
-  MakeTransferSummaryComponent,
-  Translations,
-} from './make-transfer-summary.component';
+import { MakeTransferSummaryComponent } from './make-transfer-summary.component';
+import { TransferJourneyMakeTransferSummaryTranslations } from '../../../translations-catalog';
 
 describe('MakeTransferSummaryComponent', () => {
   let component: MakeTransferSummaryComponent;
   beforeEach(() => {
-    component = new MakeTransferSummaryComponent({} as Translations);
+    component = new MakeTransferSummaryComponent(
+      {} as TransferJourneyMakeTransferSummaryTranslations
+    );
   });
 
   it('should create', () => {

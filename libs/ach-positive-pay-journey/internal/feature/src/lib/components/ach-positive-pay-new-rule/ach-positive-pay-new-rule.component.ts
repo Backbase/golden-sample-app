@@ -13,16 +13,11 @@ import { AlertModule } from '@backbase/ui-ang/alert';
 import { AchPositivePayRuleFormComponent } from '@backbase-gsa/ach-positive-pay-journey/internal/ui';
 import { LoadButtonModule } from '@backbase/ui-ang/load-button';
 import { CommonModule } from '@angular/common';
-
-export const ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS =
-  new InjectionToken<Translations>('ach_positive_pay_new_rule_translations');
-export interface Translations {
-  'ach-positive-pay.new-rule.title'?: string;
-  'ach-positive-pay.error.default.title'?: string;
-  'ach-positive-pay.new-rule.submit-button'?: string;
-  'ach-positive-pay.new-rule.cancel-button'?: string;
-  [key: string]: string | undefined;
-}
+import {
+  ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS,
+  achPositivePayNewRuleTranslations,
+  AchPositivePayNewRuleTranslations,
+} from '../../../translations-catalog';
 
 @Component({
   selector: 'bb-ach-positive-pay-new-rule',
@@ -40,33 +35,9 @@ export interface Translations {
 export class AchPositivePayNewRuleComponent implements OnInit {
   loading = false;
 
-  public readonly translations: Translations = {
-    'ach-positive-pay.new-rule.title':
-      $localize`:ACH positive pay title - 'New ACH Rule'|This string is used as the
-          title for the heading in the ACH Positive Pay journey component. It is
-          presented to the user as the main heading of the page when they are
-          viewing the ACH Positive Pay journey. This title is located at the top
-          of the ACH Positive Pay journey page@@ach-positive-pay.new-rule.title:New ACH Rule`,
-    'ach-positive-pay.error.default.title':
-      $localize`:Server Error - 'Unknown error occurred. Try to submit the form
-              again.'|This string is used as the title for an alert message that
-              is displayed when the server throws an error. It is presented to
-              the user when an unknown error occurs while submitting the form.
-              This message is located in the ACH Positive Pay new rule
-              component.@@ach-positive-pay.error.default.title:Unknown error occurred. Try to submit the form again.`,
-    'ach-positive-pay.new-rule.submit-button':
-      $localize`:Submit button label - 'Submit'|This string is used as the label for
-            the 'Submit' button. It is presented to the user when they are
-            submitting a new rule in the ACH Positive Pay feature. This label is
-            located within the modal footer section of the
-            layout.@@ach-positive-pay.new-rule.submit-button:Submit`,
-    'ach-positive-pay.new-rule.cancel-button':
-      $localize`:Cancel button label - 'Cancel'|This string is used as the label for
-            the 'Cancel' button. It is presented to the user when they want to
-            cancel the entry of a new check in the ACH Positive Pay feature.
-            This label is located within the modal footer section of the
-            layout.@@ach-positive-pay.new-rule.cancel-button:Cancel`,
-  };
+  private readonly defaultTranslations: AchPositivePayNewRuleTranslations =
+    achPositivePayNewRuleTranslations;
+  public readonly translations: AchPositivePayNewRuleTranslations;
 
   modalOptions: NgbModalOptions = {
     backdrop: 'static',
@@ -90,11 +61,14 @@ export class AchPositivePayNewRuleComponent implements OnInit {
     private readonly achPositivePayService: AchPositivePayHttpService,
     private readonly notificationService: NotificationService,
     @Inject(ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS)
-    private overridingTranslations: Translations
+    private overridingTranslations: AchPositivePayNewRuleTranslations
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
-    this.translations = { ...this.translations, ...this.overridingTranslations };
+    this.translations = {
+      ...this.defaultTranslations,
+      ...this.overridingTranslations,
+    };
   }
 
   ngOnInit(): void {

@@ -1,11 +1,14 @@
 import '@angular/localize/init';
-import { TextFilterComponent, Translations } from './text-filter.component';
+import { TextFilterComponent } from './text-filter.component';
+import { TransactionsJourneyTextFilterTranslations } from '../../../translations-catalog';
 
 describe('TextFilterComponent', () => {
   let component: TextFilterComponent;
 
   beforeEach(() => {
-    component = new TextFilterComponent({} as Translations);
+    component = new TextFilterComponent(
+      {} as TransactionsJourneyTextFilterTranslations
+    );
   });
 
   it('should create', () => {

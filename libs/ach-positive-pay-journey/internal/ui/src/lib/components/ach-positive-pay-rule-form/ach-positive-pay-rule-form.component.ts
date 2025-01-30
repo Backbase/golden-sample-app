@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Inject,
-  InjectionToken,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import '@angular/localize/init';
 import { AccountSelectorModule } from '@backbase/ui-ang/account-selector';
@@ -14,18 +7,11 @@ import { InputTextModule } from '@backbase/ui-ang/input-text';
 
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
-
-export const ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS =
-  new InjectionToken<Translations>('ach_positive_pay_rule_form_translations');
-export interface Translations {
-  'ach-positive-pay-journey.new-blocker-rule.checking-account'?: string;
-  'ach-positive-pay-journey.new-blocker-rule.account-selector-placeholder'?: string;
-  'ach-positive-pay-journey.new-blocker-rule.payment-type.label'?: string;
-  'ach-positive-pay-journey.new-blocker-rule.company-id.label'?: string;
-  'ach-positive-pay-journey.new-blocker-rule.company-name.label'?: string;
-  'ach-positive-pay-journey.new-blocker-rule.company-name.placeholder'?: string;
-  [key: string]: string | undefined;
-}
+import {
+  ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS,
+  achPositivePayRuleFormTranslations,
+  AchPositivePayRuleFormTranslations,
+} from '../../../translations-catalog';
 
 @Component({
   selector: 'bb-ach-positive-pay-rule-form',
@@ -46,58 +32,20 @@ export class AchPositivePayRuleFormComponent {
   @Output() selectAccountId: EventEmitter<ProductSummaryItem> =
     new EventEmitter<ProductSummaryItem>();
 
-  public readonly translations: Translations = {
-    'ach-positive-pay-journey.new-blocker-rule.checking-account':
-      $localize`:Checking Account label - 'Checking Account'|This string is used as the
-        label for the Checking Account selector field in the ACH Positive Pay
-        rule form. It is presented to the user when they need to select a
-        checking account for the ACH Positive Pay rule. This label is located in
-        the ACH Positive Pay rule form
-        layout.@@ach-positive-pay-journey.new-blocker-rule.checking-account:Checking Account`,
-    'ach-positive-pay-journey.new-blocker-rule.account-selector-placeholder':
-      $localize`:Select account placeholder - 'Select an account'|This string is used as
-        the placeholder text for the Account Selector field in the ACH Positive
-        Pay rule form. It is presented to the user when they need to select an
-        account for the ACH Positive Pay rule. This placeholder is located in
-        the ACH Positive Pay rule form
-        layout.@@ach-positive-pay-journey.new-blocker-rule.account-selector-placeholder:Select an account`,
-    'ach-positive-pay-journey.new-blocker-rule.payment-type.label':
-      $localize`:Payment type label - 'Payment type'|This string is used as the label
-          for the blocker rule's payment type field in the ACH Positive Pay rule
-          form. It is presented to the user when they need to select the payment
-          type for the ACH Positive Pay rule. This label is located in the ACH
-          Positive Pay rule form
-          layout.@@ach-positive-pay-journey.new-blocker-rule.payment-type.label:Payment Type`,
-    'ach-positive-pay-journey.new-blocker-rule.company-id.label':
-      $localize`:Company ID label - 'Company ID'|This string is used as the label for
-          the blocker rule's company ID field in the ACH Positive Pay rule form.
-          It is presented to the user when they need to enter the company ID for
-          the ACH Positive Pay rule. This label is located in the ACH Positive
-          Pay rule form
-          layout.@@ach-positive-pay-journey.new-blocker-rule.company-id.label:Company ID`,
-    'ach-positive-pay-journey.new-blocker-rule.company-name.label':
-      $localize`:Company name label- 'Company name'|This string is used as the label
-          for the blocker rule's company name field in the ACH Positive Pay rule
-          form. It is presented to the user when they need to enter the company
-          name for the ACH Positive Pay rule. This label is located in the ACH
-          Positive Pay rule form
-          layout.@@ach-positive-pay-journey.new-blocker-rule.company-name.label:Company Name`,
-    'ach-positive-pay-journey.new-blocker-rule.company-name.placeholder':
-      $localize`:Enter company name placeholder - 'Enter company name'|This string is
-        used as the placeholder for the company name input field in the ACH
-        Positive Pay rule form. It is presented to the user when they need to
-        enter the company name for the ACH Positive Pay rule. This placeholder
-        is located in the ACH Positive Pay rule form
-        layout.@@ach-positive-pay-journey.new-blocker-rule.company-name.placeholder:Enter company name`,
-  };
+  private readonly defaultTranslations: AchPositivePayRuleFormTranslations =
+    achPositivePayRuleFormTranslations;
+  public readonly translations: AchPositivePayRuleFormTranslations;
 
   constructor(
     @Inject(ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS)
-    private overridingTranslations: Translations
+    private readonly overridingTranslations: AchPositivePayRuleFormTranslations
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
-    this.translations = { ...this.translations, ...this.overridingTranslations };
+    this.translations = {
+      ...this.defaultTranslations,
+      ...this.overridingTranslations,
+    };
   }
 
   readonly paymentTypes = [

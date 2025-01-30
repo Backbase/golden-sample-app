@@ -4,8 +4,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LayoutService } from '@backbase/ui-ang/layout';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { of } from 'rxjs';
-import { APP_TRANSLATIONS, AppComponent } from './app.component';
+import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
+import { APP_TRANSLATIONS } from './translations-catalog';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;

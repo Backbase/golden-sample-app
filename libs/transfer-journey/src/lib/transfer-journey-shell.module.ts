@@ -7,10 +7,7 @@ import {
   TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS,
 } from '@backbase-gsa/transfer-journey/internal/ui';
 import { MakeTransferJourneyStoreGuard } from './make-transfer-journey-store-guard';
-import {
-  TRANSFER_JOURNEY_TRANSLATIONS,
-  TransferJourneyComponent,
-} from './transfer-journey.component';
+import { TransferJourneyComponent } from './transfer-journey.component';
 import {
   MakeTransferSuccessViewComponent,
   MakeTransferSummaryViewComponent,
@@ -25,6 +22,7 @@ import {
 import { TRANSLATIONS } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { AlertModule } from '@backbase/ui-ang/alert';
+import { TRANSFER_JOURNEY_TRANSLATIONS } from '../translations-catalog';
 
 const defaultRoute: Route = {
   path: '',
