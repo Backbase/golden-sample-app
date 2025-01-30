@@ -13,7 +13,7 @@
   <nav class="bb-layout__topbar">
     <!-- Skip to content -->
     <button
-      [attr.aria-label]="translations['move-focus-to-beginning-of-content']"
+      [ariaLabel]="translations['move-focus-to-beginning-of-content'] + 'pepe'"
       class="bb-layout__skip-to-content"
       (click)="focusMainContainer($event)"
     >
@@ -23,8 +23,8 @@
     <!-- Hamburger -->
     <button
       class="bb-layout__nav-expand-marker"
-      [attr.aria-label]="translations['bb-layout.sidebar_toggler']"
-      [attr.aria-expanded]="layoutService.navigationExpanded$ | async"
+      [ariaLabel]="translations['bb-layout.sidebar_toggler']"
+      [ariaExpanded]="layoutService.navigationExpanded$ | async"
       (click)="layoutService.toggleNav()"
     >
       <span class="bb-icon"></span>

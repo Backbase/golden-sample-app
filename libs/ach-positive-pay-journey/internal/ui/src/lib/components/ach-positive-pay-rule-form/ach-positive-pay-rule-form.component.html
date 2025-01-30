@@ -15,7 +15,7 @@
     <bb-account-selector-ui
       id="ach-blocker-rule-checking-account-selector"
       dropdownPosition="bottom"
-      [attr.placeholder]="
+      [placeholder]="
         translations[
           'ach-positive-pay-journey.new-blocker-rule.account-selector-placeholder'
         ]
@@ -35,7 +35,7 @@
     >
       <bb-dropdown-single-select-ui
         id="ach-blocker-rule-payment-types"
-        [attr.label]="
+        [label]="
           translations[
             'ach-positive-pay-journey.new-blocker-rule.payment-type.label'
           ]
@@ -56,7 +56,7 @@
       <bb-input-text-ui
         id="ach-blocker-rule-company-id"
         formControlName="companyId"
-        [attr.label]="
+        [label]="
           translations[
             'ach-positive-pay-journey.new-blocker-rule.company-id.label'
           ]
@@ -80,9 +80,9 @@
 
     <bb-input-text-ui
       id="ach-blocker-rule-company-name"
-      aria-labelledby="ach-blocker-rule-company-name-label"
+      [attr.aria-labelledby]="'ach-blocker-rule-company-name-label'"
       formControlName="companyName"
-      [attr.placeholder]="
+      [placeholder]="
         translations[
           'ach-positive-pay-journey.new-blocker-rule.company-name.placeholder'
         ]
