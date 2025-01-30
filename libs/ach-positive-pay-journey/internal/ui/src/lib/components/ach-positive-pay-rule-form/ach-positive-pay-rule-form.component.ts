@@ -42,9 +42,6 @@ export class AchPositivePayRuleFormComponent {
 
   public readonly translations: Translations = {
     'ach-positive-pay-journey.new-blocker-rule.checking-account':
-      this.overridingTranslations[
-        'ach-positive-pay-journey.new-blocker-rule.checking-account'
-      ] ||
       $localize`:Checking Account label - 'Checking Account'|This string is used as the
         label for the Checking Account selector field in the ACH Positive Pay
         rule form. It is presented to the user when they need to select a
@@ -52,9 +49,6 @@ export class AchPositivePayRuleFormComponent {
         the ACH Positive Pay rule form
         layout.@@ach-positive-pay-journey.new-blocker-rule.checking-account:Checking Account`,
     'ach-positive-pay-journey.new-blocker-rule.account-selector-placeholder':
-      this.overridingTranslations[
-        'ach-positive-pay-journey.new-blocker-rule.account-selector-placeholder'
-      ] ||
       $localize`:Select account placeholder - 'Select an account'|This string is used as
         the placeholder text for the Account Selector field in the ACH Positive
         Pay rule form. It is presented to the user when they need to select an
@@ -62,9 +56,6 @@ export class AchPositivePayRuleFormComponent {
         the ACH Positive Pay rule form
         layout.@@ach-positive-pay-journey.new-blocker-rule.account-selector-placeholder:Select an account`,
     'ach-positive-pay-journey.new-blocker-rule.payment-type.label':
-      this.overridingTranslations[
-        'ach-positive-pay-journey.new-blocker-rule.payment-type.label'
-      ] ||
       $localize`:Payment type label - 'Payment type'|This string is used as the label
           for the blocker rule's payment type field in the ACH Positive Pay rule
           form. It is presented to the user when they need to select the payment
@@ -72,9 +63,6 @@ export class AchPositivePayRuleFormComponent {
           Positive Pay rule form
           layout.@@ach-positive-pay-journey.new-blocker-rule.payment-type.label:Payment Type`,
     'ach-positive-pay-journey.new-blocker-rule.company-id.label':
-      this.overridingTranslations[
-        'ach-positive-pay-journey.new-blocker-rule.company-id.label'
-      ] ||
       $localize`:Company ID label - 'Company ID'|This string is used as the label for
           the blocker rule's company ID field in the ACH Positive Pay rule form.
           It is presented to the user when they need to enter the company ID for
@@ -82,9 +70,6 @@ export class AchPositivePayRuleFormComponent {
           Pay rule form
           layout.@@ach-positive-pay-journey.new-blocker-rule.company-id.label:Company ID`,
     'ach-positive-pay-journey.new-blocker-rule.company-name.label':
-      this.overridingTranslations[
-        'ach-positive-pay-journey.new-blocker-rule.company-name.label'
-      ] ||
       $localize`:Company name label- 'Company name'|This string is used as the label
           for the blocker rule's company name field in the ACH Positive Pay rule
           form. It is presented to the user when they need to enter the company
@@ -92,9 +77,6 @@ export class AchPositivePayRuleFormComponent {
           Positive Pay rule form
           layout.@@ach-positive-pay-journey.new-blocker-rule.company-name.label:Company Name`,
     'ach-positive-pay-journey.new-blocker-rule.company-name.placeholder':
-      this.overridingTranslations[
-        'ach-positive-pay-journey.new-blocker-rule.company-name.placeholder'
-      ] ||
       $localize`:Enter company name placeholder - 'Enter company name'|This string is
         used as the placeholder for the company name input field in the ACH
         Positive Pay rule form. It is presented to the user when they need to
@@ -109,6 +91,7 @@ export class AchPositivePayRuleFormComponent {
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
+    this.translations = { ...this.translations, ...this.overridingTranslations };
   }
 
   readonly paymentTypes = [

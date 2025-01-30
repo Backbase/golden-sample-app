@@ -33,14 +33,12 @@ export class TextFilterComponent {
 
   public readonly translations: Translations = {
     'transaction.form.filter.aria-label':
-      this.overridingTranslations['transaction.form.filter.aria-label'] ||
       $localize`:Filter transaction aria label - 'filter transactions'|This string is used as
     the aria-label for the filter transactions input field. It is presented to
     the user as an accessibility feature to describe the purpose of the input
     field. This aria-label is located in the text filter
     component.@@transaction.form.filter.aria-label:filter transactions`,
     'transaction.form.filter.placeholder':
-      this.overridingTranslations['transaction.form.filter.placeholder'] ||
       $localize`:Filter transaction placeholder - 'filter transactions by type'|This string
     is used as the placeholder text for the filter transactions input field. It
     is presented to the user to indicate that they can filter transactions by
@@ -54,5 +52,6 @@ export class TextFilterComponent {
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
+    this.translations = { ...this.translations, ...this.overridingTranslations };
   }
 }

@@ -17,7 +17,6 @@ export interface Translations {
 export class TransferJourneyComponent {
   public readonly translations: Translations = {
     'transfer.repeat.title':
-      this.overridingTranslations['transfer.repeat.title'] ||
       $localize`:Title for Repeat Transfer Alert - 'Transfer Alert'|This string is used as the title 
       for the Repeat Transfer Alert. It is presented to the user when they are alerted about a repeat 
       transfer. This title is located in the transfer journey component.@@transfer.repeat.title:Transfer Alert`,
@@ -36,5 +35,6 @@ export class TransferJourneyComponent {
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
+    this.translations = { ...this.translations, ...this.overridingTranslations };
   }
 }

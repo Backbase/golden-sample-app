@@ -20,16 +20,12 @@ export class AchPositivePayJourneyComponent {
 
   public readonly translations: Translations = {
     'ach-positive-pay-journey.heading.title':
-      this.overridingTranslations['ach-positive-pay-journey.heading.title'] ||
       $localize`:ACH positive pay title - 'ACH Positive Pay'|This string is used as the
       title for the heading in the ACH Positive Pay journey component. It is
       presented to the user as the main heading of the page when they are
       viewing the ACH Positive Pay journey. This title is located at the top of
       the ACH Positive Pay journey page.@@ach-positive-pay-journey.heading.title:ACH Positive Pay`,
     'ach-positive-pay-journey.heading.new-blocker.button':
-      this.overridingTranslations[
-        'ach-positive-pay-journey.heading.new-blocker.button'
-      ] ||
       $localize`:New ACH Blocker - 'New ACH Blocker'|This string is used as the label for a
       button that opens the New ACH Blocker dialog with a form. It is presented
       to the user as a button to create a new ACH Blocker. This button is
@@ -45,6 +41,7 @@ export class AchPositivePayJourneyComponent {
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
+    this.translations = { ...this.translations, ...this.overridingTranslations };
   }
 
   openNewBlockerModal() {

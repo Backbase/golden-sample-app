@@ -76,14 +76,12 @@ export class TransactionsViewComponent {
 
   public readonly translations: Translations = {
     'transactions.filters.label':
-      this.overridingTranslations['transactions.details.recepient'] ||
       $localize`:Label for filtered by - 'filtered by:'|This string is used as the
             label for the filter section in the transactions view. It is
             presented to the user to indicate the criteria by which the
             transactions are filtered. This label is located in the transactions
             view component.@@transactions.filters.label:filtered by`,
     'transactions.account-filter.remove':
-      this.overridingTranslations['transactions.account-filter.remove'] ||
       $localize`:Remove account label for Account Badge - 'Remove account
             filter'|This string is used as the title for the remove account
             filter button in the transactions view. It is presented to the user
@@ -103,7 +101,11 @@ export class TransactionsViewComponent {
     @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE)
     private externalCommunicationService: TransactionsCommunicationService,
     @Optional() private tracker?: Tracker
-  ) {}
+  ) {
+    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    this.overridingTranslations = this.overridingTranslations || {};
+    this.translations = { ...this.translations, ...this.overridingTranslations };
+  }
 
   search(ev: string) {
     this.filter = ev || '';

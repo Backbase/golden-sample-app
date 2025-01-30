@@ -28,7 +28,6 @@ export class MakeTransferSuccessViewComponent {
 
   public readonly translations: Translations = {
     'transfer.success.close.text':
-      this.overridingTranslations['transfer.success.close.text'] ||
       $localize`:Close button label - 'Close'|This string is used as the label for the
       close button in the transfer success view. It is presented to the user
       when they want to close the success message after making a transfer. This
@@ -45,5 +44,6 @@ export class MakeTransferSuccessViewComponent {
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
+    this.translations = { ...this.translations, ...this.overridingTranslations };
   }
 }
