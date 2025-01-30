@@ -7,7 +7,7 @@ import { ThemeManagerService } from './theme-service';
   standalone: false,
 })
 export class ThemeSwitcherComponent {
-  constructor(private themeManagerService: ThemeManagerService) {}
+  constructor(private readonly themeManagerService: ThemeManagerService) {}
 
   @Input() theme = ThemeManagerService.THEMES[0];
 

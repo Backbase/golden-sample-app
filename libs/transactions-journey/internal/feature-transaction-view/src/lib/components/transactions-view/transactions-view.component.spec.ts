@@ -28,6 +28,7 @@ import { TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS } from '../../../tra
 @Component({
   selector: 'bb-text-filter-component',
   template: '',
+  standalone: true,
 })
 class MockTextFilterComponent {}
 describe('TransactionsViewComponent', () => {

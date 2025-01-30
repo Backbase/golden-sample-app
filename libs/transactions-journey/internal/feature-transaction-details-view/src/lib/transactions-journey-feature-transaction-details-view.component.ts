@@ -15,6 +15,7 @@ import { AmountModule } from '@backbase/ui-ang/amount';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { CommonModule } from '@angular/common';
 import {
+  getStatusTextFromErrorMessage,
   TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS,
   transactionsJourneyTransactionDetailsViewTranslations,
   TransactionsJourneyTransactionDetailsViewTranslations,
@@ -96,7 +97,7 @@ export class TransactionDetailsComponent {
     if (!transaction) {
       throw new HttpErrorResponse({
         status: 404,
-        statusText: $localize`:Transaction Not Found Status Text - 'Transaction \${id} not found'|This string is used as the status text for an HTTP error response when a transaction with the specified ID is not found. It is presented to the user when they attempt to view a transaction that does not exist. This status text is located in the transaction details view component.@@transactions-journey.transaction-not-found-status-text:Transaction ${id} not found`,
+        statusText: getStatusTextFromErrorMessage(id),
       });
     }
 
@@ -114,13 +115,13 @@ export class TransactionDetailsComponent {
         type: `${transaction.type} - ${transaction.typeGroup}`,
         recepient:
           transaction.counterPartyName ??
-          $localize`:Unknown Recipient - 'Unknown'|This string is used as a placeholder for the recipient field in the transaction details view when the recipient's name is not available. It is presented to the user when they view the details of a transaction that does not have a recipient's name. This placeholder is located in the transaction details view component.@@transactions-journey.unknown-recipient:Unknown`,
+          this.translations['transactions-journey.unknown-recipient'],
         status:
           transaction.billingStatus ??
-          $localize`:Unknown Status - 'UNKNOWN'|This string is used as a placeholder for the status field in the transaction details view when the transaction's billing status is not available. It is presented to the user when they view the details of a transaction that does not have a billing status. This placeholder is located in the transaction details view component.@@transactions-journey.unknown-status:UNKNOWN`,
+          this.translations['transactions-journey.unknown-status'],
         category:
           transaction.category ??
-          $localize`:Uncategorized Category - 'Uncategorized'|This string is used as a placeholder for the category field in the transaction details view when the transaction's category is not available. It is presented to the user when they view the details of a transaction that does not have a category. This placeholder is located in the transaction details view component.@@transactions-journey.uncategorized-category:Uncategorized`,
+          this.translations['transactions-journey.uncategorized-category'],
         amount: transaction.transactionAmountCurrency,
         date: new Date(transaction.bookingDate),
         description: transaction.description,

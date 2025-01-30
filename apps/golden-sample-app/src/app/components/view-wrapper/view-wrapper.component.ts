@@ -10,5 +10,5 @@ export class ViewWrapperComponent {
   @Input()
   title = this.route.snapshot.data['title'];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private readonly route: ActivatedRoute) {}
 }
