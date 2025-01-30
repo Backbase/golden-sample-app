@@ -22,7 +22,9 @@ export const TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS =
     'transactions_journey_transaction_view_translations'
   );
 export interface Translations {
-  [key: string]: string;
+  'transactions.filters.label'?: string;
+  'transactions.account-filter.remove'?: string;
+  [key: string]: string | undefined;
 }
 
 @Component({

@@ -12,7 +12,20 @@ export const APP_TRANSLATIONS = new InjectionToken<Translations>(
   'app_translations'
 );
 export interface Translations {
-  [key: string]: string;
+  'move-focus-to-beginning-of-content'?: string;
+  'skip-to-content': string;
+  'bb-layout.sidebar_toggler': string;
+  'main.transfer.link.text': string;
+  'main.transactions.link.text': string;
+  'main.positive-pay.link.text': string;
+  'main.ach-positive-pay.link.text': string;
+  'main.make-a-payment.link.text': string;
+  'main.entitlements-test-no-grouping.text': string;
+  'main.entitlements-test-grouping.text': string;
+  'main.entitlements-test-nested-groups.text': string;
+  'main.entitlements-test-using-not-operators-on-groups.text': string;
+  'main.entitlements-test-using-multiple-not-operators-on-groups.text': string;
+  [key: string]: string | undefined;
 }
 
 @Component({

@@ -17,7 +17,9 @@ export const TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS =
     'transactions_journey_text_filter_translations'
   );
 export interface Translations {
-  [key: string]: string;
+  'transaction.form.filter.aria-label'?: string;
+  'transaction.form.filter.placeholder'?: string;
+  [key: string]: string | undefined;
 }
 
 @Component({

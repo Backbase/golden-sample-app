@@ -20,7 +20,13 @@ export const TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS =
     'transactions_journey_transaction_details_view_translations'
   );
 export interface Translations {
-  [key: string]: string;
+  'transactions.details.recepient'?: string;
+  'transactions.details.date'?: string;
+  'transactions.details.amount'?: string;
+  'transactions.details.category'?: string;
+  'transactions.details.description'?: string;
+  'transactions.details.status'?: string;
+  [key: string]: string | undefined;
 }
 
 interface TransactionDetailsView {

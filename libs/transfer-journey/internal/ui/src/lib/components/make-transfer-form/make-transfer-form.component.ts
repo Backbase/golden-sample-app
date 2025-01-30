@@ -30,7 +30,14 @@ export const TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS =
     'transfer_journey_make_transfter_form_translations'
   );
 export interface Translations {
-  [key: string]: string;
+  'transfer.form.fromAccount.label'?: string;
+  'transfer.form.toAccount.label'?: string;
+  'transfer.form.toAccount.placeholder'?: string;
+  'transfer.form.toAccount.error.required'?: string;
+  'transfer.form.amount.label'?: string;
+  'transfer.form.amount.error.required'?: string;
+  'transfer.form.submit.text'?: string;
+  [key: string]: string | undefined;
 }
 
 @Component({

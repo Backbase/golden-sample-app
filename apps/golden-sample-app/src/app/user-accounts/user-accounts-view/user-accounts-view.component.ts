@@ -11,7 +11,12 @@ export const USER_ACCOUNTS_TRANSLATIONS = new InjectionToken<Translations>(
   'user_accounts_translations'
 );
 export interface Translations {
-  [key: string]: string;
+  'app.userAccountsView.header'?: string;
+  'app.userAccountsView.balanceLabel'?: string;
+  'user-accounts.view-transactions'?: string;
+  'user-accounts.add-favorites'?: string;
+  'user-accounts.remove-favorites'?: string;
+  [key: string]: string | undefined;
 }
 
 @Component({

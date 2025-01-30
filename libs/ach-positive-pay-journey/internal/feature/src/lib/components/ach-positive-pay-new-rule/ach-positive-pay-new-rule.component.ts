@@ -17,7 +17,11 @@ import { CommonModule } from '@angular/common';
 export const ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS =
   new InjectionToken<Translations>('ach_positive_pay_new_rule_translations');
 export interface Translations {
-  [key: string]: string;
+  'ach-positive-pay.new-rule.title'?: string;
+  'ach-positive-pay.error.default.title'?: string;
+  'ach-positive-pay.new-rule.submit-button'?: string;
+  'ach-positive-pay.new-rule.cancel-button'?: string;
+  [key: string]: string | undefined;
 }
 
 @Component({

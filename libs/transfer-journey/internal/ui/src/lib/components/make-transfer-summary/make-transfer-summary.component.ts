@@ -14,7 +14,12 @@ export const TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS =
     'transfer_journey_make_transfer_summary_translations'
   );
 export interface Translations {
-  [key: string]: string;
+  'transfer.summary.heading.label'?: string;
+  'transfer.summary.account.description.label'?: string;
+  'transfer.summary.amount.description.label'?: string;
+  'transfer.summary.submit.text'?: string;
+  'transfer.summary.close.text'?: string;
+  [key: string]: string | undefined;
 }
 
 @Component({

@@ -4,7 +4,9 @@ import { EmptyStateModule } from '@backbase/ui-ang/empty-state';
 export const ACH_POSITIVE_PAY_RULES_TRANSLATIONS =
   new InjectionToken<Translations>('ach_positive_pay_rules_translations');
 export interface Translations {
-  [key: string]: string;
+  'ach-positive-pay.view-rules.empty-state.title'?: string;
+  'ach-positive-pay.view-rules.empty-state.subtitle'?: string;
+  [key: string]: string | undefined;
 }
 
 @Component({

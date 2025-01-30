@@ -18,7 +18,13 @@ import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase-gsa/ach-positive-pay-jo
 export const ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS =
   new InjectionToken<Translations>('ach_positive_pay_rule_form_translations');
 export interface Translations {
-  [key: string]: string;
+  'ach-positive-pay-journey.new-blocker-rule.checking-account'?: string;
+  'ach-positive-pay-journey.new-blocker-rule.account-selector-placeholder'?: string;
+  'ach-positive-pay-journey.new-blocker-rule.payment-type.label'?: string;
+  'ach-positive-pay-journey.new-blocker-rule.company-id.label'?: string;
+  'ach-positive-pay-journey.new-blocker-rule.company-name.label'?: string;
+  'ach-positive-pay-journey.new-blocker-rule.company-name.placeholder'?: string;
+  [key: string]: string | undefined;
 }
 
 @Component({

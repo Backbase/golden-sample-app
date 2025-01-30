@@ -6,7 +6,9 @@ import { HeadingModule } from '@backbase/ui-ang/heading';
 export const ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS =
   new InjectionToken<Translations>('ach_positive_pay_journey_translations');
 export interface Translations {
-  [key: string]: string;
+  'ach-positive-pay-journey.heading.title'?: string;
+  'ach-positive-pay-journey.heading.new-blocker.button'?: string;
+  [key: string]: string | undefined;
 }
 
 @Component({
