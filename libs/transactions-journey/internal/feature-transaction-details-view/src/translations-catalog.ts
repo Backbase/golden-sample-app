@@ -76,6 +76,6 @@ export const transactionsJourneyTransactionDetailsViewTranslations: Transactions
               component.@@transactions-journey.uncategorized-category:Uncategorized`,
   };
 
-  export const getStatusTextFromErrorMessage = (id: string) => {
-    return $localize`:Transaction Not Found Status Text - 'Transaction \${id} not found'|This string is used as the status text for an HTTP error response when a transaction with the specified ID is not found. It is presented to the user when they attempt to view a transaction that does not exist. This status text is located in the transaction details view component.@@transactions-journey.transaction-not-found-status-text:Transaction ${id} not found`;
-  };
+export const getStatusTextFromErrorMessage = (id: string) => {
+  return $localize`:Transaction Not Found Status Text - 'Transaction \${id} not found'|This string is used as the status text for an HTTP error response when a transaction with the specified ID is not found. It is presented to the user when they attempt to view a transaction that does not exist. This status text is located in the transaction details view component.@@transactions-journey.transaction-not-found-status-text:Transaction ${id} not found`;
+};

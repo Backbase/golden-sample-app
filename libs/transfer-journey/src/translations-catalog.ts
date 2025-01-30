@@ -13,3 +13,5 @@ export const transferJourneyTranslations: TransferJourneyTranslations = {
       for the Repeat Transfer Alert. It is presented to the user when they are alerted about a repeat 
       transfer. This title is located in the transfer journey component.@@transfer.repeat.title:Transfer Alert`,
 };
+export const getTransferRepeatMessage = (accountName: string) =>
+  $localize`:A message for Repeat Transfer Alert@@transfer.repeat.message:Making Repeated Transfer for ${accountName}`;

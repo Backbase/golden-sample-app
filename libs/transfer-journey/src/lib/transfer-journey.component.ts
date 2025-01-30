@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MakeTransferJourneyState } from '@backbase-gsa/transfer-journey/internal/data-access';
 import { ActivatedRoute } from '@angular/router';
 import {
+  getTransferRepeatMessage,
   TRANSFER_JOURNEY_TRANSLATIONS,
   transferJourneyTranslations,
   TransferJourneyTranslations,
@@ -22,7 +23,7 @@ export class TransferJourneyComponent {
 
   public accountName: string = this.route.snapshot.params['accountName'];
 
-  public repeatMessage = $localize`:A message for Repeat Transfer Alert@@transfer.repeat.message:Making Repeated Transfer for ${this.accountName}`;
+  public repeatMessage = getTransferRepeatMessage(this.accountName);
 
   constructor(
     private readonly route: ActivatedRoute,
