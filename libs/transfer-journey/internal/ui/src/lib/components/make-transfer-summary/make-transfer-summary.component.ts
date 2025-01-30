@@ -11,7 +11,6 @@ import {
   selector: 'bb-make-transfer-summary',
   templateUrl: 'make-transfer-summary.component.html',
   imports: [ButtonModule],
-  standalone: true,
   providers: [
     {
       provide: TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS,
@@ -23,6 +22,7 @@ import {
       },
     },
   ],
+  standalone: true,
 })
 export class MakeTransferSummaryComponent {
   @Input() transfer: Transfer | undefined;

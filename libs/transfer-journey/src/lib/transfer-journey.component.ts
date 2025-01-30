@@ -11,6 +11,7 @@ import {
   selector: 'bb-transfer-journey',
   templateUrl: 'transfer-journey.component.html',
   providers: [MakeTransferJourneyState],
+  standalone: false,
 })
 export class TransferJourneyComponent {
   private readonly defaultTranslations: TransferJourneyTranslations =

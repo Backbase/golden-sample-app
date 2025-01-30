@@ -10,7 +10,7 @@ import {
 
 import {
   TransactionsCommunicationService,
-  TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+  TRANSACTIONS_JOURNEY_COMMUNICATION_SERVICE,
   ArrangementsService,
   TransactionsHttpService,
 } from '@backbase-gsa/transactions-journey/internal/data-access';
@@ -84,7 +84,7 @@ export class TransactionsViewComponent {
     @Inject(TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS)
     private readonly overridingTranslations: { [key: string]: string } = {},
     @Optional()
-    @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE)
+    @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERVICE)
     private readonly externalCommunicationService: TransactionsCommunicationService,
     @Optional() private readonly tracker?: Tracker
   ) {
