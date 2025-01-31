@@ -1,4 +1,4 @@
-import { Component, Inject, InjectionToken, Optional } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';
 import { ArrangementsService } from '@backbase-gsa/transactions-journey';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { Tracker } from '@backbase/foundation-ang/observability';
@@ -27,14 +27,18 @@ export class UserAccountsViewComponent {
   constructor(
     private readonly arrangementsService: ArrangementsService,
     @Inject(USER_ACCOUNTS_TRANSLATIONS)
-    private readonly overridingTranslations: UserAccountsTranslations,
+    private readonly overridingTranslations: Partial<UserAccountsTranslations>,
     @Optional() private readonly tracker?: Tracker
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,
-      ...this.overridingTranslations,
+      ...Object.fromEntries(
+        Object.entries(this.overridingTranslations).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
+      ),
     };
   }
 

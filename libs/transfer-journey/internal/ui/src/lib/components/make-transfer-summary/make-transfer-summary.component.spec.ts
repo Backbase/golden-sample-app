@@ -6,7 +6,7 @@ describe('MakeTransferSummaryComponent', () => {
   let component: MakeTransferSummaryComponent;
   beforeEach(() => {
     component = new MakeTransferSummaryComponent(
-      {} as TransferJourneyMakeTransferSummaryTranslations
+      {} as Partial<TransferJourneyMakeTransferSummaryTranslations>
     );
   });
 

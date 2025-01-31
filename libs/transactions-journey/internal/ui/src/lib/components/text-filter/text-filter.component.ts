@@ -27,13 +27,17 @@ export class TextFilterComponent {
 
   constructor(
     @Inject(TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS)
-    private readonly overridingTranslations: TransactionsJourneyTextFilterTranslations
+    private readonly overridingTranslations: Partial<TransactionsJourneyTextFilterTranslations>
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,
-      ...this.overridingTranslations,
+      ...Object.fromEntries(
+        Object.entries(this.overridingTranslations).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
+      ),
     };
   }
 }

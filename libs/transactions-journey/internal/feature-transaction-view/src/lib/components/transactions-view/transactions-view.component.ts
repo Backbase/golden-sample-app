@@ -82,7 +82,7 @@ export class TransactionsViewComponent {
     private readonly transactionsService: TransactionsHttpService,
     private readonly arrangementsService: ArrangementsService,
     @Inject(TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS)
-    private readonly overridingTranslations: { [key: string]: string } = {},
+    private readonly overridingTranslations: Partial<TransactionsJourneyTransactionViewTranslations> = {},
     @Optional()
     @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERVICE)
     private readonly externalCommunicationService: TransactionsCommunicationService,
@@ -92,7 +92,11 @@ export class TransactionsViewComponent {
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,
-      ...this.overridingTranslations,
+      ...Object.fromEntries(
+        Object.entries(this.overridingTranslations).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
+      ),
     };
   }
 

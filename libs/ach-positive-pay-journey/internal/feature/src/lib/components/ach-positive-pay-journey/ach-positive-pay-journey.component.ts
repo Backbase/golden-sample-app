@@ -25,13 +25,17 @@ export class AchPositivePayJourneyComponent {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     @Inject(ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS)
-    private readonly overridingTranslations: AchPositivePayJourneyTranslations
+    private readonly overridingTranslations: Partial<AchPositivePayJourneyTranslations>
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,
-      ...this.overridingTranslations,
+      ...Object.fromEntries(
+        Object.entries(this.overridingTranslations).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
+      ),
     };
   }
 

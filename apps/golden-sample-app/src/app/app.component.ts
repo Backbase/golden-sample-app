@@ -29,16 +29,21 @@ export class AppComponent {
     private readonly oAuthService: OAuthService,
     public layoutService: LayoutService,
     @Inject(APP_TRANSLATIONS)
-    private readonly overridingTranslations: AppTranslations,
+    private readonly overridingTranslations: Partial<AppTranslations>,
     @Optional() private readonly tracker?: Tracker
   ) {
     this.isAuthenticated =
       environment.mockEnabled ?? oAuthService.hasValidAccessToken();
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
+    
     this.translations = {
       ...this.defaultTranslations,
-      ...this.overridingTranslations,
+      ...Object.fromEntries(
+        Object.entries(this.overridingTranslations).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
+      ),
     };
   }
 

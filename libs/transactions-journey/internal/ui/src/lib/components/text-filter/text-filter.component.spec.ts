@@ -7,7 +7,7 @@ describe('TextFilterComponent', () => {
 
   beforeEach(() => {
     component = new TextFilterComponent(
-      {} as TransactionsJourneyTextFilterTranslations
+      {} as Partial<TransactionsJourneyTextFilterTranslations>
     );
   });
 

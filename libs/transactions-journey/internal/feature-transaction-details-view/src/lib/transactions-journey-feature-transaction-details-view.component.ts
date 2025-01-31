@@ -69,7 +69,7 @@ export class TransactionDetailsComponent {
     })
   );
 
-  private readonly defaultTransactions: TransactionsJourneyTransactionDetailsViewTranslations =
+  private readonly defaultTranslations: TransactionsJourneyTransactionDetailsViewTranslations =
     transactionsJourneyTransactionDetailsViewTranslations;
   public readonly translations: TransactionsJourneyTransactionDetailsViewTranslations;
 
@@ -77,14 +77,18 @@ export class TransactionDetailsComponent {
     public route: ActivatedRoute,
     private readonly api: TransactionsHttpService,
     @Inject(TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS)
-    private readonly overridingTranslations: TransactionsJourneyTransactionDetailsViewTranslations,
+    private readonly overridingTranslations: Partial<TransactionsJourneyTransactionDetailsViewTranslations>,
     @Optional() private readonly tracker?: Tracker
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
-      ...this.defaultTransactions,
-      ...this.overridingTranslations,
+      ...this.defaultTranslations,
+      ...Object.fromEntries(
+        Object.entries(this.overridingTranslations).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
+      ),
     };
   }
 

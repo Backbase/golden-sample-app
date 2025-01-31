@@ -6,7 +6,7 @@ describe('AchPositivePayRulesComponent', () => {
 
   beforeEach(async () => {
     component = new AchPositivePayRulesComponent(
-      {} as AchPositivePayRulesTranslations
+      {} as Partial<AchPositivePayRulesTranslations>
     );
   });
 

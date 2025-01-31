@@ -35,7 +35,7 @@ describe('AchPositivePayNewRuleComponent', () => {
       mockFormBuilder as FormBuilder,
       mockAchPositivePayService as AchPositivePayHttpService,
       mockNotificationService as NotificationService,
-      {} as AchPositivePayNewRuleTranslations
+      {} as Partial<AchPositivePayNewRuleTranslations>
     );
   };
   beforeEach(() => {

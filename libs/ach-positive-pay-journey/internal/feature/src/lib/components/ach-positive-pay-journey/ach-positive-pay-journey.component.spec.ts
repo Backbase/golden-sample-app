@@ -13,7 +13,7 @@ describe('AchPositivePayJourneyComponent', () => {
     component = new AchPositivePayJourneyComponent(
       mockRouter as Router,
       mockActivatedRoute,
-      {} as AchPositivePayJourneyTranslations
+      {} as Partial<AchPositivePayJourneyTranslations>
     );
   });
 

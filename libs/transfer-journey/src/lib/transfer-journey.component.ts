@@ -28,13 +28,17 @@ export class TransferJourneyComponent {
   constructor(
     private readonly route: ActivatedRoute,
     @Inject(TRANSFER_JOURNEY_TRANSLATIONS)
-    private readonly overridingTranslations: TransferJourneyTranslations
+    private readonly overridingTranslations: Partial<TransferJourneyTranslations>
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,
-      ...this.overridingTranslations,
+      ...Object.fromEntries(
+        Object.entries(this.overridingTranslations).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
+      ),
     };
   }
 }

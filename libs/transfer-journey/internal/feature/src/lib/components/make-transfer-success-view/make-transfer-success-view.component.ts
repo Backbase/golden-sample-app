@@ -28,13 +28,17 @@ export class MakeTransferSuccessViewComponent {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_SUCCESS_VIEW_TRANSLATIONS)
-    private readonly overridingTranslations: TransferJourneyMakeTransferSuccessViewTranslations
+    private readonly overridingTranslations: Partial<TransferJourneyMakeTransferSuccessViewTranslations>
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,
-      ...this.overridingTranslations,
+      ...Object.fromEntries(
+        Object.entries(this.overridingTranslations).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
+      ),
     };
   }
 

@@ -1,10 +1,10 @@
 import { InjectionToken } from '@angular/core';
 
-export const APP_TRANSLATIONS = new InjectionToken<AppTranslations>(
+export const APP_TRANSLATIONS = new InjectionToken<Partial<AppTranslations>>(
   'app_translations'
 );
 export interface AppTranslations {
-  'move-focus-to-beginning-of-content'?: string;
+  'move-focus-to-beginning-of-content': string;
   'skip-to-content': string;
   'bb-layout.sidebar_toggler': string;
   'main.transfer.link.text': string;
@@ -17,7 +17,7 @@ export interface AppTranslations {
   'main.entitlements-test-nested-groups.text': string;
   'main.entitlements-test-using-not-operators-on-groups.text': string;
   'main.entitlements-test-using-multiple-not-operators-on-groups.text': string;
-  [key: string]: string | undefined;
+  [key: string]: string;
 }
 
 export const appTranslations: AppTranslations = {

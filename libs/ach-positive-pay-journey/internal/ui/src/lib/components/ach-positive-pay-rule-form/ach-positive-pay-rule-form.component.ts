@@ -38,13 +38,17 @@ export class AchPositivePayRuleFormComponent {
 
   constructor(
     @Inject(ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS)
-    private readonly overridingTranslations: AchPositivePayRuleFormTranslations
+    private readonly overridingTranslations: Partial<AchPositivePayRuleFormTranslations>
   ) {
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,
-      ...this.overridingTranslations,
+      ...Object.fromEntries(
+        Object.entries(this.overridingTranslations).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
+      ),
     };
   }
 
