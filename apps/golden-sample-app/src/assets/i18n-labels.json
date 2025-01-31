@@ -1,0 +1,114 @@
+[
+  {
+    "tag": "<button bbButton class=\"bb-button-bar__button\" color=\"secondary\" (click)=\"close()\" i18n=\"Close button label - 'Close'|This string is used as the label for the close button in the transfer success view. It is presented to the user when they want to close the success message after making a transfer. This label is located in the transfer success view component.@@transfer.success.close.text\">Close</button>",
+    "lineNumber": 12,
+    "fileName": "libs/transfer-journey/internal/feature/src/lib/components/make-transfer-success-view/make-transfer-success-view.component.html",
+    "label": "Close",
+    "meaning": "Close button label - 'Close'",
+    "description": "This string is used as the label for the close button in the transfer success view. It is presented to the user when they want to close the success message after making a transfer. This label is located in the transfer success view component.",
+    "id": "transfer.success.close.text",
+    "isValid": false
+  },
+  {
+    "tag": "<label i18n=\"from account label@@transfer.form.fromAccount.label\" class=\"form-label\">From account</label>",
+    "lineNumber": 5,
+    "fileName": "libs/transfer-journey/internal/ui/src/lib/components/make-transfer-form/make-transfer-form.component.html",
+    "label": "From account",
+    "id": "transfer.form.fromAccount.label",
+    "isValid": false
+  },
+  {
+    "tag": "<label i18n=\"To account label - 'To Account'|This string is used as the label for the 'To Account' field in the transfer form. It is presented to the user when they need to specify the destination account for the transfer. This label is located in the transfer form layout.@@transfer.form.toAccount.label\" class=\"form-label\">To Account</label>",
+    "lineNumber": 13,
+    "fileName": "libs/transfer-journey/internal/ui/src/lib/components/make-transfer-form/make-transfer-form.component.html",
+    "label": "To Account",
+    "meaning": "To account label - 'To Account'",
+    "description": "This string is used as the label for the 'To Account' field in the transfer form. It is presented to the user when they need to specify the destination account for the transfer. This label is located in the transfer form layout.",
+    "id": "transfer.form.toAccount.label",
+    "isValid": true
+  },
+  {
+    "tag": "<input type=\"text\" class=\"form-control\" formControlName=\"toAccount\" placeholder=\"type an account name\" i18n-placeholder=\"From account placeholder - 'type an account name'|This string is used as the placeholder for the 'From Account' field in the transfer form. It is presented to the user when they need to type the name of the account from which the transfer will be made. This placeholder is located in the transfer form layout.@@transfer.form.toAccount.placeholder\"/>",
+    "lineNumber": 27,
+    "fileName": "libs/transfer-journey/internal/ui/src/lib/components/make-transfer-form/make-transfer-form.component.html",
+    "label": "type an account name",
+    "meaning": "From account placeholder - 'type an account name'",
+    "description": "This string is used as the placeholder for the 'From Account' field in the transfer form. It is presented to the user when they need to type the name of the account from which the transfer will be made. This placeholder is located in the transfer form layout.",
+    "id": "transfer.form.toAccount.placeholder",
+    "isValid": true
+  },
+  {
+    "tag": "<span i18n=\"To account required error message - 'Required field'|This string is used as the error message for the 'To Account' field in the transfer form when the field is required but not filled. It is presented to the user when they need to fill in the 'To Account' field. This error message is located in the transfer form layout.@@transfer.form.toAccount.error.required\" *ngIf=\"getError('toAccount', 'required')\">Required field</span>",
+    "lineNumber": 40,
+    "fileName": "libs/transfer-journey/internal/ui/src/lib/components/make-transfer-form/make-transfer-form.component.html",
+    "label": "Required field",
+    "meaning": "To account required error message - 'Required field'",
+    "description": "This string is used as the error message for the 'To Account' field in the transfer form when the field is required but not filled. It is presented to the user when they need to fill in the 'To Account' field. This error message is located in the transfer form layout.",
+    "id": "transfer.form.toAccount.error.required",
+    "isValid": true
+  },
+  {
+    "tag": "<label i18n=\"amount label@@transfer.form.amount.label\" class=\"form-label\">Amount</label>",
+    "lineNumber": 56,
+    "fileName": "libs/transfer-journey/internal/ui/src/lib/components/make-transfer-form/make-transfer-form.component.html",
+    "label": "Amount",
+    "id": "transfer.form.amount.label",
+    "isValid": false
+  },
+  {
+    "tag": "<span *ngIf=\"getError('amount', 'required')\" i18n=\"amount required error@@transfer.form.amount.error.required\">Required field</span>",
+    "lineNumber": 69,
+    "fileName": "libs/transfer-journey/internal/ui/src/lib/components/make-transfer-form/make-transfer-form.component.html",
+    "label": "Required field",
+    "id": "transfer.form.amount.error.required",
+    "isValid": false
+  },
+  {
+    "tag": "<button bbButton type=\"submit\" i18n=\"submit button@@transfer.form.submit.text\">Submit</button>",
+    "lineNumber": 87,
+    "fileName": "libs/transfer-journey/internal/ui/src/lib/components/make-transfer-form/make-transfer-form.component.html",
+    "label": "Submit",
+    "id": "transfer.form.submit.text",
+    "isValid": false
+  },
+  {
+    "tag": "<span i18n=\"Label for filtered by - 'filtered by:'|This string is used as the label for the filter section in the transactions view. It is presented to the user to indicate the criteria by which the transactions are filtered. This label is located in the transactions view component.@@transactions.filters.label\">filtered by:</span>",
+    "lineNumber": 26,
+    "fileName": "libs/transactions-journey/internal/feature-transaction-view/src/lib/components/transactions-view/transactions-view.component.html",
+    "label": "filtered by:",
+    "meaning": "Label for filtered by - 'filtered by:'",
+    "description": "This string is used as the label for the filter section in the transactions view. It is presented to the user to indicate the criteria by which the transactions are filtered. This label is located in the transactions view component.",
+    "id": "transactions.filters.label",
+    "isValid": true
+  },
+  {
+    "tag": "<bb-badge-ui [text]=\"accountName + ' ✕'\" title=\"Remove account filter\" i18n-title=\"Remove account label for Account Badge - 'Remove account filter'|This string is used as the title for the remove account filter button in the transactions view. It is presented to the user as a tooltip when they hover over the button to remove the account filter. This title is located in the transactions view component.@@transactions.account-filter.remove\" class=\"filters-badge\" color=\"success\" routerLink=\"/transactions\" queryParamsHandling=\"merge\" [queryParams]=\"{ account: null }\"></bb-badge-ui>",
+    "lineNumber": 38,
+    "fileName": "libs/transactions-journey/internal/feature-transaction-view/src/lib/components/transactions-view/transactions-view.component.html",
+    "label": "Remove account filter",
+    "meaning": "Remove account label for Account Badge - 'Remove account filter'",
+    "description": "This string is used as the title for the remove account filter button in the transactions view. It is presented to the user as a tooltip when they hover over the button to remove the account filter. This title is located in the transactions view component.",
+    "id": "transactions.account-filter.remove",
+    "isValid": true
+  },
+  {
+    "tag": "$localize`:Transactions Title - 'Transactions List'|This string is used as the title for the transactions list page. It is presented to the user as the header of the page when they view the list of transactions. This title is located at the top of the transactions list page.@@transactions-journey.header.text:Transactions List`",
+    "lineNumber": 2,
+    "fileName": "libs/transactions-journey/internal/shared-data/src/lib/config/constants/dynamic-translations.ts",
+    "label": "Transactions List",
+    "meaning": "Transactions Title - 'Transactions List'",
+    "description": "This string is used as the title for the transactions list page. It is presented to the user as the header of the page when they view the list of transactions. This title is located at the top of the transactions list page.",
+    "id": "transactions-journey.header.text",
+    "isValid": true
+  },
+  {
+    "tag": "$localize`:Transaction Details Title - 'Transaction Details'|This string is used as the title for the transaction details page. It is presented to the user as the header of the page when they view the details of a transaction. This title is located at the top of the transaction details page.@@transactions-journey.details.text:Transaction Details`",
+    "lineNumber": 3,
+    "fileName": "libs/transactions-journey/internal/shared-data/src/lib/config/constants/dynamic-translations.ts",
+    "label": "Transaction Details",
+    "meaning": "Transaction Details Title - 'Transaction Details'",
+    "description": "This string is used as the title for the transaction details page. It is presented to the user as the header of the page when they view the details of a transaction. This title is located at the top of the transaction details page.",
+    "id": "transactions-journey.details.text",
+    "isValid": true
+  }
+]
