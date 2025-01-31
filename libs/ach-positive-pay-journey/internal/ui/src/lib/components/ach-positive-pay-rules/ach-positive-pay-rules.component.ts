@@ -25,9 +25,10 @@ export class AchPositivePayRulesComponent {
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(
-        Object.entries(this.overridingTranslations).map(
-          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
-        )
+        Object.entries(this.overridingTranslations).map(([key, value]) => [
+          key,
+          value ?? this.defaultTranslations[key],
+        ])
       ),
     };
   }

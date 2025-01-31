@@ -36,13 +36,14 @@ export class AppComponent {
       environment.mockEnabled ?? oAuthService.hasValidAccessToken();
     // If APP_TRANSLATIONS is not provided, set the default value as an empty object
     this.overridingTranslations = this.overridingTranslations || {};
-    
+
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(
-        Object.entries(this.overridingTranslations).map(
-          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
-        )
+        Object.entries(this.overridingTranslations).map(([key, value]) => [
+          key,
+          value ?? this.defaultTranslations[key],
+        ])
       ),
     };
   }
