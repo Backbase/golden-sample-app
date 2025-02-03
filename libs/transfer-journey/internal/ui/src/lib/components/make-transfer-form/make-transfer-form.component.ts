@@ -51,8 +51,6 @@ export class MakeTransferFormComponent implements OnInit {
   makeTransferForm!: FormGroup;
   currencies = ['USD', 'EUR'];
 
-  private readonly defaultTranslations: TransferJourneyMakeTransferFormTranslations =
-    transferJourneyMakeTransferFormTranslations;
   public readonly translations: TransferJourneyMakeTransferFormTranslations;
 
   constructor(
@@ -62,10 +60,13 @@ export class MakeTransferFormComponent implements OnInit {
     private readonly overridingTranslations: Partial<TransferJourneyMakeTransferFormTranslations>
   ) {
     this.translations = {
-      ...this.defaultTranslations,
+      ...transferJourneyMakeTransferFormTranslations,
       ...Object.fromEntries(
         Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+          ([key, value]) => [
+            key,
+            value ?? transferJourneyMakeTransferFormTranslations[key],
+          ]
         )
       ),
     };

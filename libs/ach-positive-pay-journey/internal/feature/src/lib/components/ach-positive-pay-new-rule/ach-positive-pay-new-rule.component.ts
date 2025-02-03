@@ -35,8 +35,6 @@ import {
 export class AchPositivePayNewRuleComponent implements OnInit {
   loading = false;
 
-  private readonly defaultTranslations: AchPositivePayNewRuleTranslations =
-    achPositivePayNewRuleTranslations;
   public readonly translations: AchPositivePayNewRuleTranslations;
 
   modalOptions: NgbModalOptions = {
@@ -64,10 +62,13 @@ export class AchPositivePayNewRuleComponent implements OnInit {
     private readonly overridingTranslations: Partial<AchPositivePayNewRuleTranslations>
   ) {
     this.translations = {
-      ...this.defaultTranslations,
+      ...achPositivePayNewRuleTranslations,
       ...Object.fromEntries(
         Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+          ([key, value]) => [
+            key,
+            value ?? achPositivePayNewRuleTranslations[key],
+          ]
         )
       ),
     };

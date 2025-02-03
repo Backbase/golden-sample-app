@@ -22,7 +22,6 @@ import {
 export class AppComponent {
   triplets = triplets;
   isAuthenticated = false;
-  private readonly defaultTranslations: AppTranslations = appTranslations;
   public readonly translations: AppTranslations;
 
   constructor(
@@ -36,10 +35,10 @@ export class AppComponent {
       environment.mockEnabled ?? oAuthService.hasValidAccessToken();
 
     this.translations = {
-      ...this.defaultTranslations,
+      ...appTranslations,
       ...Object.fromEntries(
         Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+          ([key, value]) => [key, value ?? appTranslations[key]]
         )
       ),
     };

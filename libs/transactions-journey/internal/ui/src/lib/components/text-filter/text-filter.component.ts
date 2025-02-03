@@ -21,8 +21,6 @@ export class TextFilterComponent {
   @Output() textChange = new EventEmitter<string>();
   @Input() text: string | null = '';
 
-  private readonly defaultTranslations: TransactionsJourneyTextFilterTranslations =
-    transactionsJourneyTextFilterTranslations;
   public readonly translations: TransactionsJourneyTextFilterTranslations;
 
   constructor(
@@ -30,10 +28,13 @@ export class TextFilterComponent {
     private readonly overridingTranslations: Partial<TransactionsJourneyTextFilterTranslations>
   ) {
     this.translations = {
-      ...this.defaultTranslations,
+      ...transactionsJourneyTextFilterTranslations,
       ...Object.fromEntries(
         Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+          ([key, value]) => [
+            key,
+            value ?? transactionsJourneyTextFilterTranslations[key],
+          ]
         )
       ),
     };

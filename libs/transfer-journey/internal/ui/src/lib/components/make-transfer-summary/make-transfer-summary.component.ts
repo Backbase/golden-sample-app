@@ -29,8 +29,6 @@ export class MakeTransferSummaryComponent {
   @Output() submitTransfer = new EventEmitter<void>();
   @Output() closeTransfer = new EventEmitter<void>();
 
-  private readonly defaultTranslations: TransferJourneyMakeTransferSummaryTranslations =
-    transferJourneyMakeTransferSummaryTranslations;
   public readonly translations: TransferJourneyMakeTransferSummaryTranslations;
 
   constructor(
@@ -38,10 +36,13 @@ export class MakeTransferSummaryComponent {
     private readonly overridingTranslations: Partial<TransferJourneyMakeTransferSummaryTranslations>
   ) {
     this.translations = {
-      ...this.defaultTranslations,
+      ...transferJourneyMakeTransferSummaryTranslations,
       ...Object.fromEntries(
         Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+          ([key, value]) => [
+            key,
+            value ?? transferJourneyMakeTransferSummaryTranslations[key],
+          ]
         )
       ),
     };

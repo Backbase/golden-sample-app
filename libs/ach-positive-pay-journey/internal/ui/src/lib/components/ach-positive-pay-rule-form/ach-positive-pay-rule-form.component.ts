@@ -32,8 +32,6 @@ export class AchPositivePayRuleFormComponent {
   @Output() selectAccountId: EventEmitter<ProductSummaryItem> =
     new EventEmitter<ProductSummaryItem>();
 
-  private readonly defaultTranslations: AchPositivePayRuleFormTranslations =
-    achPositivePayRuleFormTranslations;
   public readonly translations: AchPositivePayRuleFormTranslations;
 
   constructor(
@@ -41,10 +39,13 @@ export class AchPositivePayRuleFormComponent {
     private readonly overridingTranslations: Partial<AchPositivePayRuleFormTranslations>
   ) {
     this.translations = {
-      ...this.defaultTranslations,
+      ...achPositivePayRuleFormTranslations,
       ...Object.fromEntries(
         Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+          ([key, value]) => [
+            key,
+            value ?? achPositivePayRuleFormTranslations[key],
+          ]
         )
       ),
     };

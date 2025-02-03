@@ -15,8 +15,6 @@ import {
   standalone: false,
 })
 export class TransferJourneyComponent {
-  private readonly defaultTranslations: TransferJourneyTranslations =
-    transferJourneyTranslations;
   public readonly translations: TransferJourneyTranslations;
 
   public title: string = this.route.snapshot.firstChild?.data['title'] ?? '';
@@ -31,10 +29,10 @@ export class TransferJourneyComponent {
     private readonly overridingTranslations: Partial<TransferJourneyTranslations>
   ) {
     this.translations = {
-      ...this.defaultTranslations,
+      ...transferJourneyTranslations,
       ...Object.fromEntries(
         Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+          ([key, value]) => [key, value ?? transferJourneyTranslations[key]]
         )
       ),
     };

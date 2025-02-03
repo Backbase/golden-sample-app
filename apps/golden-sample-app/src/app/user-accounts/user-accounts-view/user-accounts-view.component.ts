@@ -20,8 +20,6 @@ import {
 export class UserAccountsViewComponent {
   public arrangements$ = this.arrangementsService.arrangements$;
 
-  private readonly defaultTranslations: UserAccountsTranslations =
-    userAccountsTranslations;
   public readonly translations: UserAccountsTranslations;
 
   constructor(
@@ -31,10 +29,10 @@ export class UserAccountsViewComponent {
     @Optional() private readonly tracker?: Tracker
   ) {
     this.translations = {
-      ...this.defaultTranslations,
+      ...userAccountsTranslations,
       ...Object.fromEntries(
         Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+          ([key, value]) => [key, value ?? userAccountsTranslations[key]]
         )
       ),
     };

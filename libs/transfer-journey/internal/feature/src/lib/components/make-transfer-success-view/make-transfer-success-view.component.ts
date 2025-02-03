@@ -19,8 +19,6 @@ import {
 export class MakeTransferSuccessViewComponent {
   transfer$ = this.transferStore.transfer$;
 
-  private readonly defaultTranslations: TransferJourneyMakeTransferSuccessViewTranslations =
-    transferJourneyMakeTransferSuccessViewTranslations;
   public readonly translations: TransferJourneyMakeTransferSuccessViewTranslations;
 
   constructor(
@@ -31,10 +29,13 @@ export class MakeTransferSuccessViewComponent {
     private readonly overridingTranslations: Partial<TransferJourneyMakeTransferSuccessViewTranslations>
   ) {
     this.translations = {
-      ...this.defaultTranslations,
+      ...transferJourneyMakeTransferSuccessViewTranslations,
       ...Object.fromEntries(
         Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+          ([key, value]) => [
+            key,
+            value ?? transferJourneyMakeTransferSuccessViewTranslations[key],
+          ]
         )
       ),
     };

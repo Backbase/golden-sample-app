@@ -17,8 +17,6 @@ import {
 export class AchPositivePayJourneyComponent {
   permissions = PERMISSIONS;
 
-  private readonly defaultTranslations: AchPositivePayJourneyTranslations =
-    achPositivePayJourneyTranslations;
   public readonly translations: AchPositivePayJourneyTranslations;
 
   constructor(
@@ -28,10 +26,13 @@ export class AchPositivePayJourneyComponent {
     private readonly overridingTranslations: Partial<AchPositivePayJourneyTranslations>
   ) {
     this.translations = {
-      ...this.defaultTranslations,
+      ...achPositivePayJourneyTranslations,
       ...Object.fromEntries(
         Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+          ([key, value]) => [
+            key,
+            value ?? achPositivePayJourneyTranslations[key],
+          ]
         )
       ),
     };

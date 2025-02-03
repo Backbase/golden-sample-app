@@ -69,8 +69,6 @@ export class TransactionDetailsComponent {
     })
   );
 
-  private readonly defaultTranslations: TransactionsJourneyTransactionDetailsViewTranslations =
-    transactionsJourneyTransactionDetailsViewTranslations;
   public readonly translations: TransactionsJourneyTransactionDetailsViewTranslations;
 
   constructor(
@@ -81,10 +79,13 @@ export class TransactionDetailsComponent {
     @Optional() private readonly tracker?: Tracker
   ) {
     this.translations = {
-      ...this.defaultTranslations,
+      ...transactionsJourneyTransactionDetailsViewTranslations,
       ...Object.fromEntries(
         Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+          ([key, value]) => [
+            key,
+            value ?? transactionsJourneyTransactionDetailsViewTranslations[key],
+          ]
         )
       ),
     };

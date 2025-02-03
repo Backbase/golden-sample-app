@@ -13,18 +13,16 @@ import {
   standalone: true,
 })
 export class AchPositivePayRulesComponent {
-  private readonly defaultTranslations: AchPositivePayRulesTranslations =
-    achPositivePayRulesTranslations;
   public readonly translations: AchPositivePayRulesTranslations;
   constructor(
     @Inject(ACH_POSITIVE_PAY_RULES_TRANSLATIONS)
     private readonly overridingTranslations: Partial<AchPositivePayRulesTranslations>
   ) {
     this.translations = {
-      ...this.defaultTranslations,
+      ...achPositivePayRulesTranslations,
       ...Object.fromEntries(
         Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+          ([key, value]) => [key, value ?? achPositivePayRulesTranslations[key]]
         )
       ),
     };
