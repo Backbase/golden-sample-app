@@ -37,15 +37,12 @@ export class MakeTransferSummaryComponent {
     @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS)
     private readonly overridingTranslations: Partial<TransferJourneyMakeTransferSummaryTranslations>
   ) {
-    
-    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(([key, value]) => [
-          key,
-          value ?? this.defaultTranslations[key],
-        ])
+        Object.entries(this.overridingTranslations ?? {}).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
       ),
     };
   }

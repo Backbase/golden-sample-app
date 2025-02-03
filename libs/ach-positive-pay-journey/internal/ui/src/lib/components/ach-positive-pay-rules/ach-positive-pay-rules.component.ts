@@ -20,15 +20,12 @@ export class AchPositivePayRulesComponent {
     @Inject(ACH_POSITIVE_PAY_RULES_TRANSLATIONS)
     private readonly overridingTranslations: Partial<AchPositivePayRulesTranslations>
   ) {
-    
-    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(([key, value]) => [
-          key,
-          value ?? this.defaultTranslations[key],
-        ])
+        Object.entries(this.overridingTranslations ?? {}).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
       ),
     };
   }

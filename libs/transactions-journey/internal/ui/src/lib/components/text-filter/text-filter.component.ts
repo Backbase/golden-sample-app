@@ -29,15 +29,12 @@ export class TextFilterComponent {
     @Inject(TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS)
     private readonly overridingTranslations: Partial<TransactionsJourneyTextFilterTranslations>
   ) {
-    
-    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(([key, value]) => [
-          key,
-          value ?? this.defaultTranslations[key],
-        ])
+        Object.entries(this.overridingTranslations ?? {}).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
       ),
     };
   }

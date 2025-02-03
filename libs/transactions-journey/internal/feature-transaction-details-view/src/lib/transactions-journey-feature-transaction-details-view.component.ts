@@ -80,15 +80,12 @@ export class TransactionDetailsComponent {
     private readonly overridingTranslations: Partial<TransactionsJourneyTransactionDetailsViewTranslations>,
     @Optional() private readonly tracker?: Tracker
   ) {
-    
-    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(([key, value]) => [
-          key,
-          value ?? this.defaultTranslations[key],
-        ])
+        Object.entries(this.overridingTranslations ?? {}).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
       ),
     };
   }

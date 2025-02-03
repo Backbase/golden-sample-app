@@ -27,15 +27,12 @@ export class AchPositivePayJourneyComponent {
     @Inject(ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS)
     private readonly overridingTranslations: Partial<AchPositivePayJourneyTranslations>
   ) {
-    
-    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(([key, value]) => [
-          key,
-          value ?? this.defaultTranslations[key],
-        ])
+        Object.entries(this.overridingTranslations ?? {}).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
       ),
     };
   }

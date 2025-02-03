@@ -61,15 +61,12 @@ export class MakeTransferFormComponent implements OnInit {
     @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS)
     private readonly overridingTranslations: Partial<TransferJourneyMakeTransferFormTranslations>
   ) {
-    
-    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(([key, value]) => [
-          key,
-          value ?? this.defaultTranslations[key],
-        ])
+        Object.entries(this.overridingTranslations ?? {}).map(
+          ([key, value]) => [key, value ?? this.defaultTranslations[key]]
+        )
       ),
     };
   }
