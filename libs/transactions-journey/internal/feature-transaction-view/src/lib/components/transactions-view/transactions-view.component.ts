@@ -14,13 +14,13 @@ import {
   ArrangementsService,
   TransactionsHttpService,
 } from '@backbase-gsa/transactions-journey/internal/data-access';
-import { $localize } from '@angular/localize/init';
 
 import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
+import {
+  transactionsJourneyTransactionViewTranslations,
+  TransactionsJourneyTransactionViewTranslations,
+} from '../../../translations-catalog';
 
-export interface Translations {
-  [key: string]: string;
-}
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
@@ -31,21 +31,8 @@ export class TransactionsViewComponent {
 
   public filter = '';
 
-  @Input() public translations: Translations = {};
-
-  public readonly defaultTranslations: Translations = {
-    'transactions.filters.label': $localize`:Label for filtered by - 'filtered by:'|This string is used as the
-            label for the filter section in the transactions view. It is
-            presented to the user to indicate the criteria by which the
-            transactions are filtered. This label is located in the transactions
-            view component.@@transactions.filters.label:filtered by`,
-    'transactions.account-filter.remove': $localize`:Remove account label for Account Badge - 'Remove account
-            filter'|This string is used as the title for the remove account
-            filter button in the transactions view. It is presented to the user
-            as a tooltip when they hover over the button to remove the account
-            filter. This title is located in the transactions view
-            component.@@transactions.account-filter.remove:Remove account filter`,
-  };
+  @Input() public translations: TransactionsJourneyTransactionViewTranslations =
+    transactionsJourneyTransactionViewTranslations;
 
   private readonly accountId$ = this.route.queryParamMap.pipe(
     map((params) => params.get('account'))
@@ -101,11 +88,6 @@ export class TransactionsViewComponent {
         this.translations = data['translation'];
       }
     });
-
-    this.translations = {
-      ...this.defaultTranslations,
-      ...this.translations,
-    };
   }
 
   search(ev: string) {

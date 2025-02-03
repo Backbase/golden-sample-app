@@ -13,18 +13,18 @@
   <nav class="bb-layout__topbar">
     <!-- Skip to content -->
     <button
-      [attr.aria-label]="translations['move-focus-to-beginning-of-content']"
+      [ariaLabel]="appTranslations['move-focus-to-beginning-of-content']"
       class="bb-layout__skip-to-content"
       (click)="focusMainContainer($event)"
     >
-      {{ this.translations['app.skipToContent'] }}
+      {{ appTranslations['skipToContent'] }}
     </button>
 
     <!-- Hamburger -->
     <button
       class="bb-layout__nav-expand-marker"
-      [attr.aria-label]="translations['bb-layout.sidebar_toggler']"
-      [attr.aria-expanded]="layoutService.navigationExpanded$ | async"
+      [ariaLabel]="appTranslations['bb-layout.sidebar_toggler']"
+      [ariaExpanded]="layoutService.navigationExpanded$ | async"
       (click)="layoutService.toggleNav()"
     >
       <span class="bb-icon"></span>
@@ -52,7 +52,7 @@
             name="payments"
           ></bb-icon-ui>
           <span class="bb-layout__horizontal-nav-item-description">
-            {{ translations['main.transfer.link.text'] }}
+            {{ appTranslations['main.transfer.link.text'] }}
           </span>
         </a>
       </li>
@@ -77,7 +77,7 @@
             size="md"
           ></bb-icon-ui>
           <span class="bb-layout__horizontal-nav-item-description">
-            {{ translations['main.entitlements-test-no-grouping.text'] }}
+            {{ appTranslations['main.entitlements-test-no-grouping.text'] }}
           </span>
         </a>
       </li>
@@ -102,7 +102,7 @@
             size="md"
           ></bb-icon-ui>
           <span class="bb-layout__horizontal-nav-item-description">
-            {{ translations['main.entitlements-test-grouping.text'] }}
+            {{ appTranslations['main.entitlements-test-grouping.text'] }}
           </span>
         </a>
       </li>
@@ -127,7 +127,7 @@
             size="md"
           ></bb-icon-ui>
           <span class="bb-layout__horizontal-nav-item-description">
-            {{ translations['main.entitlements-test-nested-groups.text'] }}
+            {{ appTranslations['main.entitlements-test-nested-groups.text'] }}
           </span>
         </a>
       </li>
@@ -153,7 +153,7 @@
           ></bb-icon-ui>
           <span class="bb-layout__horizontal-nav-item-description">
             {{
-              translations[
+              appTranslations[
                 'main.entitlements-test-using-not-operators-on-groups.text'
               ]
             }}
@@ -182,7 +182,7 @@
           ></bb-icon-ui>
           <span class="bb-layout__horizontal-nav-item-description">
             {{
-              translations[
+              appTranslations[
                 'main.entitlements-test-using-multiple-not-operators-on-groups.text'
               ]
             }}
@@ -208,7 +208,7 @@
             size="md"
           ></bb-icon-ui>
           <span class="bb-layout__horizontal-nav-item-description">
-            {{ translations['main.transactions.link.text'] }}
+            {{ appTranslations['main.transactions.link.text'] }}
           </span>
         </a>
       </li>
@@ -230,7 +230,7 @@
             name="note"
           ></bb-icon-ui>
           <span class="bb-layout__horizontal-nav-item-description">
-            {{ translations['main.positive-pay.link.text'] }}
+            {{ appTranslations['main.positive-pay.link.text'] }}
           </span>
         </a>
       </li>
@@ -253,7 +253,7 @@
           ></bb-icon-ui>
 
           <span class="bb-layout__horizontal-nav-item-description">
-            {{ translations['main.ach-positive-pay.link.text'] }}
+            {{ appTranslations['main.ach-positive-pay.link.text'] }}
           </span>
         </a>
       </li>
@@ -273,7 +273,7 @@
           ></bb-icon-ui>
 
           <span class="bb-layout__horizontal-nav-item-description">
-            {{ translations['main.make-a-payment.link.text'] }}
+            {{ appTranslations['main.make-a-payment.link.text'] }}
           </span>
         </a>
       </li>

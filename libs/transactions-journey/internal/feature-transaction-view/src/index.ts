@@ -9,3 +9,7 @@ export {
   TransactionAdditionalDetailsContext,
 } from './lib/extensions/transaction-addition-details';
 export { TransactionsViewModule } from './lib/components/transactions-view/transactions-view.module';
+export {
+  TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
+  TransactionsJourneyTransactionViewTranslations,
+} from './translations-catalog';

@@ -16,10 +16,11 @@ import {
   Transfer,
 } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { ActivatedRoute } from '@angular/router';
+import {
+  transferJourneyMakeTransferFormTranslations,
+  TransferJourneyMakeTransferFormTranslations,
+} from '../../../translations-catalog';
 
-export interface Translations {
-  [key: string]: string;
-}
 @Component({
   selector: 'bb-make-transfer-form',
   templateUrl: 'make-transfer-form.component.html',
@@ -39,44 +40,8 @@ export class MakeTransferFormComponent implements OnInit {
 
   @Output() submitTransfer = new EventEmitter<Transfer | undefined>();
   @Input()
-  public readonly translations: Translations = {};
-  public readonly defaultTranslations: Translations = {
-    'transfer.form.fromAccount.label': $localize`:From account label - 'From account'|This string is used as the label for the
-        'From Account' field in the transfer form. It is presented to the user when
-        they need to specify the source account for the transfter. This label is
-        located in the transfer form layout@@transfer.form.fromAccount.label:From account`,
-    'transfer.form.toAccount.label': $localize`:To account label - 'To Account'|This string is used as the label for
-          the 'To Account' field in the transfer form. It is presented to the
-          user when they need to specify the destination account for the
-          transfer. This label is located in the transfer form
-          layout.@@transfer.form.toAccount.label:To account`,
-    'transfer.form.toAccount.placeholder': $localize`:From account placeholder - 'type an account name'|This string is used
-          as the placeholder for the 'From Account' field in the transfer form.
-          It is presented to the user when they need to type the name of the
-          account from which the transfer will be made. This placeholder is
-          located in the transfer form
-          layout.@@transfer.form.toAccount.placeholder:type an account name`,
-    'transfer.form.toAccount.error.required': $localize`:To account required error message - 'Required field'|This string
-              is used as the error message for the 'To Account' field in the
-              transfer form when the field is required but not filled. It is
-              presented to the user when they need to fill in the 'To Account'
-              field. This error message is located in the transfer form
-              layout.@@transfer.form.toAccount.error.required:Required field`,
-    'transfer.form.amount.label': $localize`:Amount label - 'Amount'|This string is used as the label for the
-      'Amount' field in the transfer form. It is presented to the user when
-      they need to specify the amount to be transferred. This label is
-      located in the transfer form layout@@transfer.form.amount.label:Amount`,
-    'transfer.form.amount.error.required': $localize`:Amount required error - 'Required field'|This string
-              is used as the error message for the 'Amount' field in the
-              transfer form when the field is required but not filled. It is
-              presented to the user when they need to fill in the 'Amount'
-              field. This error message is located in the transfer form
-              layout.@@transfer.form.amount.error.required:Required field`,
-    'transfer.form.submit.text': $localize`:Submit button label - 'Submit'|This string is used as the label for the
-      'Submit' button in the transfer form. It is presented to the user as the button to be
-      pressed when the data in form is ready to make a transfer. This label is
-      located in the transfer form layout@@transfer.form.submit.text:Submit`,
-  };
+  public readonly translations: TransferJourneyMakeTransferFormTranslations =
+    transferJourneyMakeTransferFormTranslations;
 
   makeTransferForm!: FormGroup;
   currencies = ['USD', 'EUR'];
