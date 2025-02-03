@@ -7,11 +7,7 @@ import {
   Tracker,
 } from '@backbase/foundation-ang/observability';
 import { environment } from '../environments/environment';
-import { AppTranslations, appTranslations } from './translataion-catalog';
-
-export interface Translations {
-  [key: string]: string;
-}
+import { AppTranslations, appTranslations } from './translation-catalog';
 
 @Component({
   selector: 'app-root',

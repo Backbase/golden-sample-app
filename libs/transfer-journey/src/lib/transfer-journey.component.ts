@@ -1,3 +1,4 @@
+import { Validators } from '@angular/forms';
 import { Component, Input } from '@angular/core';
 import { MakeTransferJourneyState } from '@backbase-gsa/transfer-journey/internal/data-access';
 import { ActivatedRoute } from '@angular/router';
@@ -21,8 +22,18 @@ export class TransferJourneyComponent {
 
   public repeatMessage = getTransferRepeatMessage(this.accountName);
 
+  private _translations: TransferJourneyTranslations = {
+    ...transferJourneyTranslations,
+  };
+
   @Input()
-  public readonly translations: TransferJourneyTranslations =
-    transferJourneyTranslations;
+  set translations(value: Partial<TransferJourneyTranslations>) {
+    this._translations = { ...transferJourneyTranslations, ...value };
+  }
+
+  get translations(): TransferJourneyTranslations {
+    return this._translations;
+  }
+
   constructor(private route: ActivatedRoute) {}
 }

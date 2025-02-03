@@ -7,10 +7,6 @@ import {
   AchPositivePayJourneyTranslations,
 } from '../../../translations-catalog';
 
-export interface Translations {
-  [key: string]: string;
-}
-
 @Component({
   selector: 'bb-ach-positive-pay-journey',
   templateUrl: './ach-positive-pay-journey.component.html',
@@ -19,9 +15,18 @@ export interface Translations {
 })
 export class AchPositivePayJourneyComponent {
   permissions = PERMISSIONS;
+  private _translations: AchPositivePayJourneyTranslations = {
+    ...achPositivePayJourneyTranslations,
+  };
+
   @Input()
-  public readonly translations: AchPositivePayJourneyTranslations =
-    achPositivePayJourneyTranslations;
+  set translations(value: Partial<AchPositivePayJourneyTranslations>) {
+    this._translations = { ...achPositivePayJourneyTranslations, ...value };
+  }
+
+  get translations(): AchPositivePayJourneyTranslations {
+    return this._translations;
+  }
 
   constructor(
     private readonly router: Router,

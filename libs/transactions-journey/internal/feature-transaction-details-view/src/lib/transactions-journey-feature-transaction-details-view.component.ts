@@ -54,9 +54,22 @@ interface TransactionDetailsView {
 })
 export class TransactionDetailsComponent {
   public readonly title = this.route.snapshot.data['title'];
+  private _translations: TransactionsJourneyTransactionDetailsViewTranslations =
+    { ...transactionsJourneyTransactionDetailsViewTranslations };
+
   @Input()
-  public translations: TransactionsJourneyTransactionDetailsViewTranslations =
-    transactionsJourneyTransactionDetailsViewTranslations;
+  set translations(
+    value: Partial<TransactionsJourneyTransactionDetailsViewTranslations>
+  ) {
+    this._translations = {
+      ...transactionsJourneyTransactionDetailsViewTranslations,
+      ...value,
+    };
+  }
+
+  get translations(): TransactionsJourneyTransactionDetailsViewTranslations {
+    return this._translations;
+  }
 
   private readonly id$ = this.route.paramMap.pipe(
     map((params) => params.get('id'))
@@ -92,7 +105,7 @@ export class TransactionDetailsComponent {
     if (!transaction) {
       throw new HttpErrorResponse({
         status: 404,
-        statusText: $localize`:Transaction Not Found Status Text - 'Transaction \${id} not found'|This string is used as the status text for an HTTP error response when a transaction with the specified ID is not found. It is presented to the user when they attempt to view a transaction that does not exist. This status text is located in the transaction details view component.@@transactions-journey.transaction-not-found-status-text:Transaction ${id} not found`,
+        statusText: getStatusTextFromErrorMessage(id),
       });
     }
 

@@ -9,7 +9,6 @@ export interface TransactionsJourneyTransactionDetailsViewTranslations {
   'transactions-journey.unknown-recipient': string;
   'transactions-journey.unknown-status': string;
   'transactions-journey.uncategorized-category': string;
-  [key: string]: string;
 }
 
 export const transactionsJourneyTransactionDetailsViewTranslations: TransactionsJourneyTransactionDetailsViewTranslations =

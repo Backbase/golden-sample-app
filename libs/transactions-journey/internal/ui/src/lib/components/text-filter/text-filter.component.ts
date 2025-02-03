@@ -17,7 +17,19 @@ import {
 export class TextFilterComponent {
   @Output() textChange = new EventEmitter<string>();
   @Input() text: string | null = '';
+  private _translations: TransactionsJourneyTextFilterTranslations = {
+    ...transactionsJourneyTextFilterTranslations,
+  };
+
   @Input()
-  public readonly translations: TransactionsJourneyTextFilterTranslations =
-    transactionsJourneyTextFilterTranslations;
+  set translations(value: Partial<TransactionsJourneyTextFilterTranslations>) {
+    this._translations = {
+      ...transactionsJourneyTextFilterTranslations,
+      ...value,
+    };
+  }
+
+  get translations(): TransactionsJourneyTextFilterTranslations {
+    return this._translations;
+  }
 }

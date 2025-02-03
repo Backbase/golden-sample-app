@@ -16,9 +16,23 @@ export class MakeTransferSummaryComponent {
   @Input() transfer: Transfer | undefined;
   @Output() submitTransfer = new EventEmitter<void>();
   @Output() closeTransfer = new EventEmitter<void>();
+  private _translations: TransferJourneyMakeTransferSummaryTranslations = {
+    ...transferJourneyMakeTransferSummaryTranslations,
+  };
+
   @Input()
-  public readonly translations: TransferJourneyMakeTransferSummaryTranslations =
-    transferJourneyMakeTransferSummaryTranslations;
+  set translations(
+    value: Partial<TransferJourneyMakeTransferSummaryTranslations>
+  ) {
+    this._translations = {
+      ...transferJourneyMakeTransferSummaryTranslations,
+      ...value,
+    };
+  }
+
+  get translations(): TransferJourneyMakeTransferSummaryTranslations {
+    return this._translations;
+  }
 
   submit(): void {
     this.submitTransfer.emit();

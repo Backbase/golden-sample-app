@@ -12,7 +12,16 @@ import {
   standalone: true,
 })
 export class AchPositivePayRulesComponent {
+  private _translations: AchPositivePayRulesTranslations = {
+    ...achPositivePayRulesTranslations,
+  };
+
   @Input()
-  public readonly translations: AchPositivePayRulesTranslations =
-    achPositivePayRulesTranslations;
+  set translations(value: Partial<AchPositivePayRulesTranslations>) {
+    this._translations = { ...achPositivePayRulesTranslations, ...value };
+  }
+
+  get translations(): AchPositivePayRulesTranslations {
+    return this._translations;
+  }
 }

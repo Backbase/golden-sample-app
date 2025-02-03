@@ -16,9 +16,23 @@ import {
 })
 export class MakeTransferSuccessViewComponent {
   transfer$ = this.transferStore.transfer$;
+  private _translations: TransferJourneyMakeTransferSuccessViewTranslations = {
+    ...transferJourneyMakeTransferSuccessViewTranslations,
+  };
+
   @Input()
-  public readonly translations: TransferJourneyMakeTransferSuccessViewTranslations =
-    transferJourneyMakeTransferSuccessViewTranslations;
+  set translations(
+    value: Partial<TransferJourneyMakeTransferSuccessViewTranslations>
+  ) {
+    this._translations = {
+      ...transferJourneyMakeTransferSuccessViewTranslations,
+      ...value,
+    };
+  }
+
+  get translations(): TransferJourneyMakeTransferSuccessViewTranslations {
+    return this._translations;
+  }
 
   close(): void {
     this.router.navigate(['../make-transfer'], { relativeTo: this.route });

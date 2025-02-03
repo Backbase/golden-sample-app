@@ -1,7 +1,6 @@
 export interface TransactionsJourneyTransactionViewTranslations {
   'transactions.filters.label': string;
   'transactions.account-filter.remove': string;
-  [key: string]: string;
 }
 export const transactionsJourneyTransactionViewTranslations: TransactionsJourneyTransactionViewTranslations =
   {

@@ -39,9 +39,24 @@ export class MakeTransferFormComponent implements OnInit {
   @Input() maxLimit = 0;
 
   @Output() submitTransfer = new EventEmitter<Transfer | undefined>();
+
+  private _translations: TransferJourneyMakeTransferFormTranslations = {
+    ...transferJourneyMakeTransferFormTranslations,
+  };
+
   @Input()
-  public readonly translations: TransferJourneyMakeTransferFormTranslations =
-    transferJourneyMakeTransferFormTranslations;
+  set translations(
+    value: Partial<TransferJourneyMakeTransferFormTranslations>
+  ) {
+    this._translations = {
+      ...transferJourneyMakeTransferFormTranslations,
+      ...value,
+    };
+  }
+
+  get translations(): TransferJourneyMakeTransferFormTranslations {
+    return this._translations;
+  }
 
   makeTransferForm!: FormGroup;
   currencies = ['USD', 'EUR'];
@@ -91,12 +106,7 @@ export class MakeTransferFormComponent implements OnInit {
     return !!control && control.touched && control.invalid;
   }
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
-    this.translations = {
-      ...this.defaultTranslations,
-      ...this.translations,
-    };
-  }
+  constructor(private fb: FormBuilder, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const accountName: string =

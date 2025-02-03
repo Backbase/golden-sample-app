@@ -11,9 +11,6 @@ import {
   AchPositivePayRuleFormTranslations,
 } from '../../../translations-catalog';
 
-export interface Translations {
-  [key: string]: string;
-}
 @Component({
   selector: 'bb-ach-positive-pay-rule-form',
   templateUrl: './ach-positive-pay-rule-form.component.html',
@@ -33,8 +30,18 @@ export class AchPositivePayRuleFormComponent {
   @Output() selectAccountId: EventEmitter<ProductSummaryItem> =
     new EventEmitter<ProductSummaryItem>();
 
-  public readonly translations: AchPositivePayRuleFormTranslations =
-    achPositivePayRuleFormTranslations;
+  private _translations: AchPositivePayRuleFormTranslations = {
+    ...achPositivePayRuleFormTranslations,
+  };
+
+  @Input()
+  set translations(value: Partial<AchPositivePayRuleFormTranslations>) {
+    this._translations = { ...achPositivePayRuleFormTranslations, ...value };
+  }
+
+  get translations(): AchPositivePayRuleFormTranslations {
+    return this._translations;
+  }
 
   readonly paymentTypes = [
     ACH_POSITIVE_PAY_TRANSLATIONS.creditPaymentType,

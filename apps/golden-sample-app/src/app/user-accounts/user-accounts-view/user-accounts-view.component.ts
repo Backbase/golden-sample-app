@@ -17,20 +17,23 @@ import {
 })
 export class UserAccountsViewComponent {
   public arrangements$ = this.arrangementsService.arrangements$;
+  private _translations: UserAccountsTranslations = {
+    ...userAccountsTranslations,
+  };
 
   @Input()
-  public readonly translations: Partial<UserAccountsTranslations> = {};
-  public readonly defaultTranslations: UserAccountsTranslations =
-    userAccountsTranslations;
+  set translations(value: Partial<UserAccountsTranslations>) {
+    this._translations = { ...userAccountsTranslations, ...value };
+  }
+
+  get translations(): UserAccountsTranslations {
+    return this._translations;
+  }
+
   constructor(
     private readonly arrangementsService: ArrangementsService,
     @Optional() private readonly tracker?: Tracker
-  ) {
-    this.translations = {
-      ...this.defaultTranslations,
-      ...this.translations,
-    };
-  }
+  ) {}
 
   updateFavorite(account: ProductSummaryItem) {
     const accountObj = {

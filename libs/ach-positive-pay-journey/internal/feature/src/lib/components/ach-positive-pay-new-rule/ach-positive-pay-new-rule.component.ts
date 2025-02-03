@@ -18,9 +18,6 @@ import { AchPositivePayRuleFormComponent } from '@backbase-gsa/ach-positive-pay-
 import { LoadButtonModule } from '@backbase/ui-ang/load-button';
 import { CommonModule } from '@angular/common';
 
-export interface Translations {
-  [key: string]: string;
-}
 @Component({
   selector: 'bb-ach-positive-pay-new-rule',
   templateUrl: './ach-positive-pay-new-rule.component.html',
@@ -36,9 +33,18 @@ export interface Translations {
 })
 export class AchPositivePayNewRuleComponent implements OnInit {
   loading = false;
+  private _translations: AchPositivePayNewRuleTranslations = {
+    ...achPositivePayNewRuleTranslations,
+  };
+
   @Input()
-  public readonly translations: AchPositivePayNewRuleTranslations =
-    achPositivePayNewRuleTranslations;
+  set translations(value: Partial<AchPositivePayNewRuleTranslations>) {
+    this._translations = { ...achPositivePayNewRuleTranslations, ...value };
+  }
+
+  get translations(): AchPositivePayNewRuleTranslations {
+    return this._translations;
+  }
 
   modalOptions: NgbModalOptions = {
     backdrop: 'static',

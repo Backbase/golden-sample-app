@@ -1,7 +1,8 @@
+import { $localize } from '@angular/localize/init';
+
 export interface TransactionsJourneyTextFilterTranslations {
   'transaction.form.filter.aria-label': string;
   'transaction.form.filter.placeholder': string;
-  [key: string]: string;
 }
 export const transactionsJourneyTextFilterTranslations: TransactionsJourneyTextFilterTranslations =
   {

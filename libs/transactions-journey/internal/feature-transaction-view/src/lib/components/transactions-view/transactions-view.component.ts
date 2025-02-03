@@ -31,8 +31,23 @@ export class TransactionsViewComponent {
 
   public filter = '';
 
-  @Input() public translations: TransactionsJourneyTransactionViewTranslations =
-    transactionsJourneyTransactionViewTranslations;
+  private _translations: TransactionsJourneyTransactionViewTranslations = {
+    ...transactionsJourneyTransactionViewTranslations,
+  };
+
+  @Input()
+  set translations(
+    value: Partial<TransactionsJourneyTransactionViewTranslations>
+  ) {
+    this._translations = {
+      ...transactionsJourneyTransactionViewTranslations,
+      ...value,
+    };
+  }
+
+  get translations(): TransactionsJourneyTransactionViewTranslations {
+    return this._translations;
+  }
 
   private readonly accountId$ = this.route.queryParamMap.pipe(
     map((params) => params.get('account'))
