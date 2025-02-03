@@ -85,7 +85,7 @@ export class TransactionDetailsComponent {
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(
-        Object.entries(this.overridingTranslations).map(([key, value]) => [
+        Object.entries(this.overridingTranslations ?? {}).map(([key, value]) => [
           key,
           value ?? this.defaultTranslations[key],
         ])
