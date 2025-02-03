@@ -31,7 +31,7 @@ export class TransferJourneyComponent {
     private readonly overridingTranslations: Partial<TransferJourneyTranslations>
   ) {
     
-    this.overridingTranslations = this.overridingTranslations || {};
+    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(

@@ -21,7 +21,7 @@ export class AchPositivePayRulesComponent {
     private readonly overridingTranslations: Partial<AchPositivePayRulesTranslations>
   ) {
     
-    this.overridingTranslations = this.overridingTranslations || {};
+    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(

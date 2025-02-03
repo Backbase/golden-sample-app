@@ -28,7 +28,7 @@ export class AchPositivePayJourneyComponent {
     private readonly overridingTranslations: Partial<AchPositivePayJourneyTranslations>
   ) {
     
-    this.overridingTranslations = this.overridingTranslations || {};
+    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(

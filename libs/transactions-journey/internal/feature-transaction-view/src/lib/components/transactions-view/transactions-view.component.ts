@@ -89,7 +89,7 @@ export class TransactionsViewComponent {
     @Optional() private readonly tracker?: Tracker
   ) {
     
-    this.overridingTranslations = this.overridingTranslations || {};
+    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(

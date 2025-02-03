@@ -30,7 +30,7 @@ export class TextFilterComponent {
     private readonly overridingTranslations: Partial<TransactionsJourneyTextFilterTranslations>
   ) {
     
-    this.overridingTranslations = this.overridingTranslations || {};
+    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(

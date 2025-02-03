@@ -38,7 +38,7 @@ export class MakeTransferSummaryComponent {
     private readonly overridingTranslations: Partial<TransferJourneyMakeTransferSummaryTranslations>
   ) {
     
-    this.overridingTranslations = this.overridingTranslations || {};
+    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(

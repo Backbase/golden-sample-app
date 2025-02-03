@@ -64,7 +64,7 @@ export class AchPositivePayNewRuleComponent implements OnInit {
     private readonly overridingTranslations: Partial<AchPositivePayNewRuleTranslations>
   ) {
     
-    this.overridingTranslations = this.overridingTranslations || {};
+    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(

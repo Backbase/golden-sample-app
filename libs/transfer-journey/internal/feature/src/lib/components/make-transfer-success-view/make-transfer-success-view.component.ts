@@ -31,7 +31,7 @@ export class MakeTransferSuccessViewComponent {
     private readonly overridingTranslations: Partial<TransferJourneyMakeTransferSuccessViewTranslations>
   ) {
     
-    this.overridingTranslations = this.overridingTranslations || {};
+    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(

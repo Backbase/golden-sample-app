@@ -62,7 +62,7 @@ export class MakeTransferFormComponent implements OnInit {
     private readonly overridingTranslations: Partial<TransferJourneyMakeTransferFormTranslations>
   ) {
     
-    this.overridingTranslations = this.overridingTranslations || {};
+    
     this.translations = {
       ...this.defaultTranslations,
       ...Object.fromEntries(
