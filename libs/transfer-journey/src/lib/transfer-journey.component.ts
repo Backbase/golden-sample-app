@@ -30,7 +30,7 @@ export class TransferJourneyComponent {
     @Inject(TRANSFER_JOURNEY_TRANSLATIONS)
     private readonly overridingTranslations: Partial<TransferJourneyTranslations>
   ) {
-    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,

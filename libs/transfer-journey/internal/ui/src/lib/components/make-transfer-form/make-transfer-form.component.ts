@@ -61,7 +61,7 @@ export class MakeTransferFormComponent implements OnInit {
     @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS)
     private readonly overridingTranslations: Partial<TransferJourneyMakeTransferFormTranslations>
   ) {
-    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,

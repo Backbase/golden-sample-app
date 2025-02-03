@@ -88,7 +88,7 @@ export class TransactionsViewComponent {
     private readonly externalCommunicationService: TransactionsCommunicationService,
     @Optional() private readonly tracker?: Tracker
   ) {
-    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,

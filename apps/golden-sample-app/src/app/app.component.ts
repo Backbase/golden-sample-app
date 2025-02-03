@@ -34,7 +34,7 @@ export class AppComponent {
   ) {
     this.isAuthenticated =
       environment.mockEnabled ?? oAuthService.hasValidAccessToken();
-    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    
     this.overridingTranslations = this.overridingTranslations || {};
 
     this.translations = {

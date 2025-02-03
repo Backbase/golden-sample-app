@@ -29,7 +29,7 @@ export class TextFilterComponent {
     @Inject(TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS)
     private readonly overridingTranslations: Partial<TransactionsJourneyTextFilterTranslations>
   ) {
-    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,

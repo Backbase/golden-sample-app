@@ -40,7 +40,7 @@ export class AchPositivePayRuleFormComponent {
     @Inject(ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS)
     private readonly overridingTranslations: Partial<AchPositivePayRuleFormTranslations>
   ) {
-    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,

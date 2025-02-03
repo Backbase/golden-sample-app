@@ -27,7 +27,7 @@ export class AchPositivePayJourneyComponent {
     @Inject(ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS)
     private readonly overridingTranslations: Partial<AchPositivePayJourneyTranslations>
   ) {
-    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,

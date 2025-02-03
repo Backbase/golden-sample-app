@@ -30,7 +30,7 @@ export class MakeTransferSuccessViewComponent {
     @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_SUCCESS_VIEW_TRANSLATIONS)
     private readonly overridingTranslations: Partial<TransferJourneyMakeTransferSuccessViewTranslations>
   ) {
-    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,

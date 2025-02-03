@@ -37,7 +37,7 @@ export class MakeTransferSummaryComponent {
     @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS)
     private readonly overridingTranslations: Partial<TransferJourneyMakeTransferSummaryTranslations>
   ) {
-    // If APP_TRANSLATIONS is not provided, set the default value as an empty object
+    
     this.overridingTranslations = this.overridingTranslations || {};
     this.translations = {
       ...this.defaultTranslations,
