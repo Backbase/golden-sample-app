@@ -1,10 +1,12 @@
 import { InjectionToken } from '@angular/core';
+import { TranslationRecord } from '@backbase-gsa/shared-translations';
 
 export const TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS =
   new InjectionToken<TransferJourneyMakeTransferFormTranslations>(
     'transfer_journey_make_transfter_form_translations'
   );
-export interface TransferJourneyMakeTransferFormTranslations {
+export interface TransferJourneyMakeTransferFormTranslations
+  extends TranslationRecord {
   'transfer.form.fromAccount.label': string;
   'transfer.form.toAccount.label': string;
   'transfer.form.toAccount.placeholder': string;
@@ -58,7 +60,8 @@ export const TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS =
   new InjectionToken<TransferJourneyMakeTransferSummaryTranslations>(
     'transfer_journey_make_transfer_summary_translations'
   );
-export interface TransferJourneyMakeTransferSummaryTranslations {
+export interface TransferJourneyMakeTransferSummaryTranslations
+  extends TranslationRecord {
   'transfer.summary.heading.label': string;
   'transfer.summary.account.description.label': string;
   'transfer.summary.amount.description.label': string;

@@ -3,4 +3,5 @@ export { TransactionDetailsComponent } from './lib/transactions-journey-feature-
 export {
   TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS,
   TransactionsJourneyTransactionDetailsViewTranslations,
+  getStatusTextFromErrorMessage,
 } from './translations-catalog';

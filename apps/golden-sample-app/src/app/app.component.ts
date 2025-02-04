@@ -10,8 +10,9 @@ import { environment } from '../environments/environment';
 import {
   APP_TRANSLATIONS,
   AppTranslations,
-  appTranslations,
+  appTranslations as defaultTranslations,
 } from './translations-catalog';
+import { TranslationsBase } from '@backbase-gsa/shared-translations';
 
 @Component({
   selector: 'app-root',
@@ -19,29 +20,20 @@ import {
   styleUrls: ['./app.component.scss'],
   standalone: false,
 })
-export class AppComponent {
+export class AppComponent extends TranslationsBase<AppTranslations> {
   triplets = triplets;
   isAuthenticated = false;
-  public readonly translations: AppTranslations;
 
   constructor(
     private readonly oAuthService: OAuthService,
     public layoutService: LayoutService,
     @Inject(APP_TRANSLATIONS)
-    private readonly overridingTranslations: Partial<AppTranslations>,
+    private readonly _translations: Partial<AppTranslations>,
     @Optional() private readonly tracker?: Tracker
   ) {
+    super(defaultTranslations, _translations);
     this.isAuthenticated =
       environment.mockEnabled ?? oAuthService.hasValidAccessToken();
-
-    this.translations = {
-      ...appTranslations,
-      ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? appTranslations[key]]
-        )
-      ),
-    };
   }
 
   logout(): void {

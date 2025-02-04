@@ -13,6 +13,7 @@ import { TrackerModule } from '@backbase/foundation-ang/observability';
 import {
   TextFilterComponent,
   TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS,
+  TransactionsJourneyTextFilterTranslations,
 } from '@backbase-gsa/transactions-journey/internal/ui';
 
 import { TRANSLATIONS } from '@backbase-gsa/transactions-journey/internal/shared-data';
@@ -23,13 +24,27 @@ import {
 import {
   TransactionDetailsComponent,
   TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS,
+  TransactionsJourneyTransactionDetailsViewTranslations,
+  getStatusTextFromErrorMessage,
 } from '@backbase-gsa/transactions-journey/internal/feature-transaction-details-view';
 import {
   TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
   TransactionsViewComponent,
   TransactionsViewModule,
+  TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
+  TransactionsJourneyTransactionViewTranslations,
 } from '@backbase-gsa/transactions-journey/internal/feature-transaction-view';
+
+export {
+  TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS,
+  TransactionsJourneyTextFilterTranslations,
+  TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS,
+  TransactionsJourneyTransactionDetailsViewTranslations,
+  getStatusTextFromErrorMessage,
+  TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
+  TransactionsJourneyTransactionViewTranslations,
+};
 
 const defaultRoutes: Routes = [
   {

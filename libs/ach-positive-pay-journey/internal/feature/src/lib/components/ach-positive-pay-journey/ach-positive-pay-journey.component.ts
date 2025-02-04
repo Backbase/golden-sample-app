@@ -1,12 +1,13 @@
-import { Component, Inject, InjectionToken } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PERMISSIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
 import { HeadingModule } from '@backbase/ui-ang/heading';
 import {
   ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS,
-  achPositivePayJourneyTranslations,
   AchPositivePayJourneyTranslations,
+  achPositivePayJourneyTranslations as defaultTranslations,
 } from '../../../translations-catalog';
+import { TranslationsBase } from '@backbase-gsa/shared-translations';
 
 @Component({
   selector: 'bb-ach-positive-pay-journey',
@@ -14,28 +15,16 @@ import {
   imports: [HeadingModule, RouterModule],
   standalone: true,
 })
-export class AchPositivePayJourneyComponent {
+export class AchPositivePayJourneyComponent extends TranslationsBase<AchPositivePayJourneyTranslations> {
   permissions = PERMISSIONS;
-
-  public readonly translations: AchPositivePayJourneyTranslations;
 
   constructor(
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     @Inject(ACH_POSITIVE_PAY_JOURNEY_TRANSLATIONS)
-    private readonly overridingTranslations: Partial<AchPositivePayJourneyTranslations>
+    private readonly _translations: Partial<AchPositivePayJourneyTranslations>
   ) {
-    this.translations = {
-      ...achPositivePayJourneyTranslations,
-      ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [
-            key,
-            value ?? achPositivePayJourneyTranslations[key],
-          ]
-        )
-      ),
-    };
+    super(defaultTranslations, _translations);
   }
 
   openNewBlockerModal() {

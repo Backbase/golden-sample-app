@@ -1,8 +1,9 @@
 import { InjectionToken } from '@angular/core';
+import { TranslationRecord } from '@backbase-gsa/shared-translations';
 
 export const USER_ACCOUNTS_TRANSLATIONS =
   new InjectionToken<UserAccountsTranslations>('user_accounts_translations');
-export interface UserAccountsTranslations {
+export interface UserAccountsTranslations extends TranslationRecord {
   'app.userAccountsView.header': string;
   'app.userAccountsView.balanceLabel': string;
   'user-accounts.view-transactions': string;

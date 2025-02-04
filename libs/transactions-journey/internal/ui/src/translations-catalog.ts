@@ -1,10 +1,12 @@
 import { InjectionToken } from '@angular/core';
+import { TranslationRecord } from '@backbase-gsa/shared-translations';
 
 export const TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS =
   new InjectionToken<TransactionsJourneyTextFilterTranslations>(
     'transactions_journey_text_filter_translations'
   );
-export interface TransactionsJourneyTextFilterTranslations {
+export interface TransactionsJourneyTextFilterTranslations
+  extends TranslationRecord {
   'transaction.form.filter.aria-label': string;
   'transaction.form.filter.placeholder': string;
   [key: string]: string;

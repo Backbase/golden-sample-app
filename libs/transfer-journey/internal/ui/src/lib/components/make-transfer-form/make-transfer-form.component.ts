@@ -25,9 +25,10 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import {
   TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS,
-  transferJourneyMakeTransferFormTranslations,
   TransferJourneyMakeTransferFormTranslations,
+  transferJourneyMakeTransferFormTranslations as defaultTranslations,
 } from '../../../translations-catalog';
+import { TranslationsBase } from '@backbase-gsa/shared-translations';
 
 @Component({
   selector: 'bb-make-transfer-form',
@@ -41,7 +42,10 @@ import {
   ],
   standalone: true,
 })
-export class MakeTransferFormComponent implements OnInit {
+export class MakeTransferFormComponent
+  extends TranslationsBase<TransferJourneyMakeTransferFormTranslations>
+  implements OnInit
+{
   @Input() account: Account | undefined;
   @Input() showMaskIndicator = true;
   @Input() maxLimit = 0;
@@ -51,25 +55,13 @@ export class MakeTransferFormComponent implements OnInit {
   makeTransferForm!: FormGroup;
   currencies = ['USD', 'EUR'];
 
-  public readonly translations: TransferJourneyMakeTransferFormTranslations;
-
   constructor(
     private readonly fb: FormBuilder,
     private readonly route: ActivatedRoute,
     @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS)
-    private readonly overridingTranslations: Partial<TransferJourneyMakeTransferFormTranslations>
+    private readonly _translations: Partial<TransferJourneyMakeTransferFormTranslations>
   ) {
-    this.translations = {
-      ...transferJourneyMakeTransferFormTranslations,
-      ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [
-            key,
-            value ?? transferJourneyMakeTransferFormTranslations[key],
-          ]
-        )
-      ),
-    };
+    super(defaultTranslations, _translations);
   }
 
   private getControl(field: string): AbstractControl | undefined {

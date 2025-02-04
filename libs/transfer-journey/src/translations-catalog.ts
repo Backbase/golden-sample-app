@@ -1,10 +1,11 @@
 import { InjectionToken } from '@angular/core';
+import { TranslationRecord } from '@backbase-gsa/shared-translations';
 
 export const TRANSFER_JOURNEY_TRANSLATIONS =
   new InjectionToken<TransferJourneyTranslations>(
     'transfer_journey_translations'
   );
-export interface TransferJourneyTranslations {
+export interface TransferJourneyTranslations extends TranslationRecord {
   'transfer.repeat.title': string;
   [key: string]: string;
 }

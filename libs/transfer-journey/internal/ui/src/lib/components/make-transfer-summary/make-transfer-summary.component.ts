@@ -3,9 +3,10 @@ import { Transfer } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import {
   TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS,
-  transferJourneyMakeTransferSummaryTranslations,
   TransferJourneyMakeTransferSummaryTranslations,
+  transferJourneyMakeTransferSummaryTranslations as defaultTranslations,
 } from '../../../translations-catalog';
+import { TranslationsBase } from '@backbase-gsa/shared-translations';
 
 @Component({
   selector: 'bb-make-transfer-summary',
@@ -24,28 +25,16 @@ import {
   ],
   standalone: true,
 })
-export class MakeTransferSummaryComponent {
+export class MakeTransferSummaryComponent extends TranslationsBase<TransferJourneyMakeTransferSummaryTranslations> {
   @Input() transfer: Transfer | undefined;
   @Output() submitTransfer = new EventEmitter<void>();
   @Output() closeTransfer = new EventEmitter<void>();
 
-  public readonly translations: TransferJourneyMakeTransferSummaryTranslations;
-
   constructor(
     @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS)
-    private readonly overridingTranslations: Partial<TransferJourneyMakeTransferSummaryTranslations>
+    private readonly _translations: Partial<TransferJourneyMakeTransferSummaryTranslations>
   ) {
-    this.translations = {
-      ...transferJourneyMakeTransferSummaryTranslations,
-      ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [
-            key,
-            value ?? transferJourneyMakeTransferSummaryTranslations[key],
-          ]
-        )
-      ),
-    };
+    super(defaultTranslations, _translations);
   }
 
   submit(): void {

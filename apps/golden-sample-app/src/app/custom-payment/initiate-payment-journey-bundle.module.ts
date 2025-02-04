@@ -7,6 +7,19 @@ import {
 import { AccountSelectorModule } from '@backbase/ui-ang/account-selector';
 import { InitiatorComponent } from './components/initiator/initiator.component';
 import { customPaymentConfig } from './custom-payment.config';
+import {
+  CustomPaymentOptionsTranslations,
+  CustomPaymentFieldOptions,
+  InternalTransfersPaymentConfig,
+  CustomPaymentConfigTranslations,
+} from './translations-catalog';
+
+export {
+  CustomPaymentOptionsTranslations,
+  CustomPaymentFieldOptions,
+  InternalTransfersPaymentConfig,
+  CustomPaymentConfigTranslations,
+};
 
 @NgModule({
   /**

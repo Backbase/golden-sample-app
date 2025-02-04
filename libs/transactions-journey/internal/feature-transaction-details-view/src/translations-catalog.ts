@@ -1,10 +1,12 @@
 import { InjectionToken } from '@angular/core';
+import { TranslationRecord } from '@backbase-gsa/shared-translations';
 
 export const TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS =
   new InjectionToken<TransactionsJourneyTransactionDetailsViewTranslations>(
     'transactions_journey_transaction_details_view_translations'
   );
-export interface TransactionsJourneyTransactionDetailsViewTranslations {
+export interface TransactionsJourneyTransactionDetailsViewTranslations
+  extends TranslationRecord {
   'transactions.details.recepient': string;
   'transactions.details.date': string;
   'transactions.details.amount': string;

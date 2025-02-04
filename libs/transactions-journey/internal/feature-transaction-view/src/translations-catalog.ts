@@ -1,10 +1,12 @@
 import { InjectionToken } from '@angular/core';
+import { TranslationRecord } from '@backbase-gsa/shared-translations';
 
 export const TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS =
   new InjectionToken<TransactionsJourneyTransactionViewTranslations>(
     'transactions_journey_transaction_view_translations'
   );
-export interface TransactionsJourneyTransactionViewTranslations {
+export interface TransactionsJourneyTransactionViewTranslations
+  extends TranslationRecord {
   'transactions.filters.label': string;
   'transactions.account-filter.remove': string;
   [key: string]: string;

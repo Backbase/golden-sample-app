@@ -1,10 +1,11 @@
 import { InjectionToken } from '@angular/core';
+import { TranslationRecord } from '@backbase-gsa/shared-translations';
 
 export const ACH_POSITIVE_PAY_RULE_FORM_TRANSLATIONS =
   new InjectionToken<AchPositivePayRuleFormTranslations>(
     'ach_positive_pay_rule_form_translations'
   );
-export interface AchPositivePayRuleFormTranslations {
+export interface AchPositivePayRuleFormTranslations extends TranslationRecord {
   'ach-positive-pay-journey.new-blocker-rule.checking-account': string;
   'ach-positive-pay-journey.new-blocker-rule.account-selector-placeholder': string;
   'ach-positive-pay-journey.new-blocker-rule.payment-type.label': string;
@@ -57,7 +58,7 @@ export const ACH_POSITIVE_PAY_RULES_TRANSLATIONS =
   new InjectionToken<AchPositivePayRulesTranslations>(
     'ach_positive_pay_rules_translations'
   );
-export interface AchPositivePayRulesTranslations {
+export interface AchPositivePayRulesTranslations extends TranslationRecord {
   'ach-positive-pay.view-rules.empty-state.title': string;
   'ach-positive-pay.view-rules.empty-state.subtitle': string;
   [key: string]: string;

@@ -13,7 +13,15 @@ import { FilterTransactionsPipe } from '@backbase-gsa/transactions-journey/inter
 import { TransactionItemComponent } from '../transaction-item/transaction-item.component';
 import { TransactionsViewComponent } from './transactions-view.component';
 import { AmountModule } from '@backbase/ui-ang/amount';
-import { TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS } from '../../../translations-catalog';
+import {
+  TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
+  TransactionsJourneyTransactionViewTranslations,
+} from '../../../translations-catalog';
+
+export {
+  TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
+  TransactionsJourneyTransactionViewTranslations,
+};
 
 @NgModule({
   declarations: [TransactionsViewComponent],

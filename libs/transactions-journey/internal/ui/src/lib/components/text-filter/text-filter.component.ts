@@ -6,9 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from '@backbase/ui-ang/input-text';
 import {
   TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS,
-  transactionsJourneyTextFilterTranslations,
   TransactionsJourneyTextFilterTranslations,
+  transactionsJourneyTextFilterTranslations as defaultTranslations,
 } from '../../../translations-catalog';
+import { TranslationsBase } from '@backbase-gsa/shared-translations';
 
 @Component({
   selector: 'bb-text-filter',
@@ -17,26 +18,14 @@ import {
   imports: [CommonModule, FormsModule, InputTextModule, TextFilterComponent],
   standalone: true,
 })
-export class TextFilterComponent {
+export class TextFilterComponent extends TranslationsBase<TransactionsJourneyTextFilterTranslations> {
   @Output() textChange = new EventEmitter<string>();
   @Input() text: string | null = '';
 
-  public readonly translations: TransactionsJourneyTextFilterTranslations;
-
   constructor(
     @Inject(TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS)
-    private readonly overridingTranslations: Partial<TransactionsJourneyTextFilterTranslations>
+    private readonly _translations: Partial<TransactionsJourneyTextFilterTranslations>
   ) {
-    this.translations = {
-      ...transactionsJourneyTextFilterTranslations,
-      ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [
-            key,
-            value ?? transactionsJourneyTextFilterTranslations[key],
-          ]
-        )
-      ),
-    };
+    super(defaultTranslations, _translations);
   }
 }

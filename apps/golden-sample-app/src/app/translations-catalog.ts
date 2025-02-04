@@ -1,9 +1,10 @@
 import { InjectionToken } from '@angular/core';
+import { TranslationRecord } from '@backbase-gsa/shared-translations';
 
 export const APP_TRANSLATIONS = new InjectionToken<Partial<AppTranslations>>(
   'app_translations'
 );
-export interface AppTranslations {
+export interface AppTranslations extends TranslationRecord {
   'move-focus-to-beginning-of-content': string;
   'skip-to-content': string;
   'bb-layout.sidebar_toggler': string;
@@ -17,7 +18,6 @@ export interface AppTranslations {
   'main.entitlements-test-nested-groups.text': string;
   'main.entitlements-test-using-not-operators-on-groups.text': string;
   'main.entitlements-test-using-multiple-not-operators-on-groups.text': string;
-  [key: string]: string;
 }
 
 export const appTranslations: AppTranslations = {

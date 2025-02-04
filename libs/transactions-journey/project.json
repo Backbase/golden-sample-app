@@ -14,7 +14,7 @@
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/transactions-journey/tsconfig.lib.prod.json"
+          "tsConfig": "libs/transactions-journey/tsconfig.lib.prod.json",
         },
         "development": {
           "tsConfig": "libs/transactions-journey/tsconfig.lib.json"

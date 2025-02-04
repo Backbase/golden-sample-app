@@ -4,9 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import {
   getTransferRepeatMessage,
   TRANSFER_JOURNEY_TRANSLATIONS,
-  transferJourneyTranslations,
   TransferJourneyTranslations,
+  transferJourneyTranslations as defaultTranslations,
 } from '../translations-catalog';
+import { TranslationsBase } from '@backbase-gsa/shared-translations';
 
 @Component({
   selector: 'bb-transfer-journey',
@@ -14,9 +15,7 @@ import {
   providers: [MakeTransferJourneyState],
   standalone: false,
 })
-export class TransferJourneyComponent {
-  public readonly translations: TransferJourneyTranslations;
-
+export class TransferJourneyComponent extends TranslationsBase<TransferJourneyTranslations> {
   public title: string = this.route.snapshot.firstChild?.data['title'] ?? '';
 
   public accountName: string = this.route.snapshot.params['accountName'];
@@ -26,15 +25,8 @@ export class TransferJourneyComponent {
   constructor(
     private readonly route: ActivatedRoute,
     @Inject(TRANSFER_JOURNEY_TRANSLATIONS)
-    private readonly overridingTranslations: Partial<TransferJourneyTranslations>
+    private readonly _translations: Partial<TransferJourneyTranslations>
   ) {
-    this.translations = {
-      ...transferJourneyTranslations,
-      ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? transferJourneyTranslations[key]]
-        )
-      ),
-    };
+    super(defaultTranslations, _translations);
   }
 }

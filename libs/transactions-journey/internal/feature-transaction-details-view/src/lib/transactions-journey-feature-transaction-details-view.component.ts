@@ -17,9 +17,10 @@ import { CommonModule } from '@angular/common';
 import {
   getStatusTextFromErrorMessage,
   TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS,
-  transactionsJourneyTransactionDetailsViewTranslations,
   TransactionsJourneyTransactionDetailsViewTranslations,
+  transactionsJourneyTransactionDetailsViewTranslations as defaultTranslations,
 } from '../translations-catalog';
+import { TranslationsBase } from '@backbase-gsa/shared-translations';
 
 interface TransactionDetailsView {
   transferParams: Params;
@@ -53,7 +54,7 @@ interface TransactionDetailsView {
   ],
   standalone: true,
 })
-export class TransactionDetailsComponent {
+export class TransactionDetailsComponent extends TranslationsBase<TransactionsJourneyTransactionDetailsViewTranslations> {
   public readonly title = this.route.snapshot.data['title'];
 
   private readonly id$ = this.route.paramMap.pipe(
@@ -69,26 +70,14 @@ export class TransactionDetailsComponent {
     })
   );
 
-  public readonly translations: TransactionsJourneyTransactionDetailsViewTranslations;
-
   constructor(
     public route: ActivatedRoute,
     private readonly api: TransactionsHttpService,
     @Inject(TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS)
-    private readonly overridingTranslations: Partial<TransactionsJourneyTransactionDetailsViewTranslations>,
+    private readonly _translations: Partial<TransactionsJourneyTransactionDetailsViewTranslations>,
     @Optional() private readonly tracker?: Tracker
   ) {
-    this.translations = {
-      ...transactionsJourneyTransactionDetailsViewTranslations,
-      ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [
-            key,
-            value ?? transactionsJourneyTransactionDetailsViewTranslations[key],
-          ]
-        )
-      ),
-    };
+    super(defaultTranslations, _translations);
   }
 
   getTransactionView(

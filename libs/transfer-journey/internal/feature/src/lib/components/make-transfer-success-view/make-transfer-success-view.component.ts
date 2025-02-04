@@ -8,37 +8,26 @@ import { ButtonModule } from '@backbase/ui-ang/button';
 import {
   TRANSFER_JOURNEY_MAKE_TRANSFER_SUCCESS_VIEW_TRANSLATIONS,
   TransferJourneyMakeTransferSuccessViewTranslations,
-  transferJourneyMakeTransferSuccessViewTranslations,
+  transferJourneyMakeTransferSuccessViewTranslations as defaultTranslations,
 } from '../../../translations-catalog';
+import { TranslationsBase } from '@backbase-gsa/shared-translations';
 
 @Component({
   templateUrl: 'make-transfer-success-view.component.html',
   imports: [AsyncPipe, NgIf, ButtonModule],
   standalone: true,
 })
-export class MakeTransferSuccessViewComponent {
+export class MakeTransferSuccessViewComponent extends TranslationsBase<TransferJourneyMakeTransferSuccessViewTranslations> {
   transfer$ = this.transferStore.transfer$;
-
-  public readonly translations: TransferJourneyMakeTransferSuccessViewTranslations;
 
   constructor(
     private readonly transferStore: MakeTransferJourneyState,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_SUCCESS_VIEW_TRANSLATIONS)
-    private readonly overridingTranslations: Partial<TransferJourneyMakeTransferSuccessViewTranslations>
+    private readonly _translations: Partial<TransferJourneyMakeTransferSuccessViewTranslations>
   ) {
-    this.translations = {
-      ...transferJourneyMakeTransferSuccessViewTranslations,
-      ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [
-            key,
-            value ?? transferJourneyMakeTransferSuccessViewTranslations[key],
-          ]
-        )
-      ),
-    };
+    super(defaultTranslations, _translations);
   }
 
   close(): void {

@@ -18,9 +18,10 @@ import {
 import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
 import {
   TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
-  transactionsJourneyTransactionViewTranslations,
   TransactionsJourneyTransactionViewTranslations,
+  transactionsJourneyTransactionViewTranslations as defaultTranslations,
 } from '../../../translations-catalog';
+import { TranslationsBase } from '@backbase-gsa/shared-translations';
 
 @Component({
   templateUrl: './transactions-view.component.html',
@@ -28,7 +29,7 @@ import {
   selector: 'bb-transactions-view',
   standalone: false,
 })
-export class TransactionsViewComponent {
+export class TransactionsViewComponent extends TranslationsBase<TransactionsJourneyTransactionViewTranslations> {
   public title = this.route.snapshot.data['title'];
 
   public filter = '';
@@ -72,31 +73,19 @@ export class TransactionsViewComponent {
     map((params) => params.get('search') ?? '')
   );
 
-  public readonly translations: TransactionsJourneyTransactionViewTranslations;
-
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly transactionsService: TransactionsHttpService,
     private readonly arrangementsService: ArrangementsService,
     @Inject(TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS)
-    private readonly overridingTranslations: Partial<TransactionsJourneyTransactionViewTranslations> = {},
+    private readonly _translations: Partial<TransactionsJourneyTransactionViewTranslations> = {},
     @Optional()
     @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERVICE)
     private readonly externalCommunicationService: TransactionsCommunicationService,
     @Optional() private readonly tracker?: Tracker
   ) {
-    this.translations = {
-      ...transactionsJourneyTransactionViewTranslations,
-      ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [
-            key,
-            value ?? transactionsJourneyTransactionViewTranslations[key],
-          ]
-        )
-      ),
-    };
+    super(defaultTranslations, _translations);
   }
 
   search(ev: string) {

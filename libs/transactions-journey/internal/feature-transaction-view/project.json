@@ -20,6 +20,12 @@
           "tsConfig": "libs/transactions-journey/internal/feature-transaction-view/tsconfig.lib.json"
         }
       },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "shared-translations"
+        }
+      ],
       "defaultConfiguration": "production"
     },
     "test": {

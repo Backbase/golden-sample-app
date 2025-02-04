@@ -3,8 +3,9 @@ import { EmptyStateModule } from '@backbase/ui-ang/empty-state';
 import {
   ACH_POSITIVE_PAY_RULES_TRANSLATIONS,
   AchPositivePayRulesTranslations,
-  achPositivePayRulesTranslations,
+  achPositivePayRulesTranslations as defaultTranslations,
 } from '../../../translations-catalog';
+import { TranslationsBase } from '@backbase-gsa/shared-translations';
 
 @Component({
   selector: 'bb-ach-positive-pay-rules',
@@ -12,19 +13,11 @@ import {
   imports: [EmptyStateModule],
   standalone: true,
 })
-export class AchPositivePayRulesComponent {
-  public readonly translations: AchPositivePayRulesTranslations;
+export class AchPositivePayRulesComponent extends TranslationsBase<AchPositivePayRulesTranslations> {
   constructor(
     @Inject(ACH_POSITIVE_PAY_RULES_TRANSLATIONS)
-    private readonly overridingTranslations: Partial<AchPositivePayRulesTranslations>
+    private readonly _translations: Partial<AchPositivePayRulesTranslations>
   ) {
-    this.translations = {
-      ...achPositivePayRulesTranslations,
-      ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? achPositivePayRulesTranslations[key]]
-        )
-      ),
-    };
+    super(defaultTranslations, _translations);
   }
 }

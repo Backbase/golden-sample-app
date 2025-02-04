@@ -7,35 +7,27 @@ import {
   RemoveFromFavoritesTrackerEvent,
 } from '../../model/tracker-events';
 import {
-  userAccountsTranslations,
-  UserAccountsTranslations,
   USER_ACCOUNTS_TRANSLATIONS,
+  UserAccountsTranslations,
+  userAccountsTranslations as defaultTranslations,
 } from '../translations-catalog';
+import { TranslationsBase } from '@backbase-gsa/shared-translations';
 
 @Component({
   selector: 'app-user-accounts-view',
   templateUrl: './user-accounts-view.component.html',
   standalone: false,
 })
-export class UserAccountsViewComponent {
+export class UserAccountsViewComponent extends TranslationsBase<UserAccountsTranslations> {
   public arrangements$ = this.arrangementsService.arrangements$;
-
-  public readonly translations: UserAccountsTranslations;
 
   constructor(
     private readonly arrangementsService: ArrangementsService,
     @Inject(USER_ACCOUNTS_TRANSLATIONS)
-    private readonly overridingTranslations: Partial<UserAccountsTranslations>,
+    private readonly _translations: Partial<UserAccountsTranslations>,
     @Optional() private readonly tracker?: Tracker
   ) {
-    this.translations = {
-      ...userAccountsTranslations,
-      ...Object.fromEntries(
-        Object.entries(this.overridingTranslations ?? {}).map(
-          ([key, value]) => [key, value ?? userAccountsTranslations[key]]
-        )
-      ),
-    };
+    super(defaultTranslations, _translations);
   }
 
   updateFavorite(account: ProductSummaryItem) {
