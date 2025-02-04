@@ -1,5 +1,8 @@
 import { PlaywrightTestConfig, devices } from '@playwright/test';
+import { initA11yExpect } from './apps/golden-sample-app-e2e/utils/a11y/a11y-expect';
 import 'dotenv/config';
+
+initA11yExpect();
 
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
@@ -39,6 +42,7 @@ const config: PlaywrightTestConfig = {
       name: 'web-chrome',
       use: {
         ...devices['Desktop Chrome'],
+        baseURL: 'http://localhost:4201',
         launchOptions: {
           chromiumSandbox: false,
           args: [
