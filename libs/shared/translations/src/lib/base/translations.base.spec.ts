@@ -27,7 +27,10 @@ describe('TranslationsBase', () => {
       key1: 'custom value 1',
       key2: 'default value 2',
     };
-    const translations = new MockTranslations(defaultTranslations, customTranslations);
+    const translations = new MockTranslations(
+      defaultTranslations,
+      customTranslations
+    );
     expect(translations.translations).toEqual(expectedTranslations);
   });
 
@@ -39,7 +42,10 @@ describe('TranslationsBase', () => {
       key1: 'default value 1',
       key2: 'default value 2',
     };
-    const translations = new MockTranslations(defaultTranslations, customTranslations);
+    const translations = new MockTranslations(
+      defaultTranslations,
+      customTranslations
+    );
     expect(translations.translations).toEqual(expectedTranslations);
   });
 });
