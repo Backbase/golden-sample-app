@@ -21,13 +21,7 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-      {
-        "projects": "shared-translations",
-        "target": "build" 
-      },
-        "^build"
-      ],
+      "dependsOn": ["^build"],
       "inputs": ["production", "^production"],
       "cache": true
     },

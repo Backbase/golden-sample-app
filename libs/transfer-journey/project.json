@@ -5,9 +5,9 @@
   "sourceRoot": "libs/transfer-journey/src",
   "prefix": "bb",
   "tags": ["scope:transfer-journey", "type:shell"],
+  "implicitDependencies": ["shared-translations"],
   "targets": {
     "build": {
-      "dependsOn": [ "shared-translations" ], 
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
