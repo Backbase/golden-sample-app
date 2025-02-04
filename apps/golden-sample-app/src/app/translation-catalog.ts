@@ -12,7 +12,6 @@ export interface AppTranslations {
   'main.entitlements-test-nested-groups.text': string;
   'main.entitlements-test-using-not-operators-on-groups.text': string;
   'main.entitlements-test-using-multiple-not-operators-on-groups.text': string;
-  [key: string]: string;
 }
 
 export const appTranslations: AppTranslations = {
