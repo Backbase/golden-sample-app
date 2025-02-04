@@ -1,3 +1,4 @@
+import { $localize } from '@angular/localize/init';
 export interface TransferJourneyMakeTransferSuccessViewTranslations {
   'transfer.success.close.text': string;
 }

@@ -1,3 +1,4 @@
+import { $localize } from '@angular/localize/init';
 export interface TransactionsJourneyTransactionViewTranslations {
   'transactions.filters.label': string;
   'transactions.account-filter.remove': string;

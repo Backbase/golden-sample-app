@@ -1,3 +1,5 @@
+import { $localize } from '@angular/localize/init';
+
 export interface AchPositivePayRuleFormTranslations {
   'ach-positive-pay-journey.new-blocker-rule.checking-account': string;
   'ach-positive-pay-journey.new-blocker-rule.account-selector-placeholder': string;
