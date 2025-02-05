@@ -9,7 +9,6 @@ export interface TransactionsJourneyTextFilterTranslations
   extends TranslationRecord {
   'transaction.form.filter.aria-label': string;
   'transaction.form.filter.placeholder': string;
-  [key: string]: string;
 }
 export const transactionsJourneyTextFilterTranslations: TransactionsJourneyTextFilterTranslations =
   {

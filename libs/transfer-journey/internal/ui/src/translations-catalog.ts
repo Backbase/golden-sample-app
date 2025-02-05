@@ -14,7 +14,6 @@ export interface TransferJourneyMakeTransferFormTranslations
   'transfer.form.amount.label': string;
   'transfer.form.amount.error.required': string;
   'transfer.form.submit.text': string;
-  [key: string]: string;
 }
 
 export const transferJourneyMakeTransferFormTranslations: TransferJourneyMakeTransferFormTranslations =
@@ -67,7 +66,6 @@ export interface TransferJourneyMakeTransferSummaryTranslations
   'transfer.summary.amount.description.label': string;
   'transfer.summary.submit.text': string;
   'transfer.summary.close.text': string;
-  [key: string]: string;
 }
 export const transferJourneyMakeTransferSummaryTranslations: TransferJourneyMakeTransferSummaryTranslations =
   {

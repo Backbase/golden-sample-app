@@ -9,7 +9,6 @@ export interface UserAccountsTranslations extends TranslationRecord {
   'user-accounts.view-transactions': string;
   'user-accounts.add-favorites': string;
   'user-accounts.remove-favorites': string;
-  [key: string]: string;
 }
 
 export const userAccountsTranslations: UserAccountsTranslations = {

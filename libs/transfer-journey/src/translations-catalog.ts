@@ -7,7 +7,6 @@ export const TRANSFER_JOURNEY_TRANSLATIONS =
   );
 export interface TransferJourneyTranslations extends TranslationRecord {
   'transfer.repeat.title': string;
-  [key: string]: string;
 }
 export const transferJourneyTranslations: TransferJourneyTranslations = {
   'transfer.repeat.title': $localize`:Title for Repeat Transfer Alert - 'Transfer Alert'|This string is used as the title 

@@ -12,7 +12,6 @@ export interface AchPositivePayRuleFormTranslations extends TranslationRecord {
   'ach-positive-pay-journey.new-blocker-rule.company-id.label': string;
   'ach-positive-pay-journey.new-blocker-rule.company-name.label': string;
   'ach-positive-pay-journey.new-blocker-rule.company-name.placeholder': string;
-  [key: string]: string;
 }
 export const achPositivePayRuleFormTranslations: AchPositivePayRuleFormTranslations =
   {
@@ -61,7 +60,6 @@ export const ACH_POSITIVE_PAY_RULES_TRANSLATIONS =
 export interface AchPositivePayRulesTranslations extends TranslationRecord {
   'ach-positive-pay.view-rules.empty-state.title': string;
   'ach-positive-pay.view-rules.empty-state.subtitle': string;
-  [key: string]: string;
 }
 
 export const achPositivePayRulesTranslations: AchPositivePayRulesTranslations =

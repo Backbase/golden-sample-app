@@ -8,7 +8,6 @@ export const TRANSFER_JOURNEY_MAKE_TRANSFER_SUCCESS_VIEW_TRANSLATIONS =
 export interface TransferJourneyMakeTransferSuccessViewTranslations
   extends TranslationRecord {
   'transfer.success.close.text': string;
-  [key: string]: string;
 }
 export const transferJourneyMakeTransferSuccessViewTranslations: TransferJourneyMakeTransferSuccessViewTranslations =
   {
