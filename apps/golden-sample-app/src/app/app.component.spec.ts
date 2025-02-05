@@ -6,6 +6,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
+import { APP_TRANSLATIONS } from './translations-catalog';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -27,6 +28,7 @@ describe('AppComponent', () => {
       providers: [
         { provide: LayoutService, useValue: mockLayoutService },
         { provide: OAuthService, useValue: mockOAuthService },
+        { provide: APP_TRANSLATIONS, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

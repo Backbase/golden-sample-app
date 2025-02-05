@@ -7,13 +7,14 @@ import { UserContextService } from './user-context.service';
 @Component({
   selector: 'app-user-context',
   templateUrl: './user-context.component.html',
+  standalone: false,
 })
 export class UserContextComponent {
   constructor(
-    private userContextService: UserContextService,
-    private userContextGuard: UserContextGuard,
-    private authService: OAuthService,
-    private router: Router
+    private readonly userContextService: UserContextService,
+    private readonly userContextGuard: UserContextGuard,
+    private readonly authService: OAuthService,
+    private readonly router: Router
   ) {}
 
   selectContextSuccess(serviceAgreement: { id: string }) {

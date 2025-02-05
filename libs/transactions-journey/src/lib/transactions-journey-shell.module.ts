@@ -10,20 +10,42 @@ import { ButtonModule } from '@backbase/ui-ang/button';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 
-import { TextFilterComponent } from '@backbase-gsa/transactions-journey/internal/ui';
+import {
+  TextFilterComponent,
+  TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS,
+  TransactionsJourneyTextFilterTranslations,
+} from '@backbase-gsa/transactions-journey/internal/ui';
 
 import { TRANSLATIONS } from '@backbase-gsa/transactions-journey/internal/shared-data';
 import {
   TransactionsJourneyConfiguration,
   TransactionsRouteTitleResolverService,
 } from '@backbase-gsa/transactions-journey/internal/data-access';
-import { TransactionDetailsComponent } from '@backbase-gsa/transactions-journey/internal/feature-transaction-details-view';
+import {
+  TransactionDetailsComponent,
+  TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS,
+  TransactionsJourneyTransactionDetailsViewTranslations,
+  getStatusTextFromErrorMessage,
+} from '@backbase-gsa/transactions-journey/internal/feature-transaction-details-view';
 import {
   TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
   TransactionsViewComponent,
   TransactionsViewModule,
+  TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
+  TransactionsJourneyTransactionViewTranslations,
 } from '@backbase-gsa/transactions-journey/internal/feature-transaction-view';
+
+export {
+  TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS,
+  TransactionsJourneyTextFilterTranslations,
+  TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS,
+  TransactionsJourneyTransactionDetailsViewTranslations,
+  getStatusTextFromErrorMessage,
+  TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
+  TransactionsJourneyTransactionViewTranslations,
+};
+
 const defaultRoutes: Routes = [
   {
     path: '',
@@ -72,6 +94,21 @@ interface TransactionsJourneyModuleConfig {
   providers: [
     TransactionsJourneyConfiguration,
     TransactionsRouteTitleResolverService,
+    {
+      provide: TRANSACTIONS_JOURNEY_TEXT_FILTER_TRANSLATIONS,
+      useValue: {},
+    },
+    {
+      provide: TRANSACTIONS_JOURNEY_TRANSACTION_DETAILS_VIEW_TRANSLATIONS,
+      useValue: {
+        'transaction-details.repeat': $localize`:Label for Repeat Transaction - 'Repeat transaction'|This string is
+              used as a label for the 'Repeat transaction' button. It is
+              presented to the user in the transaction details view when they
+              want to repeat a previous transaction. This label is located
+              within the transaction details section of the
+              layout.@@transaction-details.repeat:Repeat - overriden`,
+      },
+    },
   ],
 })
 export class TransactionsJourneyModule {

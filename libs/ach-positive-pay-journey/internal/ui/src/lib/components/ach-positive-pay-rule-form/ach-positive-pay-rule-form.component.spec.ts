@@ -1,10 +1,13 @@
+import { AchPositivePayRuleFormTranslations } from '../../../translations-catalog';
 import { AchPositivePayRuleFormComponent } from './ach-positive-pay-rule-form.component';
 
 describe('AchPositivePayRuleFormComponent', () => {
   let component: AchPositivePayRuleFormComponent;
 
   beforeEach(async () => {
-    component = new AchPositivePayRuleFormComponent();
+    component = new AchPositivePayRuleFormComponent(
+      {} as Partial<AchPositivePayRuleFormTranslations>
+    );
   });
 
   it('should create', () => {

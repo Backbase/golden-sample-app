@@ -4,6 +4,10 @@ import { provideRoutes, Route, RouterModule } from '@angular/router';
 import {
   MakeTransferFormComponent,
   MakeTransferSummaryComponent,
+  TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS,
+  TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS,
+  TransferJourneyMakeTransferFormTranslations,
+  TransferJourneyMakeTransferSummaryTranslations,
 } from '@backbase-gsa/transfer-journey/internal/ui';
 import { MakeTransferJourneyStoreGuard } from './make-transfer-journey-store-guard';
 import { TransferJourneyComponent } from './transfer-journey.component';
@@ -21,6 +25,21 @@ import {
 import { TRANSLATIONS } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { AlertModule } from '@backbase/ui-ang/alert';
+import {
+  TRANSFER_JOURNEY_TRANSLATIONS,
+  TransferJourneyTranslations,
+  getTransferRepeatMessage,
+} from '../translations-catalog';
+
+export {
+  TRANSFER_JOURNEY_TRANSLATIONS,
+  TransferJourneyTranslations,
+  getTransferRepeatMessage,
+  TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS,
+  TransferJourneyMakeTransferFormTranslations,
+  TRANSFER_JOURNEY_MAKE_TRANSFER_SUMMARY_TRANSLATIONS,
+  TransferJourneyMakeTransferSummaryTranslations,
+};
 
 const defaultRoute: Route = {
   path: '',
@@ -87,6 +106,21 @@ const defaultRoute: Route = {
     MakeTransferPermissionsService,
     MakeTransferAccountHttpService,
     MakeTransferRouteTitleResolverService,
+    {
+      provide: TRANSFER_JOURNEY_TRANSLATIONS,
+      useValue: {},
+    },
+    {
+      provide: TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS,
+      useValue: {
+        'transfer.form.toAccount.error.required': $localize`:To account required error message - 'Required field'|This string
+              is used as the error message for the 'To Account' field in the
+              transfer form when the field is required but not filled. It is
+              presented to the user when they need to fill in the 'To Account'
+              field. This error message is located in the transfer form
+              layout.@@transfer.form.toAccount.error.required:Required field`,
+      },
+    },
   ],
   exports: [TransferJourneyComponent],
 })

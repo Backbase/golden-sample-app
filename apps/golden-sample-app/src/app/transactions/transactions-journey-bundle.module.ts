@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import {
   TransactionsJourneyConfiguration,
   TransactionsJourneyModule,
-  TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+  TRANSACTIONS_JOURNEY_COMMUNICATION_SERVICE,
 } from '@backbase-gsa/transactions-journey';
 import { environment } from '../../environments/environment';
 import { JourneyCommunicationService } from '../services/journey-communication.service';
@@ -29,7 +29,7 @@ import { CommonModule } from '@angular/common';
       } as TransactionsJourneyConfiguration,
     },
     {
-      provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+      provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERVICE,
       useExisting: JourneyCommunicationService,
     },
   ],

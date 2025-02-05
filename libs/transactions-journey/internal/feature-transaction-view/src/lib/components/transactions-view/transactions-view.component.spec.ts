@@ -9,7 +9,7 @@ import { TransactionItem } from '@backbase/transactions-http-ang';
 import { BehaviorSubject, delay, of } from 'rxjs';
 import {
   TransactionsCommunicationService,
-  TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+  TRANSACTIONS_JOURNEY_COMMUNICATION_SERVICE,
 } from '@backbase-gsa/transactions-journey/internal/data-access';
 import {
   debitMockTransaction,
@@ -23,11 +23,12 @@ import {
 import { TransactionsViewComponent } from './transactions-view.component';
 import { By } from '@angular/platform-browser';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
+import { TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS } from '../../../translations-catalog';
 
 @Component({
   selector: 'bb-text-filter-component',
-  standalone: true,
   template: '',
+  standalone: true,
 })
 class MockTextFilterComponent {}
 describe('TransactionsViewComponent', () => {
@@ -101,8 +102,12 @@ describe('TransactionsViewComponent', () => {
           useValue: mockArrangementsService,
         },
         {
-          provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+          provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERVICE,
           useValue: mockTransactionsCommunicationService,
+        },
+        {
+          provide: TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
+          useValue: {},
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],

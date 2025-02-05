@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  Inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -16,6 +23,12 @@ import {
   Transfer,
 } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { ActivatedRoute } from '@angular/router';
+import {
+  TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS,
+  TransferJourneyMakeTransferFormTranslations,
+  transferJourneyMakeTransferFormTranslations as defaultTranslations,
+} from '../../../translations-catalog';
+import { TranslationsBase } from '@backbase-gsa/shared-translations';
 
 @Component({
   selector: 'bb-make-transfer-form',
@@ -29,7 +42,10 @@ import { ActivatedRoute } from '@angular/router';
   ],
   standalone: true,
 })
-export class MakeTransferFormComponent implements OnInit {
+export class MakeTransferFormComponent
+  extends TranslationsBase<TransferJourneyMakeTransferFormTranslations>
+  implements OnInit
+{
   @Input() account: Account | undefined;
   @Input() showMaskIndicator = true;
   @Input() maxLimit = 0;
@@ -38,6 +54,15 @@ export class MakeTransferFormComponent implements OnInit {
 
   makeTransferForm!: FormGroup;
   currencies = ['USD', 'EUR'];
+
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly route: ActivatedRoute,
+    @Inject(TRANSFER_JOURNEY_MAKE_TRANSFER_FORM_TRANSLATIONS)
+    private readonly _translations: Partial<TransferJourneyMakeTransferFormTranslations>
+  ) {
+    super(defaultTranslations, _translations);
+  }
 
   private getControl(field: string): AbstractControl | undefined {
     return this.makeTransferForm.controls[field];
@@ -83,8 +108,6 @@ export class MakeTransferFormComponent implements OnInit {
 
     return !!control && control.touched && control.invalid;
   }
-
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const accountName: string =
