@@ -1,0 +1,10 @@
+#  The source files under sub dirs here are always regenerated from the journey packages installed
+#  under node_modules, and therefore should not be edited or checked in to source control.
+#
+#  The sources are copied here for convenience and visibility, and act as accelerators to developing
+#  a suite of e2e tests for your app.
+#
+#  If you want to customise the source code for a test in this dir, copy-paste the test code into
+#  your app's *-e2e test project and edit it there instead.
+#
+*/*

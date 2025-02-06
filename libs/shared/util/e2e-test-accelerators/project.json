@@ -1,0 +1,5 @@
+{
+  "name": "e2e-test-accelerators",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "tags": ["scope:shared", "type:util", "region:agnostic"]
+}
