@@ -6,7 +6,6 @@ import { ButtonModule } from '@backbase/ui-ang/button';
   selector: 'bb-make-transfer-summary',
   templateUrl: 'make-transfer-summary.component.html',
   imports: [ButtonModule],
-  standalone: true,
 })
 export class MakeTransferSummaryComponent {
   @Input() transfer: Transfer | undefined;
