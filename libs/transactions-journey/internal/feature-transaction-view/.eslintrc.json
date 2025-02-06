@@ -9,6 +9,9 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "@angular-eslint/prefer-standalone": [
+          "warn"
+        ],
         "@angular-eslint/directive-selector": [
           "error",
           {

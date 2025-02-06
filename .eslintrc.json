@@ -6,6 +6,9 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "@angular-eslint/prefer-standalone": [
+          "warn"
+        ],
         "@nx/enforce-module-boundaries": [
           "error",
           {
