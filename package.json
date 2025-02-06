@@ -28,7 +28,8 @@
     "lint": "nx run-many --all --target=lint",
     "format": "prettier --write \"{apps,libs}/**/*.{ts,md,html}\" \"!{apps,libs}/**/coverage\" ",
     "format:check": "prettier --list-different \"{apps,libs}/**/*.{ts,md}\" \"!{apps,libs}/**/coverage\"",
-    "docs:build": "markdown-include .markdown.json"
+    "docs:build": "markdown-include .markdown.json",
+    "prepare": "npx nx g extract-e2e-tests"
   },
   "private": true,
   "dependencies": {
@@ -86,6 +87,7 @@
     "@angular/compiler-cli": "18.2.9",
     "@angular/language-service": "18.2.13",
     "@axe-core/playwright": "^4.10.1",
+    "@backbase/nx-plugin": "^2.2.1",
     "@dot-build/serve-and-run-angular": "^1.0.2",
     "@ng-apimock/core": "^3.11.0",
     "@ng-apimock/dev-interface": "^3.2.1",
