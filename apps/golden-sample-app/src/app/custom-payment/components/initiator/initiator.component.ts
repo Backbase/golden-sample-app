@@ -7,7 +7,7 @@ import {
   PaymentFormField,
   PaymentFormFieldConfig,
   PaymentFormFieldOptions,
-} from '@backbase/internal-payments-shared-util';
+} from '@backbase/initiate-payment-journey-ang';
 
 import { AccountSelectorItem } from './initiator.model';
 import { InitiatorService } from './initiator.service';
