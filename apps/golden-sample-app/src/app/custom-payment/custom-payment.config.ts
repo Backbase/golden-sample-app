@@ -16,7 +16,6 @@ import {
   ScheduleFields,
 } from '@backbase/initiate-payment-journey-ang';
 
-
 import { InitiatorComponent } from './components/initiator/initiator.component';
 import { Validators } from '@angular/forms';
 
