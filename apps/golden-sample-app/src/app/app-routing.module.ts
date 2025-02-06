@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, provideRouter, withNavigationErrorHandler } from '@angular/router';
 import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
 import { AuthGuard } from './auth/guard/auth.guard';
 import { ViewWrapperComponent } from './components/view-wrapper/view-wrapper.component';
@@ -83,7 +83,15 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ViewWrapperComponent],
-  imports: [RouterModule.forRoot(routes), CommonModule],
+  imports: [RouterModule, CommonModule],
+  providers: [
+    provideRouter(routes, 
+      withNavigationErrorHandler((error) => {
+        console.error('Navigation error:', error);
+        // You can add custom error handling logic here
+      })
+    )
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

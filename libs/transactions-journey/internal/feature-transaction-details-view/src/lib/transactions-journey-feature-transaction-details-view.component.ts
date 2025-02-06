@@ -31,21 +31,19 @@ interface TransactionDetailsView {
 }
 
 @Component({
-  templateUrl:
-    './transactions-journey-feature-transaction-details-view.component.html',
-  selector: 'bb-transaction-details',
-  styleUrls: [
-    './transactions-journey-feature-transaction-details-view.component.scss',
-  ],
-  imports: [
-    TrackerModule,
-    ButtonModule,
-    AmountModule,
-    IconModule,
-    RouterModule,
-    CommonModule,
-  ],
-  standalone: true,
+    templateUrl: './transactions-journey-feature-transaction-details-view.component.html',
+    selector: 'bb-transaction-details',
+    styleUrls: [
+        './transactions-journey-feature-transaction-details-view.component.scss',
+    ],
+    imports: [
+        TrackerModule,
+        ButtonModule,
+        AmountModule,
+        IconModule,
+        RouterModule,
+        CommonModule,
+    ]
 })
 export class TransactionDetailsComponent {
   public readonly title = this.route.snapshot.data['title'];

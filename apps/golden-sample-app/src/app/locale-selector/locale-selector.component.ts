@@ -5,15 +5,16 @@ import { localesCatalog } from './locales-catalog';
 type Locale = (typeof localesCatalog)[string];
 
 @Component({
-  selector: 'app-locale-selector',
-  templateUrl: 'locale-selector.component.html',
+    selector: 'app-locale-selector',
+    templateUrl: 'locale-selector.component.html',
+    standalone: false
 })
 export class LocaleSelectorComponent implements OnInit {
   localesCatalog: Locale[] = [];
   private currentLanguage: Locale | undefined;
 
   constructor(
-    private localeService: LocalesService,
+    private readonly localeService: LocalesService,
     @Inject(LOCALES_LIST) public locales: string[]
   ) {}
 

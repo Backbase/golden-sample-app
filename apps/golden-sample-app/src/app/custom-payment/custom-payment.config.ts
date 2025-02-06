@@ -1,20 +1,19 @@
 import '@angular/localize/init';
 
+import { InitiatePaymentConfig, PaymentTypeConfig } from '@backbase/initiate-payment-journey-ang';
 import {
   CounterPartyFields,
   Frequencies,
-  InitiatePaymentConfig,
   InitiatorFields,
   PaymentBaseFields,
   PaymentComponents,
   PaymentFormGroup,
   PaymentHooksCallbackFn,
   PaymentHooksParams,
-  PaymentTypeConfig,
   RemittanceInfoFields,
   ReviewScreens,
   ScheduleFields,
-} from '@backbase/initiate-payment-journey-ang';
+} from '@backbase/internal-payments-shared-util';
 
 import { InitiatorComponent } from './components/initiator/initiator.component';
 import { Validators } from '@angular/forms';

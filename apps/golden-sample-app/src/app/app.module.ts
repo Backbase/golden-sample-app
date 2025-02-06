@@ -3,7 +3,7 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, inject, provideAppInitializer, APP_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -16,7 +16,7 @@ import {
   EntitlementsModule,
   ENTITLEMENTS_CONFIG,
 } from '@backbase/foundation-ang/entitlements';
-import { AuthService, IdentityAuthModule } from '@backbase/identity-auth';
+import { IdentityAuthModule } from '@backbase/identity-auth';
 import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';
 import {
   INITIATE_PAYMENT_JOURNEY_CONTACT_MANAGER_BASE_PATH,
@@ -43,7 +43,6 @@ import { authConfig, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppErrorHandler } from './app.error-handler';
-import { AuthEventsHandlerService } from './auth/auth-events-handler/auth-events-handler.service';
 import { AnalyticsService } from './services/analytics.service';
 import { AuthInterceptor } from './auth/interceptor/auth.interceptor';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
@@ -118,17 +117,8 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
     { provide: OAuthStorage, useFactory: () => localStorage },
     environment.mockEnabled
       ? []
-      : {
-          provide: APP_INITIALIZER,
-          multi: true,
-          deps: [
-            OAuthService,
-            CookieService,
-            AuthEventsHandlerService,
-            AuthService,
-          ],
-          useFactory:
-            (oAuthService: OAuthService, cookieService: CookieService) =>
+      : provideAppInitializer(() => {
+        const initializerFn = ((oAuthService: OAuthService, cookieService: CookieService) =>
             async () => {
               // Remove this if auth cookie is not needed for the app
               oAuthService.events.subscribe(({ type }) => {
@@ -141,8 +131,9 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
                 }
               });
               await oAuthService.loadDiscoveryDocumentAndTryLogin();
-            },
-        },
+            })(inject(OAuthService), inject(CookieService));
+        return initializerFn();
+      }),
     {
       provide: TRANSACTIONS_BASE_PATH,
       useValue: environment.apiRoot + '/transaction-manager',
@@ -184,6 +175,7 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
     },
     ThemeManagerService,
     provideHttpClient(withInterceptorsFromDi()),
+    { provide: APP_ID, useValue: 'golden-sample-app' },
   ],
 })
 export class AppModule {}
