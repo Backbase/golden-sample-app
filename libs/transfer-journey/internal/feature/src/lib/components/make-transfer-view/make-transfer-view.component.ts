@@ -21,16 +21,16 @@ import { Tracker } from '@backbase/foundation-ang/observability';
 import { Observable } from 'rxjs';
 
 @Component({
-    templateUrl: 'make-transfer-view.component.html',
-    imports: [
-        NgIf,
-        NgSwitchCase,
-        AsyncPipe,
-        NgSwitch,
-        AlertModule,
-        MakeTransferFormComponent,
-        LoadingIndicatorModule,
-    ]
+  templateUrl: 'make-transfer-view.component.html',
+  imports: [
+    NgIf,
+    NgSwitchCase,
+    AsyncPipe,
+    NgSwitch,
+    AlertModule,
+    MakeTransferFormComponent,
+    LoadingIndicatorModule,
+  ],
 })
 export class MakeTransferViewComponent {
   vm$ = this.transferStore.vm$;

@@ -17,10 +17,10 @@ import {
 
 import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
 @Component({
-    templateUrl: './transactions-view.component.html',
-    styleUrls: ['./transactions-view.component.scss'],
-    selector: 'bb-transactions-view',
-    standalone: false
+  templateUrl: './transactions-view.component.html',
+  styleUrls: ['./transactions-view.component.scss'],
+  selector: 'bb-transactions-view',
+  standalone: false,
 })
 export class TransactionsViewComponent {
   public title = this.route.snapshot.data['title'];

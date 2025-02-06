@@ -13,8 +13,8 @@ import { AccountSelectorItem } from './initiator.model';
 import { InitiatorService } from './initiator.service';
 
 @Component({
-    selector: 'app-payment-initiator',
-    template: `
+  selector: 'app-payment-initiator',
+  template: `
     <div [ngClass]="options.cssClasses || ''">
       <label class="d-block">
         <span> {{ options.label }} </span>
@@ -43,9 +43,9 @@ import { InitiatorService } from './initiator.service';
       </div>
     </div>
   `,
-    providers: [InitiatorService],
-    standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, AccountSelectorModule]
+  providers: [InitiatorService],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, AccountSelectorModule],
 })
 
 // The custom component MUST implement PaymentFormField or ActivatableFormField and it should be an Angular form control.

@@ -1,6 +1,9 @@
 import '@angular/localize/init';
 
-import { InitiatePaymentConfig, PaymentTypeConfig } from '@backbase/initiate-payment-journey-ang';
+import {
+  InitiatePaymentConfig,
+  PaymentTypeConfig,
+} from '@backbase/initiate-payment-journey-ang';
 import {
   CounterPartyFields,
   Frequencies,

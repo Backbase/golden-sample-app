@@ -17,7 +17,7 @@ import { TransactionsJourneyConfiguration } from '@backbase-gsa/transactions-jou
     [transaction]="transactionMock"
   ></bb-transaction-item>`,
   standalone: true,
-  imports: [TransactionItemComponent]
+  imports: [TransactionItemComponent],
 })
 class TestTransactionItemComponent {
   transactionMock = debitMockTransaction;
@@ -44,7 +44,7 @@ describe('TransactionItemComponent', () => {
         <ng-template>${ADDITIONAL_DETAILS_TEXT}</ng-template>
       </div>
     `,
-    standalone: true
+    standalone: true,
   })
   class TestComponent {
     @ViewChildren(TemplateRef) templates?: QueryList<

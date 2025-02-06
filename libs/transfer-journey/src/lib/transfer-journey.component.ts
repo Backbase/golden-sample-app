@@ -3,10 +3,10 @@ import { MakeTransferJourneyState } from '@backbase-gsa/transfer-journey/interna
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'bb-transfer-journey',
-    templateUrl: 'transfer-journey.component.html',
-    providers: [MakeTransferJourneyState],
-    standalone: false
+  selector: 'bb-transfer-journey',
+  templateUrl: 'transfer-journey.component.html',
+  providers: [MakeTransferJourneyState],
+  standalone: false,
 })
 export class TransferJourneyComponent {
   public title: string = this.route.snapshot.firstChild?.data['title'] ?? '';

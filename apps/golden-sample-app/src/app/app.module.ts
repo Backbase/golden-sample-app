@@ -3,7 +3,13 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { ErrorHandler, NgModule, inject, provideAppInitializer, APP_ID } from '@angular/core';
+import {
+  ErrorHandler,
+  NgModule,
+  inject,
+  provideAppInitializer,
+  APP_ID,
+} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -118,7 +124,8 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
     environment.mockEnabled
       ? []
       : provideAppInitializer(() => {
-        const initializerFn = ((oAuthService: OAuthService, cookieService: CookieService) =>
+          const initializerFn = (
+            (oAuthService: OAuthService, cookieService: CookieService) =>
             async () => {
               // Remove this if auth cookie is not needed for the app
               oAuthService.events.subscribe(({ type }) => {
@@ -131,9 +138,10 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
                 }
               });
               await oAuthService.loadDiscoveryDocumentAndTryLogin();
-            })(inject(OAuthService), inject(CookieService));
-        return initializerFn();
-      }),
+            }
+          )(inject(OAuthService), inject(CookieService));
+          return initializerFn();
+        }),
     {
       provide: TRANSACTIONS_BASE_PATH,
       useValue: environment.apiRoot + '/transaction-manager',

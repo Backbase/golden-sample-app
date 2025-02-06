@@ -5,10 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from '@backbase/ui-ang/input-text';
 
 @Component({
-    selector: 'bb-text-filter',
-    templateUrl: './text-filter.component.html',
-    styleUrls: ['./text-filter.component.scss'],
-    imports: [CommonModule, FormsModule, InputTextModule, TextFilterComponent]
+  selector: 'bb-text-filter',
+  templateUrl: './text-filter.component.html',
+  styleUrls: ['./text-filter.component.scss'],
+  imports: [CommonModule, FormsModule, InputTextModule, TextFilterComponent],
 })
 export class TextFilterComponent {
   @Output() textChange = new EventEmitter<string>();

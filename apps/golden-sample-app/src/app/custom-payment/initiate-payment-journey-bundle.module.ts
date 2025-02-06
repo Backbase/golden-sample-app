@@ -13,7 +13,7 @@ import { customPaymentConfig } from './custom-payment.config';
     AccountSelectorModule,
     CommonModule,
     InitiatePaymentJourneyModule.forRoot(),
-    InitiatorComponent
+    InitiatorComponent,
   ],
   providers: [
     {
