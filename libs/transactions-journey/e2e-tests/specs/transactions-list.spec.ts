@@ -8,7 +8,10 @@ export function testTransactionsList(
     'Transactions list',
     { tag: ['@e2e', '@transactions', '@transactions-details'] },
     () => {
-      test.beforeEach(async ({ listPage }) => {
+      test.beforeEach(async ({ page, listPage, listMocks }) => {
+        for (const [endpoint, data] of Object.entries(listMocks ?? {})) {
+          page.route(endpoint, (route) => route.fulfill({ json: data }));
+        }
         await listPage.navigate();
       });
 
@@ -32,7 +35,7 @@ export function testTransactionsList(
       test(
         'should display correct error state',
         { tag: ['@mocks-only'] },
-        async ({ listPage }) => {
+        async () => {
           // Error state test placeholder
           expect(true).toBe(true);
         }

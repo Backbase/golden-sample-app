@@ -8,9 +8,14 @@ export function testTransactionDetails(
     'Transactions details',
     { tag: ['@e2e', '@transactions', '@transactions-details'] },
     () => {
-      test.beforeEach(async ({ detailsPage, detailsData }) => {
-        await detailsPage.navigate(detailsData.id);
-      });
+      test.beforeEach(
+        async ({ page, detailsPage, detailsData, detailsMocks }) => {
+          for (const [endpoint, data] of Object.entries(detailsMocks ?? {})) {
+            page.route(endpoint, (route) => route.fulfill({ json: data }));
+          }
+          await detailsPage.navigate(detailsData.id);
+        }
+      );
 
       test('should display correct transaction details', async ({
         detailsPage,
