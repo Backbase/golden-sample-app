@@ -40,7 +40,7 @@
     "@angular/forms": "18.2.9",
     "@angular/localize": "18.2.9",
     "@angular/platform-browser": "18.2.9",
-    "@angular/platform-browser-dynamic": "18.2.9",
+    "@angular/platform-browser-dynamic": "18.2.13",
     "@angular/router": "18.2.9",
     "@backbase/accesscontrol-v3-http-ang": "^3.1.0",
     "@backbase/arrangement-manager-http-ang": "^5.0.0",
