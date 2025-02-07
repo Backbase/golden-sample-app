@@ -83,7 +83,7 @@
     "@angular-eslint/schematics": "^18.0.0",
     "@angular-eslint/template-parser": "18.4.3",
     "@angular/cli": "~18.2.0",
-    "@angular/compiler-cli": "18.2.9",
+    "@angular/compiler-cli": "18.2.13",
     "@angular/language-service": "18.2.13",
     "@axe-core/playwright": "^4.10.1",
     "@dot-build/serve-and-run-angular": "^1.0.2",
