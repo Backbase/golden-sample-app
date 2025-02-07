@@ -35,7 +35,6 @@ export class TransactionItemAdditionalDetailsDirective extends ViewExtensionDire
     TransactionItemAdditionalDetailsDirective,
     CommonModule,
   ],
-  standalone: true,
 })
 export class TransactionItemComponent implements OnChanges {
   @Input()

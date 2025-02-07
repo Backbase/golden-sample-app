@@ -13,6 +13,7 @@ import { TransactionsJourneyConfiguration } from '@backbase-gsa/transactions-jou
 
 @Component({
   selector: 'bb-transaction-item-test-component',
+  imports: [TransactionItemComponent],
   template: `<bb-transaction-item
     [transaction]="transactionMock"
   ></bb-transaction-item>`,
@@ -53,7 +54,6 @@ describe('TransactionItemComponent', () => {
     // mockTemplateService.additionalDetailsTemplate = undefined;
 
     await TestBed.configureTestingModule({
-      declarations: [TestTransactionItemComponent, TestComponent],
       imports: [TransactionItemComponent],
       providers: [
         { provide: TransactionsJourneyConfiguration, useValue: mockConfig },
