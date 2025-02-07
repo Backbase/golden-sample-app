@@ -28,5 +28,5 @@ export const test = baseTest.extend<TransactionFixture>({
   listMocks: async ({ useMocks }, use) =>
     await use(useMocks ? defaultListMocks : {}),
 
-  useMocks: false,
+  useMocks: true,
 });
