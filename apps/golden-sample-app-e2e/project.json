@@ -23,7 +23,7 @@
           "--config=playwright.localhost.config.ts",
           "--project=localhost-ebp-sndbx",
           "--grep='@e2e'",
-          "--grep-invert='@mocks-only|@ephemeral-only'"
+          "--grep-invert='@mocks'"
         ]
       }
     },
@@ -37,7 +37,7 @@
           "--config=playwright.localhost.config.ts",
           "--project=localhost-mocked",
           "--grep='@e2e'",
-          "--grep-invert='@identity'" 
+          "--grep-invert='@ephemeral'" 
         ]
       }
     },
@@ -49,7 +49,7 @@
           "test",
           "--config=playwright.modelbank.config.ts",
           "--project=remote-bus-stg",
-          "--grep-invert='@mocks-only|@ephemeral-only'" // we want to run only test which are for model bank
+          "--grep-invert='@mocks|@ephemeral'" // we want to run only test which are for model bank
         ]
       }
     },
