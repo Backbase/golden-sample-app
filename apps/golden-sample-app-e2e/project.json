@@ -61,7 +61,7 @@
           "test",
           "--config=playwright.ephemeral.config.ts",
           "--project=remote-ephemeral",
-          "--grep-invert='@mock-only'" // we want to run all tests except teh onces which can be run only with mocks
+          "--grep-invert='@mocks'" // we want to run all tests except teh onces which can be run only with mocks
         ]
       }
     }
