@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PERMISSIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
 import { HeadingModule } from '@backbase/ui-ang/heading';
+import {
+  achPositivePayJourneyTranslations,
+  AchPositivePayJourneyTranslations,
+} from '../../../translations-catalog';
 
 @Component({
   selector: 'bb-ach-positive-pay-journey',
@@ -11,6 +15,18 @@ import { HeadingModule } from '@backbase/ui-ang/heading';
 })
 export class AchPositivePayJourneyComponent {
   permissions = PERMISSIONS;
+  private _translations: AchPositivePayJourneyTranslations = {
+    ...achPositivePayJourneyTranslations,
+  };
+
+  @Input()
+  set translations(value: Partial<AchPositivePayJourneyTranslations>) {
+    this._translations = { ...achPositivePayJourneyTranslations, ...value };
+  }
+
+  get translations(): AchPositivePayJourneyTranslations {
+    return this._translations;
+  }
 
   constructor(
     private readonly router: Router,

@@ -30,6 +30,7 @@ const defaultRoutes: Routes = [
     component: TransactionsViewComponent,
     data: {
       title: TRANSLATIONS.transactionsTitle,
+      translation: TRANSLATIONS, // this is just to show on how translations can be overridden
     },
     resolve: {
       title: TransactionsRouteTitleResolverService,
@@ -40,6 +41,14 @@ const defaultRoutes: Routes = [
     component: TransactionDetailsComponent,
     data: {
       title: TRANSLATIONS.transactionDetailsTitle,
+      translation: {
+        'transactions.details.recepient': $localize`:Recepient label for Transaction Details - 'Recepient'|This
+                      string is used as the label for the recipient field in the
+                      transaction details view. It is presented to the user when they
+                      view the details of a transaction. This label is located in the
+                      transaction details view
+                      component.@@transactions.details.recepient:Recipients`,
+      }, // this is just to show on how translations can be overridden
     },
     resolve: {
       title: TransactionsRouteTitleResolverService,

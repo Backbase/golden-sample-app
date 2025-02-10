@@ -1,4 +1,4 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { Component, Inject, Input, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -16,6 +16,11 @@ import {
 } from '@backbase-gsa/transactions-journey/internal/data-access';
 
 import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
+import {
+  transactionsJourneyTransactionViewTranslations,
+  TransactionsJourneyTransactionViewTranslations,
+} from '../../../translations-catalog';
+
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
@@ -25,6 +30,24 @@ export class TransactionsViewComponent {
   public title = this.route.snapshot.data['title'];
 
   public filter = '';
+
+  private _translations: TransactionsJourneyTransactionViewTranslations = {
+    ...transactionsJourneyTransactionViewTranslations,
+  };
+
+  @Input()
+  set translations(
+    value: Partial<TransactionsJourneyTransactionViewTranslations>
+  ) {
+    this._translations = {
+      ...transactionsJourneyTransactionViewTranslations,
+      ...value,
+    };
+  }
+
+  get translations(): TransactionsJourneyTransactionViewTranslations {
+    return this._translations;
+  }
 
   private readonly accountId$ = this.route.queryParamMap.pipe(
     map((params) => params.get('account'))
@@ -74,7 +97,13 @@ export class TransactionsViewComponent {
     @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE)
     private externalCommunicationService: TransactionsCommunicationService,
     @Optional() private tracker?: Tracker
-  ) {}
+  ) {
+    this.route.data.subscribe((data) => {
+      if (data['translation']) {
+        this.translations = data['translation'];
+      }
+    });
+  }
 
   search(ev: string) {
     this.filter = ev || '';

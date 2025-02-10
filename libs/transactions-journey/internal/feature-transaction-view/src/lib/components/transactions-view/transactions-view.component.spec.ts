@@ -84,6 +84,7 @@ describe('TransactionsViewComponent', () => {
             queryParamMap: of({
               get: jest.fn(() => ''),
             }),
+            data: of({ translation: {} }),
           },
         },
         {

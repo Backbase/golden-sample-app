@@ -55,7 +55,7 @@ export class InitiatorComponent implements OnInit, PaymentFormField {
   requiredMessage!: string;
 
   // Form controls based on InitiatorDetails
-  private initiatorFormControls: InitiatorFields[] = [
+  private readonly initiatorFormControls: InitiatorFields[] = [
     InitiatorFields.id,
     InitiatorFields.name,
     InitiatorFields.accountNumber,

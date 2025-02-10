@@ -16,6 +16,10 @@ import {
   Transfer,
 } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { ActivatedRoute } from '@angular/router';
+import {
+  transferJourneyMakeTransferFormTranslations,
+  TransferJourneyMakeTransferFormTranslations,
+} from '../../../translations-catalog';
 
 @Component({
   selector: 'bb-make-transfer-form',
@@ -35,6 +39,24 @@ export class MakeTransferFormComponent implements OnInit {
   @Input() maxLimit = 0;
 
   @Output() submitTransfer = new EventEmitter<Transfer | undefined>();
+
+  private _translations: TransferJourneyMakeTransferFormTranslations = {
+    ...transferJourneyMakeTransferFormTranslations,
+  };
+
+  @Input()
+  set translations(
+    value: Partial<TransferJourneyMakeTransferFormTranslations>
+  ) {
+    this._translations = {
+      ...transferJourneyMakeTransferFormTranslations,
+      ...value,
+    };
+  }
+
+  get translations(): TransferJourneyMakeTransferFormTranslations {
+    return this._translations;
+  }
 
   makeTransferForm!: FormGroup;
   currencies = ['USD', 'EUR'];

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Optional } from '@angular/core';
+import { Component, Input, Optional } from '@angular/core';
 import { ActivatedRoute, Params, RouterModule } from '@angular/router';
 import { Currency, TransactionItem } from '@backbase/transactions-http-ang';
 import {
@@ -14,6 +14,11 @@ import { ButtonModule } from '@backbase/ui-ang/button';
 import { AmountModule } from '@backbase/ui-ang/amount';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { CommonModule } from '@angular/common';
+import {
+  getStatusTextFromErrorMessage,
+  transactionsJourneyTransactionDetailsViewTranslations,
+  TransactionsJourneyTransactionDetailsViewTranslations,
+} from '../translations-catalog';
 
 interface TransactionDetailsView {
   transferParams: Params;
@@ -49,6 +54,22 @@ interface TransactionDetailsView {
 })
 export class TransactionDetailsComponent {
   public readonly title = this.route.snapshot.data['title'];
+  private _translations: TransactionsJourneyTransactionDetailsViewTranslations =
+    { ...transactionsJourneyTransactionDetailsViewTranslations };
+
+  @Input()
+  set translations(
+    value: Partial<TransactionsJourneyTransactionDetailsViewTranslations>
+  ) {
+    this._translations = {
+      ...transactionsJourneyTransactionDetailsViewTranslations,
+      ...value,
+    };
+  }
+
+  get translations(): TransactionsJourneyTransactionDetailsViewTranslations {
+    return this._translations;
+  }
 
   private readonly id$ = this.route.paramMap.pipe(
     map((params) => params.get('id'))
@@ -67,7 +88,13 @@ export class TransactionDetailsComponent {
     public route: ActivatedRoute,
     private api: TransactionsHttpService,
     @Optional() private tracker?: Tracker
-  ) {}
+  ) {
+    this.route.data.subscribe((data) => {
+      if (data['translation']) {
+        this.translations = data['translation'];
+      }
+    });
+  }
 
   getTransactionView(
     id: string,
@@ -78,7 +105,7 @@ export class TransactionDetailsComponent {
     if (!transaction) {
       throw new HttpErrorResponse({
         status: 404,
-        statusText: $localize`:Transaction Not Found Status Text - 'Transaction \${id} not found'|This string is used as the status text for an HTTP error response when a transaction with the specified ID is not found. It is presented to the user when they attempt to view a transaction that does not exist. This status text is located in the transaction details view component.@@transactions-journey.transaction-not-found-status-text:Transaction ${id} not found`,
+        statusText: getStatusTextFromErrorMessage(id),
       });
     }
 

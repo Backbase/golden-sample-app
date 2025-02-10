@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -6,6 +6,10 @@ import { AchPositivePayHttpService } from '@backbase-gsa/ach-positive-pay-journe
 import { NotificationService } from '@backbase/ui-ang/notification';
 import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
+import {
+  achPositivePayNewRuleTranslations,
+  AchPositivePayNewRuleTranslations,
+} from '../../../translations-catalog';
 import { Observable } from 'rxjs';
 import { ModalModule } from '@backbase/ui-ang/modal';
 import { HeaderModule } from '@backbase/ui-ang/header';
@@ -29,6 +33,18 @@ import { CommonModule } from '@angular/common';
 })
 export class AchPositivePayNewRuleComponent implements OnInit {
   loading = false;
+  private _translations: AchPositivePayNewRuleTranslations = {
+    ...achPositivePayNewRuleTranslations,
+  };
+
+  @Input()
+  set translations(value: Partial<AchPositivePayNewRuleTranslations>) {
+    this._translations = { ...achPositivePayNewRuleTranslations, ...value };
+  }
+
+  get translations(): AchPositivePayNewRuleTranslations {
+    return this._translations;
+  }
 
   modalOptions: NgbModalOptions = {
     backdrop: 'static',

@@ -1,12 +1,9 @@
 <div>
-  <p i18n="summary heading label@@transfer.summary.heading.label">
-    Are you sure to send out this transfer?
+  <p>
+    {{ translations['transfer.summary.heading.label'] }}
   </p>
   <strong
-    i18n="
-      summary account description
-      label@@transfer.summary.account.description.label"
-    >it will be send to account:</strong
+    >{{ translations['transfer.summary.account.description.label'] }}:</strong
   >
   <br />
   <span data-role="transfer-account-destination">{{
@@ -14,30 +11,21 @@
   }}</span>
   <br />
   <strong
-    i18n="
-      summary amount description
-      label@@transfer.summary.amount.description.label"
-    >With amount of:</strong
+    >{{ translations['transfer.summary.amount.description.label'] }}:</strong
   >
   <br />
   <span data-role="transfer-amount">{{ transfer?.amount }}</span>
 </div>
 <div class="bb-button-bar">
-  <button
-    bbButton
-    class="bb-button-bar__button"
-    i18n="submit button@@transfer.summary.submit.text"
-    (click)="submit()"
-  >
-    Submit
+  <button bbButton class="bb-button-bar__button" (click)="submit()">
+    {{ translations['transfer.summary.submit.text'] }}
   </button>
   <button
     bbButton
     class="bb-button-bar__button"
     color="secondary"
-    i18n="close button@@transfer.summary.close.text"
     (click)="close()"
   >
-    Close
+    {{ translations['transfer.summary.close.text'] }}
   </button>
 </div>

@@ -7,6 +7,7 @@ import {
   Tracker,
 } from '@backbase/foundation-ang/observability';
 import { environment } from '../environments/environment';
+import { AppTranslations, appTranslations } from './translation-catalog';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent {
   triplets = triplets;
   isAuthenticated = false;
 
+  public readonly appTranslations: AppTranslations = appTranslations;
   constructor(
     private oAuthService: OAuthService,
     public layoutService: LayoutService,

@@ -6,6 +6,10 @@ import { InputTextModule } from '@backbase/ui-ang/input-text';
 
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
+import {
+  achPositivePayRuleFormTranslations,
+  AchPositivePayRuleFormTranslations,
+} from '../../../translations-catalog';
 
 @Component({
   selector: 'bb-ach-positive-pay-rule-form',
@@ -25,6 +29,19 @@ export class AchPositivePayRuleFormComponent {
 
   @Output() selectAccountId: EventEmitter<ProductSummaryItem> =
     new EventEmitter<ProductSummaryItem>();
+
+  private _translations: AchPositivePayRuleFormTranslations = {
+    ...achPositivePayRuleFormTranslations,
+  };
+
+  @Input()
+  set translations(value: Partial<AchPositivePayRuleFormTranslations>) {
+    this._translations = { ...achPositivePayRuleFormTranslations, ...value };
+  }
+
+  get translations(): AchPositivePayRuleFormTranslations {
+    return this._translations;
+  }
 
   readonly paymentTypes = [
     ACH_POSITIVE_PAY_TRANSLATIONS.creditPaymentType,
