@@ -16,7 +16,7 @@
       class="bb-layout__skip-to-content"
       (click)="focusMainContainer($event)"
     >
-      {{ appTranslations['skipToContent'] }}
+      {{ appTranslations['skip-to-content'] }}
     </button>
 
     <!-- Hamburger -->
@@ -27,6 +27,9 @@
       (click)="layoutService.toggleNav()"
     >
       <span class="bb-icon"></span>
+      <span class="sr-only">{{
+        appTranslations['bb-layout.sidebar_toggler']
+      }}</span>
     </button>
 
     <!-- Logo -->
