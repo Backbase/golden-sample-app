@@ -22,11 +22,11 @@ export interface TransactionDetailDataType {
 export type TransactionFixture = {
   detailsPage: TransactionDetailsPage;
   detailsData: TransactionDetailDataType;
-  detailsMocks: Record<string, object | string>;
+  detailsMocksSetup: () => void | Promise<void>;
 
   listPage: TransactionsListPage;
   listData: TransactionListDataType;
-  listMocks: Record<string, object | string>;
+  listMocksSetup: () => void | Promise<void>;
 
   useMocks: boolean;
 } & PlaywrightTestArgs;

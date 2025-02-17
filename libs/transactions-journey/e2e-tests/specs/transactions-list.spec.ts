@@ -8,10 +8,8 @@ export function testTransactionsList(
     'Transactions list',
     { tag: ['@e2e', '@transactions', '@transactions-details'] },
     () => {
-      test.beforeEach(async ({ page, listPage, listMocks }) => {
-        for (const [endpoint, data] of Object.entries(listMocks ?? {})) {
-          page.route(endpoint, (route) => route.fulfill({ json: data }));
-        }
+      test.beforeEach(async ({ listPage, listMocksSetup }) => {
+        await listMocksSetup();
         await listPage.navigate();
       });
 

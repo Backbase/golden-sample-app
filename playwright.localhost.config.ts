@@ -57,5 +57,6 @@ export default defineConfig<TestOptions>({
         baseURL: 'http://localhost:4200/',
       },
     },
-  ]
+  ],
+  webServer: [],
 })

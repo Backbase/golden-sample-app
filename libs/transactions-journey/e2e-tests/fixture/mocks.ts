@@ -1,3 +1,4 @@
+import { Page } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 
 const accessControlMocks = {
@@ -48,3 +49,12 @@ export const defaultDetailsMocks = {
   ...arrangementsMocks.success,
   ...transactionsMocks.success,
 };
+
+export function setupPageMocks(
+  page: Page,
+  mocks: Record<string, string | object>
+) {
+  for (const [endpoint, data] of Object.entries(mocks ?? {})) {
+    page.route(endpoint, (route) => route.fulfill({ json: data }));
+  }
+}
