@@ -5,7 +5,11 @@ import {
   TransactionListDataType,
 } from '../model';
 import { TransactionDetailsPage, TransactionsListPage } from '../page-object';
-import { defaultDetailsMocks, defaultListMocks, setupPageMocks } from './mocks';
+import {
+  defaultDetailsMocks,
+  defaultListMocks,
+  setupPageMocks,
+} from '../mocks';
 
 export const test = baseTest.extend<TransactionFixture>({
   detailsPage: async ({ page, baseURL }, use) => {
