@@ -218,6 +218,7 @@ Use one of the following commands to run a different set of tests:
 - `npm run e2e-test-sndbx-all` - run all the tests against sandbox env,
 - `npm run e2e-test-sndbx-ci` - run sandbox CI tests suite,
 - `npm run e2e-test-responsive` - run only visual mobile tests.
+- `npm run e2e-test-a11y` - run only web accessibility tests.
 
 For more information on playwright tests see [playwright-readme.md](/apps/golden-sample-app-e2e/playwright-readme.md).
 
