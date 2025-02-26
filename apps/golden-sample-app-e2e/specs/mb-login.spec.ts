@@ -4,7 +4,7 @@ import { wrongUser } from '../data/credentials';
 
 const i18n = {
   identity: {
-    username: 'Username or email',
+    username: 'Username',
     password: 'Password',
     loginButton: 'Log in',
     error:
@@ -16,7 +16,7 @@ test.describe.configure({ mode: 'parallel' });
 
 test.describe(
   'Login tests',
-  { tag: ['@feature', '@i18n', '@e2e', '@identity'] },
+  { tag: ['@feature', '@i18n', '@e2e', '@ephemeral'] },
   () => {
     test('Empty user name', async ({ identityPage }) => {
       identityPage.open();
