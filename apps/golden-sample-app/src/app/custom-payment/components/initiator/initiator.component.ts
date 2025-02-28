@@ -12,6 +12,7 @@ import { InitiatorService } from './initiator.service';
 
 @Component({
   selector: 'app-payment-initiator',
+  standalone: false,
   template: `
     <div [ngClass]="options.cssClasses || ''">
       <label class="d-block">

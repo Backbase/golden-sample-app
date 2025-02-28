@@ -67,7 +67,7 @@ const defaultRoute: Route = {
 };
 
 @NgModule({
-  declarations: [TransferJourneyComponent],
+
   imports: [
     CommonModule,
     RouterModule,
@@ -80,6 +80,7 @@ const defaultRoute: Route = {
     MakeTransferSummaryViewComponent,
     MakeTransferSuccessViewComponent,
     MakeTransferViewComponent,
+    TransferJourneyComponent,
   ],
   providers: [
     MakeTransferJourneyStoreGuard,
@@ -88,7 +89,7 @@ const defaultRoute: Route = {
     MakeTransferAccountHttpService,
     MakeTransferRouteTitleResolverService,
   ],
-  exports: [TransferJourneyComponent],
+  exports: [],
 })
 export class TransferJourneyShellModule {
   static forRoot(
