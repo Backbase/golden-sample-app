@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule, NgForOf, NgIf } from '@angular/common';
 import { Component, Inject, Optional } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
@@ -11,6 +11,7 @@ import {
   ScreenViewTrackerEventPayload,
   Tracker,
   TrackerModule,
+  TrackNavigationDirective,
 } from '@backbase/foundation-ang/observability';
 
 import {
@@ -39,6 +40,9 @@ import { TransactionItemComponent } from '../transaction-item/transaction-item.c
     FilterTransactionsPipe,
     TextFilterComponent,
     TransactionItemComponent,
+    AsyncPipe,
+    NgIf,
+    NgForOf,
   ],
 })
 export class TransactionsViewComponent {
