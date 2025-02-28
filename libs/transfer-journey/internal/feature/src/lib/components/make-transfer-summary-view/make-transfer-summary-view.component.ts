@@ -10,9 +10,8 @@ import {
 import { MakeTransferSummaryComponent } from '@backbase-gsa/transfer-journey/internal/ui';
 
 @Component({
-  templateUrl: 'make-transfer-summary-view.component.html',
-  imports: [NgIf, AsyncPipe, MakeTransferSummaryComponent],
-  standalone: true,
+    templateUrl: 'make-transfer-summary-view.component.html',
+    imports: [NgIf, AsyncPipe, MakeTransferSummaryComponent]
 })
 export class MakeTransferSummaryViewComponent implements OnDestroy {
   vm$ = this.transferStore.vm$;

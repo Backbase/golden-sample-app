@@ -56,3 +56,4 @@ allure-results/
 test-output/
 .nx
 accessibility-reports/
+.aider*

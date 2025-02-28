@@ -5,9 +5,10 @@ import {
 } from '@backbase-gsa/transactions-journey';
 
 @Component({
-  selector: 'app-custom-txn-info',
-  styleUrls: ['./transaction-additional-details.component.scss'],
-  templateUrl: './transaction-additional-details.component.html',
+    selector: 'app-custom-txn-info',
+    styleUrls: ['./transaction-additional-details.component.scss'],
+    templateUrl: './transaction-additional-details.component.html',
+    standalone: false
 })
 export class TransactionItemAdditionalDetailsComponent
   implements TransactionAdditionalDetailsComponent

@@ -8,9 +8,10 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { filter, map, share, take } from 'rxjs';
 
 @Component({
-  selector: 'app-activity-monitor',
-  templateUrl: './activity-monitor.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-activity-monitor',
+    templateUrl: './activity-monitor.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ActivityMonitorComponent implements OnInit {
   private readonly events$ = this.activityMonitorService.events.pipe(share());
