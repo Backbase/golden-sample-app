@@ -64,5 +64,6 @@
   },
   "parallel": 1,
   "useInferencePlugins": true,
-  "defaultBase": "main"
+  "defaultBase": "main",
+  "nxCloudAccessToken": ""
 }
