@@ -1,10 +1,10 @@
 # SYSTEM PROMPT
-PROMPT_INSTRUCTIONS=$(cat ./tools/migration/prompts/gpt-o3-mini/system.md)
-echo "PROMPT_INSTRUCTIONS: $PROMPT_INSTRUCTIONS"
+PROMPT_INSTRUCTIONS=$(cat ./tools/migration/prompts/gpt-o1-mini/system.md)
+#echo "PROMPT_INSTRUCTIONS: $PROMPT_INSTRUCTIONS"
 
 # USER PROMPT
-INPUT_DATA=$(cat ./tools/migration/prompts/gpt-o3-mini/user.md | sed 's/"/\\"/g')
-echo "INPUT_DATA:" $INPUT_DATA
+INPUT_DATA=$(cat ./tools/migration/prompts/gpt-o1-mini/user.md | sed 's/"/\\"/g')
+#echo "INPUT_DATA:" $INPUT_DATA
 
 
 # CREATE PAYLOAD WITH PROMPT INSTRUCTIONS AND USER INPUT USING JQ
