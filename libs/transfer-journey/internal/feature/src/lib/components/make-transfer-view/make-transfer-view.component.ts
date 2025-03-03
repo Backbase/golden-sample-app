@@ -31,7 +31,6 @@ import { Observable } from 'rxjs';
     MakeTransferFormComponent,
     LoadingIndicatorModule,
   ],
-  standalone: true,
 })
 export class MakeTransferViewComponent {
   vm$ = this.transferStore.vm$;

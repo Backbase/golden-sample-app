@@ -25,7 +25,6 @@ import { CommonModule } from '@angular/common';
     LoadButtonModule,
     CommonModule,
   ],
-  standalone: true,
 })
 export class AchPositivePayNewRuleComponent implements OnInit {
   loading = false;
