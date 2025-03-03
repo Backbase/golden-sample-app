@@ -5,6 +5,10 @@ on:
 
 jobs:
   generate:
+    permissions:
+      issues: read
+      pull-requests: write
+      contents: write
     uses: ./.github/workflows/aider-issue-to-pr.yml
     # Check if the label is 'aider'
     if: github.event.label.name == 'aider'
