@@ -1,11 +1,13 @@
 import { Component, Inject, Optional } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
 
 import {
   ScreenViewTrackerEventPayload,
   Tracker,
+  TrackerModule,
 } from '@backbase/foundation-ang/observability';
 
 import {
@@ -16,10 +18,27 @@ import {
 } from '@backbase-gsa/transactions-journey/internal/data-access';
 
 import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
+import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
+import { TextFilterComponent } from '@backbase-gsa/transactions-journey/internal/ui';
+import { BadgeModule } from '@backbase/ui-ang/badge';
+import { TransactionItemComponent } from '../transaction-item/transaction-item.component';
+import { FilterTransactionsPipe } from '@backbase-gsa/transactions-journey/internal/util';
+
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
   selector: 'bb-transactions-view',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    LoadingIndicatorModule,
+    TextFilterComponent,
+    BadgeModule,
+    TransactionItemComponent,
+    FilterTransactionsPipe,
+    TrackerModule,
+  ],
 })
 export class TransactionsViewComponent {
   public title = this.route.snapshot.data['title'];
@@ -84,7 +103,12 @@ export class TransactionsViewComponent {
     });
   }
 
-  trackNavigation($event: ScreenViewTrackerEventPayload) {
-    this.tracker?.publish(new TransactionListTrackerEvent($event));
+  trackNavigation(event: ScreenViewTrackerEventPayload) {
+    this.tracker?.publish(
+      new TransactionListTrackerEvent({
+        url: this.router.url,
+        title: this.title,
+      })
+    );
   }
 }

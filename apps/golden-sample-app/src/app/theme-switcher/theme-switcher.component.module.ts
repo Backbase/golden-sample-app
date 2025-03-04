@@ -3,8 +3,7 @@ import { ThemeSwitcherComponent } from './theme-switcher.component';
 import { NgModule } from '@angular/core';
 
 @NgModule({
-  declarations: [ThemeSwitcherComponent],
-  imports: [DropdownMenuModule],
+  imports: [DropdownMenuModule, ThemeSwitcherComponent],
   exports: [ThemeSwitcherComponent],
 })
 export class ThemeSwitcherModule {}

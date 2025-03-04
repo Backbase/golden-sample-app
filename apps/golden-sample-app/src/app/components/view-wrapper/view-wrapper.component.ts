@@ -1,9 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   templateUrl: './view-wrapper.component.html',
   styles: [],
+  standalone: true,
+  imports: [RouterModule],
 })
 export class ViewWrapperComponent {
   @Input()

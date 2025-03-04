@@ -5,7 +5,6 @@ import { SelectContextModule } from '@backbase/select-context';
 import { UserContextComponent } from './user-context.component';
 
 @NgModule({
-  declarations: [UserContextComponent],
   imports: [
     CommonModule,
     SelectContextModule,
@@ -15,6 +14,7 @@ import { UserContextComponent } from './user-context.component';
         component: UserContextComponent,
       },
     ]),
+    UserContextComponent,
   ],
   exports: [RouterModule],
 })

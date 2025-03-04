@@ -1,12 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { LOCALES_LIST, LocalesService } from './locales.service';
 import { localesCatalog } from './locales-catalog';
+import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
 
 type Locale = (typeof localesCatalog)[string];
 
 @Component({
   selector: 'app-locale-selector',
   templateUrl: 'locale-selector.component.html',
+  standalone: true,
+  imports: [DropdownMenuModule],
 })
 export class LocaleSelectorComponent implements OnInit {
   localesCatalog: Locale[] = [];

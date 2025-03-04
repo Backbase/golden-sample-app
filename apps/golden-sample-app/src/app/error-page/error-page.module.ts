@@ -5,7 +5,6 @@ import { ErrorPageComponent } from './error-page.component';
 import { ErrorCommonStateModule } from '@backbase/ui-ang/common-error-state';
 
 @NgModule({
-  declarations: [ErrorPageComponent],
   imports: [
     CommonModule,
     ErrorCommonStateModule,
@@ -15,6 +14,7 @@ import { ErrorCommonStateModule } from '@backbase/ui-ang/common-error-state';
         component: ErrorPageComponent,
       },
     ]),
+    ErrorPageComponent,
   ],
   exports: [RouterModule],
 })

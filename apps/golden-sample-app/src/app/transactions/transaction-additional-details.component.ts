@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   TransactionAdditionalDetailsComponent,
   TransactionAdditionalDetailsContext,
@@ -8,6 +9,8 @@ import {
   selector: 'app-custom-txn-info',
   styleUrls: ['./transaction-additional-details.component.scss'],
   templateUrl: './transaction-additional-details.component.html',
+  standalone: true,
+  imports: [CommonModule],
 })
 export class TransactionItemAdditionalDetailsComponent
   implements TransactionAdditionalDetailsComponent

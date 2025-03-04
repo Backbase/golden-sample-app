@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 @NgModule({
   imports: [
     CommonModule,
+    TransactionItemAdditionalDetailsComponent,
     TransactionsJourneyModule.forRoot({
       extensionSlots: {
         transactionItemAdditionalDetails:
@@ -19,7 +20,6 @@ import { CommonModule } from '@angular/common';
       },
     }),
   ],
-  declarations: [TransactionItemAdditionalDetailsComponent],
   providers: [
     {
       provide: TransactionsJourneyConfiguration,

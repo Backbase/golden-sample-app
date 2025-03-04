@@ -31,7 +31,8 @@ runs:
     ##
     - name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true'
-      run: npm ci --ignore-scripts
+      # TODO: remove legacy-peer-deps once we have updated all dependencies
+      run: npm ci --ignore-scripts --legay-peer-deps
       shell: bash
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm-auth-token }}

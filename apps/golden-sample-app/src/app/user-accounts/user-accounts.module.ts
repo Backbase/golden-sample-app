@@ -6,12 +6,12 @@ import { ProductItemBasicAccountModule } from '@backbase/ui-ang/product-item-bas
 import { UserAccountsViewComponent } from './user-accounts-view/user-accounts-view.component';
 
 @NgModule({
-  declarations: [UserAccountsViewComponent],
   imports: [
     CommonModule,
     LoadingIndicatorModule,
     ProductItemBasicAccountModule,
     RouterModule,
+    UserAccountsViewComponent,
   ],
   providers: [
     provideRoutes([

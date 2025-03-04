@@ -67,7 +67,6 @@ const defaultRoute: Route = {
 };
 
 @NgModule({
-  declarations: [TransferJourneyComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -80,6 +79,7 @@ const defaultRoute: Route = {
     MakeTransferSummaryViewComponent,
     MakeTransferSuccessViewComponent,
     MakeTransferViewComponent,
+    TransferJourneyComponent,
   ],
   providers: [
     MakeTransferJourneyStoreGuard,

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   ActivityMonitorService,
   AuthService,
@@ -6,11 +7,14 @@ import {
 } from '@backbase/identity-auth';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { filter, map, share, take } from 'rxjs';
+import { ActivityMonitorLayoutComponent } from '../layout/activity-monitor-layout.component';
 
 @Component({
   selector: 'app-activity-monitor',
   templateUrl: './activity-monitor.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, ActivityMonitorLayoutComponent],
 })
 export class ActivityMonitorComponent implements OnInit {
   private readonly events$ = this.activityMonitorService.events.pipe(share());
