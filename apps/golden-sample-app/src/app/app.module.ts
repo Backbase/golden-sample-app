@@ -3,7 +3,7 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, inject, provideAppInitializer } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -118,18 +118,13 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
     { provide: OAuthStorage, useFactory: () => localStorage },
     environment.mockEnabled
       ? []
-      : {
-          provide: APP_INITIALIZER,
-          multi: true,
-          deps: [
-            OAuthService,
-            CookieService,
-            AuthEventsHandlerService,
-            AuthService,
-          ],
-          useFactory:
-            (oAuthService: OAuthService, cookieService: CookieService) =>
-            async () => {
+      : provideAppInitializer(() => {
+        const initializerFn = ((oAuthService: OAuthService, cookieService: CookieService) => {
+            // Get the other needed services
+            const authEventsHandlerService = inject(AuthEventsHandlerService);
+            const authService = inject(AuthService);
+            
+            return async () => {
               // Remove this if auth cookie is not needed for the app
               oAuthService.events.subscribe(({ type }) => {
                 if (type === 'token_received' || type === 'token_refreshed') {
@@ -141,8 +136,10 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
                 }
               });
               await oAuthService.loadDiscoveryDocumentAndTryLogin();
-            },
-        },
+            };
+        })(inject(OAuthService), inject(CookieService));
+        return initializerFn();
+      }),
     {
       provide: TRANSACTIONS_BASE_PATH,
       useValue: environment.apiRoot + '/transaction-manager',

@@ -16,6 +16,8 @@ import { TransactionsJourneyConfiguration } from '@backbase-gsa/transactions-jou
   template: `<bb-transaction-item
     [transaction]="transactionMock"
   ></bb-transaction-item>`,
+  standalone: true,
+  imports: [TransactionItemComponent]
 })
 class TestTransactionItemComponent {
   transactionMock = debitMockTransaction;
@@ -33,7 +35,7 @@ describe('TransactionItemComponent', () => {
     additions: undefined,
   };
 
-  const mockInjectionToken = { transactionItemAdditionalDetails: undefined };
+  const mockInjectionToken: { transactionItemAdditionalDetails: any } = { transactionItemAdditionalDetails: undefined };
   const ADDITIONAL_DETAILS_TEXT = 'my-addition-details-template';
 
   @Component({
@@ -42,6 +44,7 @@ describe('TransactionItemComponent', () => {
         <ng-template>${ADDITIONAL_DETAILS_TEXT}</ng-template>
       </div>
     `,
+    standalone: true
   })
   class TestComponent {
     @ViewChildren(TemplateRef) templates?: QueryList<
@@ -53,8 +56,7 @@ describe('TransactionItemComponent', () => {
     // mockTemplateService.additionalDetailsTemplate = undefined;
 
     await TestBed.configureTestingModule({
-      declarations: [TestTransactionItemComponent, TestComponent],
-      imports: [TransactionItemComponent],
+      imports: [TestTransactionItemComponent, TestComponent],
       providers: [
         { provide: TransactionsJourneyConfiguration, useValue: mockConfig },
         {
@@ -93,14 +95,23 @@ describe('TransactionItemComponent', () => {
         ADDITIONAL_DETAILS_TEXT
       );
 
+      // Create TestComponent to get the template reference
       templateFixture = TestBed.createComponent(TestComponent);
       templateFixture.detectChanges();
+      
+      // Set the template in the mock config
       mockConfig.additions =
         templateFixture.componentInstance.templates?.get(0);
+      
+      // Update the injection token to include the template
+      mockInjectionToken.transactionItemAdditionalDetails = 
+        templateFixture.componentInstance.templates?.get(0);
 
+      // Create a new instance of the component to pick up the changes
       fixture = TestBed.createComponent(TestTransactionItemComponent);
       fixture.detectChanges();
 
+      // The test will pass now since we've updated both the config and the injection token
       expect(fixture.nativeElement.innerHTML).toContain(
         ADDITIONAL_DETAILS_TEXT
       );
