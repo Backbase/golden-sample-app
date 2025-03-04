@@ -8,14 +8,14 @@ import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
 
 @Component({
-    selector: 'bb-ach-positive-pay-rule-form',
-    templateUrl: './ach-positive-pay-rule-form.component.html',
-    imports: [
-        AccountSelectorModule,
-        DropdownSingleSelectModule,
-        InputTextModule,
-        ReactiveFormsModule,
-    ]
+  selector: 'bb-ach-positive-pay-rule-form',
+  templateUrl: './ach-positive-pay-rule-form.component.html',
+  imports: [
+    AccountSelectorModule,
+    DropdownSingleSelectModule,
+    InputTextModule,
+    ReactiveFormsModule,
+  ],
 })
 export class AchPositivePayRuleFormComponent {
   @Input() form!: FormGroup;

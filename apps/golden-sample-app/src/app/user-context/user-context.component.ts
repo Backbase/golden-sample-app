@@ -5,9 +5,9 @@ import { UserContextGuard } from './user-context.guard';
 import { UserContextService } from './user-context.service';
 
 @Component({
-    selector: 'app-user-context',
-    templateUrl: './user-context.component.html',
-    standalone: false
+  selector: 'app-user-context',
+  templateUrl: './user-context.component.html',
+  standalone: false,
 })
 export class UserContextComponent {
   constructor(

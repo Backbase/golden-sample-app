@@ -17,7 +17,7 @@ import { TransactionsJourneyConfiguration } from '@backbase-gsa/transactions-jou
     [transaction]="transactionMock"
   ></bb-transaction-item>`,
   standalone: true,
-  imports: [TransactionItemComponent]
+  imports: [TransactionItemComponent],
 })
 class TestTransactionItemComponent {
   transactionMock = debitMockTransaction;
@@ -35,7 +35,9 @@ describe('TransactionItemComponent', () => {
     additions: undefined,
   };
 
-  const mockInjectionToken: { transactionItemAdditionalDetails: any } = { transactionItemAdditionalDetails: undefined };
+  const mockInjectionToken: { transactionItemAdditionalDetails: any } = {
+    transactionItemAdditionalDetails: undefined,
+  };
   const ADDITIONAL_DETAILS_TEXT = 'my-addition-details-template';
 
   @Component({
@@ -44,7 +46,7 @@ describe('TransactionItemComponent', () => {
         <ng-template>${ADDITIONAL_DETAILS_TEXT}</ng-template>
       </div>
     `,
-    standalone: true
+    standalone: true,
   })
   class TestComponent {
     @ViewChildren(TemplateRef) templates?: QueryList<
@@ -98,13 +100,13 @@ describe('TransactionItemComponent', () => {
       // Create TestComponent to get the template reference
       templateFixture = TestBed.createComponent(TestComponent);
       templateFixture.detectChanges();
-      
+
       // Set the template in the mock config
       mockConfig.additions =
         templateFixture.componentInstance.templates?.get(0);
-      
+
       // Update the injection token to include the template
-      mockInjectionToken.transactionItemAdditionalDetails = 
+      mockInjectionToken.transactionItemAdditionalDetails =
         templateFixture.componentInstance.templates?.get(0);
 
       // Create a new instance of the component to pick up the changes

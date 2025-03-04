@@ -3,9 +3,9 @@ import { Transfer } from '@backbase-gsa/transfer-journey/internal/shared-data';
 import { ButtonModule } from '@backbase/ui-ang/button';
 
 @Component({
-    selector: 'bb-make-transfer-summary',
-    templateUrl: 'make-transfer-summary.component.html',
-    imports: [ButtonModule]
+  selector: 'bb-make-transfer-summary',
+  templateUrl: 'make-transfer-summary.component.html',
+  imports: [ButtonModule],
 })
 export class MakeTransferSummaryComponent {
   @Input() transfer: Transfer | undefined;
