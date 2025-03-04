@@ -4,7 +4,7 @@ import { wrongUser } from '../data/credentials';
 
 const i18n = {
   identity: {
-    username: 'Username or email',
+    username: 'Username',
     password: 'Password',
     loginButton: 'Log in',
     error:
@@ -23,9 +23,9 @@ test.describe(
       await test.step('Validate Input fields labels', async () => {
         await expect
           .soft(identityPage.userNameLabel, {
-            message: `Expect Username label: "${i18n.identity.username}"`,
+            message: `Expect Username label: "${i18n.identity.username.trim()}"`,
           })
-          .toHaveText(i18n.identity.username);
+          .toHaveText(i18n.identity.username.trim());
         await expect
           .soft(identityPage.passwordLabel, {
             message: `Expect Password label: "${i18n.identity.password}"`,
