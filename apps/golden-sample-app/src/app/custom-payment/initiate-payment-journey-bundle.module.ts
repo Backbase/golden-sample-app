@@ -9,20 +9,17 @@ import { InitiatorComponent } from './components/initiator/initiator.component';
 import { customPaymentConfig } from './custom-payment.config';
 
 @NgModule({
-  /**
-   * Declare the custom component here for journey to be able to add it to the form dynamically
-   */
-  declarations: [InitiatorComponent],
-  imports: [
-    AccountSelectorModule,
-    CommonModule,
-    InitiatePaymentJourneyModule.forRoot(),
-  ],
-  providers: [
-    {
-      provide: INITIATE_PAYMENT_CONFIG,
-      useValue: customPaymentConfig,
-    },
-  ],
+    imports: [
+        AccountSelectorModule,
+        CommonModule,
+        InitiatePaymentJourneyModule.forRoot(),
+        InitiatorComponent,
+    ],
+    providers: [
+        {
+            provide: INITIATE_PAYMENT_CONFIG,
+            useValue: customPaymentConfig,
+        },
+    ],
 })
 export class CustomPaymentJourneyBundleModule {}

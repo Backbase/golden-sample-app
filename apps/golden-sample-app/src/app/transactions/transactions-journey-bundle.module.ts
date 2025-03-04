@@ -10,28 +10,27 @@ import { TransactionItemAdditionalDetailsComponent } from './transaction-additio
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    TransactionsJourneyModule.forRoot({
-      extensionSlots: {
-        transactionItemAdditionalDetails:
-          TransactionItemAdditionalDetailsComponent,
-      },
-    }),
-  ],
-  declarations: [TransactionItemAdditionalDetailsComponent],
-  providers: [
-    {
-      provide: TransactionsJourneyConfiguration,
-      useValue: {
-        pageSize: 10,
-        slimMode: environment.common.designSlimMode,
-      } as TransactionsJourneyConfiguration,
-    },
-    {
-      provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
-      useExisting: JourneyCommunicationService,
-    },
-  ],
+    imports: [
+        CommonModule,
+        TransactionsJourneyModule.forRoot({
+            extensionSlots: {
+                transactionItemAdditionalDetails: TransactionItemAdditionalDetailsComponent,
+            },
+        }),
+        TransactionItemAdditionalDetailsComponent,
+    ],
+    providers: [
+        {
+            provide: TransactionsJourneyConfiguration,
+            useValue: {
+                pageSize: 10,
+                slimMode: environment.common.designSlimMode,
+            } as TransactionsJourneyConfiguration,
+        },
+        {
+            provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+            useExisting: JourneyCommunicationService,
+        },
+    ],
 })
 export class TransactionsJourneyBundleModule {}

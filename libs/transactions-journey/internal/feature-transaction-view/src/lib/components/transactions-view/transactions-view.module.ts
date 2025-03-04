@@ -15,19 +15,19 @@ import { TransactionsViewComponent } from './transactions-view.component';
 import { AmountModule } from '@backbase/ui-ang/amount';
 
 @NgModule({
-  declarations: [TransactionsViewComponent],
-  imports: [
-    CommonModule,
-    RouterModule,
-    LoadingIndicatorModule,
-    BadgeModule,
-    AmountModule,
-    TrackerModule,
-    FilterTransactionsPipe,
-    TextFilterComponent,
-    TransactionItemComponent,
-  ],
-  providers: [TransactionsHttpService],
-  exports: [TransactionsViewComponent],
+    imports: [
+        CommonModule,
+        RouterModule,
+        LoadingIndicatorModule,
+        BadgeModule,
+        AmountModule,
+        TrackerModule,
+        FilterTransactionsPipe,
+        TextFilterComponent,
+        TransactionItemComponent,
+        TransactionsViewComponent,
+    ],
+    providers: [TransactionsHttpService],
+    exports: [TransactionsViewComponent],
 })
 export class TransactionsViewModule {}

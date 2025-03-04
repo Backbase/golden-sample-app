@@ -6,10 +6,9 @@ import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
 import { LocaleSelectorComponent } from './locale-selector.component';
 
 @NgModule({
-  declarations: [LocaleSelectorComponent],
-  imports: [DropdownMenuModule, CommonModule],
-  exports: [LocaleSelectorComponent],
-  providers: [LocalesService],
+    imports: [DropdownMenuModule, CommonModule, LocaleSelectorComponent],
+    exports: [LocaleSelectorComponent],
+    providers: [LocalesService],
 })
 export class LocaleSelectorModule {
   static forRoot(config: {

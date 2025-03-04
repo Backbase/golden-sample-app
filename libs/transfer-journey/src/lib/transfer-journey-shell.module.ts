@@ -67,28 +67,28 @@ const defaultRoute: Route = {
 };
 
 @NgModule({
-  declarations: [TransferJourneyComponent],
-  imports: [
-    CommonModule,
-    RouterModule,
-    AlertModule,
-    TrackerModule.forJourney({
-      journeyName: 'transfer',
-    }),
-    MakeTransferFormComponent,
-    MakeTransferSummaryComponent,
-    MakeTransferSummaryViewComponent,
-    MakeTransferSuccessViewComponent,
-    MakeTransferViewComponent,
-  ],
-  providers: [
-    MakeTransferJourneyStoreGuard,
-    MakeTransferJourneyConfiguration,
-    MakeTransferPermissionsService,
-    MakeTransferAccountHttpService,
-    MakeTransferRouteTitleResolverService,
-  ],
-  exports: [TransferJourneyComponent],
+    imports: [
+        CommonModule,
+        RouterModule,
+        AlertModule,
+        TrackerModule.forJourney({
+            journeyName: 'transfer',
+        }),
+        MakeTransferFormComponent,
+        MakeTransferSummaryComponent,
+        MakeTransferSummaryViewComponent,
+        MakeTransferSuccessViewComponent,
+        MakeTransferViewComponent,
+        TransferJourneyComponent,
+    ],
+    providers: [
+        MakeTransferJourneyStoreGuard,
+        MakeTransferJourneyConfiguration,
+        MakeTransferPermissionsService,
+        MakeTransferAccountHttpService,
+        MakeTransferRouteTitleResolverService,
+    ],
+    exports: [TransferJourneyComponent],
 })
 export class TransferJourneyShellModule {
   static forRoot(

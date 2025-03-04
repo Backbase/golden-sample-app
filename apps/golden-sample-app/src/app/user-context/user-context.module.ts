@@ -5,17 +5,17 @@ import { SelectContextModule } from '@backbase/select-context';
 import { UserContextComponent } from './user-context.component';
 
 @NgModule({
-  declarations: [UserContextComponent],
-  imports: [
-    CommonModule,
-    SelectContextModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: UserContextComponent,
-      },
-    ]),
-  ],
-  exports: [RouterModule],
+    imports: [
+        CommonModule,
+        SelectContextModule,
+        RouterModule.forChild([
+            {
+                path: '',
+                component: UserContextComponent,
+            },
+        ]),
+        UserContextComponent,
+    ],
+    exports: [RouterModule],
 })
 export class UserContextModule {}

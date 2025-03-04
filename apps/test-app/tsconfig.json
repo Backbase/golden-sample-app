@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
+    "target": "es2022",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -9,11 +9,24 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.editor.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ],
+  "extends": "../../tsconfig.base.json",
   "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": true,
+    "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  },
-  "extends": "./tsconfig.base.json"
+  }
 }

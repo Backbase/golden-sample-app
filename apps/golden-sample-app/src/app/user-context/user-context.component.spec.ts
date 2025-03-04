@@ -27,7 +27,7 @@ describe('UserContextComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UserContextComponent],
+      imports: [UserContextComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: UserContextService, useValue: mockUserContextService },

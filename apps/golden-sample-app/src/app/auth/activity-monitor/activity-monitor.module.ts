@@ -13,18 +13,17 @@ import { ActivityMonitorLayoutComponent } from './layout/activity-monitor-layout
 const uiModules = [ModalModule, HeaderModule];
 
 @NgModule({
-  imports: [CommonModule, ...uiModules],
-  declarations: [ActivityMonitorLayoutComponent, ActivityMonitorComponent],
-  providers: [
-    ActivityMonitorService,
-    {
-      provide: ACTIVITY_MONITOR_CONFIG,
-      useValue: {
-        maxInactivityDuration: 300,
-        countdownDuration: 30,
-      } as ActivityMonitorConfig,
-    },
-  ],
-  exports: [ActivityMonitorComponent],
+    imports: [CommonModule, ...uiModules, ActivityMonitorLayoutComponent, ActivityMonitorComponent],
+    providers: [
+        ActivityMonitorService,
+        {
+            provide: ACTIVITY_MONITOR_CONFIG,
+            useValue: {
+                maxInactivityDuration: 300,
+                countdownDuration: 30,
+            } as ActivityMonitorConfig,
+        },
+    ],
+    exports: [ActivityMonitorComponent],
 })
 export class ActivityMonitorModule {}

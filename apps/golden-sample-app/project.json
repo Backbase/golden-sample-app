@@ -11,15 +11,21 @@
       "nl": "apps/golden-sample-app/src/locale/messages.nl-NL.xlf"
     }
   },
-  "tags": ["type:app"],
+  "tags": [
+    "type:app"
+  ],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular/build:application",
       "options": {
-        "outputPath": "dist/apps/golden-sample-app",
+        "outputPath": {
+          "base": "dist/apps/golden-sample-app"
+        },
         "index": "apps/golden-sample-app/src/index.html",
-        "main": "apps/golden-sample-app/src/main.ts",
-        "polyfills": "apps/golden-sample-app/src/polyfills.ts",
+        "polyfills": [
+          "apps/golden-sample-app/src/polyfills.ts",
+          "@angular/localize/init"
+        ],
         "tsConfig": "apps/golden-sample-app/tsconfig.app.json",
         "assets": [
           "apps/golden-sample-app/src/favicon.ico",
@@ -42,7 +48,8 @@
             "inject": false
           }
         ],
-        "scripts": []
+        "scripts": [],
+        "browser": "apps/golden-sample-app/src/main.ts"
       },
       "configurations": {
         "production": {
@@ -77,26 +84,22 @@
           "localize": true
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
         },
         "nl": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true,
-          "localize": ["nl-NL"]
+          "localize": [
+            "nl-NL"
+          ]
         },
         "mocks": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true,
@@ -111,11 +114,11 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "configurations": {
         "development": {
           "buildTarget": "golden-sample-app:build:development",
-           "proxyConfig": "./apps/golden-sample-app/proxy.stg-ebp.conf.js"
+          "proxyConfig": "./apps/golden-sample-app/proxy.stg-ebp.conf.js"
         },
         "production": {
           "buildTarget": "golden-sample-app:build:production"
@@ -128,8 +131,8 @@
           "buildTarget": "golden-sample-app:build:mocks"
         },
         "ebp-sndbox": {
-           "buildTarget": "golden-sample-app:build:development",
-           "proxyConfig": "./apps/golden-sample-app/proxy.stg-ebp.conf.js"
+          "buildTarget": "golden-sample-app:build:development",
+          "proxyConfig": "./apps/golden-sample-app/proxy.stg-ebp.conf.js"
         }
       },
       "defaultConfiguration": "development"
@@ -139,14 +142,21 @@
       "options": {
         "devServerTarget": "golden-sample-app:serve",
         "command": "npx",
-        "args": ["playwright", "test", "--project", "web-chrome", "--grep", "@e2e"]
+        "args": [
+          "playwright",
+          "test",
+          "--project",
+          "web-chrome",
+          "--grep",
+          "@e2e"
+        ]
       },
       "configurations": {
         "production": {}
       }
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "golden-sample-app:build"
       }
