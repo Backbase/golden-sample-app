@@ -7,7 +7,6 @@ import { HeadingModule } from '@backbase/ui-ang/heading';
   selector: 'bb-ach-positive-pay-journey',
   templateUrl: './ach-positive-pay-journey.component.html',
   imports: [HeadingModule, RouterModule],
-  standalone: true,
 })
 export class AchPositivePayJourneyComponent {
   permissions = PERMISSIONS;

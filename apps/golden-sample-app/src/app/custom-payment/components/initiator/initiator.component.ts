@@ -42,6 +42,7 @@ import { InitiatorService } from './initiator.service';
     </div>
   `,
   providers: [InitiatorService],
+  standalone: false,
 })
 
 // The custom component MUST implement PaymentFormField or ActivatableFormField and it should be an Angular form control.
