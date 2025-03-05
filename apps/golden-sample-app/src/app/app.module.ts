@@ -43,17 +43,21 @@ import { authConfig, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppErrorHandler } from './app.error-handler';
-import { AuthEventsHandlerService } from './auth/auth-events-handler/auth-events-handler.service';
 import { AnalyticsService } from './services/analytics.service';
-import { AuthInterceptor } from './auth/interceptor/auth.interceptor';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { UserContextInterceptor } from './user-context/user-context.interceptor';
-import { ActivityMonitorModule } from './auth/activity-monitor';
 import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
 import packageInfo from 'package-json';
 import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
 import { ThemeManagerService } from './theme-switcher/theme-service';
+import { ENVIRONMENT_CONFIG } from '@backbase-gsa/shared/util/config';
+import {
+  ActivityMonitorModule,
+  AuthEventsHandlerService,
+  AuthInterceptor,
+} from '@backbase-gsa/shared/feature/auth';
+import { NavigationMenuModule } from './navigation-menu/navigation-menu.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -92,6 +96,7 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
       },
     }),
     ActivityMonitorModule,
+    NavigationMenuModule,
   ],
   providers: [
     ...(environment.mockProviders || []),
@@ -172,6 +177,10 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
       useValue: {
         accessControlBasePath: `${environment.apiRoot}/access-control`,
       },
+    },
+    {
+      provide: ENVIRONMENT_CONFIG,
+      useValue: environment,
     },
     {
       provide: HTTP_INTERCEPTORS,
