@@ -33,6 +33,45 @@
       "@backbase-gsa/internal-transactions-feature": [
         "libs/transactions-journey/feature/src/index.ts"
       ],
+      "@backbase-gsa/journey-bundles/ach-positive-pay": [
+        "libs/journey-bundles/ach-positive-pay/src/index.ts"
+      ],
+      "@backbase-gsa/journey-bundles/custom-payment": [
+        "libs/journey-bundles/custom-payment/src/index.ts"
+      ],
+      "@backbase-gsa/journey-bundles/transactions": [
+        "libs/journey-bundles/transactions/src/index.ts"
+      ],
+      "@backbase-gsa/journey-bundles/transfer": [
+        "libs/journey-bundles/transfer/src/index.ts"
+      ],
+      "@backbase-gsa/journey-bundles/user-accounts": [
+        "libs/journey-bundles/user-accounts/src/index.ts"
+      ],
+      "@backbase-gsa/shared/feature/auth": [
+        "libs/shared/feature/auth/src/index.ts"
+      ],
+      "@backbase-gsa/shared/feature/communication": [
+        "libs/shared/feature/communication/src/index.ts"
+      ],
+      "@backbase-gsa/shared/feature/navigation-menu": [
+        "libs/shared/feature/navigation-menu/src/index.ts"
+      ],
+      "@backbase-gsa/shared/feature/user-context": [
+        "libs/shared/feature/user-context/src/index.ts"
+      ],
+      "@backbase-gsa/shared/feature/view-wrapper": [
+        "libs/shared/feature/view-wrapper/src/index.ts"
+      ],
+      "@backbase-gsa/shared/util/app-core": [
+        "libs/shared/util/app-core/src/index.ts"
+      ],
+      "@backbase-gsa/shared/util/config": [
+        "libs/shared/util/config/src/index.ts"
+      ],
+      "@backbase-gsa/shared/util/permissions": [
+        "libs/shared/util/permissions/src/index.ts"
+      ],
       "@backbase-gsa/transactions-journey": [
         "libs/transactions-journey/src/index.ts"
       ],
