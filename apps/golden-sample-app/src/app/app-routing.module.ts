@@ -83,7 +83,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ViewWrapperComponent],
-  imports: [RouterModule.forRoot(routes), CommonModule],
+  imports: [RouterModule.forRoot(routes, { errorHandler: (error) => console.error('Navigation error:', error) }), CommonModule],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

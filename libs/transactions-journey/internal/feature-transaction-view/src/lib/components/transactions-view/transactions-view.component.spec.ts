@@ -1,12 +1,19 @@
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, Directive, EventEmitter, NO_ERRORS_SCHEMA, Output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
   Router,
+  RouterModule,
 } from '@angular/router';
 import { TransactionItem } from '@backbase/transactions-http-ang';
 import { BehaviorSubject, delay, of } from 'rxjs';
+import { 
+  Tracker, 
+  TrackerModule, 
+  TrackNavigationDirective,
+  ScreenViewTrackerEventPayload,
+} from '@backbase/foundation-ang/observability';
 import {
   TransactionsCommunicationService,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
@@ -23,6 +30,9 @@ import {
 import { TransactionsViewComponent } from './transactions-view.component';
 import { By } from '@angular/platform-browser';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
+import { BadgeModule } from '@backbase/ui-ang/badge';
+import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
+import { TRANSACTION_EXTENSIONS_CONFIG } from '../../extensions';
 
 @Component({
   selector: 'bb-text-filter-component',
@@ -30,6 +40,14 @@ import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
   template: '',
 })
 class MockTextFilterComponent {}
+
+@Directive({
+  selector: '[bbTrackNavigation]',
+  standalone: true,
+})
+class MockTrackNavigationDirective {
+  @Output() bbTrackNavigation = new EventEmitter<ScreenViewTrackerEventPayload>();
+}
 describe('TransactionsViewComponent', () => {
   let transactions$$: BehaviorSubject<TransactionItem[] | undefined>;
   let arrangements$$: BehaviorSubject<ProductSummaryItem[]>;
@@ -73,8 +91,15 @@ describe('TransactionsViewComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [TransactionsViewComponent],
-      imports: [MockTextFilterComponent, FilterTransactionsPipe],
+      imports: [
+        TransactionsViewComponent,
+        MockTextFilterComponent,
+        FilterTransactionsPipe,
+        MockTrackNavigationDirective,
+        RouterModule,
+        BadgeModule,
+        LoadingIndicatorModule,
+      ],
       providers: [
         {
           provide: ActivatedRoute,
@@ -90,6 +115,14 @@ describe('TransactionsViewComponent', () => {
           provide: Router,
           useValue: {
             navigate: jest.fn(),
+            events: of({}),
+            routerState: {
+              snapshot: {
+                url: '/transactions',
+              },
+            },
+            createUrlTree: jest.fn().mockReturnValue({}),
+            serializeUrl: jest.fn(),
           },
         },
         {
@@ -103,6 +136,17 @@ describe('TransactionsViewComponent', () => {
         {
           provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
           useValue: mockTransactionsCommunicationService,
+        },
+        {
+          provide: TRANSACTION_EXTENSIONS_CONFIG,
+          useValue: { transactionItemAdditionalDetails: undefined },
+        },
+        {
+          provide: Tracker,
+          useValue: {
+            publish: jest.fn(),
+            subscribe: jest.fn(),
+          },
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
