@@ -6,6 +6,15 @@ import { User } from '../data/data-types/user';
 import { readFile } from '../utils/read-file';
 import 'dotenv/config';
 import { TestEnvironment, TestOptions } from '../../../test.model';
+import { Cookie } from '@playwright/test';
+
+interface StorageState {
+  cookies: Cookie[];
+  origins: Array<{
+    origin: string;
+    localStorage: Array<{ name: string; value: string }>;
+  }>;
+}
 
 interface TestRunnerOptions extends TestOptions {
   identityPage: IdentityPage;
@@ -33,21 +42,31 @@ export const test = baseTest.extend<TestRunnerOptions>({
   },
 });
 
-export const testWithAuth = test.extend<{
-  // Authentication
+interface AuthTestOptions extends TestOptions {
   userType: string;
   user: User;
-}>({
+  config: { users: Record<string, User> };
+  env: TestEnvironment;
+  authPage: IdentityPage;
+}
+
+export const testWithAuth = test.extend<AuthTestOptions>({
   userType: ['', { option: true }],
   user: async ({ config, userType }, use) => {
     await use(config.users[userType]);
   },
-  storageState: async ({ page, identityPage, user, baseURL }, use) => {
+  authPage: async ({ browser, baseURL, user }, use, testInfo) => {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    const identityPage = new IdentityPage(page, testInfo, { url: testConfig.appBaseUrl() });
+    
     if (user) {
       await identityPage.login(user);
       await page.goto(baseURL ?? '');
       await page.waitForTimeout(1000);
     }
-    await use({ cookies: [], origins: [] });
-  },
+    
+    await use(identityPage);
+    await context.close();
+  }
 });
