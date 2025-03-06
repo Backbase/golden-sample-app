@@ -16,4 +16,4 @@ jobs:
       issue-number: ${{ github.event.issue.number }}
       base-branch: ${{ github.event.repository.default_branch }}
     secrets: 
-      openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+      anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
