@@ -5,3 +5,7 @@ export {
   MakeTransferCommunicationService,
 } from '@backbase-gsa/transfer-journey/internal/data-access';
 export { Transfer } from '@backbase-gsa/transfer-journey/internal/shared-data';
+export {
+  TRANSFER_JOURNEY_TRANSLATIONS,
+  TransferJourneyTranslations,
+} from './translations-catalog';

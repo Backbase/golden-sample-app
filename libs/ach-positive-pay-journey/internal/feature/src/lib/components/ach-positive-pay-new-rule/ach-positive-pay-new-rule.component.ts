@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, InjectionToken, OnInit } from '@angular/core';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -13,6 +13,12 @@ import { AlertModule } from '@backbase/ui-ang/alert';
 import { AchPositivePayRuleFormComponent } from '@backbase-gsa/ach-positive-pay-journey/internal/ui';
 import { LoadButtonModule } from '@backbase/ui-ang/load-button';
 import { CommonModule } from '@angular/common';
+import {
+  ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS,
+  AchPositivePayNewRuleTranslations,
+  achPositivePayNewRuleTranslations as defaultTranslations,
+} from '../../../translations-catalog';
+import { TranslationsBase } from '@backbase-gsa/shared-translations';
 
 @Component({
   selector: 'bb-ach-positive-pay-new-rule',
@@ -27,9 +33,11 @@ import { CommonModule } from '@angular/common';
   ],
   standalone: true,
 })
-export class AchPositivePayNewRuleComponent implements OnInit {
+export class AchPositivePayNewRuleComponent
+  extends TranslationsBase<AchPositivePayNewRuleTranslations>
+  implements OnInit
+{
   loading = false;
-
   modalOptions: NgbModalOptions = {
     backdrop: 'static',
     keyboard: true,
@@ -50,8 +58,12 @@ export class AchPositivePayNewRuleComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly fb: FormBuilder,
     private readonly achPositivePayService: AchPositivePayHttpService,
-    private readonly notificationService: NotificationService
-  ) {}
+    private readonly notificationService: NotificationService,
+    @Inject(ACH_POSITIVE_PAY_NEW_RULE_TRANSLATIONS)
+    private readonly _translations: Partial<AchPositivePayNewRuleTranslations>
+  ) {
+    super(defaultTranslations, _translations);
+  }
 
   ngOnInit(): void {
     this.achRuleForm = this.fb.group({

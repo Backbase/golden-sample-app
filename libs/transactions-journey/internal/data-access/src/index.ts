@@ -4,5 +4,5 @@ export { TransactionsRouteTitleResolverService } from './lib/services/transactio
 export { TransactionsHttpService } from './lib/services/transactions-http/transactions.http.service';
 export {
   TransactionsCommunicationService,
-  TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+  TRANSACTIONS_JOURNEY_COMMUNICATION_SERVICE,
 } from './lib/services/transactions-journey-communication/transactions-journey-communication.service';

@@ -54,6 +54,7 @@ import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
 import packageInfo from 'package-json';
 import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
 import { ThemeManagerService } from './theme-switcher/theme-service';
+import { APP_TRANSLATIONS } from './translations-catalog';
 
 @NgModule({
   declarations: [AppComponent],
@@ -94,7 +95,7 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
     ActivityMonitorModule,
   ],
   providers: [
-    ...(environment.mockProviders || []),
+    ...(environment.mockProviders ?? []),
     { provide: AuthConfig, useValue: authConfig },
     {
       provide: HTTP_INTERCEPTORS,
@@ -184,6 +185,10 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
     },
     ThemeManagerService,
     provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: APP_TRANSLATIONS,
+      useValue: {},
+    },
   ],
 })
 export class AppModule {}

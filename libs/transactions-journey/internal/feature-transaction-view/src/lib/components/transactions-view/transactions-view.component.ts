@@ -10,18 +10,26 @@ import {
 
 import {
   TransactionsCommunicationService,
-  TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+  TRANSACTIONS_JOURNEY_COMMUNICATION_SERVICE,
   ArrangementsService,
   TransactionsHttpService,
 } from '@backbase-gsa/transactions-journey/internal/data-access';
 
 import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
+import {
+  TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS,
+  TransactionsJourneyTransactionViewTranslations,
+  transactionsJourneyTransactionViewTranslations as defaultTranslations,
+} from '../../../translations-catalog';
+import { TranslationsBase } from '@backbase-gsa/shared-translations';
+
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
   selector: 'bb-transactions-view',
+  standalone: false,
 })
-export class TransactionsViewComponent {
+export class TransactionsViewComponent extends TranslationsBase<TransactionsJourneyTransactionViewTranslations> {
   public title = this.route.snapshot.data['title'];
 
   public filter = '';
@@ -70,11 +78,15 @@ export class TransactionsViewComponent {
     private readonly router: Router,
     private readonly transactionsService: TransactionsHttpService,
     private readonly arrangementsService: ArrangementsService,
+    @Inject(TRANSACTIONS_JOURNEY_TRANSACTION_VIEW_TRANSLATIONS)
+    private readonly _translations: Partial<TransactionsJourneyTransactionViewTranslations> = {},
     @Optional()
-    @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE)
-    private externalCommunicationService: TransactionsCommunicationService,
-    @Optional() private tracker?: Tracker
-  ) {}
+    @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERVICE)
+    private readonly externalCommunicationService: TransactionsCommunicationService,
+    @Optional() private readonly tracker?: Tracker
+  ) {
+    super(defaultTranslations, _translations);
+  }
 
   search(ev: string) {
     this.filter = ev || '';

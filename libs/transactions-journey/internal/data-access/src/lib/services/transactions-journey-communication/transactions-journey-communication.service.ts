@@ -6,7 +6,7 @@ export interface TransactionsCommunicationService {
   latestTransaction$: Observable<TransactionItem | undefined>;
 }
 
-export const TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE =
+export const TRANSACTIONS_JOURNEY_COMMUNICATION_SERVICE =
   new InjectionToken<TransactionsCommunicationService>(
     'bb-transactions-journey communication service'
   );

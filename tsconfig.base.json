@@ -69,7 +69,8 @@
       "@backbase-gsa/transfer-journey/internal/ui": [
         "libs/transfer-journey/internal/ui/src/index.ts"
       ],
-      "package-json": ["package.json"]
+      "@backbase-gsa/shared-translations": ["libs/shared/translations/src/index.ts"],
+      "package-json": ["package.json"],
     }
   }
 }
