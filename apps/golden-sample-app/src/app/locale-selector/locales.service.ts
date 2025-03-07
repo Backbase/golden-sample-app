@@ -41,6 +41,9 @@ export class LocalesService {
 
       // Check if path includes base href and locale
       if (!basePathRegex.test(fullPath)) {
+        // If the current path doesn't include the locale, we need to force a reload
+        // to ensure the application picks up the new locale
+        this.document.location.href = `${baseHref}/${locale}/`;
         return;
       }
 
