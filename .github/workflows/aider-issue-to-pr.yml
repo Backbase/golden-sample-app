@@ -19,7 +19,7 @@ on:
         description: "Model to use"
         required: false
         type: string
-        default: "gpt-4-1106-preview"
+        default: "anthropic/claude-3-7-sonnet-20250219"
     secrets:
       openai_api_key:
         description: "OpenAI API key"
