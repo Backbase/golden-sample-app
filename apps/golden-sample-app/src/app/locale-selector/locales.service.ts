@@ -37,7 +37,9 @@ export class LocalesService {
 
     if (locale !== currentLocale) {
       const fullPath = this.location.path(true);
-      const basePathRegex = new RegExp(`^${baseHref}/${currentLocale}/?`);
+      // Escape special characters in baseHref for regex
+      const escapedBaseHref = baseHref.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const basePathRegex = new RegExp(`^${escapedBaseHref}/${currentLocale}/?`);
 
       // Check if path includes base href and locale
       if (!basePathRegex.test(fullPath)) {

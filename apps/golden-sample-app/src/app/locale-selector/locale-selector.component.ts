@@ -28,7 +28,7 @@ export class LocaleSelectorComponent implements OnInit {
       return;
     }
     
-    if (value && 'code' in value) {
+    if (value && typeof value === 'object' && 'code' in value) {
       this.currentLanguage = value as Locale;
       this.localeService.setLocale((value as Locale).code);
     }
