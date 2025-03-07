@@ -21,8 +21,11 @@ export class LocaleSelectorComponent implements OnInit {
     if (typeof value === 'string') {
       return;
     }
-
-    this.localeService.setLocale((value as Locale).code);
+    
+    if (value && 'code' in value) {
+      this.currentLanguage = value as Locale;
+      this.localeService.setLocale((value as Locale).code);
+    }
   }
 
   get language(): Locale | undefined {
@@ -35,7 +38,13 @@ export class LocaleSelectorComponent implements OnInit {
       []
     );
 
-    this.currentLanguage = this.findLocale(this.localeService.currentLocale);
+    const currentLocale = this.localeService.currentLocale;
+    this.currentLanguage = this.findLocale(currentLocale);
+    
+    // If current language wasn't found in the catalog, default to the first available
+    if (!this.currentLanguage && this.localesCatalog.length > 0) {
+      this.currentLanguage = this.localesCatalog[0];
+    }
   }
 
   private findLocale(locale: string): Locale | undefined {
