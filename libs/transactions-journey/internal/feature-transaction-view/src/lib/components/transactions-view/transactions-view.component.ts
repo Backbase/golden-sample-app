@@ -20,6 +20,7 @@ import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
   selector: 'bb-transactions-view',
+  standalone: false,
 })
 export class TransactionsViewComponent {
   public title = this.route.snapshot.data['title'];

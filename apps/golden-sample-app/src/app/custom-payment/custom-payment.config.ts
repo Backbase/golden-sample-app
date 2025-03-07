@@ -1,16 +1,16 @@
 import '@angular/localize/init';
 
 import {
+  InitiatePaymentConfig,
+  PaymentTypeConfig,
   CounterPartyFields,
   Frequencies,
-  InitiatePaymentConfig,
   InitiatorFields,
   PaymentBaseFields,
   PaymentComponents,
   PaymentFormGroup,
   PaymentHooksCallbackFn,
   PaymentHooksParams,
-  PaymentTypeConfig,
   RemittanceInfoFields,
   ReviewScreens,
   ScheduleFields,
