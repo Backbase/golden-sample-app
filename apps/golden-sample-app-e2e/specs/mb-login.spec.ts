@@ -4,7 +4,7 @@ import { wrongUser } from '../data/credentials';
 
 const i18n = {
   identity: {
-    username: 'Username or email',
+    username: 'Username',
     password: 'Password',
     loginButton: 'Log in',
     error:
