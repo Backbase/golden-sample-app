@@ -1,8 +1,8 @@
 import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
 import { AuthConfig } from 'angular-oauth2-oidc';
-import { Environment } from './type';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Provider } from '@angular/core';
+import { Environment } from '@backbase-gsa/shared/util/config';
 
 const mockProviders: Provider[] = [
   {

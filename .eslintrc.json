@@ -17,6 +17,19 @@
                 "onlyDependOnLibsWithTags": ["*"]
               },
               {
+                "sourceTag": "type:journey-bundle",
+                "onlyDependOnLibsWithTags": [
+                  "type:shell",
+                  "type:feature",
+                  "type:ui",
+                  "type:data",
+                  "type:data-access",
+                  "type:util",
+                  "type:shared-data",
+                  "type:config"
+                ]
+              },
+              {
                 "sourceTag": "type:shell",
                 "onlyDependOnLibsWithTags": [
                   "type:util",
@@ -29,12 +42,14 @@
               {
                 "sourceTag": "type:feature",
                 "onlyDependOnLibsWithTags": [
+                  "type:shell",
                   "type:feature",
                   "type:ui",
                   "type:data",
                   "type:data-access",
                   "type:util",
-                  "type:shared-data"
+                  "type:shared-data",
+                  "type:config"
                 ]
               },
               {
@@ -66,20 +81,24 @@
                 "onlyDependOnLibsWithTags": ["type:util"]
               },
               {
+                "sourceTag": "type:config",
+                "onlyDependOnLibsWithTags": ["type:config"]
+              },
+              {
                 "sourceTag": "scope:shared",
                 "onlyDependOnLibsWithTags": ["scope:shared"]
               },
               {
                 "sourceTag": "scope:transactions",
-                "onlyDependOnLibsWithTags": ["scope:shared"]
+                "onlyDependOnLibsWithTags": ["scope:transactions"]
               },
               {
                 "sourceTag": "scope:transfer",
-                "onlyDependOnLibsWithTags": ["scope:shared"]
+                "onlyDependOnLibsWithTags": ["scope:transfer"]
               },
               {
                 "sourceTag": "scope:ach-positive-pay",
-                "onlyDependOnLibsWithTags": ["scope:shared"]
+                "onlyDependOnLibsWithTags": ["scope:ach-positive-pay"]
               }
             ]
           }
