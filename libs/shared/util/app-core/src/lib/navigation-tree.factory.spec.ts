@@ -111,7 +111,9 @@ const navigationGroups = [accountsCardsGroup, moveMoneyGroup];
 describe('NavigationTreeFactory', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [getNavigationFactoryProvider(navigationList, navigationGroups)],
+      providers: [
+        getNavigationFactoryProvider(navigationList, navigationGroups),
+      ],
     });
 
     navTree = TestBed.inject(NAVIGATION_MENU_CONFIG);
@@ -171,8 +173,12 @@ describe('NavigationTreeFactory', () => {
   });
 
   it('should filter elements when multiple filtering functions are provided', () => {
-    expect(navTree.find((n) => n.name === extraNavigationA.name)).toBeUndefined();
-    expect(navTree.find((n) => n.name === extraNavigationB.name)).toBeUndefined();
+    expect(
+      navTree.find((n) => n.name === extraNavigationA.name)
+    ).toBeUndefined();
+    expect(
+      navTree.find((n) => n.name === extraNavigationB.name)
+    ).toBeUndefined();
   });
 });
 
@@ -180,14 +186,19 @@ describe('NavigationTreeFactory', () => {
   beforeEach(() => {
     const navList = [...navigationList, extraNavigationA, extraNavigationB];
     TestBed.configureTestingModule({
-      providers: [getNavigationFactoryProvider(navList, navigationGroups), getFilterProvider(extraNavigationA.id)],
+      providers: [
+        getNavigationFactoryProvider(navList, navigationGroups),
+        getFilterProvider(extraNavigationA.id),
+      ],
     });
 
     navTree = TestBed.inject(NAVIGATION_MENU_CONFIG);
   });
 
   it('should filter elements when a single filtering function is provided', () => {
-    expect(navTree.find((n) => n.name === extraNavigationA.name)).toBeUndefined();
+    expect(
+      navTree.find((n) => n.name === extraNavigationA.name)
+    ).toBeUndefined();
     expect(navTree.find((n) => n.name === extraNavigationB.name)).toBeDefined();
   });
 });
@@ -203,14 +214,21 @@ describe('NavigationTreeFactory', () => {
     ];
 
     TestBed.configureTestingModule({
-      providers: [getNavigationFactoryProvider(navList, navigationGroups), getFilterProvider(extraNavigationA.id)],
+      providers: [
+        getNavigationFactoryProvider(navList, navigationGroups),
+        getFilterProvider(extraNavigationA.id),
+      ],
     });
 
     navTree = TestBed.inject(NAVIGATION_MENU_CONFIG);
   });
 
   it('should filter elements that belong to a group', () => {
-    expect(navTree.flatMap((n) => (n as any)?.children).find((i) => i?.name === extraNavigationA.name)).toBeUndefined();
+    expect(
+      navTree
+        .flatMap((n) => (n as any)?.children)
+        .find((i) => i?.name === extraNavigationA.name)
+    ).toBeUndefined();
   });
 });
 
@@ -227,7 +245,7 @@ function getFilterProvider(itemId: string, multi?: boolean): Provider {
 
 function getNavigationFactoryProvider(
   navigationList: Array<NavigationLink | NavigationDynamicComponent>,
-  navigationGroups: NavigationItem[],
+  navigationGroups: NavigationItem[]
 ): Provider {
   return {
     provide: NAVIGATION_MENU_CONFIG,
