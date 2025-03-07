@@ -3,13 +3,17 @@
   <ng-container *ngIf="resolveEntitlements(menuItem.permissions) | async">
     @if (isNavigationGroup(menuItem)) {
     <li>
-      <ng-template *ngTemplateOutlet="dropdownTemplate; context: { menuItem: menuItem }" />
+      <ng-template
+        *ngTemplateOutlet="dropdownTemplate; context: { menuItem: menuItem }"
+      />
     </li>
     } @else {
     <li class="bb-layout__horizontal-nav-item">
       <ng-template
         *ngTemplateOutlet="
-          isNavigationDynamicComponent(menuItem) ? dynamicItemTemplate : linkItemTemplate;
+          isNavigationDynamicComponent(menuItem)
+            ? dynamicItemTemplate
+            : linkItemTemplate;
           context: { menuItem: menuItem }
         "
       />
@@ -33,7 +37,9 @@
       class="bb-layout__horizontal-nav-link"
       href="javascript:;"
       tabindex="0"
-      [class.bb-layout__horizontal-nav-link--expanded]="baseDropdown.isOpen() || dropdownNavItem.isActive"
+      [class.bb-layout__horizontal-nav-link--expanded]="
+        baseDropdown.isOpen() || dropdownNavItem.isActive
+      "
       [attr.aria-expanded]="baseDropdown.isOpen()"
       [id]="menuItem | menuItemId"
       role="button"
@@ -42,7 +48,10 @@
         {{ menuItem.name }}
       </span>
       @if (menuItem.minifiable) {
-      <bb-icon-ui class="bb-layout__horizontal-nav-item-icon" name="ellipsis-h"></bb-icon-ui>
+      <bb-icon-ui
+        class="bb-layout__horizontal-nav-item-icon"
+        name="ellipsis-h"
+      ></bb-icon-ui>
       } @else {
       <bb-icon-ui
         class="bb-layout__horizontal-nav-expand-marker bb-layout__horizontal-nav-expand-marker--vertical"
@@ -61,9 +70,19 @@
       tabindex="-1"
       [attr.aria-labelledby]="menuItem | menuItemId"
     >
-      <button bbButton class="bb-layout__horizontal-nav-submenu-header" (click)="baseDropdown.close()">
-        <bb-icon-ui class="bb-layout__horizontal-nav-submenu--close" name="angle-left" size="lg"></bb-icon-ui>
-        <span class="bb-layout__horizontal-nav-submenu--text">{{ menuItem.name }}</span>
+      <button
+        bbButton
+        class="bb-layout__horizontal-nav-submenu-header"
+        (click)="baseDropdown.close()"
+      >
+        <bb-icon-ui
+          class="bb-layout__horizontal-nav-submenu--close"
+          name="angle-left"
+          size="lg"
+        ></bb-icon-ui>
+        <span class="bb-layout__horizontal-nav-submenu--text">{{
+          menuItem.name
+        }}</span>
       </button>
       @for (submenu of menuItem.children; track $index) {
       <ng-container *ngIf="resolveEntitlements(submenu.permissions) | async">
@@ -73,12 +92,16 @@
             ngbDropdownItem
             href="javascript:;"
             class="bb-layout__horizontal-nav-submenu-link"
-            [attr.data-role]="submenu.elementId ? submenu.elementId + '-nav-menu-item' : null"
+            [attr.data-role]="
+              submenu.elementId ? submenu.elementId + '-nav-menu-item' : null
+            "
             [id]="submenu | menuItemId"
           >
             <ng-container *ngComponentOutlet="$any(triggerItem)"></ng-container>
             <span class="bb-layout__horizontal-nav-submenu-item-label">
-              <span class="bb-layout__horizontal-nav-submenu-title">{{ submenu.name }}</span>
+              <span class="bb-layout__horizontal-nav-submenu-title">{{
+                submenu.name
+              }}</span>
             </span>
           </a>
         </ng-container>
@@ -114,11 +137,15 @@
       ariaCurrentWhenActive="page"
       tabindex="0"
       role="button"
-      [attr.data-role]="menuItem.elementId ? menuItem.elementId + '-nav-menu-item' : null"
+      [attr.data-role]="
+        menuItem.elementId ? menuItem.elementId + '-nav-menu-item' : null
+      "
       [id]="menuItem | menuItemId"
     >
       <ng-container *ngComponentOutlet="$any(triggerItem)"></ng-container>
-      <span class="bb-layout__horizontal-nav-item-description">{{ menuItem.name }}</span>
+      <span class="bb-layout__horizontal-nav-item-description">{{
+        menuItem.name
+      }}</span>
     </a>
   </ng-container>
 </ng-template>
@@ -132,6 +159,8 @@
     tabindex="0"
     [id]="menuItem | menuItemId"
   >
-    <span class="bb-layout__horizontal-nav-item-description">{{ menuItem.name }}</span>
+    <span class="bb-layout__horizontal-nav-item-description">{{
+      menuItem.name
+    }}</span>
   </a>
 </ng-template>

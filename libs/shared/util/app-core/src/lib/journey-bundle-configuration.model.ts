@@ -70,18 +70,25 @@ export interface NavigationMenuGroup extends NavigationItem {
   permissions?: string;
 }
 
-export type NavigationMenuItem = NavigationMenuGroup | NavigationLink | NavigationDynamicComponent;
+export type NavigationMenuItem =
+  | NavigationMenuGroup
+  | NavigationLink
+  | NavigationDynamicComponent;
 
-export const NAVIGATION_MENU_CONFIG = new InjectionToken<NavigationMenuItem[]>('NavigationMenu::NavigationMenuConfig');
+export const NAVIGATION_MENU_CONFIG = new InjectionToken<NavigationMenuItem[]>(
+  'NavigationMenu::NavigationMenuConfig'
+);
 
 /**
  * Function to control items visibility on a navigation tree
  */
-export type NavigationMenuFilterFn = (menu: NavigationLink | NavigationDynamicComponent) => boolean;
+export type NavigationMenuFilterFn = (
+  menu: NavigationLink | NavigationDynamicComponent
+) => boolean;
 
-export const NAVIGATION_MENU_FILTER_FN = new InjectionToken<NavigationMenuFilterFn[]>(
-  'NavigationMenu::NavigationMenuFilterFn',
-);
+export const NAVIGATION_MENU_FILTER_FN = new InjectionToken<
+  NavigationMenuFilterFn[]
+>('NavigationMenu::NavigationMenuFilterFn');
 
 export interface NavigationPlanMapper {
   [bundle: string]: Array<NavigationLink | NavigationDynamicComponent>;
