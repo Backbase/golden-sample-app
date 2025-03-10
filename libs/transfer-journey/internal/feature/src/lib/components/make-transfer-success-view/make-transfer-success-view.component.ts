@@ -6,9 +6,8 @@ import { MakeTransferJourneyState } from '@backbase-gsa/transfer-journey/interna
 import { ButtonModule } from '@backbase/ui-ang/button';
 
 @Component({
-  templateUrl: 'make-transfer-success-view.component.html',
-  imports: [AsyncPipe, NgIf, ButtonModule],
-  standalone: true,
+    templateUrl: 'make-transfer-success-view.component.html',
+    imports: [AsyncPipe, NgIf, ButtonModule]
 })
 export class MakeTransferSuccessViewComponent {
   transfer$ = this.transferStore.transfer$;
