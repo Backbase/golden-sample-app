@@ -1,0 +1,199 @@
+name: Aider Issue Processor
+
+permissions:
+    contents: write
+    issues: write
+    pull-requests: write
+
+on:
+  issues:
+    types: [labeled]
+jobs:
+  aider-issue-processor:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'aider')
+    steps:
+      - name: Parse issue description
+        id: parse-description
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Get issue details
+            const issue = context.payload.issue;
+            if (!issue || !issue.body) {
+              core.setFailed('No issue description found');
+              return;
+            }
+            
+            // Debug: Log issue body
+            console.log('Processing issue description');
+            
+            // Simple markdown parser for issue descriptions
+            function parseMarkdown(markdown) {
+              // Function to convert basic markdown to plain text
+              function markdownToPlainText(text) {
+                return text
+                  // Remove code blocks
+                  .replace(/```[\s\S]*?```/g, '')
+                  // Remove inline code
+                  .replace(/`([^`]+)`/g, '$1')
+                  // Remove bold/italic
+                  .replace(/\*\*([^*]+)\*\*/g, '$1')
+                  .replace(/\*([^*]+)\*/g, '$1')
+                  .replace(/__([^_]+)__/g, '$1')
+                  .replace(/_([^_]+)_/g, '$1')
+                  // Handle lists by replacing bullets with spaces
+                  .replace(/^\s*[*-]\s+/gm, '')
+                  .replace(/^\s*\d+\.\s+/gm, '')
+                  // Normalize whitespace
+                  .replace(/\n+/g, ' ')
+                  .replace(/\s+/g, ' ')
+                  .trim();
+              }
+              
+              // Extract sections (split by ## headings)
+              const sections = {};
+              const sectionRegex = /##\s+([^\n]+)([^#]*)/g;
+              let match;
+              
+              while ((match = sectionRegex.exec(markdown)) !== null) {
+                const sectionName = match[1].trim();
+                const sectionContent = markdownToPlainText(match[2]);
+                sections[sectionName] = sectionContent;
+              }
+              
+              return sections;
+            }
+            
+            try {
+              // Extract sections from markdown
+              const parsedSections = parseMarkdown(issue.body);
+              
+              // Debug: Log parsed sections
+              console.log('Parsed sections:', JSON.stringify(parsedSections, null, 2));
+              
+              // Format the result as a single string
+              let formattedResult = '';
+              for (const [section, content] of Object.entries(parsedSections)) {
+                formattedResult += `${section}: ${content} `;
+              }
+              
+              // Trim extra spaces
+              formattedResult = formattedResult.trim();
+              
+              // Add a comment to the issue with the parsed result
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `**Parsed Issue Description:**\n\n${formattedResult}`
+              });
+              
+              // Set output for use in subsequent steps
+              core.setOutput('parsed_description', formattedResult);
+              
+              console.log('Successfully parsed issue description');
+            } catch (error) {
+              console.error('Error details:', error);
+              core.setFailed(`Error parsing issue description: ${error.message}`);
+            }
+
+      - name: Log parsed result
+        run: |
+          echo "Parsed description: ${{ steps.parse-description.outputs.parsed_description }}"
+            
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Create and Switch to a New Branch
+        run: |
+          # Extract issue number and title
+          ISSUE_NUMBER="${{ github.event.issue.number }}"
+          ISSUE_TITLE="${{ github.event.issue.title }}"
+
+          # Format title: lowercase, replace spaces with dashes, remove special characters
+          SAFE_TITLE=$(echo "$ISSUE_TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd '[:alnum:]-')
+
+          # Set branch name
+          BRANCH_NAME="aider-issue-${ISSUE_NUMBER}-${SAFE_TITLE}"
+          echo "Creating branch: $BRANCH_NAME"
+
+          git fetch origin
+          git checkout -b "$BRANCH_NAME"
+          git push origin "$BRANCH_NAME"
+
+          # Save branch name for later steps
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+
+      - name: Resolve Files to Modify
+        id: resolve-files
+        run: |
+            # Extract issue number and description
+            ISSUE_NUMBER="${{ github.event.issue.number }}"
+            ISSUE_BODY="${{ github.event.issue.body }}"
+        
+            # Extract "Files to Modify" section (clean markdown bullets)
+            FILES_SECTION=$(echo "$ISSUE_BODY" | sed -n '/## Files to modify/,/## /p' | sed '1d;$d' | sed 's/^\* //g' | xargs)
+        
+            # Debug: Log extracted section
+            echo "Extracted Files to Modify Section: $FILES_SECTION"
+        
+            # If no files specified, let Aider decide
+            if [[ -z "$FILES_SECTION" ]]; then
+              echo "No files specified, letting Aider decide."
+              echo "FILES_TO_MODIFY=" >> $GITHUB_ENV
+              exit 0
+            fi
+        
+            # Resolve folders, globs, and individual files
+            RESOLVED_FILES=""
+            for item in $FILES_SECTION; do
+              if [[ -d "$item" ]]; then
+                # If it's a directory, get all files inside it
+                FOUND_FILES=$(find "$item" -type f)
+              elif [[ "$item" == *"*"* ]]; then
+                # If it's a glob pattern, resolve matching files
+                FOUND_FILES=$(find $(dirname "$item") -name "$(basename "$item")")
+              else
+                # Assume it's an individual file
+                FOUND_FILES=$item
+              fi
+              RESOLVED_FILES="$RESOLVED_FILES $FOUND_FILES"
+            done
+        
+            # Trim whitespace and save resolved files
+            RESOLVED_FILES=$(echo "$RESOLVED_FILES" | xargs)
+            echo "Resolved Files: $RESOLVED_FILES"
+            echo "FILES_TO_MODIFY=$RESOLVED_FILES" >> $GITHUB_ENV         
+
+      - name: Run Aider with Resolved Files
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+            pip install aider-chat
+            if [[ -z "${{ env.FILES_TO_MODIFY }}" ]]; then
+              echo "Letting Aider decide files."
+              echo "${{ steps.parse-description.outputs.parsed_description }}" | aider --yes-always --model sonnet
+            else
+              echo "Passing resolved files to Aider."
+              echo "${{ steps.parse-description.outputs.parsed_description }}" | aider --yes-always --model sonnet ${{ env.FILES_TO_MODIFY }}
+            fi
+  
+      - name: Push Aider Changes
+        run: |
+          git push origin ${{ env.BRANCH_NAME }}
+    
+      - name: Create Pull Request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+            ISSUE_NUMBER="${{ github.event.issue.number }}"
+            ISSUE_TITLE="${{ github.event.issue.title }}"
+
+            # Create a pull request
+            gh pr create \
+                --base main \
+                --head ${{ env.BRANCH_NAME }} \
+                --title "Fix #$ISSUE_NUMBER: $ISSUE_TITLE" \
+                --body "This PR resolves issue #$ISSUE_NUMBER by applying the requested changes using Aider."
