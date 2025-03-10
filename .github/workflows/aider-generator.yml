@@ -128,10 +128,12 @@ jobs:
 
       - name: Resolve Files to Modify
         id: resolve-files
+        env:
+            ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
             # Extract issue number and description
             ISSUE_NUMBER="${{ github.event.issue.number }}"
-            ISSUE_BODY="${{ github.event.issue.body }}"
+            ISSUE_BODY="${{ env.ISSUE_BODY }}"
         
             # Extract "Files to Modify" section (clean markdown bullets)
             FILES_SECTION=$(echo "$ISSUE_BODY" | sed -n '/## Files to modify/,/## /p' | sed '1d;$d' | sed 's/^\* //g' | xargs)
