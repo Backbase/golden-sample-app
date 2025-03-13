@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'bb-transfer-journey',
   templateUrl: 'transfer-journey.component.html',
   providers: [MakeTransferJourneyState],
+  standalone: false,
 })
 export class TransferJourneyComponent {
   public title: string = this.route.snapshot.firstChild?.data['title'] ?? '';
