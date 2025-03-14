@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
-import { AuthGuard } from './auth/guard/auth.guard';
-import { ViewWrapperComponent } from './components/view-wrapper/view-wrapper.component';
-import { triplets } from './services/entitlementsTriplets';
-import { UserContextGuard } from './user-context/user-context.guard';
+import { ACH_POSITIVE_PAY_ROUTE } from '@backbase-gsa/journey-bundles/ach-positive-pay';
+import { TRANSFER_ROUTE } from '@backbase-gsa/journey-bundles/transfer';
+import { TRANSACTIONS_ROUTE } from '@backbase-gsa/journey-bundles/transactions';
+import { USER_ACCOUNTS_ROUTE } from '@backbase-gsa/journey-bundles/user-accounts';
+import { CUSTOM_PAYMENT_ROUTE } from '@backbase-gsa/journey-bundles/custom-payment';
+import { AuthGuard } from '@backbase-gsa/shared/feature/auth';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'transactions',
+    redirectTo: TRANSACTIONS_ROUTE.path,
   },
   {
     path: 'select-context',
@@ -26,53 +27,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./error-page/error-page.module').then((m) => m.ErrorPageModule),
   },
-  {
-    path: 'transfer',
-    loadChildren: () =>
-      import('./transfer/transfer-journey-bundle.module').then(
-        (m) => m.TransferJourneyBundleModule
-      ),
-    canActivate: [AuthGuard, UserContextGuard],
-  },
-  {
-    path: 'ach-positive-pay',
-    loadChildren: () =>
-      import('./ach-positive-pay/ach-positive-pay-journey-bundle.module').then(
-        (m) => m.AchPositivePayJourneyBundleModule
-      ),
-    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard],
-    data: {
-      entitlements: triplets.canViewAchRule,
-    },
-  },
-  {
-    path: 'transactions',
-    loadChildren: () =>
-      import('./transactions/transactions-journey-bundle.module').then(
-        (m) => m.TransactionsJourneyBundleModule
-      ),
-    data: {
-      // entitlements: triplets.canViewTransactions,
-    },
-    canActivate: [AuthGuard, UserContextGuard, EntitlementsGuard],
-  },
-  {
-    path: 'accounts',
-    loadChildren: () =>
-      import('./user-accounts/user-accounts.module').then(
-        (m) => m.UserAccountsModule
-      ),
-    canActivate: [AuthGuard, UserContextGuard],
-  },
-  {
-    path: 'transfer-internal',
-    component: ViewWrapperComponent,
-    loadChildren: () =>
-      import('./custom-payment/initiate-payment-journey-bundle.module').then(
-        (m) => m.CustomPaymentJourneyBundleModule
-      ),
-    canActivate: [AuthGuard, UserContextGuard],
-  },
+  TRANSFER_ROUTE,
+  ACH_POSITIVE_PAY_ROUTE,
+  TRANSACTIONS_ROUTE,
+  USER_ACCOUNTS_ROUTE,
+  CUSTOM_PAYMENT_ROUTE,
   {
     path: '**',
     pathMatch: 'full',
@@ -82,7 +41,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ViewWrapperComponent],
   imports: [RouterModule.forRoot(routes), CommonModule],
   exports: [RouterModule],
 })

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PERMISSIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
+import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
 import { HeadingModule } from '@backbase/ui-ang/heading';
 
 @Component({
   selector: 'bb-ach-positive-pay-journey',
   templateUrl: './ach-positive-pay-journey.component.html',
-  imports: [HeadingModule, RouterModule],
+  imports: [HeadingModule, RouterModule, EntitlementsModule],
   standalone: true,
 })
 export class AchPositivePayJourneyComponent {
