@@ -16,9 +16,27 @@ import { TransactionsJourneyConfiguration } from '@backbase-gsa/transactions-jou
   template: `<bb-transaction-item
     [transaction]="transactionMock"
   ></bb-transaction-item>`,
+  standalone: true,
+  imports: [TransactionItemComponent],
 })
 class TestTransactionItemComponent {
   transactionMock = debitMockTransaction;
+}
+
+const ADDITIONAL_DETAILS_TEXT = 'my-addition-details-template';
+
+@Component({
+  template: `
+    <div>
+      <ng-template>${ADDITIONAL_DETAILS_TEXT}</ng-template>
+    </div>
+  `,
+  standalone: true,
+})
+class TestComponent {
+  @ViewChildren(TemplateRef) templates?: QueryList<
+    TemplateRef<TransactionAdditionalDetailsContext>
+  >;
 }
 
 describe('TransactionItemComponent', () => {
@@ -34,27 +52,16 @@ describe('TransactionItemComponent', () => {
   };
 
   const mockInjectionToken = { transactionItemAdditionalDetails: undefined };
-  const ADDITIONAL_DETAILS_TEXT = 'my-addition-details-template';
-
-  @Component({
-    template: `
-      <div>
-        <ng-template>${ADDITIONAL_DETAILS_TEXT}</ng-template>
-      </div>
-    `,
-  })
-  class TestComponent {
-    @ViewChildren(TemplateRef) templates?: QueryList<
-      TemplateRef<TransactionAdditionalDetailsContext>
-    >;
-  }
 
   beforeEach(async () => {
     // mockTemplateService.additionalDetailsTemplate = undefined;
 
     await TestBed.configureTestingModule({
-      declarations: [TestTransactionItemComponent, TestComponent],
-      imports: [TransactionItemComponent],
+      imports: [
+        TransactionItemComponent,
+        TestTransactionItemComponent,
+        TestComponent,
+      ],
       providers: [
         { provide: TransactionsJourneyConfiguration, useValue: mockConfig },
         {

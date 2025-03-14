@@ -13,8 +13,12 @@ import { ActivityMonitorLayoutComponent } from './layout/activity-monitor-layout
 const uiModules = [ModalModule, HeaderModule];
 
 @NgModule({
-  imports: [CommonModule, ...uiModules],
-  declarations: [ActivityMonitorLayoutComponent, ActivityMonitorComponent],
+  imports: [
+    CommonModule,
+    ...uiModules,
+    ActivityMonitorLayoutComponent,
+    ActivityMonitorComponent,
+  ],
   providers: [
     ActivityMonitorService,
     {
