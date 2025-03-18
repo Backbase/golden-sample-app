@@ -82,8 +82,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ViewWrapperComponent],
-  imports: [RouterModule.forRoot(routes), CommonModule],
+  imports: [RouterModule.forRoot(routes), CommonModule, ViewWrapperComponent],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
