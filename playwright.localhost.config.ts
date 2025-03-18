@@ -58,12 +58,5 @@ export default defineConfig<TestOptions>({
       },
     },
   ],
-  webServer: [
-    {
-      command: 'npm run mock-server',
-      url: 'http://localhost:9999/dev-interface',
-      timeout: 30 * 1000,
-      reuseExistingServer: true,
-    },
-  ],
+  webServer: [],
 })
