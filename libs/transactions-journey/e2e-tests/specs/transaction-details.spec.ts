@@ -8,9 +8,12 @@ export function testTransactionDetails(
     'Transactions details',
     { tag: ['@e2e', '@transactions', '@transactions-details'] },
     () => {
-      test.beforeEach(async ({ detailsPage, detailsData }) => {
-        await detailsPage.navigate(detailsData.id);
-      });
+      test.beforeEach(
+        async ({ detailsPage, detailsData, detailsMocksSetup }) => {
+          await detailsMocksSetup();
+          await detailsPage.navigate(detailsData.id);
+        }
+      );
 
       test('should display correct transaction details', async ({
         detailsPage,

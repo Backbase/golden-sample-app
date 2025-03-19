@@ -1,0 +1,273 @@
+[
+  {
+    "additions": {},
+    "resource": "Device",
+    "function": "Manage Devices",
+    "permissions": { "view": true, "edit": true, "delete": true }
+  },
+  {
+    "additions": {},
+    "resource": "User",
+    "function": "Manage Users",
+    "permissions": { "view": true }
+  },
+  {
+    "additions": {},
+    "resource": "Message Center",
+    "function": "Manage Messages",
+    "permissions": {
+      "view": true,
+      "edit": true,
+      "approve": true,
+      "create": true,
+      "delete": true
+    }
+  },
+  {
+    "additions": {},
+    "resource": "Entitlements",
+    "function": "Manage Data Groups",
+    "permissions": {
+      "view": true,
+      "edit": true,
+      "approve": true,
+      "create": true,
+      "delete": true
+    }
+  },
+  {
+    "additions": {},
+    "resource": "Approvals",
+    "function": "Manage Approval Policy and Level",
+    "permissions": {
+      "view": true,
+      "edit": true,
+      "approve": true,
+      "create": true,
+      "delete": true
+    }
+  },
+  {
+    "additions": {},
+    "resource": "Account Statements",
+    "function": "Manage Statements",
+    "permissions": { "view": true, "edit": true }
+  },
+  {
+    "additions": {},
+    "resource": "Product Summary",
+    "function": "Product Summary",
+    "permissions": { "view": true, "edit": true }
+  },
+  {
+    "additions": {},
+    "resource": "Billpay",
+    "function": "US Billpay Enrolment",
+    "permissions": { "view": true, "execute": true }
+  },
+  {
+    "additions": {},
+    "resource": "Contacts",
+    "function": "US Billpay Payees-Search",
+    "permissions": { "execute": true }
+  },
+  {
+    "additions": {},
+    "resource": "Contacts",
+    "function": "US Billpay Payees-Summary",
+    "permissions": { "view": true }
+  },
+  {
+    "additions": {},
+    "resource": "Legal Entity",
+    "function": "Manage Legal Entities",
+    "permissions": {
+      "view": true,
+      "edit": true,
+      "approve": true,
+      "create": true,
+      "delete": true
+    }
+  },
+  {
+    "additions": {},
+    "resource": "Message Center",
+    "function": "Supervise Messages",
+    "permissions": {
+      "view": true,
+      "edit": true,
+      "approve": true,
+      "create": true,
+      "delete": true
+    }
+  },
+  {
+    "additions": {},
+    "resource": "Contacts",
+    "function": "US Billpay Payees",
+    "permissions": {
+      "view": true,
+      "edit": true,
+      "create": true,
+      "delete": true
+    }
+  },
+  {
+    "additions": {},
+    "resource": "Contacts",
+    "function": "Contacts",
+    "permissions": {
+      "view": true,
+      "edit": true,
+      "create": true,
+      "delete": true
+    }
+  },
+  {
+    "additions": {},
+    "resource": "Service Agreement",
+    "function": "Assign Users",
+    "permissions": { "view": true, "edit": true, "create": true }
+  },
+  {
+    "additions": {},
+    "resource": "Limits",
+    "function": "Manage Limits",
+    "permissions": {
+      "view": true,
+      "edit": true,
+      "approve": true,
+      "create": true,
+      "delete": true
+    }
+  },
+  {
+    "additions": {},
+    "resource": "Entitlements",
+    "function": "Manage Function Groups",
+    "permissions": {
+      "view": true,
+      "edit": true,
+      "approve": true,
+      "create": true,
+      "delete": true
+    }
+  },
+  {
+    "additions": {},
+    "resource": "Transactions",
+    "function": "Transactions",
+    "permissions": { "view": true, "edit": true }
+  },
+  {
+    "additions": {},
+    "resource": "Audit",
+    "function": "Audit",
+    "permissions": { "view": true }
+  },
+  {
+    "additions": {},
+    "resource": "Service Agreement",
+    "function": "Assign Permissions",
+    "permissions": {
+      "view": true,
+      "edit": true,
+      "approve": true,
+      "create": true
+    }
+  },
+  {
+    "additions": {},
+    "resource": "Entitlements",
+    "function": "Manage Self-approve Permissions",
+    "permissions": { "view": true, "edit": true, "approve": true }
+  },
+  {
+    "additions": {},
+    "resource": "Service Agreement",
+    "function": "Manage Service Agreements",
+    "permissions": {
+      "view": true,
+      "edit": true,
+      "approve": true,
+      "create": true,
+      "delete": true
+    }
+  },
+  {
+    "additions": {},
+    "resource": "User Profiles",
+    "function": "Manage User Profiles",
+    "permissions": {
+      "view": true,
+      "edit": true,
+      "create": true,
+      "delete": true
+    }
+  },
+  {
+    "additions": {},
+    "resource": "Device",
+    "function": "Manage Other User's Devices",
+    "permissions": { "view": true, "edit": true, "delete": true }
+  },
+  {
+    "additions": {},
+    "resource": "Communication Preferences",
+    "function": "General Notification Preferences",
+    "permissions": { "view": true, "edit": true, "create": true }
+  },
+  {
+    "additions": {},
+    "resource": "Entitlements",
+    "function": "Quick User Setup",
+    "permissions": { "view": true, "edit": true, "approve": true }
+  },
+  {
+    "additions": {},
+    "resource": "Arrangements",
+    "function": "US Billpay Accounts",
+    "permissions": { "view": true }
+  },
+  {
+    "additions": {},
+    "resource": "Payments",
+    "function": "US Billpay Payments",
+    "permissions": {
+      "view": true,
+      "edit": true,
+      "create": true,
+      "delete": true
+    }
+  },
+  {
+    "additions": {},
+    "resource": "Approvals",
+    "function": "Assign Approval Policies",
+    "permissions": {
+      "view": true,
+      "edit": true,
+      "approve": true,
+      "create": true,
+      "delete": true
+    }
+  },
+  {
+    "additions": {},
+    "resource": "EntPayments",
+    "function": "ManagePositivePay",
+    "permissions": {
+      "view": true,
+      "create": false
+    }
+  },
+  {
+    "additions": {},
+    "resource": "EntPayments",
+    "function": "AchPositivePay",
+    "permissions": {
+      "view": true,
+      "create": false
+    }
+  }
+]
