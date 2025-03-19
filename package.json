@@ -67,7 +67,7 @@
     "ngx-cookie-service": "^18.0.0",
     "ngx-mask": "^18.0.0",
     "ngx-quill": "^26.0.0",
-    "playwright": "1.50.0",
+    "playwright": "1.51.1",
     "postcss-preset-env": "^8.4.2",
     "quill": "^2.0.0",
     "rxjs": "^7.8.1",
