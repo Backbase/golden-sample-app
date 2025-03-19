@@ -1,3 +1,4 @@
+import { PlaywrightTestArgs } from '@playwright/test';
 import { TransactionDetailsPage } from '../page-object/transaction-details.page';
 import { TransactionsListPage } from '../page-object/transactions-list.page';
 
@@ -18,9 +19,14 @@ export interface TransactionDetailDataType {
   id: string;
 }
 
-export interface TransactionFixture {
+export type TransactionFixture = {
   detailsPage: TransactionDetailsPage;
   detailsData: TransactionDetailDataType;
+  detailsMocksSetup: () => void | Promise<void>;
+
   listPage: TransactionsListPage;
   listData: TransactionListDataType;
-}
+  listMocksSetup: () => void | Promise<void>;
+
+  useMocks: boolean;
+} & PlaywrightTestArgs;
