@@ -1,21 +1,22 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
-  ReactiveFormsModule,
   AbstractControl,
   FormBuilder,
   FormGroup,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { InputValidationMessageModule } from '@backbase/ui-ang/input-validation-message';
-import { CurrencyInputModule } from '@backbase/ui-ang/currency-input';
-import { ButtonModule } from '@backbase/ui-ang/button';
 import {
-  TRANSLATIONS,
   Account,
+  TRANSLATIONS,
   Transfer,
 } from '@backbase-gsa/transfer-journey/internal/shared-data';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { ActivatedRoute } from '@angular/router';
+import { ButtonModule } from '@backbase/ui-ang/button';
+import { CommonModule } from '@angular/common';
+import { CurrencyInputModule } from '@backbase/ui-ang/currency-input';
+import { InputValidationMessageModule } from '@backbase/ui-ang/input-validation-message';
 
 @Component({
   selector: 'bb-make-transfer-form',
