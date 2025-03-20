@@ -129,7 +129,7 @@
     "ts-jest": "29.2.5",
     "ts-node": "^10.9.1",
     "tslib": "^2.4.0",
-    "typescript": "5.5.4",
+    "typescript": "5.8.2",
     "webpack-bundle-analyzer": "^4.5.0"
   }
 }
