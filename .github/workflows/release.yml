@@ -33,12 +33,12 @@ jobs:
           echo "version=$version" >> $GITHUB_OUTPUT
       
       - name: 'Bump'
-        if: ${{ steps.set-project-from-tag.outputs.module }} && ${{ steps.set-project-from-tag.outputs.version }}
+        if: ${{steps.set-project-from-tag.outputs.module}} && ${{steps.set-project-from-tag.outputs.version}}
         run: cd libs/${{ steps.set-project-from-tag.outputs.module }} &&
              npm version ${{ steps.set-project-from-tag.outputs.version }}
       
       - name: Update Changelog
-        uses: stefanzweifel/changelog-updater-action@v1
+        uses: stefanzweifel/changelog-updater-action@a938690fad7edf25368f37e43a1ed1b34303eb36 #v1.12
         with:
           latest-version: ${{ steps.set-project-from-tag.outputs.version}}
           release-notes: ${{ github.event.release.body }}
