@@ -98,7 +98,7 @@
     "@nx/jest": "19.8.14",
     "@nx/js": "19.8.14",
     "@nx/workspace": "19.8.14",
-    "@playwright/test": "1.42.1",
+    "@playwright/test": "1.51.1",
     "@schematics/angular": "18.2.15",
     "@types/jest": "29.5.14",
     "@types/node": "^18.19.80",
