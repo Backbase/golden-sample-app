@@ -107,7 +107,7 @@
     "@typescript-eslint/parser": "7.18.0",
     "@typescript-eslint/utils": "^7.16.0",
     "allure-playwright": "^2.9.2",
-    "autoprefixer": "^10.4.20",
+    "autoprefixer": "^10.4.21",
     "axe-html-reporter": "^2.2.11",
     "dotenv": "^16.4.7",
     "eslint": "8.57.1",
