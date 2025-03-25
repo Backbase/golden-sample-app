@@ -77,7 +77,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "18.2.15",
-    "@angular-devkit/core": "18.2.9",
+    "@angular-devkit/core": "18.2.15",
     "@angular-devkit/schematics": "18.2.15",
     "@angular-eslint/builder": "^18.0.0",
     "@angular-eslint/eslint-plugin": "18.4.3",
