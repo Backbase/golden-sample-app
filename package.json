@@ -113,7 +113,7 @@
     "eslint": "8.57.1",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jsdoc": "^50.6.8",
+    "eslint-plugin-jsdoc": "^50.6.9",
     "eslint-plugin-playwright": "^0.22.2",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "find-cache-dir": "^3.3.2",
