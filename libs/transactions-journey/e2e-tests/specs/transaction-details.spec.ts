@@ -9,20 +9,22 @@ export function testTransactionDetails(
     { tag: ['@e2e', '@transactions', '@transactions-details'] },
     () => {
       test.beforeEach(
-        async ({ detailsPage, detailsData, detailsMocksSetup }) => {
+        async ({ transactionsDetailsPage, detailsMocksSetup }) => {
           await detailsMocksSetup();
-          await detailsPage.navigate(detailsData.id);
+          await transactionsDetailsPage.open();
         }
       );
 
       test('should display correct transaction details', async ({
-        detailsPage,
-        detailsData,
+        transactionsDetailsPage,
+        transactionsDetailsData,
+        transactionsListPage
       }) => {
-        const details = await detailsPage.getDetails();
-        await expect(details['Category:']).toEqual(detailsData.category);
-        await expect(details['Description:']).toEqual(detailsData.description);
-        await expect(details['Status:']).toEqual(detailsData.status);
+        await transactionsListPage.transaction.click();
+        const details = await transactionsDetailsPage.getDetails();
+        await expect(details['Category:']).toEqual(transactionsDetailsData.category);
+        await expect(details['Description:']).toEqual(transactionsDetailsData.description);
+        await expect(details['Status:']).toEqual(transactionsDetailsData.status);
       });
     }
   );

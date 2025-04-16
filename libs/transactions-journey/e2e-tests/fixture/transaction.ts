@@ -4,7 +4,7 @@ import {
   TransactionDetailDataType,
   TransactionListDataType,
 } from '../model';
-import { TransactionDetailsPage, TransactionsListPage } from '../page-object';
+import { TransactionDetailsPage, TransactionsListPage } from '../page-objects';
 import {
   defaultDetailsMocks,
   defaultListMocks,
@@ -12,18 +12,19 @@ import {
 } from '../mocks';
 
 export const test = baseTest.extend<TransactionFixture>({
-  detailsPage: async ({ page, baseURL }, use) => {
-    await use(new TransactionDetailsPage(page, { baseURL }));
-  },
-  detailsData: {} as TransactionDetailDataType, // pass default data
-  listPage: async ({ page, baseURL }, use) => {
-    await use(new TransactionsListPage(page, { baseURL }));
-  },
+  transactionsDetailsPage: async ({ page }, use) => {
+    await use(new TransactionDetailsPage(page));
+ },
+ transactionsDetailsData: {} as TransactionDetailDataType, // pass default data
+ transactionsListPage: async ({ page }, use) => {
+    await use(new TransactionsListPage(page));
+ },
+  // mocks data setup, can be overridden or bypassed via "useMocks"
   detailsMocksSetup: async ({ useMocks, page }, use) =>
     use(() => setupPageMocks(page, useMocks ? defaultDetailsMocks : {})),
 
   // expected list data, should be overridden
-  listData: {} as TransactionListDataType,
+  transactionsListData: {} as TransactionListDataType,
   // mocks data setup, can be overridden or bypassed via "useMocks"
   listMocksSetup: async ({ useMocks, page }, use) =>
     use(() => setupPageMocks(page, useMocks ? defaultListMocks : {})),

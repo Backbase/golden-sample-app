@@ -21,7 +21,7 @@ export default defineConfig<TestOptions>({
           args: ['--disable-infobars', '--no-sandbox', '--incognito'],
         },
         testEnvironment: TestEnvironment.MOCKS,
-        baseURL: 'http://localhost:4200/',
+        baseURL: 'http://localhost:4200',
       },
     },
      /**
@@ -38,7 +38,7 @@ export default defineConfig<TestOptions>({
         },
         configPath: join(__dirname, 'apps/golden-sample-app-e2e/config/ebp-sndbx.config.json'),
         testEnvironment: TestEnvironment.SANDBOX,
-        baseURL: 'http://localhost:4200/',
+        baseURL: 'http://localhost:4200',
       },
     },
      /**
@@ -54,7 +54,7 @@ export default defineConfig<TestOptions>({
           args: ['--disable-infobars', '--no-sandbox', '--incognito'],
         },
         configPath: join(__dirname, 'apps/golden-sample-app-e2e/config/mb-stg.config.json'),
-        baseURL: 'http://localhost:4200/',
+        baseURL: 'http://localhost:4200',
       },
     },
   ],
