@@ -20,9 +20,9 @@ export function testTransactionDetails(
         detailsData,
       }) => {
         const details = await detailsPage.getDetails();
-        expect(details['Category:']).toEqual(detailsData.category);
-        expect(details['Description:']).toEqual(detailsData.description);
-        expect(details['Status:']).toEqual(detailsData.status);
+        await expect(details['Category:']).toEqual(detailsData.category);
+        await expect(details['Description:']).toEqual(detailsData.description);
+        await expect(details['Status:']).toEqual(detailsData.status);
       });
     }
   );
