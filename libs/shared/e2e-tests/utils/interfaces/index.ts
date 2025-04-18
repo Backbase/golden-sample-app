@@ -1,2 +1,2 @@
 export * from './visual-types';
-export * from './visual-page-types'; 
+export * from './visual-page-types';
