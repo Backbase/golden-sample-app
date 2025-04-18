@@ -1,16 +1,16 @@
 import {
-  TransactionListDataType,
-  TransactionDetailDataType,
+  TransactionsListDataType,
+  TransactionDetailsDataType,
 } from '@backbase-gsa/transactions-journey/e2e-tests';
-export const transactionListSandboxData: TransactionListDataType = {
+export const transactionListSandboxData: TransactionsListDataType = {
   size: 10,
-  searchExpectations: [{ term: 'pocket', count: 6 }],
+  searchExpectations: [{ term: 'pocket', count: 5 }],
 };
 
-export const transactionDetailSandboxData: TransactionDetailDataType = {
-  recipient: 'Pocket Transfer',
-  category: 'Entertainment',
-  description: 'Pocket',
+export const transactionDetailSandboxData: Partial<TransactionDetailsDataType> = {
+  recipient: 'BP',
+  category: 'Gasoline/Fuel',
+  description: 'BP Global',
   status: 'BILLED',
-  id: '8a82802294ac68e50194ce41c66331f0',
+  id: '8a82815f936800030193810b891452e0',
 };

@@ -1,4 +1,4 @@
-import { testWithAuth as baseTest } from '../page-objects/test-runner';
+import { testWithAuth as baseTest } from '../test-runner/test-runner';
 import { mergeTests } from '@playwright/test';
 import {
   TransactionFixture,
@@ -16,17 +16,17 @@ import { TestEnvironment } from 'test.model';
 
 // Transactions test data per Env type
 const testData: Partial<
-  Record<TestEnvironment, Pick<TransactionFixture, 'detailsData' | 'listData'>>
+  Record<TestEnvironment, Pick<TransactionFixture, 'transactionDetailsData' | 'transactionsListData'>>
 > = {
   // Mock data to run tests against mocks
   [TestEnvironment.MOCKS]: {
-    detailsData: transactionDetailMocksData,
-    listData: transactionListMockData,
+    transactionDetailsData: transactionDetailMocksData,
+    transactionsListData: transactionListMockData,
   },
   // Sandbox data to run tests against sandbox env
   [TestEnvironment.SANDBOX]: {
-    detailsData: transactionDetailSandboxData,
-    listData: transactionListSandboxData,
+    transactionDetailsData: transactionDetailSandboxData,
+    transactionsListData: transactionListSandboxData,
   },
 };
 
@@ -35,10 +35,8 @@ export const test = mergeTests(
   transferTest
 ).extend<TransactionFixture>({
   // overrode default data based on environment config
-  detailsData: async ({ env }, use) => await use(testData[env]!.detailsData),
-  listData: async ({ env }, use) => await use(testData[env]!.listData),
-  // whether to use mocks or not
-  useMocks: async ({ env }, use) => await use(env === TestEnvironment.MOCKS),
+  transactionDetailsData: async ({ env }, use) => await use(testData[env]!.transactionDetailsData),
+  transactionsListData: async ({ env }, use) => await use(testData[env]!.transactionsListData),
   // type of the user
   userType: 'userWithNoContext',
 });

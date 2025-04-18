@@ -37,24 +37,24 @@
 
       <div class="bb-card__body">
         <dl class="row">
-          <div class="col-md-8">
+          <div class="col-md-8" data-testid="recipient">
             <dt
               i18n="
-                Recepient label for Transaction Details - 'Recepient:'|This
+                Recipient label for Transaction Details - 'Recipient:'|This
                 string is used as the label for the recipient field in the
                 transaction details view. It is presented to the user when they
                 view the details of a transaction. This label is located in the
                 transaction details view
                 component.@@transactions.details.recepient"
             >
-              Recepient:
+            Recipient:
             </dt>
             <dd>
               {{ view.details.recepient }}
             </dd>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4" data-testid="date">
             <dt
               i18n="
                 Date label for Transaction Details - 'Date:'|This string is used
@@ -70,7 +70,7 @@
             </dd>
           </div>
 
-          <div class="col-md-8">
+          <div class="col-md-8" data-testid="amount">
             <dt
               i18n="
                 Amount label for Transaction Amount - 'Amount:'|This string is
@@ -93,7 +93,7 @@
             </dd>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4" data-testid="category">
             <dt
               i18n="
                 Category label for Transaction Details - 'Category:'|This string
@@ -110,7 +110,7 @@
             </dd>
           </div>
 
-          <div class="col-md-8">
+          <div class="col-md-8" data-testid="description">
             <dt
               i18n="
                 Description label for Transaction Details - 'Description:'|This
@@ -127,7 +127,7 @@
             </dd>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4" data-testid="status">
             <dt
               i18n="
                 Status label for Transaction Details - 'Status:'|This string is
@@ -150,6 +150,7 @@
           bbButton
           color="secondary"
           [routerLink]="['/transfer', view.transferParams, 'make-transfer']"
+          data-testid="repeat-transaction-button"
         >
           <bb-icon-ui name="replay" cropped></bb-icon-ui>
           <span

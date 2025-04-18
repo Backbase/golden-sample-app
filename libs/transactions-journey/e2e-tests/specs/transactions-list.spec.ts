@@ -4,40 +4,34 @@ import { TransactionFixture } from '../model/transaction';
 export function testTransactionsList(
   test: TestType<TransactionFixture, TransactionFixture>
 ) {
-  test.describe(
-    'Transactions list',
-    { tag: ['@e2e', '@transactions', '@transactions-details'] },
-    () => {
-      test.beforeEach(async ({ transactionsListPage, listMocksSetup }) => {
-        await listMocksSetup();
-        await transactionsListPage.open();
-      });
+  test.describe('Transactions list',
+    { tag: ['@e2e', '@transactions', '@transactions-details'] }, () => {
 
-      test('should display transactions', async ({ transactionsListPage, transactionsListData }) => {
-        const transactionsNumber = await transactionsListPage.getTransactionsNumber();
-        expect(transactionsNumber).toEqual(transactionsListData.size);
-      });
+    test.beforeEach(async ({ transactionsPage }) => {
+      await transactionsPage.open();
+    });
 
-      test('should filter transactions', async ({ transactionsListPage, transactionsListData }) => {
-        for (const expectation of transactionsListData.searchExpectations) {
-          await test.step(`Search transactions by "${expectation.term}" term`, async () => {
-            await transactionsListPage.searchTransactions(expectation.term);
-          });
-          await test.step(`Validate number of transactions to be ${expectation.count}`, async () => {
-            const transactionsNumber = await transactionsListPage.getTransactionsNumber();
-            expect(transactionsNumber).toEqual(expectation.count);
-          });
-        }
+    test('should display transactions', async ({ transactionsPage, transactionsListData, visual }) => {
+      await visual.step('Then validate Transactions list', async () => {
+        await expect(transactionsPage.transactions.items)
+          .toHaveCount(transactionsListData.size);
       });
+    });
 
-      test(
-        'should display correct error state',
-        { tag: ['@mocks'] },
-        async () => {
-          // Error state test placeholder
-          expect(true).toBe(true);
-        }
-      );
-    }
-  );
+    test('should filter transactions', async ({ transactionsPage, transactionsListData, visual }) => {
+      for (const expectation of transactionsListData.searchExpectations) {
+        await test.step(`Search transactions by "${expectation.term}" term`, async () => {
+          await transactionsPage.search.fill(expectation.term);
+        });
+        await visual.step(`Validate transactions in list`, async () => {
+          await expect(transactionsPage.transactions.items)
+            .toHaveCount(expectation.count);
+          if (expectation.firstTransaction) {
+            await transactionsPage.transactions.getByIndex(0)
+              .validateTransaction(expectation.firstTransaction);
+          }
+        });
+      }
+    });
+  });
 }

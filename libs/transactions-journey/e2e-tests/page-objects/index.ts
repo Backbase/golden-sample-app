@@ -1,2 +1,2 @@
-export * from './transaction-details.page';
-export * from './transactions-list.page';
+export * from './pages/transaction-details.po';
+export * from './pages/transactions-list.po';

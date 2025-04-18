@@ -30,7 +30,10 @@
     "format": "prettier --write \"{apps,libs}/**/*.{ts,md,html}\" \"!{apps,libs}/**/coverage\" ",
     "format:check": "prettier --list-different \"{apps,libs}/**/*.{ts,md}\" \"!{apps,libs}/**/coverage\"",
     "docs:build": "markdown-include .markdown.json",
-    "prepare": "npx nx g extract-e2e-tests"
+    "prepare": "npx nx g extract-e2e-tests",
+    "report": "npx allure awesome allure-results --single-file && allure open",
+    "report-allure-old": "allure generate allure-results --clean && allure open",
+    "report:playwright": "npx playwright show-report"
   },
   "private": true,
   "dependencies": {
@@ -67,7 +70,6 @@
     "ngx-cookie-service": "^18.0.0",
     "ngx-mask": "^18.0.0",
     "ngx-quill": "^26.0.0",
-    "playwright": "1.51.1",
     "postcss-preset-env": "^8.4.2",
     "quill": "^2.0.0",
     "rxjs": "^7.8.2",
@@ -106,7 +108,8 @@
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
     "@typescript-eslint/utils": "^7.16.0",
-    "allure-playwright": "^2.9.2",
+    "allure-js-commons":"3.2.1",
+    "allure-playwright":"3.2.1",
     "autoprefixer": "^10.4.21",
     "axe-html-reporter": "^2.2.11",
     "dotenv": "^16.4.7",

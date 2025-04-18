@@ -1,6 +1,6 @@
 // Export everything from the tests lib from journey.
-export * from './page-objects/transaction-details.page';
-export * from './page-objects/transactions-list.page';
+export * from './page-objects/pages/transaction-details.po';
+export * from './page-objects/pages/transactions-list.po';
 
 export * from './specs/transaction-details.spec';
 export * from './specs/transactions-list.spec';
