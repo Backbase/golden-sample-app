@@ -31,6 +31,9 @@ export interface TransactionFixture {
   visual: VisualValidator;
   transactionDetailsPage: TransactionDetailsPage;
   transactionDetailsData: Partial<TransactionDetailsDataType>;
+  detailsMocksSetup: () => void | Promise<void>;
   transactionsPage: TransactionsPage;
-  transactionsListData: TransactionsListDataType;
+  transactionsListData: TransactionsListDataType;  
+  listMocksSetup: () => void | Promise<void>;
+  useMocks: boolean;
 }

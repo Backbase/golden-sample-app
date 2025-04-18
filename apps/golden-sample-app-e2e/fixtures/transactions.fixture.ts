@@ -37,6 +37,7 @@ export const test = mergeTests(
   // overrode default data based on environment config
   transactionDetailsData: async ({ env }, use) => await use(testData[env]!.transactionDetailsData),
   transactionsListData: async ({ env }, use) => await use(testData[env]!.transactionsListData),
+  useMocks: async ({ env }, use) => await use(env === TestEnvironment.MOCKS),
   // type of the user
   userType: 'userWithNoContext',
 });
