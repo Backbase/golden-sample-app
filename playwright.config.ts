@@ -10,6 +10,7 @@ const config: PlaywrightTestConfig = {
   outputDir: process.env['OUTPUT_DIR'] ?? './test-output',
   forbidOnly: !!process.env['CI'],
   workers: process.env['CI'] ? 4 : 1,
+  fullyParallel: true,
   expect: {
     timeout: (Number(process.env['EXPECT_TIMEOUT']) || 5) * 1000,
     toHaveScreenshot: {
