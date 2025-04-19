@@ -1,31 +1,31 @@
 import { TestType } from '@playwright/test';
-import { TransactionFixture } from '../model/transaction';
+import { TransactionDataType, TransactionFixture } from '../model/transaction';
 
 export function testTransactionDetails(
-  test: TestType<TransactionFixture, TransactionFixture>
+  test: TestType<TransactionFixture, TransactionFixture>,
+  testData: TransactionDataType
 ) {
   test.describe(
     'Transactions details',
     { tag: ['@e2e', '@transactions', '@transactions-details'] },
     () => {
       test.beforeEach(
-        async ({ transactionDetailsPage, transactionDetailsData }) => {
-          await transactionDetailsPage.open(transactionDetailsData.id);
+        async ({ transactionDetailsPage }) => {
+          await transactionDetailsPage.open(testData.transactionDetails.id);
         }
       );
 
       test('should display correct transaction details', async ({
         transactionDetailsPage,
-        transactionDetailsData,
         visual,
       }) => {
         await visual.step(
           `Then validate Transactions details: ${JSON.stringify(
-            transactionDetailsData
+            testData.transactionDetails
           )}`,
           async () => {
             await transactionDetailsPage.details.validateDetails(
-              transactionDetailsData
+              testData.transactionDetails
             );
           }
         );

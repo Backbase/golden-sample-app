@@ -22,7 +22,7 @@ export const testData = (): TransactionDataType => {
     case TestEnvironment.SANDBOX:
       return sandboxTransactionData;
   }
-  return mockedTransactionsData;
+  return {} as TransactionDataType;
 };
 
 export const test = mergeTests(

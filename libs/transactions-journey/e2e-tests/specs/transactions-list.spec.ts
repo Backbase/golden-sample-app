@@ -15,12 +15,11 @@ export function testTransactionsList(
 
       test('should display transactions', async ({
         transactionsPage,
-        transactionsListData,
         visual,
       }) => {
         await visual.step('Then validate Transactions list', async () => {
           await expect(transactionsPage.transactions.items).toHaveCount(
-            transactionsListData.size
+            testData.transactionList.size
           );
         });
       });
