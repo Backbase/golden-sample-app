@@ -13,15 +13,17 @@ export class TransactionsItem extends BaseComponent {
       await expect(this.recipient).toHaveText(transaction.recipient);
     }
     if (transaction.date) {
-      const date = typeof transaction.date === 'string'
-        ? transaction.date 
-        : formatDate(transaction.date, 'Mon D, YYYY');
+      const date =
+        typeof transaction.date === 'string'
+          ? transaction.date
+          : formatDate(transaction.date, 'Mon D, YYYY');
       await expect(this.date).toHaveText(date);
     }
     if (transaction.amount) {
-      const amount = typeof transaction.amount === 'string' 
-        ? transaction.amount 
-        : transaction.amount.value;
+      const amount =
+        typeof transaction.amount === 'string'
+          ? transaction.amount
+          : transaction.amount.value;
       await expect(this.amount).toHaveText(`$${amount}`);
     }
     if (transaction.accountNumber) {

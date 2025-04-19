@@ -1,4 +1,9 @@
-import { expect as baseExpect, Locator, Page, TestInfo } from '@playwright/test';
+import {
+  expect as baseExpect,
+  Locator,
+  Page,
+  TestInfo,
+} from '@playwright/test';
 import { A11yScanner, timeID } from '@backbase-gsa/e2e-tests';
 
 export const expect = baseExpect.extend({

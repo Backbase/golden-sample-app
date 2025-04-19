@@ -87,7 +87,10 @@ export const highlightViolations = async (
     }, selector);
 
     if (!elementPosition) return;
-    const highlightStyle = generateHighlightingStyle(elementPosition, elementSize);
+    const highlightStyle = generateHighlightingStyle(
+      elementPosition,
+      elementSize
+    );
 
     // eslint-disable-next-line @typescript-eslint/no-loop-func
     await page.evaluate((style) => {

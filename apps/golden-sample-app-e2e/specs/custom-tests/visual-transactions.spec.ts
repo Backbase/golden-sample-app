@@ -3,7 +3,10 @@ import { expect } from '@playwright/test';
 
 test.describe('@feature @responsive @visual Transaction page tests', () => {
   // `visual` is a fixture that provides the `testFullPage` and `testWithMask` functions in the examples below.
-  test('Validate responsiveness of the transactions page', async ({ transactionsPage, visual }) => {
+  test('Validate responsiveness of the transactions page', async ({
+    transactionsPage,
+    visual,
+  }) => {
     await transactionsPage.open();
     await test.step(`Wait for page to be opened`, async () => {
       await expect(transactionsPage.pageHeader).toBeVisible();

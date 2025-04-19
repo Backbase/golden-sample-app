@@ -13,7 +13,9 @@ import {
 
 export const test = baseTest.extend<TransactionFixture>({
   transactionDetailsPage: async ({ page, baseURL }, use) => {
-    await use(new TransactionDetailsPage(page, { url: `${baseURL}/transactions/{id}` }));
+    await use(
+      new TransactionDetailsPage(page, { url: `${baseURL}/transactions/{id}` })
+    );
   },
   transactionDetailsData: {} as TransactionDetailsDataType, // pass default data
   // mocks data setup, can be overridden or bypassed via "useMocks"
@@ -27,6 +29,6 @@ export const test = baseTest.extend<TransactionFixture>({
   transactionsListData: {} as TransactionsListDataType, // pass default data
   // mocks data setup, can be overridden or bypassed via "useMocks"
   listMocksSetup: async ({ useMocks, page }, use) =>
-      use(() => setupPageMocks(page, useMocks ? defaultListMocks : {})),
+    use(() => setupPageMocks(page, useMocks ? defaultListMocks : {})),
   useMocks: true,
 });

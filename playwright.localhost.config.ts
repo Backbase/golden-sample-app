@@ -1,9 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
-import 'dotenv/config';
 import  baseConfig from './playwright.config';
 import { join } from 'path';
 import { TestOptions, TestEnvironment } from './test.model';
-
+import 'dotenv/config';
 
 export default defineConfig<TestOptions>({
   ...baseConfig,
@@ -20,11 +19,11 @@ export default defineConfig<TestOptions>({
           chromiumSandbox: false,
           args: ['--disable-infobars', '--no-sandbox', '--incognito'],
         },
-        testEnvironment: TestEnvironment.MOCKS,
+        testEnvironment: process.env['TEST_ENVIRONMENT'] as TestEnvironment ?? TestEnvironment.MOCKS,
         baseURL: 'http://localhost:4200/',
       },
     },
-     /**
+    /**
      * Configuration for running tests with sandbox env running locally and proxying to sandbox
      */
     {
@@ -37,14 +36,14 @@ export default defineConfig<TestOptions>({
           args: ['--disable-infobars', '--no-sandbox', '--incognito'],
         },
         configPath: join(__dirname, 'apps/golden-sample-app-e2e/config/ebp-sndbx.config.json'),
-        testEnvironment: TestEnvironment.SANDBOX,
+        testEnvironment: process.env['TEST_ENVIRONMENT'] as TestEnvironment ?? TestEnvironment.MOCKS,
         baseURL: 'http://localhost:4200/',
       },
     },
-     /**
+    /**
      * Configuration for running tests with sandbox env running locally and proxying to sandbox
      */
-     {
+    {
       name: 'localhost-mb-stg',
       use: {
         ...devices['Desktop Chrome'],

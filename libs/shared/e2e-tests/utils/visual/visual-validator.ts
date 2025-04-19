@@ -13,7 +13,7 @@ export class VisualValidator {
     protected page: Page,
     testLevel: VisualTestLevel | boolean = false,
     protected skip = false,
-    protected rtl = false,
+    protected rtl = false
   ) {
     this.rtlPrefix = rtl ? `rtl-` : ``;
     if (typeof testLevel === 'boolean') {
@@ -87,7 +87,7 @@ export class VisualValidator {
   async step<T>(
     title: string,
     body?: () => T | Promise<T>,
-    screenName: string | false = '',
+    screenName: string | false = ''
   ) {
     const makeScreen =
       screenName !== false &&
@@ -99,14 +99,12 @@ export class VisualValidator {
       if (!makeScreen) return;
       await attachment(
         rtlScreenName(
-          stepNameToKebabCase(
-            `${title}` + (screenName ? ` ${screenName}` : ''),
-          ),
+          stepNameToKebabCase(`${title}` + (screenName ? ` ${screenName}` : ''))
         ),
         await this.page.screenshot({ fullPage: true }),
         {
           contentType: 'image/png',
-        },
+        }
       );
     });
   }

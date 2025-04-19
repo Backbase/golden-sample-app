@@ -1,33 +1,28 @@
 import { testWithAuth as baseTest } from '../test-runner/test-runner';
 import { mergeTests } from '@playwright/test';
 import {
+  TransactionDataType,
   TransactionFixture,
   test as transferTest,
 } from '@backbase-gsa/transactions-journey/e2e-tests';
-import {
-  transactionDetailMocksData,
-  transactionListMockData,
-} from '../data/mocks-data';
-import {
-  transactionDetailSandboxData,
-  transactionListSandboxData,
-} from '../data/sandbox-api-data';
+import { mockedTransactionsData } from '../data/mocks-data';
+import { sandboxTransactionData } from '../data/sandbox-api-data';
 import { TestEnvironment } from 'test.model';
+import 'dotenv/config';
 
 // Transactions test data per Env type
-const testData: Partial<
-  Record<TestEnvironment, Pick<TransactionFixture, 'transactionDetailsData' | 'transactionsListData'>>
-> = {
+export const testData = (): TransactionDataType => {
   // Mock data to run tests against mocks
-  [TestEnvironment.MOCKS]: {
-    transactionDetailsData: transactionDetailMocksData,
-    transactionsListData: transactionListMockData,
-  },
-  // Sandbox data to run tests against sandbox env
-  [TestEnvironment.SANDBOX]: {
-    transactionDetailsData: transactionDetailSandboxData,
-    transactionsListData: transactionListSandboxData,
-  },
+  const env =
+    (process.env['TEST_ENVIRONMENT'] as TestEnvironment) ??
+    TestEnvironment.MOCKS;
+  switch (env) {
+    case TestEnvironment.MOCKS:
+      return mockedTransactionsData;
+    case TestEnvironment.SANDBOX:
+      return sandboxTransactionData;
+  }
+  return mockedTransactionsData;
 };
 
 export const test = mergeTests(
@@ -35,8 +30,6 @@ export const test = mergeTests(
   transferTest
 ).extend<TransactionFixture>({
   // overrode default data based on environment config
-  transactionDetailsData: async ({ env }, use) => await use(testData[env]!.transactionDetailsData),
-  transactionsListData: async ({ env }, use) => await use(testData[env]!.transactionsListData),
   useMocks: async ({ env }, use) => await use(env === TestEnvironment.MOCKS),
   // type of the user
   userType: 'userWithNoContext',

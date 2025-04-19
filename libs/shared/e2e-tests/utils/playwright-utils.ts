@@ -1,9 +1,9 @@
 import { Locator, Page } from '@playwright/test';
 
 export const isLocator = (param: any): param is Locator =>
-  typeof param === 'object' && /locator\('.*'\)/g.test(param.toString()); 
+  typeof param === 'object' && /locator\('.*'\)/g.test(param.toString());
 
-export const getPage = (root: Page | Locator): Page => 
+export const getPage = (root: Page | Locator): Page =>
   isLocator(root) ? root.page() : root;
 
 export const getSelector = (locator?: string | Locator): string => {

@@ -1,6 +1,11 @@
 import 'dotenv/config';
 
-export enum VisualTestLevel { OFF, VALIDATION, STEPS, ALL }
+export enum VisualTestLevel {
+  OFF,
+  VALIDATION,
+  STEPS,
+  ALL,
+}
 
 export const getVisualLevel = (): VisualTestLevel => {
   if (!process.env['VISUAL_TESTING']) return VisualTestLevel.ALL;

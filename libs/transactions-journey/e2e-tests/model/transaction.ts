@@ -3,13 +3,17 @@ import { TransactionDetailsPage } from '../page-objects/pages/transaction-detail
 import { TransactionsPage } from '../page-objects/pages/transactions-list.po';
 
 export interface TransactionDataType {
+  transactionDetails: Partial<TransactionDetailsDataType>;
   transactionList: TransactionsListDataType;
-  transactionDetails: TransactionDetailsDataType;
 }
 
 export interface TransactionsListDataType {
   size: number;
-  searchExpectations: Array<{ term: string; count: number, firstTransaction?: Partial<TransactionDetailsDataType> }>;
+  searchExpectations: {
+    term: string;
+    count: number;
+    firstTransaction?: Partial<TransactionDetailsDataType>;
+  }[];
 }
 
 export interface Amount {
@@ -33,7 +37,7 @@ export interface TransactionFixture {
   transactionDetailsData: Partial<TransactionDetailsDataType>;
   detailsMocksSetup: () => void | Promise<void>;
   transactionsPage: TransactionsPage;
-  transactionsListData: TransactionsListDataType;  
+  transactionsListData: TransactionsListDataType;
   listMocksSetup: () => void | Promise<void>;
   useMocks: boolean;
 }
