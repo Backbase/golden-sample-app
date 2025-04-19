@@ -9,11 +9,9 @@ export function testTransactionDetails(
     'Transactions details',
     { tag: ['@e2e', '@transactions', '@transactions-details'] },
     () => {
-      test.beforeEach(
-        async ({ transactionDetailsPage }) => {
-          await transactionDetailsPage.open(testData.transactionDetails.id);
-        }
-      );
+      test.beforeEach(async ({ transactionDetailsPage }) => {
+        await transactionDetailsPage.open(testData.transactionDetails.id);
+      });
 
       test('should display correct transaction details', async ({
         transactionDetailsPage,
