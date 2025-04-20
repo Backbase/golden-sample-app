@@ -7,7 +7,7 @@ const config: PlaywrightTestConfig = {
   testDir: './apps/golden-sample-app-e2e/specs/',
   retries: process.env['CI'] ? 1 : 0,
   grep: process.env['TEST_TAG'] ? RegExp(process.env['TEST_TAG']) : undefined,
-  outputDir: process.env['OUTPUT_DIR'] ?? './test-output',
+  outputDir: 'reports/test-output',
   forbidOnly: !!process.env['CI'],
   workers: process.env['CI'] ? 4 : 1,
   fullyParallel: true,
@@ -17,7 +17,25 @@ const config: PlaywrightTestConfig = {
       maxDiffPixelRatio: 0.01,
     },
   },
-  reporter: [['list'], ['allure-playwright'], ['html']],
+  reporter: [
+    ['list'], 
+    ['allure-playwright',
+      {
+        detail: false,
+        resultsDir: 'reports/allure-results',
+        suiteTitle: true,
+        links: {
+          issue: {
+            nameTemplate: "Issue #%s",
+            urlTemplate: "https://golden-sample-app.com/jira/browse/%s",
+          },
+        },
+      }], 
+    ['html', 
+      { 
+        outputFolder: 'reports/html-report' 
+      }]
+  ],
   globalSetup: require.resolve(__dirname + '/global-setup.ts'),
   use: {
     trace: 'retain-on-failure',

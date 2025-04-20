@@ -1,9 +1,5 @@
 import { test as baseTest } from '@playwright/test';
-import {
-  TransactionFixture,
-  TransactionDetailsDataType,
-  TransactionsListDataType,
-} from '../model';
+import { TransactionFixture } from '../model';
 import { TransactionDetailsPage, TransactionsPage } from '../page-objects';
 import {
   defaultDetailsMocks,
@@ -14,18 +10,11 @@ import {
 export const test = baseTest.extend<TransactionFixture>({
   transactionDetailsPage: async ({ page, baseURL }, use) => {
     await use(
-      new TransactionDetailsPage(page, { url: `${baseURL}/transactions/{id}` })
+      new TransactionDetailsPage(page, { baseURL, url: '/transactions/{id}' })
     );
   },
-  // mocks data setup, can be overridden or bypassed via "useMocks"
-  detailsMocksSetup: async ({ useMocks, page }, use) =>
-    use(() => setupPageMocks(page, useMocks ? defaultDetailsMocks : {})),
-
   transactionsPage: async ({ page, baseURL }, use) => {
-    await use(new TransactionsPage(page, { url: `${baseURL}/transactions` }));
+    await use(new TransactionsPage(page, { baseURL, url: '/transactions' }));
   },
-  // mocks data setup, can be overridden or bypassed via "useMocks"
-  listMocksSetup: async ({ useMocks, page }, use) =>
-    use(() => setupPageMocks(page, useMocks ? defaultListMocks : {})),
   useMocks: true,
 });

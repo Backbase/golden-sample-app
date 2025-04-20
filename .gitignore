@@ -58,4 +58,4 @@ test-output/
 .nx
 accessibility-reports/
 .allure
-*.ts-snapshots/
+reports

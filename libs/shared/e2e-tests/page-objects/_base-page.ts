@@ -1,17 +1,17 @@
 import { expect, Page, test } from '@playwright/test';
 import { VisualValidator } from '../utils';
 import { PageInfo } from './page-info';
+import { joinUrl } from '../utils/url-utils';
 
 export abstract class BasePage implements PageInfo {
-  get url(): string {
-    return this.options?.url ?? 'url undefined';
-  }
-  get title(): string | RegExp {
-    return this.options?.title ?? 'title undefined';
+  readonly url: string;
+  readonly title: string | RegExp;
+  get pageName(): string {
+    return this.getPageName(this);
   }
   get visual(): VisualValidator {
     if (!this.options?.visual) {
-      throw new Error('Visual validator is not defined');
+      throw new Error(`Visual validator for ${this.pageName} is not defined`);
     }
     return this.options.visual;
   }
@@ -27,14 +27,20 @@ export abstract class BasePage implements PageInfo {
   constructor(
     public page: Page,
     readonly options?: Partial<{
+      baseURL: string;
       url: string;
       title: string | RegExp;
       visual: VisualValidator;
     }>
-  ) {}
+  ) {
+    this.url = this.options?.baseURL
+      ? `${joinUrl(this.options.baseURL, this.options.url)}`
+      : 'url undefined';
+    this.title = this.options?.title ?? 'title undefined';
+  }
 
   async open(param?: string | number) {
-    await test.step(`Open ${this.getPageName(this)} page`, async () => {
+    await test.step(`Open ${this.pageName} page`, async () => {
       const url = param
         ? this.url.replace(/{[^}]+}/, param.toString())
         : this.url;

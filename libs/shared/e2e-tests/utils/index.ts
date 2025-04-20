@@ -7,3 +7,4 @@ export * from './playwright-utils';
 export * from './visual';
 export * from './interfaces';
 export * from './a11y';
+export * from './url-utils';

@@ -1,4 +1,4 @@
-import { BaseComponent } from './_base-component';
+import { BaseComponent } from '@backbase-gsa/e2e-tests';
 
 export class LabeledData extends BaseComponent {
   label = this.child('dt');

@@ -8,7 +8,7 @@ test.describe(
   'Login tests',
   { tag: ['@feature', '@i18n', '@e2e', '@identity'] },
   () => {
-    test.skip('Empty user name', async ({ identityPage, visual }) => {
+    test('Empty user name', async ({ identityPage, visual }) => {
       await identityPage.open();
       await visual.step('Then validate Login form fields labels', async () => {
         await expect

@@ -1,6 +1,5 @@
 import { test as baseTest } from '@playwright/test';
 import { IdentityPage } from '../page-objects/pages/identity-page';
-import { testConfig } from '../test-config';
 import { User } from '../data/data-types/user';
 import { TestEnvironment } from 'test.model';
 import {
@@ -12,11 +11,11 @@ import { TestRunnerItems } from './test-runner-items';
 import { TransactionsPage } from '@backbase-gsa/transactions-journey/e2e-tests';
 
 export const test = baseTest.extend<TestRunnerItems>({
-  identityPage: async ({ page }, use) => {
-    await use(new IdentityPage(page, { url: testConfig.appBaseUrl() }));
+  identityPage: async ({ page, baseURL }, use) => {
+    await use(new IdentityPage(page, { url: baseURL }));
   },
-  transactionsPage: async ({ page }, use) => {
-    await use(new TransactionsPage(page, { url: testConfig.appBaseUrl() }));
+  transactionsPage: async ({ page, baseURL }, use) => {
+    await use(new TransactionsPage(page, { baseURL }));
   },
   visual: async ({ page }, use) => {
     await use(new VisualValidator(page, getVisualLevel()));

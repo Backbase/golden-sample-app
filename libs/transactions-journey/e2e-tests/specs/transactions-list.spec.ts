@@ -7,7 +7,7 @@ export function testTransactionsList(
 ) {
   test.describe(
     'Transactions list',
-    { tag: ['@e2e', '@transactions', '@transactions-details'] },
+    { tag: ['@e2e', '@transactions', '@transactions-details', '@mocks'] },
     () => {
       test.beforeEach(async ({ transactionsPage }) => {
         await transactionsPage.open();

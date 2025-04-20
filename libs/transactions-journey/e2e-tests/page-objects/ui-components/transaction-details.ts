@@ -1,10 +1,6 @@
-import {
-  BaseComponent,
-  PageInfo,
-  LabeledData,
-  formatDate,
-} from '@backbase-gsa/e2e-tests';
+import { BaseComponent, PageInfo, formatDate } from '@backbase-gsa/e2e-tests';
 import { TransactionDetailsDataType } from '../../model';
+import { LabeledData } from './labeled-data';
 import { expect } from '@playwright/test';
 
 export class TransactionDetails extends BaseComponent {

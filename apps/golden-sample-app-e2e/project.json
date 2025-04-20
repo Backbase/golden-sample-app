@@ -37,6 +37,7 @@
           "--config=playwright.localhost.config.ts",
           "--project=localhost-mocked",
           "--grep='@e2e'",
+          "--grep='@mocks'",
           "--grep-invert='@ephemeral'" 
         ]
       }
@@ -49,7 +50,8 @@
           "test",
           "--config=playwright.modelbank.config.ts",
           "--project=remote-bus-stg",
-          "--grep-invert='@mocks|@ephemeral'" // we want to run only test which are for model bank
+          "--grep='@e2e'",
+          "--grep-invert='@mocks|@ephemeral'"
         ]
       }
     },
@@ -61,7 +63,9 @@
           "test",
           "--config=playwright.ephemeral.config.ts",
           "--project=remote-ephemeral",
-          "--grep-invert='@mocks'" // we want to run all tests except teh onces which can be run only with mocks
+          "--grep-invert='@mocks'",
+          "--grep='@e2e'",
+          "--grep='@ephemeral'"
         ]
       }
     }
