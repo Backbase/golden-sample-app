@@ -1,6 +1,6 @@
 <!-- NOTE: This README.md is auto-generated. Changes made directly to this file may be overwritten. Update the corresponding '.md' files in the '.documentation' folder instead. -->
 
-# Table of Contents
+# Table of Contents 
 
   * [Golden Sample Angular App](#golden-sample-angular-app)
     * [Overview of the app](#overview-of-the-app)
