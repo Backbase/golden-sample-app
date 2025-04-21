@@ -23,7 +23,8 @@
           "--config=playwright.localhost.config.ts",
           "--project=localhost-ebp-sndbx",
           "--grep='@e2e'",
-          "--grep-invert='@mocks'"
+          "--grep-invert='@mocks'",
+          "--grep-invert='@visual'"
         ]
       }
     },
@@ -38,7 +39,8 @@
           "--project=localhost-mocked",
           "--grep='@e2e'",
           "--grep='@mocks'",
-          "--grep-invert='@ephemeral'" 
+          "--grep-invert='@ephemeral'",
+          "--grep-invert='@visual'"
         ]
       }
     },
@@ -51,7 +53,8 @@
           "--config=playwright.modelbank.config.ts",
           "--project=remote-bus-stg",
           "--grep='@e2e'",
-          "--grep-invert='@mocks|@ephemeral'"
+          "--grep-invert='@mocks|@ephemeral'",
+          "--grep-invert='@visual'"
         ]
       }
     },
@@ -65,7 +68,8 @@
           "--project=remote-ephemeral",
           "--grep-invert='@mocks'",
           "--grep='@e2e'",
-          "--grep='@ephemeral'"
+          "--grep='@ephemeral'",
+          "--grep-invert='@visual'"
         ]
       }
     }

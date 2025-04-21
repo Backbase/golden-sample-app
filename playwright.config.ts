@@ -23,6 +23,7 @@ const config: PlaywrightTestConfig = {
       {
         detail: false,
         resultsDir: 'reports/allure-results',
+        suiteTitle: true,
         links: {
           issue: {
             nameTemplate: "Issue #%s",
