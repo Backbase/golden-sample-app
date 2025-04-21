@@ -6,8 +6,12 @@ import { i18n } from '../../data/localization/login-page-data';
 // IMPORTANT: to run Login test you should run app without mocks: `npm run start`
 test.describe(
   'Login tests',
-  { tag: ['@feature', '@i18n', '@e2e', '@identity'] },
+  { tag: ['@feature', '@i18n', '@e2e', '@ephemeral'] },
   () => {
+    test.beforeEach(async ({ identityPage }) => {
+      await identityPage.open();
+    });
+
     test('Empty user name', async ({ identityPage, visual }) => {
       await identityPage.open();
       await visual.step('Then validate Login form fields labels', async () => {

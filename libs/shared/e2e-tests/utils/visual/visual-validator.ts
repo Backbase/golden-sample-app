@@ -2,7 +2,7 @@ import { expect, test, Locator, Page } from '@playwright/test';
 import { VisualPageTypes } from '../interfaces/visual-page-types';
 import { VisualTypes } from '../interfaces/visual-types';
 import { VisualTestLevel } from './visual-test-level';
-import { attachment } from 'allure-js-commons';
+import { attachment, ContentType } from "allure-js-commons";
 import { rtlScreenName, stepNameToKebabCase } from '../string-utils';
 
 export class VisualValidator {
@@ -103,7 +103,7 @@ export class VisualValidator {
         ),
         await this.page.screenshot({ fullPage: true }),
         {
-          contentType: 'image/png',
+          contentType: ContentType.PNG,
         }
       );
     });

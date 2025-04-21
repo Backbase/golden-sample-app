@@ -57,7 +57,7 @@ jobs:
         shell: bash
 
       - name: Run Playwright e2e tests
-        run: HOME=/root npm run e2e
+        run: HOME=/root npm run e2e-test-mocks
 
       - name: Run Playwright e2e responsive tests with mocks
         run: HOME=/root npm run e2e-test-responsive

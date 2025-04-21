@@ -33,8 +33,9 @@
     "prepare": "npx nx g extract-e2e-tests",
     "report": "npx allure awesome reports/allure-results --single-file && allure open",
     "report-allure-old": "allure generate reports/allure-results --clean && allure open",
-    "report:playwright": "npx playwright show-report",
-    "kill-mocks": "lsof -ti:9999 | xargs kill -9"
+    "report:playwright": "npx playwright show-report reports/html-report",
+    "kill-mocks": "lsof -ti:9999 | xargs kill -9",
+    "kill-app": "lsof -ti:4200 | xargs kill -9"
   },
   "private": true,
   "dependencies": {
