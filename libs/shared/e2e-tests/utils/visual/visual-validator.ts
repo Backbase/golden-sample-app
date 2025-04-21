@@ -2,7 +2,7 @@ import { expect, test, Locator, Page } from '@playwright/test';
 import { VisualPageTypes } from '../interfaces/visual-page-types';
 import { VisualTypes } from '../interfaces/visual-types';
 import { VisualTestLevel } from './visual-test-level';
-import { attachment, ContentType } from "allure-js-commons";
+import { attachment, ContentType } from 'allure-js-commons';
 import { rtlScreenName, stepNameToKebabCase } from '../string-utils';
 
 export class VisualValidator {
