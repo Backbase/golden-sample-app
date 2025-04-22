@@ -1,11 +1,20 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/app",
-    "types": [],
-    "target": "ES2022",
-    "useDefineForClassFields": false
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"],
+    "paths": {
+      "@backbase/identity-auth/internal": ["apps/golden-sample-app/src/app/backbase-compatibility/identity-auth-transaction-signing-fixes"],
+      "@backbase/identity-auth/transaction-signing": ["apps/golden-sample-app/src/app/backbase-compatibility/identity-auth-transaction-signing-fixes"],
+      "@backbase-gsa/transactions-journey": ["apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"],
+      "@backbase-gsa/transactions-journey/internal/shared-data": ["apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"],
+      "@backbase-gsa/transfer-journey": ["apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"],
+      "@backbase-gsa/transfer-journey/internal/shared-data": ["apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"],
+      "@backbase-gsa/ach-positive-pay-journey": ["apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"],
+      "@backbase-gsa/ach-positive-pay-journey/internal/feature": ["apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"]
+    }
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
-  "include": ["src/**/*.d.ts"]
+  "include": ["src/**/*.d.ts"],
+  "exclude": ["jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts"]
 }

@@ -73,6 +73,8 @@ export class TransactionItemComponent implements OnChanges {
       };
     }
     this.iconName =
-      IconMap[this.categoryName?.toLowerCase().replace(/\s/g, '') ?? 'default'];
+      IconMap[
+        this.categoryName?.toLowerCase().replace(/\s/g, '') ?? 'default'
+      ]?.['default'] || 'default';
   }
 }

@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  InjectionToken,
+  OnInit,
+  Optional,
+} from '@angular/core';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -6,7 +12,7 @@ import { AchPositivePayHttpService } from '@backbase-gsa/ach-positive-pay-journe
 import { NotificationService } from '@backbase/ui-ang/notification';
 import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
-import { Observable } from 'rxjs';
+import { Observable, catchError, finalize, of, switchMap } from 'rxjs';
 import { ModalModule } from '@backbase/ui-ang/modal';
 import { AlertModule } from '@backbase/ui-ang/alert';
 import { PageHeaderModule } from '@backbase/ui-ang/page-header';
@@ -15,6 +21,17 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { AchPositivePayRuleFormComponent } from '@backbase-gsa/ach-positive-pay-journey/internal/ui';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+// Define a minimal interface for transaction signing service
+export interface TransactionSigningInterface {
+  signTransaction(transactionId: string): Observable<boolean>;
+}
+
+// Define local token to prevent circular dependencies
+export const ACH_TRANSACTION_SIGNING_SERVICE =
+  new InjectionToken<TransactionSigningInterface>(
+    'ACH_TRANSACTION_SIGNING_SERVICE'
+  );
 
 @Component({
   selector: 'bb-ach-positive-pay-new-rule',
@@ -34,6 +51,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 export class AchPositivePayNewRuleComponent implements OnInit {
   loading = false;
+  signingInProgress = false;
+  transactionSigningEnabled = false;
 
   modalOptions: NgbModalOptions = {
     backdrop: 'static',
@@ -55,8 +74,13 @@ export class AchPositivePayNewRuleComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly fb: FormBuilder,
     private readonly achPositivePayService: AchPositivePayHttpService,
-    private readonly notificationService: NotificationService
-  ) {}
+    private readonly notificationService: NotificationService,
+    @Optional()
+    @Inject(ACH_TRANSACTION_SIGNING_SERVICE)
+    private readonly transactionSigningService: TransactionSigningInterface
+  ) {
+    this.transactionSigningEnabled = !!this.transactionSigningService;
+  }
 
   ngOnInit(): void {
     this.achRuleForm = this.fb.group({
@@ -79,12 +103,61 @@ export class AchPositivePayNewRuleComponent implements OnInit {
   }
 
   submitRule() {
-    if (this.loading) {
+    if (this.loading || this.signingInProgress) {
       return;
     }
 
     this.loading = true;
 
+    // If transaction signing is not enabled, submit directly
+    if (!this.transactionSigningEnabled || !this.transactionSigningService) {
+      this.submitDirectly();
+      return;
+    }
+
+    // Otherwise use transaction signing flow
+    this.signingInProgress = true;
+
+    // Generate a transaction ID based on timestamp and form values
+    const transactionId = `ach-rule-${Date.now()}-${
+      this.achRuleForm.get('companyId')?.value
+    }`;
+
+    // Call transaction signing service first
+    this.transactionSigningService
+      .signTransaction(transactionId)
+      .pipe(
+        // Only proceed with submission if signing is successful
+        switchMap((signingResult) => {
+          if (!signingResult) {
+            throw new Error('Transaction signing failed');
+          }
+          return this.achPositivePayService.submitAchRule(
+            this.achRuleForm.value
+          );
+        }),
+        catchError((error) => {
+          this.serverError =
+            error.message || 'An error occurred during transaction signing';
+          return of(null);
+        }),
+        finalize(() => {
+          this.signingInProgress = false;
+        })
+      )
+      .subscribe((result) => {
+        if (result) {
+          this.notificationService.showNotification({
+            header: 'Success',
+            message: ACH_POSITIVE_PAY_TRANSLATIONS.rulesSubmittedSuccessfully,
+          });
+          this.closeModal();
+        }
+        this.loading = false;
+      });
+  }
+
+  private submitDirectly() {
     this.achPositivePayService.submitAchRule(this.achRuleForm.value).subscribe(
       () => {
         this.notificationService.showNotification({
@@ -93,7 +166,10 @@ export class AchPositivePayNewRuleComponent implements OnInit {
         });
         this.closeModal();
       },
-      (error) => (this.serverError = error.message)
+      (error) => {
+        this.serverError = error.message;
+        this.loading = false;
+      }
     );
   }
 

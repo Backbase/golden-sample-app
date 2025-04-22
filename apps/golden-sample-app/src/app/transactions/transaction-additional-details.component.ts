@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import {
   TransactionAdditionalDetailsComponent,
   TransactionAdditionalDetailsContext,
+  TransactionItem,
 } from '@backbase-gsa/transactions-journey';
 
 @Component({
@@ -13,6 +14,9 @@ import {
 export class TransactionItemAdditionalDetailsComponent
   implements TransactionAdditionalDetailsComponent
 {
+  @Input()
+  transaction!: TransactionItem;
+
   @Input()
   context: TransactionAdditionalDetailsContext | undefined;
 }

@@ -7,7 +7,33 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "paths": {
+      "@backbase/identity-auth/internal": [
+        "./apps/golden-sample-app/src/app/backbase-compatibility/identity-auth-transaction-signing-fixes"
+      ],
+      "@backbase/identity-auth/transaction-signing": [
+        "./apps/golden-sample-app/src/app/backbase-compatibility/identity-auth-transaction-signing-fixes"
+      ],
+      "@backbase-gsa/transactions-journey": [
+        "./apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"
+      ],
+      "@backbase-gsa/transactions-journey/internal/shared-data": [
+        "./apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"
+      ],
+      "@backbase-gsa/transfer-journey": [
+        "./apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"
+      ],
+      "@backbase-gsa/transfer-journey/internal/shared-data": [
+        "./apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"
+      ],
+      "@backbase-gsa/ach-positive-pay-journey": [
+        "./apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"
+      ],
+      "@backbase-gsa/ach-positive-pay-journey/internal/feature": [
+        "./apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": true,

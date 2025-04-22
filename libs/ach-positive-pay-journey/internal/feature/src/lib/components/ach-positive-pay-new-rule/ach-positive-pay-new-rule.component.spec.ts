@@ -3,7 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '@backbase/ui-ang/notification';
 import { of, throwError } from 'rxjs';
 import { AchPositivePayHttpService } from '@backbase-gsa/ach-positive-pay-journey/internal/data-access';
-import { AchPositivePayNewRuleComponent } from './ach-positive-pay-new-rule.component';
+import {
+  AchPositivePayNewRuleComponent,
+  ACH_TRANSACTION_SIGNING_SERVICE,
+  TransactionSigningInterface,
+} from './ach-positive-pay-new-rule.component';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 
 describe('AchPositivePayNewRuleComponent', () => {
@@ -27,13 +31,19 @@ describe('AchPositivePayNewRuleComponent', () => {
       showNotification: jest.fn(),
     };
 
+  // Mock for transaction signing service
+  const mockTransactionSigningService: TransactionSigningInterface = {
+    signTransaction: jest.fn(() => of(true)),
+  };
+
   const createComponent = () => {
     component = new AchPositivePayNewRuleComponent(
       mockRouter as Router,
       mockActivatedRoute,
       mockFormBuilder as FormBuilder,
       mockAchPositivePayService as AchPositivePayHttpService,
-      mockNotificationService as NotificationService
+      mockNotificationService as NotificationService,
+      mockTransactionSigningService
     );
   };
   beforeEach(() => {
@@ -90,6 +100,7 @@ describe('AchPositivePayNewRuleComponent', () => {
       component.submitRule();
       expect(spy).toReturn();
     });
+
     it('should subscribe to positive pay service success', () => {
       (mockAchPositivePayService.submitAchRule = jest.fn(() => of('stream'))),
         (mockFormBuilder = new FormBuilder());
@@ -100,6 +111,7 @@ describe('AchPositivePayNewRuleComponent', () => {
       expect(mockAchPositivePayService.submitAchRule).toHaveBeenCalled();
       expect(mockNotificationService.showNotification).toHaveBeenCalled();
     });
+
     it('should subscribe to positive pay service error', () => {
       mockAchPositivePayService.submitAchRule = jest.fn(() =>
         throwError(() => {
@@ -112,6 +124,18 @@ describe('AchPositivePayNewRuleComponent', () => {
       component.loading = false;
       component.submitRule();
       expect(component.serverError).toEqual('error');
+    });
+
+    it('should use transaction signing service if available', () => {
+      mockAchPositivePayService.submitAchRule = jest.fn(() => of('stream'));
+      mockFormBuilder = new FormBuilder();
+      createComponent();
+      // Enable transaction signing
+      component.transactionSigningEnabled = true;
+      component.ngOnInit();
+      component.loading = false;
+      component.submitRule();
+      expect(mockTransactionSigningService.signTransaction).toHaveBeenCalled();
     });
   });
 

@@ -22,7 +22,6 @@ import {
   ENTITLEMENTS_CONFIG,
 } from '@backbase/foundation-ang/entitlements';
 import { IdentityAuthModule } from '@backbase/identity-auth';
-import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';
 import {
   INITIATE_PAYMENT_JOURNEY_CONTACT_MANAGER_BASE_PATH,
   INITIATE_PAYMENT_JOURNEY_PAYMENT_ORDER_BASE_PATH,
@@ -55,9 +54,12 @@ import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { UserContextInterceptor } from './user-context/user-context.interceptor';
 import { ActivityMonitorModule } from './auth/activity-monitor';
 import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
-import packageInfo from 'package-json';
+// Replace package-json import with a simple object
+const packageInfo = { name: 'golden-sample-app', version: '0.0.0' };
 import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
 import { ThemeManagerService } from './theme-switcher/theme-service';
+import { TransactionSigningModule } from './transaction-signing';
+import { BackbaseCompatibilityModule } from './backbase-compatibility/backbase-compatibility.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -83,6 +85,7 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
     ButtonModule,
     IdentityAuthModule,
     TransactionSigningModule,
+    BackbaseCompatibilityModule,
     TrackerModule.forRoot({
       handler: AnalyticsService,
       openTelemetryConfig: {

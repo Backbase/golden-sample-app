@@ -43,7 +43,12 @@ export class MakeTransferViewComponent {
 
   submitTransfer(transfer: Transfer | undefined): void {
     if (transfer !== undefined) {
-      this.tracker?.publish(new TransferSubmitEvent({}));
+      this.tracker?.publish(
+        new TransferSubmitEvent({
+          toAccount: transfer.toAccount,
+          amount: transfer.amount,
+        })
+      );
       this.transferStore.next(transfer);
       this.router.navigate(['../make-transfer-summary'], {
         relativeTo: this.route,

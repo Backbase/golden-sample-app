@@ -43,6 +43,27 @@
           >
           </bb-alert-ui>
         </div>
+
+        <!-- Transaction signing progress message -->
+        <div
+          *ngIf="signingInProgress"
+          class="bb-positive-pay-create-check__alert-wrapper"
+          data-role="ach-positive-pay-signing-progress"
+        >
+          <bb-alert-ui
+            type="info"
+            title="Transaction signing in progress"
+            i18n-title="
+              Transaction Signing Progress - 'Transaction signing in
+              progress'|This string is used to inform the user that transaction
+              signing is in progress. It is presented when the system is
+              verifying the security of the
+              transaction.@@ach-positive-pay.signing.progress.title"
+            [dismissible]="false"
+          >
+            Please wait while we secure your transaction...
+          </bb-alert-ui>
+        </div>
       </div>
 
       <bb-ach-positive-pay-rule-form

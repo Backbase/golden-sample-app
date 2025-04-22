@@ -10,18 +10,21 @@
     "importHelpers": true,
     "target": "es2020",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
       "@backbase-gsa/ach-positive-pay-journey": [
-        "libs/ach-positive-pay-journey/src/index.ts"
+        "./apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"
       ],
       "@backbase-gsa/ach-positive-pay-journey/internal/data-access": [
         "libs/ach-positive-pay-journey/internal/data-access/src/index.ts"
       ],
       "@backbase-gsa/ach-positive-pay-journey/internal/feature": [
-        "libs/ach-positive-pay-journey/internal/feature/src/index.ts"
+        "./apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"
       ],
       "@backbase-gsa/ach-positive-pay-journey/internal/shared-data": [
         "libs/ach-positive-pay-journey/internal/shared-data/src/index.ts"
@@ -33,7 +36,7 @@
         "libs/transactions-journey/feature/src/index.ts"
       ],
       "@backbase-gsa/transactions-journey": [
-        "libs/transactions-journey/src/index.ts"
+        "./apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"
       ],
       "@backbase-gsa/transactions-journey/e2e-tests": [
         "libs/transactions-journey/e2e-tests/index.ts"
@@ -48,7 +51,7 @@
         "libs/transactions-journey/internal/feature-transaction-view/src/index.ts"
       ],
       "@backbase-gsa/transactions-journey/internal/shared-data": [
-        "libs/transactions-journey/internal/shared-data/src/index.ts"
+        "./apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"
       ],
       "@backbase-gsa/transactions-journey/internal/ui": [
         "libs/transactions-journey/internal/ui/src/index.ts"
@@ -56,7 +59,9 @@
       "@backbase-gsa/transactions-journey/internal/util": [
         "libs/transactions-journey/internal/util/src/index.ts"
       ],
-      "@backbase-gsa/transfer-journey": ["libs/transfer-journey/src/index.ts"],
+      "@backbase-gsa/transfer-journey": [
+        "./apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"
+      ],
       "@backbase-gsa/transfer-journey/internal/data-access": [
         "libs/transfer-journey/internal/data-access/src/index.ts"
       ],
@@ -64,7 +69,7 @@
         "libs/transfer-journey/internal/feature/src/index.ts"
       ],
       "@backbase-gsa/transfer-journey/internal/shared-data": [
-        "libs/transfer-journey/internal/shared-data/src/index.ts"
+        "./apps/golden-sample-app/src/app/backbase-compatibility/journey-mocks"
       ],
       "@backbase-gsa/transfer-journey/internal/ui": [
         "libs/transfer-journey/internal/ui/src/index.ts"
@@ -72,7 +77,15 @@
       "@backbase/e2e-test-accelerators/*": [
         "libs/shared/util/e2e-test-accelerators/*/index.ts"
       ],
-      "package-json": ["package.json"]
+      "package-json": [
+        "package.json"
+      ],
+      "@backbase/identity-auth/internal": [
+        "./apps/golden-sample-app/src/app/backbase-compatibility/identity-auth-transaction-signing-fixes"
+      ],
+      "@backbase/identity-auth/transaction-signing": [
+        "./apps/golden-sample-app/src/app/backbase-compatibility/identity-auth-transaction-signing-fixes"
+      ]
     }
   }
 }
