@@ -2,7 +2,7 @@
 import { TransactionsJourneyConfiguration } from '../transactions-journey-config/transactions-journey-config.service';
 import { TransactionsRouteTitleResolverService } from './transactions-route-title-resolver.service';
 
-describe('MakeTransferRouteTitleResolverService', () => {
+describe('TransactionsRouteTitleResolverService', () => {
   function createInstance(config: Partial<TransactionsJourneyConfiguration>) {
     return new TransactionsRouteTitleResolverService(
       config as TransactionsJourneyConfiguration
