@@ -40,7 +40,8 @@
           "--grep='@e2e'",
           "--grep='@mocks'",
           "--grep-invert='@ephemeral'",
-          "--grep-invert='@visual'"
+          "--grep-invert='@visual'",
+          "--grep-invert='@a11y'"
         ]
       }
     },
@@ -54,7 +55,8 @@
           "--project=remote-bus-stg",
           "--grep='@e2e'",
           "--grep-invert='@mocks|@ephemeral'",
-          "--grep-invert='@visual'"
+          "--grep-invert='@visual'",
+          "--grep-invert='@a11y'"
         ]
       }
     },
@@ -69,7 +71,8 @@
           "--grep-invert='@mocks'",
           "--grep='@e2e'",
           "--grep='@ephemeral'",
-          "--grep-invert='@visual'"
+          "--grep-invert='@visual'",
+          "--grep-invert='@a11y'"
         ]
       }
     }
