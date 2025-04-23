@@ -8,9 +8,18 @@
   ],
   "targets": {
     "e2e-chrome-mobile": {
-      "executor": "nx:run-commands",
+      "executor": "@dot-build/serve-and-run-angular:run",
       "options": {
-        "command": "npx playwright test --project 'mobile-chrome' --grep '@visual' --grep '@responsive' --workers=2"
+        "devServerTarget": "golden-sample-app:serve:mocks",
+        "command": "npx playwright",
+        "args": [
+          "test",
+          "--config=playwright.localhost.config.ts",
+          "--project=mobile-chrome",
+          "--grep='@visual'",
+          "--grep='@responsive'",
+          "--workers=2"
+        ]
       }
     },
     "e2e-localhost-ebp-sndbx": {
