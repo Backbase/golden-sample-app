@@ -7,7 +7,7 @@ const config: PlaywrightTestConfig = {
   testDir: './apps/golden-sample-app-e2e/specs/',
   retries: process.env['CI'] ? 1 : 0,
   grep: process.env['TEST_TAG'] ? RegExp(process.env['TEST_TAG']) : undefined,
-  outputDir: 'reports/test-output',
+  outputDir: process.env['OUTPUT_DIR'] ?? 'reports/test-output',
   forbidOnly: !!process.env['CI'],
   workers: process.env['CI'] ? 4 : 1,
   fullyParallel: true,

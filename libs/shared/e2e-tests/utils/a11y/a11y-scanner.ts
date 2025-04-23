@@ -1,7 +1,7 @@
 import { Locator, Page, TestInfo } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { getSelector } from '../playwright-utils';
-import { AxeResults } from 'axe-core';
+import { AxeResults, Result } from 'axe-core';
 import { getViolationsNodes, shortA11YReport } from './a11y-violations-utility';
 import { createHtmlReport } from 'axe-html-reporter';
 
@@ -10,8 +10,8 @@ export class A11yScanner {
 
   results: AxeResults | null = null;
 
-  get violations() {
-    return this.results?.violations;
+  get violations(): Result[] {
+    return this.results?.violations ?? [];
   }
 
   get hasViolations() {
@@ -56,9 +56,9 @@ export class A11yScanner {
 
   saveA11yResultsToFile(fileName: string) {
     createHtmlReport({
-      results: this.results,
+      results: this.results ?? {},
       options: {
-        outputDir: 'accessibility-reports',
+        outputDir: 'reports/accessibility-reports',
         reportFileName: fileName,
       },
     });

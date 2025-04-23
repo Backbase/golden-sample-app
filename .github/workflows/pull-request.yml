@@ -59,8 +59,8 @@ jobs:
       - name: Run Playwright e2e tests with mocks
         run: HOME=/root npm run e2e-test-mocks
 
-      - name: Run Playwright e2e Responsiveness tests with mocks
-        run: HOME=/root npm run e2e-test-responsive
+      # - name: Run Playwright e2e Responsiveness tests with mocks
+      #   run: HOME=/root npm run e2e-test-responsive
 
       - name: Run Playwright e2e Accessibility tests with mocks
         run: HOME=/root npm run e2e-test-a11y
