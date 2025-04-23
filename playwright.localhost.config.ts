@@ -53,5 +53,4 @@ export default defineConfig<TestOptions>({
       },
     },
   ],
-  webServer: [],
 })
