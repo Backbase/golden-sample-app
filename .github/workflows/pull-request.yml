@@ -12,15 +12,15 @@ jobs:
   get-playwright-version:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.get-version.outputs.playwright-version }}
+      version: ${{ steps.get-version.outputs.version }}
     steps:
       - uses: actions/checkout@v4
       
       - name: Get Playwright version
         id: get-version
         run: |
-          PLAYWRIGHT_VERSION=$(node -p "require('./package.json').devDependencies['@playwright/test']")
-          echo "playwright-version=${PLAYWRIGHT_VERSION}" >> $GITHUB_OUTPUT
+          VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")
+          echo "Using Playwright version: $VERSION"
 
   build:
     runs-on: ubuntu-latest
@@ -88,7 +88,7 @@ jobs:
         continue-on-error: true
 
       - name: Generate Allure Report
-        run: HOME=/root npm run report
+        run: HOME=/root npm run report-generate
         continue-on-error: true
 
       - name: Upload Playwright Report
@@ -106,3 +106,13 @@ jobs:
           name: allure-report
           path: reports/allure-results/
           retention-days: 7
+
+      - name: Check Test Results
+        if: ${{ always() }}
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "All tests passed"
+          else
+            echo "Some tests failed. Failing the job."
+            exit 1
+          fi
