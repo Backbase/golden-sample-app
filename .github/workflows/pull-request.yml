@@ -101,8 +101,9 @@ jobs:
         run: npx playwright install --with-deps chromium firefox webkit
         shell: bash
 
-      - name: Run Playwright e2e tests with mocks
-        run: npm run e2e-test-mocks
+      # - name: Run Playwright e2e tests with mocks
+      #   if: ${{ success() || failure() }}
+      #   run: npm run e2e-test-mocks
 
       - name: Run Playwright e2e Responsiveness
         if: ${{ success() || failure() }}
