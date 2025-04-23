@@ -10,7 +10,7 @@
     "e2e-chrome-mobile": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx playwright test --project 'mobile-chrome' --grep '@visual.+@responsive|@responsive.+@visual' --workers=2"
+        "command": "npx playwright test --project 'mobile-chrome' --grep '@visual.*@responsive' --workers=2"
       }
     },
     "e2e-localhost-ebp-sndbx": {
@@ -23,8 +23,7 @@
           "--config=playwright.localhost.config.ts",
           "--project=localhost-ebp-sndbx",
           "--grep='@e2e'",
-          "--grep-invert='@mocks'",
-          "--grep-invert='@visual'"
+          "--grep-invert='@mocks|@visual|@a11y'"
         ]
       }
     },
@@ -51,9 +50,7 @@
           "--config=playwright.modelbank.config.ts",
           "--project=remote-bus-stg",
           "--grep='@e2e'",
-          "--grep-invert='@mocks|@ephemeral'",
-          "--grep-invert='@visual'",
-          "--grep-invert='@a11y'"
+          "--grep-invert='@mocks|@ephemeral|@visual|@a11y'"
         ]
       }
     },
@@ -65,11 +62,8 @@
           "test",
           "--config=playwright.ephemeral.config.ts",
           "--project=remote-ephemeral",
-          "--grep-invert='@mocks'",
-          "--grep='@e2e'",
-          "--grep='@ephemeral'",
-          "--grep-invert='@visual'",
-          "--grep-invert='@a11y'"
+          "--grep='@e2e.*@ephemeral'",
+          "--grep-invert='@mocks|@ephemeral|@visual|@a11y'"
         ]
       }
     }
