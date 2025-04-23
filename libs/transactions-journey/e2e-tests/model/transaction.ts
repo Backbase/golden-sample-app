@@ -1,6 +1,6 @@
 import { VisualValidator } from '@backbase-gsa/e2e-tests';
-import { TransactionDetailsPage } from '../page-objects/pages/transaction-details.po';
-import { TransactionsPage } from '../page-objects/pages/transactions-list.po';
+import { TransactionDetailsPage } from '../page-objects/pages/transaction-details-page';
+import { TransactionsPage } from '../page-objects/pages/transactions-list-page';
 
 export interface TransactionDataType {
   transactionDetails: Partial<TransactionDetailsDataType>;
@@ -35,5 +35,4 @@ export interface TransactionFixture {
   visual: VisualValidator;
   transactionDetailsPage: TransactionDetailsPage;
   transactionsPage: TransactionsPage;
-  useMocks: boolean;
 }

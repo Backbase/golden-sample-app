@@ -29,8 +29,6 @@ export const test = mergeTests(
   baseTest,
   transferTest
 ).extend<TransactionFixture>({
-  // overrode default data based on environment config
-  useMocks: async ({ env }, use) => await use(env === TestEnvironment.MOCKS),
   // type of the user
   userType: 'userWithNoContext',
 });

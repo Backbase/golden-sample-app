@@ -1,6 +1,5 @@
 export interface TestOptions {
   configPath: string;
-  testEnvironment: TestEnvironment;
 }
 
 export enum TestEnvironment {

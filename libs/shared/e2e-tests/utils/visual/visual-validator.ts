@@ -1,27 +1,28 @@
 import { expect, test, Locator, Page } from '@playwright/test';
 import { VisualPageTypes } from '../interfaces/visual-page-types';
 import { VisualTypes } from '../interfaces/visual-types';
-import { VisualTestLevel } from './visual-test-level';
 import { attachment, ContentType } from 'allure-js-commons';
 import { rtlScreenName, stepNameToKebabCase } from '../string-utils';
 
 export class VisualValidator {
-  rtlPrefix: string;
-  protected level: VisualTestLevel;
+  get rtlPrefix() {
+    return this.options?.rtl ? `rtl-` : ``;
+  }
+  get skip() {
+    return this.options?.skip ?? false;
+  }
+  get makeStepScreen() {
+    return this.options?.makeStepScreen ?? true;
+  }
 
   constructor(
     protected page: Page,
-    testLevel: VisualTestLevel | boolean = false,
-    protected skip = false,
-    protected rtl = false
-  ) {
-    this.rtlPrefix = rtl ? `rtl-` : ``;
-    if (typeof testLevel === 'boolean') {
-      this.level = testLevel ? VisualTestLevel.ALL : VisualTestLevel.OFF;
-    } else {
-      this.level = testLevel;
+    readonly options?: {
+      skip: boolean;
+      rtl: boolean;
+      makeStepScreen: boolean;
     }
-  }
+  ) {}
 
   async testFullPage(name: string, options?: { waitBefore: number }) {
     if (this.skip) return;
@@ -89,9 +90,7 @@ export class VisualValidator {
     body?: () => T | Promise<T>,
     screenName: string | false = ''
   ) {
-    const makeScreen =
-      screenName !== false &&
-      [VisualTestLevel.ALL, VisualTestLevel.STEPS].includes(this.level);
+    const makeScreen = screenName && this.makeStepScreen;
     await test.step((makeScreen ? '[Screen] ' : '') + title, async () => {
       if (body) {
         await body();

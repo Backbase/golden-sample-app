@@ -75,7 +75,6 @@ const config: PlaywrightTestConfig = {
       use: {
         ...devices['Nexus 7'],
         isMobile: true,
-        baseURL: 'http://localhost:4201',
       },
     },
   ],

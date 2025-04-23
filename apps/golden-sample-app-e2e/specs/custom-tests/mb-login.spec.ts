@@ -13,7 +13,6 @@ test.describe(
     });
 
     test('Empty user name', async ({ identityPage, visual }) => {
-      await identityPage.open();
       await visual.step('Then validate Login form fields labels', async () => {
         await expect
           .soft(
