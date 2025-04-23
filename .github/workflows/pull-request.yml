@@ -56,14 +56,17 @@ jobs:
         run: npx playwright install --with-deps chromium firefox webkit
         shell: bash
 
-      - name: Run Playwright e2e tests
-        run: HOME=/root npm run e2e
+      - name: Run Playwright e2e tests with mocks
+        run: HOME=/root npm run e2e-test-mocks
 
       - name: Run Playwright e2e Responsiveness tests with mocks
         run: HOME=/root npm run e2e-test-responsive
 
       - name: Run Playwright e2e Accessibility tests with mocks
         run: HOME=/root npm run e2e-test-a11y
+
+      - name: Run Playwright e2e tests sandbox
+        run: HOME=/root npm run e2e-test-sndbx-ci
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
