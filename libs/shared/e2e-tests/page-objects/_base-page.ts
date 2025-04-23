@@ -45,6 +45,7 @@ export abstract class BasePage implements PageInfo {
         ? this.url.replace(/{[^}]+}/, param.toString())
         : this.url;
       await this.page.goto(url);
+      await this.page.waitForLoadState('networkidle');
     });
   }
 
