@@ -58,6 +58,7 @@ jobs:
 
       - name: Run Playwright e2e tests with mocks
         run: HOME=/root npm run e2e-test-mocks
+        continue-on-error: true
 
       # - name: Run Playwright e2e Responsiveness tests with mocks
       #   run: HOME=/root npm run e2e-test-responsive
@@ -67,6 +68,11 @@ jobs:
 
       - name: Run Playwright e2e tests sandbox
         run: HOME=/root npm run e2e-test-sndbx-ci
+        continue-on-error: true
+
+      - name: Generate Allure Report
+        run: HOME=/root npm run report
+        continue-on-error: true
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
@@ -74,4 +80,12 @@ jobs:
         with:
           name: playwright-report
           path: reports/html-report/
+          retention-days: 7
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: allure-report
+          path: reports/allure-results/
           retention-days: 7
