@@ -10,7 +10,7 @@
     "e2e-chrome-mobile": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx playwright test --project 'mobile-chrome' --grep '@visual.*@responsive' --workers=2"
+        "command": "npx playwright test --project 'mobile-chrome' --grep '@visual' --grep '@responsive' --workers=2"
       }
     },
     "e2e-localhost-ebp-sndbx": {
@@ -36,7 +36,8 @@
           "test",
           "--config=playwright.localhost.config.ts",
           "--project=localhost-mocked",
-          "--grep='@e2e.*@mocks'",
+          "--grep='@e2e'",
+          "--grep='@mocks'",
           "--grep-invert='@ephemeral|@visual|@a11y'"
         ]
       }
@@ -62,7 +63,8 @@
           "test",
           "--config=playwright.ephemeral.config.ts",
           "--project=remote-ephemeral",
-          "--grep='@e2e.*@ephemeral'",
+          "--grep='@e2e'",
+          "--grep='@ephemeral'",
           "--grep-invert='@mocks|@ephemeral|@visual|@a11y'"
         ]
       }

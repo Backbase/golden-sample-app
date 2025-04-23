@@ -58,4 +58,5 @@ test-output/
 .nx
 accessibility-reports/
 .allure
+*darwin.png
 reports
