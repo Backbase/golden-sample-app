@@ -82,6 +82,7 @@ jobs:
           npm-auth-token: ${{ secrets.NPM_TOKEN }}
 
       - name: Cache npm dependencies
+        if: ${{ success() || failure() }}
         uses: actions/cache@v4
         with:
           path: ~/.npm
@@ -90,6 +91,7 @@ jobs:
             ${{ runner.os }}-npm-
 
       - name: Cache Playwright browsers
+        if: ${{ success() || failure() }}
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
@@ -102,11 +104,11 @@ jobs:
       - name: Run Playwright e2e tests with mocks
         run: npm run e2e-test-mocks
 
-      - name: Run Playwright e2e Responsiveness tests with mocks
+      - name: Run Playwright e2e Responsiveness
         if: ${{ success() || failure() }}
         run: npm run e2e-test-responsive
 
-      - name: Run Playwright e2e Accessibility tests with mocks
+      - name: Run Playwright e2e Accessibility
         if: ${{ success() || failure() }}
         run: npm run e2e-test-a11y
 
@@ -115,8 +117,8 @@ jobs:
         run: npm run e2e-test-sndbx-ci
 
       - name: Generate Allure Report
+        if: ${{ success() || failure() }}
         run: npm run report-generate
-        continue-on-error: true
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
