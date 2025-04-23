@@ -11,20 +11,29 @@ test.describe(
 
     test('Validate Transaction page accessibility with disabled rules', async ({
       page,
+      visual,
     }, testInfo) => {
-      await expect({ page, testInfo }).toBeAccessible({
-        disableRules: ['color-contrast', 'link-name'],
+      await visual.step('Validate Transaction page accessibility', async () => {
+        await expect({ page, testInfo }).toBeAccessible({
+          disableRules: ['color-contrast', 'link-name'],
+        });
       });
     });
 
     test('Validate Transaction page accessibility for locale dropdown menu', async ({
       page,
+      visual,
     }, testInfo) => {
-      const transactionListEntry = `[data-role="transactions-view__item-container"]`;
-      await expect({ page, testInfo }).toBeAccessible({
-        include: transactionListEntry,
-        disableRules: ['color-contrast'],
-      });
+      await visual.step(
+        'Validate Transaction page accessibility for locale dropdown menu',
+        async () => {
+          const localeDropdown = `[data-role="locale-dropdown"]`;
+          await expect({ page, testInfo }).toBeAccessible({
+            include: localeDropdown,
+            disableRules: ['color-contrast'],
+          });
+        }
+      );
     });
   }
 );
