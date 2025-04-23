@@ -74,27 +74,26 @@ jobs:
 
       - name: Run Playwright e2e tests with mocks
         run: HOME=/root npm run e2e-test-mocks
-        continue-on-error: true
 
       - name: Run Playwright e2e Responsiveness tests with mocks
+        if: success() || failure()
         run: HOME=/root npm run e2e-test-responsive
-        continue-on-error: true
 
       - name: Run Playwright e2e Accessibility tests with mocks
+        if: success() || failure()
         run: HOME=/root npm run e2e-test-a11y
-        continue-on-error: true
 
       - name: Run Playwright e2e tests sandbox
+        if: success() || failure()
         run: HOME=/root npm run e2e-test-sndbx-ci
-        continue-on-error: true
 
       - name: Generate Allure Report
+        if: success() || failure()
         run: HOME=/root npm run report-generate
-        continue-on-error: true
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+        if: !cancelled()
         with:
           name: playwright-report
           path: reports/html-report/
@@ -102,14 +101,13 @@ jobs:
 
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+        if: !cancelled()
         with:
           name: allure-report
           path: allure-report/
           retention-days: 7
 
       - name: Check Test Results
-        if: ${{ always() }}
         run: |
           if [ "${{ job.status }}" == "success" ]; then
             echo "All tests passed"
