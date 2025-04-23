@@ -1,12 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
-import  baseConfig from './playwright.config';
+import baseConfig from './playwright.config';
 import { join } from 'path';
-import { TestOptions, TestEnvironment } from './test.model';
+import { TestOptions } from './test.model';
 import 'dotenv/config';
 
 export default defineConfig<TestOptions>({
   ...baseConfig,
   projects: [
+    ...(baseConfig.projects || []),
     /**
      * Configuration for running tests with mock env
      */
