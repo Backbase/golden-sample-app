@@ -73,23 +73,48 @@ jobs:
         shell: bash
 
       - name: Run Playwright e2e tests with mocks
-        run: HOME=/root npm run e2e-test-mocks
+        run: |
+          if HOME=/root npm run e2e-test-mocks; then
+            echo "::notice::✅ E2E tests with mocks passed"
+          else
+            echo "::error::❌ E2E tests with mocks failed"
+            exit 1
+          fi
+        continue-on-error: true
 
       - name: Run Playwright e2e Responsiveness tests with mocks
-        if: ${{ success() || failure() }}
-        run: HOME=/root npm run e2e-test-responsive
+        run: |
+          if HOME=/root npm run e2e-test-responsive; then
+            echo "::notice::✅ E2E Responsiveness tests passed"
+          else
+            echo "::error::❌ E2E Responsiveness tests failed"
+            exit 1
+          fi
+        continue-on-error: true
 
       - name: Run Playwright e2e Accessibility tests with mocks
-        if: ${{ success() || failure() }}
-        run: HOME=/root npm run e2e-test-a11y
+        run: |
+          if HOME=/root npm run e2e-test-a11y; then
+            echo "::notice::✅ E2E Accessibility tests passed"
+          else
+            echo "::error::❌ E2E Accessibility tests failed"
+            exit 1
+          fi
+        continue-on-error: true
 
       - name: Run Playwright e2e tests sandbox
-        if: ${{ success() || failure() }}
-        run: HOME=/root npm run e2e-test-sndbx-ci
+        run: |
+          if HOME=/root npm run e2e-test-sndbx-ci; then
+            echo "::notice::✅ E2E Sandbox tests passed"
+          else
+            echo "::error::❌ E2E Sandbox tests failed"
+            exit 1
+          fi
+        continue-on-error: true
 
       - name: Generate Allure Report
-        if: ${{ success() || failure() }}
         run: HOME=/root npm run report-generate
+        continue-on-error: true
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
