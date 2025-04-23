@@ -72,44 +72,23 @@ jobs:
         run: npx playwright install --with-deps chromium firefox webkit
         shell: bash
 
-      - name: Run Playwright e2e tests with mocks
+      - name: Run all Playwright tests
         run: |
-          if HOME=/root npm run e2e-test-mocks; then
-            echo "::notice::✅ E2E tests with mocks passed"
-          else
-            echo "::error::❌ E2E tests with mocks failed"
-            exit 1
-          fi
-        continue-on-error: true
+          run_test() {
+            local cmd="$1"
+            local name="$2"
+            if HOME=/root npm run "$cmd"; then
+              echo "::notice::✅ $name passed"
+            else
+              echo "::error::❌ $name failed"
+              exit 1
+            fi
+          }
 
-      - name: Run Playwright e2e Responsiveness tests with mocks
-        run: |
-          if HOME=/root npm run e2e-test-responsive; then
-            echo "::notice::✅ E2E Responsiveness tests passed"
-          else
-            echo "::error::❌ E2E Responsiveness tests failed"
-            exit 1
-          fi
-        continue-on-error: true
-
-      - name: Run Playwright e2e Accessibility tests with mocks
-        run: |
-          if HOME=/root npm run e2e-test-a11y; then
-            echo "::notice::✅ E2E Accessibility tests passed"
-          else
-            echo "::error::❌ E2E Accessibility tests failed"
-            exit 1
-          fi
-        continue-on-error: true
-
-      - name: Run Playwright e2e tests sandbox
-        run: |
-          if HOME=/root npm run e2e-test-sndbx-ci; then
-            echo "::notice::✅ E2E Sandbox tests passed"
-          else
-            echo "::error::❌ E2E Sandbox tests failed"
-            exit 1
-          fi
+          run_test "e2e-test-mocks" "E2E tests with mocks"
+          run_test "e2e-test-responsive" "E2E Responsiveness tests"
+          run_test "e2e-test-a11y" "E2E Accessibility tests"
+          run_test "e2e-test-sndbx-ci" "E2E Sandbox tests"
         continue-on-error: true
 
       - name: Generate Allure Report
