@@ -102,20 +102,22 @@ jobs:
       - name: Run all Playwright tests
         run: |
           run_test() {
-            local cmd="$1"
-            local name="$2"
-            if npm run "$cmd"; then
-              echo "::notice::✅ $name passed"
-            else
-              echo "::error::❌ $name failed"
-              exit 1
+            if ! npm run "$1"; then
+              echo "Test $1 failed"
+              FAILED=true
             fi
           }
 
-          run_test "e2e-test-mocks" "E2E tests with mocks"
-          run_test "e2e-test-responsive" "E2E Responsiveness tests"
-          run_test "e2e-test-a11y" "E2E Accessibility tests"
-          run_test "e2e-test-sndbx-ci" "E2E Sandbox tests"
+          FAILED=false
+          run_test "e2e-test-mocks"
+          run_test "e2e-test-responsive"
+          run_test "e2e-test-a11y"
+          run_test "e2e-test-sndbx-ci"
+
+          if [ "$FAILED" = true ]; then
+            echo "Some tests failed"
+            exit 1
+          fi
         continue-on-error: true
 
       - name: Generate Allure Report
@@ -137,12 +139,3 @@ jobs:
           name: allure-report
           path: allure-report/
           retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
-
-      - name: Check Test Results
-        run: |
-          if [ "${{ job.status }}" == "success" ]; then
-            echo "All tests passed"
-          else
-            echo "Some tests failed. Failing the job."
-            exit 1
-          fi
