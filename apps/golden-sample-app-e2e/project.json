@@ -38,7 +38,7 @@
           "--project=localhost-mocked",
           "--grep='@e2e'",
           "--grep='@mocks'",
-          "--grep-invert='@ephemeral|@a11y'"
+          "--grep-invert='@ephemeral|@visual|@a11y'"
         ]
       }
     },

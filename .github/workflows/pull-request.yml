@@ -43,9 +43,15 @@ jobs:
     name: "Playwright Tests"
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.52.0
+      image: mcr.microsoft.com/playwright:v${{ steps.get-version.outputs.playwright-version }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Get Playwright version
+        id: get-version
+        run: |
+          PLAYWRIGHT_VERSION=$(node -p "require('./package.json').devDependencies['@playwright/test']")
+          echo "playwright-version=${PLAYWRIGHT_VERSION}" >> $GITHUB_OUTPUT
 
       - name: Setup Node.js
         uses: ./.github/actions/node-step
@@ -60,11 +66,13 @@ jobs:
         run: HOME=/root npm run e2e-test-mocks
         continue-on-error: true
 
-      # - name: Run Playwright e2e Responsiveness tests with mocks
-      #   run: HOME=/root npm run e2e-test-responsive
+      - name: Run Playwright e2e Responsiveness tests with mocks
+        run: HOME=/root npm run e2e-test-responsive
+        continue-on-error: true
 
-      # - name: Run Playwright e2e Accessibility tests with mocks
-      #   run: HOME=/root npm run e2e-test-a11y
+      - name: Run Playwright e2e Accessibility tests with mocks
+        run: HOME=/root npm run e2e-test-a11y
+        continue-on-error: true
 
       - name: Run Playwright e2e tests sandbox
         run: HOME=/root npm run e2e-test-sndbx-ci
