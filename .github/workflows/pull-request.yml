@@ -56,32 +56,6 @@ jobs:
         run: npx playwright install --with-deps chromium firefox webkit
         shell: bash
 
-      - name: Wait for mock server
-        run: |
-          for i in {1..30}; do
-            if curl -s http://localhost:9999/dev-interface > /dev/null; then
-              echo "Mock server is ready"
-              exit 0
-            fi
-            sleep 1
-          done
-          echo "Mock server failed to start"
-          exit 1
-        shell: bash
-
-      - name: Wait for application
-        run: |
-          for i in {1..30}; do
-            if curl -s http://localhost:4200 > /dev/null; then
-              echo "Application is ready"
-              exit 0
-            fi
-            sleep 1
-          done
-          echo "Application failed to start"
-          exit 1
-        shell: bash
-
       - name: Run Playwright e2e tests
         run: HOME=/root npm run e2e
 
