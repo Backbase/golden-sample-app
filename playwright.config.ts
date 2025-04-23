@@ -1,5 +1,7 @@
 import { PlaywrightTestConfig, devices } from '@playwright/test';
+import { allureConfig as allureReportConfig } from 'allure-report.config';
 import 'dotenv/config';
+import { playwrightHtmlReportConfig } from 'playwrigh-html-report.config';
 
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
@@ -19,22 +21,8 @@ const config: PlaywrightTestConfig = {
   },
   reporter: [
     ['list'], 
-    ['allure-playwright',
-      {
-        detail: false,
-        resultsDir: 'reports/allure-results',
-        suiteTitle: true,
-        links: {
-          issue: {
-            nameTemplate: "Issue #%s",
-            urlTemplate: "https://golden-sample-app.com/jira/browse/%s",
-          },
-        },
-      }], 
-    ['html', 
-      { 
-        outputFolder: 'reports/html-report' 
-      }]
+    ['allure-playwright', allureReportConfig], 
+    ['html', playwrightHtmlReportConfig]
   ],
   globalSetup: require.resolve(__dirname + '/global-setup.ts'),
   use: {
