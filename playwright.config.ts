@@ -46,6 +46,7 @@ const config: PlaywrightTestConfig = {
       name: 'web-chrome',
       use: {
         ...devices['Desktop Chrome'],
+        baseURL: 'http://localhost:4201',
         launchOptions: {
           chromiumSandbox: false,
           args: [
@@ -63,6 +64,7 @@ const config: PlaywrightTestConfig = {
       use: {
         ...devices['Nexus 7'],
         isMobile: true,
+        baseURL: 'http://localhost:4201',
       },
     },
   ],
