@@ -91,6 +91,7 @@ const isDateWithOffset = (
 export const isYesterday = (date?: Date): boolean => isDateWithOffset(date, -1);
 export const isToday = (date?: Date): boolean => isDateWithOffset(date, 0);
 export const isTomorrow = (date?: Date): boolean => isDateWithOffset(date, 1);
-export const isAfterTomorrow = (date?: Date): boolean => isDateWithOffset(date, 2);
+export const isAfterTomorrow = (date?: Date): boolean =>
+  isDateWithOffset(date, 2);
 export const isNextWeek = (date?: Date): boolean => isDateWithOffset(date, 7);
 export const isNextMonth = (date?: Date): boolean => isDateWithOffset(date, 31);
