@@ -99,26 +99,20 @@ jobs:
         run: npx playwright install --with-deps chromium firefox webkit
         shell: bash
 
-      - name: Run all Playwright tests
-        run: |
-          run_test() {
-            if ! npm run "$1"; then
-              echo "Test $1 failed"
-              FAILED=true
-            fi
-          }
+      - name: Run Playwright e2e tests with mocks
+        run: npm run e2e-test-mocks
 
-          FAILED=false
-          # run_test "e2e-test-mocks"
-          run_test "e2e-test-responsive"
-          run_test "e2e-test-a11y"
-          run_test "e2e-test-sndbx-ci"
+      - name: Run Playwright e2e Responsiveness tests with mocks
+        if: ${{ success() || failure() }}
+        run: npm run e2e-test-responsive
 
-          if [ "$FAILED" = true ]; then
-            echo "Some tests failed"
-            exit 1
-          fi
-        continue-on-error: true
+      - name: Run Playwright e2e Accessibility tests with mocks
+        if: ${{ success() || failure() }}
+        run: npm run e2e-test-a11y
+
+      - name: Run Playwright e2e tests sandbox
+        if: ${{ success() || failure() }}
+        run: npm run e2e-test-sndbx-ci
 
       - name: Generate Allure Report
         run: npm run report-generate
