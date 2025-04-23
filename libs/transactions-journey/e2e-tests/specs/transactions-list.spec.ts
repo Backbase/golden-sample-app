@@ -9,7 +9,8 @@ export function testTransactionsList(
     'Transactions list',
     { tag: ['@e2e', '@transactions', '@transactions-details', '@mocks'] },
     () => {
-      test.beforeEach(async ({ transactionsPage }) => {
+      test.beforeEach(async ({ transactionsPage, transactionsMockSetup }) => {
+        await transactionsMockSetup();
         await transactionsPage.open();
       });
 
