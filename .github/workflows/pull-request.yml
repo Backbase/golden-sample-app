@@ -68,6 +68,8 @@ jobs:
     needs: get-playwright-version
     container:
       image: mcr.microsoft.com/playwright:v${{ needs.get-playwright-version.outputs.version }}
+    env:
+      HOME: /root
     steps:
       - uses: actions/checkout@v4
 
@@ -99,7 +101,7 @@ jobs:
           run_test() {
             local cmd="$1"
             local name="$2"
-            if HOME=/root npm run "$cmd"; then
+            if npm run "$cmd"; then
               echo "::notice::✅ $name passed"
             else
               echo "::error::❌ $name failed"
@@ -114,7 +116,7 @@ jobs:
         continue-on-error: true
 
       - name: Generate Allure Report
-        run: HOME=/root npm run report-generate
+        run: npm run report-generate
         continue-on-error: true
 
       - name: Upload Playwright Report
