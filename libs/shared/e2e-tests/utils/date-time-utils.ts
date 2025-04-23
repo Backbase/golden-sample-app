@@ -1,72 +1,71 @@
 import { DateFormat } from './interfaces/date-formats';
 
+const MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
+
+const enUSDate = (date: Date, options?: Intl.DateTimeFormatOptions): string =>
+  date.toLocaleDateString('en-US', options);
+
 export const timeID = () =>
   new Date().toISOString().split('.')[0].replace(/T/g, '-').replace(/:/g, '-');
 
 export const formatDate = (date: Date, format: DateFormat) => {
   switch (format) {
     case 'MM/DD/YYYY':
-      return date.toLocaleDateString('en-US');
+      return enUSDate(date);
     case 'MM/DD/YY':
-      return date.toLocaleDateString('en-US', {
+      return enUSDate(date, {
         month: '2-digit',
         day: '2-digit',
         year: '2-digit',
       });
     case 'M/D/YY':
-      return date.toLocaleDateString('en-US', {
+      return enUSDate(date, {
         month: 'numeric',
         day: 'numeric',
         year: '2-digit',
       });
     case 'Mon D, YYYY':
-      return date.toLocaleDateString('en-US', {
+      return enUSDate(date, {
         month: 'short',
         day: 'numeric',
         year: 'numeric',
       });
     case 'Mon D YYYY':
-      return date
-        .toLocaleDateString('en-US', {
-          month: 'short',
-          day: 'numeric',
-          year: 'numeric',
-        })
-        .replace(/,/g, '');
+      return enUSDate(date, {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      }).replace(/,/g, '');
     case 'Mon DD, YYYY':
-      return date.toLocaleDateString('en-US', {
+      return enUSDate(date, {
         month: 'short',
         day: '2-digit',
         year: 'numeric',
       });
     case 'Mon DD YYYY':
-      return date
-        .toLocaleDateString('en-US', {
-          month: 'short',
-          day: '2-digit',
-          year: 'numeric',
-        })
-        .replace(/,/g, '');
+      return enUSDate(date, {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric',
+      }).replace(/,/g, '');
     case 'YYYY-MM-DD':
       return date.toISOString().slice(0, 10);
     case 'ISO8601':
     case 'YYYY-MM-DDTHH:MM:SS.FFFZ':
       return date.toISOString();
     case 'Month D, YYYY':
-      return date.toLocaleDateString('en-US', {
+      return enUSDate(date, {
         month: 'long',
         day: 'numeric',
         year: 'numeric',
       });
     default:
-      return date.toLocaleDateString('en-US');
+      return enUSDate(date);
   }
 };
 
 const getDateWithOffset = (offsetDays: number): string =>
-  new Date(Date.now() + offsetDays * 24 * 60 * 60 * 1000).toLocaleDateString(
-    'en-US'
-  );
+  enUSDate(new Date(Date.now() + offsetDays * MILLISECONDS_IN_DAY));
 
 export const yesterday = () => getDateWithOffset(-1);
 export const today = () => getDateWithOffset(0);
@@ -92,7 +91,6 @@ const isDateWithOffset = (
 export const isYesterday = (date?: Date): boolean => isDateWithOffset(date, -1);
 export const isToday = (date?: Date): boolean => isDateWithOffset(date, 0);
 export const isTomorrow = (date?: Date): boolean => isDateWithOffset(date, 1);
-export const isAfterTomorrow = (date?: Date): boolean =>
-  isDateWithOffset(date, 2);
+export const isAfterTomorrow = (date?: Date): boolean => isDateWithOffset(date, 2);
 export const isNextWeek = (date?: Date): boolean => isDateWithOffset(date, 7);
 export const isNextMonth = (date?: Date): boolean => isDateWithOffset(date, 31);
