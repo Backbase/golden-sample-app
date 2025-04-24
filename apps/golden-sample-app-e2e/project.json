@@ -7,17 +7,31 @@
     "golden-sample-app"
   ],
   "targets": {
-    "e2e-chrome-mobile": {
+    "e2e-chrome-visual": {
       "executor": "@dot-build/serve-and-run-angular:run",
       "options": {
         "devServerTarget": "golden-sample-app:serve:mocks",
         "command": "npx playwright",
         "args": [
           "test",
-          "--config=playwright.localhost.config.ts",
+          "--config=playwright.config.ts",
           "--project=mobile-chrome",
           "--grep='@visual'",
           "--grep='@responsive'",
+          "--workers=2"
+        ]
+      }
+    },
+    "e2e-chrome-a11y": {
+      "executor": "@dot-build/serve-and-run-angular:run",
+      "options": {
+        "devServerTarget": "golden-sample-app:serve:mocks",
+        "command": "npx playwright",
+        "args": [
+          "test",
+          "--config=playwright.config.ts",
+          "--project=web-chrome",
+          "--grep='@a11y'",
           "--workers=2"
         ]
       }

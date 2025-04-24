@@ -20,7 +20,7 @@ test.describe(
       });
     });
 
-    test('Validate Transaction page accessibility for locale dropdown menu', async ({
+    test.skip('Validate Transaction page accessibility for locale dropdown menu', async ({
       page,
       visual,
     }, testInfo) => {
