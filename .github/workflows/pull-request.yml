@@ -65,22 +65,10 @@ jobs:
       - name: Run Playwright e2e responsive tests with mocks
         run: HOME=/root npm run e2e-test-responsive
 
-      - name: Generate Allure Report
-        if: ${{ success() || failure() }}
-        run: npm run report-generate
-
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
           path: reports/html-report/
-          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
-
-      - name: Upload Allure Report
-        uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: allure-report
-          path: allure-report/
           retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
