@@ -65,12 +65,6 @@ jobs:
         with:
           npm-auth-token: ${{ secrets.NPM_TOKEN }}
 
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
-
       - name: Install browsers if needed
         run: npx playwright install --with-deps chromium firefox webkit
         continue-on-error: true
