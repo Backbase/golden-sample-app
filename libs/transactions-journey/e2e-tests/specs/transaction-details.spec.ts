@@ -1,28 +1,35 @@
-import { expect, TestType } from '@playwright/test';
-import { TransactionFixture } from '../model/transaction';
+import { TestType } from '@playwright/test';
+import { TransactionDataType, TransactionFixture } from '../model/transaction';
 
 export function testTransactionDetails(
-  test: TestType<TransactionFixture, TransactionFixture>
+  test: TestType<TransactionFixture, TransactionFixture>,
+  testData: TransactionDataType
 ) {
   test.describe(
     'Transactions details',
-    { tag: ['@e2e', '@transactions', '@transactions-details'] },
+    { tag: ['@e2e', '@transactions', '@transactions-details', '@mocks'] },
     () => {
       test.beforeEach(
-        async ({ detailsPage, detailsData, detailsMocksSetup }) => {
-          await detailsMocksSetup();
-          await detailsPage.navigate(detailsData.id);
+        async ({ transactionDetailsPage, transactionMockSetup }) => {
+          await transactionMockSetup();
+          await transactionDetailsPage.open(testData.transactionDetails.id);
         }
       );
 
       test('should display correct transaction details', async ({
-        detailsPage,
-        detailsData,
+        transactionDetailsPage,
+        visual,
       }) => {
-        const details = await detailsPage.getDetails();
-        expect(details['Category:']).toEqual(detailsData.category);
-        expect(details['Description:']).toEqual(detailsData.description);
-        expect(details['Status:']).toEqual(detailsData.status);
+        await visual.step(
+          `Then validate Transactions details: ${JSON.stringify(
+            testData.transactionDetails
+          )}`,
+          async () => {
+            await transactionDetailsPage.details.validateDetails(
+              testData.transactionDetails
+            );
+          }
+        );
       });
     }
   );

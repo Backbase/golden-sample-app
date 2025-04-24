@@ -30,7 +30,7 @@ To run playwright tests the golden sample web app needs to be running. It can be
 - In terminal 2: `npm run start:mocks`
 - Navigate to [http://localhost:4201/](http://localhost:4201/) in your browser to view the app
 
-There are two ways to execute the tests. The first method is to use the npm commands (see [package.json](../../package.json)) or you can build up the command using `npx playwright test` followed by the test parameters, eg `npx playwright test --project 'mobile chrome --grep '@visual.+@responsive|@responsive.+@visual' --workers=2'`.
+There are two ways to execute the tests. The first method is to use the npm commands (see [package.json](../../package.json)) or you can build up the command using `npx playwright test` followed by the test parameters, eg `npx playwright test --project 'mobile chrome --grep '@visual' --grep '@responsive' --workers=2'`.
 
 ## Visual Tests
 

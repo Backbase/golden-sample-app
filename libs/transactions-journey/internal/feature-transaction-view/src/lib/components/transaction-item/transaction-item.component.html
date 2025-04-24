@@ -5,11 +5,11 @@
     'transactions-item__color-indication--negative': !isAmountPositive
   }"
 ></span>
-<span class="transactions-item__date">{{
+<span class="transactions-item__date" data-testid="date">{{
   transaction.bookingDate | date : 'MMM. d'
 }}</span>
 <span class="transactions-item__description">
-  <span class="transactions-item__counterParty"
+  <span class="transactions-item__counterParty" data-testid="recipient"
     >{{ transaction.counterPartyName || transaction.merchant?.name }}
     <img
       *ngIf="iconName"
@@ -33,6 +33,7 @@
 <span
   class="transactions-item__amount"
   [ngClass]="{ negative: !isAmountPositive }"
+  data-testid="amount"
 >
   <bb-amount-ui
     [currency]="transaction.transactionAmountCurrency.currencyCode"

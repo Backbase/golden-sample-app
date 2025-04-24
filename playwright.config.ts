@@ -1,8 +1,7 @@
 import { PlaywrightTestConfig, devices } from '@playwright/test';
-import { initA11yExpect } from './apps/golden-sample-app-e2e/utils/a11y/a11y-expect';
+import { allureConfig as allureReportConfig } from 'allure-report.config';
 import 'dotenv/config';
-
-initA11yExpect();
+import { playwrightHtmlReportConfig } from 'playwrigh-html-report.config';
 
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
@@ -10,16 +9,21 @@ const config: PlaywrightTestConfig = {
   testDir: './apps/golden-sample-app-e2e/specs/',
   retries: process.env['CI'] ? 1 : 0,
   grep: process.env['TEST_TAG'] ? RegExp(process.env['TEST_TAG']) : undefined,
-  outputDir: process.env['OUTPUT_DIR'] ?? './test-output',
+  outputDir: process.env['OUTPUT_DIR'] ?? 'reports/test-output',
   forbidOnly: !!process.env['CI'],
   workers: process.env['CI'] ? 4 : 1,
+  fullyParallel: true,
   expect: {
     timeout: (Number(process.env['EXPECT_TIMEOUT']) || 5) * 1000,
     toHaveScreenshot: {
       maxDiffPixelRatio: 0.01,
     },
   },
-  reporter: [['list'], ['allure-playwright'], ['html']],
+  reporter: [
+    ['list'], 
+    ['allure-playwright', allureReportConfig], 
+    ['html', playwrightHtmlReportConfig]
+  ],
   globalSetup: require.resolve(__dirname + '/global-setup.ts'),
   use: {
     trace: 'retain-on-failure',
@@ -42,7 +46,6 @@ const config: PlaywrightTestConfig = {
       name: 'web-chrome',
       use: {
         ...devices['Desktop Chrome'],
-        baseURL: 'http://localhost:4201',
         launchOptions: {
           chromiumSandbox: false,
           args: [
@@ -60,7 +63,6 @@ const config: PlaywrightTestConfig = {
       use: {
         ...devices['Nexus 7'],
         isMobile: true,
-        baseURL: 'http://localhost:4201',
       },
     },
   ],
@@ -68,13 +70,13 @@ const config: PlaywrightTestConfig = {
     {
       command: 'npm run mock-server',
       url: 'http://localhost:9999/dev-interface',
-      timeout: 30 * 1000,
+      timeout: 30_000,
       reuseExistingServer: false,
     },
     {
       command: 'npx nx serve -c=mocks --port=4201',
       url: 'http://localhost:4201/',
-      timeout: 120 * 1000,
+      timeout: 120_000,
       reuseExistingServer: false,
     },
   ],

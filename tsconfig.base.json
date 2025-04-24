@@ -29,6 +29,7 @@
       "@backbase-gsa/ach-positive-pay-journey/internal/ui": [
         "libs/ach-positive-pay-journey/internal/ui/src/index.ts"
       ],
+      "@backbase-gsa/e2e-tests": ["libs/shared/e2e-tests/index.ts"],
       "@backbase-gsa/internal-transactions-feature": [
         "libs/transactions-journey/feature/src/index.ts"
       ],

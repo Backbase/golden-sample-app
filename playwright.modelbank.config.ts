@@ -17,7 +17,6 @@ export default defineConfig<any>({
         ...devices['Desktop Chrome'],
         viewport: { width: 1723, height: 896 },
         configPath: join(__dirname, 'apps/golden-sample-app-e2e/config/ephemeral.config.json'), // config for login details
-        baseURL: process.env['REMOTE_URL'] ?? 'http://localhost:4200', // path to the ephemeral env 
       },
       testIgnore: /mocked-.*/, // we want to run every test here except mocked ones
     },

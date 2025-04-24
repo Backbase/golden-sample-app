@@ -1,32 +1,40 @@
-import { PlaywrightTestArgs } from '@playwright/test';
-import { TransactionDetailsPage } from '../page-object/transaction-details.page';
-import { TransactionsListPage } from '../page-object/transactions-list.page';
+import { VisualValidator } from '@backbase-gsa/e2e-tests';
+import { TransactionDetailsPage } from '../page-objects/pages/transaction-details-page';
+import { TransactionsPage } from '../page-objects/pages/transactions-list-page';
 
 export interface TransactionDataType {
-  transactionList: TransactionListDataType;
-  transactionDetails: TransactionDetailDataType;
+  transactionDetails: Partial<TransactionDetailsDataType>;
+  transactionList: TransactionsListDataType;
 }
 
-export interface TransactionListDataType {
+export interface TransactionsListDataType {
   size: number;
-  searchExpectations: Array<{ term: string; count: number }>;
+  searchExpectations: {
+    term: string;
+    count: number;
+    firstTransaction?: Partial<TransactionDetailsDataType>;
+  }[];
 }
-export interface TransactionDetailDataType {
+
+export interface Amount {
+  currency?: string;
+  value: string;
+}
+export interface TransactionDetailsDataType {
+  id: string;
   recipient: string;
+  date: Date | string;
+  amount: string | Amount;
   category: string;
   description: string;
   status: string;
-  id: string;
+  accountNumber: string;
 }
 
-export type TransactionFixture = {
-  detailsPage: TransactionDetailsPage;
-  detailsData: TransactionDetailDataType;
-  detailsMocksSetup: () => void | Promise<void>;
-
-  listPage: TransactionsListPage;
-  listData: TransactionListDataType;
-  listMocksSetup: () => void | Promise<void>;
-
-  useMocks: boolean;
-} & PlaywrightTestArgs;
+export interface TransactionFixture {
+  visual: VisualValidator;
+  transactionMockSetup: () => void | Promise<void>;
+  transactionsMockSetup: () => void | Promise<void>;
+  transactionDetailsPage: TransactionDetailsPage;
+  transactionsPage: TransactionsPage;
+}

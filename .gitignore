@@ -53,6 +53,10 @@ test-results/
 playwright-report/
 .ngapimock
 allure-results/
+allure-report/
 test-output/
 .nx
 accessibility-reports/
+.allure
+*darwin.png
+reports

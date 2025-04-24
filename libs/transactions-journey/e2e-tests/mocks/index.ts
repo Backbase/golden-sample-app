@@ -19,13 +19,13 @@ const transactionsMocks = {
   '**/v2/transactions': loadMockFile('./transactions-list.json'),
 };
 
-export const defaultListMocks = {
+export const defaultTransactionsMock = {
   ...accessControlMocks,
   ...arrangementsMocks,
   ...transactionsMocks,
 };
 
-export const defaultDetailsMocks = {
+export const defaultTransactionMock = {
   ...accessControlMocks,
   ...arrangementsMocks,
   ...transactionsMocks,
