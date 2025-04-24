@@ -12,9 +12,23 @@ env:
   ARTIFACT_RETENTION_DAYS: 7
 
 jobs:
+  get-playwright-version:
+    name: "Get Playwright Version"
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Get Playwright version
+        id: get-version
+        run: |
+          VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Using Playwright version: $VERSION"
+
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
         with:
@@ -93,4 +107,12 @@ jobs:
         with:
           name: allure-report
           path: allure-report/
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+
+      - name: Upload Accessibility Reports
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: accessibility-report
+          path: reports/accessibility-reports/
           retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
