@@ -11,6 +11,10 @@ on:
 env:
   ARTIFACT_RETENTION_DAYS: 7
 
+# Set minimal required permissions
+permissions:
+  contents: read
+
 jobs:
   get-playwright-version:
     name: "Get Playwright Version"
