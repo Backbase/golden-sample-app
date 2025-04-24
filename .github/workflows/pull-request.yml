@@ -8,7 +8,7 @@ on:
     branches:
       - main
 env:
-  ARTIFACT_RETENTION_DAYS: 7
+  RETENTION_DAYS: 7
   PLAYWRIGHT_VERSION: 1.52.0
 
 jobs:
@@ -58,18 +58,15 @@ jobs:
       - name: Install browsers
         run: npx playwright install --with-deps chromium firefox webkit
         shell: bash
+      
+      - name: Run Playwright e2e tests
+        run: HOME=/root npm run e2e
 
-      - name: Run Playwright e2e tests with mocks
-        run: npm run e2e-test-mocks
-
-      - name: Run Playwright e2e Responsiveness
-        if: ${{ success() || failure() }}
-        run: npm run e2e-test-responsive
-
-      - name: Run Playwright e2e Accessibility
-        if: ${{ success() || failure() }}
-        run: npm run e2e-test-a11y
-
-      - name: Run Playwright e2e tests sandbox
-        if: ${{ success() || failure() }}
-        run: npm run e2e-test-sndbx-ci
+      - name: Run Playwright e2e responsive tests with mocks
+        run: HOME=/root npm run e2e-test-responsive
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: ${{ env.RETENTION_DAYS }}
