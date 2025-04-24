@@ -93,7 +93,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ needs.get-playwright-version.outputs.version }}
+          key: ${{ runner.os }}-playwright-1.52.0
 
       - name: Install browsers
         run: npx playwright install --with-deps chromium firefox webkit
