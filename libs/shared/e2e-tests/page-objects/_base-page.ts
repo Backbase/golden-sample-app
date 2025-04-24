@@ -1,17 +1,22 @@
-import { expect, Page, test } from '@playwright/test';
-import { VisualValidator } from '../utils';
+import { Page, test, TestInfo } from '@playwright/test';
+import { VisualValidator, joinUrl, expect } from '../utils';
 import { PageInfo } from './page-info';
-import { joinUrl } from '../utils/url-utils';
 
 export abstract class BasePage implements PageInfo {
   readonly url: string;
   readonly title: string | RegExp;
+  get testInfo(): TestInfo {
+    if (!this.options?.testInfo) {
+      throw new Error(`testInfo for ${this.pageName} is not defined`);
+    }
+    return this.options.testInfo;
+  }
   get pageName(): string {
     return this.getPageName(this);
   }
   get visual(): VisualValidator {
     if (!this.options?.visual) {
-      throw new Error(`Visual validator for ${this.pageName} is not defined`);
+      throw new Error(`visual for ${this.pageName} is not defined`);
     }
     return this.options.visual;
   }
@@ -26,12 +31,13 @@ export abstract class BasePage implements PageInfo {
 
   constructor(
     public page: Page,
-    readonly options?: Partial<{
-      baseURL: string;
-      url: string;
-      title: string | RegExp;
-      visual: VisualValidator;
-    }>
+    readonly options: {
+      baseURL?: string;
+      url?: string;
+      title?: string | RegExp;
+      visual?: VisualValidator;
+      testInfo?: TestInfo;
+    }
   ) {
     this.url = this.options?.baseURL
       ? `${joinUrl(this.options.baseURL, this.options.url)}`
@@ -56,6 +62,13 @@ export abstract class BasePage implements PageInfo {
     if (this.title) {
       await expect(this.page).toHaveTitle(this.title);
     }
+  }
+
+  async toBeAccessible(options?: { disableRules?: string[] }) {
+    await test.step(`Validate ${this.pageName} page accessibility`, async () => {
+      const { page, testInfo } = this;
+      await expect({ page, testInfo }).toBeAccessible(options);
+    });
   }
 
   protected getPageName(page: object): string {

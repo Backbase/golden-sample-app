@@ -1,13 +1,16 @@
-import { Locator, Page } from '@playwright/test';
-import { isLocator } from '../../../shared/e2e-tests/utils/playwright-utils';
+import { Locator, Page, test, TestInfo } from '@playwright/test';
 import { BasePage } from './_base-page';
-import { VisualValidator } from '../utils';
+import { VisualValidator, isLocator, expect } from '../utils';
 import { PageInfo } from './page-info';
 
 export abstract class BaseComponent implements PageInfo {
   readonly page: Page;
   readonly rootLocator: Locator | undefined;
-  get root(): Locator {
+  get elementLocator(): string {
+    const locatorString = this.element.toString();
+    return locatorString.replace(/^locator\(['"](.*)['"]\).*$/, '$1');
+  }
+  get element(): Locator {
     if (!this.rootLocator) {
       throw new Error('Root element is Page not a Locator');
     }
@@ -19,11 +22,17 @@ export abstract class BaseComponent implements PageInfo {
     }
     return this.options.visual;
   }
+  get testInfo(): TestInfo {
+    if (!this.options?.testInfo) {
+      throw new Error('TestInfo is not defined');
+    }
+    return this.options.testInfo;
+  }
   locator(selector: string, options?: { hasText: string }) {
     return this.page.locator(selector, options).locator('visible=true');
   }
   child(selector: string, options?: { hasText: string }) {
-    return this.root.locator(selector, options).locator('visible=true');
+    return this.element.locator(selector, options).locator('visible=true');
   }
   byTestId(selector: string, options?: { hasText: string }) {
     return this.locator(`[data-testid="${selector}"]`, options);
@@ -34,7 +43,7 @@ export abstract class BaseComponent implements PageInfo {
 
   constructor(
     rootElement: Locator | Page | PageInfo,
-    readonly options?: { visual: VisualValidator }
+    readonly options?: PageInfo
   ) {
     if (isLocator(rootElement)) {
       this.page = rootElement.page();
@@ -44,9 +53,22 @@ export abstract class BaseComponent implements PageInfo {
     if (Object.keys(rootElement).includes('page')) {
       const pageInfo = rootElement as BasePage;
       this.page = pageInfo.page;
-      this.options = { visual: pageInfo.visual };
       return;
     }
     this.page = rootElement as Page;
+  }
+
+  async toBeAccessible(options?: { disableRules?: string[] }) {
+    await test.step(`Validate ${this.elementLocator} accessibility`, async () => {
+      const { page, testInfo } = this;
+      const { disableRules } = options || {};
+      if (!testInfo) {
+        throw new Error('TestInfo is required for accessibility testing');
+      }
+      await expect({ page, testInfo }).toBeAccessible({
+        include: this.elementLocator,
+        disableRules,
+      });
+    });
   }
 }

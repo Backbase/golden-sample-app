@@ -2,11 +2,11 @@ import { BaseComponent, PageInfo } from '@backbase-gsa/e2e-tests';
 import { TransactionsItem } from './transaction-item';
 
 export class Transactions extends BaseComponent {
-  getByIndex = (index: number) => new TransactionsItem(this.root.nth(index));
+  getByIndex = (index: number) => new TransactionsItem(this.element.nth(index));
   getFirst = () => this.getByIndex(0);
 
   get items() {
-    return this.root;
+    return this.element;
   }
 
   constructor(pageObject: PageInfo) {

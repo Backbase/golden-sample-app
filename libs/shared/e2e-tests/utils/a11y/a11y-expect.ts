@@ -9,7 +9,10 @@ import { A11yScanner, timeID } from '@backbase-gsa/e2e-tests';
 export const expect = baseExpect.extend({
   async toBeAccessible(
     pageObject: { page: Page; testInfo: TestInfo },
-    options?: { include?: Locator | string; disableRules?: string[] }
+    options?: {
+      include?: Locator | string;
+      disableRules?: string[];
+    }
   ): Promise<{ message: () => string; pass: boolean }> {
     const axeScanner = new A11yScanner(
       pageObject.page,
