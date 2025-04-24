@@ -13,21 +13,6 @@ env:
   PLAYWRIGHT_VERSION: 1.52.0
 
 jobs:
-  get-playwright-version:
-    name: "Get Playwright Version"
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.get-version.outputs.version }}
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Get Playwright version
-        id: get-version
-        run: |
-          VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Using Playwright version: $VERSION"
-
   build:
     name: "Build and Validate"
     runs-on: ubuntu-latest
