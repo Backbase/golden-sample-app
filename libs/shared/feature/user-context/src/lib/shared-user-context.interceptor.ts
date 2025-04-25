@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Inject, Injectable } from '@angular/core';
-import { UserContextService } from './user-context.service';
+import { SharedUserContextService } from './shared-user-context.service';
 import {
   Environment,
   ENVIRONMENT_CONFIG,
@@ -18,10 +18,10 @@ import {
  * to each outgoing request whose URL starts with the configured API root.
  */
 @Injectable()
-export class UserContextInterceptor implements HttpInterceptor {
+export class SharedUserContextInterceptor implements HttpInterceptor {
   private readonly apiRoot: string;
   constructor(
-    private readonly userContextService: UserContextService,
+    private readonly userContextService: SharedUserContextService,
     @Inject(ENVIRONMENT_CONFIG) environment: Environment
   ) {
     this.apiRoot = environment.apiRoot.endsWith('/')

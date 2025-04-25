@@ -11,7 +11,7 @@ import { AccountSelectorItem } from './initiator.model';
 import { InitiatorService } from './initiator.service';
 
 @Component({
-  selector: 'lib-payment-initiator',
+  selector: 'bb-payment-initiator',
   template: `
     <div [ngClass]="options.cssClasses || ''">
       <label class="d-block">

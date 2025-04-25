@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { UserContextGuard } from './user-context.guard';
+import { SharedUserContextGuard } from './shared-user-context.guard';
 import {
   ActivatedRouteSnapshot,
   Router,
@@ -39,7 +39,10 @@ describe('UserContextGuard', () => {
       validationRequestMarbles ? cold(validationRequestMarbles) : of(<any>{})
     );
 
-    return new UserContextGuard(mockRouter, mockServiceAgreementHttpService);
+    return new SharedUserContextGuard(
+      mockRouter,
+      mockServiceAgreementHttpService
+    );
   }
 
   beforeEach(() => {

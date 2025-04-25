@@ -29,7 +29,7 @@ export const USER_CONTEXT_KEY = 'bb-user-context';
 @Injectable({
   providedIn: 'root',
 })
-export class UserContextService {
+export class SharedUserContextService {
   private readonly store: UserContextStorage;
 
   constructor(

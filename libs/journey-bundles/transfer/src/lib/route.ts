@@ -1,5 +1,5 @@
 import { AuthGuard } from '@backbase-gsa/shared/feature/auth';
-import { UserContextGuard } from '@backbase-gsa/shared/feature/user-context';
+import { SharedUserContextGuard } from '@backbase-gsa/shared/feature/user-context';
 
 export const TRANSFER_ROUTE = {
   path: 'transfer',
@@ -7,5 +7,5 @@ export const TRANSFER_ROUTE = {
     import('./transfer-journey-bundle.module').then(
       (m) => m.TransferJourneyBundleModule
     ),
-  canActivate: [AuthGuard, UserContextGuard],
+  canActivate: [AuthGuard, SharedUserContextGuard],
 };

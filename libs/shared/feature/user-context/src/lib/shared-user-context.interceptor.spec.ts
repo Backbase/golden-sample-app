@@ -3,16 +3,28 @@ import { HttpHandler, HttpRequest } from '@angular/common/http';
 import { EMPTY } from 'rxjs';
 import { MemoryStorage } from 'angular-oauth2-oidc';
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { UserContextInterceptor } from './user-context.interceptor';
-import { UserContextService } from './user-context.service';
+import { SharedUserContextInterceptor } from './shared-user-context.interceptor';
+import { SharedUserContextService } from './shared-user-context.service';
+import { Environment } from '@backbase-gsa/shared/util/config';
 
 describe('UserContextInterceptor', () => {
   function setupInterceptor(
     { apiRoot }: { apiRoot: string } = { apiRoot: '/whatever' }
   ) {
-    const userContextService = new UserContextService(new MemoryStorage());
+    const environment: Environment = {
+      apiRoot,
+      production: false,
+      locales: [],
+      common: { designSlimMode: false },
+    };
+    const userContextService = new SharedUserContextService(
+      new MemoryStorage()
+    );
 
-    const interceptor = new UserContextInterceptor(userContextService, apiRoot);
+    const interceptor = new SharedUserContextInterceptor(
+      userContextService,
+      environment
+    );
 
     const nextHandler = jest.mocked<HttpHandler>({
       handle: jest.fn(),
@@ -33,7 +45,7 @@ describe('UserContextInterceptor', () => {
   });
 
   function execute(
-    interceptor: UserContextInterceptor,
+    interceptor: SharedUserContextInterceptor,
     nextHandler: jest.Mocked<HttpHandler>,
     requestUrl: string
   ): HttpRequest<any> | undefined {

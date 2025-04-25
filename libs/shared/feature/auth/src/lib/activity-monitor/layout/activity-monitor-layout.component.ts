@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-activity-monitor-layout',
+  selector: 'bb-activity-monitor-layout',
   templateUrl: './activity-monitor-layout.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

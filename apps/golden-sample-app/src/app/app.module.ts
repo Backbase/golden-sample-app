@@ -46,7 +46,7 @@ import { AppErrorHandler } from './app.error-handler';
 import { AnalyticsService } from './services/analytics.service';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
-import { UserContextInterceptor } from './user-context/user-context.interceptor';
+import { SharedUserContextInterceptor } from '@backbase-gsa/shared/feature/user-context';
 import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
 import packageInfo from 'package-json';
 import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
@@ -108,7 +108,7 @@ import { NavigationMenuModule } from './navigation-menu/navigation-menu.module';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: UserContextInterceptor,
+      useClass: SharedUserContextInterceptor,
       multi: true,
     },
     {

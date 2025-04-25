@@ -8,7 +8,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { filter, map, share, take } from 'rxjs';
 
 @Component({
-  selector: 'app-activity-monitor',
+  selector: 'bb-activity-monitor',
   templateUrl: './activity-monitor.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,4 +1,7 @@
-import { USER_CONTEXT_KEY, UserContextService } from './user-context.service';
+import {
+  USER_CONTEXT_KEY,
+  SharedUserContextService,
+} from './shared-user-context.service';
 import { MemoryStorage } from 'angular-oauth2-oidc';
 
 describe('UserContextService', () => {
@@ -10,7 +13,10 @@ describe('UserContextService', () => {
     function configureService() {
       const userContextStore = new MemoryStorage();
       const oAuthStore = new MemoryStorage();
-      const service = new UserContextService(userContextStore, oAuthStore);
+      const service = new SharedUserContextService(
+        userContextStore,
+        oAuthStore
+      );
       return { userContextStore, oAuthStore, service };
     }
 
@@ -61,7 +67,7 @@ describe('UserContextService', () => {
   describe('when no explicit UserContextStorage is configured and an OAuthStorage is configured', () => {
     function configureService() {
       const oAuthStore = new MemoryStorage();
-      const service = new UserContextService(undefined, oAuthStore);
+      const service = new SharedUserContextService(undefined, oAuthStore);
       return { oAuthStore, service };
     }
 
@@ -97,7 +103,7 @@ describe('UserContextService', () => {
 
   describe('when no explicit UserContextStorage or OAuthStorage are configured', () => {
     function configureService() {
-      const service = new UserContextService(undefined, undefined);
+      const service = new SharedUserContextService(undefined, undefined);
       return { service };
     }
 
