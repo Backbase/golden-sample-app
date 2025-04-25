@@ -3,6 +3,7 @@ import { ConditionsService } from '@backbase/foundation-ang/entitlements';
 import {
   NAVIGATION_MENU_CONFIG,
   NavigationDynamicComponent,
+  NavigationItemIconPosition,
   NavigationMenuGroup,
   NavigationMenuItem,
 } from '@backbase-gsa/shared/util/app-core';
@@ -18,6 +19,7 @@ export class DynamicNavigationMenuComponent {
   );
 
   private readonly conditionsService = inject(ConditionsService);
+  protected readonly NavigationItemIconPosition = NavigationItemIconPosition;
 
   isNavigationGroup(item: NavigationMenuItem): item is NavigationMenuGroup {
     return 'children' in item;

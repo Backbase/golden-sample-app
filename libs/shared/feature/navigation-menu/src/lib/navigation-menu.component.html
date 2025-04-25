@@ -159,8 +159,20 @@
     tabindex="0"
     [id]="menuItem | menuItemId"
   >
+    @if (menuItem.icon?.position === NavigationItemIconPosition.START) {
+    <bb-icon-ui
+      class="bb-layout__horizontal-nav-item-icon"
+      [name]="menuItem.icon?.name"
+    ></bb-icon-ui>
+    }
     <span class="bb-layout__horizontal-nav-item-description">{{
       menuItem.name
     }}</span>
+    @if (menuItem.icon?.position === NavigationItemIconPosition.END) {
+    <bb-icon-ui
+      class="bb-layout__horizontal-nav-item-icon"
+      [name]="menuItem.icon?.name"
+    ></bb-icon-ui>
+    }
   </a>
 </ng-template>
