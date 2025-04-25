@@ -57,7 +57,9 @@ describe('DynamicNavigationMenuComponent', () => {
         id: faker.string.alpha(),
         name: faker.string.alpha(),
         group: dropdownItemId,
-        component: new Promise<StubDynamicComponent>(null),
+        component: new Promise<StubDynamicComponent>((resolve) =>
+          resolve(new StubDynamicComponent())
+        ),
       },
     ];
 
