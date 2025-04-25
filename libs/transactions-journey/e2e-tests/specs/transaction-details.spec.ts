@@ -12,7 +12,7 @@ export function testTransactionDetails(
       test.beforeEach(
         async ({ transactionDetailsPage, transactionMockSetup }) => {
           await transactionMockSetup();
-          await transactionDetailsPage.open(testData.transactionDetails.id);
+          // await transactionDetailsPage.open(testData.transactionDetails.id);
         }
       );
 

@@ -84,7 +84,6 @@ jobs:
           npm-auth-token: ${{ secrets.NPM_TOKEN }}
 
       - name: Cache Playwright browsers
-        if: ${{ success() || failure() }}
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
@@ -95,7 +94,6 @@ jobs:
         shell: bash
 
       - name: Run Playwright e2e tests with mocks
-        if: ${{ success() || failure() }}
         run: npm run e2e-test-mocks
 
       - name: Run Playwright e2e Responsiveness
