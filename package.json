@@ -32,7 +32,7 @@
     "docs:build": "markdown-include .markdown.json",
     "prepare": "npx nx g extract-e2e-tests",
     "report-generate": "npx allure awesome reports/allure-results --single-file",
-    "report": "npm run allure-report-generate && allure open",
+    "report": "npm run report-generate && allure open",
     "report-allure-old": "allure generate reports/allure-results --clean && allure open",
     "report:playwright": "npx playwright show-report reports/html-report",
     "kill-mocks": "lsof -ti:9999 | xargs kill -9",
