@@ -9,6 +9,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 @Component({
   selector: 'app-user-context',
   templateUrl: './user-context.component.html',
+  standalone: false,
 })
 export class UserContextComponent {
   constructor(

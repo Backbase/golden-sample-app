@@ -27,7 +27,6 @@ import { ActivatedRoute } from '@angular/router';
     CurrencyInputModule,
     ButtonModule,
   ],
-  standalone: true,
 })
 export class MakeTransferFormComponent implements OnInit {
   @Input() account: Account | undefined;

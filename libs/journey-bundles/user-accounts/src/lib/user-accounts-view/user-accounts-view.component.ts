@@ -9,6 +9,7 @@ import {
 @Component({
   selector: 'app-user-accounts-view',
   templateUrl: './user-accounts-view.component.html',
+  standalone: false,
 })
 export class UserAccountsViewComponent {
   public arrangements$;

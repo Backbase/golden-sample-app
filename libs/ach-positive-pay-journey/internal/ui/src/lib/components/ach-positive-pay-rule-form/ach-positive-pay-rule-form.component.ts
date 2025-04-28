@@ -16,7 +16,6 @@ import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase-gsa/ach-positive-pay-jo
     InputTextModule,
     ReactiveFormsModule,
   ],
-  standalone: true,
 })
 export class AchPositivePayRuleFormComponent {
   @Input() form!: FormGroup;

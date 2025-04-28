@@ -10,6 +10,7 @@ type Locale = (typeof localesCatalog)[string];
 @Component({
   selector: 'app-locale-selector',
   templateUrl: 'locale-selector.component.html',
+  standalone: false,
 })
 export class LocaleSelectorComponent implements OnInit {
   localesCatalog: Locale[] = [];

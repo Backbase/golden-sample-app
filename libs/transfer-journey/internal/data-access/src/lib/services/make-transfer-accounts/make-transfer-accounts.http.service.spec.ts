@@ -32,7 +32,7 @@ describe('MakeTransferAccountHttpService', () => {
     });
 
     const req = httpMock.expectOne(
-      '/client-api/v2/productsummary/context/arrangements?businessFunction=Product%20Summary&resourceName=Product%20Summary&privilege=view&size=1000000'
+      '/api/arrangement-manager/client-api/v2/productsummary/context/arrangements?businessFunction=Product%20Summary&resourceName=Product%20Summary&privilege=view&size=1000000'
     );
     expect(req.request.method).toBe('GET');
     req.flush(account);
