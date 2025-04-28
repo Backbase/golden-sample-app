@@ -1,6 +1,5 @@
 import { Component, Optional } from '@angular/core';
 import { LayoutService } from '@backbase/ui-ang/layout';
-import { triplets } from './services/entitlementsTriplets';
 import { OAuthService } from 'angular-oauth2-oidc';
 import {
   LogoutTrackerEvent,
@@ -14,7 +13,6 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  triplets = triplets;
   isAuthenticated = false;
 
   constructor(

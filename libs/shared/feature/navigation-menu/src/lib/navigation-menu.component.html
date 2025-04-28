@@ -1,0 +1,178 @@
+<ul class="bb-layout__horizontal-nav no-print">
+  @for (menuItem of navigationMenu; track $index) {
+  <ng-container *ngIf="resolveEntitlements(menuItem.permissions) | async">
+    @if (isNavigationGroup(menuItem)) {
+    <li>
+      <ng-template
+        *ngTemplateOutlet="dropdownTemplate; context: { menuItem: menuItem }"
+      />
+    </li>
+    } @else {
+    <li class="bb-layout__horizontal-nav-item">
+      <ng-template
+        *ngTemplateOutlet="
+          isNavigationDynamicComponent(menuItem)
+            ? dynamicItemTemplate
+            : linkItemTemplate;
+          context: { menuItem: menuItem }
+        "
+      />
+    </li>
+    }
+  </ng-container>
+  }
+</ul>
+
+<ng-template #dropdownTemplate let-menuItem="menuItem">
+  <div
+    class="bb-layout__horizontal-nav-item"
+    [class.bb-layout__horizontal-nav-item--secondary]="menuItem.minifiable"
+    ngbDropdown
+    #baseDropdown="ngbDropdown"
+    bbLayoutNavDropdown
+    #dropdownNavItem="bbLayoutNavDropdown"
+  >
+    <a
+      ngbDropdownToggle
+      class="bb-layout__horizontal-nav-link"
+      href="javascript:;"
+      tabindex="0"
+      [class.bb-layout__horizontal-nav-link--expanded]="
+        baseDropdown.isOpen() || dropdownNavItem.isActive
+      "
+      [attr.aria-expanded]="baseDropdown.isOpen()"
+      [id]="menuItem | menuItemId"
+      role="button"
+    >
+      <span class="bb-layout__horizontal-nav-item-description">
+        {{ menuItem.name }}
+      </span>
+      @if (menuItem.minifiable) {
+      <bb-icon-ui
+        class="bb-layout__horizontal-nav-item-icon"
+        name="ellipsis-h"
+      ></bb-icon-ui>
+      } @else {
+      <bb-icon-ui
+        class="bb-layout__horizontal-nav-expand-marker bb-layout__horizontal-nav-expand-marker--vertical"
+        [name]="baseDropdown.isOpen() ? 'toggle-up' : 'toggle-down'"
+      ></bb-icon-ui>
+      }
+      <bb-icon-ui
+        class="bb-layout__horizontal-nav-expand-marker bb-layout__horizontal-nav-expand-marker--horizontal"
+        name="chevron-right"
+      ></bb-icon-ui>
+    </a>
+
+    <section
+      ngbDropdownMenu
+      class="bb-layout__horizontal-nav-submenu flex-column"
+      tabindex="-1"
+      [attr.aria-labelledby]="menuItem | menuItemId"
+    >
+      <button
+        bbButton
+        class="bb-layout__horizontal-nav-submenu-header"
+        (click)="baseDropdown.close()"
+      >
+        <bb-icon-ui
+          class="bb-layout__horizontal-nav-submenu--close"
+          name="angle-left"
+          size="lg"
+        ></bb-icon-ui>
+        <span class="bb-layout__horizontal-nav-submenu--text">{{
+          menuItem.name
+        }}</span>
+      </button>
+      @for (submenu of menuItem.children; track $index) {
+      <ng-container *ngIf="resolveEntitlements(submenu.permissions) | async">
+        @if (isNavigationDynamicComponent(submenu)) {
+        <ng-container *ngIf="submenu.component | async as triggerItem">
+          <a
+            ngbDropdownItem
+            href="javascript:;"
+            class="bb-layout__horizontal-nav-submenu-link"
+            [attr.data-role]="
+              submenu.elementId ? submenu.elementId + '-nav-menu-item' : null
+            "
+            [id]="submenu | menuItemId"
+          >
+            <ng-container *ngComponentOutlet="$any(triggerItem)"></ng-container>
+            <span class="bb-layout__horizontal-nav-submenu-item-label">
+              <span class="bb-layout__horizontal-nav-submenu-title">{{
+                submenu.name
+              }}</span>
+            </span>
+          </a>
+        </ng-container>
+        } @else {
+        <a
+          class="bb-layout__horizontal-nav-submenu-link"
+          ngbDropdownItem
+          routerLinkActive="bb-layout__horizontal-nav-submenu-link--active"
+          [routerLink]="submenu.route"
+          ariaCurrentWhenActive="page"
+          [id]="submenu | menuItemId"
+        >
+          <div class="bb-layout__bb-horizontal-nav-submenu-item-label">
+            <div class="bb-layout__bb-horizontal-nav-submenu-title">
+              {{ submenu.name }}
+            </div>
+          </div>
+        </a>
+        }
+      </ng-container>
+      }
+    </section>
+  </div>
+</ng-template>
+
+<ng-template #dynamicItemTemplate let-menuItem="menuItem">
+  <ng-container *ngIf="menuItem.component | async as triggerItem">
+    <a
+      ngbDropdownItem
+      href="javascript:;"
+      class="bb-layout__horizontal-nav-link"
+      routerLinkActive="bb-layout__horizontal-nav-link--active"
+      ariaCurrentWhenActive="page"
+      tabindex="0"
+      role="button"
+      [attr.data-role]="
+        menuItem.elementId ? menuItem.elementId + '-nav-menu-item' : null
+      "
+      [id]="menuItem | menuItemId"
+    >
+      <ng-container *ngComponentOutlet="$any(triggerItem)"></ng-container>
+      <span class="bb-layout__horizontal-nav-item-description">{{
+        menuItem.name
+      }}</span>
+    </a>
+  </ng-container>
+</ng-template>
+
+<ng-template #linkItemTemplate let-menuItem="menuItem">
+  <a
+    class="bb-layout__horizontal-nav-link"
+    [routerLink]="menuItem.route"
+    routerLinkActive="bb-layout__horizontal-nav-link--active"
+    ariaCurrentWhenActive="page"
+    tabindex="0"
+    [id]="menuItem | menuItemId"
+  >
+    @if (menuItem.icon?.position === NavigationItemIconPosition.START) {
+    <bb-icon-ui
+      class="bb-layout__horizontal-nav-item-icon"
+      [name]="menuItem.icon?.name"
+    ></bb-icon-ui>
+    }
+    <span class="bb-layout__horizontal-nav-item-description">{{
+      menuItem.name
+    }}</span>
+    @if (menuItem.icon?.position === NavigationItemIconPosition.END) {
+    <bb-icon-ui
+      class="bb-layout__horizontal-nav-item-icon"
+      [name]="menuItem.icon?.name"
+    ></bb-icon-ui>
+    }
+  </a>
+</ng-template>

@@ -2,9 +2,11 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserContextComponent } from './user-context.component';
 import { Router } from '@angular/router';
-import { UserContextGuard } from './user-context.guard';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { UserContextService } from './user-context.service';
+import {
+  SharedUserContextGuard,
+  SharedUserContextService,
+} from '@backbase-gsa/shared/feature/user-context';
 
 describe('UserContextComponent', () => {
   let fixture: ComponentFixture<UserContextComponent>;
@@ -12,12 +14,12 @@ describe('UserContextComponent', () => {
     navigateByUrl: jest.fn(),
   };
   const mockUserContextService: jest.Mocked<
-    Pick<UserContextService, 'setServiceAgreementId'>
+    Pick<SharedUserContextService, 'setServiceAgreementId'>
   > = {
     setServiceAgreementId: jest.fn(),
   };
   const mockUserContextGuard: jest.Mocked<
-    Pick<UserContextGuard, 'getTargetUrl'>
+    Pick<SharedUserContextGuard, 'getTargetUrl'>
   > = {
     getTargetUrl: jest.fn(),
   };
@@ -30,8 +32,8 @@ describe('UserContextComponent', () => {
       declarations: [UserContextComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        { provide: UserContextService, useValue: mockUserContextService },
-        { provide: UserContextGuard, useValue: mockUserContextGuard },
+        { provide: SharedUserContextService, useValue: mockUserContextService },
+        { provide: SharedUserContextGuard, useValue: mockUserContextGuard },
         { provide: OAuthService, useValue: mockOAuthService },
         { provide: Router, useValue: mockRouter },
       ],

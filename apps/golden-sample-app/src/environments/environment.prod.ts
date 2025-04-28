@@ -1,5 +1,5 @@
+import { Environment } from '@backbase-gsa/shared/util/config';
 import { AuthConfig } from 'angular-oauth2-oidc';
-import { Environment } from './type';
 
 export const environment: Environment = {
   production: true,

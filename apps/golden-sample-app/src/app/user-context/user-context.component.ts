@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  SharedUserContextGuard,
+  SharedUserContextService,
+} from '@backbase-gsa/shared/feature/user-context';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { UserContextGuard } from './user-context.guard';
-import { UserContextService } from './user-context.service';
 
 @Component({
   selector: 'app-user-context',
@@ -10,8 +12,8 @@ import { UserContextService } from './user-context.service';
 })
 export class UserContextComponent {
   constructor(
-    private userContextService: UserContextService,
-    private userContextGuard: UserContextGuard,
+    private userContextService: SharedUserContextService,
+    private userContextGuard: SharedUserContextGuard,
     private authService: OAuthService,
     private router: Router
   ) {}

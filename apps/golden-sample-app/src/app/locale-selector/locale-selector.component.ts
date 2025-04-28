@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { LOCALES_LIST, LocalesService } from './locales.service';
 import { localesCatalog } from './locales-catalog';
+import {
+  LOCALES_LIST,
+  LocalesService,
+} from '@backbase-gsa/shared/util/app-core';
 
 type Locale = (typeof localesCatalog)[string];
 
