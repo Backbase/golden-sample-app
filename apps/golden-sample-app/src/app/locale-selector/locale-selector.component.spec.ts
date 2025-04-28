@@ -1,6 +1,6 @@
 import { LocaleSelectorComponent } from './locale-selector.component';
 import { localesCatalog } from './locales-catalog';
-import { LocalesService } from './locales.service';
+import { LocalesService } from '@backbase-gsa/shared/util/app-core';
 
 describe('bb-locale-selector', () => {
   let component: LocaleSelectorComponent;

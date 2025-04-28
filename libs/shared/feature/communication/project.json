@@ -1,0 +1,20 @@
+{
+  "name": "shared-feature-communication",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/feature/communication/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:feature", "region:agnostic"],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/shared/feature/communication/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
