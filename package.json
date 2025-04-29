@@ -52,13 +52,13 @@
     "@angular/router": "19.2.8",
     "@backbase/accesscontrol-v3-http-ang": "4.0.0",
     "@backbase/arrangement-manager-http-ang": "5.2.0",
-    "@backbase/foundation-ang": "12.2.0",
+    "@backbase/foundation-ang": "^12.0.0",
     "@backbase/identity-auth": "^6.0.0",
     "@backbase/initiate-payment-journey-ang": "7.0.0-rc.2",
     "@backbase/internal-identity-model": "^6.0.0",
     "@backbase/select-context": "11.0.0",
     "@backbase/transactions-http-ang": "5.1.0",
-    "@backbase/ui-ang": "14.0.0-beta.11",
+    "@backbase/ui-ang": "^13.0.0",
     "@material/animation": "^14.0.0",
     "@ng-bootstrap/ng-bootstrap": "^18.0.0",
     "@ng-select/ng-select": "^14.0.0",
@@ -149,9 +149,6 @@
     "webpack-bundle-analyzer": "^4.5.0"
   },
   "overrides": {
-    "@backbase/foundation-ang": "12.2.0",
-    "@backbase/accesscontrol-v3-http-ang": "4.0.0",
-    "@backbase/ui-ang": "14.0.0-beta.11",
     "@backbase/forex-journey-shared-ang": "2.0.0-rc.2",
     "@backbase/internal-forex-shared": "2.0.0-rc.1",
     "@backbase/forex-journey-ang": "2.0.0-rc.2"
