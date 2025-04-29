@@ -68,7 +68,7 @@
     "@ngx-formly/core": "^6.3.12",
     "@popperjs/core": "^2.10.2",
     "angular-oauth2-oidc": "^17.0.0",
-    "bignumber.js": "^9.1.1",
+    "bignumber.js": "^9.3.0",
     "bootstrap": "^5.3.0",
     "ngx-cookie-service": "^18.0.0",
     "ngx-mask": "^18.0.0",
