@@ -147,10 +147,5 @@
     "tslib": "^2.4.0",
     "typescript": "5.7.3",
     "webpack-bundle-analyzer": "^4.5.0"
-  },
-  "overrides": {
-    "@backbase/forex-journey-shared-ang": "2.0.0-rc.2",
-    "@backbase/internal-forex-shared": "2.0.0-rc.1",
-    "@backbase/forex-journey-ang": "2.0.0-rc.2"
   }
 }
