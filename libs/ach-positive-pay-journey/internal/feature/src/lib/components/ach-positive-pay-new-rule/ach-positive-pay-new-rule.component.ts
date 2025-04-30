@@ -8,7 +8,7 @@ import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase-gsa/ach-positive-pay-jo
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { Observable } from 'rxjs';
 import { ModalModule } from '@backbase/ui-ang/modal';
-import { HeaderModule } from '@backbase/ui-ang/header';
+import { PageHeaderModule } from '@backbase/ui-ang/page-header';
 import { AlertModule } from '@backbase/ui-ang/alert';
 import { AchPositivePayRuleFormComponent } from '@backbase-gsa/ach-positive-pay-journey/internal/ui';
 import { LoadButtonModule } from '@backbase/ui-ang/load-button';
@@ -17,15 +17,15 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'bb-ach-positive-pay-new-rule',
   templateUrl: './ach-positive-pay-new-rule.component.html',
+  standalone: true,
   imports: [
     ModalModule,
-    HeaderModule,
+    PageHeaderModule,
     AlertModule,
     AchPositivePayRuleFormComponent,
     LoadButtonModule,
     CommonModule,
   ],
-  standalone: true,
 })
 export class AchPositivePayNewRuleComponent implements OnInit {
   loading = false;
@@ -81,6 +81,7 @@ export class AchPositivePayNewRuleComponent implements OnInit {
     this.achPositivePayService.submitAchRule(this.achRuleForm.value).subscribe(
       () => {
         this.notificationService.showNotification({
+          header: 'Success',
           message: ACH_POSITIVE_PAY_TRANSLATIONS.rulesSubmittedSuccessfully,
         });
         this.closeModal();

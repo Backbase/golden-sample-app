@@ -8,6 +8,7 @@ import {
   selector: 'bb-custom-txn-info',
   styleUrls: ['./transaction-additional-details.component.scss'],
   templateUrl: './transaction-additional-details.component.html',
+  standalone: false,
 })
 export class TransactionItemAdditionalDetailsComponent
   implements TransactionAdditionalDetailsComponent

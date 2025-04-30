@@ -12,6 +12,7 @@ import { Observable, of } from 'rxjs';
 @Component({
   selector: 'bb-dynamic-navigation-menu',
   templateUrl: './navigation-menu.component.html',
+  standalone: false,
 })
 export class DynamicNavigationMenuComponent {
   readonly navigationMenu: NavigationMenuItem[] = inject(

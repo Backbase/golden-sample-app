@@ -45,7 +45,6 @@ interface TransactionDetailsView {
     RouterModule,
     CommonModule,
   ],
-  standalone: true,
 })
 export class TransactionDetailsComponent {
   public readonly title = this.route.snapshot.data['title'];
