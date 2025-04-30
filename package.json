@@ -140,7 +140,7 @@
     "markdown-include": "^0.4.3",
     "ng-packagr": "19.2.2",
     "ngx-i18nsupport": "^0.17.1",
-    "nx": "20.5.0",
+    "nx": "20.8.1",
     "prettier": "^2.8.1",
     "ts-jest": "29.3.2",
     "ts-node": "^10.9.1",
