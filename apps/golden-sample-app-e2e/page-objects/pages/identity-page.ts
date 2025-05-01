@@ -1,3 +1,4 @@
+import { expect } from '@playwright/test';
 import { BasePage } from '@backbase-gsa/e2e-tests';
 import { User } from '../../data/data-types/user';
 import { defaultUser } from '../../data/credentials';
@@ -16,5 +17,10 @@ export class IdentityPage extends BasePage {
     await this.userName.fill(user.username);
     await this.password.fill(user.password);
     await this.loginButton.click();
+  }
+
+  async tryToLogin() {
+    await this.loginButton.click();
+    await expect(this.errorMessage).toBeVisible();
   }
 }
