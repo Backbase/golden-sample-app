@@ -17,7 +17,7 @@ export class TransactionDetails extends BaseComponent {
 
   async validateDetails(transaction: Partial<TransactionDetailsDataType>) {
     if (transaction.recipient) {
-      await expect(this.recipient.value).toHaveText(transaction.recipient);
+      await expect.soft(this.recipient.value).toHaveText(transaction.recipient);
     }
     if (transaction.date) {
       const date =
@@ -34,13 +34,15 @@ export class TransactionDetails extends BaseComponent {
       await expect(this.amount.value).toHaveText(`$${amount}`);
     }
     if (transaction.category) {
-      await expect(this.category.value).toHaveText(transaction.category);
+      await expect.soft(this.category.value).toHaveText(transaction.category);
     }
     if (transaction.description) {
-      await expect(this.description.value).toHaveText(transaction.description);
+      await expect
+        .soft(this.description.value)
+        .toHaveText(transaction.description);
     }
     if (transaction.status) {
-      await expect(this.status.value).toHaveText(transaction.status);
+      await expect.soft(this.status.value).toHaveText(transaction.status);
     }
   }
 }

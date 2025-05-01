@@ -3,7 +3,7 @@ import { TransactionsItem } from './transaction-item';
 
 export class Transactions extends BaseComponent {
   getByIndex = (index: number) => new TransactionsItem(this.element.nth(index));
-  getFirst = () => this.getByIndex(0);
+  first = () => this.getByIndex(0);
 
   get items() {
     return this.element;

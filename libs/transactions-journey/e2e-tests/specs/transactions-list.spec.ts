@@ -10,7 +10,7 @@ export function testTransactionsList(
     { tag: ['@e2e', '@transactions', '@transactions-details', '@mocks'] },
     () => {
       test.beforeEach(async ({ transactionsPage, transactionsMockSetup }) => {
-        await transactionsMockSetup();
+        await transactionsMockSetup(testData.transactionList);
         await transactionsPage.open();
       });
 
@@ -39,7 +39,7 @@ export function testTransactionsList(
             );
             if (expectation.firstTransaction) {
               await transactionsPage.transactions
-                .getByIndex(0)
+                .first()
                 .validateTransaction(expectation.firstTransaction);
             }
           });
