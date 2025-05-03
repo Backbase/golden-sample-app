@@ -35,9 +35,7 @@ export function testTransactionDetails(
                 typeof transaction.date === 'string'
                   ? transaction.date
                   : formatDate(transaction.date, 'Mon D, YYYY');
-              await expect
-                .soft(transactionPage.date.value)
-                .toHaveText(date);
+              await expect.soft(transactionPage.date.value).toHaveText(date);
 
               await expect
                 .soft(transactionPage.amount.value)
