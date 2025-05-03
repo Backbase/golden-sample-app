@@ -1,7 +1,19 @@
 import { BaseComponent, PageInfo, formatDate } from '@backbase-gsa/e2e-tests';
-import { TransactionDetailsDataType } from '../../model';
+import { Amount, TransactionDetailsDataType } from '../../model';
 import { LabeledData } from './labeled-data';
 import { expect } from '@playwright/test';
+
+const getAmount = (value: string | Amount | number): string =>
+  typeof value === 'object' ? value.value : value.toString();
+const getCurrencySymbol = (value: string | Amount | number): string =>
+  typeof value === 'object' && value.currency?.toUpperCase() === 'EUR'
+    ? '€'
+    : '$';
+export const getTransactionAmountValue = (
+  value: string | Amount | number
+): string => getCurrencySymbol(value) + getAmount(value);
+export const getTransactionDate = (value: Date | string): string =>
+  typeof value === 'string' ? value : formatDate(value, 'Mon D, YYYY');
 
 export class TransactionDetails extends BaseComponent {
   recipient = new LabeledData(this.childByTestId('recipient'));
@@ -15,34 +27,57 @@ export class TransactionDetails extends BaseComponent {
     super(pageObject.page.locator('bb-transaction-details'), pageObject);
   }
 
-  async validateDetails(transaction: Partial<TransactionDetailsDataType>) {
-    if (transaction.recipient) {
-      await expect.soft(this.recipient.value).toHaveText(transaction.recipient);
-    }
-    if (transaction.date) {
-      const date =
-        typeof transaction.date === 'string'
-          ? transaction.date
-          : formatDate(transaction.date, 'Mon D, YYYY');
-      await expect(this.date.value).toHaveText(date);
-    }
-    if (transaction.amount) {
-      const amount =
-        typeof transaction.amount === 'string'
-          ? transaction.amount
-          : transaction.amount.value;
-      await expect(this.amount.value).toHaveText(`$${amount}`);
-    }
-    if (transaction.category) {
-      await expect.soft(this.category.value).toHaveText(transaction.category);
-    }
-    if (transaction.description) {
-      await expect
-        .soft(this.description.value)
-        .toHaveText(transaction.description);
-    }
-    if (transaction.status) {
-      await expect.soft(this.status.value).toHaveText(transaction.status);
-    }
+  async toHaveTransaction(transaction: Partial<TransactionDetailsDataType>) {
+    await this.visual.step(
+      `Then validate Transactions details: ${JSON.stringify(transaction)}`,
+      async () => {
+        await expect
+          .soft(this.recipient.value)
+          .toHaveText(transaction.recipient ?? '');
+        const date =
+          typeof transaction.date === 'string'
+            ? transaction.date
+            : formatDate(transaction.date, 'Mon D, YYYY');
+        await expect.soft(this.date.value).toHaveText(date);
+
+        const expectedAmount = getTransactionAmountValue(
+          transaction.amount ?? ''
+        );
+        await expect.soft(this.amount.value).toHaveText(expectedAmount);
+
+        await expect
+          .soft(this.category.value)
+          .toHaveText(transaction.category ?? '');
+
+        await expect
+          .soft(this.description.value)
+          .toHaveText(transaction.description ?? '');
+        await expect
+          .soft(this.status.value)
+          .toHaveText(transaction.status ?? '');
+      }
+    );
+  }
+
+  async getTransactionDetails(): Promise<Partial<TransactionDetailsDataType>> {
+    return {
+      recipient: await this.recipient.getText(),
+      date: await this.date.getText(),
+      amount: await this.amount.getText(),
+      category: await this.category.getText(),
+      description: await this.description.getText(),
+      status: await this.status.getText(),
+    };
+  }
+
+  formatTransactionData(
+    transaction: Partial<TransactionDetailsDataType>
+  ): Partial<TransactionDetailsDataType> {
+    return {
+      ...transaction,
+      id: undefined,
+      amount: getTransactionAmountValue(transaction.amount ?? ''),
+      date: getTransactionDate(transaction.date ?? ''),
+    };
   }
 }

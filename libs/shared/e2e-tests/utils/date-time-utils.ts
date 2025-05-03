@@ -8,10 +8,10 @@ const enUSDate = (date: Date, options?: Intl.DateTimeFormatOptions): string =>
 export const timeID = () =>
   new Date().toISOString().split('.')[0].replace(/T/g, '-').replace(/:/g, '-');
 
-export const formatDate = (
+export function formatDate(
   date: Date | string | undefined,
   format: DateFormat
-) => {
+) {
   if (!date) return '';
   const dateToFormat = typeof date === 'string' ? new Date(date) : date;
   switch (format) {
@@ -71,7 +71,7 @@ export const formatDate = (
     default:
       return enUSDate(dateToFormat);
   }
-};
+}
 
 const getDateWithOffset = (offsetDays: number): string =>
   enUSDate(new Date(Date.now() + offsetDays * MILLISECONDS_IN_DAY));
