@@ -12,6 +12,7 @@
     "module": "esnext",
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
+    "types": ["node"],
     "baseUrl": "./",
     "paths": {
       "@backbase-gsa/ach-positive-pay-journey": [
