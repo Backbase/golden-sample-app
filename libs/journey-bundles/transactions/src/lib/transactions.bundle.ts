@@ -3,21 +3,40 @@ import {
   withConfig,
   withCommunicationService,
   withExtensions,
+  TRANSACTIONS_JOURNEY_CONFIG,
 } from '@backbase-gsa/transactions-journey';
 import { JourneyCommunicationService } from '@backbase-gsa/shared/feature/communication';
 import {
   Environment,
   ENVIRONMENT_CONFIG,
 } from '@backbase-gsa/shared/util/config';
-import { inject } from '@angular/core';
+import { NgModule, Injectable, Inject } from '@angular/core';
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
+import { RouterModule, Routes } from '@angular/router';
+import { 
+  TransactionsRouteTitleResolverService,
+  TransactionsJourneyConfiguration
+} from '@backbase-gsa/transactions-journey/internal/data-access';
 
-// Create the bundle using the standalone journey factory
-export default transactionsJourney(
-  // Journey configuration
+// Create a service that will be used to configure the journey
+@Injectable()
+export class TransactionsConfigService {
+  constructor(@Inject(ENVIRONMENT_CONFIG) private environment: Environment) {}
+
+  getJourneyConfig() {
+    return {
+      pageSize: 10,
+      slimMode: this.environment.common?.designSlimMode || false,
+    };
+  }
+}
+
+// The actual routes that will be lazy-loaded
+const routes: Routes = transactionsJourney(
+  // Journey configuration - using a factory function that will be called at runtime
   withConfig({
     pageSize: 10,
-    slimMode: inject(ENVIRONMENT_CONFIG).common?.designSlimMode || false,
+    slimMode: false, // Default value, will be updated by the module
   }),
   // Communication service configuration
   withCommunicationService(JourneyCommunicationService),
@@ -26,3 +45,41 @@ export default transactionsJourney(
     transactionItemAdditionalDetails: TransactionItemAdditionalDetailsComponent,
   })
 );
+
+@NgModule({
+  imports: [
+    RouterModule.forChild(routes)
+  ],
+  providers: [
+    TransactionsConfigService,
+    TransactionsRouteTitleResolverService,
+    {
+      provide: TransactionsJourneyConfiguration,
+      useFactory: (configService: TransactionsConfigService) => {
+        const config = configService.getJourneyConfig();
+        const journeyConfig = new TransactionsJourneyConfiguration();
+        journeyConfig.pageSize = config.pageSize;
+        journeyConfig.slimMode = config.slimMode;
+        return journeyConfig;
+      },
+      deps: [TransactionsConfigService]
+    },
+    {
+      provide: TRANSACTIONS_JOURNEY_CONFIG,
+      useFactory: (configService: TransactionsConfigService) => {
+        return configService.getJourneyConfig();
+      },
+      deps: [TransactionsConfigService]
+    }
+  ]
+})
+export class TransactionsModule {
+  constructor(configService: TransactionsConfigService) {
+    // Get configuration at runtime
+    const config = configService.getJourneyConfig();
+    
+    // You could update route components here if needed
+  }
+}
+
+export default TransactionsModule;

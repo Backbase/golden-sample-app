@@ -8,6 +8,8 @@ import {
   NgModule,
   inject,
   provideAppInitializer,
+  PLATFORM_INITIALIZER,
+  ApplicationConfig,
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,11 +24,6 @@ import {
   ENTITLEMENTS_CONFIG,
 } from '@backbase/foundation-ang/entitlements';
 import { AuthService, IdentityAuthModule } from '@backbase/identity-auth';
-import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';
-import {
-  INITIATE_PAYMENT_JOURNEY_CONTACT_MANAGER_BASE_PATH,
-  INITIATE_PAYMENT_JOURNEY_PAYMENT_ORDER_BASE_PATH,
-} from '@backbase/initiate-payment-journey-ang';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
@@ -63,6 +60,23 @@ import {
   AuthInterceptor,
 } from '@backbase-gsa/shared/feature/auth';
 import { NavigationMenuModule } from './navigation-menu/navigation-menu.module';
+import { appConfig } from './app.config';
+
+// Define initial variable to store TransactionSigningModule if available
+let TransactionSigningModule: any = null;
+
+// Attempt to dynamically load the TransactionSigningModule
+(async () => {
+  try {
+    // Using dynamic import instead of require
+    const tsModule = await import('@backbase/identity-auth/transaction-signing');
+    if (tsModule && tsModule.TransactionSigningModule) {
+      TransactionSigningModule = tsModule.TransactionSigningModule;
+    }
+  } catch (err) {
+    console.warn('TransactionSigningModule not available, continuing without it');
+  }
+})();
 
 @NgModule({
   declarations: [AppComponent],
@@ -87,7 +101,8 @@ import { NavigationMenuModule } from './navigation-menu/navigation-menu.module';
     }),
     ButtonModule,
     IdentityAuthModule,
-    TransactionSigningModule,
+    // Conditionally import TransactionSigningModule if available
+    ...(TransactionSigningModule ? [TransactionSigningModule] : []),
     TrackerModule.forRoot({
       handler: AnalyticsService,
       openTelemetryConfig: {
@@ -164,14 +179,6 @@ import { NavigationMenuModule } from './navigation-menu/navigation-menu.module';
       useValue: environment.apiRoot + '/access-control',
     },
     {
-      provide: INITIATE_PAYMENT_JOURNEY_PAYMENT_ORDER_BASE_PATH,
-      useValue: environment.apiRoot + '/payment-order-service',
-    },
-    {
-      provide: INITIATE_PAYMENT_JOURNEY_CONTACT_MANAGER_BASE_PATH,
-      useValue: environment.apiRoot + '/contact-manager',
-    },
-    {
       provide: ENTITLEMENTS_CONFIG,
       useValue: {
         accessControlBasePath: `${environment.apiRoot}/access-control`,
@@ -192,6 +199,21 @@ import { NavigationMenuModule } from './navigation-menu/navigation-menu.module';
     },
     ThemeManagerService,
     provideHttpClient(withInterceptorsFromDi()),
+    // Make standalone config available to the app without using bootstrapApplication
+    {
+      provide: 'STANDALONE_CONFIG',
+      useValue: appConfig,
+    },
+    // Setup a platform initializer to make standalone components work with NgModules
+    {
+      provide: PLATFORM_INITIALIZER,
+      useFactory: () => {
+        return () => {
+          console.log('Hybrid mode: NgModules + Standalone Components initialized');
+        };
+      },
+      multi: true
+    }
   ],
 })
 export class AppModule {}
