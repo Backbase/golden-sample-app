@@ -3,16 +3,16 @@ import { Amount, TransactionDetailsDataType } from '../../model';
 import { LabeledData } from './labeled-data';
 import { expect } from '@playwright/test';
 
-const getAmount = (value: string | Amount | number): string =>
-  typeof value === 'object' ? value.value : value.toString();
-const getCurrencySymbol = (value: string | Amount | number): string =>
+const getAmount = (value?: string | Amount | number): string =>
+  typeof value === 'object' ? value.value : value?.toString() ?? '0';
+const getCurrencySymbol = (value?: string | Amount | number): string =>
   typeof value === 'object' && value.currency?.toUpperCase() === 'EUR'
     ? '€'
     : '$';
 export const getTransactionAmountValue = (
-  value: string | Amount | number
+  value?: string | Amount | number
 ): string => getCurrencySymbol(value) + getAmount(value);
-export const getTransactionDate = (value: Date | string): string =>
+export const getTransactionDate = (value: Date | string | undefined): string =>
   typeof value === 'string' ? value : formatDate(value, 'Mon D, YYYY');
 
 export class TransactionDetails extends BaseComponent {
@@ -34,16 +34,13 @@ export class TransactionDetails extends BaseComponent {
         await expect
           .soft(this.recipient.value)
           .toHaveText(transaction.recipient ?? '');
-        const date =
-          typeof transaction.date === 'string'
-            ? transaction.date
-            : formatDate(transaction.date, 'Mon D, YYYY');
-        await expect.soft(this.date.value).toHaveText(date);
+        await expect
+          .soft(this.date.value)
+          .toHaveText(getTransactionDate(transaction.date));
 
-        const expectedAmount = getTransactionAmountValue(
-          transaction.amount ?? ''
-        );
-        await expect.soft(this.amount.value).toHaveText(expectedAmount);
+        await expect
+          .soft(this.amount.value)
+          .toHaveText(getTransactionAmountValue(transaction.amount));
 
         await expect
           .soft(this.category.value)
