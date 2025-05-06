@@ -21,12 +21,18 @@ export const test = baseTest.extend<TransactionFixture>({
     use((transactions: TransactionsListDataType) =>
       setupPageMocks(page, defaultTransactionsMock)
     ),
-  transactionDetailsPage: async ({ page, baseURL }, use) => {
+  transactionDetailsPage: async ({ page, visual, baseURL }, use) => {
     await use(
-      new TransactionDetailsPage(page, { baseURL, url: '/transactions/{id}' })
+      new TransactionDetailsPage(page, {
+        baseURL,
+        url: '/transactions/{id}',
+        visual,
+      })
     );
   },
-  transactionsPage: async ({ page, baseURL }, use) => {
-    await use(new TransactionsPage(page, { baseURL, url: '/transactions' }));
+  transactionsPage: async ({ page, visual, baseURL }, use) => {
+    await use(
+      new TransactionsPage(page, { baseURL, url: '/transactions', visual })
+    );
   },
 });
