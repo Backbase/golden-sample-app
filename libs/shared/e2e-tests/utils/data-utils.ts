@@ -1,6 +1,6 @@
-export const deepCopyObject = <T>(original: T): T => {
+export function deepCopyObject<T>(original: T): T {
   return JSON.parse(JSON.stringify(original));
-};
+}
 
 export const toKebabCase = (text: string): string =>
   text

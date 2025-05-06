@@ -71,4 +71,25 @@ export abstract class BaseComponent implements PageInfo {
       });
     });
   }
+
+  async toHaveData<T>(
+    data: { actual: () => Promise<T>; expected: T | (() => T) },
+    options?: { stepName?: string; timeout?: number }
+  ) {
+    const stepTitle =
+      options?.stepName || `Validate data: ${JSON.stringify(data.expected)}`;
+    const timeout = options?.timeout || 5_000;
+    const expectedData: T =
+      typeof data.expected === 'function'
+        ? (data.expected as () => T)()
+        : data.expected;
+    await this.visual.step(stepTitle, async () => {
+      await expect(async () => {
+        const actualData: T = await data.actual();
+        expect(actualData as object, { message: stepTitle }).toEqual(
+          expectedData
+        );
+      }).toPass({ timeout });
+    });
+  }
 }

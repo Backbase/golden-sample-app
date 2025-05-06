@@ -46,10 +46,10 @@ export abstract class BasePage implements PageInfo {
   }
 
   async open(param?: string | number) {
-    await test.step(`Open ${this.pageName} page`, async () => {
-      const url = param
-        ? this.url.replace(/{[^}]+}/, param.toString())
-        : this.url;
+    const url = param
+      ? this.url.replace(/{[^}]+}/, param.toString())
+      : this.url;
+    await test.step(`Open ${this.pageName} page (${url})`, async () => {
       await this.page.goto(url);
       await this.page.waitForLoadState('networkidle');
     });
