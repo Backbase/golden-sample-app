@@ -13,3 +13,13 @@ export {
   TransactionsJourneyConfiguration,
   ArrangementsService,
 } from '@backbase-gsa/transactions-journey/internal/data-access';
+
+// Export new standalone APIs
+export {
+  transactionsJourney,
+  withConfig,
+  withCommunicationService,
+  withExtensions,
+  TransactionsJourneyConfig,
+  TRANSACTIONS_JOURNEY_CONFIG,
+} from './lib/transactions-journey';
