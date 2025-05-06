@@ -6,7 +6,7 @@ export const isLocator = (param: any): param is Locator =>
 export const getPage = (root: Page | Locator): Page =>
   isLocator(root) ? root.page() : root;
 
-export const getSelector = (locator?: string | Locator): string => {
+export function getSelector(locator?: string | Locator): string {
   if (!locator) return '';
   if (typeof locator === 'string') return locator;
 
@@ -14,4 +14,4 @@ export const getSelector = (locator?: string | Locator): string => {
   const index = locatorAsString.indexOf('@') + 1;
 
   return locatorAsString.substring(index);
-};
+}

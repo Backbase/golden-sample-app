@@ -1,8 +1,12 @@
 import { test as baseTest } from '@playwright/test';
-import { TransactionFixture } from '../model';
+import {
+  TransactionFixture,
+  TransactionsListDataType,
+  TransactionDetailsDataType,
+} from '../model';
 import { TransactionDetailsPage, TransactionsPage } from '../page-objects';
 import {
-  defaultTransactionMock,
+  addTransactionsToMock,
   defaultTransactionsMock,
   setupPageMocks,
 } from '../mocks';
@@ -10,15 +14,25 @@ import {
 export const test = baseTest.extend<TransactionFixture>({
   // mocks data setup, can be overridden or bypassed via "useMocks"
   transactionMockSetup: async ({ page }, use) =>
-    use(() => setupPageMocks(page, defaultTransactionMock)),
+    await use((transactions: Partial<TransactionDetailsDataType>[]) =>
+      setupPageMocks(page, addTransactionsToMock(transactions))
+    ),
   transactionsMockSetup: async ({ page }, use) =>
-    use(() => setupPageMocks(page, defaultTransactionsMock)),
-  transactionDetailsPage: async ({ page, baseURL }, use) => {
+    use((transactions: TransactionsListDataType) =>
+      setupPageMocks(page, defaultTransactionsMock)
+    ),
+  transactionDetailsPage: async ({ page, visual, baseURL }, use) => {
     await use(
-      new TransactionDetailsPage(page, { baseURL, url: '/transactions/{id}' })
+      new TransactionDetailsPage(page, {
+        baseURL,
+        url: '/transactions/{id}',
+        visual,
+      })
     );
   },
-  transactionsPage: async ({ page, baseURL }, use) => {
-    await use(new TransactionsPage(page, { baseURL, url: '/transactions' }));
+  transactionsPage: async ({ page, visual, baseURL }, use) => {
+    await use(
+      new TransactionsPage(page, { baseURL, url: '/transactions', visual })
+    );
   },
 });
