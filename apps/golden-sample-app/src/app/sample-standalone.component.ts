@@ -1,5 +1,5 @@
 import { Component, OnInit, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NgModuleImportsHelper } from 'libs/shared/util/standalone-helper';
+import { NgModuleImportsHelper } from '@backbase-gsa/shared/util/standalone-helper';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { IconModule } from '@backbase/ui-ang/icon';

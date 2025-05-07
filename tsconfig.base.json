@@ -113,7 +113,10 @@
       "@backbase/e2e-test-accelerators/*": [
         "libs/shared/util/e2e-test-accelerators/*/index.ts"
       ],
-      "package-json": ["package.json"]
+      "package-json": ["package.json"],
+      "@backbase-gsa/shared/util/standalone-helper": [
+        "libs/shared/util/standalone-helper/index.ts"
+      ]
     }
   }
 }
