@@ -25,7 +25,7 @@ import { AmountModule } from '@backbase/ui-ang/amount';
     FilterTransactionsPipe,
     TextFilterComponent,
     TransactionItemComponent,
-    TransactionsViewComponent
+    TransactionsViewComponent,
   ],
   providers: [TransactionsHttpService],
   exports: [TransactionsViewComponent],

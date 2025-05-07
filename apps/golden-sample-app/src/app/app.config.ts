@@ -1,19 +1,34 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { EntitlementsModule, ENTITLEMENTS_CONFIG } from '@backbase/foundation-ang/entitlements';
-import { OAuthModule, AuthConfig, OAuthStorage, OAuthModuleConfig } from 'angular-oauth2-oidc';
+import {
+  HttpClientModule,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
+  EntitlementsModule,
+  ENTITLEMENTS_CONFIG,
+} from '@backbase/foundation-ang/entitlements';
+import {
+  OAuthModule,
+  AuthConfig,
+  OAuthStorage,
+  OAuthModuleConfig,
+} from 'angular-oauth2-oidc';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { AnalyticsService } from './services/analytics.service';
-import { ActivityMonitorModule, AuthInterceptor } from '@backbase-gsa/shared/feature/auth';
+import {
+  ActivityMonitorModule,
+  AuthInterceptor,
+} from '@backbase-gsa/shared/feature/auth';
 import { environment, authConfig } from '../environments/environment';
 import packageInfo from 'package-json';
 import { SharedUserContextInterceptor } from '@backbase-gsa/shared/feature/user-context';
 import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
-import { 
-  ACCESS_CONTROL_BASE_PATH, 
-  ACCESS_CONTROL_BASE_PATH as ACCESS_CONTROL_V3_BASE_PATH 
+import {
+  ACCESS_CONTROL_BASE_PATH,
+  ACCESS_CONTROL_BASE_PATH as ACCESS_CONTROL_V3_BASE_PATH,
 } from '@backbase/accesscontrol-v3-http-ang';
 import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/arrangement-manager-http-ang';
 import { TRANSACTIONS_BASE_PATH } from '@backbase/transactions-http-ang';
@@ -28,7 +43,9 @@ let TransactionSigningModule: any = null;
 (async () => {
   try {
     // Using dynamic import instead of require
-    const tsModule = await import('@backbase/identity-auth/transaction-signing');
+    const tsModule = await import(
+      '@backbase/identity-auth/transaction-signing'
+    );
     if (tsModule && tsModule.TransactionSigningModule) {
       TransactionSigningModule = tsModule.TransactionSigningModule;
     }
@@ -46,17 +63,17 @@ export const appConfig: ApplicationConfig = {
     provideRouter([], withComponentInputBinding()),
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
-    
+
     // Import NgModules
     importProvidersFrom(
       HttpClientModule,
       OAuthModule.forRoot(),
       EntitlementsModule,
       IdentityAuthModule,
-      
+
       // Conditionally import TransactionSigningModule if available
       ...(TransactionSigningModule ? [TransactionSigningModule] : []),
-      
+
       TrackerModule.forRoot({
         handler: AnalyticsService,
         openTelemetryConfig: {
@@ -71,7 +88,7 @@ export const appConfig: ApplicationConfig = {
       }),
       ActivityMonitorModule
     ),
-    
+
     // Provide common configurations
     { provide: AuthConfig, useValue: authConfig },
     {
@@ -84,7 +101,7 @@ export const appConfig: ApplicationConfig = {
       },
     },
     { provide: OAuthStorage, useFactory: () => localStorage },
-    
+
     // Base path configurations
     {
       provide: TRANSACTIONS_BASE_PATH,
@@ -112,7 +129,7 @@ export const appConfig: ApplicationConfig = {
       provide: ENVIRONMENT_CONFIG,
       useValue: environment,
     },
-    
+
     // Interceptors
     {
       provide: 'HTTP_INTERCEPTORS',
@@ -129,11 +146,11 @@ export const appConfig: ApplicationConfig = {
       useClass: ApiSandboxInterceptor,
       multi: true,
     },
-    
+
     // Error handler
     {
       provide: 'ErrorHandler',
       useClass: AppErrorHandler,
-    }
-  ]
-}; 
+    },
+  ],
+};

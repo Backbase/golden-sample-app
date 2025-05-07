@@ -13,9 +13,9 @@ import {
 import { NgModule, Injectable, Inject } from '@angular/core';
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
 import { RouterModule, Routes } from '@angular/router';
-import { 
+import {
   TransactionsRouteTitleResolverService,
-  TransactionsJourneyConfiguration
+  TransactionsJourneyConfiguration,
 } from '@backbase-gsa/transactions-journey/internal/data-access';
 
 // Create a service that will be used to configure the journey
@@ -47,9 +47,7 @@ const routes: Routes = transactionsJourney(
 );
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
+  imports: [RouterModule.forChild(routes)],
   providers: [
     TransactionsConfigService,
     TransactionsRouteTitleResolverService,
@@ -62,22 +60,22 @@ const routes: Routes = transactionsJourney(
         journeyConfig.slimMode = config.slimMode;
         return journeyConfig;
       },
-      deps: [TransactionsConfigService]
+      deps: [TransactionsConfigService],
     },
     {
       provide: TRANSACTIONS_JOURNEY_CONFIG,
       useFactory: (configService: TransactionsConfigService) => {
         return configService.getJourneyConfig();
       },
-      deps: [TransactionsConfigService]
-    }
-  ]
+      deps: [TransactionsConfigService],
+    },
+  ],
 })
 export class TransactionsModule {
   constructor(configService: TransactionsConfigService) {
     // Get configuration at runtime
     const config = configService.getJourneyConfig();
-    
+
     // You could update route components here if needed
   }
 }

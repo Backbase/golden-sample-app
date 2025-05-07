@@ -69,12 +69,16 @@ let TransactionSigningModule: any = null;
 (async () => {
   try {
     // Using dynamic import instead of require
-    const tsModule = await import('@backbase/identity-auth/transaction-signing');
+    const tsModule = await import(
+      '@backbase/identity-auth/transaction-signing'
+    );
     if (tsModule && tsModule.TransactionSigningModule) {
       TransactionSigningModule = tsModule.TransactionSigningModule;
     }
   } catch (err) {
-    console.warn('TransactionSigningModule not available, continuing without it');
+    console.warn(
+      'TransactionSigningModule not available, continuing without it'
+    );
   }
 })();
 
@@ -209,11 +213,13 @@ let TransactionSigningModule: any = null;
       provide: PLATFORM_INITIALIZER,
       useFactory: () => {
         return () => {
-          console.log('Hybrid mode: NgModules + Standalone Components initialized');
+          console.log(
+            'Hybrid mode: NgModules + Standalone Components initialized'
+          );
         };
       },
-      multi: true
-    }
+      multi: true,
+    },
   ],
 })
 export class AppModule {}

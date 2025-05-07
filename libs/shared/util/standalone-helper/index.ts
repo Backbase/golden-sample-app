@@ -16,12 +16,16 @@ let TransactionSigningModule: any = null;
 (async () => {
   try {
     // Using dynamic import instead of require
-    const tsModule = await import('@backbase/identity-auth/transaction-signing');
+    const tsModule = await import(
+      '@backbase/identity-auth/transaction-signing'
+    );
     if (tsModule && tsModule.TransactionSigningModule) {
       TransactionSigningModule = tsModule.TransactionSigningModule;
     }
   } catch (err) {
-    console.warn('TransactionSigningModule not available in NgModuleImports helper');
+    console.warn(
+      'TransactionSigningModule not available in NgModuleImports helper'
+    );
   }
 })();
 
@@ -63,15 +67,18 @@ export class NgModuleImportsHelper {}
  * For a component that needs to use a specific set of NgModules,
  * you can create a component-specific helper like this:
  */
-export function createStandaloneComponent(component: any, additionalImports: any[] = []) {
+export function createStandaloneComponent(
+  component: any,
+  additionalImports: any[] = []
+) {
   return {
     // Mark as standalone
     standalone: true,
-    
+
     // Import the helper module to get access to NgModules
     imports: [NgModuleImportsHelper, ...additionalImports],
-    
+
     // Original component properties
-    ...component
+    ...component,
   };
-} 
+}

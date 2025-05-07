@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import {
   INITIATE_PAYMENT_CONFIG,
   InitiatePaymentJourneyModule,
-  ӨReviewPaymentService
+  ӨReviewPaymentService,
 } from '@backbase/initiate-payment-journey-ang';
 import { AccountSelectorModule } from '@backbase/ui-ang/account-selector';
 import { Router } from '@angular/router';
@@ -22,7 +22,7 @@ export function reviewServiceFactory(router: Router) {
     navigateFromError: () => {
       router.navigate(['/error']);
     },
-    isInModal: () => false
+    isInModal: () => false,
   };
 }
 
@@ -44,8 +44,8 @@ export function reviewServiceFactory(router: Router) {
     {
       provide: ӨReviewPaymentService,
       useFactory: reviewServiceFactory,
-      deps: [Router]
-    }
+      deps: [Router],
+    },
   ],
 })
 export class CustomPaymentJourneyBundleModule {

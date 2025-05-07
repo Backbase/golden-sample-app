@@ -15,13 +15,13 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   standalone: true,
   // Import both standalone components and components from NgModules
   imports: [
-    // Import CommonModule directly since it's standalone-compatible 
+    // Import CommonModule directly since it's standalone-compatible
     CommonModule,
-    
+
     // Import our NgModuleImportsHelper to get access to UI components and other
     // non-standalone NgModules (including TransactionSigningModule if available)
     NgModuleImportsHelper,
-    
+
     // Import UI components directly as standalone
     ButtonModule,
     IconModule,
@@ -36,12 +36,12 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
       [size]="'large'"
       [badge]="'premium'"
     ></bb-avatar>
-    
+
     <!-- Use UI components that are imported directly -->
     <bb-button-icon>
       <bb-icon name="eye"></bb-icon>
     </bb-button-icon>
-    
+
     <!-- The component can also use TransactionSigningModule functionality if available -->
     <div *ngIf="transactionSigningAvailable">
       Transaction Signing functionality is available!
@@ -53,14 +53,16 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 export class SampleStandaloneComponent implements OnInit {
   transactionSigningAvailable = false;
-  
+
   async ngOnInit() {
     // Check if TransactionSigningModule is available using dynamic import
     try {
-      const tsModule = await import('@backbase/identity-auth/transaction-signing');
+      const tsModule = await import(
+        '@backbase/identity-auth/transaction-signing'
+      );
       this.transactionSigningAvailable = !!tsModule.TransactionSigningModule;
     } catch (err) {
       this.transactionSigningAvailable = false;
     }
   }
-} 
+}
