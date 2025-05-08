@@ -24,7 +24,9 @@ export class IdentityPage extends BasePage {
   async loginToBankingApp() {
     await test.step('And Try to login to the banking app', async () => {
       await this.loginButton.click();
-      await expect(this.pageHeader).toHaveText('Dashboard', { timeout: PAGE_TO_LOAD });
+      await expect(this.pageHeader).toHaveText('Dashboard', {
+        timeout: PAGE_TO_LOAD,
+      });
     });
   }
 

@@ -21,23 +21,18 @@ export const test = baseTest.extend<TransactionFixture>({
     use((transactions: TransactionsListDataType) =>
       setupPageMocks(page, defaultTransactionsMock)
     ),
-  makeTransferPage: async ({ page, visual, baseURL }, use) => {
-    await use(
-      new MakeTransferPage(page, { baseURL, url: '/make-transfer', visual })
-    );
+  makeTransferPage: async ({ page, baseURL }, use) => {
+    await use(new MakeTransferPage(page, { baseURL, url: '/make-transfer' }));
   },
-  transactionDetailsPage: async ({ page, visual, baseURL }, use) => {
+  transactionDetailsPage: async ({ page, baseURL }, use) => {
     await use(
       new TransactionDetailsPage(page, {
         baseURL,
         url: '/transactions/{id}',
-        visual,
       })
     );
   },
-  transactionsPage: async ({ page, visual, baseURL }, use) => {
-    await use(
-      new TransactionsPage(page, { baseURL, url: '/transactions', visual })
-    );
+  transactionsPage: async ({ page, baseURL }, use) => {
+    await use(new TransactionsPage(page, { baseURL, url: '/transactions' }));
   },
 });

@@ -1,7 +1,7 @@
 import { BaseComponent, PageInfo, formatDate } from '@backbase-gsa/e2e-tests';
 import { Amount, TransactionDetailsDataType } from '../../model';
 import { LabeledData } from './labeled-data';
-import { expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 const getAmount = (value?: string | Amount | number): string =>
   typeof value === 'object' ? value.value : value?.toString() ?? '0';
@@ -15,8 +15,9 @@ export const getTransactionAmountValue = (
 export const getTransactionDate = (value: Date | string | undefined): string =>
   typeof value === 'string' ? value : formatDate(value, 'Mon D, YYYY');
 
-
-export const getTransactionDetails = async (transactionDetails: TransactionDetails): Promise<Partial<TransactionDetailsDataType>> => ({
+export const getTransactionDetails = async (
+  transactionDetails: TransactionDetails
+): Promise<Partial<TransactionDetailsDataType>> => ({
   recipient: await transactionDetails.recipient.getText(),
   date: await transactionDetails.date.getText(),
   amount: await transactionDetails.amount.getText(),
@@ -38,32 +39,29 @@ export class TransactionDetails extends BaseComponent {
   }
 
   async toHaveTransaction(transaction: Partial<TransactionDetailsDataType>) {
-    await this.visual.step(
-      `Then validate Transactions details: ${JSON.stringify(transaction)}`,
-      async () => {
-        await expect
-          .soft(this.recipient.value)
-          .toHaveText(transaction.recipient ?? '');
-        await expect
-          .soft(this.date.value)
-          .toHaveText(getTransactionDate(transaction.date));
+    await test.step(`Then validate Transactions details: ${JSON.stringify(
+      transaction
+    )}`, async () => {
+      await expect
+        .soft(this.recipient.value)
+        .toHaveText(transaction.recipient ?? '');
+      await expect
+        .soft(this.date.value)
+        .toHaveText(getTransactionDate(transaction.date));
 
-        await expect
-          .soft(this.amount.value)
-          .toHaveText(getTransactionAmountValue(transaction.amount));
+      await expect
+        .soft(this.amount.value)
+        .toHaveText(getTransactionAmountValue(transaction.amount));
 
-        await expect
-          .soft(this.category.value)
-          .toHaveText(transaction.category ?? '');
+      await expect
+        .soft(this.category.value)
+        .toHaveText(transaction.category ?? '');
 
-        await expect
-          .soft(this.description.value)
-          .toHaveText(transaction.description ?? '');
-        await expect
-          .soft(this.status.value)
-          .toHaveText(transaction.status ?? '');
-      }
-    );
+      await expect
+        .soft(this.description.value)
+        .toHaveText(transaction.description ?? '');
+      await expect.soft(this.status.value).toHaveText(transaction.status ?? '');
+    });
   }
 
   async getTransactionDetails(): Promise<Partial<TransactionDetailsDataType>> {

@@ -9,4 +9,4 @@ export * from './interfaces';
 export * from './a11y';
 export * from './url-utils';
 export * from './timeouts';
-export * from './custom-assertions'
+export * from './custom-assertions';

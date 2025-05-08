@@ -14,13 +14,20 @@ export function testTransactionsList(
         await transactionsPage.open();
       });
 
-      test('should display transactions', async ({
-        transactionsPage,
-        visual,
-      }) => {
-        await visual.step('Then validate Transactions list', async () => {
+      test('should display transactions', async ({ transactionsPage }) => {
+        await test.step('Then validate Transactions list', async () => {
           await expect(transactionsPage.transactions.items).toHaveCount(
             testData.transactionList.size
+          );
+        });
+      });
+
+      test('should display transactions recipients', async ({
+        transactionsPage,
+      }) => {
+        await test.step('Then validate Transactions list', async () => {
+          await expect(transactionsPage.transactions.recipients).toHaveText(
+            testData.recipients
           );
         });
       });
@@ -28,23 +35,31 @@ export function testTransactionsList(
       for (const expectation of testData.transactionList.searchExpectations) {
         test(`should filter by term ${expectation.term}`, async ({
           transactionsPage,
-          visual,
         }) => {
           await test.step(`Search transactions by "${expectation.term}" term`, async () => {
             await transactionsPage.search.fill(expectation.term);
           });
-          await visual.step(`Validate transactions in list`, async () => {
-            await expect(transactionsPage.transactions.items).toHaveCount(
-              expectation.count
-            );
-            if (expectation.firstTransaction) {
-              await transactionsPage.transactions
-                .first()
-                .validateTransaction(expectation.firstTransaction);
-            }
+          await test.step(`Validate transactions in list`, async () => {
+            await expect(() =>
+              transactionsPage.transactions.getTransactions()
+            ).toHaveObject(expectation.transactions);
           });
         });
       }
+
+      const expectation = testData.transactionList.searchExpectations[1];
+      test(`[contain] should filter by term ${expectation.term}`, async ({
+        transactionsPage,
+      }) => {
+        await test.step(`Search transactions by "${expectation.term}" term`, async () => {
+          await transactionsPage.search.fill(expectation.term);
+        });
+        await test.step(`Validate transactions in list`, async () => {
+          await expect(() =>
+            transactionsPage.transactions.getTransactions()
+          ).toContainObject(expectation.transactions[0]);
+        });
+      });
     }
   );
 }

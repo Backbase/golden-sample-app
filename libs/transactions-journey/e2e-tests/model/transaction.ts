@@ -6,14 +6,14 @@ import { MakeTransferPage } from '../page-objects/pages/make-transfer';
 export interface TransactionDataType {
   transactions: Partial<TransactionDetailsDataType>[];
   transactionList: TransactionsListDataType;
+  recipients: string[];
 }
 
 export interface TransactionsListDataType {
   size: number;
   searchExpectations: {
     term: string;
-    count: number;
-    firstTransaction?: Partial<TransactionDetailsDataType>;
+    transactions: Partial<TransactionDetailsDataType>[];
   }[];
 }
 
