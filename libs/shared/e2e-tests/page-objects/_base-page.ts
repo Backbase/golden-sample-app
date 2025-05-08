@@ -1,5 +1,5 @@
-import { Page, test, TestInfo } from '@playwright/test';
-import { VisualValidator, joinUrl, expect } from '../utils';
+import { Page, test, TestInfo, expect } from '@playwright/test';
+import { VisualValidator, joinUrl } from '../utils';
 import { PageInfo } from './page-info';
 
 export abstract class BasePage implements PageInfo {
