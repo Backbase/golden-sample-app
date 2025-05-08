@@ -10,9 +10,9 @@ import {
   defaultTransactionsMock,
   setupPageMocks,
 } from '../mocks';
+import { MakeTransferPage } from '../page-objects/pages/make-transfer';
 
 export const test = baseTest.extend<TransactionFixture>({
-  // mocks data setup, can be overridden or bypassed via "useMocks"
   transactionMockSetup: async ({ page }, use) =>
     await use((transactions: Partial<TransactionDetailsDataType>[]) =>
       setupPageMocks(page, addTransactionsToMock(transactions))
@@ -21,6 +21,11 @@ export const test = baseTest.extend<TransactionFixture>({
     use((transactions: TransactionsListDataType) =>
       setupPageMocks(page, defaultTransactionsMock)
     ),
+  makeTransferPage: async ({ page, visual, baseURL }, use) => {
+    await use(
+      new MakeTransferPage(page, { baseURL, url: '/make-transfer', visual })
+    );
+  },
   transactionDetailsPage: async ({ page, visual, baseURL }, use) => {
     await use(
       new TransactionDetailsPage(page, {

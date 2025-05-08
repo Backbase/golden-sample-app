@@ -1,6 +1,7 @@
 import { formatDate, VisualValidator } from '@backbase-gsa/e2e-tests';
 import { TransactionDetailsPage } from '../page-objects/pages/transaction-details-page';
 import { TransactionsPage } from '../page-objects/pages/transactions-list-page';
+import { MakeTransferPage } from '../page-objects/pages/make-transfer';
 
 export interface TransactionDataType {
   transactions: Partial<TransactionDetailsDataType>[];
@@ -39,6 +40,7 @@ export interface TransactionFixture {
   transactionsMockSetup: (
     transaction: TransactionsListDataType
   ) => void | Promise<void>;
+  makeTransferPage: MakeTransferPage;
   transactionDetailsPage: TransactionDetailsPage;
   transactionsPage: TransactionsPage;
 }

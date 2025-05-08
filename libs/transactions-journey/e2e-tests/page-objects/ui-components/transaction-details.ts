@@ -15,6 +15,16 @@ export const getTransactionAmountValue = (
 export const getTransactionDate = (value: Date | string | undefined): string =>
   typeof value === 'string' ? value : formatDate(value, 'Mon D, YYYY');
 
+
+export const getTransactionDetails = async (transactionDetails: TransactionDetails): Promise<Partial<TransactionDetailsDataType>> => ({
+  recipient: await transactionDetails.recipient.getText(),
+  date: await transactionDetails.date.getText(),
+  amount: await transactionDetails.amount.getText(),
+  category: await transactionDetails.category.getText(),
+  description: await transactionDetails.description.getText(),
+  status: await transactionDetails.status.getText(),
+});
+
 export class TransactionDetails extends BaseComponent {
   recipient = new LabeledData(this.childByTestId('recipient'));
   date = new LabeledData(this.childByTestId('date'));

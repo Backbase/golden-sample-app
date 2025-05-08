@@ -1,10 +1,11 @@
-import { TestType, expect } from '@playwright/test';
+import { TestType } from '@playwright/test';
 import { TransactionDataType, TransactionFixture } from '../model/transaction';
-import { formatDate } from '@backbase-gsa/e2e-tests';
 import {
   getTransactionAmountValue,
   getTransactionDate,
+  getTransactionDetails,
 } from '../page-objects/ui-components/transaction-details';
+import { expect } from '@backbase-gsa/e2e-tests';
 
 export function testTransactionDetails(
   test: TestType<TransactionFixture, TransactionFixture>,
@@ -64,6 +65,15 @@ export function testTransactionDetails(
       }) => {
         await transactionDetailsPage.open(transaction.id);
         await transactionDetailsPage.details.toHaveTransaction(transaction);
+      });
+
+      test(`[getDetails] should display correct transaction details (id: ${transaction.id}; name: ${transaction.recipient})`, async ({
+        transactionDetailsPage,
+      }) => {
+        await transactionDetailsPage.open(transaction.id);
+        const details = transactionDetailsPage.details;
+        await expect(() => details.getTransactionDetails())
+          .toHaveObject(details.formatTransactionData(transaction));
       });
 
       test(`[toHaveData] should display correct transaction details (id: ${transaction.id}; name: ${transaction.recipient})`, async ({

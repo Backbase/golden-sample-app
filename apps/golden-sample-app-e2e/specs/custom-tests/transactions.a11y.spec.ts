@@ -1,5 +1,5 @@
 import { test } from '../../test-runner/test-runner';
-import { expect } from '@backbase-gsa/e2e-tests';
+import { expect } from '@playwright/test';
 
 test.describe(
   'Transaction Page A11y tests',

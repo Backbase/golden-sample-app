@@ -6,7 +6,18 @@ import {
 } from '@playwright/test';
 import { A11yScanner, timeID } from '@backbase-gsa/e2e-tests';
 
-export const expect = baseExpect.extend({
+declare global {
+  namespace PlaywrightTest {
+    interface Matchers<R> {
+      toBeAccessible(options?: {
+        include?: Locator | string;
+        disableRules?: string[];
+      }): R;
+    }
+  }
+}
+
+const expect = baseExpect.extend({
   async toBeAccessible(
     pageObject: { page: Page; testInfo: TestInfo },
     options?: {
