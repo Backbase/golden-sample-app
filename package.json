@@ -99,7 +99,7 @@
     "@angular-eslint/schematics": "19.3.0",
     "@angular-eslint/template-parser": "19.3.0",
     "@angular/cli": "~19.2.9",
-    "@angular/compiler-cli": "19.2.8",
+    "@angular/compiler-cli": "19.2.10",
     "@angular/language-service": "19.2.8",
     "@axe-core/playwright": "^4.10.1",
     "@backbase/nx-plugin": "^2.2.1",
