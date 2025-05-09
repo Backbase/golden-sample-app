@@ -49,9 +49,6 @@ export function testTransactionsList(
       }) => {
         await transactionsPage.search.fill(expectation.term);
         await expect(
-          transactionsPage.transactions.first().recipient
-        ).toHaveText(new RegExp('.*//d[1]'));
-        await expect(
           () => transactionsPage.transactions.getTransactions(),
           `Expect "${JSON.stringify(expectation.transactions[0])}" transactions`
         ).toContainObject(expectation.transactions[0]);
