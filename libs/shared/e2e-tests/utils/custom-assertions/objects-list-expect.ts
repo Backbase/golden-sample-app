@@ -4,6 +4,7 @@ import {
   compareObjectArray,
   errorResult,
   clearComparisonCache,
+  formatValue,
 } from './object-comparator';
 
 declare global {
@@ -28,7 +29,7 @@ const expect = baseExpect.extend({
       return errorResult(
         `Expected ${isExpectedObject ? 'object' : 'array'} but got ${
           isActualArray ? 'array' : 'object'
-        }: ${JSON.stringify(actualValue)}`
+        }: ${formatValue(actualValue)}`
       );
     }
 

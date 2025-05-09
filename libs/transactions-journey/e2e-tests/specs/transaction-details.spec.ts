@@ -23,7 +23,7 @@ export function testTransactionDetails(
           transactionDetailsPage,
         }) => {
           await transactionDetailsPage.open(transaction.id);
-          const details = transactionDetailsPage.details;
+          const { details } = transactionDetailsPage;
           await expect(() => details.getTransactionDetails()).toHaveObject(
             details.formatTransactionData(transaction)
           );
@@ -43,33 +43,47 @@ export function testTransactionDetails(
       }) => {
         await transactionDetailsPage.open(transaction.id);
         const transactionDetails = transactionDetailsPage.details;
-        await test.step(`Then validate Transactions details: ${JSON.stringify(
-          transaction
-        )}`, async () => {
-          await expect
-            .soft(transactionDetails.recipient.value)
-            .toHaveText(transaction.recipient ?? '');
+        await expect
+          .soft(
+            transactionDetails.recipient.value,
+            `Transaction recipient is ${transaction.recipient}`
+          )
+          .toHaveText(transaction.recipient ?? '');
 
-          await expect
-            .soft(transactionDetails.date.value)
-            .toHaveText(getTransactionDate(transaction.date));
+        await expect
+          .soft(
+            transactionDetails.date.value,
+            `Transaction date is ${transaction.date}`
+          )
+          .toHaveText(getTransactionDate(transaction.date));
 
-          await expect
-            .soft(transactionDetails.amount.value)
-            .toHaveText(getTransactionAmountValue(transaction.amount));
+        await expect
+          .soft(
+            transactionDetails.amount.value,
+            `Transaction amount is ${transaction.amount}`
+          )
+          .toHaveText(getTransactionAmountValue(transaction.amount));
 
-          await expect
-            .soft(transactionDetails.category.value)
-            .toHaveText(transaction.category ?? '');
+        await expect
+          .soft(
+            transactionDetails.category.value,
+            `Transaction category is ${transaction.category}`
+          )
+          .toHaveText(transaction.category ?? '');
 
-          await expect
-            .soft(transactionDetails.description.value)
-            .toHaveText(transaction.description ?? '');
+        await expect
+          .soft(
+            transactionDetails.description.value,
+            `Transaction description is ${transaction.description}`
+          )
+          .toHaveText(transaction.description ?? '');
 
-          await expect
-            .soft(transactionDetails.status.value)
-            .toHaveText(transaction.status ?? '');
-        });
+        await expect
+          .soft(
+            transactionDetails.status.value,
+            `Transaction status is ${transaction.status}`
+          )
+          .toHaveText(transaction.status ?? '');
       });
     }
   );

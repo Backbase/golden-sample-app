@@ -198,4 +198,10 @@ const compareObjectArray = <T extends object>(
 
 export const clearComparisonCache = () => comparisonCache.clear();
 
-export { compareSingleObject, compareObjectArray, errorResult, successResult };
+export {
+  compareSingleObject,
+  compareObjectArray,
+  errorResult,
+  successResult,
+  formatValue,
+};
