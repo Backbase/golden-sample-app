@@ -5,10 +5,7 @@ import { PERMISSIONS } from '@backbase-gsa/shared/util/permissions';
 
 export const TRANSACTIONS_ROUTE = {
   path: 'transactions',
-  loadChildren: () =>
-    import('./transactions-journey-bundle.module').then(
-      (m) => m.TransactionsJourneyBundleModule
-    ),
+  loadChildren: () => import('./transactions.bundle'),
   data: {
     entitlements: PERMISSIONS.canViewTransactions,
   },

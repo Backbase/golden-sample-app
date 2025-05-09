@@ -1,0 +1,30 @@
+{
+  "name": "getPaymentOptions",
+  "request": {
+    "url": "/api/payment-order-options/client-api/v1/payment-options/INTERNAL_TRANSFER",
+    "method": "GET"
+  },
+  "responses": {
+    "success": {
+      "status": 200,
+      "data": {
+        "paymentOptions": {
+          "currency": {
+            "value": ["USD"],
+            "editable": false
+          },
+          "schedule": {
+            "transferFrequency": {
+              "value": ["ONCE"],
+              "editable": false
+            }
+          },
+          "confirmationOption": {
+            "value": null,
+            "editable": true
+          }
+        }
+      }
+    }
+  }
+} 

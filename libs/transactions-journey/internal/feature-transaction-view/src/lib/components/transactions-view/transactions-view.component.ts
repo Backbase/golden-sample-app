@@ -1,12 +1,18 @@
 import { Component, Inject, Optional } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
 
 import {
   ScreenViewTrackerEventPayload,
   Tracker,
+  TrackerModule,
 } from '@backbase/foundation-ang/observability';
+
+import { BadgeModule } from '@backbase/ui-ang/badge';
+import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
+import { AmountModule } from '@backbase/ui-ang/amount';
 
 import {
   TransactionsCommunicationService,
@@ -15,12 +21,28 @@ import {
   TransactionsHttpService,
 } from '@backbase-gsa/transactions-journey/internal/data-access';
 
+import { TextFilterComponent } from '@backbase-gsa/transactions-journey/internal/ui';
+import { FilterTransactionsPipe } from '@backbase-gsa/transactions-journey/internal/util';
 import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
+import { TransactionItemComponent } from '../transaction-item/transaction-item.component';
+
 @Component({
   templateUrl: './transactions-view.component.html',
   styleUrls: ['./transactions-view.component.scss'],
   selector: 'bb-transactions-view',
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    LoadingIndicatorModule,
+    BadgeModule,
+    AmountModule,
+    TrackerModule,
+    FilterTransactionsPipe,
+    TextFilterComponent,
+    TransactionItemComponent,
+  ],
+  providers: [TransactionsHttpService],
 })
 export class TransactionsViewComponent {
   public title = this.route.snapshot.data['title'];

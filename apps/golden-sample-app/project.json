@@ -21,6 +21,12 @@
         "main": "apps/golden-sample-app/src/main.ts",
         "polyfills": "apps/golden-sample-app/src/polyfills.ts",
         "tsConfig": "apps/golden-sample-app/tsconfig.app.json",
+        "allowedCommonJsDependencies": [
+          "lodash",
+          "angular-oauth2-oidc",
+          "fast-deep-equal",
+          "moment"
+        ],
         "assets": [
           "apps/golden-sample-app/src/favicon.ico",
           "apps/golden-sample-app/src/assets",

@@ -37,6 +37,7 @@ interface TransactionDetailsView {
   styleUrls: [
     './transactions-journey-feature-transaction-details-view.component.scss',
   ],
+  standalone: true,
   imports: [
     TrackerModule,
     ButtonModule,
@@ -45,6 +46,7 @@ interface TransactionDetailsView {
     RouterModule,
     CommonModule,
   ],
+  providers: [TransactionsHttpService],
 })
 export class TransactionDetailsComponent {
   public readonly title = this.route.snapshot.data['title'];

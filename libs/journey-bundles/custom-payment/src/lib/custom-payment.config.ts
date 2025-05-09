@@ -18,6 +18,7 @@ import {
 
 import { InitiatorComponent } from './components/initiator/initiator.component';
 import { Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 /**
  * Configuration group contains 1 field:
@@ -179,6 +180,12 @@ export const INTERNAL_TRANSFERS: PaymentTypeConfig = {
   },
 };
 
+// Get reference to the Router
+let router: Router;
+export function setRouter(r: Router) {
+  router = r;
+}
+
 export const customPaymentConfig: InitiatePaymentConfig = {
   paymentTypes: [INTERNAL_TRANSFERS],
   businessFunctions: [INTERNAL_TRANSFERS.businessFunction || ''],
@@ -191,15 +198,19 @@ export const customPaymentConfig: InitiatePaymentConfig = {
       $localize`:Make a Payment Link - 'Make internal payment (custom)'|This string is used as the header text for the custom payment form. It is presented to the user when they are making an internal payment using the custom payment form. This header is located at the top of the custom payment form layout.@@main.make-a-payment.link.text:Make internal payment (custom)`,
   },
   /**
-   * Use hooks to perform additional logic at different stages of Payments journey. For eg,
-   * 1. Use onSave hook to perform some action(s) before a payment is saved for validation
-   * 2. Use onSubmit hook to perform some action(s) before a payment is submitted for processing
+   * Use hooks to perform additional logic at different stages of Payments journey.
    */
   hooks: {
     onSave: (({ doneFn }: PaymentHooksParams) => {
       doneFn();
     }) as PaymentHooksCallbackFn,
     onSubmit: (({ doneFn }: PaymentHooksParams) => {
+      // After submitting payment, navigate to transactions
+      if (router) {
+        setTimeout(() => {
+          router.navigate(['/transactions']);
+        }, 500);
+      }
       doneFn();
     }) as PaymentHooksCallbackFn,
   },
