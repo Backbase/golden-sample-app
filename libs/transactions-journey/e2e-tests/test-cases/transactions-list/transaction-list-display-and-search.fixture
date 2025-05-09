@@ -1,0 +1,42 @@
+Feature: Transactions List Display and Search
+  As a user
+  I want to view and search through my transactions list
+  So that I can find specific transactions and verify the list is complete
+
+  Background:
+    Given I am on the transactions list page
+    And I have access to my transaction history
+
+  Scenario: View complete transactions list
+    When I open the transactions list page
+    Then I should see a list of transactions
+    And the number of transactions should match my transaction history count
+
+  Scenario Outline: Search transactions by term
+    When I enter "<search_term>" in the search field
+    Then I should see "<expected_count>" transactions in the list
+    And the first transaction should match the expected details:
+      | Field        | Value                    |
+      | Recipient    | <recipient>              |
+      | Date         | <date>                   |
+      | Amount       | <amount>                 |
+      | Account      | <account_number>         |
+
+    Examples:
+      | search_term | expected_count | recipient      | date          | amount    | account_number|
+      | Beer        | 1              | Hard Rock Cafe | Mar 11, 2023  | $839.25   | 123456789     |
+      | Cafe        | 2              | Coffee Shop    | Mar 10, 2023  | $15.50    | 987654321     |
+      | Payment     | 5              | Grocery Store  | Mar 09, 2023  | $125.75   | 456789123     |
+
+  Scenario: Verify transaction list item display
+    When I open the transactions list page
+    Then each transaction in the list should display:
+      | Field           | Description                                |
+      | Recipient       | The name of the transaction recipient      |
+      | Date            | The transaction date in "Mon D, YYYY" format|
+      | Amount          | The transaction amount with currency symbol|
+      | Account Number  | The associated account number              |
+
+  Scenario: Verify empty search results
+    When I enter "NonExistentTransaction" in the search field
+    Then I should see 0 transactions in the list
