@@ -1,5 +1,5 @@
 import { test } from '../../test-runner/test-runner';
-import { expect } from '@backbase-gsa/e2e-tests';
+import { expect } from '@playwright/test';
 
 test.describe(
   'Transaction Page A11y tests',
@@ -11,9 +11,8 @@ test.describe(
 
     test('Validate Transactions page accessibility with disabled rules', async ({
       page,
-      visual,
     }, testInfo) => {
-      await visual.step('Validate Transaction page accessibility', async () => {
+      await test.step('Validate Transaction page accessibility', async () => {
         await expect({ page, testInfo }).toBeAccessible({
           disableRules: ['color-contrast', 'link-name'],
         });
@@ -30,17 +29,13 @@ test.describe(
 
     test('Validate Transactions element accessibility', async ({
       page,
-      visual,
     }, testInfo) => {
-      await visual.step(
-        'Validate Transaction element accessibility',
-        async () => {
-          await expect({ page, testInfo }).toBeAccessible({
-            include: 'bb-transaction-item',
-            disableRules: ['color-contrast'],
-          });
-        }
-      );
+      await test.step('Validate Transaction element accessibility', async () => {
+        await expect({ page, testInfo }).toBeAccessible({
+          include: 'bb-transaction-item',
+          disableRules: ['color-contrast'],
+        });
+      });
     });
 
     test('Validate Transactions element accessibility via Component method', async ({

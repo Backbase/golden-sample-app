@@ -15,3 +15,7 @@ export function getSelector(locator?: string | Locator): string {
 
   return locatorAsString.substring(index);
 }
+
+export async function getLocatorText(element: Locator): Promise<string> {
+  return (await element.textContent())?.trim() ?? '';
+}

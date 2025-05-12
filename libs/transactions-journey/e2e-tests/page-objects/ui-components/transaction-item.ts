@@ -1,4 +1,8 @@
-import { BaseComponent, formatDate } from '@backbase-gsa/e2e-tests';
+import {
+  BaseComponent,
+  formatDate,
+  getLocatorText,
+} from '@backbase-gsa/e2e-tests';
 import { getAmountValue, TransactionDetailsDataType } from '../../model';
 import { expect } from '@playwright/test';
 
@@ -29,5 +33,15 @@ export class TransactionsItem extends BaseComponent {
         .soft(this.accountNumber)
         .toHaveText(transaction.accountNumber);
     }
+  }
+
+  async getTransaction(): Promise<Partial<TransactionDetailsDataType>> {
+    const amount = await getLocatorText(this.amount);
+    return {
+      recipient: await getLocatorText(this.recipient),
+      date: await getLocatorText(this.date),
+      amount: amount.replace('$', ''),
+      accountNumber: await getLocatorText(this.accountNumber),
+    };
   }
 }

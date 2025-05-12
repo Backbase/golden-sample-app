@@ -26,18 +26,42 @@ export const mockedTransactionsData: TransactionDataType = {
     searchExpectations: [
       {
         term: 'KLM',
-        count: 7,
-        firstTransaction: { recipient: 'KLM', amount: '23.84' },
+        transactions: [
+          { recipient: 'KLM', amount: '23.84' },
+          { recipient: 'KLM', amount: '24.01' },
+          { recipient: 'KLM', amount: '0.00' },
+          { recipient: 'KLM', amount: '15,508.37' },
+          { recipient: 'KLM', amount: '522.09' },
+          { recipient: 'KLM', amount: '568.58' },
+          { recipient: 'KLM', amount: '123.45' },
+        ],
       },
       {
         term: 'cafe',
-        count: 3,
-        firstTransaction: {
-          recipient: 'Hard Rock Cafe',
-          amount: { value: '401.97' },
-        },
+        transactions: [
+          { recipient: 'Hard Rock Cafe', date: 'Mar. 2', amount: '401.97' },
+          { recipient: 'Hard Rock Cafe', date: 'Mar. 2', amount: '50.31' },
+          {
+            recipient: 'Hard Rock Cafe',
+            date: 'Mar. 2',
+            amount: '829.25',
+            accountNumber: '123456789',
+          },
+        ],
       },
-      { term: 'unknown', count: 0 },
+      { term: 'unknown', transactions: [] },
     ],
   },
+  recipients: [
+    'KLM',
+    'KLM',
+    'KLM',
+    'KLM',
+    'Hard Rock Cafe',
+    'Hard Rock Cafe',
+    'KLM',
+    'KLM',
+    'Hard Rock Cafe',
+    'KLM',
+  ],
 };
