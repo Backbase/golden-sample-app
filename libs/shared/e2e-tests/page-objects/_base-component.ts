@@ -1,6 +1,6 @@
-import { Locator, Page, test, TestInfo } from '@playwright/test';
+import { Locator, Page, test, TestInfo, expect } from '@playwright/test';
 import { BasePage } from './_base-page';
-import { VisualValidator, isLocator, expect } from '../utils';
+import { VisualValidator, isLocator } from '../utils';
 import { PageInfo } from './page-info';
 
 export abstract class BaseComponent implements PageInfo {
@@ -69,27 +69,6 @@ export abstract class BaseComponent implements PageInfo {
         include: this.elementLocator,
         disableRules,
       });
-    });
-  }
-
-  async toHaveData<T>(
-    data: { actual: () => Promise<T>; expected: T | (() => T) },
-    options?: { stepName?: string; timeout?: number }
-  ) {
-    const stepTitle =
-      options?.stepName || `Validate data: ${JSON.stringify(data.expected)}`;
-    const timeout = options?.timeout || 5_000;
-    const expectedData: T =
-      typeof data.expected === 'function'
-        ? (data.expected as () => T)()
-        : data.expected;
-    await this.visual.step(stepTitle, async () => {
-      await expect(async () => {
-        const actualData: T = await data.actual();
-        expect(actualData as object, { message: stepTitle }).toEqual(
-          expectedData
-        );
-      }).toPass({ timeout });
     });
   }
 }

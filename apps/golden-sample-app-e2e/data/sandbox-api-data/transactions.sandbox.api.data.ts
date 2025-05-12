@@ -12,6 +12,6 @@ export const sandboxTransactionData: TransactionDataType = {
   ],
   transactionList: {
     size: 10,
-    searchExpectations: [{ term: 'pocket', count: 6 }],
+    searchExpectations: [{ term: 'pocket', transactions: [] }],
   },
 };
