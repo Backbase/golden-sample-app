@@ -56,31 +56,11 @@ import { ThemeManagerService } from './theme-switcher/theme-service';
 import { ENVIRONMENT_CONFIG } from '@backbase-gsa/shared/util/config';
 import {
   ActivityMonitorModule,
-  AuthEventsHandlerService,
   AuthInterceptor,
 } from '@backbase-gsa/shared/feature/auth';
 import { NavigationMenuModule } from './navigation-menu/navigation-menu.module';
 import { appConfig } from './app.config';
-
-// Define initial variable to store TransactionSigningModule if available
-let TransactionSigningModule: any = null;
-
-// Attempt to dynamically load the TransactionSigningModule
-(async () => {
-  try {
-    // Using dynamic import instead of require
-    const tsModule = await import(
-      '@backbase/identity-auth/transaction-signing'
-    );
-    if (tsModule && tsModule.TransactionSigningModule) {
-      TransactionSigningModule = tsModule.TransactionSigningModule;
-    }
-  } catch (err) {
-    console.warn(
-      'TransactionSigningModule not available, continuing without it'
-    );
-  }
-})();
+import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';
 
 @NgModule({
   declarations: [AppComponent],
@@ -105,8 +85,7 @@ let TransactionSigningModule: any = null;
     }),
     ButtonModule,
     IdentityAuthModule,
-    // Conditionally import TransactionSigningModule if available
-    ...(TransactionSigningModule ? [TransactionSigningModule] : []),
+    TransactionSigningModule,
     TrackerModule.forRoot({
       handler: AnalyticsService,
       openTelemetryConfig: {
@@ -220,6 +199,7 @@ let TransactionSigningModule: any = null;
       },
       multi: true,
     },
+    ...appConfig.providers,
   ],
 })
 export class AppModule {}

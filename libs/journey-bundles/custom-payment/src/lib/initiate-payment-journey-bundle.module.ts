@@ -4,11 +4,13 @@ import {
   INITIATE_PAYMENT_CONFIG,
   InitiatePaymentJourneyModule,
   ӨReviewPaymentService,
+  INITIATE_PAYMENT_JOURNEY_COMMUNICATOR,
 } from '@backbase/initiate-payment-journey-ang';
 import { AccountSelectorModule } from '@backbase/ui-ang/account-selector';
 import { Router } from '@angular/router';
 import { InitiatorComponent } from './components/initiator/initiator.component';
 import { customPaymentConfig, setRouter } from './custom-payment.config';
+import { PaymentsCommunicationService } from '@backbase-gsa/shared/feature/communication';
 
 // Create a provider for the review service
 export function reviewServiceFactory(router: Router) {
@@ -46,6 +48,11 @@ export function reviewServiceFactory(router: Router) {
       useFactory: reviewServiceFactory,
       deps: [Router],
     },
+    {
+      provide: INITIATE_PAYMENT_JOURNEY_COMMUNICATOR,
+      useExisting: PaymentsCommunicationService,
+      deps: [Router],
+    } 
   ],
 })
 export class CustomPaymentJourneyBundleModule {
