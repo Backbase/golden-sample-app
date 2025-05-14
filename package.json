@@ -121,7 +121,7 @@
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
     "@typescript-eslint/utils": "^7.16.0",
-    "allure-js-commons": "3.1.0",
+    "allure-js-commons": "3.2.2",
     "allure-playwright": "3.1.0",
     "autoprefixer": "^10.4.21",
     "axe-html-reporter": "^2.2.11",
