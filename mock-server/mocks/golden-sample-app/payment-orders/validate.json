@@ -28,8 +28,6 @@
         "requestedExecutionDate": "2017-07-16",
         "paymentType": "SEPA_CREDIT_TRANSFER",
         "isIntraLegalEntityPaymentOrder": false,
-        "canApprove": true,
-        "finalApprover": false,
         "transferTransactionInformation": {
           "instructedAmount": {
             "amount": "5000.55",

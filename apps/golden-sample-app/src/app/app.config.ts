@@ -35,24 +35,8 @@ import { TRANSACTIONS_BASE_PATH } from '@backbase/transactions-http-ang';
 import { AppErrorHandler } from './app.error-handler';
 import { ENVIRONMENT_CONFIG } from '@backbase-gsa/shared/util/config';
 import { IdentityAuthModule } from '@backbase/identity-auth';
+import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';
 
-// Define initial variable to store the module if loaded successfully
-let TransactionSigningModule: any = null;
-
-// Attempt to dynamically load the TransactionSigningModule
-(async () => {
-  try {
-    // Using dynamic import instead of require
-    const tsModule = await import(
-      '@backbase/identity-auth/transaction-signing'
-    );
-    if (tsModule && tsModule.TransactionSigningModule) {
-      TransactionSigningModule = tsModule.TransactionSigningModule;
-    }
-  } catch (err) {
-    console.warn('TransactionSigningModule not available', err);
-  }
-})();
 
 /**
  * Provides configuration for standalone components
@@ -70,10 +54,7 @@ export const appConfig: ApplicationConfig = {
       OAuthModule.forRoot(),
       EntitlementsModule,
       IdentityAuthModule,
-
-      // Conditionally import TransactionSigningModule if available
-      ...(TransactionSigningModule ? [TransactionSigningModule] : []),
-
+      TransactionSigningModule.withConfig({}),
       TrackerModule.forRoot({
         handler: AnalyticsService,
         openTelemetryConfig: {
