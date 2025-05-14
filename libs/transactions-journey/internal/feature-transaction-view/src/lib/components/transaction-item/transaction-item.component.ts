@@ -19,6 +19,8 @@ import {
 import { AmountModule } from '@backbase/ui-ang/amount';
 import { CommonModule } from '@angular/common';
 import { IconMap } from '@backbase-gsa/transactions-journey/internal/shared-data';
+import { RouterModule } from '@angular/router';
+
 @Directive({
   selector: '[bbTransactionsItemAdditions]',
   standalone: true,
@@ -30,10 +32,12 @@ export class TransactionItemAdditionalDetailsDirective extends ViewExtensionDire
   templateUrl: './transaction-item.component.html',
   styleUrls: ['./transaction-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
   imports: [
     AmountModule,
     TransactionItemAdditionalDetailsDirective,
     CommonModule,
+    RouterModule,
   ],
 })
 export class TransactionItemComponent implements OnChanges {
