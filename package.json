@@ -64,7 +64,7 @@
     "@ng-select/ng-select": "^14.0.0",
     "@ngrx/component-store": "19.1.0",
     "@ngrx/effects": "19.1.0",
-    "@ngrx/operators": "19.1.0",
+    "@ngrx/operators": "19.2.0",
     "@ngrx/store": "19.1.0",
     "@ngx-formly/core": "^6.3.12",
     "@opentelemetry/api": "^1.6.0",
