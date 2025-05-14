@@ -9,7 +9,8 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class PaymentsCommunicationService implements InitiatePaymentJourneyCommunicationService
+export class PaymentsCommunicationService
+  implements InitiatePaymentJourneyCommunicationService
 {
   isEditMode?: boolean;
   private paymentData?: TriggerInitiatePaymentPayload;
@@ -24,7 +25,6 @@ export class PaymentsCommunicationService implements InitiatePaymentJourneyCommu
     this.isEditMode = false;
     this.paymentData = undefined;
   }
-
 
   async closeEvent() {
     if (this.activatedFromPockets()) {

@@ -52,7 +52,7 @@ export function reviewServiceFactory(router: Router) {
       provide: INITIATE_PAYMENT_JOURNEY_COMMUNICATOR,
       useExisting: PaymentsCommunicationService,
       deps: [Router],
-    } 
+    },
   ],
 })
 export class CustomPaymentJourneyBundleModule {

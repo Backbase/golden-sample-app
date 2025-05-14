@@ -37,7 +37,6 @@ import { ENVIRONMENT_CONFIG } from '@backbase-gsa/shared/util/config';
 import { IdentityAuthModule } from '@backbase/identity-auth';
 import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';
 
-
 /**
  * Provides configuration for standalone components
  * while maintaining compatibility with NgModules
