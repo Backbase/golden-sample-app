@@ -64,4 +64,5 @@ export const mockedTransactionsData: TransactionDataType = {
     'Hard Rock Cafe',
     'KLM',
   ],
+  recipientsSubset: ['KLM', 'Hard Rock Cafe'],
 };

@@ -1,7 +1,14 @@
+import { Locator } from '@playwright/test';
+
 type FieldDifference = {
   fieldName: string;
   expected: any;
   actual: any;
+};
+
+type ComparisonResult = {
+  pass: boolean;
+  message: () => string;
 };
 
 // Cache for memoized comparisons
@@ -15,12 +22,9 @@ const getFieldDifferences = (
   received: any,
   expected: any
 ): FieldDifference[] => {
-  const differences: FieldDifference[] = [];
-
-  // Only check fields that are defined in expected
-  Object.entries(expected)
+  return Object.entries(expected)
     .filter(([_, value]) => value !== undefined)
-    .forEach(([key, expectedValue]) => {
+    .reduce<FieldDifference[]>((differences, [key, expectedValue]) => {
       const receivedValue = received[key];
       if (receivedValue !== expectedValue) {
         differences.push({
@@ -29,13 +33,11 @@ const getFieldDifferences = (
           actual: receivedValue,
         });
       }
-    });
-
-  return differences;
+      return differences;
+    }, []);
 };
 
 const getMissingFields = (received: any, expected: any): string[] => {
-  // Only check for fields that are defined in expected
   return Object.entries(expected)
     .filter(([_, value]) => value !== undefined)
     .map(([key]) => key)
@@ -60,14 +62,11 @@ const deepCompare = (received: any, expected: any): boolean => {
     return result;
   }
 
-  // Filter out undefined fields from expected
   const definedExpected = Object.fromEntries(
     Object.entries(expected).filter(([_, value]) => value !== undefined)
   );
 
-  const expectedKeys = Object.keys(definedExpected);
-
-  const result = expectedKeys.every((key) => {
+  const result = Object.keys(definedExpected).every((key) => {
     if (!(key in received)) return false;
     return deepCompare(received[key], definedExpected[key]);
   });
@@ -76,8 +75,21 @@ const deepCompare = (received: any, expected: any): boolean => {
   return result;
 };
 
-const formatValue = (value: any): string =>
-  JSON.stringify(value, null, 2).replace(/"([^"]+)":/g, '$1:');
+const formatValue = (value: any): string => {
+  if (value === null) return 'null';
+  if (value === undefined) return 'undefined';
+
+  if (typeof value !== 'object') {
+    if (typeof value === 'string') return `"${value}"`;
+    return String(value);
+  }
+
+  if (Array.isArray(value)) {
+    return `[${value.map(formatValue).join(', ')}]`;
+  }
+
+  return JSON.stringify(value, null, 2).replace(/"([^"]+)":/g, '$1:');
+};
 
 const formatDifferencesTable = (differences: FieldDifference[]): string => {
   if (differences.length === 0) return '';
@@ -85,34 +97,62 @@ const formatDifferencesTable = (differences: FieldDifference[]): string => {
   const header =
     '| Field Name | Expected | Actual |\n|------------|----------|--------|\n';
   const rows = differences
-    .map((diff) => {
-      return `| ${diff.fieldName} | ${formatValue(
-        diff.expected
-      )} | ${formatValue(diff.actual)} |`;
-    })
+    .map(
+      (diff) =>
+        `| ${diff.fieldName} | ${formatValue(diff.expected)} | ${formatValue(
+          diff.actual
+        )} |`
+    )
     .join('\n');
 
   return header + rows;
 };
 
-const errorResult = (
-  message: string
-): { pass: false; message: () => string } => ({
-  pass: false,
-  message: () => message,
-});
-
-const successResult = (
-  message: string
-): { pass: true; message: () => string } => ({
+const successResult = (message: string): ComparisonResult => ({
   pass: true,
   message: () => message,
 });
 
-const compareSingleObject = <T extends object>(
-  actual: T,
-  expected: T
-): { pass: boolean; message: () => string } => {
+const errorResult = (message: string): ComparisonResult => ({
+  pass: false,
+  message: () => message,
+});
+
+const getLocatorValue = async <T>(locator: Locator): Promise<T | T[]> => {
+  const count = await locator.count();
+  if (count === 0) {
+    return [] as unknown as T[];
+  }
+  if (count === 1) {
+    const text = await locator.textContent();
+    return text?.trim() as unknown as T;
+  }
+  const texts = await locator.allTextContents();
+  return texts as unknown as T[];
+};
+
+const getActualValue = async <T>(
+  received: (() => Promise<T | T[]>) | Promise<T | T[]> | Locator
+): Promise<T | T[]> => {
+  if ('count' in received) {
+    return getLocatorValue<T>(received);
+  }
+  return typeof received === 'function' ? await received() : await received;
+};
+
+const compareSingleObject = <T>(actual: T, expected: T): ComparisonResult => {
+  if (typeof actual !== 'object' || actual === null) {
+    const matches = actual === expected;
+    if (matches) {
+      return successResult(`Value matches expected: ${formatValue(expected)}`);
+    }
+    return errorResult(
+      `Values do not match.\nExpected: ${formatValue(
+        expected
+      )}\nActual: ${formatValue(actual)}`
+    );
+  }
+
   if (Object.keys(actual).length === 0) {
     return errorResult('Expected object but got empty result');
   }
@@ -142,16 +182,16 @@ const compareSingleObject = <T extends object>(
   return errorResult(errorMessage);
 };
 
-const compareObjectArray = <T extends object>(
+const compareObjectArray = <T>(
   actual: T[],
   expected: T[],
   strict: boolean = true
-): { pass: boolean; message: () => string } => {
+): ComparisonResult => {
   if (strict && actual.length !== expected.length) {
     return errorResult(
       `Expected array length ${expected.length} but got ${
         actual.length
-      }\nActual objects: ${formatValue(actual)}`
+      }\nActual values: ${formatValue(actual)}`
     );
   }
 
@@ -159,12 +199,33 @@ const compareObjectArray = <T extends object>(
     return successResult('Empty arrays match');
   }
 
-  const comparisonResults = expected.map((expectedObj) => {
-    const matches = actual.some((actualObj) =>
-      deepCompare(actualObj, expectedObj)
+  if (typeof actual[0] !== 'object' || actual[0] === null) {
+    const allMatch = expected.every((expectedVal) =>
+      actual.some((actualVal) => {
+        if (typeof actualVal === 'string' && typeof expectedVal === 'string') {
+          return actualVal.trim() === expectedVal.trim();
+        }
+        return actualVal === expectedVal;
+      })
     );
-    return { expected: expectedObj, matches };
-  });
+
+    if (allMatch) {
+      return successResult(
+        `Array contains value(s) matching: ${formatValue(expected)}`
+      );
+    }
+
+    return errorResult(
+      `Expected values: ${formatValue(expected)}\nActual values: ${formatValue(
+        actual
+      )}`
+    );
+  }
+
+  const comparisonResults = expected.map((expectedObj) => ({
+    expected: expectedObj,
+    matches: actual.some((actualObj) => deepCompare(actualObj, expectedObj)),
+  }));
 
   const allMatch = comparisonResults.every((result) => result.matches);
   if (allMatch) {
@@ -204,4 +265,5 @@ export {
   errorResult,
   successResult,
   formatValue,
+  getActualValue,
 };

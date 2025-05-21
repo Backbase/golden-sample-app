@@ -4,7 +4,7 @@ import type { Amount } from '../../data/amount';
 export class AmountComponent extends BaseComponent {
   currencyInput = this.childByTestId('currency');
   valueInput = this.childByTestId('value');
-  decimalsInput = this.childByTestId('s');
+  decimalsInput = this.childByTestId('decimals');
 
   async fill(amount: Amount) {
     await this.valueInput.fill(amount.integer);

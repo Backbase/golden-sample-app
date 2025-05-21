@@ -1,7 +1,7 @@
 import {
   BaseComponent,
   formatDate,
-  getLocatorText,
+  getTrimmedText,
 } from '@backbase-gsa/e2e-tests';
 import { getAmountValue, TransactionDetailsDataType } from '../../model';
 import { expect } from '@playwright/test';
@@ -36,12 +36,11 @@ export class TransactionsItem extends BaseComponent {
   }
 
   async getTransaction(): Promise<Partial<TransactionDetailsDataType>> {
-    const amount = await getLocatorText(this.amount);
     return {
-      recipient: await getLocatorText(this.recipient),
-      date: await getLocatorText(this.date),
-      amount: amount.replace('$', ''),
-      accountNumber: await getLocatorText(this.accountNumber),
+      recipient: await getTrimmedText(this.recipient),
+      date: await getTrimmedText(this.date),
+      amount: (await getTrimmedText(this.amount)).replace('$', ''),
+      accountNumber: await getTrimmedText(this.accountNumber),
     };
   }
 }
