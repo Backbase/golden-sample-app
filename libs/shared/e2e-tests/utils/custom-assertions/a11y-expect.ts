@@ -4,7 +4,7 @@ import {
   Page,
   TestInfo,
 } from '@playwright/test';
-import { A11yScanner, timeID } from '@backbase-gsa/e2e-tests';
+import { A11yScanner, timeID } from '@backbase/e2e-tests';
 
 declare global {
   namespace PlaywrightTest {

@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { BasePage, PAGE_TO_LOAD } from '@backbase-gsa/e2e-tests';
+import { BasePage, PAGE_TO_LOAD } from '@backbase/e2e-tests';
 import { User } from '../../data/data-types/user';
 import { defaultUser } from '../../data/credentials';
 

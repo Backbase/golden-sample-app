@@ -1,4 +1,4 @@
-import { BasePage } from '@backbase-gsa/e2e-tests';
+import { BasePage } from '@backbase/e2e-tests';
 import { Transactions } from '../ui-components';
 
 export class TransactionsPage extends BasePage {

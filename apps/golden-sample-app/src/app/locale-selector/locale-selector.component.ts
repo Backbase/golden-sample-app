@@ -3,7 +3,7 @@ import { localesCatalog } from './locales-catalog';
 import {
   LOCALES_LIST,
   LocalesService,
-} from '@backbase-gsa/shared/util/app-core';
+} from '@backbase/shared/util/app-core';
 
 type Locale = (typeof localesCatalog)[string];
 

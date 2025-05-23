@@ -4,7 +4,7 @@ import { Subject, Subscription } from 'rxjs';
 
 import { AuthEventsHandlerService } from './auth-events-handler.service';
 import { AuthService } from '@backbase/identity-auth';
-import { LocalesService } from '@backbase-gsa/shared/util/app-core';
+import { LocalesService } from '@backbase/shared/util/app-core';
 import { TestScheduler } from 'rxjs/testing';
 
 export type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;

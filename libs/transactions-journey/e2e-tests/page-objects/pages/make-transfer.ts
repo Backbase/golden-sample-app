@@ -1,4 +1,4 @@
-import { BasePage } from '@backbase-gsa/e2e-tests';
+import { BasePage } from '@backbase/e2e-tests';
 import { AmountComponent, AccountSelector } from '../ui-components';
 import { test } from '@playwright/test';
 import type { Transfer } from '../../data/transfer';

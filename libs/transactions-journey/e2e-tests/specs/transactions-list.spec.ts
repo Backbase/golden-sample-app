@@ -1,6 +1,6 @@
 import { expect, TestType } from '@playwright/test';
 import { TransactionDataType, TransactionFixture } from '../model/transaction';
-import '@backbase-gsa/e2e-tests';
+import '@backbase/e2e-tests';
 
 export function testTransactionsList(
   test: TestType<TransactionFixture, TransactionFixture>,

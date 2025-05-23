@@ -4,7 +4,7 @@ import {
   Tracker,
 } from '@backbase/foundation-ang/observability';
 import { AuthService } from '@backbase/identity-auth';
-import { LocalesService } from '@backbase-gsa/shared/util/app-core';
+import { LocalesService } from '@backbase/shared/util/app-core';
 import { OAuthEvent, OAuthService } from 'angular-oauth2-oidc';
 import { Subscription } from 'rxjs';
 

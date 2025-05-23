@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { PERMISSIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
+import { PERMISSIONS } from '@backbase/ach-positive-pay-journey/internal/shared-data';
 import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
 import { PageHeaderModule } from '@backbase/ui-ang/page-header';
 import { IconModule } from '@backbase/ui-ang/icon';

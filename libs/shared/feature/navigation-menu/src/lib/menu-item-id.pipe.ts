@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { NavigationMenuItem } from '@backbase-gsa/shared/util/app-core';
+import { NavigationMenuItem } from '@backbase/shared/util/app-core';
 
 @Pipe({
   name: 'menuItemId',

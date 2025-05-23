@@ -10,7 +10,7 @@ import { AccountSelectorModule } from '@backbase/ui-ang/account-selector';
 import { Router } from '@angular/router';
 import { InitiatorComponent } from './components/initiator/initiator.component';
 import { customPaymentConfig, setRouter } from './custom-payment.config';
-import { PaymentsCommunicationService } from '@backbase-gsa/shared/feature/communication';
+import { PaymentsCommunicationService } from '@backbase/shared/feature/communication';
 
 // Create a provider for the review service
 export function reviewServiceFactory(router: Router) {

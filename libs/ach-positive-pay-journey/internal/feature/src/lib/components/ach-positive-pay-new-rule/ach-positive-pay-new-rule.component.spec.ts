@@ -2,7 +2,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '@backbase/ui-ang/notification';
 import { of, throwError } from 'rxjs';
-import { AchPositivePayHttpService } from '@backbase-gsa/ach-positive-pay-journey/internal/data-access';
+import { AchPositivePayHttpService } from '@backbase/ach-positive-pay-journey/internal/data-access';
 import { AchPositivePayNewRuleComponent } from './ach-positive-pay-new-rule.component';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 

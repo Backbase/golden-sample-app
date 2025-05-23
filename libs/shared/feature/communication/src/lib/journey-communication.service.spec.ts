@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { Transfer } from '@backbase-gsa/transfer-journey';
+import { Transfer } from '@backbase/transfer-journey';
 import { JourneyCommunicationService } from './journey-communication.service';
 
 describe('JourneyCommunicationService', () => {

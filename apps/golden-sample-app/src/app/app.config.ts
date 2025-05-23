@@ -21,10 +21,10 @@ import { AnalyticsService } from './services/analytics.service';
 import {
   ActivityMonitorModule,
   AuthInterceptor,
-} from '@backbase-gsa/shared/feature/auth';
+} from '@backbase/shared/feature/auth';
 import { environment, authConfig } from '../environments/environment';
 import packageInfo from 'package-json';
-import { SharedUserContextInterceptor } from '@backbase-gsa/shared/feature/user-context';
+import { SharedUserContextInterceptor } from '@backbase/shared/feature/user-context';
 import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
 import {
   ACCESS_CONTROL_BASE_PATH,
@@ -33,7 +33,7 @@ import {
 import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/arrangement-manager-http-ang';
 import { TRANSACTIONS_BASE_PATH } from '@backbase/transactions-http-ang';
 import { AppErrorHandler } from './app.error-handler';
-import { ENVIRONMENT_CONFIG } from '@backbase-gsa/shared/util/config';
+import { ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
 import { IdentityAuthModule } from '@backbase/identity-auth';
 import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';
 

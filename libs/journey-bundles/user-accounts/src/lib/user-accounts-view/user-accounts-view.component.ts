@@ -1,5 +1,5 @@
 import { Component, Optional } from '@angular/core';
-import { ArrangementsService } from '@backbase-gsa/transactions-journey';
+import { ArrangementsService } from '@backbase/transactions-journey';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { Tracker } from '@backbase/foundation-ang/observability';
 import {

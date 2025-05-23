@@ -1,4 +1,4 @@
-import { BaseComponent, PageInfo, formatDate } from '@backbase-gsa/e2e-tests';
+import { BaseComponent, PageInfo, formatDate } from '@backbase/e2e-tests';
 import { Amount, TransactionDetailsDataType } from '../../model';
 import { LabeledData } from './labeled-data';
 import { test, expect } from '@playwright/test';

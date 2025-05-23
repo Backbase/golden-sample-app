@@ -1,4 +1,4 @@
-import { BaseComponent, getLocatorText } from '@backbase-gsa/e2e-tests';
+import { BaseComponent, getLocatorText } from '@backbase/e2e-tests';
 
 export class LabeledData extends BaseComponent {
   label = this.child('dt');

@@ -4,12 +4,12 @@ import {
   Router,
 } from '@angular/router';
 import { of } from 'rxjs';
-import { Transfer } from '@backbase-gsa/transfer-journey/internal/shared-data';
+import { Transfer } from '@backbase/transfer-journey/internal/shared-data';
 import {
   MakeTransferJourneyConfiguration,
   MakeTransferJourneyState,
   MakeTransferPermissionsService,
-} from '@backbase-gsa/transfer-journey/internal/data-access';
+} from '@backbase/transfer-journey/internal/data-access';
 import { MakeTransferViewComponent } from './make-transfer-view.component';
 
 describe('MakeTransferViewComponent', () => {

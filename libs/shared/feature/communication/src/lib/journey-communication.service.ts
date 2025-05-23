@@ -5,10 +5,10 @@ import {
   TransactionState,
 } from '@backbase/transactions-http-ang';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { TransactionsCommunicationService } from '@backbase-gsa/transactions-journey';
+import { TransactionsCommunicationService } from '@backbase/transactions-journey';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { MakeTransferCommunicationService } from '@backbase-gsa/transfer-journey';
-import { Transfer } from '@backbase-gsa/transfer-journey/internal/shared-data';
+import { MakeTransferCommunicationService } from '@backbase/transfer-journey';
+import { Transfer } from '@backbase/transfer-journey/internal/shared-data';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

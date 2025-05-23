@@ -1,4 +1,4 @@
-import { BaseComponent, PageInfo } from '@backbase-gsa/e2e-tests';
+import { BaseComponent, PageInfo } from '@backbase/e2e-tests';
 import { TransactionsItem } from './transaction-item';
 import { TransactionDetailsDataType } from '../../model';
 

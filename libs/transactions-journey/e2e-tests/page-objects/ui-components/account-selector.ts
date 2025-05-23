@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { BaseComponent } from '@backbase-gsa/e2e-tests';
+import { BaseComponent } from '@backbase/e2e-tests';
 import type { Account } from '../../data/account';
 
 export class AccountSelector extends BaseComponent {

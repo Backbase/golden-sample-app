@@ -1,4 +1,4 @@
-import { BaseComponent } from '@backbase-gsa/e2e-tests';
+import { BaseComponent } from '@backbase/e2e-tests';
 import type { Amount } from '../../data/amount';
 
 export class AmountComponent extends BaseComponent {

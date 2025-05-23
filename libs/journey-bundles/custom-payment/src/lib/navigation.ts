@@ -1,7 +1,7 @@
 import {
   NavigationItemIconPosition,
   NavigationLink,
-} from '@backbase-gsa/shared/util/app-core';
+} from '@backbase/shared/util/app-core';
 
 export const CUSTOM_PAYMENT_NAVIGATION: NavigationLink = {
   id: 'transfer-internal',
