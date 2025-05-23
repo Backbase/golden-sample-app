@@ -17,7 +17,7 @@ declare global {
   }
 }
 
-const expect = baseExpect.extend({
+export const a11yExpect = baseExpect.extend({
   async toBeAccessible(
     pageObject: { page: Page; testInfo: TestInfo },
     options?: {
