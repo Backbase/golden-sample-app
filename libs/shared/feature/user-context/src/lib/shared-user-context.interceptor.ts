@@ -8,10 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { Inject, Injectable } from '@angular/core';
 import { SharedUserContextService } from './shared-user-context.service';
-import {
-  Environment,
-  ENVIRONMENT_CONFIG,
-} from '@backbase/shared/util/config';
+import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
 
 /**
  * Adds the X-USER-CONTEXT header with the currently active service agreement ID

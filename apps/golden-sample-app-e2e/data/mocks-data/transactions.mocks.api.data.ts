@@ -1,4 +1,4 @@
-import { TransactionDataType } from '@backbase/transactions-journey/e2e-tests';
+import { TransactionDataType } from '@backbase-gsa/transactions-journey/e2e-tests';
 
 export const mockedTransactionsData: TransactionDataType = {
   transactions: [
@@ -64,4 +64,5 @@ export const mockedTransactionsData: TransactionDataType = {
     'Hard Rock Cafe',
     'KLM',
   ],
+  recipientsSubset: ['KLM', 'Hard Rock Cafe'],
 };

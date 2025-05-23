@@ -1,6 +1,6 @@
-import { expect, TestType } from '@playwright/test';
+import { TestType } from '@playwright/test';
 import { TransactionDataType, TransactionFixture } from '../model/transaction';
-import '@backbase/e2e-tests';
+import { expect } from '@backbase/e2e-tests';
 
 export function testTransactionsList(
   test: TestType<TransactionFixture, TransactionFixture>,
@@ -31,13 +31,22 @@ export function testTransactionsList(
         ).toHaveText(testData.recipients);
       });
 
+      test('should display transactions recipients subset', async ({
+        transactionsPage,
+      }) => {
+        await expect(
+          transactionsPage.transactions.recipients,
+          `Expect "${testData.recipientsSubset}" recipients`
+        ).toContainObject(testData.recipientsSubset);
+      });
+
       for (const expectation of testData.transactionList.searchExpectations) {
         test(`should filter by term ${expectation.term}`, async ({
           transactionsPage,
         }) => {
           await transactionsPage.search.fill(expectation.term);
-          await expect(
-            () => transactionsPage.transactions.getTransactions(),
+          await expect(() =>
+            transactionsPage.transactions.getTransactions(),
             `Expect "${JSON.stringify(expectation.transactions)}" transactions`
           ).toHaveObject(expectation.transactions);
         });
@@ -48,8 +57,8 @@ export function testTransactionsList(
         transactionsPage,
       }) => {
         await transactionsPage.search.fill(expectation.term);
-        await expect(
-          () => transactionsPage.transactions.getTransactions(),
+        await expect(() =>
+          transactionsPage.transactions.getTransactions(),
           `Expect "${JSON.stringify(expectation.transactions[0])}" transactions`
         ).toContainObject(expectation.transactions[0]);
       });

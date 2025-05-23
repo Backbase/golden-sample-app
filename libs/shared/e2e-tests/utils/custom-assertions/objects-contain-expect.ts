@@ -1,21 +1,24 @@
-import { expect as baseExpect } from '@playwright/test';
-import { compareObjectArray, clearComparisonCache } from './object-comparator';
+import { expect as baseExpect, Locator } from '@playwright/test';
+import {
+  compareObjectArray,
+  clearComparisonCache,
+  getActualValue,
+} from './object-comparator';
 
 declare global {
   namespace PlaywrightTest {
     interface Matchers<R> {
-      toContainObject<T extends object>(expected: T | T[]): R;
+      toContainObject<T>(expected: T | T[]): R;
     }
   }
 }
 
-const expect = baseExpect.extend({
-  async toContainObject<T extends object>(
-    received: (() => Promise<T[]>) | Promise<T[]>,
+export const objectContainExpect = baseExpect.extend({
+  async toContainObject<T>(
+    received: (() => Promise<T[]>) | Promise<T[]> | Locator,
     expected: T | T[]
   ): Promise<{ message: () => string; pass: boolean }> {
-    const actualValue: T[] =
-      typeof received === 'function' ? await received() : await received;
+    const actualValue = (await getActualValue<T>(received)) as T[];
     const expectedArray = Array.isArray(expected) ? expected : [expected];
 
     clearComparisonCache();

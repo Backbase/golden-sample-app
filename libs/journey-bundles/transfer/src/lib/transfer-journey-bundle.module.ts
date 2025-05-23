@@ -5,10 +5,7 @@ import {
   TransferJourneyShellModule,
 } from '@backbase/transfer-journey';
 import { JourneyCommunicationService } from '@backbase/shared/feature/communication';
-import {
-  Environment,
-  ENVIRONMENT_CONFIG,
-} from '@backbase/shared/util/config';
+import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
 
 @NgModule({
   imports: [TransferJourneyShellModule.forRoot()],

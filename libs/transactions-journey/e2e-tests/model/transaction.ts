@@ -7,6 +7,7 @@ export interface TransactionDataType {
   transactions: Partial<TransactionDetailsDataType>[];
   transactionList: TransactionsListDataType;
   recipients: string[];
+  recipientsSubset: string[];
 }
 
 export interface TransactionsListDataType {

@@ -9,7 +9,7 @@ declare global {
   }
 }
 
-const expect = baseExpect.extend({
+export const listContainExpect = baseExpect.extend({
   async listToContainText(
     locator: Locator,
     expectedText: string,
