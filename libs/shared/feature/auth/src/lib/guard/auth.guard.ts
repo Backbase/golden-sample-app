@@ -2,10 +2,7 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { UrlTree } from '@angular/router';
 import { AuthService } from '@backbase/identity-auth';
 import { Observable, map, of } from 'rxjs';
-import {
-  Environment,
-  ENVIRONMENT_CONFIG,
-} from '@backbase-gsa/shared/util/config';
+import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
 
 @Injectable({
   providedIn: 'root',

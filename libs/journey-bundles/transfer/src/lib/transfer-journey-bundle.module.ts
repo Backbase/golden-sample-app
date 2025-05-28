@@ -3,12 +3,9 @@ import {
   MakeTransferCommunicationService,
   MakeTransferJourneyConfiguration,
   TransferJourneyShellModule,
-} from '@backbase-gsa/transfer-journey';
-import { JourneyCommunicationService } from '@backbase-gsa/shared/feature/communication';
-import {
-  Environment,
-  ENVIRONMENT_CONFIG,
-} from '@backbase-gsa/shared/util/config';
+} from '@backbase/transfer-journey';
+import { JourneyCommunicationService } from '@backbase/shared/feature/communication';
+import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
 
 @NgModule({
   imports: [TransferJourneyShellModule.forRoot()],

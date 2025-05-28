@@ -6,7 +6,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import {
   SharedUserContextGuard,
   SharedUserContextService,
-} from '@backbase-gsa/shared/feature/user-context';
+} from '@backbase/shared/feature/user-context';
 
 describe('UserContextComponent', () => {
   let fixture: ComponentFixture<UserContextComponent>;

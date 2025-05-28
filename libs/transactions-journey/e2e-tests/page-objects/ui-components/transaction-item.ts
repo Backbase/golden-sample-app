@@ -1,8 +1,4 @@
-import {
-  BaseComponent,
-  formatDate,
-  getLocatorText,
-} from '@backbase-gsa/e2e-tests';
+import { BaseComponent, formatDate, getLocatorText } from '@backbase/e2e-tests';
 import { getAmountValue, TransactionDetailsDataType } from '../../model';
 import { expect } from '@playwright/test';
 

@@ -1,18 +1,18 @@
 import { InjectionToken, Provider, Type } from '@angular/core';
 import { journeyFactory } from '@backbase/foundation-ang/core';
 import { Routes } from '@angular/router';
-import { TransactionsViewComponent } from '@backbase-gsa/transactions-journey/internal/feature-transaction-view';
-import { TransactionDetailsComponent } from '@backbase-gsa/transactions-journey/internal/feature-transaction-details-view';
-import { TransactionsRouteTitleResolverService } from '@backbase-gsa/transactions-journey/internal/data-access';
-import { TRANSLATIONS } from '@backbase-gsa/transactions-journey/internal/shared-data';
+import { TransactionsViewComponent } from '@backbase/transactions-journey/internal/feature-transaction-view';
+import { TransactionDetailsComponent } from '@backbase/transactions-journey/internal/feature-transaction-details-view';
+import { TransactionsRouteTitleResolverService } from '@backbase/transactions-journey/internal/data-access';
+import { TRANSLATIONS } from '@backbase/transactions-journey/internal/shared-data';
 import {
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
   TransactionsCommunicationService,
-} from '@backbase-gsa/transactions-journey/internal/data-access';
+} from '@backbase/transactions-journey/internal/data-access';
 import {
   TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
-} from '@backbase-gsa/transactions-journey/internal/feature-transaction-view';
+} from '@backbase/transactions-journey/internal/feature-transaction-view';
 
 // Configuration Interface
 export interface TransactionsJourneyConfig {

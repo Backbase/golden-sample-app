@@ -6,9 +6,9 @@ import { BadgeModule } from '@backbase/ui-ang/badge';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
 
-import { TransactionsHttpService } from '@backbase-gsa/transactions-journey/internal/data-access';
-import { TextFilterComponent } from '@backbase-gsa/transactions-journey/internal/ui';
-import { FilterTransactionsPipe } from '@backbase-gsa/transactions-journey/internal/util';
+import { TransactionsHttpService } from '@backbase/transactions-journey/internal/data-access';
+import { TextFilterComponent } from '@backbase/transactions-journey/internal/ui';
+import { FilterTransactionsPipe } from '@backbase/transactions-journey/internal/util';
 
 import { TransactionItemComponent } from '../transaction-item/transaction-item.component';
 import { TransactionsViewComponent } from './transactions-view.component';

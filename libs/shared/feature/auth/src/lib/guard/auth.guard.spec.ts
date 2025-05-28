@@ -4,7 +4,7 @@ import { AuthService } from '@backbase/identity-auth';
 import { ReplaySubject } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AuthGuard } from './auth.guard';
-import { Environment } from '@backbase-gsa/shared/util/config';
+import { Environment } from '@backbase/shared/util/config';
 
 export type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;
 export const mock = <T>(overrides?: WidePropertyTypes<T>) =>

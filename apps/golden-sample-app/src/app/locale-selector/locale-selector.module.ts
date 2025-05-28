@@ -3,10 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
 import { LocaleSelectorComponent } from './locale-selector.component';
-import {
-  LocalesService,
-  LOCALES_LIST,
-} from '@backbase-gsa/shared/util/app-core';
+import { LocalesService, LOCALES_LIST } from '@backbase/shared/util/app-core';
 
 @NgModule({
   declarations: [LocaleSelectorComponent],

@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicNavigationMenuModule } from '@backbase-gsa/shared/feature/navigation-menu';
+import { DynamicNavigationMenuModule } from '@backbase/shared/feature/navigation-menu';
 import {
   NAVIGATION_MENU_CONFIG,
   NavigationMenuItem,
   composeNavigationTree,
-} from '@backbase-gsa/shared/util/app-core';
+} from '@backbase/shared/util/app-core';
 
 import { NAVIGATION_GROUPS, NAVIGATION_BUNDLE } from './navigation-menu.config';
 import { NavigationMenuComponent } from './navigation-menu.component';

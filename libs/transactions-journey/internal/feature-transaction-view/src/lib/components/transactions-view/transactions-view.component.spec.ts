@@ -11,16 +11,16 @@ import {
   TransactionsCommunicationService,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
   TransactionsJourneyConfiguration,
-} from '@backbase-gsa/transactions-journey/internal/data-access';
+} from '@backbase/transactions-journey/internal/data-access';
 import {
   debitMockTransaction,
   transactionsMock,
-} from '@backbase-gsa/transactions-journey/internal/util';
-import { FilterTransactionsPipe } from '@backbase-gsa/transactions-journey/internal/util';
+} from '@backbase/transactions-journey/internal/util';
+import { FilterTransactionsPipe } from '@backbase/transactions-journey/internal/util';
 import {
   TransactionsHttpService,
   ArrangementsService,
-} from '@backbase-gsa/transactions-journey/internal/data-access';
+} from '@backbase/transactions-journey/internal/data-access';
 import { TransactionsViewComponent } from './transactions-view.component';
 import { By } from '@angular/platform-browser';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';

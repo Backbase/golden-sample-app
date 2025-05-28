@@ -12,7 +12,7 @@ import { ConditionsService } from '@backbase/foundation-ang/entitlements';
 import {
   NAVIGATION_MENU_CONFIG,
   NavigationMenuItem,
-} from '@backbase-gsa/shared/util/app-core';
+} from '@backbase/shared/util/app-core';
 
 import { MenuItemIdPipe } from './menu-item-id.pipe';
 import { DynamicNavigationMenuComponent } from './navigation-menu.component';

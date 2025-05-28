@@ -10,7 +10,7 @@ import {
 import { map, of } from 'rxjs';
 
 import { Injectable } from '@angular/core';
-import { Transfer } from '@backbase-gsa/transfer-journey/internal/shared-data';
+import { Transfer } from '@backbase/transfer-journey/internal/shared-data';
 
 @Injectable()
 export class MakeTransferAccountHttpService {

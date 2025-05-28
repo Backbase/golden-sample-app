@@ -10,20 +10,20 @@ import { ButtonModule } from '@backbase/ui-ang/button';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 
-import { TextFilterComponent } from '@backbase-gsa/transactions-journey/internal/ui';
+import { TextFilterComponent } from '@backbase/transactions-journey/internal/ui';
 
-import { TRANSLATIONS } from '@backbase-gsa/transactions-journey/internal/shared-data';
+import { TRANSLATIONS } from '@backbase/transactions-journey/internal/shared-data';
 import {
   TransactionsJourneyConfiguration,
   TransactionsRouteTitleResolverService,
-} from '@backbase-gsa/transactions-journey/internal/data-access';
-import { TransactionDetailsComponent } from '@backbase-gsa/transactions-journey/internal/feature-transaction-details-view';
+} from '@backbase/transactions-journey/internal/data-access';
+import { TransactionDetailsComponent } from '@backbase/transactions-journey/internal/feature-transaction-details-view';
 import {
   TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
   TransactionsViewComponent,
   TransactionsViewModule,
-} from '@backbase-gsa/transactions-journey/internal/feature-transaction-view';
+} from '@backbase/transactions-journey/internal/feature-transaction-view';
 const defaultRoutes: Routes = [
   {
     path: '',

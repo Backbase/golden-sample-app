@@ -3,14 +3,11 @@ import {
   TransactionsJourneyConfiguration,
   TransactionsJourneyModule,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
-} from '@backbase-gsa/transactions-journey';
+} from '@backbase/transactions-journey';
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
 import { CommonModule } from '@angular/common';
-import {
-  Environment,
-  ENVIRONMENT_CONFIG,
-} from '@backbase-gsa/shared/util/config';
-import { JourneyCommunicationService } from '@backbase-gsa/shared/feature/communication';
+import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
+import { JourneyCommunicationService } from '@backbase/shared/feature/communication';
 
 @NgModule({
   imports: [

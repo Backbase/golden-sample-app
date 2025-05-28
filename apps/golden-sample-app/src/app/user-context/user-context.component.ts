@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import {
   SharedUserContextGuard,
   SharedUserContextService,
-} from '@backbase-gsa/shared/feature/user-context';
+} from '@backbase/shared/feature/user-context';
 import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
