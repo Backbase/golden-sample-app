@@ -6,10 +6,7 @@ import {
 } from '@backbase/transactions-journey';
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
 import { CommonModule } from '@angular/common';
-import {
-  Environment,
-  ENVIRONMENT_CONFIG,
-} from '@backbase/shared/util/config';
+import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
 import { JourneyCommunicationService } from '@backbase/shared/feature/communication';
 
 @NgModule({
