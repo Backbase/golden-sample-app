@@ -110,7 +110,7 @@
     "@nx/angular": "20.5.0",
     "@nx/eslint": "20.8.1",
     "@nx/eslint-plugin": "20.5.0",
-    "@nx/jest": "20.5.0",
+    "@nx/jest": "20.8.2",
     "@nx/js": "20.5.0",
     "@nx/workspace": "20.8.1",
     "@playwright/test": "1.52.0",
