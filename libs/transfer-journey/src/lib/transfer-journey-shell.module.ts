@@ -4,21 +4,21 @@ import { provideRoutes, Route, RouterModule } from '@angular/router';
 import {
   MakeTransferFormComponent,
   MakeTransferSummaryComponent,
-} from '@backbase-gsa/transfer-journey/internal/ui';
+} from '@backbase/transfer-journey/internal/ui';
 import { MakeTransferJourneyStoreGuard } from './make-transfer-journey-store-guard';
 import { TransferJourneyComponent } from './transfer-journey.component';
 import {
   MakeTransferSuccessViewComponent,
   MakeTransferSummaryViewComponent,
   MakeTransferViewComponent,
-} from '@backbase-gsa/transfer-journey/internal/feature';
-import { MakeTransferJourneyConfiguration } from '@backbase-gsa/transfer-journey/internal/data-access';
+} from '@backbase/transfer-journey/internal/feature';
+import { MakeTransferJourneyConfiguration } from '@backbase/transfer-journey/internal/data-access';
 import {
   MakeTransferPermissionsService,
   MakeTransferAccountHttpService,
   MakeTransferRouteTitleResolverService,
-} from '@backbase-gsa/transfer-journey/internal/data-access';
-import { TRANSLATIONS } from '@backbase-gsa/transfer-journey/internal/shared-data';
+} from '@backbase/transfer-journey/internal/data-access';
+import { TRANSLATIONS } from '@backbase/transfer-journey/internal/shared-data';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { AlertModule } from '@backbase/ui-ang/alert';
 

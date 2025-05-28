@@ -1,8 +1,8 @@
 import {
   NavigationItemIconPosition,
   NavigationLink,
-} from '@backbase-gsa/shared/util/app-core';
-import { PERMISSIONS } from '@backbase-gsa/shared/util/permissions';
+} from '@backbase/shared/util/app-core';
+import { PERMISSIONS } from '@backbase/shared/util/permissions';
 
 export const ACH_POSITIVE_PAY_NAVIGATION: NavigationLink = {
   id: 'ach-positive-pay',

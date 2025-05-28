@@ -1,4 +1,4 @@
-import { Environment } from '@backbase-gsa/shared/util/config';
+import { Environment } from '@backbase/shared/util/config';
 import { AuthConfig } from 'angular-oauth2-oidc';
 
 export const environment: Environment = {

@@ -9,12 +9,12 @@ import {
   MakeTransferJourneyState,
   TransferLoadingStatus,
   MakeTransferPermissionsService,
-} from '@backbase-gsa/transfer-journey/internal/data-access';
+} from '@backbase/transfer-journey/internal/data-access';
 import {
   Transfer,
   TransferSubmitEvent,
-} from '@backbase-gsa/transfer-journey/internal/shared-data';
-import { MakeTransferFormComponent } from '@backbase-gsa/transfer-journey/internal/ui';
+} from '@backbase/transfer-journey/internal/shared-data';
+import { MakeTransferFormComponent } from '@backbase/transfer-journey/internal/ui';
 
 import { map } from 'rxjs/operators';
 import { Tracker } from '@backbase/foundation-ang/observability';

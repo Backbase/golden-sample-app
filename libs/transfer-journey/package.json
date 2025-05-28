@@ -1,5 +1,5 @@
 {
-  "name": "@backbase-gsa/transfer-journey",
+  "name": "@backbase/transfer-journey",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^17.3.0",

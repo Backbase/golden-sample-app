@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ACH_POSITIVE_PAY_ROUTE } from '@backbase-gsa/journey-bundles/ach-positive-pay';
-import { TRANSFER_ROUTE } from '@backbase-gsa/journey-bundles/transfer';
-import { TRANSACTIONS_ROUTE } from '@backbase-gsa/journey-bundles/transactions';
-import { USER_ACCOUNTS_ROUTE } from '@backbase-gsa/journey-bundles/user-accounts';
-import { CUSTOM_PAYMENT_ROUTE } from '@backbase-gsa/journey-bundles/custom-payment';
-import { AuthGuard } from '@backbase-gsa/shared/feature/auth';
+import { ACH_POSITIVE_PAY_ROUTE } from '@backbase/journey-bundles/ach-positive-pay';
+import { TRANSFER_ROUTE } from '@backbase/journey-bundles/transfer';
+import { TRANSACTIONS_ROUTE } from '@backbase/journey-bundles/transactions';
+import { USER_ACCOUNTS_ROUTE } from '@backbase/journey-bundles/user-accounts';
+import { CUSTOM_PAYMENT_ROUTE } from '@backbase/journey-bundles/custom-payment';
+import { AuthGuard } from '@backbase/shared/feature/auth';
 
 const routes: Routes = [
   {

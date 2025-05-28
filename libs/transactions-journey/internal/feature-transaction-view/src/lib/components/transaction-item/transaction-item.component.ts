@@ -18,7 +18,7 @@ import {
 } from '../../extensions';
 import { AmountModule } from '@backbase/ui-ang/amount';
 import { CommonModule } from '@angular/common';
-import { IconMap } from '@backbase-gsa/transactions-journey/internal/shared-data';
+import { IconMap } from '@backbase/transactions-journey/internal/shared-data';
 import { RouterModule } from '@angular/router';
 
 @Directive({

@@ -5,7 +5,7 @@ import { Observable, map, of } from 'rxjs';
 import {
   Environment,
   ENVIRONMENT_CONFIG,
-} from '@backbase-gsa/shared/util/config';
+} from '@backbase/shared/util/config';
 
 @Injectable({
   providedIn: 'root',

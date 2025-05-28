@@ -48,16 +48,16 @@ import { AppErrorHandler } from './app.error-handler';
 import { AnalyticsService } from './services/analytics.service';
 import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
-import { SharedUserContextInterceptor } from '@backbase-gsa/shared/feature/user-context';
+import { SharedUserContextInterceptor } from '@backbase/shared/feature/user-context';
 import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
 import packageInfo from 'package-json';
 import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
 import { ThemeManagerService } from './theme-switcher/theme-service';
-import { ENVIRONMENT_CONFIG } from '@backbase-gsa/shared/util/config';
+import { ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
 import {
   ActivityMonitorModule,
   AuthInterceptor,
-} from '@backbase-gsa/shared/feature/auth';
+} from '@backbase/shared/feature/auth';
 import { NavigationMenuModule } from './navigation-menu/navigation-menu.module';
 import { appConfig } from './app.config';
 import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';

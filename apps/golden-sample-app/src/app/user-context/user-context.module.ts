@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SelectContextModule } from '@backbase/select-context';
 import { UserContextComponent } from './user-context.component';
-import { SharedUserContextModule } from '@backbase-gsa/shared/feature/user-context';
+import { SharedUserContextModule } from '@backbase/shared/feature/user-context';
 
 @NgModule({
   declarations: [UserContextComponent],

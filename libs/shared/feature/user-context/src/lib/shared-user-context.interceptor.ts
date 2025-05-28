@@ -11,7 +11,7 @@ import { SharedUserContextService } from './shared-user-context.service';
 import {
   Environment,
   ENVIRONMENT_CONFIG,
-} from '@backbase-gsa/shared/util/config';
+} from '@backbase/shared/util/config';
 
 /**
  * Adds the X-USER-CONTEXT header with the currently active service agreement ID

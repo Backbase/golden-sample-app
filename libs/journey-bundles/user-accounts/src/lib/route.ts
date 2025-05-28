@@ -1,5 +1,5 @@
-import { AuthGuard } from '@backbase-gsa/shared/feature/auth';
-import { SharedUserContextGuard } from '@backbase-gsa/shared/feature/user-context';
+import { AuthGuard } from '@backbase/shared/feature/auth';
+import { SharedUserContextGuard } from '@backbase/shared/feature/user-context';
 
 export const USER_ACCOUNTS_ROUTE = {
   path: 'accounts',
