@@ -5,7 +5,7 @@ import { MemoryStorage } from 'angular-oauth2-oidc';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SharedUserContextInterceptor } from './shared-user-context.interceptor';
 import { SharedUserContextService } from './shared-user-context.service';
-import { Environment } from '@backbase-gsa/shared/util/config';
+import { Environment } from '@backbase/shared/util/config';
 
 describe('UserContextInterceptor', () => {
   function setupInterceptor(

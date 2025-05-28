@@ -14,7 +14,7 @@ import {
 import {
   Account,
   Transfer,
-} from '@backbase-gsa/transfer-journey/internal/shared-data';
+} from '@backbase/transfer-journey/internal/shared-data';
 import { MakeTransferAccountHttpService } from '../make-transfer-accounts/make-transfer-accounts.http.service';
 
 export enum TransferOperationStatus {

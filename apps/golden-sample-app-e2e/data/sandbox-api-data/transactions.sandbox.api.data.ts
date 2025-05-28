@@ -1,4 +1,4 @@
-import { TransactionDataType } from '@backbase-gsa/transactions-journey/e2e-tests';
+import { TransactionDataType } from '@backbase/transactions-journey/e2e-tests';
 
 export const sandboxTransactionData: TransactionDataType = {
   transactions: [

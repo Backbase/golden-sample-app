@@ -3,13 +3,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   creditMockTransaction,
   debitMockTransaction,
-} from '@backbase-gsa/transactions-journey/internal/util';
+} from '@backbase/transactions-journey/internal/util';
 import { TransactionItemComponent } from './transaction-item.component';
 import {
   TransactionAdditionalDetailsContext,
   TRANSACTION_EXTENSIONS_CONFIG,
 } from '../../extensions';
-import { TransactionsJourneyConfiguration } from '@backbase-gsa/transactions-journey/internal/data-access';
+import { TransactionsJourneyConfiguration } from '@backbase/transactions-journey/internal/data-access';
 
 @Component({
   selector: 'bb-transaction-item-test-component',

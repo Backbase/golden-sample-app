@@ -1,8 +1,8 @@
 import {
   NavigationItemIconPosition,
   NavigationLink,
-} from '@backbase-gsa/shared/util/app-core';
-import { PERMISSIONS } from '@backbase-gsa/shared/util/permissions';
+} from '@backbase/shared/util/app-core';
+import { PERMISSIONS } from '@backbase/shared/util/permissions';
 
 export const TRANSACTIONS_NAVIGATION: NavigationLink = {
   id: 'transactions',

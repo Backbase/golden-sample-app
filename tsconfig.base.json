@@ -15,108 +15,106 @@
     "types": ["node"],
     "baseUrl": "./",
     "paths": {
-      "@backbase-gsa/ach-positive-pay-journey": [
+      "@backbase/ach-positive-pay-journey": [
         "libs/ach-positive-pay-journey/src/index.ts"
       ],
-      "@backbase-gsa/ach-positive-pay-journey/internal/data-access": [
+      "@backbase/ach-positive-pay-journey/internal/data-access": [
         "libs/ach-positive-pay-journey/internal/data-access/src/index.ts"
       ],
-      "@backbase-gsa/ach-positive-pay-journey/internal/feature": [
+      "@backbase/ach-positive-pay-journey/internal/feature": [
         "libs/ach-positive-pay-journey/internal/feature/src/index.ts"
       ],
-      "@backbase-gsa/ach-positive-pay-journey/internal/shared-data": [
+      "@backbase/ach-positive-pay-journey/internal/shared-data": [
         "libs/ach-positive-pay-journey/internal/shared-data/src/index.ts"
       ],
-      "@backbase-gsa/ach-positive-pay-journey/internal/ui": [
+      "@backbase/ach-positive-pay-journey/internal/ui": [
         "libs/ach-positive-pay-journey/internal/ui/src/index.ts"
-      ],
-      "@backbase-gsa/e2e-tests": ["libs/shared/e2e-tests/index.ts"],
-      "@backbase-gsa/internal-transactions-feature": [
-        "libs/transactions-journey/feature/src/index.ts"
-      ],
-      "@backbase-gsa/journey-bundles/ach-positive-pay": [
-        "libs/journey-bundles/ach-positive-pay/src/index.ts"
-      ],
-      "@backbase-gsa/journey-bundles/custom-payment": [
-        "libs/journey-bundles/custom-payment/src/index.ts"
-      ],
-      "@backbase-gsa/journey-bundles/transactions": [
-        "libs/journey-bundles/transactions/src/index.ts"
-      ],
-      "@backbase-gsa/journey-bundles/transfer": [
-        "libs/journey-bundles/transfer/src/index.ts"
-      ],
-      "@backbase-gsa/journey-bundles/user-accounts": [
-        "libs/journey-bundles/user-accounts/src/index.ts"
-      ],
-      "@backbase-gsa/shared/feature/auth": [
-        "libs/shared/feature/auth/src/index.ts"
-      ],
-      "@backbase-gsa/shared/feature/communication": [
-        "libs/shared/feature/communication/src/index.ts"
-      ],
-      "@backbase-gsa/shared/feature/navigation-menu": [
-        "libs/shared/feature/navigation-menu/src/index.ts"
-      ],
-      "@backbase-gsa/shared/feature/user-context": [
-        "libs/shared/feature/user-context/src/index.ts"
-      ],
-      "@backbase-gsa/shared/feature/view-wrapper": [
-        "libs/shared/feature/view-wrapper/src/index.ts"
-      ],
-      "@backbase-gsa/shared/util/app-core": [
-        "libs/shared/util/app-core/src/index.ts"
-      ],
-      "@backbase-gsa/shared/util/config": [
-        "libs/shared/util/config/src/index.ts"
-      ],
-      "@backbase-gsa/shared/util/permissions": [
-        "libs/shared/util/permissions/src/index.ts"
-      ],
-      "@backbase-gsa/transactions-journey": [
-        "libs/transactions-journey/src/index.ts"
-      ],
-      "@backbase-gsa/transactions-journey/e2e-tests": [
-        "libs/transactions-journey/e2e-tests/index.ts"
-      ],
-      "@backbase-gsa/transactions-journey/internal/data-access": [
-        "libs/transactions-journey/internal/data-access/src/index.ts"
-      ],
-      "@backbase-gsa/transactions-journey/internal/feature-transaction-details-view": [
-        "libs/transactions-journey/internal/feature-transaction-details-view/src/index.ts"
-      ],
-      "@backbase-gsa/transactions-journey/internal/feature-transaction-view": [
-        "libs/transactions-journey/internal/feature-transaction-view/src/index.ts"
-      ],
-      "@backbase-gsa/transactions-journey/internal/shared-data": [
-        "libs/transactions-journey/internal/shared-data/src/index.ts"
-      ],
-      "@backbase-gsa/transactions-journey/internal/ui": [
-        "libs/transactions-journey/internal/ui/src/index.ts"
-      ],
-      "@backbase-gsa/transactions-journey/internal/util": [
-        "libs/transactions-journey/internal/util/src/index.ts"
-      ],
-      "@backbase-gsa/transfer-journey": ["libs/transfer-journey/src/index.ts"],
-      "@backbase-gsa/transfer-journey/internal/data-access": [
-        "libs/transfer-journey/internal/data-access/src/index.ts"
-      ],
-      "@backbase-gsa/transfer-journey/internal/feature": [
-        "libs/transfer-journey/internal/feature/src/index.ts"
-      ],
-      "@backbase-gsa/transfer-journey/internal/shared-data": [
-        "libs/transfer-journey/internal/shared-data/src/index.ts"
-      ],
-      "@backbase-gsa/transfer-journey/internal/ui": [
-        "libs/transfer-journey/internal/ui/src/index.ts"
       ],
       "@backbase/e2e-test-accelerators/*": [
         "libs/shared/util/e2e-test-accelerators/*/index.ts"
       ],
-      "package-json": ["package.json"],
-      "@backbase-gsa/shared/util/standalone-helper": [
+      "@backbase/e2e-tests": ["libs/shared/e2e-tests/index.ts"],
+      "@backbase/internal-transactions-feature": [
+        "libs/transactions-journey/feature/src/index.ts"
+      ],
+      "@backbase/journey-bundles/ach-positive-pay": [
+        "libs/journey-bundles/ach-positive-pay/src/index.ts"
+      ],
+      "@backbase/journey-bundles/custom-payment": [
+        "libs/journey-bundles/custom-payment/src/index.ts"
+      ],
+      "@backbase/journey-bundles/transactions": [
+        "libs/journey-bundles/transactions/src/index.ts"
+      ],
+      "@backbase/journey-bundles/transfer": [
+        "libs/journey-bundles/transfer/src/index.ts"
+      ],
+      "@backbase/journey-bundles/user-accounts": [
+        "libs/journey-bundles/user-accounts/src/index.ts"
+      ],
+      "@backbase/shared/feature/auth": [
+        "libs/shared/feature/auth/src/index.ts"
+      ],
+      "@backbase/shared/feature/communication": [
+        "libs/shared/feature/communication/src/index.ts"
+      ],
+      "@backbase/shared/feature/navigation-menu": [
+        "libs/shared/feature/navigation-menu/src/index.ts"
+      ],
+      "@backbase/shared/feature/user-context": [
+        "libs/shared/feature/user-context/src/index.ts"
+      ],
+      "@backbase/shared/feature/view-wrapper": [
+        "libs/shared/feature/view-wrapper/src/index.ts"
+      ],
+      "@backbase/shared/util/app-core": [
+        "libs/shared/util/app-core/src/index.ts"
+      ],
+      "@backbase/shared/util/config": ["libs/shared/util/config/src/index.ts"],
+      "@backbase/shared/util/permissions": [
+        "libs/shared/util/permissions/src/index.ts"
+      ],
+      "@backbase/shared/util/standalone-helper": [
         "libs/shared/util/standalone-helper/index.ts"
-      ]
+      ],
+      "@backbase/transactions-journey": [
+        "libs/transactions-journey/src/index.ts"
+      ],
+      "@backbase/transactions-journey/e2e-tests": [
+        "libs/transactions-journey/e2e-tests/index.ts"
+      ],
+      "@backbase/transactions-journey/internal/data-access": [
+        "libs/transactions-journey/internal/data-access/src/index.ts"
+      ],
+      "@backbase/transactions-journey/internal/feature-transaction-details-view": [
+        "libs/transactions-journey/internal/feature-transaction-details-view/src/index.ts"
+      ],
+      "@backbase/transactions-journey/internal/feature-transaction-view": [
+        "libs/transactions-journey/internal/feature-transaction-view/src/index.ts"
+      ],
+      "@backbase/transactions-journey/internal/shared-data": [
+        "libs/transactions-journey/internal/shared-data/src/index.ts"
+      ],
+      "@backbase/transactions-journey/internal/ui": [
+        "libs/transactions-journey/internal/ui/src/index.ts"
+      ],
+      "@backbase/transactions-journey/internal/util": [
+        "libs/transactions-journey/internal/util/src/index.ts"
+      ],
+      "@backbase/transfer-journey": ["libs/transfer-journey/src/index.ts"],
+      "@backbase/transfer-journey/internal/data-access": [
+        "libs/transfer-journey/internal/data-access/src/index.ts"
+      ],
+      "@backbase/transfer-journey/internal/feature": [
+        "libs/transfer-journey/internal/feature/src/index.ts"
+      ],
+      "@backbase/transfer-journey/internal/shared-data": [
+        "libs/transfer-journey/internal/shared-data/src/index.ts"
+      ],
+      "@backbase/transfer-journey/internal/ui": [
+        "libs/transfer-journey/internal/ui/src/index.ts"
+      ],
+      "package-json": ["package.json"]
     }
   }
 }

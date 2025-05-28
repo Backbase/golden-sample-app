@@ -19,11 +19,11 @@ import {
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
   ArrangementsService,
   TransactionsHttpService,
-} from '@backbase-gsa/transactions-journey/internal/data-access';
+} from '@backbase/transactions-journey/internal/data-access';
 
-import { TextFilterComponent } from '@backbase-gsa/transactions-journey/internal/ui';
-import { FilterTransactionsPipe } from '@backbase-gsa/transactions-journey/internal/util';
-import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
+import { TextFilterComponent } from '@backbase/transactions-journey/internal/ui';
+import { FilterTransactionsPipe } from '@backbase/transactions-journey/internal/util';
+import { TransactionListTrackerEvent } from '@backbase/transactions-journey/internal/shared-data';
 import { TransactionItemComponent } from '../transaction-item/transaction-item.component';
 
 @Component({

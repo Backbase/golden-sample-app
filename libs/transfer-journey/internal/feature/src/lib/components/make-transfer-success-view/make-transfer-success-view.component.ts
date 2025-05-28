@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AsyncPipe, NgIf } from '@angular/common';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { MakeTransferJourneyState } from '@backbase-gsa/transfer-journey/internal/data-access';
+import { MakeTransferJourneyState } from '@backbase/transfer-journey/internal/data-access';
 import { ButtonModule } from '@backbase/ui-ang/button';
 
 @Component({

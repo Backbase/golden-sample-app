@@ -1,9 +1,9 @@
 import { test as baseTest } from '@playwright/test';
 import { IdentityPage } from '../page-objects/pages/identity-page';
 import { User } from '../data/data-types/user';
-import { readFile, VisualValidator } from '@backbase-gsa/e2e-tests';
+import { readFile, VisualValidator } from '@backbase/e2e-tests';
 import { TestRunnerItems } from './test-runner-items';
-import { TransactionsPage } from '@backbase-gsa/transactions-journey/e2e-tests';
+import { TransactionsPage } from '@backbase/transactions-journey/e2e-tests';
 
 export const test = baseTest.extend<TestRunnerItems>({
   identityPage: async ({ page, baseURL }, use) => {

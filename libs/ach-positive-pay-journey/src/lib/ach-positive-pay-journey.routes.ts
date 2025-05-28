@@ -2,10 +2,10 @@ import { Routes } from '@angular/router';
 import {
   AchPositivePayJourneyComponent,
   AchPositivePayNewRuleComponent,
-} from '@backbase-gsa/ach-positive-pay-journey/internal/feature';
-import { AchPositivePayRulesComponent } from '@backbase-gsa/ach-positive-pay-journey/internal/ui';
+} from '@backbase/ach-positive-pay-journey/internal/feature';
+import { AchPositivePayRulesComponent } from '@backbase/ach-positive-pay-journey/internal/ui';
 import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
-import { PERMISSIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
+import { PERMISSIONS } from '@backbase/ach-positive-pay-journey/internal/shared-data';
 
 export const achPositivePayDefaultRoutes: Routes = [
   {

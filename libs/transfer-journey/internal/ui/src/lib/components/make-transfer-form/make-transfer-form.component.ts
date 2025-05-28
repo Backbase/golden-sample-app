@@ -14,7 +14,7 @@ import {
   TRANSLATIONS,
   Account,
   Transfer,
-} from '@backbase-gsa/transfer-journey/internal/shared-data';
+} from '@backbase/transfer-journey/internal/shared-data';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

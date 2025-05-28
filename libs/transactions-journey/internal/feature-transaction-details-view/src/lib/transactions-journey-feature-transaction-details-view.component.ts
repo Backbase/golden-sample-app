@@ -8,8 +8,8 @@ import {
   TrackerModule,
 } from '@backbase/foundation-ang/observability';
 import { combineLatest, map } from 'rxjs';
-import { TransactionsHttpService } from '@backbase-gsa/transactions-journey/internal/data-access';
-import { TransactionDetailsTrackerEvent } from '@backbase-gsa/transactions-journey/internal/shared-data';
+import { TransactionsHttpService } from '@backbase/transactions-journey/internal/data-access';
+import { TransactionDetailsTrackerEvent } from '@backbase/transactions-journey/internal/shared-data';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { AmountModule } from '@backbase/ui-ang/amount';
 import { IconModule } from '@backbase/ui-ang/icon';

@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AchPositivePayHttpService } from '@backbase-gsa/ach-positive-pay-journey/internal/data-access';
+import { AchPositivePayHttpService } from '@backbase/ach-positive-pay-journey/internal/data-access';
 import { NotificationService } from '@backbase/ui-ang/notification';
-import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
+import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase/ach-positive-pay-journey/internal/shared-data';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { Observable } from 'rxjs';
 import { ModalModule } from '@backbase/ui-ang/modal';
 import { PageHeaderModule } from '@backbase/ui-ang/page-header';
 import { AlertModule } from '@backbase/ui-ang/alert';
-import { AchPositivePayRuleFormComponent } from '@backbase-gsa/ach-positive-pay-journey/internal/ui';
+import { AchPositivePayRuleFormComponent } from '@backbase/ach-positive-pay-journey/internal/ui';
 import { LoadButtonModule } from '@backbase/ui-ang/load-button';
 import { CommonModule } from '@angular/common';
 

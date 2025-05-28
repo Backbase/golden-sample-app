@@ -1,12 +1,12 @@
-import { ACH_POSITIVE_PAY_NAVIGATION } from '@backbase-gsa/journey-bundles/ach-positive-pay';
-import { CUSTOM_PAYMENT_NAVIGATION } from '@backbase-gsa/journey-bundles/custom-payment';
-import { TRANSACTIONS_NAVIGATION } from '@backbase-gsa/journey-bundles/transactions';
-import { TRANSFER_NAVIGATION } from '@backbase-gsa/journey-bundles/transfer';
+import { ACH_POSITIVE_PAY_NAVIGATION } from '@backbase/journey-bundles/ach-positive-pay';
+import { CUSTOM_PAYMENT_NAVIGATION } from '@backbase/journey-bundles/custom-payment';
+import { TRANSACTIONS_NAVIGATION } from '@backbase/journey-bundles/transactions';
+import { TRANSFER_NAVIGATION } from '@backbase/journey-bundles/transfer';
 import {
   NavigationDynamicComponent,
   NavigationItem,
   NavigationLink,
-} from '@backbase-gsa/shared/util/app-core';
+} from '@backbase/shared/util/app-core';
 
 const entitlementsTests: NavigationLink[] = [
   {

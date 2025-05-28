@@ -6,7 +6,7 @@ import {
   NavigationItemIconPosition,
   NavigationMenuGroup,
   NavigationMenuItem,
-} from '@backbase-gsa/shared/util/app-core';
+} from '@backbase/shared/util/app-core';
 import { Observable, of } from 'rxjs';
 
 @Component({

@@ -6,8 +6,8 @@ import {
   MakeTransferCommunicationService,
   MakeTransferJourneyState,
   TransferOperationStatus,
-} from '@backbase-gsa/transfer-journey/internal/data-access';
-import { MakeTransferSummaryComponent } from '@backbase-gsa/transfer-journey/internal/ui';
+} from '@backbase/transfer-journey/internal/data-access';
+import { MakeTransferSummaryComponent } from '@backbase/transfer-journey/internal/ui';
 
 @Component({
   templateUrl: 'make-transfer-summary-view.component.html',

@@ -6,7 +6,7 @@ import { LocaleSelectorComponent } from './locale-selector.component';
 import {
   LocalesService,
   LOCALES_LIST,
-} from '@backbase-gsa/shared/util/app-core';
+} from '@backbase/shared/util/app-core';
 
 @NgModule({
   declarations: [LocaleSelectorComponent],

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   TransactionAdditionalDetailsComponent,
   TransactionAdditionalDetailsContext,
-} from '@backbase-gsa/transactions-journey';
+} from '@backbase/transactions-journey';
 
 @Component({
   selector: 'bb-custom-txn-info',

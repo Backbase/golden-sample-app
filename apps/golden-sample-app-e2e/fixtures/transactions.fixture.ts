@@ -4,7 +4,7 @@ import {
   TransactionDataType,
   TransactionFixture,
   test as transferTest,
-} from '@backbase-gsa/transactions-journey/e2e-tests';
+} from '@backbase/transactions-journey/e2e-tests';
 import { mockedTransactionsData } from '../data/mocks-data';
 import { sandboxTransactionData } from '../data/sandbox-api-data';
 import { TestEnvironment } from 'test.model';

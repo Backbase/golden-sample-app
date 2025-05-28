@@ -1,6 +1,6 @@
-import { AuthGuard } from '@backbase-gsa/shared/feature/auth';
-import { SharedUserContextGuard } from '@backbase-gsa/shared/feature/user-context';
-import { ViewWrapperComponent } from '@backbase-gsa/shared/feature/view-wrapper';
+import { AuthGuard } from '@backbase/shared/feature/auth';
+import { SharedUserContextGuard } from '@backbase/shared/feature/user-context';
+import { ViewWrapperComponent } from '@backbase/shared/feature/view-wrapper';
 
 export const CUSTOM_PAYMENT_ROUTE = {
   path: 'transfer-internal',

@@ -5,7 +5,7 @@ import { DropdownSingleSelectModule } from '@backbase/ui-ang/dropdown-single-sel
 import { InputTextModule } from '@backbase/ui-ang/input-text';
 
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
-import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase-gsa/ach-positive-pay-journey/internal/shared-data';
+import { ACH_POSITIVE_PAY_TRANSLATIONS } from '@backbase/ach-positive-pay-journey/internal/shared-data';
 
 @Component({
   selector: 'bb-ach-positive-pay-rule-form',
