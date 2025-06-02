@@ -45,8 +45,8 @@ export function testTransactionsList(
           transactionsPage,
         }) => {
           await transactionsPage.search.fill(expectation.term);
-          await expect(() =>
-            transactionsPage.transactions.getTransactions(),
+          await expect(
+            () => transactionsPage.transactions.getTransactions(),
             `Expect "${JSON.stringify(expectation.transactions)}" transactions`
           ).toHaveObject(expectation.transactions);
         });
@@ -57,8 +57,8 @@ export function testTransactionsList(
         transactionsPage,
       }) => {
         await transactionsPage.search.fill(expectation.term);
-        await expect(() =>
-          transactionsPage.transactions.getTransactions(),
+        await expect(
+          () => transactionsPage.transactions.getTransactions(),
           `Expect "${JSON.stringify(expectation.transactions[0])}" transactions`
         ).toContainObject(expectation.transactions[0]);
       });
