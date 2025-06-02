@@ -142,7 +142,7 @@
     "ngx-i18nsupport": "^0.17.1",
     "nx": "20.8.1",
     "prettier": "^2.8.1",
-    "ts-jest": "29.3.2",
+    "ts-jest": "29.3.4",
     "ts-node": "^10.9.1",
     "tslib": "^2.4.0",
     "typescript": "5.8.3",
