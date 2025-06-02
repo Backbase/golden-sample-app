@@ -6,6 +6,7 @@ import 'dotenv/config';
 
 export default defineConfig<TestOptions>({
   ...baseConfig,
+  webServer: [],
   projects: [
     ...(baseConfig.projects || []),
     /**

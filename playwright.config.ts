@@ -27,7 +27,7 @@ const config: PlaywrightTestConfig = {
   globalSetup: require.resolve(__dirname + '/global-setup.ts'),
   use: {
     trace: 'retain-on-failure',
-    baseURL: process.env['BASE_URL'] ?? 'http://localhost:4201/',
+    baseURL: process.env['BASE_URL'] ?? 'http://localhost:4200/',
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     video: 'on-first-retry',
