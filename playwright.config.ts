@@ -27,7 +27,7 @@ const config: PlaywrightTestConfig = {
   globalSetup: require.resolve(__dirname + '/global-setup.ts'),
   use: {
     trace: 'retain-on-failure',
-    baseURL: process.env['BASE_URL'] ?? 'http://localhost:4200/',
+    baseURL: process.env['BASE_URL'] ?? 'http://localhost:4201/',
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     video: 'on-first-retry',
@@ -74,8 +74,8 @@ const config: PlaywrightTestConfig = {
       reuseExistingServer: false,
     },
     {
-      command: 'npx nx serve -c=mocks --port=4200',
-      url: 'http://localhost:4200/',
+      command: 'npx nx serve -c=mocks --port=4201',
+      url: 'http://localhost:4201/',
       timeout: 120_000,
       reuseExistingServer: false,
     },
