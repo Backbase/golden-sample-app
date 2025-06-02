@@ -77,7 +77,7 @@ jobs:
       HOME: /root
     strategy:
       matrix:
-        test: ['mocks', 'responsive', 'a11y', 'sndbx-ci']
+        test: ['sndbx-ci', 'mocks', 'responsive', 'a11y']
     steps:
       - uses: actions/checkout@v4
 
