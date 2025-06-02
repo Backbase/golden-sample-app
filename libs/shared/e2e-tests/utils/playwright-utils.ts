@@ -19,3 +19,8 @@ export function getSelector(locator?: string | Locator): string {
 export async function getLocatorText(element: Locator): Promise<string> {
   return (await element.textContent())?.trim() ?? '';
 }
+
+export async function getTrimmedText(element: Locator): Promise<string> {
+  const text = await element.textContent();
+  return text?.trim() ?? '';
+}
