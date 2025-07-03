@@ -30,17 +30,18 @@ import { InitiatorService } from './initiator.service';
         [required]="true"
         (change)="selectItem($any($event))"
         (blur)="onBlur()"
-      >
+        >
       </bb-account-selector-ui>
-
-      <div
-        class="bb-input-validation-message"
-        *ngIf="group?.touched && group?.invalid"
-      >
-        {{ requiredMessage }}
-      </div>
+    
+      @if (group.touched && group.invalid) {
+        <div
+          class="bb-input-validation-message"
+          >
+          {{ requiredMessage }}
+        </div>
+      }
     </div>
-  `,
+    `,
   providers: [InitiatorService],
   standalone: false,
 })

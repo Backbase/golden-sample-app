@@ -5,14 +5,15 @@
     </div>
 
     <div class="bb-card__body">
-      <bb-alert-ui
-        *ngIf="accountName"
-        title="Transfer Alert"
-        modifier="info"
-        [message]="repeatMessage"
-        i18n-title="A title for Repeat Transfer Alert@@transfer.repeat.title"
-        data-role="alert-multiple-lines"
-      ></bb-alert-ui>
+      @if (accountName) {
+        <bb-alert-ui
+          title="Transfer Alert"
+          modifier="info"
+          [message]="repeatMessage"
+          i18n-title="A title for Repeat Transfer Alert@@transfer.repeat.title"
+          data-role="alert-multiple-lines"
+        ></bb-alert-ui>
+      }
 
       <router-outlet></router-outlet>
     </div>

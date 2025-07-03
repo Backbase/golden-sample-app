@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ModalModule } from '@backbase/ui-ang/modal';
@@ -9,7 +9,7 @@ import { PageHeaderModule } from '@backbase/ui-ang/page-header';
   templateUrl: './activity-monitor-layout.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, ModalModule, PageHeaderModule],
+  imports: [ModalModule, PageHeaderModule],
 })
 export class ActivityMonitorLayoutComponent {
   @Input() isOpen = false;

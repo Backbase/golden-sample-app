@@ -11,36 +11,38 @@
 <span class="transactions-item__description">
   <span class="transactions-item__counterParty" data-testid="recipient"
     >{{ transaction.counterPartyName || transaction.merchant?.name }}
-    <img
-      *ngIf="iconName"
-      src="./assets/transactions-journey/{{ iconName }}"
-      width="20"
-      height="20"
-      [alt]="iconName"
-    />
+    @if (iconName) {
+      <img
+        src="./assets/transactions-journey/{{ iconName }}"
+        width="20"
+        height="20"
+        [alt]="iconName"
+        />
+    }
   </span>
 
   <span class="transactions-item__transactionType">
     {{ transaction.type }}
-    <ng-container
-      *ngIf="additionsDetails"
-      bbTransactionsItemAdditions
-      [componentType]="additionsDetails"
-      [context]="additionsDetailsContext"
-    ></ng-container>
+    @if (additionsDetails) {
+      <ng-container
+        bbTransactionsItemAdditions
+        [componentType]="additionsDetails"
+        [context]="additionsDetailsContext"
+      ></ng-container>
+    }
   </span>
 </span>
 <span
   class="transactions-item__amount"
   [ngClass]="{ negative: !isAmountPositive }"
   data-testid="amount"
->
+  >
   <bb-amount-ui
     [currency]="transaction.transactionAmountCurrency.currencyCode"
     [amount]="transaction.transactionAmountCurrency.amount"
     [mapCurrency]="true"
     [showPlusSign]="false"
     [abbreviate]="false"
-  >
+    >
   </bb-amount-ui>
 </span>

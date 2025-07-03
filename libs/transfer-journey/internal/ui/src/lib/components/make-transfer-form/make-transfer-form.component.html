@@ -5,25 +5,25 @@
         i18n="from account label@@transfer.form.fromAccount.label"
         class="form-label"
         >From account</label
-      >
-      <input type="text" class="form-control" formControlName="fromAccount" />
-    </div>
-    <div class="bb-block bb-block--md">
-      <label
+        >
+        <input type="text" class="form-control" formControlName="fromAccount" />
+      </div>
+      <div class="bb-block bb-block--md">
+        <label
         i18n="
           To account label - 'To Account'|This string is used as the label for
           the 'To Account' field in the transfer form. It is presented to the
           user when they need to specify the destination account for the
           transfer. This label is located in the transfer form
           layout.@@transfer.form.toAccount.label"
-        class="form-label"
-        >To Account</label
-      >
-      <input
-        type="text"
-        class="form-control"
-        formControlName="toAccount"
-        placeholder="type an account name"
+          class="form-label"
+          >To Account</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="toAccount"
+            placeholder="type an account name"
         i18n-placeholder="
           From account placeholder - 'type an account name'|This string is used
           as the placeholder for the 'From Account' field in the transfer form.
@@ -31,12 +31,13 @@
           account from which the transfer will be made. This placeholder is
           located in the transfer form
           layout.@@transfer.form.toAccount.placeholder"
-      />
-      <div bbValidationMessage>
-        <bb-input-validation-message-ui
-          [showErrors]="isInvalidControl('toAccount')"
-        >
-          <span
+            />
+          <div bbValidationMessage>
+            <bb-input-validation-message-ui
+              [showErrors]="isInvalidControl('toAccount')"
+              >
+              @if (getError('toAccount', 'required')) {
+                <span
             i18n="
               To account required error message - 'Required field'|This string
               is used as the error message for the 'To Account' field in the
@@ -44,49 +45,52 @@
               presented to the user when they need to fill in the 'To Account'
               field. This error message is located in the transfer form
               layout.@@transfer.form.toAccount.error.required"
-            *ngIf="getError('toAccount', 'required')"
-          >
+                  >
             Required field
           </span>
-        </bb-input-validation-message-ui>
-      </div>
-    </div>
+              }
+            </bb-input-validation-message-ui>
+          </div>
+        </div>
 
-    <div class="bb-block bb-block--md">
-      <label i18n="amount label@@transfer.form.amount.label" class="form-label"
-        >Amount</label
-      >
-      <bb-currency-input-ui
-        [currencyLabel]="'Amount'"
-        formControlName="amount"
-        [currencies]="currencies"
-      >
-        <div bbValidationMessage>
-          <bb-input-validation-message-ui
-            [showErrors]="isInvalidControl('amount')"
-          >
-            <span
-              *ngIf="getError('amount', 'required')"
-              i18n="amount required error@@transfer.form.amount.error.required"
+        <div class="bb-block bb-block--md">
+          <label i18n="amount label@@transfer.form.amount.label" class="form-label"
+            >Amount</label
             >
+            <bb-currency-input-ui
+              [currencyLabel]="'Amount'"
+              formControlName="amount"
+              [currencies]="currencies"
+              >
+              <div bbValidationMessage>
+                <bb-input-validation-message-ui
+                  [showErrors]="isInvalidControl('amount')"
+                  >
+                  @if (getError('amount', 'required')) {
+                    <span
+                      i18n="amount required error@@transfer.form.amount.error.required"
+                      >
               Required field
             </span>
-            <span *ngIf="getError('amount', 'max') as error">
-              {{ error }}
-            </span>
-          </bb-input-validation-message-ui>
+                  }
+                  @if (getError('amount', 'max'); as error) {
+                    <span>
+                      {{ error }}
+                    </span>
+                  }
+                </bb-input-validation-message-ui>
+              </div>
+            </bb-currency-input-ui>
+          </div>
         </div>
-      </bb-currency-input-ui>
-    </div>
-  </div>
 
-  <div class="bb-button-bar">
-    <button
-      bbButton
-      type="submit"
-      i18n="submit button@@transfer.form.submit.text"
-    >
+        <div class="bb-button-bar">
+          <button
+            bbButton
+            type="submit"
+            i18n="submit button@@transfer.form.submit.text"
+            >
       Submit
     </button>
-  </div>
-</form>
+        </div>
+      </form>

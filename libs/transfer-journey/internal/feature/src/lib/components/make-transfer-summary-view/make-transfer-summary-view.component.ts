@@ -1,5 +1,5 @@
 import { Component, OnDestroy, Optional } from '@angular/core';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import {
@@ -11,7 +11,7 @@ import { MakeTransferSummaryComponent } from '@backbase/transfer-journey/interna
 
 @Component({
   templateUrl: 'make-transfer-summary-view.component.html',
-  imports: [NgIf, AsyncPipe, MakeTransferSummaryComponent],
+  imports: [AsyncPipe, MakeTransferSummaryComponent],
 })
 export class MakeTransferSummaryViewComponent implements OnDestroy {
   vm$ = this.transferStore.vm$;
