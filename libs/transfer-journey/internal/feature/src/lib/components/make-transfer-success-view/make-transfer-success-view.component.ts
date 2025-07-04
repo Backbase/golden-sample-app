@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { MakeTransferJourneyState } from '@backbase/transfer-journey/internal/data-access';
@@ -7,7 +7,7 @@ import { ButtonModule } from '@backbase/ui-ang/button';
 
 @Component({
   templateUrl: 'make-transfer-success-view.component.html',
-  imports: [AsyncPipe, NgIf, ButtonModule],
+  imports: [AsyncPipe, ButtonModule],
 })
 export class MakeTransferSuccessViewComponent {
   transfer$ = this.transferStore.transfer$;

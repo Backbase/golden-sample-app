@@ -1,26 +1,24 @@
 <ul class="bb-layout__horizontal-nav no-print">
-  @for (menuItem of navigationMenu; track $index) {
-  <ng-container *ngIf="resolveEntitlements(menuItem.permissions) | async">
-    @if (isNavigationGroup(menuItem)) {
-    <li>
-      <ng-template
-        *ngTemplateOutlet="dropdownTemplate; context: { menuItem: menuItem }"
-      />
-    </li>
-    } @else {
-    <li class="bb-layout__horizontal-nav-item">
-      <ng-template
-        *ngTemplateOutlet="
-          isNavigationDynamicComponent(menuItem)
-            ? dynamicItemTemplate
-            : linkItemTemplate;
-          context: { menuItem: menuItem }
-        "
-      />
-    </li>
-    }
-  </ng-container>
-  }
+  @for (menuItem of navigationMenu; track $index) { @if
+  (resolveEntitlements(menuItem.permissions) | async) { @if
+  (isNavigationGroup(menuItem)) {
+  <li>
+    <ng-template
+      *ngTemplateOutlet="dropdownTemplate; context: { menuItem: menuItem }"
+    />
+  </li>
+  } @else {
+  <li class="bb-layout__horizontal-nav-item">
+    <ng-template
+      *ngTemplateOutlet="
+        isNavigationDynamicComponent(menuItem)
+          ? dynamicItemTemplate
+          : linkItemTemplate;
+        context: { menuItem: menuItem }
+      "
+    />
+  </li>
+  } } }
 </ul>
 
 <ng-template #dropdownTemplate let-menuItem="menuItem">
@@ -84,70 +82,67 @@
           menuItem.name
         }}</span>
       </button>
-      @for (submenu of menuItem.children; track $index) {
-      <ng-container *ngIf="resolveEntitlements(submenu.permissions) | async">
-        @if (isNavigationDynamicComponent(submenu)) {
-        <ng-container *ngIf="submenu.component | async as triggerItem">
-          <a
-            ngbDropdownItem
-            href="javascript:;"
-            class="bb-layout__horizontal-nav-submenu-link"
-            [attr.data-role]="
-              submenu.elementId ? submenu.elementId + '-nav-menu-item' : null
-            "
-            [id]="submenu | menuItemId"
-          >
-            <ng-container *ngComponentOutlet="$any(triggerItem)"></ng-container>
-            <span class="bb-layout__horizontal-nav-submenu-item-label">
-              <span class="bb-layout__horizontal-nav-submenu-title">{{
-                submenu.name
-              }}</span>
-            </span>
-          </a>
-        </ng-container>
-        } @else {
-        <a
-          class="bb-layout__horizontal-nav-submenu-link"
-          ngbDropdownItem
-          routerLinkActive="bb-layout__horizontal-nav-submenu-link--active"
-          [routerLink]="submenu.route"
-          ariaCurrentWhenActive="page"
-          [id]="submenu | menuItemId"
-        >
-          <div class="bb-layout__bb-horizontal-nav-submenu-item-label">
-            <div class="bb-layout__bb-horizontal-nav-submenu-title">
-              {{ submenu.name }}
-            </div>
+      @for (submenu of menuItem.children; track $index) { @if
+      (resolveEntitlements(submenu.permissions) | async) { @if
+      (isNavigationDynamicComponent(submenu)) { @if (submenu.component | async;
+      as triggerItem) {
+      <a
+        ngbDropdownItem
+        href="javascript:;"
+        class="bb-layout__horizontal-nav-submenu-link"
+        [attr.data-role]="
+          submenu.elementId ? submenu.elementId + '-nav-menu-item' : null
+        "
+        [id]="submenu | menuItemId"
+      >
+        <ng-container *ngComponentOutlet="$any(triggerItem)"></ng-container>
+        <span class="bb-layout__horizontal-nav-submenu-item-label">
+          <span class="bb-layout__horizontal-nav-submenu-title">{{
+            submenu.name
+          }}</span>
+        </span>
+      </a>
+      } } @else {
+      <a
+        class="bb-layout__horizontal-nav-submenu-link"
+        ngbDropdownItem
+        routerLinkActive="bb-layout__horizontal-nav-submenu-link--active"
+        [routerLink]="submenu.route"
+        ariaCurrentWhenActive="page"
+        [id]="submenu | menuItemId"
+      >
+        <div class="bb-layout__bb-horizontal-nav-submenu-item-label">
+          <div class="bb-layout__bb-horizontal-nav-submenu-title">
+            {{ submenu.name }}
           </div>
-        </a>
-        }
-      </ng-container>
-      }
+        </div>
+      </a>
+      } } }
     </section>
   </div>
 </ng-template>
 
 <ng-template #dynamicItemTemplate let-menuItem="menuItem">
-  <ng-container *ngIf="menuItem.component | async as triggerItem">
-    <a
-      ngbDropdownItem
-      href="javascript:;"
-      class="bb-layout__horizontal-nav-link"
-      routerLinkActive="bb-layout__horizontal-nav-link--active"
-      ariaCurrentWhenActive="page"
-      tabindex="0"
-      role="button"
-      [attr.data-role]="
-        menuItem.elementId ? menuItem.elementId + '-nav-menu-item' : null
-      "
-      [id]="menuItem | menuItemId"
-    >
-      <ng-container *ngComponentOutlet="$any(triggerItem)"></ng-container>
-      <span class="bb-layout__horizontal-nav-item-description">{{
-        menuItem.name
-      }}</span>
-    </a>
-  </ng-container>
+  @if (menuItem.component | async; as triggerItem) {
+  <a
+    ngbDropdownItem
+    href="javascript:;"
+    class="bb-layout__horizontal-nav-link"
+    routerLinkActive="bb-layout__horizontal-nav-link--active"
+    ariaCurrentWhenActive="page"
+    tabindex="0"
+    role="button"
+    [attr.data-role]="
+      menuItem.elementId ? menuItem.elementId + '-nav-menu-item' : null
+    "
+    [id]="menuItem | menuItemId"
+  >
+    <ng-container *ngComponentOutlet="$any(triggerItem)"></ng-container>
+    <span class="bb-layout__horizontal-nav-item-description">{{
+      menuItem.name
+    }}</span>
+  </a>
+  }
 </ng-template>
 
 <ng-template #linkItemTemplate let-menuItem="menuItem">

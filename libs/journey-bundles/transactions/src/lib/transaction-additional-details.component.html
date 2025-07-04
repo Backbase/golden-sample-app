@@ -1,9 +1,8 @@
 <span class="transaction-account-number" data-testid="account-number">{{
   context?.counterPartyAccountNumber
 }}</span>
-<span
-  class="transaction-my-addition"
-  *ngIf="context?.additions?.['myAddition']"
->
+@if (context?.additions?.['myAddition']) {
+<span class="transaction-my-addition">
   My Addition: {{ context?.additions?.['myAddition'] }}
 </span>
+}

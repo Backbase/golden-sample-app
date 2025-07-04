@@ -36,6 +36,7 @@
         <bb-input-validation-message-ui
           [showErrors]="isInvalidControl('toAccount')"
         >
+          @if (getError('toAccount', 'required')) {
           <span
             i18n="
               To account required error message - 'Required field'|This string
@@ -44,10 +45,10 @@
               presented to the user when they need to fill in the 'To Account'
               field. This error message is located in the transfer form
               layout.@@transfer.form.toAccount.error.required"
-            *ngIf="getError('toAccount', 'required')"
           >
             Required field
           </span>
+          }
         </bb-input-validation-message-ui>
       </div>
     </div>
@@ -65,15 +66,17 @@
           <bb-input-validation-message-ui
             [showErrors]="isInvalidControl('amount')"
           >
+            @if (getError('amount', 'required')) {
             <span
-              *ngIf="getError('amount', 'required')"
               i18n="amount required error@@transfer.form.amount.error.required"
             >
               Required field
             </span>
-            <span *ngIf="getError('amount', 'max') as error">
+            } @if (getError('amount', 'max'); as error) {
+            <span>
               {{ error }}
             </span>
+            }
           </bb-input-validation-message-ui>
         </div>
       </bb-currency-input-ui>

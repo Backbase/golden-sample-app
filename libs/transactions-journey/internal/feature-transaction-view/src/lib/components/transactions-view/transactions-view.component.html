@@ -1,13 +1,11 @@
 <div class="row" (bbTrackNavigation)="trackNavigation($event)">
   <div class="bb-card col-lg-6">
     <div class="bb-card__header">
-      <h1
-        class="bb-card__title"
-        *ngIf="title !== ''"
-        data-role="transactions-view__title"
-      >
+      @if (title !== '') {
+      <h1 class="bb-card__title" data-role="transactions-view__title">
         {{ title }}
       </h1>
+      }
     </div>
 
     <div class="bb-card__body">
@@ -18,10 +16,8 @@
         ></bb-text-filter>
       </div>
 
-      <div
-        class="bb-block bb-block--md"
-        *ngIf="accountName$ | async as accountName"
-      >
+      @if (accountName$ | async; as accountName) {
+      <div class="bb-block bb-block--md">
         <span
           i18n="
             Label for filtered by - 'filtered by:'|This string is used as the
@@ -31,7 +27,6 @@
             view component.@@transactions.filters.label"
           >filtered by:</span
         >
-
         <bb-badge-ui
           [text]="accountName + ' ✕'"
           title="Remove account filter"
@@ -50,13 +45,10 @@
         >
         </bb-badge-ui>
       </div>
-
-      <ul *ngIf="transactions$ | async as items; else loading" class="bb-list">
-        <li
-          *ngFor="let item of items | filterTransactions : filter"
-          class="bb-list__item"
-          data-role="transactions-view__item-container"
-        >
+      } @if (transactions$ | async; as items) {
+      <ul class="bb-list">
+        @for (item of items | filterTransactions : filter; track item) {
+        <li class="bb-list__item" data-role="transactions-view__item-container">
           <a class="list-link" [routerLink]="['./', item.id]">
             <bb-transaction-item
               [transaction]="item"
@@ -64,15 +56,15 @@
             ></bb-transaction-item>
           </a>
         </li>
+        }
       </ul>
+      } @else {
+      <div data-role="transactions-view__loading-state-container">
+        <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
+      </div>
+      }
     </div>
   </div>
 </div>
-
-<ng-template #loading>
-  <div data-role="transactions-view__loading-state-container">
-    <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
-  </div>
-</ng-template>
 
 <router-outlet></router-outlet>

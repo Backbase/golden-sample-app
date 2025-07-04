@@ -143,7 +143,8 @@
           "proxyConfig": "./apps/golden-sample-app/proxy.stg-ebp.conf.js"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "e2e": {
       "executor": "@dot-build/serve-and-run-angular:run",

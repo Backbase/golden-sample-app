@@ -13,14 +13,17 @@
 
   <bb-modal-body-ui data-role="activity-monitor-body">
     <ng-template bbCustomModalBody>
-      <div *ngIf="remaining === 1">
+      @if (remaining === 1) {
+      <div>
         Due to inactivity your session will expire in 1 second. Perform any
         action to stay logged in.
       </div>
-      <div *ngIf="remaining !== 1">
+      } @if (remaining !== 1) {
+      <div>
         Due to inactivity your session will expire in {{ remaining }} seconds.
         Perform any action to stay logged in.
       </div>
+      }
     </ng-template>
   </bb-modal-body-ui>
 

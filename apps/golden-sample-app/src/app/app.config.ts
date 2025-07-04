@@ -35,8 +35,6 @@ import { TRANSACTIONS_BASE_PATH } from '@backbase/transactions-http-ang';
 import { AppErrorHandler } from './app.error-handler';
 import { ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
 import { IdentityAuthModule } from '@backbase/identity-auth';
-import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';
-
 /**
  * Provides configuration for standalone components
  * while maintaining compatibility with NgModules
@@ -53,7 +51,6 @@ export const appConfig: ApplicationConfig = {
       OAuthModule.forRoot(),
       EntitlementsModule,
       IdentityAuthModule,
-      TransactionSigningModule.withConfig({}),
       TrackerModule.forRoot({
         handler: AnalyticsService,
         openTelemetryConfig: {

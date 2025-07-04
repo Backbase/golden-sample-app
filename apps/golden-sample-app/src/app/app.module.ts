@@ -85,7 +85,7 @@ import { TransactionSigningModule } from '@backbase/identity-auth/transaction-si
     }),
     ButtonModule,
     IdentityAuthModule,
-    TransactionSigningModule,
+    TransactionSigningModule.withConfig({}),
     TrackerModule.forRoot({
       handler: AnalyticsService,
       openTelemetryConfig: {

@@ -14,20 +14,15 @@
       </h1>
     </div>
 
-    <div
-      class="bb-card__body"
-      *ngIf="arrangements$ | async as arrangments; else loading"
-    >
+    @if (arrangements$ | async; as arrangments) {
+    <div class="bb-card__body">
       <p>
         {arrangments.length, plural, =0 {There are no accounts} =1 {There is an
         account} other {There are {{ arrangments.length }} accounts} }:
       </p>
       <div class="bb-list">
-        <div
-          *ngFor="let account of arrangments"
-          data-role="product"
-          class="bb-list__item"
-        >
+        @for (account of arrangments; track account) {
+        <div data-role="product" class="bb-list__item">
           <bb-product-item-basic-account-ui
             [title]="account.displayName"
             [amount]="account.availableBalance"
@@ -60,6 +55,7 @@
           </a>
           |
           <a routerLink="./" (click)="updateFavorite(account)" class="link">
+            @if (!account.favorite) {
             <span
               i18n="
                 Label for Add to Favorites link - 'Add to Favorites'|This string
@@ -68,9 +64,9 @@
                 an account as a favorite. This label is located in the body
                 section of the user accounts view
                 page.@@user-accounts.add-favorites"
-              *ngIf="!account.favorite"
               >Add to Favorites</span
             >
+            } @if (account.favorite) {
             <span
               i18n="
                 Label for Remove from Favorites link - 'Remove from
@@ -79,18 +75,18 @@
                 the user as a link to unmark an account as a favorite. This
                 label is located in the body section of the user accounts view
                 page.@@user-accounts.remove-favorites"
-              *ngIf="account.favorite"
               >Remove from Favorites</span
             >
+            }
           </a>
         </div>
+        }
       </div>
     </div>
+    } @else {
+    <div data-role="transactions-view__loading-state-container">
+      <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
+    </div>
+    }
   </div>
 </div>
-
-<ng-template #loading>
-  <div data-role="transactions-view__loading-state-container">
-    <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
-  </div>
-</ng-template>
