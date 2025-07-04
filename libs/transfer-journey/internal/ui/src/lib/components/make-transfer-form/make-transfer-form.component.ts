@@ -24,8 +24,8 @@ import { ActivatedRoute } from '@angular/router';
     ReactiveFormsModule,
     InputValidationMessageModule,
     CurrencyInputModule,
-    ButtonModule
-],
+    ButtonModule,
+  ],
 })
 export class MakeTransferFormComponent implements OnInit {
   @Input() account: Account | undefined;

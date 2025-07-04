@@ -30,18 +30,16 @@ import { InitiatorService } from './initiator.service';
         [required]="true"
         (change)="selectItem($any($event))"
         (blur)="onBlur()"
-        >
+      >
       </bb-account-selector-ui>
-    
+
       @if (group.touched && group.invalid) {
-        <div
-          class="bb-input-validation-message"
-          >
-          {{ requiredMessage }}
-        </div>
+      <div class="bb-input-validation-message">
+        {{ requiredMessage }}
+      </div>
       }
     </div>
-    `,
+  `,
   providers: [InitiatorService],
   standalone: false,
 })

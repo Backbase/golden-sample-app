@@ -2,7 +2,7 @@
   [isOpen]="true"
   [modalOptions]="modalOptions"
   (cancel)="closeModal()"
-  >
+>
   <bb-modal-header-ui id="ach-positive-pay-new-blocker-modal-head">
     <ng-template bbCustomModalHeader>
       <h2
@@ -14,7 +14,7 @@
           viewing the ACH Positive Pay journey. This title is located at the top
           of the ACH Positive Pay journey page@@ach-positive-pay.new-rule.title"
         data-role="ach-positive-pay-new-rule-title"
-        >
+      >
         New ACH Rule
       </h2>
     </ng-template>
@@ -24,12 +24,12 @@
     <ng-template bbCustomModalBody>
       <div aria-live="assertive">
         @if (serverError) {
-          <div
-            class="bb-positive-pay-create-check__alert-wrapper"
-            data-role="ach-positive-pay-new-rule-alert-error"
-            >
-            <bb-alert-ui
-              title="Unknown error occurred. Try to submit the form again."
+        <div
+          class="bb-positive-pay-create-check__alert-wrapper"
+          data-role="ach-positive-pay-new-rule-alert-error"
+        >
+          <bb-alert-ui
+            title="Unknown error occurred. Try to submit the form again."
             i18n-title="
               Server Error - 'Unknown error occurred. Try to submit the form
               again.'|This string is used as the title for an alert message that
@@ -37,11 +37,11 @@
               the user when an unknown error occurs while submitting the form.
               This message is located in the ACH Positive Pay new rule
               component.@@ach-positive-pay.error.default.title"
-              [dismissible]="true"
-              (close)="hideError()"
-              >
-            </bb-alert-ui>
-          </div>
+            [dismissible]="true"
+            (close)="hideError()"
+          >
+          </bb-alert-ui>
+        </div>
         }
       </div>
 
@@ -70,7 +70,7 @@
             located within the modal footer section of the
             layout.@@ach-positive-pay.new-rule.submit-button"
           (click)="submitRule()"
-          >
+        >
           Submit
         </bb-load-button-ui>
 
@@ -87,7 +87,7 @@
             This label is located within the modal footer section of the
             layout.@@ach-positive-pay.new-rule.cancel-button"
           (click)="closeModal()"
-          >
+        >
           Cancel
         </button>
       </div>

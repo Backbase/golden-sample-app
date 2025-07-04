@@ -1,8 +1,8 @@
 @if ((transfer$ | async)!; as transfer) {
-  <div data-role="transfer-summary">
-    you have transferred <strong>{{ transfer?.amount }}</strong> to
-    <strong>{{ transfer?.toAccount }}</strong>
-  </div>
+<div data-role="transfer-summary">
+  you have transferred <strong>{{ transfer?.amount }}</strong> to
+  <strong>{{ transfer?.toAccount }}</strong>
+</div>
 }
 
 <div class="bb-button-bar">
@@ -17,7 +17,7 @@
       when they want to close the success message after making a transfer. This
       label is located in the transfer success view component.
       @@transfer.success.close.text"
-    >
+  >
     Close
   </button>
 </div>

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from '@backbase/ui-ang/input-text';
 

@@ -9,31 +9,26 @@
           the title of the page when they view their user accounts. This header
           is located at the top of the user accounts view
           page.@@app.userAccountsView.header"
-        >
+      >
         User accounts
       </h1>
     </div>
 
     @if (arrangements$ | async; as arrangments) {
-      <div
-        class="bb-card__body"
-        >
-        <p>
-          {arrangments.length, plural, =0 {There are no accounts} =1 {There is an
-          account} other {There are {{ arrangments.length }} accounts} }:
-        </p>
-        <div class="bb-list">
-          @for (account of arrangments; track account) {
-            <div
-              data-role="product"
-              class="bb-list__item"
-              >
-              <bb-product-item-basic-account-ui
-                [title]="account.displayName"
-                [amount]="account.availableBalance"
-                [currency]="account.currency"
-                [productNumber]="account.number"
-                balanceLabel="Available balance"
+    <div class="bb-card__body">
+      <p>
+        {arrangments.length, plural, =0 {There are no accounts} =1 {There is an
+        account} other {There are {{ arrangments.length }} accounts} }:
+      </p>
+      <div class="bb-list">
+        @for (account of arrangments; track account) {
+        <div data-role="product" class="bb-list__item">
+          <bb-product-item-basic-account-ui
+            [title]="account.displayName"
+            [amount]="account.availableBalance"
+            [currency]="account.currency"
+            [productNumber]="account.number"
+            balanceLabel="Available balance"
             i18n-balanceLabel="
               User account available balance label - 'Available balance'|This
               string is used as the label for the available balance field in the
@@ -41,13 +36,13 @@
               available balance of their account. This label is located in the
               body section of the user accounts view
               page.@@app.userAccountsView.balanceLabel"
-                [active]="false"
-                [favorite]="account.favorite || false"
-                data-role="arrangement-container"
-              ></bb-product-item-basic-account-ui>
-              <a
-                [routerLink]="['/transactions']"
-                [queryParams]="{ account: account.id }"
+            [active]="false"
+            [favorite]="account.favorite || false"
+            data-role="arrangement-container"
+          ></bb-product-item-basic-account-ui>
+          <a
+            [routerLink]="['/transactions']"
+            [queryParams]="{ account: account.id }"
             i18n="
               Label for View Transactions link - 'View Transactions'|This string
               is used as the label for a link that navigates to the transactions
@@ -55,13 +50,13 @@
               related to a specific account. This label is located in the body
               section of the user accounts view
               page.@@user-accounts.view-transactions"
-                >
+          >
             View Transactions
           </a>
-              |
-              <a routerLink="./" (click)="updateFavorite(account)" class="link">
-                @if (!account.favorite) {
-                  <span
+          |
+          <a routerLink="./" (click)="updateFavorite(account)" class="link">
+            @if (!account.favorite) {
+            <span
               i18n="
                 Label for Add to Favorites link - 'Add to Favorites'|This string
                 is used as the label for a link that adds an account to the
@@ -69,11 +64,10 @@
                 an account as a favorite. This label is located in the body
                 section of the user accounts view
                 page.@@user-accounts.add-favorites"
-                    >Add to Favorites</span
-                    >
-                  }
-                  @if (account.favorite) {
-                    <span
+              >Add to Favorites</span
+            >
+            } @if (account.favorite) {
+            <span
               i18n="
                 Label for Remove from Favorites link - 'Remove from
                 Favorites'|This string is used as the label for a link that
@@ -81,19 +75,18 @@
                 the user as a link to unmark an account as a favorite. This
                 label is located in the body section of the user accounts view
                 page.@@user-accounts.remove-favorites"
-                      >Remove from Favorites</span
-                      >
-                    }
-                  </a>
-                </div>
-              }
-            </div>
-          </div>
-        } @else {
-          <div data-role="transactions-view__loading-state-container">
-            <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
-          </div>
+              >Remove from Favorites</span
+            >
+            }
+          </a>
+        </div>
         }
       </div>
     </div>
-
+    } @else {
+    <div data-role="transactions-view__loading-state-container">
+      <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
+    </div>
+    }
+  </div>
+</div>

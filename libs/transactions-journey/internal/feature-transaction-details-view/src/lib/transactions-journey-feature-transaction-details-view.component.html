@@ -1,42 +1,42 @@
 <ng-container (bbTrackNavigation)="trackNavigation($event)">
   @if (view$ | async; as view) {
-    <div class="row">
-      <div class="bb-card col-lg-6">
-        <div class="bb-card__header header">
-          <h1 class="bb-card__title">
-            {{ title }}
-          </h1>
-          <div>
-            <button
-              bbButton
-              class="mx-1"
-              color="link"
-              buttonSize="sm"
-              title="Previous transaction"
-              [circle]="true"
-              [disabled]="!view.previous"
-              [routerLink]="['../', view.previous?.id]"
-              >
-              <bb-icon-ui name="chevron-left" cropped></bb-icon-ui>
-            </button>
-            <button
-              bbButton
-              class="mx-1"
-              color="link"
-              buttonSize="sm"
-              title="Following transaction"
-              [circle]="true"
-              [disabled]="!view.following"
-              [routerLink]="['../', view.following?.id]"
-              >
-              <bb-icon-ui name="chevron-right" cropped></bb-icon-ui>
-            </button>
-          </div>
+  <div class="row">
+    <div class="bb-card col-lg-6">
+      <div class="bb-card__header header">
+        <h1 class="bb-card__title">
+          {{ title }}
+        </h1>
+        <div>
+          <button
+            bbButton
+            class="mx-1"
+            color="link"
+            buttonSize="sm"
+            title="Previous transaction"
+            [circle]="true"
+            [disabled]="!view.previous"
+            [routerLink]="['../', view.previous?.id]"
+          >
+            <bb-icon-ui name="chevron-left" cropped></bb-icon-ui>
+          </button>
+          <button
+            bbButton
+            class="mx-1"
+            color="link"
+            buttonSize="sm"
+            title="Following transaction"
+            [circle]="true"
+            [disabled]="!view.following"
+            [routerLink]="['../', view.following?.id]"
+          >
+            <bb-icon-ui name="chevron-right" cropped></bb-icon-ui>
+          </button>
         </div>
-        <div class="bb-card__body">
-          <dl class="row">
-            <div class="col-md-8" data-testid="recipient">
-              <dt
+      </div>
+      <div class="bb-card__body">
+        <dl class="row">
+          <div class="col-md-8" data-testid="recipient">
+            <dt
               i18n="
                 Recipient label for Transaction Details - 'Recipient:'|This
                 string is used as the label for the recipient field in the
@@ -44,52 +44,52 @@
                 view the details of a transaction. This label is located in the
                 transaction details view
                 component.@@transactions.details.recepient"
-                >
+            >
               Recipient:
             </dt>
-              <dd>
-                {{ view.details.recepient }}
-              </dd>
-            </div>
-            <div class="col-md-4" data-testid="date">
-              <dt
+            <dd>
+              {{ view.details.recepient }}
+            </dd>
+          </div>
+          <div class="col-md-4" data-testid="date">
+            <dt
               i18n="
                 Date label for Transaction Details - 'Date:'|This string is used
                 as the label for the date field in the transaction details view.
                 It is presented to the user when they view the details of a
                 transaction. This label is located in the transaction details
                 view component.@@transactions.details.date"
-                >
+            >
               Date:
             </dt>
-              <dd>
-                {{ view.details.date | date }}
-              </dd>
-            </div>
-            <div class="col-md-8" data-testid="amount">
-              <dt
+            <dd>
+              {{ view.details.date | date }}
+            </dd>
+          </div>
+          <div class="col-md-8" data-testid="amount">
+            <dt
               i18n="
                 Amount label for Transaction Amount - 'Amount:'|This string is
                 used as the label for the amount field in the transaction
                 details view. It is presented to the user when they view the
                 details of a transaction. This label is located in the
                 transaction details view component.@@transactions.details.amount"
-                >
+            >
               Amount:
             </dt>
-              <dd>
-                <bb-amount-ui
-                  [currency]="view.details.amount.currencyCode"
-                  [amount]="view.details.amount.amount"
-                  [mapCurrency]="true"
-                  [showPlusSign]="false"
-                  [abbreviate]="false"
-                  >
-                </bb-amount-ui>
-              </dd>
-            </div>
-            <div class="col-md-4" data-testid="category">
-              <dt
+            <dd>
+              <bb-amount-ui
+                [currency]="view.details.amount.currencyCode"
+                [amount]="view.details.amount.amount"
+                [mapCurrency]="true"
+                [showPlusSign]="false"
+                [abbreviate]="false"
+              >
+              </bb-amount-ui>
+            </dd>
+          </div>
+          <div class="col-md-4" data-testid="category">
+            <dt
               i18n="
                 Category label for Transaction Details - 'Category:'|This string
                 is used as the label for the category field in the transaction
@@ -97,15 +97,15 @@
                 details of a transaction. This label is located in the
                 transaction details view
                 component.@@transactions.details.category"
-                >
+            >
               Category:
             </dt>
-              <dd>
-                {{ view.details.category }}
-              </dd>
-            </div>
-            <div class="col-md-8" data-testid="description">
-              <dt
+            <dd>
+              {{ view.details.category }}
+            </dd>
+          </div>
+          <div class="col-md-8" data-testid="description">
+            <dt
               i18n="
                 Description label for Transaction Details - 'Description:'|This
                 string is used as the label for the description field in the
@@ -113,39 +113,39 @@
                 view the details of a transaction. This label is located in the
                 transaction details view
                 component.@@transactions.details.description"
-                >
+            >
               Description:
             </dt>
-              <dd>
-                {{ view.details.description }}
-              </dd>
-            </div>
-            <div class="col-md-4" data-testid="status">
-              <dt
+            <dd>
+              {{ view.details.description }}
+            </dd>
+          </div>
+          <div class="col-md-4" data-testid="status">
+            <dt
               i18n="
                 Status label for Transaction Details - 'Status:'|This string is
                 used as the label for the status field in the transaction
                 details view. It is presented to the user when they view the
                 details of a transaction. This label is located in the
                 transaction details view component.@@transactions.details.status"
-                >
+            >
               Status:
             </dt>
-              <dd>
-                {{ view.details.status }}
-              </dd>
-            </div>
-          </dl>
-        </div>
-        <div class="bb-card__footer text-right">
-          <button
-            bbButton
-            color="secondary"
-            [routerLink]="['/transfer', view.transferParams, 'make-transfer']"
-            data-testid="repeat-transaction-button"
-            >
-            <bb-icon-ui name="replay" cropped></bb-icon-ui>
-            <span
+            <dd>
+              {{ view.details.status }}
+            </dd>
+          </div>
+        </dl>
+      </div>
+      <div class="bb-card__footer text-right">
+        <button
+          bbButton
+          color="secondary"
+          [routerLink]="['/transfer', view.transferParams, 'make-transfer']"
+          data-testid="repeat-transaction-button"
+        >
+          <bb-icon-ui name="replay" cropped></bb-icon-ui>
+          <span
             i18n="
               Label for Repeat Transaction - 'Repeat transaction'|This string is
               used as a label for the 'Repeat transaction' button. It is
@@ -153,11 +153,11 @@
               want to repeat a previous transaction. This label is located
               within the transaction details section of the
               layout.@@transaction-details.repeat"
-              >Repeat transaction</span
-              >
-            </button>
-          </div>
-        </div>
+            >Repeat transaction</span
+          >
+        </button>
       </div>
-    }
-  </ng-container>
+    </div>
+  </div>
+  }
+</ng-container>

@@ -1,7 +1,7 @@
 @if ((vm$ | async)!; as vm) {
-  <bb-make-transfer-summary
-    [transfer]="vm.transfer"
-    (submitTransfer)="submit()"
-    (closeTransfer)="close()"
-  ></bb-make-transfer-summary>
+<bb-make-transfer-summary
+  [transfer]="vm.transfer"
+  (submitTransfer)="submit()"
+  (closeTransfer)="close()"
+></bb-make-transfer-summary>
 }
