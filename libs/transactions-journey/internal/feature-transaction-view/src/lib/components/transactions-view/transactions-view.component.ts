@@ -45,6 +45,18 @@ import { TransactionItemComponent } from '../transaction-item/transaction-item.c
   providers: [TransactionsHttpService],
 })
 export class TransactionsViewComponent {
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
+  private readonly router: Router = inject(Router);
+  private readonly transactionsService: TransactionsHttpService = inject(
+    TransactionsHttpService
+  );
+  private readonly arrangementsService: ArrangementsService =
+    inject(ArrangementsService);
+  private readonly externalCommunicationService: TransactionsCommunicationService =
+    inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE);
+  private readonly tracker: Tracker | null = inject(Tracker, {
+    optional: true,
+  });
   public title = this.route.snapshot.data['title'];
 
   public filter = '';
@@ -87,19 +99,6 @@ export class TransactionsViewComponent {
   public searchQuery$ = this.route.queryParamMap.pipe(
     map((params) => params.get('search') ?? '')
   );
-
-  private readonly route: ActivatedRoute = inject(ActivatedRoute);
-  private readonly router: Router = inject(Router);
-  private readonly transactionsService: TransactionsHttpService = inject(
-    TransactionsHttpService
-  );
-  private readonly arrangementsService: ArrangementsService =
-    inject(ArrangementsService);
-  private readonly externalCommunicationService: TransactionsCommunicationService =
-    inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE);
-  private readonly tracker: Tracker | null = inject(Tracker, {
-    optional: true,
-  });
 
   search(ev: string) {
     this.filter = ev || '';

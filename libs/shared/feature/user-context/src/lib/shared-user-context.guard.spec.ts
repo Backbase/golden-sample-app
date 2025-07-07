@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { TestBed } from '@angular/core/testing';
 import { SharedUserContextGuard } from './shared-user-context.guard';
 import {
   ActivatedRouteSnapshot,
@@ -34,30 +35,38 @@ describe('UserContextGuard', () => {
       'getServiceAgreementContext'
     > as any;
 
-  function createGuard(validationRequestMarbles?: string) {
-    mockServiceAgreementHttpService.getServiceAgreementContext.mockReturnValue(
-      validationRequestMarbles ? cold(validationRequestMarbles) : of(<any>{})
-    );
-
-    return new SharedUserContextGuard(
-      mockRouter,
-      mockServiceAgreementHttpService
-    );
-  }
+  let guard: SharedUserContextGuard;
 
   beforeEach(() => {
     mockServiceAgreementHttpService.getServiceAgreementContext.mockReset();
+
+    TestBed.configureTestingModule({
+      providers: [
+        SharedUserContextGuard,
+        { provide: Router, useValue: mockRouter },
+        {
+          provide: ServiceAgreementsHttpService,
+          useValue: mockServiceAgreementHttpService,
+        },
+      ],
+    });
+
+    guard = TestBed.inject(SharedUserContextGuard);
   });
 
   describe(`when a context has not been selected`, () => {
+    beforeEach(() => {
+      mockServiceAgreementHttpService.getServiceAgreementContext.mockReturnValue(
+        cold('-#')
+      );
+    });
+
     it('should retain the target URL for the initial navigation', () => {
-      const guard = createGuard('-#');
       guard.canActivate(fakeActivatedRouteSnapshot, fakeRouterStateSnapshot);
       expect(guard.getTargetUrl()).toEqual(MOCK_TARGET_URL);
     });
 
     it('should return a URL tree pointing to /select-context', () => {
-      const guard = createGuard('-#');
       const result = guard.canActivate(
         fakeActivatedRouteSnapshot,
         fakeRouterStateSnapshot
@@ -70,8 +79,13 @@ describe('UserContextGuard', () => {
   });
 
   describe(`when a context has been selected`, () => {
+    beforeEach(() => {
+      mockServiceAgreementHttpService.getServiceAgreementContext.mockReturnValue(
+        cold('-(a|)')
+      );
+    });
+
     it('should return an Observable of boolean true', () => {
-      const guard = createGuard('-(a|)');
       const result = guard.canActivate(
         fakeActivatedRouteSnapshot,
         fakeRouterStateSnapshot
@@ -80,7 +94,10 @@ describe('UserContextGuard', () => {
     });
 
     it('should not repeatedly call the accesscontrol service after the context has been validated once', (done) => {
-      const guard = createGuard();
+      mockServiceAgreementHttpService.getServiceAgreementContext.mockReturnValue(
+        of(<any>{})
+      );
+
       const firstResult = guard.canActivate(
         fakeActivatedRouteSnapshot,
         fakeRouterStateSnapshot

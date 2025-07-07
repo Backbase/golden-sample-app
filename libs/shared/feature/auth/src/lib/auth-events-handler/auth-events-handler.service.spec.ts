@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { TestBed } from '@angular/core/testing';
 import { OAuthEvent, OAuthService } from 'angular-oauth2-oidc';
 import { Subject, Subscription } from 'rxjs';
 
@@ -12,43 +13,45 @@ export const mock = <T>(overrides?: WidePropertyTypes<T>) =>
   ({ ...overrides } as jest.Mocked<T>);
 
 describe('AuthEventsHandlerService', () => {
-  const getInstance = () => {
-    const events$$ = new Subject<OAuthEvent>();
-    const oAuthService = mock<OAuthService>({
+  let service: AuthEventsHandlerService;
+  let oAuthService: jest.Mocked<OAuthService>;
+  let authService: jest.Mocked<AuthService>;
+  let localeService: jest.Mocked<LocalesService>;
+  let events$$: Subject<OAuthEvent>;
+  let scheduler: TestScheduler;
+
+  beforeEach(() => {
+    events$$ = new Subject<OAuthEvent>();
+    oAuthService = mock<OAuthService>({
       events: events$$.asObservable(),
       refreshToken: jest.fn(),
       logOut: jest.fn(),
       hasValidAccessToken: jest.fn().mockReturnValue(true),
       getAccessToken: jest.fn().mockReturnValue('1.eyJsb2NhbGUiOiAibmwifQ=='),
     });
-    const authService = mock<AuthService>({
+    authService = mock<AuthService>({
       initLoginFlow: jest.fn(),
     });
-    const localeService = mock<LocalesService>({
+    localeService = mock<LocalesService>({
       setLocale: jest.fn(),
       currentLocale: 'en',
     });
-    const service = new AuthEventsHandlerService(
-      oAuthService,
-      authService,
-      localeService
-    );
-    const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
 
-    return {
-      service,
-      oAuthService,
-      authService,
-      localeService,
-      events$$,
-      scheduler,
-    };
-  };
+    TestBed.configureTestingModule({
+      providers: [
+        AuthEventsHandlerService,
+        { provide: OAuthService, useValue: oAuthService },
+        { provide: AuthService, useValue: authService },
+        { provide: LocalesService, useValue: localeService },
+      ],
+    });
+
+    service = TestBed.inject(AuthEventsHandlerService);
+    scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
+  });
 
   describe('Document load', () => {
     it('should not handle events if document is not loaded', () => {
-      const { events$$, oAuthService, scheduler } = getInstance();
-
       scheduler.run(({ flush }) => {
         events$$.next({ type: 'token_expires' });
         flush();
@@ -57,8 +60,6 @@ describe('AuthEventsHandlerService', () => {
       expect(oAuthService.refreshToken).not.toHaveBeenCalled();
     });
     it('should handle events when document is loaded', () => {
-      const { events$$, oAuthService, scheduler } = getInstance();
-
       scheduler.run(({ flush }) => {
         events$$.next({ type: 'discovery_document_loaded' });
         events$$.next({ type: 'token_expires' });
@@ -71,8 +72,6 @@ describe('AuthEventsHandlerService', () => {
 
   describe('Receiving a new token', () => {
     it('should update the locale when a new token is received', () => {
-      const { events$$, localeService, scheduler } = getInstance();
-
       scheduler.run(({ flush }) => {
         events$$.next({ type: 'discovery_document_loaded' });
         events$$.next({ type: 'token_received' });
@@ -85,8 +84,6 @@ describe('AuthEventsHandlerService', () => {
 
   describe('Refreshing access tokens', () => {
     it('should refresh an access token that expires', () => {
-      const { events$$, oAuthService, scheduler } = getInstance();
-
       scheduler.run(({ flush }) => {
         events$$.next({ type: 'discovery_document_loaded' });
         events$$.next({ type: 'token_expires' });
@@ -99,8 +96,6 @@ describe('AuthEventsHandlerService', () => {
 
   describe('Logging out', () => {
     it('should log out the user when refresh token errors', () => {
-      const { events$$, oAuthService, scheduler } = getInstance();
-
       scheduler.run(({ flush }) => {
         events$$.next({ type: 'discovery_document_loaded' });
         events$$.next({ type: 'token_refresh_error' });
@@ -110,8 +105,6 @@ describe('AuthEventsHandlerService', () => {
       expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
     it('should log out the user when token errors', () => {
-      const { events$$, oAuthService, scheduler } = getInstance();
-
       scheduler.run(({ flush }) => {
         events$$.next({ type: 'discovery_document_loaded' });
         events$$.next({ type: 'token_error' });
@@ -121,8 +114,6 @@ describe('AuthEventsHandlerService', () => {
       expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
     it('should log out the user when code exchange errors', () => {
-      const { events$$, oAuthService, scheduler } = getInstance();
-
       scheduler.run(({ flush }) => {
         events$$.next({ type: 'discovery_document_loaded' });
         events$$.next({ type: 'code_error' });
@@ -132,8 +123,6 @@ describe('AuthEventsHandlerService', () => {
       expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
     it('should log out the user when the session errors', () => {
-      const { events$$, oAuthService, scheduler } = getInstance();
-
       scheduler.run(({ flush }) => {
         events$$.next({ type: 'discovery_document_loaded' });
         events$$.next({ type: 'session_error' });
@@ -143,8 +132,6 @@ describe('AuthEventsHandlerService', () => {
       expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
     it('should log out the user when the session is terminated', () => {
-      const { events$$, oAuthService, scheduler } = getInstance();
-
       scheduler.run(({ flush }) => {
         events$$.next({ type: 'discovery_document_loaded' });
         events$$.next({ type: 'session_terminated' });
@@ -154,7 +141,6 @@ describe('AuthEventsHandlerService', () => {
       expect(oAuthService.logOut).toHaveBeenCalledTimes(1);
     });
     it('should call initLoginFlow when the user does not have a valid access token', () => {
-      const { events$$, oAuthService, authService, scheduler } = getInstance();
       oAuthService.hasValidAccessToken.mockReturnValue(false);
 
       scheduler.run(({ flush }) => {
@@ -169,8 +155,6 @@ describe('AuthEventsHandlerService', () => {
 
   describe('Redirecting to login page', () => {
     it('should redirect the user to the login page when they use an invalid nonce state', () => {
-      const { events$$, authService, scheduler } = getInstance();
-
       scheduler.run(({ flush }) => {
         events$$.next({ type: 'discovery_document_loaded' });
         events$$.next({ type: 'invalid_nonce_in_state' });
@@ -183,7 +167,6 @@ describe('AuthEventsHandlerService', () => {
 
   describe('#ngOnDestroy', () => {
     it('should close events subscription', () => {
-      const { service } = getInstance();
       const subscription: Subscription = (service as any).eventsSubscription;
 
       expect(subscription.closed).toBe(false);

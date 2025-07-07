@@ -17,7 +17,7 @@ export class AppComponent {
   isAuthenticated = false;
 
   private readonly oAuthService: OAuthService = inject(OAuthService);
-  private readonly layoutService: LayoutService = inject(LayoutService);
+  protected readonly layoutService: LayoutService = inject(LayoutService);
   private readonly tracker: Tracker | null = inject(Tracker, {
     optional: true,
   });

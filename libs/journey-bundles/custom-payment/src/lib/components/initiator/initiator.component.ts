@@ -33,7 +33,8 @@ import { InitiatorService } from './initiator.service';
       >
       </bb-account-selector-ui>
 
-      @if (group?.touched && group?.invalid) {
+      @if (group.touched && group.invalid) {
+
       <div class="bb-input-validation-message">
         {{ requiredMessage }}
       </div>

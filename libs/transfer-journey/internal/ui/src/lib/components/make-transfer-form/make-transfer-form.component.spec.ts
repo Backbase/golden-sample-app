@@ -1,11 +1,12 @@
 import { FormBuilder } from '@angular/forms';
 import { MakeTransferFormComponent } from './make-transfer-form.component';
 import { ActivatedRoute } from '@angular/router';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('MakeTransferFormComponent', () => {
   let component: MakeTransferFormComponent;
+  let fixture: ComponentFixture<MakeTransferFormComponent>;
   let route: ActivatedRoute;
   const formBuilder = new FormBuilder();
   beforeEach(async () => {
@@ -20,7 +21,8 @@ describe('MakeTransferFormComponent', () => {
     route = TestBed.inject(ActivatedRoute);
   });
   beforeEach(() => {
-    component = new MakeTransferFormComponent(formBuilder, route);
+    fixture = TestBed.createComponent(MakeTransferFormComponent);
+    component = fixture.componentInstance;
   });
 
   it('should create', () => {

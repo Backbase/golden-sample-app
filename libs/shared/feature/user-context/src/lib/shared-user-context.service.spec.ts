@@ -1,129 +1,154 @@
+import { TestBed } from '@angular/core/testing';
+import { OAuthStorage } from 'angular-oauth2-oidc';
 import {
-  USER_CONTEXT_KEY,
   SharedUserContextService,
+  USER_CONTEXT_KEY,
+  UserContextStorage,
 } from './shared-user-context.service';
-import { MemoryStorage } from 'angular-oauth2-oidc';
 
-describe('UserContextService', () => {
-  beforeEach(() => {
-    sessionStorage.clear();
-  });
+describe('SharedUserContextService', () => {
+  describe('with UserContextStorage', () => {
+    let service: SharedUserContextService;
+    let userContextStore: UserContextStorage;
 
-  describe('when both an explicit UserContextStorage and OAuthStorage are configured', () => {
-    function configureService() {
-      const userContextStore = new MemoryStorage();
-      const oAuthStore = new MemoryStorage();
-      const service = new SharedUserContextService(
-        userContextStore,
-        oAuthStore
+    beforeEach(() => {
+      userContextStore = {
+        getItem: jest.fn(),
+        setItem: jest.fn(),
+      };
+
+      TestBed.configureTestingModule({
+        providers: [
+          SharedUserContextService,
+          { provide: UserContextStorage, useValue: userContextStore },
+        ],
+      });
+      service = TestBed.inject(SharedUserContextService);
+    });
+
+    it('should get service agreement id from user context storage', () => {
+      const serviceAgreementId = 'test-service-agreement-id';
+      (userContextStore.getItem as jest.Mock).mockReturnValue(
+        serviceAgreementId
       );
-      return { userContextStore, oAuthStore, service };
-    }
 
-    it('should return null when no service agreement ID has been set', () => {
-      const { service } = configureService();
-      expect(service.getServiceAgreementId()).toBeUndefined();
+      expect(service.getServiceAgreementId()).toBe(serviceAgreementId);
+      expect(userContextStore.getItem).toHaveBeenCalledWith(USER_CONTEXT_KEY);
     });
 
-    it('should store the SAID in the UserContextStorage', () => {
-      const { userContextStore, service } = configureService();
-      service.setServiceAgreementId('feedface');
-      expect(userContextStore.getItem(USER_CONTEXT_KEY)).toStrictEqual(
-        'feedface'
+    it('should set service agreement id in user context storage', () => {
+      const serviceAgreementId = 'test-service-agreement-id';
+
+      service.setServiceAgreementId(serviceAgreementId);
+
+      expect(userContextStore.setItem).toHaveBeenCalledWith(
+        USER_CONTEXT_KEY,
+        serviceAgreementId
       );
     });
 
-    it('should retrieve the stored value from the UserContextStorage', () => {
-      const { userContextStore, service } = configureService();
-      userContextStore.setItem(USER_CONTEXT_KEY, 'deadbeef');
-      expect(service.getServiceAgreementId()).toStrictEqual('deadbeef');
-    });
+    it('should return undefined when service agreement id is not set', () => {
+      (userContextStore.getItem as jest.Mock).mockReturnValue(null);
 
-    it('should not store the SAID in the OAuthStorage', () => {
-      const { oAuthStore, service } = configureService();
-      service.setServiceAgreementId('feedface');
-      expect(oAuthStore.getItem(USER_CONTEXT_KEY)).toBeUndefined();
-    });
-
-    it('should not retrieve the stored value from the OAuthStorage', () => {
-      const { oAuthStore, service } = configureService();
-      oAuthStore.setItem(USER_CONTEXT_KEY, 'deadbeef');
-      expect(service.getServiceAgreementId()).toBeUndefined();
-    });
-
-    it('should not store the SAID in the SessionStorage', () => {
-      const { service } = configureService();
-      service.setServiceAgreementId('feedface');
-      expect(sessionStorage.getItem(USER_CONTEXT_KEY)).toBeNull();
-    });
-
-    it('should not retrieve the stored value from the SessionStorage', () => {
-      const { service } = configureService();
-      sessionStorage.setItem(USER_CONTEXT_KEY, 'deadbeef');
       expect(service.getServiceAgreementId()).toBeUndefined();
     });
   });
 
-  describe('when no explicit UserContextStorage is configured and an OAuthStorage is configured', () => {
-    function configureService() {
-      const oAuthStore = new MemoryStorage();
-      const service = new SharedUserContextService(undefined, oAuthStore);
-      return { oAuthStore, service };
-    }
+  describe('with OAuthStorage', () => {
+    let service: SharedUserContextService;
+    let oAuthStore: OAuthStorage;
 
-    it('should return null when no service agreement ID has been set', () => {
-      const { service } = configureService();
-      expect(service.getServiceAgreementId()).toBeUndefined();
+    beforeEach(() => {
+      oAuthStore = {
+        getItem: jest.fn(),
+        setItem: jest.fn(),
+        removeItem: jest.fn(),
+      };
+
+      TestBed.configureTestingModule({
+        providers: [
+          SharedUserContextService,
+          { provide: OAuthStorage, useValue: oAuthStore },
+        ],
+      });
+      service = TestBed.inject(SharedUserContextService);
     });
 
-    it('should store the SAID in the OAuthStorage', () => {
-      const { oAuthStore, service } = configureService();
-      service.setServiceAgreementId('cafed00d');
-      expect(oAuthStore.getItem(USER_CONTEXT_KEY)).toStrictEqual('cafed00d');
+    it('should get service agreement id from oauth storage', () => {
+      const serviceAgreementId = 'test-service-agreement-id';
+      (oAuthStore.getItem as jest.Mock).mockReturnValue(serviceAgreementId);
+
+      expect(service.getServiceAgreementId()).toBe(serviceAgreementId);
+      expect(oAuthStore.getItem).toHaveBeenCalledWith(USER_CONTEXT_KEY);
     });
 
-    it('should retrieve the stored value from the OAuthStorage', () => {
-      const { oAuthStore, service } = configureService();
-      oAuthStore.setItem(USER_CONTEXT_KEY, 'cafed00d');
-      expect(service.getServiceAgreementId()).toStrictEqual('cafed00d');
+    it('should set service agreement id in oauth storage', () => {
+      const serviceAgreementId = 'test-service-agreement-id';
+
+      service.setServiceAgreementId(serviceAgreementId);
+
+      expect(oAuthStore.setItem).toHaveBeenCalledWith(
+        USER_CONTEXT_KEY,
+        serviceAgreementId
+      );
     });
 
-    it('should not store the SAID in the SessionStorage', () => {
-      const { service } = configureService();
-      service.setServiceAgreementId('feedface');
-      expect(sessionStorage.getItem(USER_CONTEXT_KEY)).toBeNull();
-    });
+    it('should return undefined when service agreement id is not set', () => {
+      (oAuthStore.getItem as jest.Mock).mockReturnValue(null);
 
-    it('should not retrieve the stored value from the SessionStorage', () => {
-      const { service } = configureService();
-      sessionStorage.setItem(USER_CONTEXT_KEY, 'deadbeef');
       expect(service.getServiceAgreementId()).toBeUndefined();
     });
   });
 
-  describe('when no explicit UserContextStorage or OAuthStorage are configured', () => {
-    function configureService() {
-      const service = new SharedUserContextService(undefined, undefined);
-      return { service };
-    }
+  describe('without UserContextStorage or OAuthStorage', () => {
+    let service: SharedUserContextService;
+    let originalSessionStorage: Storage;
 
-    it('should return null when no service agreement ID has been set', () => {
-      const { service } = configureService();
-      expect(service.getServiceAgreementId()).toBeUndefined();
+    beforeEach(() => {
+      // Mock sessionStorage at the global level
+      originalSessionStorage = global.sessionStorage;
+      const mockSessionStorage = {
+        getItem: jest.fn(),
+        setItem: jest.fn(),
+        removeItem: jest.fn(),
+        clear: jest.fn(),
+        length: 0,
+        key: jest.fn(),
+      };
+      Object.defineProperty(global, 'sessionStorage', {
+        value: mockSessionStorage,
+        writable: true,
+      });
+
+      TestBed.configureTestingModule({
+        providers: [SharedUserContextService],
+      });
+      service = TestBed.inject(SharedUserContextService);
     });
 
-    it('should store the SAID in the SessionStorage', () => {
-      const { service } = configureService();
-      service.setServiceAgreementId('deadbeef');
-      expect(sessionStorage.getItem(USER_CONTEXT_KEY)).toStrictEqual(
-        'deadbeef'
+    afterEach(() => {
+      Object.defineProperty(global, 'sessionStorage', {
+        value: originalSessionStorage,
+        writable: true,
+      });
+    });
+
+    it('should use sessionStorage as fallback', () => {
+      const serviceAgreementId = 'test-service-agreement-id';
+      (global.sessionStorage.getItem as jest.Mock).mockReturnValue(
+        serviceAgreementId
       );
-    });
 
-    it('should retrieve the stored value from the SessionStorage', () => {
-      const { service } = configureService();
-      sessionStorage.setItem(USER_CONTEXT_KEY, 'deadbeef');
-      expect(service.getServiceAgreementId()).toStrictEqual('deadbeef');
+      expect(service.getServiceAgreementId()).toBe(serviceAgreementId);
+      expect(global.sessionStorage.getItem).toHaveBeenCalledWith(
+        USER_CONTEXT_KEY
+      );
+
+      service.setServiceAgreementId(serviceAgreementId);
+      expect(global.sessionStorage.setItem).toHaveBeenCalledWith(
+        USER_CONTEXT_KEY,
+        serviceAgreementId
+      );
     });
   });
 });

@@ -7,6 +7,7 @@ import {
   HttpRequest,
   HttpResponse,
 } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { share } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
@@ -18,22 +19,35 @@ export const mock = <T>(overrides?: WidePropertyTypes<T>) =>
   ({ ...overrides } as jest.Mocked<T>);
 
 describe('Auth Interceptor', () => {
-  const getInstance = () => {
-    const oAuthService = mock<OAuthService>({
+  let interceptor: AuthInterceptor;
+  let oAuthService: jest.Mocked<OAuthService>;
+  let authUtils: any;
+  let next: jest.Mocked<HttpHandler>;
+  let scheduler: TestScheduler;
+  let refreshToken: jest.SpyInstance;
+
+  beforeEach(() => {
+    oAuthService = mock<OAuthService>({
       refreshToken: jest.fn(),
     });
-    const authUtils = {
+    authUtils = {
       isInvalidToken401: jest.spyOn(utils, 'isInvalidToken401'),
     };
-    const interceptor = new AuthInterceptor(oAuthService);
-    const next = mock<HttpHandler>({
+
+    TestBed.configureTestingModule({
+      providers: [
+        AuthInterceptor,
+        { provide: OAuthService, useValue: oAuthService },
+      ],
+    });
+
+    interceptor = TestBed.inject(AuthInterceptor);
+    next = mock<HttpHandler>({
       handle: jest.fn(),
     });
-    const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
-    const refreshToken = jest.spyOn(<any>interceptor, 'refreshToken');
-
-    return { authUtils, interceptor, next, scheduler, refreshToken };
-  };
+    scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
+    refreshToken = jest.spyOn(<any>interceptor, 'refreshToken');
+  });
 
   const getData = () => {
     const request = new HttpRequest('GET', 'someurl');
@@ -62,8 +76,6 @@ describe('Auth Interceptor', () => {
 
   describe('when isInvalidToken401 returns true', () => {
     it('should replay the request with new access token', () => {
-      const { interceptor, authUtils, next, scheduler, refreshToken } =
-        getInstance();
       const { request, capabilityResponse, refreshTokenResponse, accessToken } =
         getData();
 
@@ -92,8 +104,6 @@ describe('Auth Interceptor', () => {
     });
 
     it('should call to refresh token only once when multiple requests occur', () => {
-      const { interceptor, authUtils, next, scheduler, refreshToken } =
-        getInstance();
       const { request, capabilityResponse, refreshTokenResponse } = getData();
       const next2 = mock<HttpHandler>({
         handle: jest.fn(),
@@ -132,8 +142,6 @@ describe('Auth Interceptor', () => {
     });
 
     it('should throw back up initial invalid token error when refreshing', () => {
-      const { interceptor, authUtils, next, scheduler, refreshToken } =
-        getInstance();
       const { request, capabilityResponse, refreshTokenErrorResponse } =
         getData();
 
@@ -159,7 +167,6 @@ describe('Auth Interceptor', () => {
 
   describe('when isInvalidToken401 returns false', () => {
     it('should re-throw the original error', () => {
-      const { interceptor, authUtils, next, scheduler } = getInstance();
       const { request, capabilityResponse } = getData();
 
       scheduler.run(({ cold, expectObservable }) => {

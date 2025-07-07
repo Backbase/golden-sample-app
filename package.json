@@ -90,6 +90,53 @@
     "tslib": "^2.3.1",
     "zone.js": "0.15.0"
   },
+  "overrides": {
+    "@backbase/ui-ang": {
+      "@angular/animations": "$@angular/animations",
+      "@angular/cdk": "$@angular/cdk",
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core",
+      "@angular/forms": "$@angular/forms",
+      "@angular/localize": "$@angular/localize",
+      "@angular/platform-browser": "$@angular/platform-browser",
+      "@angular/platform-browser-dynamic": "$@angular/platform-browser-dynamic",
+      "@angular/router": "$@angular/router",
+      "@ng-bootstrap/ng-bootstrap": "$@ng-bootstrap/ng-bootstrap",
+      "@ng-select/ng-select": "$@ng-select/ng-select",
+      "ngx-quill": "$ngx-quill"
+    },
+    "@backbase/foundation-ang": {
+      "@angular/animations": "$@angular/animations",
+      "@angular/cdk": "$@angular/cdk",
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core",
+      "@angular/forms": "$@angular/forms",
+      "@angular/localize": "$@angular/localize",
+      "@angular/platform-browser": "$@angular/platform-browser",
+      "@angular/platform-browser-dynamic": "$@angular/platform-browser-dynamic",
+      "@angular/router": "$@angular/router"
+    },
+    "@backbase/identity-auth": {
+      "@angular/animations": "$@angular/animations",
+      "@angular/cdk": "$@angular/cdk",
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core",
+      "@angular/forms": "$@angular/forms",
+      "@angular/localize": "$@angular/localize",
+      "@angular/platform-browser": "$@angular/platform-browser",
+      "@angular/platform-browser-dynamic": "$@angular/platform-browser-dynamic",
+      "@angular/router": "$@angular/router"
+    },
+    "@ngrx/component-store": {
+      "@angular/core": "$@angular/core"
+    },
+    "@ngrx/effects": {
+      "@angular/core": "$@angular/core"
+    },
+    "@ngrx/store": {
+      "@angular/core": "$@angular/core"
+    }
+  },
   "devDependencies": {
     "@angular-devkit/build-angular": "20.0.5",
     "@angular-devkit/core": "20.0.5",

@@ -1,3 +1,4 @@
+import { TestBed } from '@angular/core/testing';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -53,13 +54,18 @@ describe('MakeTransferViewComponent', () => {
   };
 
   beforeEach(() => {
-    component = new MakeTransferViewComponent(
-      mockActivatedRoute as ActivatedRoute,
-      mockRouter as Router,
-      mockTransferState as MakeTransferJourneyState,
-      mockPermissions as MakeTransferPermissionsService,
-      mockConfig as MakeTransferJourneyConfiguration
-    );
+    TestBed.configureTestingModule({
+      providers: [
+        MakeTransferViewComponent,
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        { provide: Router, useValue: mockRouter },
+        { provide: MakeTransferJourneyState, useValue: mockTransferState },
+        { provide: MakeTransferPermissionsService, useValue: mockPermissions },
+        { provide: MakeTransferJourneyConfiguration, useValue: mockConfig },
+      ],
+    });
+
+    component = TestBed.inject(MakeTransferViewComponent);
   });
 
   it('should create', () => {
