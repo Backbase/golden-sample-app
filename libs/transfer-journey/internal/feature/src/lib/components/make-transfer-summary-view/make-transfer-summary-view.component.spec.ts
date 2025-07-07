@@ -1,3 +1,4 @@
+import { TestBed } from '@angular/core/testing';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -13,11 +14,6 @@ import { MakeTransferSummaryViewComponent } from './make-transfer-summary-view.c
 
 describe('MakeTransferSymmaryViewComponent', () => {
   let component: MakeTransferSummaryViewComponent;
-  let mockCommunicationService:
-    | Pick<MakeTransferCommunicationService, 'makeTransfer'>
-    | undefined = {
-    makeTransfer: jest.fn(),
-  };
   const transferMock = {
     fromAccount: 'somAccount',
     toAccount: 'somAccount',
@@ -36,73 +32,110 @@ describe('MakeTransferSymmaryViewComponent', () => {
     snapshot: snapshot as ActivatedRouteSnapshot,
   };
   let mockRouter: Pick<Router, 'navigate'>;
-  const createComponent = () => {
-    mockTransferState = {
-      transfer$: of(transferMock),
-      vm$: of({
-        transfer: transferMock,
-        transferState: TransferOperationStatus.SUCCESSFUL,
-        account: undefined,
-        loadingStatus: 0,
-        errorStatus: undefined,
-      }),
-      makeTransfer: jest.fn(),
-    };
-    mockRouter = {
-      navigate: jest.fn(),
-    };
-    component = new MakeTransferSummaryViewComponent(
-      mockTransferState as MakeTransferJourneyState,
-      mockActivatedRoute as ActivatedRoute,
-      mockRouter as Router,
-      mockCommunicationService as MakeTransferCommunicationService
-    );
-  };
 
-  beforeEach(() => {
-    createComponent();
-  });
+  describe('with communication service', () => {
+    let mockCommunicationService: Pick<
+      MakeTransferCommunicationService,
+      'makeTransfer'
+    >;
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    beforeEach(() => {
+      mockCommunicationService = {
+        makeTransfer: jest.fn(),
+      };
+      mockTransferState = {
+        transfer$: of(transferMock),
+        vm$: of({
+          transfer: transferMock,
+          transferState: TransferOperationStatus.SUCCESSFUL,
+          account: undefined,
+          loadingStatus: 0,
+          errorStatus: undefined,
+        }),
+        makeTransfer: jest.fn(),
+      };
+      mockRouter = {
+        navigate: jest.fn(),
+      };
 
-  describe('submit', () => {
+      TestBed.configureTestingModule({
+        providers: [
+          MakeTransferSummaryViewComponent,
+          { provide: MakeTransferJourneyState, useValue: mockTransferState },
+          { provide: ActivatedRoute, useValue: mockActivatedRoute },
+          { provide: Router, useValue: mockRouter },
+          {
+            provide: MakeTransferCommunicationService,
+            useValue: mockCommunicationService,
+          },
+        ],
+      });
+
+      component = TestBed.inject(MakeTransferSummaryViewComponent);
+    });
+
     it('should create', () => {
       expect(component).toBeTruthy();
     });
-  });
 
-  describe('close', () => {
-    it('should navigate', () => {
-      component.close();
-      expect(mockRouter.navigate).toHaveBeenCalledWith(['../make-transfer'], {
-        relativeTo: mockActivatedRoute,
+    describe('close', () => {
+      it('should navigate', () => {
+        component.close();
+        expect(mockRouter.navigate).toHaveBeenCalledWith(['../make-transfer'], {
+          relativeTo: mockActivatedRoute,
+        });
       });
     });
   });
 
-  describe('submit', () => {
-    it('should emit a submit event', () => {
-      mockCommunicationService = undefined;
-      createComponent();
-      component.submit();
-      expect(mockTransferState.makeTransfer).toHaveBeenCalled();
-    });
-    it('should navigate', () => {
-      mockCommunicationService = undefined;
-      createComponent();
+  describe('without communication service', () => {
+    beforeEach(() => {
+      mockTransferState = {
+        transfer$: of(transferMock),
+        vm$: of({
+          transfer: transferMock,
+          transferState: TransferOperationStatus.SUCCESSFUL,
+          account: undefined,
+          loadingStatus: 0,
+          errorStatus: undefined,
+        }),
+        makeTransfer: jest.fn(),
+      };
+      mockRouter = {
+        navigate: jest.fn(),
+      };
 
-      expect(mockRouter.navigate).toHaveBeenCalledWith(
-        ['../make-transfer-success'],
-        {
-          relativeTo: mockActivatedRoute,
-          skipLocationChange: true,
-          state: {
-            transfer: transferMock,
-          },
-        }
-      );
+      TestBed.configureTestingModule({
+        providers: [
+          MakeTransferSummaryViewComponent,
+          { provide: MakeTransferJourneyState, useValue: mockTransferState },
+          { provide: ActivatedRoute, useValue: mockActivatedRoute },
+          { provide: Router, useValue: mockRouter },
+          // Explicitly not providing MakeTransferCommunicationService
+        ],
+      });
+
+      component = TestBed.inject(MakeTransferSummaryViewComponent);
+    });
+
+    describe('submit', () => {
+      it('should emit a submit event', () => {
+        component.submit();
+        expect(mockTransferState.makeTransfer).toHaveBeenCalled();
+      });
+
+      it('should navigate', () => {
+        expect(mockRouter.navigate).toHaveBeenCalledWith(
+          ['../make-transfer-success'],
+          {
+            relativeTo: mockActivatedRoute,
+            skipLocationChange: true,
+            state: {
+              transfer: transferMock,
+            },
+          }
+        );
+      });
     });
   });
 });

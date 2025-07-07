@@ -1,19 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
+import { TestBed } from '@angular/core/testing';
 import { AuthService } from '@backbase/identity-auth';
 import { ReplaySubject } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AuthGuard } from './auth.guard';
-import { Environment } from '@backbase/shared/util/config';
+import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
 
 export type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;
 export const mock = <T>(overrides?: WidePropertyTypes<T>) =>
   ({ ...overrides } as jest.Mocked<T>);
 
 describe('AuthGuard', () => {
-  const getInstance = () => {
-    const isAuthenticated$$ = new ReplaySubject<boolean>(1);
-    const authService = mock<AuthService>({
+  let guard: AuthGuard;
+  let authService: jest.Mocked<AuthService>;
+  let isAuthenticated$$: ReplaySubject<boolean>;
+  let scheduler: TestScheduler;
+
+  beforeEach(() => {
+    isAuthenticated$$ = new ReplaySubject<boolean>(1);
+    authService = mock<AuthService>({
       isAuthenticated$: isAuthenticated$$.asObservable(),
       initLoginFlow: jest.fn(),
     });
@@ -23,11 +29,18 @@ describe('AuthGuard', () => {
       locales: [],
       common: { designSlimMode: false },
     };
-    const guard = new AuthGuard(authService, environment);
-    const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
 
-    return { guard, authService, isAuthenticated$$, scheduler };
-  };
+    TestBed.configureTestingModule({
+      providers: [
+        AuthGuard,
+        { provide: AuthService, useValue: authService },
+        { provide: ENVIRONMENT_CONFIG, useValue: environment },
+      ],
+    });
+
+    guard = TestBed.inject(AuthGuard);
+    scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
+  });
 
   describe.each([
     { method: 'canLoad' },
@@ -35,8 +48,6 @@ describe('AuthGuard', () => {
     { method: 'canActivateChild' },
   ])('#$method', ({ method }) => {
     test('returns true when user is authenticated', () => {
-      const { guard, scheduler, isAuthenticated$$ } = getInstance();
-
       scheduler.run(({ expectObservable }) => {
         isAuthenticated$$.next(true);
         expectObservable((<any>guard)[method]()).toBe('x', { x: true });
@@ -44,9 +55,6 @@ describe('AuthGuard', () => {
     });
 
     test('returns false and calls initLoginFlow when user is not authenticated', () => {
-      const { guard, scheduler, isAuthenticated$$, authService } =
-        getInstance();
-
       scheduler.run(({ expectObservable }) => {
         isAuthenticated$$.next(false);
         expectObservable((<any>guard)[method]()).toBe('x', { x: false });

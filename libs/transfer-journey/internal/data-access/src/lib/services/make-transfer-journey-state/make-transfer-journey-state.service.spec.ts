@@ -1,3 +1,4 @@
+import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { Transfer } from '@backbase/transfer-journey/internal/shared-data';
 import { MakeTransferAccountHttpService } from '../make-transfer-accounts/make-transfer-accounts.http.service';
@@ -5,26 +6,35 @@ import { MakeTransferJourneyState } from './make-transfer-journey-state.service'
 
 describe('MakeTransferJourneyState', () => {
   let service: MakeTransferJourneyState;
-  let accountsMock: Pick<
-    MakeTransferAccountHttpService,
-    'accountBalance' | 'getAccountById' | 'getAccounts' | 'makeTransfer'
-  >;
+  const mockAccountHttpService = {
+    getAccounts: jest.fn(() => of([])),
+    getAccountById: jest.fn(),
+    accountBalance: jest.fn(),
+    makeTransfer: jest.fn(),
+    checkErrorStatus: jest.fn(),
+  } as unknown as MakeTransferAccountHttpService;
+
   const transferMock: Transfer = {
+    fromAccount: 'test-from-account',
+    toAccount: 'test-to-account',
     amount: 100,
-    fromAccount: '111',
-    toAccount: '222',
   };
 
   beforeEach(() => {
-    accountsMock = {
-      accountBalance: jest.fn().mockReturnValue(1),
-      getAccountById: jest.fn().mockReturnValue(of([])),
-      getAccounts: jest.fn().mockReturnValue(of([])),
-      makeTransfer: jest.fn(),
-    };
-    service = new MakeTransferJourneyState(
-      accountsMock as MakeTransferAccountHttpService
-    );
+    TestBed.configureTestingModule({
+      providers: [
+        MakeTransferJourneyState,
+        {
+          provide: MakeTransferAccountHttpService,
+          useValue: mockAccountHttpService,
+        },
+      ],
+    });
+    service = TestBed.inject(MakeTransferJourneyState);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 
   it('should allow share an object through an observable', (done) => {

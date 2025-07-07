@@ -1,3 +1,4 @@
+import { TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '@backbase/ui-ang/notification';
@@ -12,9 +13,6 @@ describe('AchPositivePayNewRuleComponent', () => {
     navigate: jest.fn(),
   };
   const mockActivatedRoute = new ActivatedRoute();
-  let mockFormBuilder: Pick<FormBuilder, 'group'> = {
-    group: jest.fn(),
-  };
   const mockAchPositivePayService: Pick<
     AchPositivePayHttpService,
     'accounts$' | 'submitAchRule'
@@ -27,98 +25,129 @@ describe('AchPositivePayNewRuleComponent', () => {
       showNotification: jest.fn(),
     };
 
-  const createComponent = () => {
-    component = new AchPositivePayNewRuleComponent(
-      mockRouter as Router,
-      mockActivatedRoute,
-      mockFormBuilder as FormBuilder,
-      mockAchPositivePayService as AchPositivePayHttpService,
-      mockNotificationService as NotificationService
-    );
-  };
-  beforeEach(() => {
-    createComponent();
-  });
+  describe('with mock FormBuilder', () => {
+    let mockFormBuilder: Pick<FormBuilder, 'group'> = {
+      group: jest.fn(),
+    };
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        providers: [
+          AchPositivePayNewRuleComponent,
+          { provide: Router, useValue: mockRouter },
+          { provide: ActivatedRoute, useValue: mockActivatedRoute },
+          { provide: FormBuilder, useValue: mockFormBuilder },
+          {
+            provide: AchPositivePayHttpService,
+            useValue: mockAchPositivePayService,
+          },
+          { provide: NotificationService, useValue: mockNotificationService },
+        ],
+      });
 
-  describe('ngOnInit', () => {
-    it('should build the form', () => {
-      component.ngOnInit();
-      expect(mockFormBuilder.group).toHaveBeenCalledWith({
-        arrangement: [undefined],
-        companyId: [''],
-        companyName: [''],
-        paymentTypes: [''],
+      component = TestBed.inject(AchPositivePayNewRuleComponent);
+    });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    describe('ngOnInit', () => {
+      it('should build the form', () => {
+        component.ngOnInit();
+        expect(mockFormBuilder.group).toHaveBeenCalledWith({
+          arrangement: [undefined],
+          companyId: [''],
+          companyName: [''],
+          paymentTypes: [''],
+        });
+      });
+    });
+
+    describe('closeModal', () => {
+      it('should close the modal and navigate', () => {
+        component.closeModal();
+        expect(mockRouter.navigate).toBeCalledWith(['..'], {
+          relativeTo: mockActivatedRoute,
+        });
+        expect(component.loading).toBeFalsy();
+      });
+    });
+
+    describe('submitRule', () => {
+      it('should return', () => {
+        component.loading = true;
+        const spy = jest.spyOn(component, 'submitRule');
+        component.submitRule();
+        expect(spy).toReturn();
+      });
+    });
+
+    describe('hideError', () => {
+      it('should set servError to undefined', () => {
+        component.hideError();
+        expect(component.serverError).toBeUndefined();
       });
     });
   });
 
-  describe('closeModal', () => {
-    it('should close the modal and navigate', () => {
-      component.closeModal();
-      expect(mockRouter.navigate).toBeCalledWith(['..'], {
-        relativeTo: mockActivatedRoute,
+  describe('with real FormBuilder', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        providers: [
+          AchPositivePayNewRuleComponent,
+          { provide: Router, useValue: mockRouter },
+          { provide: ActivatedRoute, useValue: mockActivatedRoute },
+          FormBuilder,
+          {
+            provide: AchPositivePayHttpService,
+            useValue: mockAchPositivePayService,
+          },
+          { provide: NotificationService, useValue: mockNotificationService },
+        ],
       });
-      expect(component.loading).toBeFalsy();
-    });
-  });
 
-  describe('onSelectAccountId', () => {
-    it('should arrangement to new account', () => {
-      const mockAccount: ProductSummaryItem = {
-        id: 'id',
-        legalEntityIds: ['ids'],
-        debitCards: [{ unmaskableAttributes: ['BBAN'] }],
-      };
-      mockFormBuilder = new FormBuilder();
-      createComponent();
-      component.ngOnInit();
-      component.onSelectAccountId(mockAccount);
-      expect(component.achRuleForm.get('arrangement')?.value).toEqual(
-        mockAccount
-      );
+      component = TestBed.inject(AchPositivePayNewRuleComponent);
     });
-  });
 
-  describe('submitRule', () => {
-    it('should return', () => {
-      component.loading = true;
-      const spy = jest.spyOn(component, 'submitRule');
-      component.submitRule();
-      expect(spy).toReturn();
+    describe('onSelectAccountId', () => {
+      it('should arrangement to new account', () => {
+        const mockAccount: ProductSummaryItem = {
+          id: 'id',
+          legalEntityIds: ['ids'],
+          debitCards: [{ unmaskableAttributes: ['BBAN'] }],
+        };
+        component.ngOnInit();
+        component.onSelectAccountId(mockAccount);
+        expect(component.achRuleForm.get('arrangement')?.value).toEqual(
+          mockAccount
+        );
+      });
     });
-    it('should subscribe to positive pay service success', () => {
-      (mockAchPositivePayService.submitAchRule = jest.fn(() => of('stream'))),
-        (mockFormBuilder = new FormBuilder());
-      createComponent();
-      component.ngOnInit();
-      component.loading = false;
-      component.submitRule();
-      expect(mockAchPositivePayService.submitAchRule).toHaveBeenCalled();
-      expect(mockNotificationService.showNotification).toHaveBeenCalled();
-    });
-    it('should subscribe to positive pay service error', () => {
-      mockAchPositivePayService.submitAchRule = jest.fn(() =>
-        throwError(() => {
-          return { message: 'error' };
-        })
-      );
-      mockFormBuilder = new FormBuilder();
-      createComponent();
-      component.ngOnInit();
-      component.loading = false;
-      component.submitRule();
-      expect(component.serverError).toEqual('error');
-    });
-  });
 
-  describe('hideError', () => {
-    it('should set servError to undefined', () => {
-      component.hideError();
-      expect(component.serverError).toBeUndefined();
+    describe('submitRule', () => {
+      it('should subscribe to positive pay service success', () => {
+        (mockAchPositivePayService.submitAchRule as jest.Mock) = jest.fn(() =>
+          of('stream')
+        );
+        component.ngOnInit();
+        component.loading = false;
+        component.submitRule();
+        expect(mockAchPositivePayService.submitAchRule).toHaveBeenCalled();
+        expect(mockNotificationService.showNotification).toHaveBeenCalled();
+      });
+
+      it('should subscribe to positive pay service error', () => {
+        (mockAchPositivePayService.submitAchRule as jest.Mock) = jest.fn(() =>
+          throwError(() => {
+            return { message: 'error' };
+          })
+        );
+        component.ngOnInit();
+        component.loading = false;
+        component.submitRule();
+        expect(component.serverError).toEqual('error');
+      });
     });
   });
 });

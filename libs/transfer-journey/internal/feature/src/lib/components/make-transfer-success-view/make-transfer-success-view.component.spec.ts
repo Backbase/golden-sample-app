@@ -1,3 +1,4 @@
+import { TestBed } from '@angular/core/testing';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -26,11 +27,17 @@ describe('MakeTransferSuccessViewComponent', () => {
     mockTransferState = {
       transfer$: of(),
     };
-    component = new MakeTransferSuccessViewComponent(
-      mockTransferState as MakeTransferJourneyState,
-      mockActivatedRoute as ActivatedRoute,
-      mockRouter as Router
-    );
+
+    TestBed.configureTestingModule({
+      providers: [
+        MakeTransferSuccessViewComponent,
+        { provide: MakeTransferJourneyState, useValue: mockTransferState },
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        { provide: Router, useValue: mockRouter },
+      ],
+    });
+
+    component = TestBed.inject(MakeTransferSuccessViewComponent);
   });
 
   it('should create', () => {

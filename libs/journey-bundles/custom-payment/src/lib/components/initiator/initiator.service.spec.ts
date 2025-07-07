@@ -1,7 +1,8 @@
-import { ProductSummaryHttpService } from '@backbase/arrangement-manager-http-ang';
+import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { AccountSelectorItems } from './initiator.model';
+import { ProductSummaryHttpService } from '@backbase/arrangement-manager-http-ang';
 import { InitiatorService } from './initiator.service';
+import { AccountSelectorItems } from './initiator.model';
 
 describe('InitiatorService', () => {
   let service: InitiatorService;
@@ -18,7 +19,20 @@ describe('InitiatorService', () => {
   } as unknown as ProductSummaryHttpService;
 
   beforeEach(() => {
-    service = new InitiatorService(mockProductSummaryService);
+    TestBed.configureTestingModule({
+      providers: [
+        InitiatorService,
+        {
+          provide: ProductSummaryHttpService,
+          useValue: mockProductSummaryService,
+        },
+      ],
+    });
+    service = TestBed.inject(InitiatorService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 
   it('should call product summary service to get arrangements', (done) => {
