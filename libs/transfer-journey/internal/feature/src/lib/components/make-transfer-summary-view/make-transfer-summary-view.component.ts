@@ -1,5 +1,5 @@
-import { Component, OnDestroy, Optional } from '@angular/core';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { Component, inject, OnDestroy, Optional } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import {
@@ -11,9 +11,16 @@ import { MakeTransferSummaryComponent } from '@backbase/transfer-journey/interna
 
 @Component({
   templateUrl: 'make-transfer-summary-view.component.html',
-  imports: [NgIf, AsyncPipe, MakeTransferSummaryComponent],
+  imports: [AsyncPipe, MakeTransferSummaryComponent],
 })
 export class MakeTransferSummaryViewComponent implements OnDestroy {
+  private readonly transferStore: MakeTransferJourneyState = inject(
+    MakeTransferJourneyState
+  );
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
+  private readonly router: Router = inject(Router);
+  private readonly externalCommunicationService: MakeTransferCommunicationService | null =
+    inject(MakeTransferCommunicationService, { optional: true });
   vm$ = this.transferStore.vm$;
 
   private successfulOperation = this.transferStore.vm$
@@ -44,14 +51,6 @@ export class MakeTransferSummaryViewComponent implements OnDestroy {
   close(): void {
     this.router.navigate(['../make-transfer'], { relativeTo: this.route });
   }
-
-  constructor(
-    private readonly transferStore: MakeTransferJourneyState,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router,
-    @Optional()
-    private externalCommunicationService: MakeTransferCommunicationService
-  ) {}
 
   ngOnDestroy(): void {
     this.successfulOperation.unsubscribe();

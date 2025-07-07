@@ -7,7 +7,7 @@ import {
 } from '@backbase/transactions-journey';
 import { JourneyCommunicationService } from '@backbase/shared/feature/communication';
 import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
-import { NgModule, Injectable, Inject } from '@angular/core';
+import { NgModule, Injectable, inject } from '@angular/core';
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
 import { RouterModule, Routes } from '@angular/router';
 import {
@@ -18,7 +18,7 @@ import {
 // Create a service that will be used to configure the journey
 @Injectable()
 export class TransactionsConfigService {
-  constructor(@Inject(ENVIRONMENT_CONFIG) private environment: Environment) {}
+  private readonly environment: Environment = inject(ENVIRONMENT_CONFIG);
 
   getJourneyConfig() {
     return {

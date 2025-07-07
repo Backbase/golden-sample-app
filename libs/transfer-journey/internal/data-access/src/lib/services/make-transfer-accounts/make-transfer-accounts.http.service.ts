@@ -9,11 +9,19 @@ import {
 } from '../make-transfer-journey-state/make-transfer-journey-state.service';
 import { map, of } from 'rxjs';
 
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Transfer } from '@backbase/transfer-journey/internal/shared-data';
 
 @Injectable()
 export class MakeTransferAccountHttpService {
+  private readonly productSummaryDataHttpService: ProductSummaryHttpService =
+    inject(ProductSummaryHttpService);
+  private readonly balanceDataHttpService: BalancesHttpService =
+    inject(BalancesHttpService);
+  private readonly arrangementDataHttpService: ArrangementsHttpService = inject(
+    ArrangementsHttpService
+  );
+
   getAccounts() {
     return this.productSummaryDataHttpService.getArrangementsByBusinessFunction(
       {
@@ -60,10 +68,4 @@ export class MakeTransferAccountHttpService {
         return ErrorStatusEnum.UNKNOWN_ERROR;
     }
   }
-
-  constructor(
-    private readonly productSummaryDataHttpService: ProductSummaryHttpService,
-    private readonly balanceDataHttpService: BalancesHttpService,
-    private readonly arrangementDataHttpService: ArrangementsHttpService
-  ) {}
 }

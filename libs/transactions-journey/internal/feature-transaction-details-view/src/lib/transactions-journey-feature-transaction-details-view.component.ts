@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Optional } from '@angular/core';
+import { Component, inject, Optional } from '@angular/core';
 import { ActivatedRoute, Params, RouterModule } from '@angular/router';
 import { Currency, TransactionItem } from '@backbase/transactions-http-ang';
 import {
@@ -49,6 +49,12 @@ interface TransactionDetailsView {
   providers: [TransactionsHttpService],
 })
 export class TransactionDetailsComponent {
+  public readonly route: ActivatedRoute = inject(ActivatedRoute);
+  public readonly api: TransactionsHttpService = inject(
+    TransactionsHttpService
+  );
+  public readonly tracker: Tracker | null = inject(Tracker, { optional: true });
+
   public readonly title = this.route.snapshot.data['title'];
 
   private readonly id$ = this.route.paramMap.pipe(
@@ -63,12 +69,6 @@ export class TransactionDetailsComponent {
       return this.getTransactionView(id ?? '', transactions);
     })
   );
-
-  constructor(
-    public route: ActivatedRoute,
-    private api: TransactionsHttpService,
-    @Optional() private tracker?: Tracker
-  ) {}
 
   getTransactionView(
     id: string,

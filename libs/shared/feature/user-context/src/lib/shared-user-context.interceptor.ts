@@ -6,7 +6,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { SharedUserContextService } from './shared-user-context.service';
 import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
 
@@ -17,13 +17,15 @@ import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
 @Injectable()
 export class SharedUserContextInterceptor implements HttpInterceptor {
   private readonly apiRoot: string;
-  constructor(
-    private readonly userContextService: SharedUserContextService,
-    @Inject(ENVIRONMENT_CONFIG) environment: Environment
-  ) {
-    this.apiRoot = environment.apiRoot.endsWith('/')
-      ? environment.apiRoot
-      : `${environment.apiRoot}/`;
+  private readonly userContextService: SharedUserContextService = inject(
+    SharedUserContextService
+  );
+  private readonly environment: Environment = inject(ENVIRONMENT_CONFIG);
+
+  constructor() {
+    this.apiRoot = this.environment.apiRoot.endsWith('/')
+      ? this.environment.apiRoot
+      : `${this.environment.apiRoot}/`;
   }
 
   intercept(

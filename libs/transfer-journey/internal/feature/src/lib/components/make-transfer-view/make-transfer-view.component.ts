@@ -1,4 +1,4 @@
-import { Component, Optional } from '@angular/core';
+import { Component, inject, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertModule } from '@backbase/ui-ang/alert';
 import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
@@ -33,6 +33,21 @@ import { Observable } from 'rxjs';
   ],
 })
 export class MakeTransferViewComponent {
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
+  private readonly router: Router = inject(Router);
+  private readonly transferStore: MakeTransferJourneyState = inject(
+    MakeTransferJourneyState
+  );
+  private readonly permissions: MakeTransferPermissionsService = inject(
+    MakeTransferPermissionsService
+  );
+  private readonly config: MakeTransferJourneyConfiguration = inject(
+    MakeTransferJourneyConfiguration
+  );
+  private readonly tracker: Tracker | null = inject(Tracker, {
+    optional: true,
+  });
+
   vm$ = this.transferStore.vm$;
   limit$ = this.permissions.unlimitedAmountPerTransaction$.pipe(
     map((resolve) => (!resolve ? this.config.maxTransactionAmount : 0))
@@ -63,14 +78,7 @@ export class MakeTransferViewComponent {
     this.errorAlert$ = null;
   }
 
-  constructor(
-    private readonly route: ActivatedRoute,
-    private readonly router: Router,
-    private readonly transferStore: MakeTransferJourneyState,
-    private readonly permissions: MakeTransferPermissionsService,
-    public readonly config: MakeTransferJourneyConfiguration,
-    @Optional() private readonly tracker?: Tracker
-  ) {
-    transferStore.loadAccounts();
+  constructor() {
+    this.transferStore.loadAccounts();
   }
 }

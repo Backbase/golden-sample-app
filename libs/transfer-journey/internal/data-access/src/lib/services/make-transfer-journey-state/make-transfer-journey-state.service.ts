@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import {
   catchError,
@@ -55,7 +55,10 @@ const defaultMakeTransferState: MakeTransferState = {
 
 @Injectable()
 export class MakeTransferJourneyState extends ComponentStore<MakeTransferState> {
-  constructor(private apiService: MakeTransferAccountHttpService) {
+  private readonly apiService: MakeTransferAccountHttpService = inject(
+    MakeTransferAccountHttpService
+  );
+  constructor() {
     super(defaultMakeTransferState);
   }
 

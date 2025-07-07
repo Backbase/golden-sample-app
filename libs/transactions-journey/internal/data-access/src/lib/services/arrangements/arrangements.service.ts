@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ProductSummaryHttpService } from '@backbase/arrangement-manager-http-ang';
 import { shareReplay } from 'rxjs/operators';
 
@@ -6,6 +6,8 @@ import { shareReplay } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ArrangementsService {
+  private readonly productSummaryDataHttpService: ProductSummaryHttpService =
+    inject(ProductSummaryHttpService);
   public arrangements$ = this.productSummaryDataHttpService
     .getArrangementsByBusinessFunction(
       {
@@ -17,8 +19,4 @@ export class ArrangementsService {
       'body'
     )
     .pipe(shareReplay());
-
-  constructor(
-    private readonly productSummaryDataHttpService: ProductSummaryHttpService
-  ) {}
 }

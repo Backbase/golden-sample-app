@@ -60,3 +60,5 @@ accessibility-reports/
 .allure
 *darwin.png
 reports
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md

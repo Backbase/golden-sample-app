@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, inject, Injectable } from '@angular/core';
 import {
   GetTransactionsWithPostRequestParams,
   TransactionClientHttpService,
@@ -11,6 +11,13 @@ import { TransactionsJourneyConfiguration } from '../transactions-journey-config
 
 @Injectable()
 export class TransactionsHttpService {
+  private readonly configurationService: TransactionsJourneyConfiguration =
+    inject(TransactionsJourneyConfiguration);
+  private readonly transactionsHttpService: TransactionClientHttpService =
+    inject(TransactionClientHttpService);
+  private readonly arrangementsService: ArrangementsService =
+    inject(ArrangementsService);
+
   public transactions$: Observable<TransactionItem[] | undefined> =
     combineLatest([
       this.arrangementsService.arrangements$,
@@ -33,10 +40,4 @@ export class TransactionsHttpService {
       ),
       shareReplay()
     );
-
-  constructor(
-    private readonly configurationService: TransactionsJourneyConfiguration,
-    private readonly transactionsHttpService: TransactionClientHttpService,
-    private readonly arrangementsService: ArrangementsService
-  ) {}
 }

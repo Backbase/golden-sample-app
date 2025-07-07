@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   InitiatePaymentJourneyCommunicationService,
@@ -13,9 +13,8 @@ export class PaymentsCommunicationService
   implements InitiatePaymentJourneyCommunicationService
 {
   isEditMode?: boolean;
+  private readonly router: Router = inject(Router);
   private paymentData?: TriggerInitiatePaymentPayload;
-
-  constructor(private readonly router: Router) {}
 
   init(api: InitiatePaymentJourneyComponentApi): void {
     api.setupData(this.paymentData);
