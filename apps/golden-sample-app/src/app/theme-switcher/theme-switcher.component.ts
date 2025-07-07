@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ThemeManagerService } from './theme-service';
 
 @Component({
@@ -7,7 +7,8 @@ import { ThemeManagerService } from './theme-service';
   standalone: false,
 })
 export class ThemeSwitcherComponent {
-  constructor(private themeManagerService: ThemeManagerService) {}
+  private readonly themeManagerService: ThemeManagerService =
+    inject(ThemeManagerService);
 
   @Input() theme = ThemeManagerService.THEMES[0];
 

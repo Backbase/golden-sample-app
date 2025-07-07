@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Directive,
+  inject,
   Inject,
   Input,
   OnChanges,
@@ -46,17 +47,17 @@ export class TransactionItemComponent implements OnChanges {
   @Input()
   public categoryName: string | undefined;
 
+  private readonly extensionsConfig: TransactionsJourneyExtensionsConfig =
+    inject(TRANSACTION_EXTENSIONS_CONFIG);
   public iconName = 'default';
   public amount = 0;
   public isAmountPositive = true;
   public additionsDetails?: Type<TransactionAdditionalDetailsComponent>;
   public additionsDetailsContext?: TransactionAdditionalDetailsContext;
 
-  constructor(
-    @Inject(TRANSACTION_EXTENSIONS_CONFIG)
-    extensionsConfig: TransactionsJourneyExtensionsConfig
-  ) {
-    this.additionsDetails = extensionsConfig.transactionItemAdditionalDetails;
+  constructor() {
+    this.additionsDetails =
+      this.extensionsConfig.transactionItemAdditionalDetails;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

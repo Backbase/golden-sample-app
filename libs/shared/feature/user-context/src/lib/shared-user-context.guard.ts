@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   Router,
@@ -24,10 +24,9 @@ export class SharedUserContextGuard {
   private targetUrl: string | undefined;
   private contextValid = false;
 
-  constructor(
-    private readonly router: Router,
-    private readonly serviceAgreementService: ServiceAgreementsHttpService
-  ) {}
+  private readonly router: Router = inject(Router);
+  private readonly serviceAgreementService: ServiceAgreementsHttpService =
+    inject(ServiceAgreementsHttpService);
 
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,

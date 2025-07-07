@@ -1,4 +1,4 @@
-import { Component, Optional } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LayoutService } from '@backbase/ui-ang/layout';
 import { OAuthService } from 'angular-oauth2-oidc';
 import {
@@ -16,13 +16,15 @@ import { environment } from '../environments/environment';
 export class AppComponent {
   isAuthenticated = false;
 
-  constructor(
-    private oAuthService: OAuthService,
-    public layoutService: LayoutService,
-    @Optional() private readonly tracker?: Tracker
-  ) {
+  private readonly oAuthService: OAuthService = inject(OAuthService);
+  private readonly layoutService: LayoutService = inject(LayoutService);
+  private readonly tracker: Tracker | null = inject(Tracker, {
+    optional: true,
+  });
+
+  constructor() {
     this.isAuthenticated =
-      environment.mockEnabled ?? oAuthService.hasValidAccessToken();
+      environment.mockEnabled ?? this.oAuthService.hasValidAccessToken();
   }
 
   logout(): void {

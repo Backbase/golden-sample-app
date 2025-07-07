@@ -4,7 +4,7 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import {
   catchError,
@@ -42,7 +42,7 @@ export class AuthInterceptor implements HttpInterceptor {
     share()
   );
 
-  constructor(private readonly oAuthService: OAuthService) {}
+  private readonly oAuthService: OAuthService = inject(OAuthService);
 
   intercept(
     request: HttpRequest<unknown>,

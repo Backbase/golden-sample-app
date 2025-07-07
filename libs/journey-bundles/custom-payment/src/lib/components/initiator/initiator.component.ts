@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {
   InitiatorFields,
@@ -33,7 +33,11 @@ import { InitiatorService } from './initiator.service';
       >
       </bb-account-selector-ui>
 
+<<<<<<< Updated upstream
       @if (group.touched && group.invalid) {
+=======
+      @if (group?.touched && group?.invalid) {
+>>>>>>> Stashed changes
       <div class="bb-input-validation-message">
         {{ requiredMessage }}
       </div>
@@ -46,6 +50,8 @@ import { InitiatorService } from './initiator.service';
 
 // The custom component MUST implement PaymentFormField or ActivatableFormField and it should be an Angular form control.
 export class InitiatorComponent implements OnInit, PaymentFormField {
+  private readonly initiatorService: InitiatorService =
+    inject(InitiatorService);
   config!: PaymentFormFieldConfig;
   group!: FormGroup;
   options!: PaymentFormFieldOptions;
@@ -62,7 +68,7 @@ export class InitiatorComponent implements OnInit, PaymentFormField {
     InitiatorFields.currency,
   ];
 
-  constructor(private readonly initiatorService: InitiatorService) {
+  constructor() {
     this.debitAccounts$ = this.initiatorService.arrangements$;
   }
 

@@ -65,6 +65,7 @@
     "@ngrx/component-store": "19.1.0",
     "@ngrx/effects": "19.1.0",
     "@ngrx/operators": "19.2.0",
+    "@ngrx/signals": "19.2.1",
     "@ngrx/store": "19.1.0",
     "@ngx-formly/core": "^6.3.12",
     "@opentelemetry/api": "^1.6.0",
@@ -76,11 +77,15 @@
     "@opentelemetry/sdk-trace-web": "^1.17.0",
     "@opentelemetry/semantic-conventions": "^1.34.0",
     "@popperjs/core": "^2.10.2",
-    "angular-oauth2-oidc": "^19.0.0",
+    "angular-oauth2-oidc": "^20.0.2",
     "bignumber.js": "^9.1.1",
     "bootstrap": "^5.3.7",
     "ngx-cookie-service": "20.0.1",
+<<<<<<< Updated upstream
     "ngx-mask": "^19.0.0",
+=======
+    "ngx-mask": "^19.0.7",
+>>>>>>> Stashed changes
     "ngx-quill": "^28.0.1",
     "postcss-preset-env": "^8.4.2",
     "quill": "2.0.3",
@@ -174,7 +179,11 @@
     "axe-html-reporter": "^2.2.11",
     "dotenv": "^16.4.7",
     "eslint": "8.57.1",
+<<<<<<< Updated upstream
     "eslint-config-prettier": "^10.1.5",
+=======
+    "eslint-config-prettier": "10.1.5",
+>>>>>>> Stashed changes
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsdoc": "^50.6.9",
     "eslint-plugin-playwright": "^2.2.0",
@@ -194,5 +203,71 @@
     "tslib": "^2.4.0",
     "typescript": "5.8.3",
     "webpack-bundle-analyzer": "^4.5.0"
+  },
+  "overrides": {
+    "@backbase/identity-auth": {
+      "@angular/animations": "$@angular/animations",
+      "@angular/cdk": "$@angular/cdk",
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core",
+      "@angular/forms": "$@angular/forms",
+      "@angular/localize": "$@angular/localize",
+      "@angular/platform-browser": "$@angular/platform-browser",
+      "@angular/platform-browser-dynamic": "$@angular/platform-browser-dynamic",
+      "@angular/router": "$@angular/router",
+      "@ngrx/signals": "$@ngrx/signals"
+    },
+    "@backbase/initiate-payment-journey-ang": {
+      "@angular/animations": "$@angular/animations",
+      "@angular/cdk": "$@angular/cdk",
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core",
+      "@angular/forms": "$@angular/forms",
+      "@angular/localize": "$@angular/localize",
+      "@angular/platform-browser": "$@angular/platform-browser",
+      "@angular/platform-browser-dynamic": "$@angular/platform-browser-dynamic",
+      "@angular/router": "$@angular/router"
+    },
+    "@backbase/ui-ang": {
+      "@angular/animations": "$@angular/animations",
+      "@angular/cdk": "$@angular/cdk",
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core",
+      "@angular/forms": "$@angular/forms",
+      "@angular/localize": "$@angular/localize",
+      "@angular/platform-browser": "$@angular/platform-browser",
+      "@angular/platform-browser-dynamic": "$@angular/platform-browser-dynamic",
+      "@angular/router": "$@angular/router",
+      "@ng-bootstrap/ng-bootstrap": "$@ng-bootstrap/ng-bootstrap",
+      "@ng-select/ng-select": "$@ng-select/ng-select",
+      "ngx-quill": "$ngx-quill"
+    },
+    "@backbase/internal-identity-auth": {
+      "@angular/animations": "$@angular/animations",
+      "@angular/cdk": "$@angular/cdk",
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core",
+      "@angular/forms": "$@angular/forms",
+      "@angular/localize": "$@angular/localize",
+      "@angular/platform-browser": "$@angular/platform-browser",
+      "@angular/platform-browser-dynamic": "$@angular/platform-browser-dynamic",
+      "@angular/router": "$@angular/router",
+      "angular-oauth2-oidc": "$angular-oauth2-oidc"
+    },
+    "@ngrx/signals": {
+      "@angular/core": "$@angular/core"
+    },
+    "@ngrx/component-store": {
+      "@angular/core": "$@angular/core"
+    },
+    "@ngrx/effects": {
+      "@angular/core": "$@angular/core"
+    },
+    "@ngrx/operators": {
+      "@angular/core": "$@angular/core"
+    },
+    "@ngrx/store": {
+      "@angular/core": "$@angular/core"
+    }
   }
 }

@@ -5,6 +5,10 @@ import {
   InjectionToken,
   LOCALE_ID,
   DOCUMENT,
+<<<<<<< Updated upstream
+=======
+  inject,
+>>>>>>> Stashed changes
 } from '@angular/core';
 
 // eslint-disable-next-line @typescript-eslint/array-type
@@ -20,11 +24,9 @@ const COOKIE_ATTRIBUTES =
   providedIn: 'root',
 })
 export class LocalesService {
-  constructor(
-    private location: LocationStrategy,
-    @Inject(LOCALE_ID) private locale: string,
-    @Inject(DOCUMENT) private document: Document
-  ) {}
+  private readonly location: LocationStrategy = inject(LocationStrategy);
+  private readonly locale: string = inject(LOCALE_ID);
+  private readonly document: Document = inject(DOCUMENT);
 
   setLocale(locale: string) {
     const currentLocale = this.locale;

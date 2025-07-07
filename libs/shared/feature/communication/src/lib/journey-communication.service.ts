@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   TransactionItem,
@@ -17,14 +17,13 @@ import { BehaviorSubject } from 'rxjs';
 export class JourneyCommunicationService
   implements MakeTransferCommunicationService, TransactionsCommunicationService
 {
+  private readonly router: Router = inject(Router);
   private latestTransaction$$ = new BehaviorSubject<
     TransactionItem | undefined
   >(undefined);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   public latestTransaction$ = this.latestTransaction$$.asObservable();
-
-  constructor(private router: Router) {}
 
   public makeTransfer(transfer: Transfer): void {
     this.latestTransaction$$.next(this.mapTransferToTransaction(transfer));

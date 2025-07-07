@@ -1,4 +1,15 @@
+<<<<<<< Updated upstream
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+=======
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  inject,
+} from '@angular/core';
+>>>>>>> Stashed changes
 
 import {
   ReactiveFormsModule,
@@ -36,6 +47,9 @@ export class MakeTransferFormComponent implements OnInit {
 
   makeTransferForm!: FormGroup;
   currencies = ['USD', 'EUR'];
+
+  private readonly fb: FormBuilder = inject(FormBuilder);
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
 
   private getControl(field: string): AbstractControl | undefined {
     return this.makeTransferForm.controls[field];
@@ -81,8 +95,6 @@ export class MakeTransferFormComponent implements OnInit {
 
     return !!control && control.touched && control.invalid;
   }
-
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const accountName: string =

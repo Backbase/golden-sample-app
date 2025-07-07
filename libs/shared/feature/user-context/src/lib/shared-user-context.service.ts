@@ -1,4 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
+import { inject, Injectable, Optional } from '@angular/core';
 import { OAuthStorage } from 'angular-oauth2-oidc';
 
 /**
@@ -31,12 +31,16 @@ export const USER_CONTEXT_KEY = 'bb-user-context';
 })
 export class SharedUserContextService {
   private readonly store: UserContextStorage;
+  private readonly userContextStorage: UserContextStorage | null = inject(
+    UserContextStorage,
+    { optional: true }
+  );
+  private readonly oAuthStorage: OAuthStorage | null = inject(OAuthStorage, {
+    optional: true,
+  });
 
-  constructor(
-    @Optional() userContextStorage?: UserContextStorage,
-    @Optional() oAuthStorage?: OAuthStorage
-  ) {
-    this.store = userContextStorage || oAuthStorage || sessionStorage;
+  constructor() {
+    this.store = this.userContextStorage || this.oAuthStorage || sessionStorage;
   }
 
   getServiceAgreementId(): string | undefined {

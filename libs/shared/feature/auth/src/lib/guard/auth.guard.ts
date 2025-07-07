@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { UrlTree } from '@angular/router';
 import { AuthService } from '@backbase/identity-auth';
 import { Observable, map, of } from 'rxjs';
@@ -8,12 +8,11 @@ import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
   providedIn: 'root',
 })
 export class AuthGuard {
-  constructor(
-    private readonly authService: AuthService,
-    @Optional()
-    @Inject(ENVIRONMENT_CONFIG)
-    private readonly environment: Environment
-  ) {}
+  private readonly authService: AuthService = inject(AuthService);
+  private readonly environment: Environment | null = inject(
+    ENVIRONMENT_CONFIG,
+    { optional: true }
+  );
 
   canLoad(): Observable<boolean | UrlTree> {
     return this.redirectIfUnauthenticated();

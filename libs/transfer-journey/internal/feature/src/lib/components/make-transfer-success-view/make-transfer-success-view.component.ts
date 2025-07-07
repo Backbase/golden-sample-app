@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import { Component } from '@angular/core';
+=======
+import { Component, inject } from '@angular/core';
+>>>>>>> Stashed changes
 import { AsyncPipe } from '@angular/common';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,15 +14,14 @@ import { ButtonModule } from '@backbase/ui-ang/button';
   imports: [AsyncPipe, ButtonModule],
 })
 export class MakeTransferSuccessViewComponent {
+  private readonly transferStore: MakeTransferJourneyState = inject(
+    MakeTransferJourneyState
+  );
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
+  private readonly router: Router = inject(Router);
   transfer$ = this.transferStore.transfer$;
 
   close(): void {
     this.router.navigate(['../make-transfer'], { relativeTo: this.route });
   }
-
-  constructor(
-    private readonly transferStore: MakeTransferJourneyState,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router
-  ) {}
 }

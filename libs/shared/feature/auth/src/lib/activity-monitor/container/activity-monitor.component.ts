@@ -1,5 +1,10 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import {
   ActivityMonitorService,
   AuthService,
@@ -17,6 +22,11 @@ import { ActivityMonitorLayoutComponent } from '../layout/activity-monitor-layou
   imports: [AsyncPipe, ActivityMonitorLayoutComponent],
 })
 export class ActivityMonitorComponent implements OnInit {
+  private readonly activityMonitorService: ActivityMonitorService = inject(
+    ActivityMonitorService
+  );
+  private readonly oAuthService: OAuthService = inject(OAuthService);
+  private readonly authService: AuthService = inject(AuthService);
   private readonly events$ = this.activityMonitorService.events.pipe(share());
   private readonly openTypes = ['start', 'tick'];
   readonly countdownDuration = 30;
@@ -27,12 +37,6 @@ export class ActivityMonitorComponent implements OnInit {
     filter(({ type }) => type === 'tick'),
     map((event) => (event as TickEvent).remaining)
   );
-
-  constructor(
-    private readonly activityMonitorService: ActivityMonitorService,
-    private readonly oAuthService: OAuthService,
-    private readonly authService: AuthService
-  ) {}
 
   ngOnInit(): void {
     this.logoutOnEndEvent();

@@ -39,9 +39,12 @@ describe('TransactionItemComponent', () => {
   const ADDITIONAL_DETAILS_TEXT = 'my-addition-details-template';
 
   @Component({
-    template: `
+    template:
+      `
       <div>
-        <ng-template>${ADDITIONAL_DETAILS_TEXT}</ng-template>
+        <ng-template>` +
+      ADDITIONAL_DETAILS_TEXT +
+      `</ng-template>
       </div>
     `,
     standalone: true,

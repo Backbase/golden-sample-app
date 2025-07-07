@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable()
 export class MakeTransferJourneyStoreGuard {
+  private readonly router: Router = inject(Router);
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
   canActivate() {
     const state = this.router.getCurrentNavigation()?.extras?.state;
     if (!state || !state['transfer']) {
@@ -10,8 +12,4 @@ export class MakeTransferJourneyStoreGuard {
     }
     return true;
   }
-  constructor(
-    private readonly router: Router,
-    private readonly route: ActivatedRoute
-  ) {}
 }

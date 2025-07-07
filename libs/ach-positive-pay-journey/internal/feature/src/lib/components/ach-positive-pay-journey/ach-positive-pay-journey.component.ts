@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PERMISSIONS } from '@backbase/ach-positive-pay-journey/internal/shared-data';
 import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
@@ -19,12 +19,9 @@ import { ButtonModule } from '@backbase/ui-ang/button';
   ],
 })
 export class AchPositivePayJourneyComponent {
+  private readonly router: Router = inject(Router);
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
   permissions = PERMISSIONS;
-
-  constructor(
-    private readonly router: Router,
-    private readonly route: ActivatedRoute
-  ) {}
 
   openNewBlockerModal() {
     this.router.navigate([{ outlets: { modal: 'new' } }], {
