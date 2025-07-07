@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-import { Component, OnDestroy, Optional } from '@angular/core';
-=======
-import { Component, inject, OnDestroy, Optional } from '@angular/core';
->>>>>>> Stashed changes
+import { Component, inject, OnDestroy } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter } from 'rxjs';

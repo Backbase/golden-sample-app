@@ -33,11 +33,8 @@ import { InitiatorService } from './initiator.service';
       >
       </bb-account-selector-ui>
 
-<<<<<<< Updated upstream
       @if (group.touched && group.invalid) {
-=======
-      @if (group?.touched && group?.invalid) {
->>>>>>> Stashed changes
+
       <div class="bb-input-validation-message">
         {{ requiredMessage }}
       </div>

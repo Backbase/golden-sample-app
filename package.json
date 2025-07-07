@@ -81,11 +81,7 @@
     "bignumber.js": "^9.1.1",
     "bootstrap": "^5.3.7",
     "ngx-cookie-service": "20.0.1",
-<<<<<<< Updated upstream
-    "ngx-mask": "^19.0.0",
-=======
     "ngx-mask": "^19.0.7",
->>>>>>> Stashed changes
     "ngx-quill": "^28.0.1",
     "postcss-preset-env": "^8.4.2",
     "quill": "2.0.3",
@@ -179,11 +175,7 @@
     "axe-html-reporter": "^2.2.11",
     "dotenv": "^16.4.7",
     "eslint": "8.57.1",
-<<<<<<< Updated upstream
-    "eslint-config-prettier": "^10.1.5",
-=======
     "eslint-config-prettier": "10.1.5",
->>>>>>> Stashed changes
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsdoc": "^50.6.9",
     "eslint-plugin-playwright": "^2.2.0",

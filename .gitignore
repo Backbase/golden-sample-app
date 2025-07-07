@@ -60,9 +60,12 @@ accessibility-reports/
 .allure
 *darwin.png
 reports
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md

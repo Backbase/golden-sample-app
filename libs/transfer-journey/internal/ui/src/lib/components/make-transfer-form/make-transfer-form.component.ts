@@ -1,16 +1,4 @@
-<<<<<<< Updated upstream
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-=======
-import {
-  Component,
-  Input,
-  OnInit,
-  Output,
-  EventEmitter,
-  inject,
-} from '@angular/core';
->>>>>>> Stashed changes
-
+import { Component, Input, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import {
   ReactiveFormsModule,
   AbstractControl,
