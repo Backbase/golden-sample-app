@@ -26,7 +26,7 @@ describe('AchPositivePayNewRuleComponent', () => {
     };
 
   describe('with mock FormBuilder', () => {
-    let mockFormBuilder: Pick<FormBuilder, 'group'> = {
+    const mockFormBuilder: Pick<FormBuilder, 'group'> = {
       group: jest.fn(),
     };
 
