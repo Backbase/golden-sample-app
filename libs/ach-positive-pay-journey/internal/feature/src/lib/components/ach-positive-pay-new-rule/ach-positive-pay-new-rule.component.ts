@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -28,6 +28,14 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class AchPositivePayNewRuleComponent implements OnInit {
+  private readonly router: Router = inject(Router);
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
+  private readonly fb: FormBuilder = inject(FormBuilder);
+  private readonly achPositivePayService: AchPositivePayHttpService = inject(
+    AchPositivePayHttpService
+  );
+  private readonly notificationService: NotificationService =
+    inject(NotificationService);
   loading = false;
 
   modalOptions: NgbModalOptions = {
@@ -44,14 +52,6 @@ export class AchPositivePayNewRuleComponent implements OnInit {
 
   accounts$: Observable<ProductSummaryItem[]> =
     this.achPositivePayService.accounts$;
-
-  constructor(
-    private readonly router: Router,
-    private readonly route: ActivatedRoute,
-    private readonly fb: FormBuilder,
-    private readonly achPositivePayService: AchPositivePayHttpService,
-    private readonly notificationService: NotificationService
-  ) {}
 
   ngOnInit(): void {
     this.achRuleForm = this.fb.group({

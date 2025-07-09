@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   SharedUserContextGuard,
@@ -12,12 +12,14 @@ import { OAuthService } from 'angular-oauth2-oidc';
   standalone: false,
 })
 export class UserContextComponent {
-  constructor(
-    private userContextService: SharedUserContextService,
-    private userContextGuard: SharedUserContextGuard,
-    private authService: OAuthService,
-    private router: Router
-  ) {}
+  private readonly userContextService: SharedUserContextService = inject(
+    SharedUserContextService
+  );
+  private readonly userContextGuard: SharedUserContextGuard = inject(
+    SharedUserContextGuard
+  );
+  private readonly authService: OAuthService = inject(OAuthService);
+  private readonly router: Router = inject(Router);
 
   selectContextSuccess(serviceAgreement: { id: string }) {
     this.userContextService.setServiceAgreementId(serviceAgreement.id);

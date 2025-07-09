@@ -1,7 +1,9 @@
-<div data-role="transfer-summary" *ngIf="(transfer$ | async)! as transfer">
+@if ((transfer$ | async)!; as transfer) {
+<div data-role="transfer-summary">
   you have transferred <strong>{{ transfer?.amount }}</strong> to
   <strong>{{ transfer?.toAccount }}</strong>
 </div>
+}
 
 <div class="bb-button-bar">
   <button

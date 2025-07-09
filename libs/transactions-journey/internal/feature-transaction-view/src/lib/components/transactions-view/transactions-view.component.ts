@@ -1,4 +1,4 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { Component, inject, Inject, Optional } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -88,16 +88,18 @@ export class TransactionsViewComponent {
     map((params) => params.get('search') ?? '')
   );
 
-  constructor(
-    private readonly route: ActivatedRoute,
-    private readonly router: Router,
-    private readonly transactionsService: TransactionsHttpService,
-    private readonly arrangementsService: ArrangementsService,
-    @Optional()
-    @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE)
-    private externalCommunicationService: TransactionsCommunicationService,
-    @Optional() private tracker?: Tracker
-  ) {}
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
+  private readonly router: Router = inject(Router);
+  private readonly transactionsService: TransactionsHttpService = inject(
+    TransactionsHttpService
+  );
+  private readonly arrangementsService: ArrangementsService =
+    inject(ArrangementsService);
+  private readonly externalCommunicationService: TransactionsCommunicationService =
+    inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE);
+  private readonly tracker: Tracker | null = inject(Tracker, {
+    optional: true,
+  });
 
   search(ev: string) {
     this.filter = ev || '';

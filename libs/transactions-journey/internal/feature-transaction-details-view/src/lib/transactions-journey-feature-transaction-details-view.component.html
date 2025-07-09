@@ -1,11 +1,11 @@
 <ng-container (bbTrackNavigation)="trackNavigation($event)">
-  <div class="row" *ngIf="view$ | async as view">
+  @if (view$ | async; as view) {
+  <div class="row">
     <div class="bb-card col-lg-6">
       <div class="bb-card__header header">
         <h1 class="bb-card__title">
           {{ title }}
         </h1>
-
         <div>
           <button
             bbButton
@@ -19,7 +19,6 @@
           >
             <bb-icon-ui name="chevron-left" cropped></bb-icon-ui>
           </button>
-
           <button
             bbButton
             class="mx-1"
@@ -34,7 +33,6 @@
           </button>
         </div>
       </div>
-
       <div class="bb-card__body">
         <dl class="row">
           <div class="col-md-8" data-testid="recipient">
@@ -53,7 +51,6 @@
               {{ view.details.recepient }}
             </dd>
           </div>
-
           <div class="col-md-4" data-testid="date">
             <dt
               i18n="
@@ -69,7 +66,6 @@
               {{ view.details.date | date }}
             </dd>
           </div>
-
           <div class="col-md-8" data-testid="amount">
             <dt
               i18n="
@@ -92,7 +88,6 @@
               </bb-amount-ui>
             </dd>
           </div>
-
           <div class="col-md-4" data-testid="category">
             <dt
               i18n="
@@ -109,7 +104,6 @@
               {{ view.details.category }}
             </dd>
           </div>
-
           <div class="col-md-8" data-testid="description">
             <dt
               i18n="
@@ -126,7 +120,6 @@
               {{ view.details.description }}
             </dd>
           </div>
-
           <div class="col-md-4" data-testid="status">
             <dt
               i18n="
@@ -144,7 +137,6 @@
           </div>
         </dl>
       </div>
-
       <div class="bb-card__footer text-right">
         <button
           bbButton
@@ -167,4 +159,5 @@
       </div>
     </div>
   </div>
+  }
 </ng-container>

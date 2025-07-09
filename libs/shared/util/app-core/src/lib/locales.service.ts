@@ -1,5 +1,12 @@
-import { DOCUMENT, LocationStrategy } from '@angular/common';
-import { Inject, Injectable, InjectionToken, LOCALE_ID } from '@angular/core';
+import { LocationStrategy } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+  LOCALE_ID,
+  DOCUMENT,
+  inject,
+} from '@angular/core';
 
 // eslint-disable-next-line @typescript-eslint/array-type
 export const LOCALES_LIST = new InjectionToken<Array<string>>(
@@ -14,11 +21,9 @@ const COOKIE_ATTRIBUTES =
   providedIn: 'root',
 })
 export class LocalesService {
-  constructor(
-    private location: LocationStrategy,
-    @Inject(LOCALE_ID) private locale: string,
-    @Inject(DOCUMENT) private document: Document
-  ) {}
+  private readonly location: LocationStrategy = inject(LocationStrategy);
+  private readonly locale: string = inject(LOCALE_ID);
+  private readonly document: Document = inject(DOCUMENT);
 
   setLocale(locale: string) {
     const currentLocale = this.locale;

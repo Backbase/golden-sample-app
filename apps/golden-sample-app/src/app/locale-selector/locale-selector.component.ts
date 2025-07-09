@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { localesCatalog } from './locales-catalog';
 import { LOCALES_LIST, LocalesService } from '@backbase/shared/util/app-core';
 
@@ -13,10 +13,8 @@ export class LocaleSelectorComponent implements OnInit {
   localesCatalog: Locale[] = [];
   private currentLanguage: Locale | undefined;
 
-  constructor(
-    private localeService: LocalesService,
-    @Inject(LOCALES_LIST) public locales: string[]
-  ) {}
+  private readonly localeService: LocalesService = inject(LocalesService);
+  private readonly locales: string[] = inject(LOCALES_LIST);
 
   set language(value: string | object | Locale | undefined) {
     if (typeof value === 'string') {

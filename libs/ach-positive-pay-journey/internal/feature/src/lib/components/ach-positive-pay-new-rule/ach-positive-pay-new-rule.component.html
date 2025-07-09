@@ -23,8 +23,8 @@
   <bb-modal-body-ui>
     <ng-template bbCustomModalBody>
       <div aria-live="assertive">
+        @if (serverError) {
         <div
-          *ngIf="serverError"
           class="bb-positive-pay-create-check__alert-wrapper"
           data-role="ach-positive-pay-new-rule-alert-error"
         >
@@ -42,6 +42,7 @@
           >
           </bb-alert-ui>
         </div>
+        }
       </div>
 
       <bb-ach-positive-pay-rule-form

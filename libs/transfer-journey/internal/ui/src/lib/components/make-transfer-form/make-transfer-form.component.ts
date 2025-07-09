@@ -1,5 +1,12 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  inject,
+} from '@angular/core';
+
 import {
   ReactiveFormsModule,
   AbstractControl,
@@ -21,7 +28,6 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'bb-make-transfer-form',
   templateUrl: 'make-transfer-form.component.html',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     InputValidationMessageModule,
     CurrencyInputModule,
@@ -37,6 +43,9 @@ export class MakeTransferFormComponent implements OnInit {
 
   makeTransferForm!: FormGroup;
   currencies = ['USD', 'EUR'];
+
+  private readonly fb: FormBuilder = inject(FormBuilder);
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
 
   private getControl(field: string): AbstractControl | undefined {
     return this.makeTransferForm.controls[field];
@@ -82,8 +91,6 @@ export class MakeTransferFormComponent implements OnInit {
 
     return !!control && control.touched && control.invalid;
   }
-
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const accountName: string =

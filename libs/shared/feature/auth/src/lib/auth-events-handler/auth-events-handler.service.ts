@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, Optional } from '@angular/core';
+import { inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import {
   SessionTimeoutTrackerEvent,
   Tracker,
@@ -25,12 +25,14 @@ export class AuthEventsHandlerService implements OnDestroy {
   private eventsSubscription: Subscription;
   private documentLoaded = false;
 
-  constructor(
-    private readonly oAuthService: OAuthService,
-    private readonly authService: AuthService,
-    private readonly localesService: LocalesService,
-    @Optional() private readonly tracker?: Tracker
-  ) {
+  private readonly oAuthService: OAuthService = inject(OAuthService);
+  private readonly authService: AuthService = inject(AuthService);
+  private readonly localesService: LocalesService = inject(LocalesService);
+  private readonly tracker: Tracker | null = inject(Tracker, {
+    optional: true,
+  });
+
+  constructor() {
     this.eventsSubscription = this.getEventsSubscription();
   }
 

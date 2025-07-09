@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ErrorHandler, Injectable, NgZone } from '@angular/core';
+import { ErrorHandler, inject, Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
 function extractRejectionError(error: unknown): Error | unknown {
@@ -12,10 +12,8 @@ function extractRejectionError(error: unknown): Error | unknown {
 
 @Injectable()
 export class AppErrorHandler implements ErrorHandler {
-  constructor(
-    private readonly router: Router,
-    private readonly ngZone: NgZone
-  ) {}
+  private readonly router: Router = inject(Router);
+  private readonly ngZone: NgZone = inject(NgZone);
 
   handleError(error: Error | unknown): void {
     const extractedError = extractRejectionError(error);

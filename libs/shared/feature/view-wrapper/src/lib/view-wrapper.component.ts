@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -7,10 +7,11 @@ import { ActivatedRoute } from '@angular/router';
   standalone: false,
 })
 export class ViewWrapperComponent {
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
   @Input()
   title: string;
 
-  constructor(private route: ActivatedRoute) {
+  constructor() {
     this.title = this.route.snapshot.data['title'];
   }
 }

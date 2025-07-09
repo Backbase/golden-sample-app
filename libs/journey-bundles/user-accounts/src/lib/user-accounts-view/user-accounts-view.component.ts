@@ -1,4 +1,4 @@
-import { Component, Optional } from '@angular/core';
+import { Component, inject, Optional } from '@angular/core';
 import { ArrangementsService } from '@backbase/transactions-journey';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { Tracker } from '@backbase/foundation-ang/observability';
@@ -12,12 +12,14 @@ import {
   standalone: false,
 })
 export class UserAccountsViewComponent {
+  private readonly arrangementsService: ArrangementsService =
+    inject(ArrangementsService);
+  private readonly tracker: Tracker | null = inject(Tracker, {
+    optional: true,
+  });
   public arrangements$;
 
-  constructor(
-    private readonly arrangementsService: ArrangementsService,
-    @Optional() private readonly tracker?: Tracker
-  ) {
+  constructor() {
     this.arrangements$ = this.arrangementsService.arrangements$;
   }
 
