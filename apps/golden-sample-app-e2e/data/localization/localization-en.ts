@@ -1,4 +1,6 @@
-export const i18n = {
+import { Translation } from './translation.interface';
+
+export const englishTranslation: Translation = {
   identity: {
     username: 'Username',
     password: 'Password',

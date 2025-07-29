@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import { test } from '../../test-runner/test-runner';
 import { wrongUser } from '../../data/credentials';
-import { i18n } from '../../data/localization/login-page-data';
+import { i18n } from '../../data/localization/locale';
 
 test.describe(
   'Login tests',
