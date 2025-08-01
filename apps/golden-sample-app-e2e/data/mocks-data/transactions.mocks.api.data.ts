@@ -65,4 +65,7 @@ export const mockedTransactionsData: TransactionDataType = {
     'KLM',
   ],
   recipientsSubset: ['KLM', 'Hard Rock Cafe'],
+  i18n: {
+    header: 'Transactions',
+  }
 };

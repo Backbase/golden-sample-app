@@ -8,6 +8,9 @@ export interface TransactionDataType {
   transactionList: TransactionsListDataType;
   recipients: string[];
   recipientsSubset: string[];
+  i18n: {
+    header: string;
+  }
 }
 
 export interface TransactionsListDataType {
