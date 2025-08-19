@@ -1,14 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { ACH_POSITIVE_PAY_ROUTE } from '@backbase/journey-bundles/ach-positive-pay';
-import { TRANSFER_ROUTE } from '@backbase/journey-bundles/transfer';
-import { TRANSACTIONS_ROUTE } from '@backbase/journey-bundles/transactions';
-import { USER_ACCOUNTS_ROUTE } from '@backbase/journey-bundles/user-accounts';
 import { CUSTOM_PAYMENT_ROUTE } from '@backbase/journey-bundles/custom-payment';
+import { TRANSACTIONS_ROUTE } from '@backbase/journey-bundles/transactions';
+import { TRANSFER_ROUTE } from '@backbase/journey-bundles/transfer';
+import { USER_ACCOUNTS_ROUTE } from '@backbase/journey-bundles/user-accounts';
 import { AuthGuard } from '@backbase/shared/feature/auth';
 
-const routes: Routes = [
+export const APP_ROUTES: Routes = [
   {
     path: '',
     pathMatch: 'full',
@@ -39,9 +37,3 @@ const routes: Routes = [
       import('./error-page/error-page.module').then((m) => m.ErrorPageModule),
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes), CommonModule],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}

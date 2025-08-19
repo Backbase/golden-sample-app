@@ -1,19 +1,13 @@
-import { Environment } from '@backbase/shared/util/config';
+import { ApplicationConfig } from '@angular/core';
+import { API_ROOT } from '@backbase/foundation-ang/core';
+import { provideObservability } from '@backbase/foundation-ang/observability';
+import { provideAuthentication } from '@backbase/shared/feature/auth';
 import { AuthConfig } from 'angular-oauth2-oidc';
+import { AnalyticsService } from '../app/services/analytics.service';
+import { provideApiSandboxInterceptor } from './api-sandbox-interceptor';
+import { baseTelemetryConfig } from './telemetry-config';
 
-export const environment: Environment = {
-  production: true,
-  apiRoot: '${API_ROOT}',
-  locales: '${LOCALES}'.split(','),
-  apiSandboxKey: '${X-SDBXAZ-API-KEY}',
-  common: {
-    designSlimMode: false,
-  },
-  isTelemetryTracerEnabled: true,
-  bbApiKey: 'a554d1b4-6514-4f33-8211-3f52a03ca142',
-  telemetryCollectorURL: 'https://rum-collector.backbase.io/v1/traces',
-  env: 'production',
-};
+const apiRoot = '${API_ROOT}';
 
 export const authConfig: AuthConfig = {
   // Url of the Identity Provider
@@ -38,9 +32,35 @@ export const authConfig: AuthConfig = {
   // Important: Request offline_access to get a refresh token
   scope: '${AUTH_SCOPE}',
 
-  requireHttps: false,
+  requireHttps: true,
 
   showDebugInformation: true,
 
   logoutUrl: document.baseURI + 'logout',
+};
+
+export const environment: Pick<ApplicationConfig, 'providers'> = {
+  providers: [
+    {
+      provide: API_ROOT,
+      useValue: apiRoot,
+    },
+
+    ...provideApiSandboxInterceptor('${X-SDBXAZ-API-KEY}'),
+
+    ...provideAuthentication({
+      apiRoot,
+      authConfig,
+    }),
+
+    provideObservability({
+      handler: AnalyticsService,
+      openTelemetryConfig: {
+        ...baseTelemetryConfig,
+        env: 'production',
+        isProduction: true,
+        isEnabled: true,
+      },
+    }),
+  ],
 };

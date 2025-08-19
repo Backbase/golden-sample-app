@@ -52,7 +52,7 @@
     "@angular/router": "~19.2.0",
     "@backbase/accesscontrol-v3-http-ang": "4.0.0",
     "@backbase/arrangement-manager-http-ang": "5.2.0",
-    "@backbase/foundation-ang": "^12.2.1",
+    "@backbase/foundation-ang": "^12.2.3",
     "@backbase/identity-auth": "^6.0.0",
     "@backbase/initiate-payment-journey-ang": "7.0.0-rc.2",
     "@backbase/internal-identity-model": "^6.0.0",

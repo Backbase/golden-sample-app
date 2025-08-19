@@ -1,135 +1,73 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import {
-  HttpClientModule,
+  HTTP_INTERCEPTORS,
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import {
-  EntitlementsModule,
-  ENTITLEMENTS_CONFIG,
-} from '@backbase/foundation-ang/entitlements';
-import {
-  OAuthModule,
-  AuthConfig,
-  OAuthStorage,
-  OAuthModuleConfig,
-} from 'angular-oauth2-oidc';
-import { TrackerModule } from '@backbase/foundation-ang/observability';
-import { AnalyticsService } from './services/analytics.service';
-import {
-  ActivityMonitorModule,
-  AuthInterceptor,
-} from '@backbase/shared/feature/auth';
-import { environment, authConfig } from '../environments/environment';
-import packageInfo from 'package-json';
-import { SharedUserContextInterceptor } from '@backbase/shared/feature/user-context';
-import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
-import {
-  ACCESS_CONTROL_BASE_PATH,
-  ACCESS_CONTROL_BASE_PATH as ACCESS_CONTROL_V3_BASE_PATH,
-} from '@backbase/accesscontrol-v3-http-ang';
-import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/arrangement-manager-http-ang';
-import { TRANSACTIONS_BASE_PATH } from '@backbase/transactions-http-ang';
-import { AppErrorHandler } from './app.error-handler';
-import { ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
+  ApplicationConfig,
+  ErrorHandler,
+  importProvidersFrom,
+} from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideEntitlements } from '@backbase/foundation-ang/entitlements';
 import { IdentityAuthModule } from '@backbase/identity-auth';
 import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';
+import { SharedUserContextInterceptor } from '@backbase/shared/feature/user-context';
+import { provideLocales } from '@backbase/shared/util/app-core';
+import {
+  SHARED_JOURNEY_CONFIG,
+  SharedJourneyConfiguration,
+} from '@backbase/shared/util/config';
+import { LayoutModule } from '@backbase/ui-ang/layout';
+import { EffectsModule, provideEffects } from '@ngrx/effects';
+import { StoreModule, provideStore } from '@ngrx/store';
+import { environment } from '../environments/environment';
+import { APP_ROUTES } from './app-routes';
+import { AppErrorHandler } from './app.error-handler';
+import { OAuthStorage } from 'angular-oauth2-oidc';
 
-/**
- * Provides configuration for standalone components
- * while maintaining compatibility with NgModules
- */
+const sharedJourneyConfig: SharedJourneyConfiguration = {
+  designSlimMode: false,
+};
+
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter([], withComponentInputBinding()),
+    // Use environment files for providers that vary between environments
+    ...environment.providers,
+
+    // Other providers here are common to all environments
+    { provide: OAuthStorage, useValue: localStorage },
+    provideLocales(['en-US', 'nl-NL']),
+    provideRouter(APP_ROUTES, withComponentInputBinding()),
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
+    provideEntitlements(),
+    provideStore(),
+    provideEffects([]),
 
-    // Import NgModules
     importProvidersFrom(
-      HttpClientModule,
-      OAuthModule.forRoot(),
-      EntitlementsModule,
-      IdentityAuthModule,
+      // Need to also import the providers from the NgRx modules
+      // until all child features are migrated to standalone
+      StoreModule.forRoot({}),
+      EffectsModule.forRoot([]),
       TransactionSigningModule.withConfig({}),
-      TrackerModule.forRoot({
-        handler: AnalyticsService,
-        openTelemetryConfig: {
-          appName: packageInfo.name,
-          appVersion: packageInfo.version,
-          apiKey: environment.bbApiKey,
-          env: 'local',
-          isProduction: environment.production,
-          isEnabled: environment.isTelemetryTracerEnabled,
-          url: environment.telemetryCollectorURL,
-        },
-      }),
-      ActivityMonitorModule
+      IdentityAuthModule,
+      LayoutModule
     ),
 
-    // Provide common configurations
-    { provide: AuthConfig, useValue: authConfig },
     {
-      provide: OAuthModuleConfig,
-      useValue: {
-        resourceServer: {
-          allowedUrls: [environment.apiRoot],
-          sendAccessToken: true,
-        },
-      },
-    },
-    { provide: OAuthStorage, useFactory: () => localStorage },
-
-    // Base path configurations
-    {
-      provide: TRANSACTIONS_BASE_PATH,
-      useValue: environment.apiRoot + '/transaction-manager',
-    },
-    {
-      provide: ARRANGEMENT_MANAGER_BASE_PATH,
-      useValue: environment.apiRoot + '/arrangement-manager',
-    },
-    {
-      provide: ACCESS_CONTROL_BASE_PATH,
-      useValue: environment.apiRoot + '/access-control',
-    },
-    {
-      provide: ACCESS_CONTROL_V3_BASE_PATH,
-      useValue: environment.apiRoot + '/access-control',
-    },
-    {
-      provide: ENTITLEMENTS_CONFIG,
-      useValue: {
-        accessControlBasePath: `${environment.apiRoot}/access-control`,
-      },
-    },
-    {
-      provide: ENVIRONMENT_CONFIG,
-      useValue: environment,
+      provide: SHARED_JOURNEY_CONFIG,
+      useValue: sharedJourneyConfig,
     },
 
-    // Interceptors
     {
-      provide: 'HTTP_INTERCEPTORS',
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-    {
-      provide: 'HTTP_INTERCEPTORS',
+      provide: HTTP_INTERCEPTORS,
       useClass: SharedUserContextInterceptor,
       multi: true,
     },
     {
-      provide: 'HTTP_INTERCEPTORS',
-      useClass: ApiSandboxInterceptor,
-      multi: true,
-    },
-
-    // Error handler
-    {
-      provide: 'ErrorHandler',
+      provide: ErrorHandler,
       useClass: AppErrorHandler,
     },
   ],

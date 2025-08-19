@@ -1,10 +1,22 @@
 import { DOCUMENT, LocationStrategy } from '@angular/common';
-import { Injectable, InjectionToken, LOCALE_ID, inject } from '@angular/core';
+import {
+  Injectable,
+  InjectionToken,
+  LOCALE_ID,
+  Provider,
+  inject,
+} from '@angular/core';
 
-// eslint-disable-next-line @typescript-eslint/array-type
-export const LOCALES_LIST = new InjectionToken<Array<string>>(
+export const LOCALES_LIST = new InjectionToken<string[]>(
   'List of locales available'
 );
+
+export function provideLocales(locales: string[]): Provider {
+  return {
+    provide: LOCALES_LIST,
+    useValue: locales,
+  };
+}
 
 // Use 2038 year to avoid issues with some browsers that don't support dates after 2038
 const COOKIE_ATTRIBUTES =

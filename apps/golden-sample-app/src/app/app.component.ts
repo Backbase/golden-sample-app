@@ -1,31 +1,40 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { LayoutService } from '@backbase/ui-ang/layout';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { RouterOutlet } from '@angular/router';
 import {
   LogoutTrackerEvent,
   Tracker,
 } from '@backbase/foundation-ang/observability';
-import { environment } from '../environments/environment';
+import { ActivityMonitorModule } from '@backbase/shared/feature/auth';
+import { IconModule } from '@backbase/ui-ang/icon';
+import { LayoutService } from '@backbase/ui-ang/layout';
+import { LogoModule } from '@backbase/ui-ang/logo';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { LocaleSelectorComponent } from './locale-selector/locale-selector.component';
+import { NavigationMenuModule } from './navigation-menu/navigation-menu.module';
+import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: false,
+  imports: [
+    ActivityMonitorModule,
+    CommonModule,
+    LogoModule,
+    NavigationMenuModule,
+    ThemeSwitcherModule,
+    LocaleSelectorComponent,
+    IconModule,
+    RouterOutlet,
+  ],
 })
 export class AppComponent {
-  isAuthenticated = false;
-
   private readonly oAuthService: OAuthService = inject(OAuthService);
   readonly layoutService: LayoutService = inject(LayoutService);
   private readonly tracker: Tracker | null = inject(Tracker, {
     optional: true,
   });
-
-  constructor() {
-    this.isAuthenticated =
-      environment.mockEnabled ?? this.oAuthService.hasValidAccessToken();
-  }
 
   logout(): void {
     this.tracker?.publish(new LogoutTrackerEvent());

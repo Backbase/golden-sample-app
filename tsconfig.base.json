@@ -113,8 +113,7 @@
       ],
       "@backbase/transfer-journey/internal/ui": [
         "libs/transfer-journey/internal/ui/src/index.ts"
-      ],
-      "package-json": ["package.json"]
+      ]
     }
   }
 }

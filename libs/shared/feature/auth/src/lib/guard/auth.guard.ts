@@ -1,18 +1,14 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, InjectionToken } from '@angular/core';
 import { UrlTree } from '@angular/router';
 import { AuthService } from '@backbase/identity-auth';
 import { Observable, map, of } from 'rxjs';
-import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
 
+// TODO: Refactor to be a function guard?
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard {
-  private readonly authService: AuthService = inject(AuthService);
-  private readonly environment: Environment | null = inject(
-    ENVIRONMENT_CONFIG,
-    { optional: true }
-  );
+  readonly #authService: AuthService = inject(AuthService);
 
   canLoad(): Observable<boolean | UrlTree> {
     return this.redirectIfUnauthenticated();
@@ -31,15 +27,13 @@ export class AuthGuard {
    * If not, treat them as logged out.
    */
   private redirectIfUnauthenticated(): Observable<boolean | UrlTree> {
-    if (this.environment?.mockEnabled) return of(true);
-
-    return this.authService.isAuthenticated$.pipe(
+    return this.#authService.isAuthenticated$.pipe(
       map((loggedIn) => {
         if (loggedIn) {
           return true;
         }
 
-        this.authService.initLoginFlow();
+        this.#authService.initLoginFlow();
         return false;
       })
     );

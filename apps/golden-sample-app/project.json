@@ -19,7 +19,7 @@
         "outputPath": "dist/apps/golden-sample-app",
         "index": "apps/golden-sample-app/src/index.html",
         "browser": "apps/golden-sample-app/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": ["zone.js", "@angular/localize/init"],
         "tsConfig": "apps/golden-sample-app/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "scripts": [],
@@ -83,17 +83,20 @@
           "localize": true
         },
         "development": {
+          "outputHashing": "media",
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true
         },
         "nl": {
+          "outputHashing": "media",
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true,
           "localize": ["nl-NL"]
         },
         "mocks": {
+          "outputHashing": "media",
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true,
