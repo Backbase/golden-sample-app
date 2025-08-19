@@ -6,22 +6,6 @@
   "prefix": "backbase",
   "tags": ["scope:transactions-journey", "type:data-access"],
   "targets": {
-    "build": {
-      "executor": "@nx/angular:package",
-      "outputs": ["{workspaceRoot}/dist/internal/{projectRoot}"],
-      "options": {
-        "project": "libs/transactions-journey/internal/data-access/ng-package.internal.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/transactions-journey/internal/data-access/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "libs/transactions-journey/internal/data-access/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": [

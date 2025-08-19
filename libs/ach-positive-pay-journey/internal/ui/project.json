@@ -6,22 +6,6 @@
   "prefix": "bb",
   "tags": ["scope:ach-positive-pay-journey", "type:ui"],
   "targets": {
-    "build": {
-      "executor": "@nx/angular:package",
-      "outputs": ["{workspaceRoot}/dist/internal/{projectRoot}"],
-      "options": {
-        "project": "libs/ach-positive-pay-journey/internal/ui/ng-package.internal.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/ach-positive-pay-journey/internal/ui/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "libs/ach-positive-pay-journey/internal/ui/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": [
