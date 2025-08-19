@@ -31,7 +31,7 @@ export class AchPositivePayRuleFormComponent {
   ];
 
   // Disabling ESLint for throwing error on empty Object property, which is a type sent by Account Selector output.
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   onCheckingAccountSelect(selectedAccount: ProductSummaryItem | {}) {
     this.selectAccountId.emit(selectedAccount as ProductSummaryItem);
   }

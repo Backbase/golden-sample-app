@@ -24,15 +24,10 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/libs/transfer-journey/internal/ui"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/libs/transfer-journey/internal/ui"],
       "options": {
         "jestConfig": "libs/transfer-journey/internal/ui/jest.config.ts"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

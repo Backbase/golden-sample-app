@@ -30,9 +30,6 @@
       "options": {
         "jestConfig": "libs/ach-positive-pay-journey/internal/feature/jest.config.ts"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

@@ -30,9 +30,6 @@
       "options": {
         "jestConfig": "libs/transfer-journey/internal/data-access/jest.config.ts"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

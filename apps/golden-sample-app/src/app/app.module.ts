@@ -6,10 +6,9 @@ import {
 import {
   ErrorHandler,
   NgModule,
+  PLATFORM_INITIALIZER,
   inject,
   provideAppInitializer,
-  PLATFORM_INITIALIZER,
-  ApplicationConfig,
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,12 +17,20 @@ import {
   ACCESS_CONTROL_BASE_PATH as ACCESS_CONTROL_V3_BASE_PATH,
 } from '@backbase/accesscontrol-v3-http-ang';
 import { ARRANGEMENT_MANAGER_BASE_PATH } from '@backbase/arrangement-manager-http-ang';
-import { TRANSACTIONS_BASE_PATH } from '@backbase/transactions-http-ang';
 import {
-  EntitlementsModule,
   ENTITLEMENTS_CONFIG,
+  EntitlementsModule,
 } from '@backbase/foundation-ang/entitlements';
-import { AuthService, IdentityAuthModule } from '@backbase/identity-auth';
+import { TrackerModule } from '@backbase/foundation-ang/observability';
+import { IdentityAuthModule } from '@backbase/identity-auth';
+import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';
+import {
+  ActivityMonitorModule,
+  AuthInterceptor,
+} from '@backbase/shared/feature/auth';
+import { SharedUserContextInterceptor } from '@backbase/shared/feature/user-context';
+import { ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
+import { TRANSACTIONS_BASE_PATH } from '@backbase/transactions-http-ang';
 import { AvatarModule } from '@backbase/ui-ang/avatar';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
@@ -41,26 +48,18 @@ import {
   OAuthStorage,
 } from 'angular-oauth2-oidc';
 import { CookieService } from 'ngx-cookie-service';
+import packageInfo from 'package-json';
+import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
 import { authConfig, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppErrorHandler } from './app.error-handler';
-import { AnalyticsService } from './services/analytics.service';
-import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
-import { TrackerModule } from '@backbase/foundation-ang/observability';
-import { SharedUserContextInterceptor } from '@backbase/shared/feature/user-context';
-import { ApiSandboxInterceptor } from '../environments/api-sandbox-interceptor';
-import packageInfo from 'package-json';
-import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
-import { ThemeManagerService } from './theme-switcher/theme-service';
-import { ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
-import {
-  ActivityMonitorModule,
-  AuthInterceptor,
-} from '@backbase/shared/feature/auth';
-import { NavigationMenuModule } from './navigation-menu/navigation-menu.module';
 import { appConfig } from './app.config';
-import { TransactionSigningModule } from '@backbase/identity-auth/transaction-signing';
+import { AppErrorHandler } from './app.error-handler';
+import { LocaleSelectorModule } from './locale-selector/locale-selector.module';
+import { NavigationMenuModule } from './navigation-menu/navigation-menu.module';
+import { AnalyticsService } from './services/analytics.service';
+import { ThemeManagerService } from './theme-switcher/theme-service';
+import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
 
 @NgModule({
   declarations: [AppComponent],
