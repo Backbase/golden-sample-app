@@ -1,12 +1,5 @@
-import { LocationStrategy } from '@angular/common';
-import {
-  Inject,
-  Injectable,
-  InjectionToken,
-  LOCALE_ID,
-  DOCUMENT,
-  inject,
-} from '@angular/core';
+import { DOCUMENT, LocationStrategy } from '@angular/common';
+import { Injectable, InjectionToken, LOCALE_ID, inject } from '@angular/core';
 
 // eslint-disable-next-line @typescript-eslint/array-type
 export const LOCALES_LIST = new InjectionToken<Array<string>>(
