@@ -1,6 +1,5 @@
 export * from './string-utils';
 export * from './timer-utils';
-export * from './read-file';
 export * from './date-time-utils';
 export * from './locator-options';
 export * from './playwright-utils';

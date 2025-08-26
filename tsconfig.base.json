@@ -35,7 +35,7 @@
       "@backbase/e2e-test-accelerators/*": [
         "libs/shared/util/e2e-test-accelerators/*/index.ts"
       ],
-      "@backbase/e2e-tests": ["libs/shared/e2e-tests/index.ts"],
+      "@backbase/e2e-tests": ["libs/shared/util/e2e-tests/src/index.ts"],
       "@backbase/internal-transactions-feature": [
         "libs/transactions-journey/feature/src/index.ts"
       ],

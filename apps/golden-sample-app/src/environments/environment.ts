@@ -12,7 +12,7 @@ import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.
 import { AnalyticsService } from '../app/services/analytics.service';
 import { provideApiSandboxInterceptor } from './api-sandbox-interceptor';
 import { baseTelemetryConfig } from './telemetry-config';
-import { DOCUMENT } from '@angular/common';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 const apiRoot = '/api';
 
@@ -49,6 +49,7 @@ const authConfig: AuthConfig = {
 
 export const environment: Pick<ApplicationConfig, 'providers'> = {
   providers: [
+    provideStoreDevtools(),
     {
       provide: API_ROOT,
       useValue: apiRoot,

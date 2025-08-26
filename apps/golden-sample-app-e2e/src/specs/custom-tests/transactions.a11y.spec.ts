@@ -1,4 +1,4 @@
-import { test } from '../../test-runner/test-runner';
+import { test } from '../../fixtures/test';
 import { expect } from '@playwright/test';
 
 test.describe(

@@ -33,6 +33,29 @@ const sharedJourneyConfig: SharedJourneyConfiguration = {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    // A note on NgRx:
+    //
+    // If some features in the app use NgRx modules (i.e., have not yet
+    // migrated to the standalone provideState and provideEffects functions),
+    // then we need to use importProvidersFrom from the NgRx "forRoot" modules
+    // in addition to the standalone provideStore and provideEffects functions.
+    //
+    // The module imports MUST be listed BEFORE the standalone `provideStore`
+    // and `provideEffects` in this providers array. The root store config
+    // and any root effects must be given in the standalone functions later,
+    // and NOT via the module .forRoot functions.
+    //
+    // Finally, the environment providers must be included AFTER the standalone
+    // NgRx store and effects providers, so that if they include the store dev
+    // tools provider, it is set up correctly.
+    //
+    // Once all child features are migrated to standalone, we can remove the
+    // importProvidersFrom for the store and effects modules.
+    //
+    importProvidersFrom(StoreModule.forRoot(), EffectsModule.forRoot()),
+    provideStore(),
+    provideEffects([]),
+
     // Use environment files for providers that vary between environments
     ...environment.providers,
 
@@ -43,14 +66,8 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     provideEntitlements(),
-    provideStore(),
-    provideEffects([]),
 
     importProvidersFrom(
-      // Need to also import the providers from the NgRx modules
-      // until all child features are migrated to standalone
-      StoreModule.forRoot({}),
-      EffectsModule.forRoot([]),
       TransactionSigningModule.withConfig({}),
       IdentityAuthModule,
       LayoutModule

@@ -8,6 +8,7 @@ import { NEVER, Observable, of } from 'rxjs';
 import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
 import { AnalyticsService } from '../app/services/analytics.service';
 import { baseTelemetryConfig } from './telemetry-config';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 const apiRoot = '/api';
 
@@ -31,6 +32,7 @@ export class MockOAuthService {
 
 export const environment: Pick<ApplicationConfig, 'providers'> = {
   providers: [
+    provideStoreDevtools(),
     {
       provide: AuthService,
       useClass: MockAuthService,

@@ -1,4 +1,4 @@
-import { testWithAuth as baseTest } from '../test-runner/test-runner';
+import { test as baseTest } from './test';
 import { mergeTests } from '@playwright/test';
 import {
   TransactionDataType,
@@ -7,7 +7,7 @@ import {
 } from '@backbase/transactions-journey/e2e-tests';
 import { mockedTransactionsData } from '../data/mocks-data';
 import { sandboxTransactionData } from '../data/sandbox-api-data';
-import { TestEnvironment } from 'test.model';
+import { TestEnvironment } from './environment';
 import 'dotenv/config';
 
 // Transactions test data per Env type
