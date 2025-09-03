@@ -44,6 +44,7 @@ export interface TransactionFixture {
   makeTransferPage: MakeTransferPage;
   transactionDetailsPage: TransactionDetailsPage;
   transactionsPage: TransactionsPage;
+  useMocks: boolean;
 }
 
 export const getAmountValue = (

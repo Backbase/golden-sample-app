@@ -12,15 +12,7 @@ export function testTransactionDetails(
 ) {
   test.describe(
     'Transactions details',
-    {
-      tag: [
-        '@e2e',
-        '@transactions',
-        '@transactions-details',
-        '@mocks',
-        '@ephemeral',
-      ],
-    },
+    { tag: ['@e2e', '@transactions', '@transactions-details', '@mocks'] },
     () => {
       test.beforeEach(async ({ transactionMockSetup }) => {
         await transactionMockSetup(testData.transactions);
