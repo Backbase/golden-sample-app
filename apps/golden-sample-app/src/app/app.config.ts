@@ -56,6 +56,14 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideEffects([]),
 
+    // Import providers from IdentityAuthModule before environment providers
+    // to allow us to override the auth service when using mocks
+    importProvidersFrom(
+      TransactionSigningModule.withConfig({}),
+      IdentityAuthModule,
+      LayoutModule
+    ),
+
     // Use environment files for providers that vary between environments
     ...environment.providers,
 
@@ -66,12 +74,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     provideEntitlements(),
-
-    importProvidersFrom(
-      TransactionSigningModule.withConfig({}),
-      IdentityAuthModule,
-      LayoutModule
-    ),
 
     {
       provide: SHARED_JOURNEY_CONFIG,

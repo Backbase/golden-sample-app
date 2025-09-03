@@ -1,7 +1,7 @@
-import { inject, Injectable, InjectionToken } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { UrlTree } from '@angular/router';
 import { AuthService } from '@backbase/identity-auth';
-import { Observable, map, of } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 // TODO: Refactor to be a function guard?
 @Injectable({
