@@ -2,36 +2,21 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
-import { AuthConfig } from 'angular-oauth2-oidc';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Provider } from '@angular/core';
-import { Environment } from '@backbase/shared/util/config';
+import { ApplicationConfig } from '@angular/core';
+import { API_ROOT } from '@backbase/foundation-ang/core';
+import { provideObservability } from '@backbase/foundation-ang/observability';
+import { provideAuthentication } from '@backbase/shared/feature/auth';
+import { AuthConfig } from 'angular-oauth2-oidc';
+import { AchPositivePayInterceptor } from '../app/interceptors/ach-positive-pay.interceptor';
+import { AnalyticsService } from '../app/services/analytics.service';
+import { provideApiSandboxInterceptor } from './api-sandbox-interceptor';
+import { baseTelemetryConfig } from './telemetry-config';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 
-const mockProviders: Provider[] = [
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AchPositivePayInterceptor,
-    multi: true,
-  },
-];
+const apiRoot = '/api';
 
-export const environment: Environment = {
-  production: false,
-  apiRoot: '/api',
-  mockProviders,
-  locales: ['en-US', 'nl-NL'],
-  apiSandboxKey: 'sandboxApiKey',
-  common: {
-    designSlimMode: false,
-  },
-  isTelemetryTracerEnabled: true,
-  bbApiKey: 'a554d1b4-6514-4f33-8211-3f52a03ca142',
-  telemetryCollectorURL: 'https://rum-collector.backbase.io/v1/traces',
-  env: 'local',
-};
-
-export const authConfig: AuthConfig = {
+const authConfig: AuthConfig = {
   // Url of the Identity Provider
   issuer:
     'https://identity.stg.sdbxaz.azure.backbaseservices.com/auth/realms/customer',
@@ -62,11 +47,33 @@ export const authConfig: AuthConfig = {
   logoutUrl: document.baseURI + 'logout',
 };
 
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+export const environment: Pick<ApplicationConfig, 'providers'> = {
+  providers: [
+    provideStoreDevtools(),
+    {
+      provide: API_ROOT,
+      useValue: apiRoot,
+    },
+    ...provideApiSandboxInterceptor('sandboxApiKey'),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AchPositivePayInterceptor,
+      multi: true,
+    },
+
+    ...provideAuthentication({
+      apiRoot,
+      authConfig,
+    }),
+
+    provideObservability({
+      handler: AnalyticsService,
+      openTelemetryConfig: {
+        ...baseTelemetryConfig,
+        env: 'local',
+        isProduction: false,
+        isEnabled: true,
+      },
+    }),
+  ],
+};

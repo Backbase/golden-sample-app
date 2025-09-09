@@ -18,6 +18,7 @@ import { InitiatorService } from './initiator.service';
         <span> {{ options.label }} </span>
       </label>
       <bb-account-selector-ui
+        #accountSelector
         placeholder="{{ options.placeholder }}"
         [items]="debitAccounts$ | async"
         [markFirst]="true"
