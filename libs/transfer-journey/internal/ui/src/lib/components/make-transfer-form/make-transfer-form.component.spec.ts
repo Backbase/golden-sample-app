@@ -20,7 +20,9 @@ describe('MakeTransferFormComponent', () => {
     route = TestBed.inject(ActivatedRoute);
   });
   beforeEach(() => {
-    component = TestBed.createComponent(MakeTransferFormComponent).componentInstance;
+    component = TestBed.createComponent(
+      MakeTransferFormComponent
+    ).componentInstance;
   });
 
   it('should create', () => {

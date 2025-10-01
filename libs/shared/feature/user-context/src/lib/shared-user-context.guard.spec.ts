@@ -43,7 +43,10 @@ describe('UserContextGuard', () => {
       providers: [
         SharedUserContextGuard,
         { provide: Router, useValue: mockRouter },
-        { provide: ServiceAgreementsHttpService, useValue: mockServiceAgreementHttpService },
+        {
+          provide: ServiceAgreementsHttpService,
+          useValue: mockServiceAgreementHttpService,
+        },
       ],
     });
     return TestBed.inject(SharedUserContextGuard);

@@ -22,7 +22,10 @@ describe('InitiatorService', () => {
     TestBed.configureTestingModule({
       providers: [
         InitiatorService,
-        { provide: ProductSummaryHttpService, useValue: mockProductSummaryService },
+        {
+          provide: ProductSummaryHttpService,
+          useValue: mockProductSummaryService,
+        },
       ],
     });
     service = TestBed.inject(InitiatorService);

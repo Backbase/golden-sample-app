@@ -6,11 +6,13 @@ import { TestBed } from '@angular/core/testing';
 describe('bb-locale-selector', () => {
   let component: LocaleSelectorComponent;
   const mockLocales = ['en', 'es'];
-  const mockLocalesService: Pick<LocalesService, 'setLocale' | 'currentLocale'> =
-    {
-      currentLocale: 'en',
-      setLocale: jest.fn(),
-    };
+  const mockLocalesService: Pick<
+    LocalesService,
+    'setLocale' | 'currentLocale'
+  > = {
+    currentLocale: 'en',
+    setLocale: jest.fn(),
+  };
 
   function createComponent() {
     TestBed.configureTestingModule({
@@ -39,11 +41,14 @@ describe('bb-locale-selector', () => {
       currentLocale: 'Nan',
       setLocale: jest.fn(),
     };
-    
+
     TestBed.configureTestingModule({
       providers: [
         LocaleSelectorComponent,
-        { provide: LocalesService, useValue: mockLocalesServiceWithInvalidLocale },
+        {
+          provide: LocalesService,
+          useValue: mockLocalesServiceWithInvalidLocale,
+        },
         { provide: LOCALES_LIST, useValue: mockLocales },
       ],
     });

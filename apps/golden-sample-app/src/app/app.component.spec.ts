@@ -42,7 +42,10 @@ describe('AppComponent', () => {
       providers: [
         { provide: LayoutService, useValue: mockLayoutService },
         { provide: OAuthService, useValue: mockOAuthService },
-        { provide: ActivityMonitorService, useValue: mockActivityMonitorService },
+        {
+          provide: ActivityMonitorService,
+          useValue: mockActivityMonitorService,
+        },
         { provide: AuthService, useValue: mockAuthService },
         { provide: LocalesService, useValue: mockLocalesService },
         { provide: LOCALES_LIST, useValue: mockLocalesList },
@@ -88,5 +91,4 @@ describe('AppComponent', () => {
     component.focusMainContainer(mockEvent as MouseEvent);
     expect(focus).toHaveBeenCalled();
   });
-
 });

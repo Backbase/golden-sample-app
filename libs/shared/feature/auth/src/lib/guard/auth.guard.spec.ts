@@ -18,10 +18,7 @@ describe('AuthGuard', () => {
       initLoginFlow: jest.fn(),
     });
     TestBed.configureTestingModule({
-      providers: [
-        AuthGuard,
-        { provide: AuthService, useValue: authService },
-      ],
+      providers: [AuthGuard, { provide: AuthService, useValue: authService }],
     });
     const guard = TestBed.inject(AuthGuard);
     const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));

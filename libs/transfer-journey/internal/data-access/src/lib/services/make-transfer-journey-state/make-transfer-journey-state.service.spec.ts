@@ -27,7 +27,7 @@ describe('MakeTransferJourneyState', () => {
       providers: [
         MakeTransferJourneyState,
         { provide: MakeTransferAccountHttpService, useValue: accountsMock },
-      ]
+      ],
     });
     service = TestBed.inject(MakeTransferJourneyState);
   });

@@ -14,7 +14,10 @@ import { TestBed } from '@angular/core/testing';
 
 describe('MakeTransferSymmaryViewComponent', () => {
   let component: MakeTransferSummaryViewComponent;
-  let mockCommunicationService: Pick<MakeTransferCommunicationService, 'makeTransfer'>;
+  let mockCommunicationService: Pick<
+    MakeTransferCommunicationService,
+    'makeTransfer'
+  >;
   const transferMock = {
     fromAccount: 'somAccount',
     toAccount: 'somAccount',
@@ -60,7 +63,10 @@ describe('MakeTransferSymmaryViewComponent', () => {
     ];
 
     if (withCommunicationService) {
-      providers.push({ provide: MakeTransferCommunicationService, useValue: mockCommunicationService });
+      providers.push({
+        provide: MakeTransferCommunicationService,
+        useValue: mockCommunicationService,
+      });
     }
 
     TestBed.configureTestingModule({
@@ -105,7 +111,9 @@ describe('MakeTransferSymmaryViewComponent', () => {
     it('should call external communication service when transfer is successful', () => {
       // The component subscribes to vm$ and automatically triggers navigation/communication
       // when transferState is SUCCESSFUL, which is already set in our mock
-      expect(mockCommunicationService.makeTransfer).toHaveBeenCalledWith(transferMock);
+      expect(mockCommunicationService.makeTransfer).toHaveBeenCalledWith(
+        transferMock
+      );
     });
   });
 

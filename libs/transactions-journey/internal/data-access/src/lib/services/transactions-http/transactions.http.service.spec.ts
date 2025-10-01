@@ -28,10 +28,16 @@ describe('TransactionsHttpService', () => {
     TestBed.configureTestingModule({
       providers: [
         TransactionsHttpService,
-        { provide: TransactionsJourneyConfiguration, useValue: mockConfigurationService },
-        { provide: TransactionClientHttpService, useValue: mockTransactionsClientHttpService },
+        {
+          provide: TransactionsJourneyConfiguration,
+          useValue: mockConfigurationService,
+        },
+        {
+          provide: TransactionClientHttpService,
+          useValue: mockTransactionsClientHttpService,
+        },
         { provide: ArrangementsService, useValue: mockArrangementsService },
-      ]
+      ],
     });
     service = TestBed.inject(TransactionsHttpService);
     jest.spyOn(mockTransactionsClientHttpService, 'getTransactionsWithPost');

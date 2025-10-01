@@ -21,8 +21,11 @@ describe('ArrangementsService', () => {
     TestBed.configureTestingModule({
       providers: [
         ArrangementsService,
-        { provide: ProductSummaryHttpService, useValue: mockProductSummaryService }
-      ]
+        {
+          provide: ProductSummaryHttpService,
+          useValue: mockProductSummaryService,
+        },
+      ],
     });
     service = TestBed.inject(ArrangementsService);
   });

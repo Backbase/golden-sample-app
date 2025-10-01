@@ -36,7 +36,7 @@ describe('UserContextInterceptor', () => {
       handle: jest.fn(),
     });
 
-    return { interceptor, nextHandler, userContextService  };
+    return { interceptor, nextHandler, userContextService };
   }
 
   it('should return the observable returned by the next handler', () => {

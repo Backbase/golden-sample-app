@@ -30,7 +30,7 @@ describe('LocalesService', () => {
         { provide: LocationStrategy, useValue: locationStrategy },
         { provide: LOCALE_ID, useValue: mockLocale },
         { provide: DOCUMENT, useValue: document as Document },
-      ]
+      ],
     });
     service = TestBed.inject(LocalesService);
   });

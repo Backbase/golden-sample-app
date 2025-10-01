@@ -39,7 +39,10 @@ describe('AchPositivePayNewRuleComponent', () => {
         { provide: Router, useValue: mockRouter },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         { provide: FormBuilder, useValue: mockFormBuilder },
-        { provide: AchPositivePayHttpService, useValue: mockAchPositivePayService },
+        {
+          provide: AchPositivePayHttpService,
+          useValue: mockAchPositivePayService,
+        },
         { provide: NotificationService, useValue: mockNotificationService },
       ],
     });

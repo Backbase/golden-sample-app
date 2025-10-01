@@ -71,7 +71,6 @@ describe('UserContextService', () => {
   });
 
   describe('when no explicit UserContextStorage is configured and an OAuthStorage is configured', () => {
-
     function configureServiceNoUserContextStorage() {
       const oAuthStore = new MemoryStorage();
       TestBed.configureTestingModule({

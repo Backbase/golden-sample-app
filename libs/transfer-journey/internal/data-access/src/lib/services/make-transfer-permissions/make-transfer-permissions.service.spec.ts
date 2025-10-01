@@ -13,7 +13,7 @@ describe('MakeTransferPermissionsService', () => {
       providers: [
         MakeTransferPermissionsService,
         { provide: ConditionsService, useValue: mockConditionsService },
-      ]
+      ],
     });
     service = TestBed.inject(MakeTransferPermissionsService);
   });
