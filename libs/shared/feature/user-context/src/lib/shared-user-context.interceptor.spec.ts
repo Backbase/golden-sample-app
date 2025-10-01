@@ -1,36 +1,42 @@
 import { HttpHandler, HttpRequest } from '@angular/common/http';
 
 import { EMPTY } from 'rxjs';
-import { MemoryStorage } from 'angular-oauth2-oidc';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SharedUserContextInterceptor } from './shared-user-context.interceptor';
 import { SharedUserContextService } from './shared-user-context.service';
-import { Environment } from '@backbase/shared/util/config';
+import { TestBed } from '@angular/core/testing';
+import { API_ROOT } from '@backbase/foundation-ang/core';
 
 describe('UserContextInterceptor', () => {
+  beforeEach(() => {
+    TestBed.resetTestingModule();
+  });
+
   function setupInterceptor(
     { apiRoot }: { apiRoot: string } = { apiRoot: '/whatever' }
   ) {
-    const environment: Environment = {
-      apiRoot,
-      production: false,
-      locales: [],
-      common: { designSlimMode: false },
-    };
-    const userContextService = new SharedUserContextService(
-      new MemoryStorage()
-    );
+    let serviceAgreementId: string | null = null;
+    const userContextService = {
+      setServiceAgreementId: jest.fn((id: string) => {
+        serviceAgreementId = id;
+      }),
+      getServiceAgreementId: jest.fn(() => serviceAgreementId),
+    } as unknown as jest.Mocked<SharedUserContextService>;
 
-    const interceptor = new SharedUserContextInterceptor(
-      userContextService,
-      environment
-    );
+    TestBed.configureTestingModule({
+      providers: [
+        SharedUserContextInterceptor,
+        { provide: SharedUserContextService, useValue: userContextService },
+        { provide: API_ROOT, useValue: apiRoot },
+      ],
+    });
+    const interceptor = TestBed.inject(SharedUserContextInterceptor);
 
     const nextHandler = jest.mocked<HttpHandler>({
       handle: jest.fn(),
     });
 
-    return { interceptor, nextHandler, userContextService };
+    return { interceptor, nextHandler, userContextService  };
   }
 
   it('should return the observable returned by the next handler', () => {

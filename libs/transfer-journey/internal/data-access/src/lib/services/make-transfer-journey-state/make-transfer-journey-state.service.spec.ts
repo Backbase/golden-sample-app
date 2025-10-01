@@ -2,6 +2,7 @@ import { of } from 'rxjs';
 import { Transfer } from '@backbase/transfer-journey/internal/shared-data';
 import { MakeTransferAccountHttpService } from '../make-transfer-accounts/make-transfer-accounts.http.service';
 import { MakeTransferJourneyState } from './make-transfer-journey-state.service';
+import { TestBed } from '@angular/core/testing';
 
 describe('MakeTransferJourneyState', () => {
   let service: MakeTransferJourneyState;
@@ -22,9 +23,13 @@ describe('MakeTransferJourneyState', () => {
       getAccounts: jest.fn().mockReturnValue(of([])),
       makeTransfer: jest.fn(),
     };
-    service = new MakeTransferJourneyState(
-      accountsMock as MakeTransferAccountHttpService
-    );
+    TestBed.configureTestingModule({
+      providers: [
+        MakeTransferJourneyState,
+        { provide: MakeTransferAccountHttpService, useValue: accountsMock },
+      ]
+    });
+    service = TestBed.inject(MakeTransferJourneyState);
   });
 
   it('should allow share an object through an observable', (done) => {

@@ -1,21 +1,26 @@
 import { LocaleSelectorComponent } from './locale-selector.component';
 import { localesCatalog } from './locales-catalog';
-import { LocalesService } from '@backbase/shared/util/app-core';
+import { LocalesService, LOCALES_LIST } from '@backbase/shared/util/app-core';
+import { TestBed } from '@angular/core/testing';
 
 describe('bb-locale-selector', () => {
   let component: LocaleSelectorComponent;
   const mockLocales = ['en', 'es'];
-  let mockLocalesService: Pick<LocalesService, 'setLocale' | 'currentLocale'> =
+  const mockLocalesService: Pick<LocalesService, 'setLocale' | 'currentLocale'> =
     {
       currentLocale: 'en',
       setLocale: jest.fn(),
     };
 
   function createComponent() {
-    component = new LocaleSelectorComponent(
-      mockLocalesService as LocalesService,
-      mockLocales
-    );
+    TestBed.configureTestingModule({
+      providers: [
+        LocaleSelectorComponent,
+        { provide: LocalesService, useValue: mockLocalesService },
+        { provide: LOCALES_LIST, useValue: mockLocales },
+      ],
+    });
+    component = TestBed.inject(LocaleSelectorComponent);
   }
 
   beforeEach(() => {
@@ -28,11 +33,21 @@ describe('bb-locale-selector', () => {
   });
 
   it(`should call ngOnInit and set current language to empty string`, () => {
-    mockLocalesService = {
+    // Reset the TestBed and create a new component with different mock
+    TestBed.resetTestingModule();
+    const mockLocalesServiceWithInvalidLocale = {
       currentLocale: 'Nan',
       setLocale: jest.fn(),
     };
-    createComponent();
+    
+    TestBed.configureTestingModule({
+      providers: [
+        LocaleSelectorComponent,
+        { provide: LocalesService, useValue: mockLocalesServiceWithInvalidLocale },
+        { provide: LOCALES_LIST, useValue: mockLocales },
+      ],
+    });
+    component = TestBed.inject(LocaleSelectorComponent);
     component.ngOnInit();
     expect(component.language).toEqual(undefined);
   });

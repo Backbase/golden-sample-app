@@ -1,5 +1,7 @@
-import { LocationStrategy } from '@angular/common';
+import { DOCUMENT, LocationStrategy } from '@angular/common';
 import { LocalesService } from './locales.service';
+import { TestBed } from '@angular/core/testing';
+import { LOCALE_ID } from '@angular/core';
 
 describe('LocalesService', () => {
   let service: LocalesService;
@@ -22,12 +24,15 @@ describe('LocalesService', () => {
         href: '/test-app/en/some/path',
       } as Location,
     };
-
-    service = new LocalesService(
-      locationStrategy,
-      mockLocale,
-      document as Document
-    );
+    TestBed.configureTestingModule({
+      providers: [
+        LocalesService,
+        { provide: LocationStrategy, useValue: locationStrategy },
+        { provide: LOCALE_ID, useValue: mockLocale },
+        { provide: DOCUMENT, useValue: document as Document },
+      ]
+    });
+    service = TestBed.inject(LocalesService);
   });
 
   describe('currentLocale', () => {

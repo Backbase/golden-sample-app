@@ -12,7 +12,7 @@ import { share } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AuthInterceptor } from './auth.interceptor';
 import * as utils from '../utils/auth.utils';
-
+import { TestBed } from '@angular/core/testing';
 export type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;
 export const mock = <T>(overrides?: WidePropertyTypes<T>) =>
   ({ ...overrides } as jest.Mocked<T>);
@@ -25,7 +25,13 @@ describe('Auth Interceptor', () => {
     const authUtils = {
       isInvalidToken401: jest.spyOn(utils, 'isInvalidToken401'),
     };
-    const interceptor = new AuthInterceptor(oAuthService);
+    TestBed.configureTestingModule({
+      providers: [
+        AuthInterceptor,
+        { provide: OAuthService, useValue: oAuthService },
+      ],
+    });
+    const interceptor = TestBed.inject(AuthInterceptor);
     const next = mock<HttpHandler>({
       handle: jest.fn(),
     });

@@ -1,5 +1,6 @@
 import { ConditionsService } from '@backbase/foundation-ang/entitlements';
 import { MakeTransferPermissionsService } from './make-transfer-permissions.service';
+import { TestBed } from '@angular/core/testing';
 
 describe('MakeTransferPermissionsService', () => {
   let service: MakeTransferPermissionsService;
@@ -8,9 +9,13 @@ describe('MakeTransferPermissionsService', () => {
       resolveEntitlements: jest.fn(() => Promise.resolve(true)),
     };
   beforeEach(() => {
-    service = new MakeTransferPermissionsService(
-      mockConditionsService as ConditionsService
-    );
+    TestBed.configureTestingModule({
+      providers: [
+        MakeTransferPermissionsService,
+        { provide: ConditionsService, useValue: mockConditionsService },
+      ]
+    });
+    service = TestBed.inject(MakeTransferPermissionsService);
   });
 
   it('should evaluate a permission in the entitlements resolver', (done) => {

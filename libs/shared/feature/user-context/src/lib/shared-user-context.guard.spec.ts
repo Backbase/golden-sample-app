@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { TestBed } from '@angular/core/testing';
 import { SharedUserContextGuard } from './shared-user-context.guard';
 import {
   ActivatedRouteSnapshot,
@@ -38,11 +39,14 @@ describe('UserContextGuard', () => {
     mockServiceAgreementHttpService.getServiceAgreementContext.mockReturnValue(
       validationRequestMarbles ? cold(validationRequestMarbles) : of(<any>{})
     );
-
-    return new SharedUserContextGuard(
-      mockRouter,
-      mockServiceAgreementHttpService
-    );
+    TestBed.configureTestingModule({
+      providers: [
+        SharedUserContextGuard,
+        { provide: Router, useValue: mockRouter },
+        { provide: ServiceAgreementsHttpService, useValue: mockServiceAgreementHttpService },
+      ],
+    });
+    return TestBed.inject(SharedUserContextGuard);
   }
 
   beforeEach(() => {
