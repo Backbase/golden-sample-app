@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { inject, Injectable } from '@angular/core';
 import { SharedUserContextService } from './shared-user-context.service';
-import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
+import { API_ROOT } from '@backbase/foundation-ang/core';
 
 /**
  * Adds the X-USER-CONTEXT header with the currently active service agreement ID
@@ -16,24 +16,17 @@ import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
  */
 @Injectable()
 export class SharedUserContextInterceptor implements HttpInterceptor {
-  private readonly apiRoot: string;
-  private readonly userContextService: SharedUserContextService = inject(
+  readonly #userContextService: SharedUserContextService = inject(
     SharedUserContextService
   );
-  private readonly environment: Environment = inject(ENVIRONMENT_CONFIG);
-
-  constructor() {
-    this.apiRoot = this.environment.apiRoot.endsWith('/')
-      ? this.environment.apiRoot
-      : `${this.environment.apiRoot}/`;
-  }
+  readonly #apiRoot: string = inject(API_ROOT);
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const context = this.userContextService.getServiceAgreementId();
-    if (context && req.url.startsWith(this.apiRoot)) {
+    const context = this.#userContextService.getServiceAgreementId();
+    if (context && req.url.startsWith(this.#apiRoot)) {
       const headers = req.headers.set('X-USER-CONTEXT', context);
       req = req.clone({ headers });
     }

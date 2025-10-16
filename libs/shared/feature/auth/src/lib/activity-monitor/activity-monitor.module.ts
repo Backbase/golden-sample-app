@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import {
   ActivityMonitorConfig,
-  ActivityMonitorService,
   ACTIVITY_MONITOR_CONFIG,
 } from '@backbase/identity-auth';
 import { ActivityMonitorComponent } from './container/activity-monitor.component';
@@ -9,7 +8,6 @@ import { ActivityMonitorComponent } from './container/activity-monitor.component
 @NgModule({
   imports: [ActivityMonitorComponent],
   providers: [
-    ActivityMonitorService,
     {
       provide: ACTIVITY_MONITOR_CONFIG,
       useValue: {

@@ -91,8 +91,8 @@ describe('AchPositivePayNewRuleComponent', () => {
       expect(spy).toReturn();
     });
     it('should subscribe to positive pay service success', () => {
-      (mockAchPositivePayService.submitAchRule = jest.fn(() => of('stream'))),
-        (mockFormBuilder = new FormBuilder());
+      mockAchPositivePayService.submitAchRule = jest.fn(() => of('stream'));
+      mockFormBuilder = new FormBuilder();
       createComponent();
       component.ngOnInit();
       component.loading = false;
