@@ -7,26 +7,22 @@
   "i18n": {
     "locales": {
       "nl-NL": "apps/golden-sample-app/src/locale/messages.nl-NL.xlf",
-      "en": "apps/golden-sample-app/src/locale/messages.xlf",
-      "nl": "apps/golden-sample-app/src/locale/messages.nl-NL.xlf"
+      "en": "apps/golden-sample-app/src/locale/messages.xlf"
     }
   },
   "tags": ["type:app"],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/golden-sample-app",
         "index": "apps/golden-sample-app/src/index.html",
-        "main": "apps/golden-sample-app/src/main.ts",
-        "polyfills": "apps/golden-sample-app/src/polyfills.ts",
+        "browser": "apps/golden-sample-app/src/main.ts",
+        "polyfills": ["zone.js", "@angular/localize/init"],
         "tsConfig": "apps/golden-sample-app/tsconfig.app.json",
-        "allowedCommonJsDependencies": [
-          "lodash",
-          "angular-oauth2-oidc",
-          "fast-deep-equal",
-          "moment"
-        ],
+        "inlineStyleLanguage": "scss",
+        "scripts": [],
         "assets": [
           "apps/golden-sample-app/src/favicon.ico",
           "apps/golden-sample-app/src/assets",
@@ -52,8 +48,7 @@
             "bundleName": "theme-premium",
             "inject": false
           }
-        ],
-        "scripts": []
+        ]
       },
       "configurations": {
         "production": {
@@ -87,30 +82,24 @@
           "outputHashing": "all",
           "localize": true
         },
-        "development": {
-          "buildOptimizer": false,
+        "sndbx": {
+          "outputHashing": "media",
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true
+          "sourceMap": true
         },
         "nl": {
-          "buildOptimizer": false,
+          "outputHashing": "media",
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
-          "namedChunks": true,
           "localize": ["nl-NL"]
         },
-        "mocks": {
-          "buildOptimizer": false,
+        "development": {
+          "outputHashing": "media",
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
-          "namedChunks": true,
           "fileReplacements": [
             {
               "replace": "apps/golden-sample-app/src/environments/environment.ts",
@@ -124,45 +113,37 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
-        "development": {
+        "sndbx": {
           "buildTarget": "golden-sample-app:build:development",
           "proxyConfig": "./apps/golden-sample-app/proxy.stg-ebp.conf.js"
-        },
-        "production": {
-          "buildTarget": "golden-sample-app:build:production"
         },
         "nl": {
           "buildTarget": "golden-sample-app:build:nl"
         },
-        "mocks": {
+        "development": {
           "proxyConfig": "./apps/golden-sample-app/proxy.mocks.conf.js",
-          "buildTarget": "golden-sample-app:build:mocks"
-        },
-        "ebp-sndbox": {
-          "buildTarget": "golden-sample-app:build:development",
-          "proxyConfig": "./apps/golden-sample-app/proxy.stg-ebp.conf.js"
+          "buildTarget": "golden-sample-app:build:development"
         }
       },
       "defaultConfiguration": "development",
       "continuous": true
     },
-    "e2e": {
-      "executor": "@dot-build/serve-and-run-angular:run",
+    "serve-static": {
+      "executor": "@nx/web:file-server",
       "options": {
-        "devServerTarget": "golden-sample-app:serve",
-        "command": "npx",
-        "args": [
-          "playwright",
-          "test",
-          "--project",
-          "web-chrome",
-          "--grep",
-          "@e2e"
-        ]
+        "port": 4200,
+        "staticFilePath": "dist/apps/golden-sample-app/browser",
+        "spa": true
       },
       "configurations": {
-        "production": {}
-      }
+        "sndbx": {
+          "buildTarget": "golden-sample-app:build:sndbx"
+        },
+        "development": {
+          "buildTarget": "golden-sample-app:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

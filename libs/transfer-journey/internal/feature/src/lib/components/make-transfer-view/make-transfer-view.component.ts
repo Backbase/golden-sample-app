@@ -41,7 +41,7 @@ export class MakeTransferViewComponent {
   private readonly permissions: MakeTransferPermissionsService = inject(
     MakeTransferPermissionsService
   );
-  private readonly config: MakeTransferJourneyConfiguration = inject(
+  readonly config: MakeTransferJourneyConfiguration = inject(
     MakeTransferJourneyConfiguration
   );
   private readonly tracker: Tracker | null = inject(Tracker, {

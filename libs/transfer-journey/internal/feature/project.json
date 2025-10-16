@@ -6,22 +6,6 @@
   "prefix": "bb",
   "tags": ["scope:transfer-journey", "type:feature"],
   "targets": {
-    "build": {
-      "executor": "@nx/angular:package",
-      "outputs": ["{workspaceRoot}/dist/internal/{projectRoot}"],
-      "options": {
-        "project": "libs/transfer-journey/internal/feature/ng-package.internal.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/transfer-journey/internal/feature/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "libs/transfer-journey/internal/feature/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": [
@@ -30,9 +14,6 @@
       "options": {
         "jestConfig": "libs/transfer-journey/internal/feature/jest.config.ts"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

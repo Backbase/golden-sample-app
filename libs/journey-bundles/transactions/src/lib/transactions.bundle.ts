@@ -6,7 +6,7 @@ import {
   TRANSACTIONS_JOURNEY_CONFIG,
 } from '@backbase/transactions-journey';
 import { JourneyCommunicationService } from '@backbase/shared/feature/communication';
-import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
+import { SHARED_JOURNEY_CONFIG } from '@backbase/shared/util/config';
 import { NgModule, Injectable, inject } from '@angular/core';
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -18,12 +18,13 @@ import {
 // Create a service that will be used to configure the journey
 @Injectable()
 export class TransactionsConfigService {
-  private readonly environment: Environment = inject(ENVIRONMENT_CONFIG);
+  readonly #slimMode =
+    inject(SHARED_JOURNEY_CONFIG, { optional: true })?.designSlimMode ?? false;
 
   getJourneyConfig() {
     return {
       pageSize: 10,
-      slimMode: this.environment.common?.designSlimMode || false,
+      slimMode: this.#slimMode,
     };
   }
 }

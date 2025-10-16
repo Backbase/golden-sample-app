@@ -1,19 +1,21 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2020",
+    "target": "es2022",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": ["es2022", "dom"],
     "skipLibCheck": true,
-    "types": ["node"],
-    "baseUrl": "./",
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
     "paths": {
       "@backbase/ach-positive-pay-journey": [
         "libs/ach-positive-pay-journey/src/index.ts"
@@ -33,7 +35,7 @@
       "@backbase/e2e-test-accelerators/*": [
         "libs/shared/util/e2e-test-accelerators/*/index.ts"
       ],
-      "@backbase/e2e-tests": ["libs/shared/e2e-tests/index.ts"],
+      "@backbase/e2e-tests": ["libs/shared/util/e2e-tests/src/index.ts"],
       "@backbase/internal-transactions-feature": [
         "libs/transactions-journey/feature/src/index.ts"
       ],
@@ -113,8 +115,7 @@
       ],
       "@backbase/transfer-journey/internal/ui": [
         "libs/transfer-journey/internal/ui/src/index.ts"
-      ],
-      "package-json": ["package.json"]
+      ]
     }
   }
 }

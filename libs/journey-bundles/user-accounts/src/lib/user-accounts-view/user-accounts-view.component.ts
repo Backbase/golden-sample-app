@@ -7,7 +7,7 @@ import {
   RemoveFromFavoritesTrackerEvent,
 } from '../model/tracker-events';
 @Component({
-  selector: 'app-user-accounts-view',
+  selector: 'bb-user-accounts-view',
   templateUrl: './user-accounts-view.component.html',
   standalone: false,
 })
