@@ -1,31 +1,54 @@
 import {
+  HttpEvent,
+  HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpHandler,
-  HttpEvent,
+  HTTP_INTERCEPTORS,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable, InjectionToken, Provider } from '@angular/core';
+import { API_ROOT } from '@backbase/foundation-ang/core';
 import { Observable } from 'rxjs';
-import { environment } from './environment';
+
+const API_SANDBOX_KEY = new InjectionToken<string>('API_SANDBOX_KEY');
 
 @Injectable()
-export class ApiSandboxInterceptor implements HttpInterceptor {
+class ApiSandboxInterceptor implements HttpInterceptor {
+  readonly #apiSandboxKey = inject(API_SANDBOX_KEY);
+  readonly #apiRoot = inject(API_ROOT);
+
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const apiSandboxKey = environment.apiSandboxKey;
-
-    if (!req.url.includes(environment.apiRoot) || !apiSandboxKey) {
-      return next.handle(req);
+    if (req.url.startsWith(this.#apiRoot)) {
+      req = req.clone({
+        setHeaders: {
+          'X-SDBXAZ-API-KEY': this.#apiSandboxKey,
+        },
+      });
     }
 
-    const newReq = req.clone({
-      setHeaders: {
-        'X-SDBXAZ-API-KEY': apiSandboxKey,
-      },
-    });
-
-    return next.handle(newReq);
+    return next.handle(req);
   }
+}
+
+/**
+ * Provides an interceptor that adds the given API sandbox key to the request headers.
+ * @param apiSandboxKey The API sandbox key to add to the request headers.
+ * @returns A provider array that sets up the interceptor.
+ */
+export function provideApiSandboxInterceptor(
+  apiSandboxKey: string
+): Provider[] {
+  return [
+    {
+      provide: API_SANDBOX_KEY,
+      useValue: apiSandboxKey,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiSandboxInterceptor,
+      multi: true,
+    },
+  ];
 }

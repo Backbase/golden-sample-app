@@ -1,6 +1,5 @@
-module.exports = [
-  {
-    context: '/api',
+module.exports = {
+  '/api': {
     target: 'https://app.stg.sdbxaz.azure.backbaseservices.com/',
     secure: false,
     changeOrigin: true,
@@ -9,8 +8,7 @@ module.exports = [
         'apisandbox-d0d8278f-5fc5-46fb-5fc5-d0b6e1cc8059';
     },
   },
-  {
-    context: '/auth',
+  '/auth': {
     target: 'https://identity.stg.sdbxaz.azure.backbaseservices.com',
     secure: false,
     changeOrigin: true,
@@ -19,5 +17,5 @@ module.exports = [
         'apisandbox-d0d8278f-5fc5-46fb-5fc5-d0b6e1cc8059';
     },
   },
-];
+};
 //https://identity.stg.sdbxaz.azure.backbaseservices.com
