@@ -12,6 +12,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { ReplaySubject } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { ActivityMonitorComponent } from './activity-monitor.component';
+import { TestBed } from '@angular/core/testing';
 
 type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;
 const mock = <T>(overrides?: WidePropertyTypes<T>) =>
@@ -34,11 +35,15 @@ describe('ActivityMonitorComponent', () => {
       isAuthenticated$,
       initLoginFlow: jest.fn(),
     });
-    const component = new ActivityMonitorComponent(
-      activityMonitorService,
-      oAuthService,
-      authService
-    );
+    TestBed.configureTestingModule({
+      providers: [
+        ActivityMonitorComponent,
+        { provide: ActivityMonitorService, useValue: activityMonitorService },
+        { provide: OAuthService, useValue: oAuthService },
+        { provide: AuthService, useValue: authService },
+      ],
+    });
+    const component = TestBed.inject(ActivityMonitorComponent);
     const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
 
     return {

@@ -4,7 +4,7 @@ import { AuthService } from '@backbase/identity-auth';
 import { ReplaySubject } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AuthGuard } from './auth.guard';
-import { Environment } from '@backbase/shared/util/config';
+import { TestBed } from '@angular/core/testing';
 
 export type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;
 export const mock = <T>(overrides?: WidePropertyTypes<T>) =>
@@ -17,13 +17,10 @@ describe('AuthGuard', () => {
       isAuthenticated$: isAuthenticated$$.asObservable(),
       initLoginFlow: jest.fn(),
     });
-    const environment: Environment = {
-      production: false,
-      apiRoot: '',
-      locales: [],
-      common: { designSlimMode: false },
-    };
-    const guard = new AuthGuard(authService, environment);
+    TestBed.configureTestingModule({
+      providers: [AuthGuard, { provide: AuthService, useValue: authService }],
+    });
+    const guard = TestBed.inject(AuthGuard);
     const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
 
     return { guard, authService, isAuthenticated$$, scheduler };

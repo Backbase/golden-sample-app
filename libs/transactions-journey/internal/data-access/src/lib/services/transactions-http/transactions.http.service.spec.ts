@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { ArrangementsService } from '../arrangements/arrangements.service';
 import { TransactionsJourneyConfiguration } from '../transactions-journey-config/transactions-journey-config.service';
 import { TransactionsHttpService } from './transactions.http.service';
+import { TestBed } from '@angular/core/testing';
 
 describe('TransactionsHttpService', () => {
   let service: TransactionsHttpService;
@@ -24,12 +25,21 @@ describe('TransactionsHttpService', () => {
   } as ArrangementsService;
 
   beforeEach(() => {
-    service = new TransactionsHttpService(
-      mockConfigurationService,
-      mockTransactionsClientHttpService,
-      mockArrangementsService
-    );
-
+    TestBed.configureTestingModule({
+      providers: [
+        TransactionsHttpService,
+        {
+          provide: TransactionsJourneyConfiguration,
+          useValue: mockConfigurationService,
+        },
+        {
+          provide: TransactionClientHttpService,
+          useValue: mockTransactionsClientHttpService,
+        },
+        { provide: ArrangementsService, useValue: mockArrangementsService },
+      ],
+    });
+    service = TestBed.inject(TransactionsHttpService);
     jest.spyOn(mockTransactionsClientHttpService, 'getTransactionsWithPost');
   });
 
