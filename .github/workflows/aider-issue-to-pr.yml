@@ -219,7 +219,7 @@ jobs:
 
             console.log(`Created PR #${newPR.data.number}: ${newPR.data.html_url}`);
       - name: Upload aider chat history
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: aider-chat-output
           path: ".aider.chat.history.md"
