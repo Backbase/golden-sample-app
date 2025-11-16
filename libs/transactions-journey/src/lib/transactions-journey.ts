@@ -1,8 +1,6 @@
-import { InjectionToken, Provider, Type } from '@angular/core';
+import { InjectionToken, Type } from '@angular/core';
 import { journeyFactory } from '@backbase/foundation-ang/core';
 import { Routes } from '@angular/router';
-import { TransactionsViewComponent } from '@backbase/transactions-journey/internal/feature-transaction-view';
-import { TransactionDetailsComponent } from '@backbase/transactions-journey/internal/feature-transaction-details-view';
 import { TransactionsRouteTitleResolverService } from '@backbase/transactions-journey/internal/data-access';
 import { TRANSLATIONS } from '@backbase/transactions-journey/internal/shared-data';
 import {
@@ -12,7 +10,7 @@ import {
 import {
   TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
-} from '@backbase/transactions-journey/internal/feature-transaction-view';
+} from './transactions-journey-shell.config';
 
 // Configuration Interface
 export interface TransactionsJourneyConfig {
@@ -40,7 +38,10 @@ export const TRANSACTIONS_JOURNEY_CONFIG =
 const defaultRoutes: Routes = [
   {
     path: '',
-    component: TransactionsViewComponent,
+    loadComponent: () =>
+      import(
+        '@backbase/transactions-journey/internal/feature-transaction-view'
+      ).then((m) => m.TransactionsViewComponent),
     data: {
       title: TRANSLATIONS.transactionsTitle,
     },
@@ -50,7 +51,10 @@ const defaultRoutes: Routes = [
   },
   {
     path: ':id',
-    component: TransactionDetailsComponent,
+    loadComponent: () =>
+      import(
+        '@backbase/transactions-journey/internal/feature-transaction-details-view'
+      ).then((m) => m.TransactionDetailsComponent),
     data: {
       title: TRANSLATIONS.transactionDetailsTitle,
     },

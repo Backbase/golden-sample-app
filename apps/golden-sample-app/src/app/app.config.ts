@@ -26,6 +26,7 @@ import { environment } from '../environments/environment';
 import { APP_ROUTES } from './app-routes';
 import { AppErrorHandler } from './app.error-handler';
 import { OAuthStorage } from 'angular-oauth2-oidc';
+import { ACTIVITY_MONITOR_PROVIDERS } from '@backbase/shared/feature/auth';
 
 const sharedJourneyConfig: SharedJourneyConfiguration = {
   designSlimMode: false,
@@ -70,6 +71,7 @@ export const appConfig: ApplicationConfig = {
     // Other providers here are common to all environments
     { provide: OAuthStorage, useValue: localStorage },
     provideLocales(['en-US', 'nl-NL']),
+    ...ACTIVITY_MONITOR_PROVIDERS,
     provideRouter(APP_ROUTES, withComponentInputBinding()),
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),

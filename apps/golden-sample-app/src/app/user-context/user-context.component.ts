@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import {
   SharedUserContextGuard,
   SharedUserContextService,
-  SharedUserContextModule,
+  SHARED_USER_CONTEXT_PROVIDERS,
 } from '@backbase/shared/feature/user-context';
 import { SelectContextModule } from '@backbase/select-context';
 import { OAuthService } from 'angular-oauth2-oidc';
@@ -12,7 +12,8 @@ import { OAuthService } from 'angular-oauth2-oidc';
 @Component({
   selector: 'app-user-context',
   templateUrl: './user-context.component.html',
-  imports: [CommonModule, SharedUserContextModule, SelectContextModule],
+  imports: [CommonModule, SelectContextModule],
+  providers: [...SHARED_USER_CONTEXT_PROVIDERS],
 })
 export class UserContextComponent {
   private readonly userContextService: SharedUserContextService = inject(

@@ -1,11 +1,6 @@
 import { Provider } from '@angular/core';
 import { provideRoutes, Route } from '@angular/router';
 import { MakeTransferJourneyStoreGuard } from './make-transfer-journey-store-guard';
-import {
-  MakeTransferSuccessViewComponent,
-  MakeTransferSummaryViewComponent,
-  MakeTransferViewComponent,
-} from '@backbase/transfer-journey/internal/feature';
 import { MakeTransferJourneyConfiguration } from '@backbase/transfer-journey/internal/data-access';
 import {
   MakeTransferPermissionsService,

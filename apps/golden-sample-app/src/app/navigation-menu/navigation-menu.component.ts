@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EntitlementsModule } from '@backbase/foundation-ang/entitlements';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicNavigationMenuModule } from '@backbase/shared/feature/navigation-menu';
+import { DynamicNavigationMenuComponent } from '@backbase/shared/feature/navigation-menu';
 import {
   NAVIGATION_MENU_CONFIG,
   NavigationMenuItem,
@@ -24,7 +24,7 @@ function navigationTreeConfig(): NavigationMenuItem[] {
     IconModule,
     NgbDropdownModule,
     EntitlementsModule,
-    DynamicNavigationMenuModule,
+    DynamicNavigationMenuComponent,
   ],
   providers: [
     {

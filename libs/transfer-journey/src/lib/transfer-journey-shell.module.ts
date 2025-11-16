@@ -7,11 +7,6 @@ import {
 } from '@backbase/transfer-journey/internal/ui';
 import { MakeTransferJourneyStoreGuard } from './make-transfer-journey-store-guard';
 import { TransferJourneyComponent } from './transfer-journey.component';
-import {
-  MakeTransferSuccessViewComponent,
-  MakeTransferSummaryViewComponent,
-  MakeTransferViewComponent,
-} from '@backbase/transfer-journey/internal/feature';
 import { MakeTransferJourneyConfiguration } from '@backbase/transfer-journey/internal/data-access';
 import {
   MakeTransferPermissionsService,
@@ -33,7 +28,10 @@ const defaultRoute: Route = {
     },
     {
       path: 'make-transfer',
-      component: MakeTransferViewComponent,
+      loadComponent: () =>
+        import('@backbase/transfer-journey/internal/feature').then(
+          (m) => m.MakeTransferViewComponent
+        ),
       data: {
         title: TRANSLATIONS.makeTransferTitle,
       },
@@ -43,7 +41,10 @@ const defaultRoute: Route = {
     },
     {
       path: 'make-transfer-summary',
-      component: MakeTransferSummaryViewComponent,
+      loadComponent: () =>
+        import('@backbase/transfer-journey/internal/feature').then(
+          (m) => m.MakeTransferSummaryViewComponent
+        ),
       data: {
         title: TRANSLATIONS.makeTransferTitle,
       },
@@ -54,7 +55,10 @@ const defaultRoute: Route = {
     },
     {
       path: 'make-transfer-success',
-      component: MakeTransferSuccessViewComponent,
+      loadComponent: () =>
+        import('@backbase/transfer-journey/internal/feature').then(
+          (m) => m.MakeTransferSuccessViewComponent
+        ),
       data: {
         title: TRANSLATIONS.makeTransferTitle,
       },
@@ -77,9 +81,6 @@ const defaultRoute: Route = {
     }),
     MakeTransferFormComponent,
     MakeTransferSummaryComponent,
-    MakeTransferSummaryViewComponent,
-    MakeTransferSuccessViewComponent,
-    MakeTransferViewComponent,
   ],
   providers: [
     MakeTransferJourneyStoreGuard,

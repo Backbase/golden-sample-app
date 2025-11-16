@@ -17,17 +17,15 @@ import {
   TransactionsJourneyConfiguration,
   TransactionsRouteTitleResolverService,
 } from '@backbase/transactions-journey/internal/data-access';
-import { TransactionDetailsComponent } from '@backbase/transactions-journey/internal/feature-transaction-details-view';
-import {
-  TRANSACTION_EXTENSIONS_CONFIG,
-  TransactionsJourneyExtensionsConfig,
-  TransactionsViewComponent,
-  TransactionsViewModule,
-} from '@backbase/transactions-journey/internal/feature-transaction-view';
+// Removed static import of lazy-loaded feature module to fix lint error
+import { defaultTransactionsRoutes } from './transactions-journey-shell.config';
 const defaultRoutes: Routes = [
   {
     path: '',
-    component: TransactionsViewComponent,
+    loadComponent: () =>
+      import(
+        '@backbase/transactions-journey/internal/feature-transaction-view'
+      ).then((m) => m.TransactionsViewComponent),
     data: {
       title: TRANSLATIONS.transactionsTitle,
     },
@@ -37,7 +35,10 @@ const defaultRoutes: Routes = [
   },
   {
     path: ':id',
-    component: TransactionDetailsComponent,
+    loadComponent: () =>
+      import(
+        '@backbase/transactions-journey/internal/feature-transaction-details-view'
+      ).then((m) => m.TransactionDetailsComponent),
     data: {
       title: TRANSLATIONS.transactionDetailsTitle,
     },
@@ -49,7 +50,7 @@ const defaultRoutes: Routes = [
 
 interface TransactionsJourneyModuleConfig {
   routes?: Routes;
-  extensionSlots?: TransactionsJourneyExtensionsConfig;
+  extensionSlots?: Record<string, unknown>;
 }
 
 @NgModule({
@@ -63,8 +64,6 @@ interface TransactionsJourneyModuleConfig {
     IconModule,
     BadgeModule,
     TextFilterComponent,
-    TransactionDetailsComponent,
-    TransactionsViewModule,
     TrackerModule.forJourney({
       journeyName: 'transactions',
     }),
@@ -84,7 +83,7 @@ export class TransactionsJourneyModule {
       providers: [
         provideRoutes(routes || defaultRoutes),
         {
-          provide: TRANSACTION_EXTENSIONS_CONFIG,
+          provide: 'TRANSACTION_EXTENSIONS_CONFIG',
           useValue: extensionSlots || {},
         },
       ],

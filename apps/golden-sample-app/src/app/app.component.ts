@@ -5,7 +5,10 @@ import {
   LogoutTrackerEvent,
   Tracker,
 } from '@backbase/foundation-ang/observability';
-import { ActivityMonitorModule } from '@backbase/shared/feature/auth';
+import {
+  ActivityMonitorComponent,
+  ACTIVITY_MONITOR_PROVIDERS,
+} from '@backbase/shared/feature/auth';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { LayoutService } from '@backbase/ui-ang/layout';
 import { LogoModule } from '@backbase/ui-ang/logo';
@@ -19,7 +22,7 @@ import { ThemeSwitcherComponent } from './theme-switcher/theme-switcher.componen
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   imports: [
-    ActivityMonitorModule,
+    ActivityMonitorComponent,
     CommonModule,
     LogoModule,
     NavigationMenuComponent,

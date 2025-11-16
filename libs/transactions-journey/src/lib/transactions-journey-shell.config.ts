@@ -1,14 +1,20 @@
-import { Provider } from '@angular/core';
+import { InjectionToken, Provider } from '@angular/core';
 import { provideRoutes, Routes } from '@angular/router';
 import { TRANSLATIONS } from '@backbase/transactions-journey/internal/shared-data';
 import {
   TransactionsJourneyConfiguration,
   TransactionsRouteTitleResolverService,
 } from '@backbase/transactions-journey/internal/data-access';
-import {
-  TRANSACTION_EXTENSIONS_CONFIG,
-  TransactionsJourneyExtensionsConfig,
-} from '@backbase/transactions-journey/internal/feature-transaction-view';
+
+export type TransactionsJourneyExtensionsConfig = Record<string, unknown>;
+export const TRANSACTION_EXTENSIONS_CONFIG =
+  new InjectionToken<TransactionsJourneyExtensionsConfig>(
+    'TRANSACTION_EXTENSIONS_CONFIG',
+    {
+      providedIn: 'root',
+      factory: () => ({}),
+    }
+  );
 
 export const defaultTransactionsRoutes: Routes = [
   {
