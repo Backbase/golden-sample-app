@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import {
   TransactionsJourneyConfiguration,
   TransactionsJourneyModule,
@@ -6,7 +6,7 @@ import {
 } from '@backbase/transactions-journey';
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
 import { CommonModule } from '@angular/common';
-import { Environment, ENVIRONMENT_CONFIG } from '@backbase/shared/util/config';
+import { SHARED_JOURNEY_CONFIG } from '@backbase/shared/util/config';
 import { JourneyCommunicationService } from '@backbase/shared/feature/communication';
 
 @NgModule({
@@ -18,18 +18,17 @@ import { JourneyCommunicationService } from '@backbase/shared/feature/communicat
           TransactionItemAdditionalDetailsComponent,
       },
     }),
+    TransactionItemAdditionalDetailsComponent,
   ],
-  declarations: [TransactionItemAdditionalDetailsComponent],
   providers: [
     {
       provide: TransactionsJourneyConfiguration,
-      useFactory: (
-        environment: Environment
-      ): TransactionsJourneyConfiguration => ({
+      useFactory: (): TransactionsJourneyConfiguration => ({
         pageSize: 10,
-        slimMode: environment.common.designSlimMode,
+        slimMode:
+          inject(SHARED_JOURNEY_CONFIG, { optional: true })?.designSlimMode ??
+          false,
       }),
-      deps: [ENVIRONMENT_CONFIG],
     },
     {
       provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
