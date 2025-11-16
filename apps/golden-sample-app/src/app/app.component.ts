@@ -11,8 +11,8 @@ import { LayoutService } from '@backbase/ui-ang/layout';
 import { LogoModule } from '@backbase/ui-ang/logo';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { LocaleSelectorComponent } from './locale-selector/locale-selector.component';
-import { NavigationMenuModule } from './navigation-menu/navigation-menu.module';
-import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
+import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component';
+import { ThemeSwitcherComponent } from './theme-switcher/theme-switcher.component';
 
 @Component({
   selector: 'app-root',
@@ -22,8 +22,8 @@ import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.m
     ActivityMonitorModule,
     CommonModule,
     LogoModule,
-    NavigationMenuModule,
-    ThemeSwitcherModule,
+    NavigationMenuComponent,
+    ThemeSwitcherComponent,
     LocaleSelectorComponent,
     IconModule,
     RouterOutlet,

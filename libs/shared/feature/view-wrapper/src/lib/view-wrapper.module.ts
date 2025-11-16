@@ -11,8 +11,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ViewWrapperComponent],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ViewWrapperComponent],
   providers: [provideRouter(routes)],
   exports: [RouterModule],
 })

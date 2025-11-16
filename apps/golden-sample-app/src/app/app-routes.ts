@@ -14,16 +14,18 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: 'select-context',
-    loadChildren: () =>
-      import('./user-context/user-context.module').then(
-        (m) => m.UserContextModule
+    loadComponent: () =>
+      import('./user-context/user-context.component').then(
+        (m) => m.UserContextComponent
       ),
     canActivate: [AuthGuard],
   },
   {
     path: 'error',
-    loadChildren: () =>
-      import('./error-page/error-page.module').then((m) => m.ErrorPageModule),
+    loadComponent: () =>
+      import('./error-page/error-page.component').then(
+        (m) => m.ErrorPageComponent
+      ),
   },
   TRANSFER_ROUTE,
   ACH_POSITIVE_PAY_ROUTE,
@@ -33,7 +35,9 @@ export const APP_ROUTES: Routes = [
   {
     path: '**',
     pathMatch: 'full',
-    loadChildren: () =>
-      import('./error-page/error-page.module').then((m) => m.ErrorPageModule),
+    loadComponent: () =>
+      import('./error-page/error-page.component').then(
+        (m) => m.ErrorPageComponent
+      ),
   },
 ];
