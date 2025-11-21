@@ -33,20 +33,3 @@ runs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: npm ci --ignore-scripts
       shell: bash
-      env:
-        NODE_AUTH_TOKEN: ${{ inputs.npm-auth-token }}
-
-    # Upload the NPM logs as an artifact for easier troubleshooting of install failures or warnings.
-    - name: Upload NPM Log
-      uses: actions/upload-artifact@v4
-      with:
-        name: npm-log
-        path: /home/runner/.npm/_logs/
-
-    - name: Display NPM Log
-      run: |
-        # Find the most recent log file
-        LOG_FILE=$(ls -t /home/runner/.npm/_logs/ | head -n 1)
-        # Display the contents of the log file
-        cat /home/runner/.npm/_logs/$LOG_FILE
-      shell: bash
