@@ -42,3 +42,11 @@ runs:
       with:
         name: npm-log
         path: /home/runner/.npm/_logs/
+
+    - name: Display NPM Log
+      run: |
+        # Find the most recent log file
+        LOG_FILE=$(ls -t /home/runner/.npm/_logs/ | head -n 1)
+        # Display the contents of the log file
+        cat /home/runner/.npm/_logs/$LOG_FILE
+      shell: bash
