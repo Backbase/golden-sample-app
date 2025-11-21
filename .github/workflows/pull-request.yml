@@ -45,8 +45,10 @@ jobs:
       - name: Set up secret file
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
         run: |
           echo $NPM_TOKEN >> secrets.txt
+          echo $NPM_BB_TOKEN >> secrets.txt
 
         - name: Run tmate
           uses: mxschmitt/action-tmate@v2
