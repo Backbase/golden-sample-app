@@ -19,9 +19,6 @@ runs:
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
-      env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
       with:
         node-version: 20
         cache: 'npm'
