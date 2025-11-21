@@ -42,43 +42,16 @@ jobs:
         with:
           main-branch-name: ${{ github.base_ref }}
 
-      - name: Set up secret file
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
-        run: |
-          echo $NPM_TOKEN >> secrets.txt
-          echo $NPM_BB_TOKEN >> secrets.txt
-
-        - name: Run tmate
-          uses: mxschmitt/action-tmate@v2
-
       - name: Setup Node.js
         uses: ./.github/actions/node-step
         with:
           npm-auth-token: ${{ secrets.NPM_TOKEN }}
-        continue-on-error: true
 
       - name: Upload NPM Log
         uses: actions/upload-artifact@v4
         with:
           name: npm-log
           path: /home/runner/.npm/_logs/
-      
-      # Only display the NPM log if the node-step action fails.
-      - name: Display NPM Log
-        if: failure() 
-        run: |
-          # Find the most recent log file
-          LOG_FILE=$(ls -t /home/runner/.npm/_logs/ | head -n 1)
-          # Display the contents of the log file
-          cat /home/runner/.npm/_logs/$LOG_FILE
-        shell: bash
-      
-      # Fail the workflow if any of the previous steps fail.
-      - name: Fail Action
-        if: failure()
-        run: exit 1
 
       - name: Cache npm dependencies
         uses: actions/cache@v4
@@ -114,10 +87,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Continue even if the action fails so we can display the NPM log.
       - name: Setup Node.js
         uses: ./.github/actions/node-step
-        continue-on-error: true 
+        with:
+          npm-auth-token: ${{ secrets.NPM_TOKEN }}
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4

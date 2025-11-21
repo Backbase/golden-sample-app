@@ -16,12 +16,23 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Set up secret file
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
+      run: |
+        echo $NPM_TOKEN >> secrets.txt
+        echo $NPM_BB_TOKEN >> secrets.txt
+
+    - name: Run tmate
+      uses: mxschmitt/action-tmate@v2
+
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: 20
         cache: 'npm'
-        registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
+        registry-url: 'https://repo.backbase.com/api/npm/npm-backbase/'
         scope: '@backbase'
         cache-dependency-path: '**/package-lock.json'
 
@@ -33,3 +44,5 @@ runs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: npm ci --ignore-scripts
       shell: bash
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.npm-auth-token }}
