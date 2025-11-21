@@ -96,12 +96,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Continue even if the action fails so we can display the NPM log
+      # Continue even if the action fails so we can display the NPM log.
       - name: Setup Node.js
         uses: ./.github/actions/node-step
         continue-on-error: true 
 
-      # Only display the NPM log if the node-step action fails
+      # Only display the NPM log if the node-step action fails.
       - name: Display NPM Log
         if: failure() 
         run: |
@@ -111,7 +111,7 @@ jobs:
           cat /home/runner/.npm/_logs/$LOG_FILE
         shell: bash
       
-      # Fail the workflow if any of the previous steps fail
+      # Fail the workflow if any of the previous steps fail.
       - name: Fail Action
         if: failure()
         run: exit 1
