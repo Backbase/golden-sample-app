@@ -35,3 +35,10 @@ runs:
       shell: bash
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm-auth-token }}
+
+    # Upload the NPM logs as an artifact for easier troubleshooting of install failures or warnings.
+    - name: Upload NPM Log
+      uses: actions/upload-artifact@v4
+      with:
+        name: npm-log
+        path: /home/runner/.npm/_logs/
