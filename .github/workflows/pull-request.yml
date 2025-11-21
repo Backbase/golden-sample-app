@@ -86,6 +86,14 @@ jobs:
         with:
           npm-auth-token: ${{ secrets.NPM_TOKEN }}
 
+      - name: Display NPM Log
+        run: |
+          # Find the most recent log file
+          LOG_FILE=$(ls -t /home/runner/.npm/_logs/ | head -n 1)
+          # Display the contents of the log file
+          cat /home/runner/.npm/_logs/$LOG_FILE
+        shell: bash
+
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         with:
