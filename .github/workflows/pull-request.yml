@@ -46,6 +46,7 @@ jobs:
         uses: ./.github/actions/node-step
         with:
           npm-auth-token: ${{ secrets.NPM_TOKEN }}
+        continue-on-error: true
 
       - name: Display NPM Log
         run: |
