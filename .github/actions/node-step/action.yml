@@ -50,3 +50,4 @@ runs:
     - name: Fail Action
       if: failure()
       run: exit 1
+      shell: bash
