@@ -42,21 +42,6 @@ jobs:
         with:
           main-branch-name: ${{ github.base_ref }}
 
-      # - name: Set up secret file
-      #   env:
-      #     NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
-      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      #   run: |
-      #     echo $NPM_BB_TOKEN >> secrets.txt
-      #     echo $NPM_TOKEN >> secrets.txt
-
-      # - name: Upload ex
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: sec
-      #     path: secrets.txt
-      
-
       - name: Setup Node.js
         uses: ./.github/actions/node-step
         env:
@@ -65,29 +50,6 @@ jobs:
         with:
           npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
         continue-on-error: true 
-      
-      - name: Copy and rename file
-        run: |
-          mkdir -p ./to
-          cp ./.npmrc ./to/test-npmrc.txt
-            
-      - name: Upload rc
-        uses: actions/upload-artifact@v4
-        with:
-          name: rc
-          path: ./to/test-npmrc.txt
-
-      - name: Upload NPM Log
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: npm-log
-          path: /home/runner/.npm/_logs/
-
-      # Fail the workflow if any of the previous steps fail.
-      - name: Fail Action
-        if: failure()
-        run: exit 1
 
       - name: Cache npm dependencies
         uses: actions/cache@v4

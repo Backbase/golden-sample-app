@@ -36,3 +36,17 @@ runs:
       shell: bash
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm-auth-token }}
+      continue-on-error: true 
+  
+
+    - name: Upload NPM Log
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: npm-log
+        path: /home/runner/.npm/_logs/
+
+    # Fail the workflow if any of the previous steps fail.
+    - name: Fail Action
+      if: failure()
+      run: exit 1
