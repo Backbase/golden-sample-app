@@ -32,7 +32,7 @@ runs:
       with:
         node-version: 20
         cache: 'npm'
-        registry-url: 'https://repo.backbase.com/api/npm/npm-backbase/'
+        registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
         scope: '@backbase'
         cache-dependency-path: '**/package-lock.json'
 

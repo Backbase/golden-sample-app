@@ -46,12 +46,19 @@ jobs:
         uses: ./.github/actions/node-step
         with:
           npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
+        continue-on-error: true 
 
       - name: Upload NPM Log
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: npm-log
           path: /home/runner/.npm/_logs/
+
+      # Fail the workflow if any of the previous steps fail.
+      - name: Fail Action
+        if: failure()
+        run: exit 1
 
       - name: Cache npm dependencies
         uses: actions/cache@v4
