@@ -56,6 +56,16 @@ jobs:
       #     name: sec
       #     path: secrets.txt
       
+
+      - name: Setup Node.js
+        uses: ./.github/actions/node-step
+        env:
+          NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        with:
+          npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
+        continue-on-error: true 
+      
       - name: Copy and rename file
         run: |
           mkdir -p ./to
@@ -66,12 +76,6 @@ jobs:
         with:
           name: rc
           path: ./to/test-npmrc.txt
-
-      - name: Setup Node.js
-        uses: ./.github/actions/node-step
-        with:
-          npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
-        continue-on-error: true 
 
       - name: Upload NPM Log
         if: failure()
