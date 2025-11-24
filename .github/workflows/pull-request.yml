@@ -75,6 +75,7 @@ jobs:
   playwright:
     name: "Playwright Tests"
     runs-on: ubuntu-latest
+    continue-on-error: true
     needs: get-playwright-version
     container:
       image: mcr.microsoft.com/playwright:v${{ needs.get-playwright-version.outputs.version }}
@@ -82,7 +83,7 @@ jobs:
       HOME: /root
     strategy:
       matrix:
-        test: [] #['sndbx-ci', 'mocks', 'responsive', 'a11y']
+        test: ['sndbx-ci', 'mocks', 'responsive', 'a11y']
     steps:
       - uses: actions/checkout@v4
 
