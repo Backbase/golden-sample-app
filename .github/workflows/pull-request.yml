@@ -86,8 +86,11 @@ jobs:
 
       - name: Setup Node.js
         uses: ./.github/actions/node-step
+        env:
+          NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
-          npm-auth-token: ${{ secrets.NPM_TOKEN }}
+          npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4
