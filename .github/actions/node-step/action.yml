@@ -36,6 +36,7 @@ runs:
       shell: bash
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm-auth-token }}
+        NODE_EMAIL: ${{ inputs.npm-email }}
       continue-on-error: true 
   
 

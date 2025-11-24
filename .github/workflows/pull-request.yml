@@ -47,8 +47,10 @@ jobs:
         env:
           NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
         with:
           npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
+          npm-email: ${{ secrets.NPM_EMAIL }}
 
       - name: Cache npm dependencies
         uses: actions/cache@v4
@@ -89,8 +91,10 @@ jobs:
         env:
           NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
         with:
           npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
+          npm-email: ${{ secrets.NPM_EMAIL }}
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4
