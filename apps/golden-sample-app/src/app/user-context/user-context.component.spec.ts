@@ -2,6 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
 import { UserContextComponent } from './user-context.component';
 import { Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
@@ -36,6 +37,7 @@ describe('UserContextComponent', () => {
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
+        provideRouter([]),
         { provide: SharedUserContextService, useValue: mockUserContextService },
         { provide: SharedUserContextGuard, useValue: mockUserContextGuard },
         { provide: OAuthService, useValue: mockOAuthService },
