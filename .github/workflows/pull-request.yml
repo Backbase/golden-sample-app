@@ -110,6 +110,12 @@ jobs:
       - name: Run Playwright e2e tests ${{ matrix.test }}
         run: npm run e2e-test-${{ matrix.test }}
 
+      - name: Install Java for Allure
+        run: |
+          apt-get update
+          apt-get install -y default-jre
+        continue-on-error: true
+
       - name: Generate Allure Report
         run: npm run report-generate
         continue-on-error: true 
@@ -127,7 +133,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: allure-report-${{ matrix.test }}
-          path: /root/.allure/logs/
+          path: allure-report/
           retention-days: ${{ env.RETENTION_DAYS }}
 
       - name: Upload Accessibility Reports
