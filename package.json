@@ -32,9 +32,9 @@
     "format:check": "prettier --list-different \"{apps,libs}/**/*.{ts,md}\" \"!{apps,libs}/**/coverage\"",
     "docs:build": "markdown-include .markdown.json",
     "prepare": "npx nx g extract-e2e-tests",
-    "report-generate": "npx allure generate --single-file -o allure-report dist/.playwright/apps/golden-sample-app-e2e/reports/allure",
-    "report": "npm run report-generate && npx allure open allure-report",
-    "report-allure-old": "npx allure generate --single-file -o allure-report dist/.playwright/apps/golden-sample-app-e2e/reports/allure && npx allure open allure-report",
+    "report-generate": "npx allure-commandline generate dist/.playwright/apps/golden-sample-app-e2e/reports/allure -o allure-report --clean",
+    "report": "npm run report-generate && npx allure-commandline open allure-report",
+    "report-allure-old": "npx allure-commandline generate dist/.playwright/apps/golden-sample-app-e2e/reports/allure -o allure-report --clean && npx allure-commandline open allure-report",
     "report:playwright": "npx playwright show-report dist/.playwright/apps/golden-sample-app-e2e/reports/html",
     "kill-mocks": "lsof -ti:9999 | xargs kill -9",
     "kill-app": "lsof -ti:4200 | xargs kill -9"
@@ -89,7 +89,7 @@
     "zone.js": "0.15.0"
   },
   "devDependencies": {
-    "allure": "3.0.0-beta.23",
+    "allure-commandline": "^2.32.0",
     "@angular-devkit/build-angular": "~19.2.0",
     "@angular-devkit/core": "~19.2.0",
     "@angular-devkit/schematics": "~19.2.0",
