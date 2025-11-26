@@ -32,9 +32,9 @@
     "format:check": "prettier --list-different \"{apps,libs}/**/*.{ts,md}\" \"!{apps,libs}/**/coverage\"",
     "docs:build": "markdown-include .markdown.json",
     "prepare": "npx nx g extract-e2e-tests",
-    "report-generate": "npx allure generate -o allure-report dist/.playwright/apps/golden-sample-app-e2e/reports/allure",
+    "report-generate": "npx allure generate --single-file -o allure-report dist/.playwright/apps/golden-sample-app-e2e/reports/allure",
     "report": "npm run report-generate && npx allure open allure-report",
-    "report-allure-old": "npx allure generate -o allure-report dist/.playwright/apps/golden-sample-app-e2e/reports/allure && npx allure open allure-report",
+    "report-allure-old": "npx allure generate --single-file -o allure-report dist/.playwright/apps/golden-sample-app-e2e/reports/allure && npx allure open allure-report",
     "report:playwright": "npx playwright show-report dist/.playwright/apps/golden-sample-app-e2e/reports/html",
     "kill-mocks": "lsof -ti:9999 | xargs kill -9",
     "kill-app": "lsof -ti:4200 | xargs kill -9"
