@@ -31,7 +31,7 @@
     "format:check": "prettier --list-different \"{apps,libs}/**/*.{ts,md}\" \"!{apps,libs}/**/coverage\"",
     "docs:build": "markdown-include .markdown.json",
     "prepare": "npx nx g extract-e2e-tests",
-    "report-generate": "npx allure awesome dist/.playwright/apps/golden-sample-app-e2e/reports/allure --single-file",
+    "report-generate": "npx allure awesome reports/allure-results --single-file",
     "report": "npm run report-generate && allure open",
     "report-allure-old": "allure generate reports/allure-results --clean && allure open",
     "report:playwright": "npx playwright show-report reports/html-report",
