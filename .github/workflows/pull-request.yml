@@ -118,7 +118,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report-${{ matrix.test }}
-          path: reports/html-report/
+          path: dist/.playwright/apps/golden-sample-app-e2e/reports/html/
           retention-days: ${{ env.RETENTION_DAYS }}
 
       - name: Upload Allure Report
