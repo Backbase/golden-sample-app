@@ -8,9 +8,11 @@ const baseURL = 'http://localhost:4200';
 
 /**
  * nx executor target name for serving the app locally.
- * Using serve-static for CI as it's faster and less memory-intensive
+ * Always using 'serve' because mocks-based tests require proxy support
+ * to forward /api calls to the mock server (localhost:9999).
+ * Note: 'serve-static' doesn't support proxy configuration.
  */
-const serveTarget = process.env.CI ? 'serve-static' : 'serve';
+const serveTarget = 'serve';
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -25,7 +27,7 @@ export default defineConfig<ProjectTestArgs>({
   },
   /* Run your local dev server before starting the tests (unless a non-default URL is provided in the env vars) */
   webServer: {
-    command: `npx nx run golden-sample-app:${serveTarget}:mocks`,
+    command: `npx nx run golden-sample-app:${serveTarget}:development`,
     url: baseURL,
     reuseExistingServer: true,
     cwd: workspaceRoot,
