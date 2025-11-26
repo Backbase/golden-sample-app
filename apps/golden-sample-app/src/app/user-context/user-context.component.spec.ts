@@ -40,10 +40,18 @@ describe('UserContextComponent', () => {
         { provide: SharedUserContextGuard, useValue: mockUserContextGuard },
         { provide: OAuthService, useValue: mockOAuthService },
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(UserContextComponent, {
+        set: { providers: [] },
+      })
+      .compileComponents();
 
     router = TestBed.inject(Router);
     jest.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
+
+    // Reset mocks before each test
+    mockUserContextService.setServiceAgreementId.mockClear();
+    mockUserContextGuard.getTargetUrl.mockClear();
   });
 
   beforeEach(() => {
