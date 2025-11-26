@@ -25,7 +25,7 @@ export default defineConfig<ProjectTestArgs>({
   },
   /* Run your local dev server before starting the tests (unless a non-default URL is provided in the env vars) */
   webServer: {
-    command: `npx nx run golden-sample-app:${serveTarget}:mocks`,
+    command: `npm run start:mocks`,
     url: baseURL,
     reuseExistingServer: true,
     cwd: workspaceRoot,
