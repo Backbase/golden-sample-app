@@ -13,9 +13,7 @@ import {
 
 describe('UserContextComponent', () => {
   let fixture: ComponentFixture<UserContextComponent>;
-  const mockRouter: jest.Mocked<Pick<Router, 'navigateByUrl'>> = {
-    navigateByUrl: jest.fn(),
-  };
+  let router: Router;
   const mockUserContextService: jest.Mocked<
     Pick<SharedUserContextService, 'setServiceAgreementId'>
   > = {
@@ -41,9 +39,11 @@ describe('UserContextComponent', () => {
         { provide: SharedUserContextService, useValue: mockUserContextService },
         { provide: SharedUserContextGuard, useValue: mockUserContextGuard },
         { provide: OAuthService, useValue: mockOAuthService },
-        { provide: Router, useValue: mockRouter },
       ],
     }).compileComponents();
+
+    router = TestBed.inject(Router);
+    jest.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
   });
 
   beforeEach(() => {
@@ -71,13 +71,13 @@ describe('UserContextComponent', () => {
     mockUserContextGuard.getTargetUrl.mockReturnValue(undefined);
     fixture.componentInstance.selectContextSuccess({ id: '123' });
 
-    expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('');
+    expect(router.navigateByUrl).toHaveBeenCalledWith('');
   });
 
   it('should redirect to target url when tragetUrl provided by UserContextGuard', () => {
     mockUserContextGuard.getTargetUrl.mockReturnValue('/origin-url');
     fixture.componentInstance.selectContextSuccess({ id: '123' });
 
-    expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('/origin-url');
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/origin-url');
   });
 });
