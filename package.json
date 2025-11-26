@@ -25,6 +25,7 @@
     "e2e-test-sndbx-ci": "nx run golden-sample-app-e2e:e2e-localhost-sndbx --args='--project=localhost-sndbx-chrome --grep=@ephemeral'",
     "e2e-test-responsive": "nx run golden-sample-app-e2e:e2e-visual",
     "e2e-update-snapshots": "npx playwright test --config=apps/golden-sample-app-e2e/playwright.localhost-mocks.config.ts --project 'localhost-mocks-visual-chrome' --grep '@visual' --update-snapshots --workers=1",
+    "e2e-update-snapshots:linux": "docker run --rm -v \"$(pwd):/work\" -w /work mcr.microsoft.com/playwright:v1.52.0 bash -c 'npm ci && (node ./mock-server/mock-server.js -- golden-sample-app &) && sleep 3 && ./node_modules/.bin/playwright test --config=apps/golden-sample-app-e2e/playwright.localhost-mocks.config.ts --project=localhost-mocks-visual-chrome --grep=@visual --update-snapshots --workers=1'",
     "e2e-test-a11y": "nx run golden-sample-app-e2e:e2e-a11y",
     "lint": "nx run-many --all --target=lint",
     "format": "prettier --write \"{apps,libs}/**/*.{ts,md,html}\" \"!{apps,libs}/**/coverage\" ",
