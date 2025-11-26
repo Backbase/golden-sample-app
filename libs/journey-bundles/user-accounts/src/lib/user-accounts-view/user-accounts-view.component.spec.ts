@@ -23,7 +23,7 @@ describe('UserAccountsViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UserAccountsViewComponent],
+      imports: [UserAccountsViewComponent],
       providers: [
         { provide: ArrangementsService, useValue: mockArrangementsService },
       ],
