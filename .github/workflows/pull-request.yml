@@ -112,6 +112,24 @@ jobs:
 
       - name: Generate Allure Report
         run: npm run report-generate
+        continue-on-error: true 
+
+      - name: Upload NPM Allure Log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-log
+          path: /root/.allure/logs/
+
+      - name: Upload Playwright Report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.test }}
+          path: dist/.playwright/apps/golden-sample-app-e2e/reports/html/
+          retention-days: ${{ env.RETENTION_DAYS }}
+
+      
 
       - name: Upload Playwright Report
         if: ${{ !cancelled() }}
