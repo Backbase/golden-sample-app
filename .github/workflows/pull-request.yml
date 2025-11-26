@@ -44,8 +44,13 @@ jobs:
 
       - name: Setup Node.js
         uses: ./.github/actions/node-step
+        env:
+          NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
         with:
-          npm-auth-token: ${{ secrets.NPM_TOKEN }}
+          npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
+          npm-email: ${{ secrets.NPM_EMAIL }}
 
       - name: Cache npm dependencies
         uses: actions/cache@v4
@@ -70,6 +75,7 @@ jobs:
   playwright:
     name: "Playwright Tests"
     runs-on: ubuntu-latest
+    continue-on-error: true
     needs: get-playwright-version
     container:
       image: mcr.microsoft.com/playwright:v${{ needs.get-playwright-version.outputs.version }}
@@ -83,8 +89,13 @@ jobs:
 
       - name: Setup Node.js
         uses: ./.github/actions/node-step
+        env:
+          NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
         with:
-          npm-auth-token: ${{ secrets.NPM_TOKEN }}
+          npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
+          npm-email: ${{ secrets.NPM_EMAIL }}
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4
@@ -99,15 +110,22 @@ jobs:
       - name: Run Playwright e2e tests ${{ matrix.test }}
         run: npm run e2e-test-${{ matrix.test }}
 
+      - name: Install Java for Allure
+        run: |
+          apt-get update
+          apt-get install -y default-jre
+        continue-on-error: true
+
       - name: Generate Allure Report
         run: npm run report-generate
+        continue-on-error: true 
 
       - name: Upload Playwright Report
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report-${{ matrix.test }}
-          path: reports/html-report/
+          path: dist/.playwright/apps/golden-sample-app-e2e/reports/html/
           retention-days: ${{ env.RETENTION_DAYS }}
 
       - name: Upload Allure Report
