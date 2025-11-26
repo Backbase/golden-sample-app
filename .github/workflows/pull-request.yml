@@ -129,15 +129,6 @@ jobs:
           path: dist/.playwright/apps/golden-sample-app-e2e/reports/html/
           retention-days: ${{ env.RETENTION_DAYS }}
 
-      
-
-      - name: Upload Playwright Report
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report-${{ matrix.test }}
-          path: dist/.playwright/apps/golden-sample-app-e2e/reports/html/
-          retention-days: ${{ env.RETENTION_DAYS }}
 
       - name: Upload Allure Report
         if: ${{ !cancelled() }}
