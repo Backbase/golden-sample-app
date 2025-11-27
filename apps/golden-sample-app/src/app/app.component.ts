@@ -7,7 +7,6 @@ import {
 } from '@backbase/foundation-ang/observability';
 import {
   ActivityMonitorComponent,
-  ACTIVITY_MONITOR_PROVIDERS,
 } from '@backbase/shared/feature/auth';
 import { DynamicNavigationMenuComponent } from '@backbase/shared/feature/navigation-menu';
 import { IconModule } from '@backbase/ui-ang/icon';
