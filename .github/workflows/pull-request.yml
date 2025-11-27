@@ -75,7 +75,6 @@ jobs:
   playwright:
     name: "Playwright Tests"
     runs-on: ubuntu-latest
-    continue-on-error: true
     needs: get-playwright-version
     container:
       image: mcr.microsoft.com/playwright:v${{ needs.get-playwright-version.outputs.version }}
@@ -114,11 +113,9 @@ jobs:
         run: |
           apt-get update
           apt-get install -y default-jre
-        continue-on-error: true
 
       - name: Generate Allure Report
         run: npm run report-generate
-        continue-on-error: true 
 
       - name: Upload Playwright Report
         if: ${{ !cancelled() }}
