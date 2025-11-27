@@ -31,7 +31,7 @@ export class TransactionsConfigService {
 }
 
 // The actual routes that will be lazy-loaded
-export const TRANSACTIONS_ROUTES: Routes = transactionsJourney(
+const routes: Routes = transactionsJourney(
   // Journey configuration - using a factory function that will be called at runtime
   withConfig({
     pageSize: 10,
@@ -44,6 +44,12 @@ export const TRANSACTIONS_ROUTES: Routes = transactionsJourney(
     transactionItemAdditionalDetails: TransactionItemAdditionalDetailsComponent,
   })
 );
+
+// Default export for Angular lazy loading
+export default routes;
+
+// Named export for backward compatibility (can be removed in future refactor)
+export const TRANSACTIONS_ROUTES = routes;
 
 export const TRANSACTIONS_PROVIDERS = [
   TransactionsConfigService,
