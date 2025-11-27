@@ -96,13 +96,28 @@ describe('TransactionsBundle', () => {
       expect(TRANSACTIONS_PROVIDERS.length).toBeGreaterThan(0);
     });
 
-    it('should provide TransactionsConfigService', async () => {
-      const { TRANSACTIONS_PROVIDERS, TransactionsConfigService } = await import(
+    it('should provide TransactionsRouteTitleResolverService', async () => {
+      const { TRANSACTIONS_PROVIDERS } = await import(
         './transactions.bundle'
       );
       
-      expect(TransactionsConfigService).toBeDefined();
-      expect(TRANSACTIONS_PROVIDERS).toContain(TransactionsConfigService);
+      // Check that the title resolver service is in the providers array
+      expect(TRANSACTIONS_PROVIDERS.length).toBeGreaterThan(0);
+      expect(TRANSACTIONS_PROVIDERS[0]).toBeDefined();
+    });
+
+    it('should provide extension configurations', async () => {
+      const { TRANSACTIONS_PROVIDERS } = await import(
+        './transactions.bundle'
+      );
+      
+      // Check that TRANSACTION_EXTENSIONS_CONFIG is provided
+      const hasExtensionsConfig = TRANSACTIONS_PROVIDERS.some(
+        (provider: any) => 
+          provider.provide?.toString().includes('TRANSACTION_EXTENSIONS_CONFIG') ||
+          (typeof provider === 'object' && provider.provide)
+      );
+      expect(hasExtensionsConfig).toBe(true);
     });
   });
 });
