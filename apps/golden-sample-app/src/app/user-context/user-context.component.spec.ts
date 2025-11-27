@@ -41,9 +41,6 @@ describe('UserContextComponent', () => {
         { provide: OAuthService, useValue: mockOAuthService },
       ],
     })
-      .overrideComponent(UserContextComponent, {
-        set: { providers: [] },
-      })
       .compileComponents();
 
     router = TestBed.inject(Router);
