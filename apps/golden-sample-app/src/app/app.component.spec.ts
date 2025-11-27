@@ -3,7 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivityMonitorService, AuthService } from '@backbase/identity-auth';
-import { LOCALES_LIST, LocalesService, NAVIGATION_MENU_CONFIG } from '@backbase/shared/util/app-core';
+import {
+  LOCALES_LIST,
+  LocalesService,
+  NAVIGATION_MENU_CONFIG,
+} from '@backbase/shared/util/app-core';
 import { LayoutService } from '@backbase/ui-ang/layout';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { of } from 'rxjs';
