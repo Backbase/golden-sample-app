@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivityMonitorService, AuthService } from '@backbase/identity-auth';
-import { LOCALES_LIST, LocalesService } from '@backbase/shared/util/app-core';
+import { LOCALES_LIST, LocalesService, NAVIGATION_MENU_CONFIG } from '@backbase/shared/util/app-core';
 import { LayoutService } from '@backbase/ui-ang/layout';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { of } from 'rxjs';
@@ -49,6 +49,7 @@ describe('AppComponent', () => {
         { provide: AuthService, useValue: mockAuthService },
         { provide: LocalesService, useValue: mockLocalesService },
         { provide: LOCALES_LIST, useValue: mockLocalesList },
+        { provide: NAVIGATION_MENU_CONFIG, useValue: [] },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
