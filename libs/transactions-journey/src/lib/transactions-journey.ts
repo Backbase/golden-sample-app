@@ -12,6 +12,11 @@ import {
   TransactionsJourneyExtensionsConfig,
 } from './transactions-journey-shell.config';
 
+// Default Routes
+// Components are directly imported since the entire journey is lazy-loaded via loadChildren
+import { TransactionsViewComponent } from '@backbase/transactions-journey/internal/feature-transaction-view';
+import { TransactionDetailsComponent } from '@backbase/transactions-journey/internal/feature-transaction-details-view';
+
 // Configuration Interface
 export interface TransactionsJourneyConfig {
   pageSize: number;
@@ -34,14 +39,10 @@ export const TRANSACTIONS_JOURNEY_CONFIG =
     factory: () => defaultConfig,
   });
 
-// Default Routes
 const defaultRoutes: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import(
-        '@backbase/transactions-journey/internal/feature-transaction-view'
-      ).then((m) => m.TransactionsViewComponent),
+    component: TransactionsViewComponent,
     data: {
       title: TRANSLATIONS.transactionsTitle,
     },
@@ -51,10 +52,7 @@ const defaultRoutes: Routes = [
   },
   {
     path: ':id',
-    loadComponent: () =>
-      import(
-        '@backbase/transactions-journey/internal/feature-transaction-details-view'
-      ).then((m) => m.TransactionDetailsComponent),
+    component: TransactionDetailsComponent,
     data: {
       title: TRANSLATIONS.transactionDetailsTitle,
     },
