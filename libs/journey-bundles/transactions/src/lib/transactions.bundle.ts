@@ -39,7 +39,13 @@ export default routes;
 export const TRANSACTIONS_ROUTES = routes;
 
 export const TRANSACTIONS_PROVIDERS = [
-  TransactionsJourneyConfiguration,
+  {
+    provide: TransactionsJourneyConfiguration,
+    useValue: {
+      pageSize: 10,
+      slimMode: false,
+    },
+  },
   TransactionsRouteTitleResolverService,
   {
     provide: TRANSACTION_EXTENSIONS_CONFIG,
