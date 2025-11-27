@@ -3,11 +3,21 @@ import {
   withConfig,
   withCommunicationService,
   withExtensions,
+  TransactionsJourneyExtensionsConfig,
 } from '@backbase/transactions-journey';
 import { JourneyCommunicationService } from '@backbase/shared/feature/communication';
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
 import { Routes } from '@angular/router';
-import { TransactionsRouteTitleResolverService } from '@backbase/transactions-journey/internal/data-access';
+import {
+  TransactionsRouteTitleResolverService,
+  TransactionsJourneyConfiguration,
+} from '@backbase/transactions-journey/internal/data-access';
+import { TRANSACTION_EXTENSIONS_CONFIG } from '@backbase/transactions-journey/internal/feature-transaction-view';
+
+// Extensions configuration - shared between routes and providers
+const extensionsConfig: Partial<TransactionsJourneyExtensionsConfig> = {
+  transactionItemAdditionalDetails: TransactionItemAdditionalDetailsComponent,
+};
 
 // The actual routes that will be lazy-loaded
 const routes: Routes = transactionsJourney(
@@ -19,9 +29,7 @@ const routes: Routes = transactionsJourney(
   // Communication service configuration
   withCommunicationService(JourneyCommunicationService),
   // Extensions configuration
-  withExtensions({
-    transactionItemAdditionalDetails: TransactionItemAdditionalDetailsComponent,
-  })
+  withExtensions(extensionsConfig)
 );
 
 // Default export for Angular lazy loading
@@ -31,6 +39,10 @@ export default routes;
 export const TRANSACTIONS_ROUTES = routes;
 
 export const TRANSACTIONS_PROVIDERS = [
+  TransactionsJourneyConfiguration,
   TransactionsRouteTitleResolverService,
-  // Extension configuration is handled by withExtensions() in the routes above
+  {
+    provide: TRANSACTION_EXTENSIONS_CONFIG,
+    useValue: extensionsConfig,
+  },
 ];
