@@ -1,1 +1,2 @@
-export * from './lib/ach-positive-pay-journey-shell.module';
+export * from './lib/provide-ach-positive-pay-journey';
+export * from './lib/ach-positive-pay-journey.routes';

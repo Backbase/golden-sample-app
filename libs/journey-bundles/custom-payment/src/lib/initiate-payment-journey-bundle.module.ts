@@ -28,6 +28,28 @@ export function reviewServiceFactory(router: Router) {
   };
 }
 
+/**
+ * @deprecated This module is deprecated. Use `provideCustomPaymentJourney()` instead.
+ *
+ * Migration example:
+ * ```typescript
+ * // Before (NgModule)
+ * import { CustomPaymentJourneyBundleModule } from '@backbase/journey-bundles/custom-payment';
+ *
+ * @NgModule({
+ *   imports: [CustomPaymentJourneyBundleModule]
+ * })
+ *
+ * // After (Standalone)
+ * import { provideCustomPaymentJourney } from '@backbase/journey-bundles/custom-payment';
+ *
+ * export const appConfig: ApplicationConfig = {
+ *   providers: [
+ *     provideCustomPaymentJourney(),
+ *   ],
+ * };
+ * ```
+ */
 @NgModule({
   /**
    * Import the standalone component here for journey to be able to add it to the form dynamically
