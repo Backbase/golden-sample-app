@@ -18,10 +18,7 @@ import {
   TransactionsRouteTitleResolverService,
 } from '@backbase/transactions-journey/internal/data-access';
 
-import {
-  TRANSACTION_EXTENSIONS_CONFIG,
-  defaultTransactionsRoutes,
-} from './transactions-journey-shell.config';
+import { TRANSACTION_EXTENSIONS_CONFIG } from './transactions-journey-shell.config';
 
 const defaultRoutes: Routes = [
   {
