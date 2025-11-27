@@ -14,11 +14,11 @@ describe('TransactionsBundle', () => {
       expect(transactionsBundle[0]).toHaveProperty('path');
     });
 
-    it('should define the transactions path', () => {
-      const transactionsRoute = transactionsBundle.find(
-        (route: any) => route.path === 'transactions'
+    it('should define the default path', () => {
+      const defaultRoute = transactionsBundle.find(
+        (route: any) => route.path === ''
       );
-      expect(transactionsRoute).toBeDefined();
+      expect(defaultRoute).toBeDefined();
     });
 
     it('should have component or loadChildren defined', () => {
