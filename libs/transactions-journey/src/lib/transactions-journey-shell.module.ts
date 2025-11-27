@@ -18,6 +18,11 @@ import {
   TransactionsRouteTitleResolverService,
 } from '@backbase/transactions-journey/internal/data-access';
 
+import {
+  TRANSACTION_EXTENSIONS_CONFIG,
+  defaultTransactionsRoutes,
+} from './transactions-journey-shell.config';
+
 const defaultRoutes: Routes = [
   {
     path: '',
@@ -82,7 +87,7 @@ export class TransactionsJourneyModule {
       providers: [
         provideRoutes(routes || defaultRoutes),
         {
-          provide: 'TRANSACTION_EXTENSIONS_CONFIG',
+          provide: TRANSACTION_EXTENSIONS_CONFIG,
           useValue: extensionSlots || {},
         },
       ],
