@@ -7,9 +7,7 @@ import {
 import { JourneyCommunicationService } from '@backbase/shared/feature/communication';
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
 import { Routes } from '@angular/router';
-import {
-  TransactionsRouteTitleResolverService,
-} from '@backbase/transactions-journey/internal/data-access';
+import { TransactionsRouteTitleResolverService } from '@backbase/transactions-journey/internal/data-access';
 import { TRANSACTION_EXTENSIONS_CONFIG } from '@backbase/transactions-journey/internal/feature-transaction-view';
 
 // The actual routes that will be lazy-loaded

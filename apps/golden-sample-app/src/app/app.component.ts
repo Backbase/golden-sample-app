@@ -5,9 +5,7 @@ import {
   LogoutTrackerEvent,
   Tracker,
 } from '@backbase/foundation-ang/observability';
-import {
-  ActivityMonitorComponent,
-} from '@backbase/shared/feature/auth';
+import { ActivityMonitorComponent } from '@backbase/shared/feature/auth';
 import { DynamicNavigationMenuComponent } from '@backbase/shared/feature/navigation-menu';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { LayoutService } from '@backbase/ui-ang/layout';

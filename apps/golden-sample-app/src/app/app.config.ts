@@ -26,9 +26,7 @@ import { environment } from '../environments/environment';
 import { APP_ROUTES } from './app-routes';
 import { AppErrorHandler } from './app.error-handler';
 import { OAuthStorage } from 'angular-oauth2-oidc';
-import {
-  ACTIVITY_MONITOR_PROVIDERS,
-} from '@backbase/shared/feature/auth';
+import { ACTIVITY_MONITOR_PROVIDERS } from '@backbase/shared/feature/auth';
 import {
   NAVIGATION_MENU_CONFIG,
   NavigationMenuItem,

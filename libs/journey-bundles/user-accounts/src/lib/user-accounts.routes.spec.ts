@@ -27,4 +27,3 @@ describe('User Accounts Routes', () => {
     expect(Array.isArray(routeModule.default)).toBe(true);
   });
 });
-

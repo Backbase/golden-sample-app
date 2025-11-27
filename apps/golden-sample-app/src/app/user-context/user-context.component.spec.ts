@@ -40,8 +40,7 @@ describe('UserContextComponent', () => {
         { provide: SharedUserContextGuard, useValue: mockUserContextGuard },
         { provide: OAuthService, useValue: mockOAuthService },
       ],
-    })
-      .compileComponents();
+    }).compileComponents();
 
     router = TestBed.inject(Router);
     jest.spyOn(router, 'navigateByUrl').mockResolvedValue(true);

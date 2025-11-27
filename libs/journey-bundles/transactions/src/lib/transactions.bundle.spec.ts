@@ -26,9 +26,7 @@ describe('TransactionsBundle', () => {
         const hasComponent = route.component !== undefined;
         const hasLoadChildren = route.loadChildren !== undefined;
         const hasChildren = route.children !== undefined;
-        expect(
-          hasComponent || hasLoadChildren || hasChildren
-        ).toBe(true);
+        expect(hasComponent || hasLoadChildren || hasChildren).toBe(true);
       });
     });
   });
@@ -72,7 +70,7 @@ describe('TransactionsBundle', () => {
     it('should be compatible with Angular lazy loading pattern', async () => {
       // Simulate dynamic import pattern
       const dynamicModule = await import('./transactions.bundle');
-      
+
       // Default export should work directly
       expect(dynamicModule.default).toBeDefined();
       expect(Array.isArray(dynamicModule.default)).toBe(true);
@@ -80,7 +78,7 @@ describe('TransactionsBundle', () => {
 
     it('should maintain named export for backward compatibility in dynamic imports', async () => {
       const dynamicModule = await import('./transactions.bundle');
-      
+
       // Named export should still be available
       expect(dynamicModule.TRANSACTIONS_ROUTES).toBeDefined();
       expect(dynamicModule.TRANSACTIONS_ROUTES).toEqual(dynamicModule.default);
@@ -90,35 +88,32 @@ describe('TransactionsBundle', () => {
   describe('Route Configuration Details', () => {
     it('should have providers array available', async () => {
       const { TRANSACTIONS_PROVIDERS } = await import('./transactions.bundle');
-      
+
       expect(TRANSACTIONS_PROVIDERS).toBeDefined();
       expect(Array.isArray(TRANSACTIONS_PROVIDERS)).toBe(true);
       expect(TRANSACTIONS_PROVIDERS.length).toBeGreaterThan(0);
     });
 
     it('should provide TransactionsRouteTitleResolverService', async () => {
-      const { TRANSACTIONS_PROVIDERS } = await import(
-        './transactions.bundle'
-      );
-      
+      const { TRANSACTIONS_PROVIDERS } = await import('./transactions.bundle');
+
       // Check that the title resolver service is in the providers array
       expect(TRANSACTIONS_PROVIDERS.length).toBeGreaterThan(0);
       expect(TRANSACTIONS_PROVIDERS[0]).toBeDefined();
     });
 
     it('should provide extension configurations', async () => {
-      const { TRANSACTIONS_PROVIDERS } = await import(
-        './transactions.bundle'
-      );
-      
+      const { TRANSACTIONS_PROVIDERS } = await import('./transactions.bundle');
+
       // Check that TRANSACTION_EXTENSIONS_CONFIG is provided
       const hasExtensionsConfig = TRANSACTIONS_PROVIDERS.some(
-        (provider: any) => 
-          provider.provide?.toString().includes('TRANSACTION_EXTENSIONS_CONFIG') ||
+        (provider: any) =>
+          provider.provide
+            ?.toString()
+            .includes('TRANSACTION_EXTENSIONS_CONFIG') ||
           (typeof provider === 'object' && provider.provide)
       );
       expect(hasExtensionsConfig).toBe(true);
     });
   });
 });
-
