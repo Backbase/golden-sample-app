@@ -10,13 +10,11 @@ import type { MakeTransferJourneyConfiguration } from '@backbase/transfer-journe
 export const TRANSFER_ROUTE: Route = {
   path: 'transfer',
   loadChildren: async () => {
-    const [journeyModule, featureModule, dataAccessModule] = await Promise.all(
-      [
-        import('@backbase/transfer-journey'),
-        import('@backbase/transfer-journey/internal/feature'),
-        import('@backbase/transfer-journey/internal/data-access'),
-      ],
-    );
+    const [journeyModule, featureModule, dataAccessModule] = await Promise.all([
+      import('@backbase/transfer-journey'),
+      import('@backbase/transfer-journey/internal/feature'),
+      import('@backbase/transfer-journey/internal/data-access'),
+    ]);
 
     return [
       {
