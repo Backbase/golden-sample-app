@@ -7,5 +7,4 @@ export {
   MakeTransferRouteTitleResolverService,
 } from '@backbase/transfer-journey/internal/data-access';
 export { Transfer } from '@backbase/transfer-journey/internal/shared-data';
-export { provideTransferJourney } from './lib/provide-transfer-journey';
 export { MakeTransferJourneyStoreGuard } from './lib/make-transfer-journey-store-guard';

@@ -1,6 +1,6 @@
 import { AuthGuard } from '@backbase/shared/feature/auth';
 import { SharedUserContextGuard } from '@backbase/shared/feature/user-context';
-import { Route, Routes } from '@angular/router';
+import { Route } from '@angular/router';
 import { inject } from '@angular/core';
 import { JourneyCommunicationService } from '@backbase/shared/feature/communication';
 import { SHARED_JOURNEY_CONFIG } from '@backbase/shared/util/config';
@@ -9,13 +9,13 @@ import type { MakeTransferJourneyConfiguration } from '@backbase/transfer-journe
 
 export const TRANSFER_ROUTE: Route = {
   path: 'transfer',
-  loadChildren: async (): Promise<Routes> => {
+  loadChildren: async () => {
     const [journeyModule, featureModule, dataAccessModule] = await Promise.all(
       [
         import('@backbase/transfer-journey'),
         import('@backbase/transfer-journey/internal/feature'),
         import('@backbase/transfer-journey/internal/data-access'),
-      ]
+      ],
     );
 
     return [
@@ -26,6 +26,7 @@ export const TRANSFER_ROUTE: Route = {
           provideJourneyTracker({
             journeyName: 'transfer',
           }),
+          journeyModule.MakeTransferJourneyStoreGuard,
           dataAccessModule.MakeTransferPermissionsService,
           dataAccessModule.MakeTransferAccountHttpService,
           dataAccessModule.MakeTransferRouteTitleResolverService,
