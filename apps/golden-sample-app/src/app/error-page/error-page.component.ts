@@ -9,7 +9,7 @@ import { ErrorCommonStateModule } from '@backbase/ui-ang/common-error-state';
   templateUrl: './error-page.component.html',
   imports: [CommonModule, ErrorCommonStateModule],
 })
-export class ErrorPageComponent {
+export default class ErrorPageComponent {
   private readonly router: Router = inject(Router);
   public error =
     this.router.getCurrentNavigation()?.extras.state?.['error'] ??

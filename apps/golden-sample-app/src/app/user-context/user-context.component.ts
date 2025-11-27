@@ -15,7 +15,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
   imports: [CommonModule, SelectContextModule],
   providers: [...SHARED_USER_CONTEXT_PROVIDERS],
 })
-export class UserContextComponent {
+export default class UserContextComponent {
   private readonly userContextService: SharedUserContextService = inject(
     SharedUserContextService
   );

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { UserContextComponent } from './user-context.component';
+import UserContextComponent from './user-context.component';
 
 export const userContextRoutes: Routes = [
   {
