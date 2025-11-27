@@ -17,8 +17,7 @@ import {
   TransactionsJourneyConfiguration,
   TransactionsRouteTitleResolverService,
 } from '@backbase/transactions-journey/internal/data-access';
-// Removed static import of lazy-loaded feature module to fix lint error
-import { defaultTransactionsRoutes } from './transactions-journey-shell.config';
+
 const defaultRoutes: Routes = [
   {
     path: '',

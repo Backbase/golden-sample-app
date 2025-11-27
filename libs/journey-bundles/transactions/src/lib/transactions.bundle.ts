@@ -8,7 +8,6 @@ import { JourneyCommunicationService } from '@backbase/shared/feature/communicat
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
 import { Routes } from '@angular/router';
 import { TransactionsRouteTitleResolverService } from '@backbase/transactions-journey/internal/data-access';
-import { TRANSACTION_EXTENSIONS_CONFIG } from '@backbase/transactions-journey/internal/feature-transaction-view';
 
 // The actual routes that will be lazy-loaded
 const routes: Routes = transactionsJourney(
@@ -33,11 +32,5 @@ export const TRANSACTIONS_ROUTES = routes;
 
 export const TRANSACTIONS_PROVIDERS = [
   TransactionsRouteTitleResolverService,
-  {
-    provide: TRANSACTION_EXTENSIONS_CONFIG,
-    useValue: {
-      transactionItemAdditionalDetails:
-        TransactionItemAdditionalDetailsComponent,
-    },
-  },
+  // Extension configuration is handled by withExtensions() in the routes above
 ];

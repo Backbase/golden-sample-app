@@ -18,7 +18,6 @@ import { JourneyCommunicationService } from '@backbase/shared/feature/communicat
           TransactionItemAdditionalDetailsComponent,
       },
     }),
-    TransactionItemAdditionalDetailsComponent,
   ],
   providers: [
     {
