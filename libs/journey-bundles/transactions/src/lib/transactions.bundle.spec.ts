@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import transactionsBundle from './transactions.bundle';
+import { TransactionsJourneyConfiguration } from '@backbase/transactions-journey/internal/data-access';
 
 describe('TransactionsBundle', () => {
   describe('Default Export', () => {
@@ -62,6 +63,19 @@ describe('TransactionsBundle', () => {
       expect(wrapperRoute.providers).toBeDefined();
       expect(Array.isArray(wrapperRoute.providers)).toBe(true);
       expect(wrapperRoute.providers.length).toBeGreaterThan(0);
+    });
+
+    it('should provide TransactionsJourneyConfiguration in providers via withConfig', () => {
+      // Verify that the configuration class provider is included
+      // This is now provided transparently by withConfig()
+      const wrapperRoute = transactionsBundle[0] as any;
+      const configProvider = wrapperRoute.providers.find(
+        (provider: any) => provider.provide === TransactionsJourneyConfiguration
+      );
+      expect(configProvider).toBeDefined();
+      expect(configProvider.useValue).toBeDefined();
+      expect(configProvider.useValue.pageSize).toBe(10);
+      expect(configProvider.useValue.slimMode).toBe(false);
     });
 
     it('should have journey routes as children', () => {

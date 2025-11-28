@@ -26,9 +26,8 @@ const journeyConfig = {
 };
 
 // Providers needed by the journey's internal services
-// Note: TransactionsJourneyConfiguration is an @Injectable class used by internal services
-// (TransactionsHttpService, TransactionsRouteTitleResolverService), which is different from
-// the TRANSACTIONS_JOURNEY_CONFIG InjectionToken provided by withConfig().
+// Note: withConfig() provides TRANSACTIONS_JOURNEY_CONFIG (InjectionToken)
+// We also need to provide TransactionsJourneyConfiguration (class) for internal services
 const journeyProviders = [
   {
     provide: TransactionsJourneyConfiguration,
@@ -42,7 +41,6 @@ const journeyProviders = [
 ];
 
 // Default export for Angular lazy loading
-// Use withProviders to attach providers directly to the journey configuration
 export default transactionsJourney(
   withConfig(journeyConfig),
   withCommunicationService(JourneyCommunicationService),
