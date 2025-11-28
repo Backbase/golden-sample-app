@@ -6,4 +6,5 @@
 #include ".documentation/journeys/lazy-loading-guide.md"
 #include ".documentation/journeys/communication-service.md"
 #include ".documentation/journeys/simple-examples.md"
+#include ".documentation/journeys/migration-guide.md"
 #include ".documentation/journeys/custom-component.md"
