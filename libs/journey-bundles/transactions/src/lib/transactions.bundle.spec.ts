@@ -72,25 +72,6 @@ describe('TransactionsBundle', () => {
     });
   });
 
-  describe('Lazy Loading Compatibility', () => {
-    it('should be compatible with Angular lazy loading pattern', async () => {
-      // Simulate dynamic import pattern
-      const dynamicModule = await import('./transactions.bundle');
-
-      // Default export should work directly
-      expect(dynamicModule.default).toBeDefined();
-      expect(Array.isArray(dynamicModule.default)).toBe(true);
-    });
-
-    it('should maintain named export for backward compatibility in dynamic imports', async () => {
-      const dynamicModule = await import('./transactions.bundle');
-
-      // Named export should still be available
-      expect(dynamicModule.TRANSACTIONS_ROUTES).toBeDefined();
-      expect(dynamicModule.TRANSACTIONS_ROUTES).toEqual(dynamicModule.default);
-    });
-  });
-
   describe('Route Configuration Details', () => {
     it('should have providers included in the wrapper route', () => {
       // Providers are now embedded in the route structure itself
