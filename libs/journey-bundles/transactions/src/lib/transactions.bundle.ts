@@ -5,9 +5,9 @@ import {
   withExtensions,
   TransactionsJourneyExtensionsConfig,
 } from '@backbase/transactions-journey';
+import { withProviders } from '@backbase/foundation-ang/core';
 import { JourneyCommunicationService } from '@backbase/shared/feature/communication';
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
-import { Routes } from '@angular/router';
 import {
   TransactionsRouteTitleResolverService,
   TransactionsJourneyConfiguration,
@@ -41,22 +41,11 @@ const journeyProviders = [
   },
 ];
 
-// Build the journey routes with providers attached
-const journeyRoutes: Routes = transactionsJourney(
+// Default export for Angular lazy loading
+// Use withProviders to attach providers directly to the journey configuration
+export default transactionsJourney(
   withConfig(journeyConfig),
   withCommunicationService(JourneyCommunicationService),
-  withExtensions(extensionsConfig)
+  withExtensions(extensionsConfig),
+  withProviders(journeyProviders)
 );
-
-// Create wrapper route that includes the required providers
-// This ensures providers are available when the journey is lazy-loaded
-const routes: Routes = [
-  {
-    path: '',
-    providers: journeyProviders,
-    children: journeyRoutes,
-  },
-];
-
-// Default export for Angular lazy loading
-export default routes;

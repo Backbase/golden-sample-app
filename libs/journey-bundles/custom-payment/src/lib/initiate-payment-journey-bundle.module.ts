@@ -9,7 +9,7 @@ import {
 import { AccountSelectorModule } from '@backbase/ui-ang/account-selector';
 import { Router } from '@angular/router';
 import { InitiatorComponent } from './components/initiator/initiator.component';
-import { customPaymentConfig, setRouter } from './custom-payment.config';
+import { createCustomPaymentConfig } from './custom-payment.config';
 import { PaymentsCommunicationService } from '@backbase/shared/feature/communication';
 import { reviewServiceFactory } from './provide-custom-payment-journey';
 
@@ -36,7 +36,8 @@ import { reviewServiceFactory } from './provide-custom-payment-journey';
   providers: [
     {
       provide: INITIATE_PAYMENT_CONFIG,
-      useValue: customPaymentConfig,
+      useFactory: createCustomPaymentConfig,
+      deps: [Router],
     },
     {
       provide: ӨReviewPaymentService,
@@ -50,9 +51,4 @@ import { reviewServiceFactory } from './provide-custom-payment-journey';
     },
   ],
 })
-export class CustomPaymentJourneyBundleModule {
-  constructor(router: Router) {
-    // Inject router into the config for hooks
-    setRouter(router);
-  }
-}
+export class CustomPaymentJourneyBundleModule {}
