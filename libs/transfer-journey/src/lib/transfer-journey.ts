@@ -4,8 +4,11 @@ import { Routes } from '@angular/router';
 import {
   MakeTransferRouteTitleResolverService,
   MakeTransferCommunicationService,
+  MakeTransferPermissionsService,
+  MakeTransferAccountHttpService,
 } from '@backbase/transfer-journey/internal/data-access';
 import { TRANSLATIONS } from '@backbase/transfer-journey/internal/shared-data';
+import { provideJourneyTracker } from '@backbase/foundation-ang/observability';
 
 // Components are directly imported since the entire journey is lazy-loaded via loadChildren
 import { TransferJourneyComponent } from './transfer-journey.component';
@@ -86,6 +89,16 @@ const defaultRoutes: Routes = [
   },
 ];
 
+// Providers needed by the journey's internal services
+const journeyProviders = [
+  provideJourneyTracker({
+    journeyName: 'transfer',
+  }),
+  MakeTransferPermissionsService,
+  MakeTransferAccountHttpService,
+  MakeTransferRouteTitleResolverService,
+];
+
 // Journey Factory
 export const {
   makeTransferJourney,
@@ -94,6 +107,7 @@ export const {
 } = journeyFactory({
   journeyName: 'makeTransferJourney',
   defaultRoutes,
+  providers: journeyProviders,
   tokens: {
     config: withDefaults(MAKE_TRANSFER_JOURNEY_CONFIG, defaultConfig),
     communicationService: MAKE_TRANSFER_JOURNEY_COMMUNICATION_SERVICE,
