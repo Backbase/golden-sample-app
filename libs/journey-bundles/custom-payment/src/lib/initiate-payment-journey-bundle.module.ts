@@ -11,44 +11,17 @@ import { Router } from '@angular/router';
 import { InitiatorComponent } from './components/initiator/initiator.component';
 import { customPaymentConfig, setRouter } from './custom-payment.config';
 import { PaymentsCommunicationService } from '@backbase/shared/feature/communication';
-
-// Create a provider for the review service
-export function reviewServiceFactory(router: Router) {
-  return {
-    navigateFromSuccess: () => {
-      router.navigate(['/transactions']);
-    },
-    navigateFromCancel: () => {
-      router.navigate(['/transactions']);
-    },
-    navigateFromError: () => {
-      router.navigate(['/error']);
-    },
-    isInModal: () => false,
-  };
-}
+import { reviewServiceFactory } from './provide-custom-payment-journey';
 
 /**
- * @deprecated This module is deprecated. Use `provideCustomPaymentJourney()` instead.
+ * Custom Payment Journey Bundle Module
  *
- * Migration example:
- * ```typescript
- * // Before (NgModule)
- * import { CustomPaymentJourneyBundleModule } from '@backbase/journey-bundles/custom-payment';
+ * This module wraps @backbase/initiate-payment-journey-ang with custom configuration.
  *
- * @NgModule({
- *   imports: [CustomPaymentJourneyBundleModule]
- * })
- *
- * // After (Standalone)
- * import { provideCustomPaymentJourney } from '@backbase/journey-bundles/custom-payment';
- *
- * export const appConfig: ApplicationConfig = {
- *   providers: [
- *     provideCustomPaymentJourney(),
- *   ],
- * };
- * ```
+ * Note: This module approach is required because @backbase/initiate-payment-journey-ang
+ * does not yet provide a standalone API. Once a standalone API is available from
+ * the library, this module can be migrated to use `provideCustomPaymentJourney()`
+ * with a route bundle file approach.
  */
 @NgModule({
   /**
