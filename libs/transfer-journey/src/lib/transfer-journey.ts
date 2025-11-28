@@ -1,5 +1,5 @@
 import { InjectionToken, Type } from '@angular/core';
-import { journeyFactory } from '@backbase/foundation-ang/core';
+import { journeyFactory, withDefaults } from '@backbase/foundation-ang/core';
 import { Routes } from '@angular/router';
 import {
   MakeTransferRouteTitleResolverService,
@@ -32,13 +32,7 @@ const defaultConfig: MakeTransferJourneyConfig = {
 
 // Configuration Token
 export const MAKE_TRANSFER_JOURNEY_CONFIG =
-  new InjectionToken<MakeTransferJourneyConfig>(
-    'MAKE_TRANSFER_JOURNEY_CONFIG',
-    {
-      providedIn: 'root',
-      factory: () => defaultConfig,
-    }
-  );
+  new InjectionToken<MakeTransferJourneyConfig>('MAKE_TRANSFER_JOURNEY_CONFIG');
 
 // Communication Service Token
 export const MAKE_TRANSFER_JOURNEY_COMMUNICATION_SERVICE =
@@ -95,26 +89,18 @@ const defaultRoutes: Routes = [
 // Journey Factory
 export const {
   makeTransferJourney,
-  withConfig: withFullConfig,
+  withConfig,
   withCommunicationService: withFullCommunicationService,
 } = journeyFactory({
   journeyName: 'makeTransferJourney',
   defaultRoutes,
   tokens: {
-    config: MAKE_TRANSFER_JOURNEY_CONFIG,
+    config: withDefaults(MAKE_TRANSFER_JOURNEY_CONFIG, defaultConfig),
     communicationService: MAKE_TRANSFER_JOURNEY_COMMUNICATION_SERVICE,
   },
 });
 
-// Helper Functions - use correct typing for the provider factory functions
-export const withConfig = (config: Partial<MakeTransferJourneyConfig>) =>
-  withFullConfig({
-    useValue: {
-      ...defaultConfig,
-      ...config,
-    },
-  });
-
+// Helper function - convert service class to useExisting provider
 export const withCommunicationService = (
   service: Type<MakeTransferCommunicationService>
 ) =>
