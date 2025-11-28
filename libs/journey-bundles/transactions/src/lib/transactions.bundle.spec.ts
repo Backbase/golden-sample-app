@@ -14,20 +14,26 @@ describe('TransactionsBundle', () => {
       expect(transactionsBundle[0]).toHaveProperty('path');
     });
 
-    it('should define the default path', () => {
-      const defaultRoute = transactionsBundle.find(
+    it('should define the wrapper route with empty path', () => {
+      // The bundle now wraps journey routes in a parent route with providers
+      const wrapperRoute = transactionsBundle.find(
         (route: any) => route.path === ''
       );
-      expect(defaultRoute).toBeDefined();
+      expect(wrapperRoute).toBeDefined();
     });
 
-    it('should have component or loadChildren defined', () => {
-      transactionsBundle.forEach((route: any) => {
-        const hasComponent = route.component !== undefined;
-        const hasLoadChildren = route.loadChildren !== undefined;
-        const hasChildren = route.children !== undefined;
-        expect(hasComponent || hasLoadChildren || hasChildren).toBe(true);
-      });
+    it('should have children routes defined in the wrapper', () => {
+      const wrapperRoute = transactionsBundle[0] as any;
+      expect(wrapperRoute.children).toBeDefined();
+      expect(Array.isArray(wrapperRoute.children)).toBe(true);
+      expect(wrapperRoute.children.length).toBeGreaterThan(0);
+    });
+
+    it('should have providers attached to the wrapper route', () => {
+      const wrapperRoute = transactionsBundle[0] as any;
+      expect(wrapperRoute.providers).toBeDefined();
+      expect(Array.isArray(wrapperRoute.providers)).toBe(true);
+      expect(wrapperRoute.providers.length).toBeGreaterThan(0);
     });
   });
 
@@ -86,29 +92,28 @@ describe('TransactionsBundle', () => {
   });
 
   describe('Route Configuration Details', () => {
-    it('should have providers array available', async () => {
-      const { TRANSACTIONS_PROVIDERS } = await import('./transactions.bundle');
-
-      expect(TRANSACTIONS_PROVIDERS).toBeDefined();
-      expect(Array.isArray(TRANSACTIONS_PROVIDERS)).toBe(true);
-      expect(TRANSACTIONS_PROVIDERS.length).toBeGreaterThan(0);
+    it('should have providers included in the wrapper route', () => {
+      // Providers are now embedded in the route structure itself
+      // This ensures proper lazy loading without static imports
+      const wrapperRoute = transactionsBundle[0] as any;
+      expect(wrapperRoute.providers).toBeDefined();
+      expect(Array.isArray(wrapperRoute.providers)).toBe(true);
+      expect(wrapperRoute.providers.length).toBeGreaterThan(0);
     });
 
-    it('should provide TransactionsRouteTitleResolverService', async () => {
-      const { TRANSACTIONS_PROVIDERS } = await import('./transactions.bundle');
+    it('should have journey routes as children', () => {
+      const wrapperRoute = transactionsBundle[0] as any;
+      const children = wrapperRoute.children;
 
-      // Check that the title resolver service is in the providers array
-      expect(TRANSACTIONS_PROVIDERS.length).toBeGreaterThan(0);
-      expect(TRANSACTIONS_PROVIDERS[0]).toBeDefined();
-    });
+      // Journey routes should include the main view and details routes
+      expect(children.length).toBeGreaterThan(0);
 
-    it('should provide required services', async () => {
-      const { TRANSACTIONS_PROVIDERS } = await import('./transactions.bundle');
-
-      // Check that TransactionsRouteTitleResolverService is provided
-      expect(TRANSACTIONS_PROVIDERS.length).toBeGreaterThan(0);
-      expect(TRANSACTIONS_PROVIDERS[0]).toBeDefined();
-      // Extension configuration is handled by withExtensions() in the routes
+      // Check that children have components defined
+      children.forEach((route: any) => {
+        const hasComponent = route.component !== undefined;
+        const hasChildren = route.children !== undefined;
+        expect(hasComponent || hasChildren).toBe(true);
+      });
     });
   });
 });

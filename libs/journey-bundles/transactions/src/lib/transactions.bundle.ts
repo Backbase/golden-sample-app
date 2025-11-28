@@ -14,37 +14,25 @@ import {
 } from '@backbase/transactions-journey/internal/data-access';
 import { TRANSACTION_EXTENSIONS_CONFIG } from '@backbase/transactions-journey/internal/feature-transaction-view';
 
-// Extensions configuration - shared between routes and providers
+// Extensions configuration
 const extensionsConfig: Partial<TransactionsJourneyExtensionsConfig> = {
   transactionItemAdditionalDetails: TransactionItemAdditionalDetailsComponent,
 };
 
-// The actual routes that will be lazy-loaded
-const routes: Routes = transactionsJourney(
-  // Journey configuration - using a factory function that will be called at runtime
-  withConfig({
-    pageSize: 10,
-    slimMode: false,
-  }),
-  // Communication service configuration
-  withCommunicationService(JourneyCommunicationService),
-  // Extensions configuration
-  withExtensions(extensionsConfig)
-);
+// Journey configuration
+const journeyConfig = {
+  pageSize: 10,
+  slimMode: false,
+};
 
-// Default export for Angular lazy loading
-export default routes;
-
-// Named export for backward compatibility (can be removed in future refactor)
-export const TRANSACTIONS_ROUTES = routes;
-
-export const TRANSACTIONS_PROVIDERS = [
+// Providers needed by the journey's internal services
+// Note: TransactionsJourneyConfiguration is an @Injectable class used by internal services
+// (TransactionsHttpService, TransactionsRouteTitleResolverService), which is different from
+// the TRANSACTIONS_JOURNEY_CONFIG InjectionToken provided by withConfig().
+const journeyProviders = [
   {
     provide: TransactionsJourneyConfiguration,
-    useValue: {
-      pageSize: 10,
-      slimMode: false,
-    },
+    useValue: journeyConfig,
   },
   TransactionsRouteTitleResolverService,
   {
@@ -52,3 +40,26 @@ export const TRANSACTIONS_PROVIDERS = [
     useValue: extensionsConfig,
   },
 ];
+
+// Build the journey routes with providers attached
+const journeyRoutes: Routes = transactionsJourney(
+  withConfig(journeyConfig),
+  withCommunicationService(JourneyCommunicationService),
+  withExtensions(extensionsConfig)
+);
+
+// Create wrapper route that includes the required providers
+// This ensures providers are available when the journey is lazy-loaded
+const routes: Routes = [
+  {
+    path: '',
+    providers: journeyProviders,
+    children: journeyRoutes,
+  },
+];
+
+// Default export for Angular lazy loading
+export default routes;
+
+// Named export for backward compatibility (can be removed in future refactor)
+export const TRANSACTIONS_ROUTES = routes;
