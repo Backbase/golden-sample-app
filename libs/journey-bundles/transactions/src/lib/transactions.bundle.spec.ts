@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { TRANSACTIONS_ROUTES } from './transactions.bundle';
 import transactionsBundle from './transactions.bundle';
 
 describe('TransactionsBundle', () => {
@@ -34,23 +33,6 @@ describe('TransactionsBundle', () => {
       expect(wrapperRoute.providers).toBeDefined();
       expect(Array.isArray(wrapperRoute.providers)).toBe(true);
       expect(wrapperRoute.providers.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe('Named Export (Backward Compatibility)', () => {
-    it('should export TRANSACTIONS_ROUTES as named export', () => {
-      expect(TRANSACTIONS_ROUTES).toBeDefined();
-      expect(Array.isArray(TRANSACTIONS_ROUTES)).toBe(true);
-    });
-
-    it('should have consistent route configuration between default and named exports', () => {
-      expect(transactionsBundle).toEqual(TRANSACTIONS_ROUTES);
-    });
-
-    it('should maintain Routes type compatibility', () => {
-      const routes: Routes = TRANSACTIONS_ROUTES;
-      expect(routes).toBeDefined();
-      expect(Array.isArray(routes)).toBe(true);
     });
   });
 

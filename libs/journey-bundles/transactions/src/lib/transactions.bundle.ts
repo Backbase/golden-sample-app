@@ -60,6 +60,3 @@ const routes: Routes = [
 
 // Default export for Angular lazy loading
 export default routes;
-
-// Named export for backward compatibility (can be removed in future refactor)
-export const TRANSACTIONS_ROUTES = routes;
