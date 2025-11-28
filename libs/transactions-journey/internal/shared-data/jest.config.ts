@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'transactions-journey-shared-data',
   preset: '../../../../jest.preset.js',

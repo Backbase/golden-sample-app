@@ -1,8 +1,6 @@
-import { InjectionToken, Provider, Type } from '@angular/core';
-import { journeyFactory } from '@backbase/foundation-ang/core';
+import { InjectionToken, Type } from '@angular/core';
+import { journeyFactory, withDefaults } from '@backbase/foundation-ang/core';
 import { Routes } from '@angular/router';
-import { TransactionsViewComponent } from '@backbase/transactions-journey/internal/feature-transaction-view';
-import { TransactionDetailsComponent } from '@backbase/transactions-journey/internal/feature-transaction-details-view';
 import { TransactionsRouteTitleResolverService } from '@backbase/transactions-journey/internal/data-access';
 import { TRANSLATIONS } from '@backbase/transactions-journey/internal/shared-data';
 import {
@@ -12,7 +10,12 @@ import {
 import {
   TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
-} from '@backbase/transactions-journey/internal/feature-transaction-view';
+} from './transactions-journey-shell.config';
+
+// Default Routes
+// Components are directly imported since the entire journey is lazy-loaded via loadChildren
+import { TransactionsViewComponent } from '@backbase/transactions-journey/internal/feature-transaction-view';
+import { TransactionDetailsComponent } from '@backbase/transactions-journey/internal/feature-transaction-details-view';
 
 // Configuration Interface
 export interface TransactionsJourneyConfig {
@@ -36,7 +39,6 @@ export const TRANSACTIONS_JOURNEY_CONFIG =
     factory: () => defaultConfig,
   });
 
-// Default Routes
 const defaultRoutes: Routes = [
   {
     path: '',
@@ -63,28 +65,20 @@ const defaultRoutes: Routes = [
 // Journey Factory
 export const {
   transactionsJourney,
-  withConfig: withFullConfig,
+  withConfig,
   withCommunicationService: withFullCommunicationService,
   withExtensions: withFullExtensions,
 } = journeyFactory({
   journeyName: 'transactionsJourney',
   defaultRoutes,
   tokens: {
-    config: TRANSACTIONS_JOURNEY_CONFIG,
+    config: withDefaults(TRANSACTIONS_JOURNEY_CONFIG, defaultConfig),
     communicationService: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
     extensions: TRANSACTION_EXTENSIONS_CONFIG,
   },
 });
 
 // Helper Functions - use correct typing for the provider factory functions
-export const withConfig = (config: Partial<TransactionsJourneyConfig>) =>
-  withFullConfig({
-    useValue: {
-      ...defaultConfig,
-      ...config,
-    },
-  });
-
 export const withCommunicationService = (
   service: Type<TransactionsCommunicationService>
 ) =>

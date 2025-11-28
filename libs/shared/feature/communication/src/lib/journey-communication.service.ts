@@ -4,9 +4,9 @@ import {
   TransactionItem,
   TransactionState,
 } from '@backbase/transactions-http-ang';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+
 import { TransactionsCommunicationService } from '@backbase/transactions-journey';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+
 import { MakeTransferCommunicationService } from '@backbase/transfer-journey';
 import { Transfer } from '@backbase/transfer-journey/internal/shared-data';
 import { BehaviorSubject } from 'rxjs';
@@ -22,7 +22,6 @@ export class JourneyCommunicationService
     TransactionItem | undefined
   >(undefined);
 
-  // eslint-disable-next-line @typescript-eslint/member-ordering
   public latestTransaction$ = this.latestTransaction$$.asObservable();
 
   public makeTransfer(transfer: Transfer): void {

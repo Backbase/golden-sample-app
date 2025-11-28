@@ -1,10 +1,11 @@
 import { Component, inject, Input } from '@angular/core';
+import { DropdownMenuModule } from '@backbase/ui-ang/dropdown-menu';
 import { ThemeManagerService } from './theme-service';
 
 @Component({
   selector: 'app-theme-switcher',
   templateUrl: './theme-switcher.component.html',
-  standalone: false,
+  imports: [DropdownMenuModule],
 })
 export class ThemeSwitcherComponent {
   private readonly themeManagerService: ThemeManagerService =

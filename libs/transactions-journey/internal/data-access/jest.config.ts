@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'transactions-journey-data-access',
   preset: '../../../../jest.preset.js',

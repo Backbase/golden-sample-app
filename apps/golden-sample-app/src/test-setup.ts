@@ -1,6 +1,9 @@
 import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
 
-setupZoneTestEnv();
+setupZoneTestEnv({
+  teardown: { destroyAfterEach: false },
+});
+
 import '@angular/localize/init';
 
 import { TextEncoder } from 'util';
@@ -11,16 +14,3 @@ Object.defineProperty(window, 'TextEncoder', {
   writable: true,
   value: TextEncoder,
 });
-
-import { getTestBed } from '@angular/core/testing';
-import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting,
-} from '@angular/platform-browser-dynamic/testing';
-
-getTestBed().resetTestEnvironment();
-getTestBed().initTestEnvironment(
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting(),
-  { teardown: { destroyAfterEach: false } }
-);

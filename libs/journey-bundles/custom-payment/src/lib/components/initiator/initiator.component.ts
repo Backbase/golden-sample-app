@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AccountSelectorModule } from '@backbase/ui-ang/account-selector';
 import {
   InitiatorFields,
   PaymentFormField,
@@ -41,8 +43,9 @@ import { InitiatorService } from './initiator.service';
       }
     </div>
   `,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, AccountSelectorModule],
   providers: [InitiatorService],
-  standalone: false,
 })
 
 // The custom component MUST implement PaymentFormField or ActivatableFormField and it should be an Angular form control.

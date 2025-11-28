@@ -1,13 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { ErrorCommonStateModule } from '@backbase/ui-ang/common-error-state';
 
 @Component({
   selector: 'app-error-page',
   templateUrl: './error-page.component.html',
-  standalone: false,
+  imports: [ErrorCommonStateModule],
 })
-export class ErrorPageComponent {
+export default class ErrorPageComponent {
   private readonly router: Router = inject(Router);
   public error =
     this.router.getCurrentNavigation()?.extras.state?.['error'] ??

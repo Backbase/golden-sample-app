@@ -3,7 +3,6 @@ import { SharedUserContextGuard } from '@backbase/shared/feature/user-context';
 
 export const USER_ACCOUNTS_ROUTE = {
   path: 'accounts',
-  loadChildren: () =>
-    import('./user-accounts.module').then((m) => m.UserAccountsModule),
+  loadChildren: () => import('./user-accounts.routes'),
   canActivate: [AuthGuard, SharedUserContextGuard],
 };

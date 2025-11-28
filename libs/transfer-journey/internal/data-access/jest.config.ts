@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'transfer-journey-data-access',
   preset: '../../../../jest.preset.js',

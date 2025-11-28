@@ -1,12 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { MakeTransferJourneyState } from '@backbase/transfer-journey/internal/data-access';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AlertModule } from '@backbase/ui-ang/alert';
 
 @Component({
   selector: 'bb-transfer-journey',
   templateUrl: 'transfer-journey.component.html',
   providers: [MakeTransferJourneyState],
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, RouterModule, AlertModule],
 })
 export class TransferJourneyComponent {
   private readonly route: ActivatedRoute = inject(ActivatedRoute);

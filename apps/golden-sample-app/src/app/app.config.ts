@@ -26,6 +26,20 @@ import { environment } from '../environments/environment';
 import { APP_ROUTES } from './app-routes';
 import { AppErrorHandler } from './app.error-handler';
 import { OAuthStorage } from 'angular-oauth2-oidc';
+import { provideActivityMonitor } from '@backbase/shared/feature/auth';
+import {
+  NAVIGATION_MENU_CONFIG,
+  NavigationMenuItem,
+  composeNavigationTree,
+} from '@backbase/shared/util/app-core';
+import {
+  NAVIGATION_BUNDLE,
+  NAVIGATION_GROUPS,
+} from './navigation-menu/navigation-menu.config';
+
+function navigationTreeConfig(): NavigationMenuItem[] {
+  return composeNavigationTree(NAVIGATION_BUNDLE, NAVIGATION_GROUPS);
+}
 
 const sharedJourneyConfig: SharedJourneyConfiguration = {
   designSlimMode: false,
@@ -70,10 +84,16 @@ export const appConfig: ApplicationConfig = {
     // Other providers here are common to all environments
     { provide: OAuthStorage, useValue: localStorage },
     provideLocales(['en-US', 'nl-NL']),
+    ...provideActivityMonitor(),
     provideRouter(APP_ROUTES, withComponentInputBinding()),
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     provideEntitlements(),
+
+    {
+      provide: NAVIGATION_MENU_CONFIG,
+      useFactory: navigationTreeConfig,
+    },
 
     {
       provide: SHARED_JOURNEY_CONFIG,

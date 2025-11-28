@@ -3,79 +3,47 @@ import {
   withConfig,
   withCommunicationService,
   withExtensions,
-  TRANSACTIONS_JOURNEY_CONFIG,
+  TransactionsJourneyExtensionsConfig,
 } from '@backbase/transactions-journey';
+import { withProviders } from '@backbase/foundation-ang/core';
 import { JourneyCommunicationService } from '@backbase/shared/feature/communication';
-import { SHARED_JOURNEY_CONFIG } from '@backbase/shared/util/config';
-import { NgModule, Injectable, inject } from '@angular/core';
 import { TransactionItemAdditionalDetailsComponent } from './transaction-additional-details.component';
-import { RouterModule, Routes } from '@angular/router';
 import {
   TransactionsRouteTitleResolverService,
   TransactionsJourneyConfiguration,
 } from '@backbase/transactions-journey/internal/data-access';
+import { TRANSACTION_EXTENSIONS_CONFIG } from '@backbase/transactions-journey/internal/feature-transaction-view';
 
-// Create a service that will be used to configure the journey
-@Injectable()
-export class TransactionsConfigService {
-  readonly #slimMode =
-    inject(SHARED_JOURNEY_CONFIG, { optional: true })?.designSlimMode ?? false;
+// Extensions configuration
+const extensionsConfig: Partial<TransactionsJourneyExtensionsConfig> = {
+  transactionItemAdditionalDetails: TransactionItemAdditionalDetailsComponent,
+};
 
-  getJourneyConfig() {
-    return {
-      pageSize: 10,
-      slimMode: this.#slimMode,
-    };
-  }
-}
+// Journey configuration
+const journeyConfig = {
+  pageSize: 10,
+  slimMode: false,
+};
 
-// The actual routes that will be lazy-loaded
-const routes: Routes = transactionsJourney(
-  // Journey configuration - using a factory function that will be called at runtime
-  withConfig({
-    pageSize: 10,
-    slimMode: false, // Default value, will be updated by the module
-  }),
-  // Communication service configuration
+// Providers needed by the journey's internal services
+// Note: withConfig() provides TRANSACTIONS_JOURNEY_CONFIG (InjectionToken)
+// We also need to provide TransactionsJourneyConfiguration (class) for internal services
+const journeyProviders = [
+  {
+    provide: TransactionsJourneyConfiguration,
+    useValue: journeyConfig,
+  },
+  TransactionsRouteTitleResolverService,
+  {
+    provide: TRANSACTION_EXTENSIONS_CONFIG,
+    useValue: extensionsConfig,
+  },
+];
+
+// Default export for Angular lazy loading
+export default transactionsJourney(
+  withConfig(journeyConfig),
   withCommunicationService(JourneyCommunicationService),
-  // Extensions configuration
-  withExtensions({
-    transactionItemAdditionalDetails: TransactionItemAdditionalDetailsComponent,
-  })
+  withExtensions(extensionsConfig),
+  withProviders(journeyProviders)
 );
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  providers: [
-    TransactionsConfigService,
-    TransactionsRouteTitleResolverService,
-    {
-      provide: TransactionsJourneyConfiguration,
-      useFactory: (configService: TransactionsConfigService) => {
-        const config = configService.getJourneyConfig();
-        const journeyConfig = new TransactionsJourneyConfiguration();
-        journeyConfig.pageSize = config.pageSize;
-        journeyConfig.slimMode = config.slimMode;
-        return journeyConfig;
-      },
-      deps: [TransactionsConfigService],
-    },
-    {
-      provide: TRANSACTIONS_JOURNEY_CONFIG,
-      useFactory: (configService: TransactionsConfigService) => {
-        return configService.getJourneyConfig();
-      },
-      deps: [TransactionsConfigService],
-    },
-  ],
-})
-export class TransactionsModule {
-  constructor(configService: TransactionsConfigService) {
-    // Get configuration at runtime
-    const config = configService.getJourneyConfig();
-
-    // You could update route components here if needed
-  }
-}
-
-export default TransactionsModule;

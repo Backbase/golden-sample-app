@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'transfer-journey-feature',
   preset: '../../../../jest.preset.js',

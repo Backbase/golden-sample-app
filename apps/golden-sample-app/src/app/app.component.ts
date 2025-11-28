@@ -5,25 +5,25 @@ import {
   LogoutTrackerEvent,
   Tracker,
 } from '@backbase/foundation-ang/observability';
-import { ActivityMonitorModule } from '@backbase/shared/feature/auth';
+import { ActivityMonitorComponent } from '@backbase/shared/feature/auth';
+import { DynamicNavigationMenuComponent } from '@backbase/shared/feature/navigation-menu';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { LayoutService } from '@backbase/ui-ang/layout';
 import { LogoModule } from '@backbase/ui-ang/logo';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { LocaleSelectorComponent } from './locale-selector/locale-selector.component';
-import { NavigationMenuModule } from './navigation-menu/navigation-menu.module';
-import { ThemeSwitcherModule } from './theme-switcher/theme-switcher.component.module';
+import { ThemeSwitcherComponent } from './theme-switcher/theme-switcher.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   imports: [
-    ActivityMonitorModule,
+    ActivityMonitorComponent,
     CommonModule,
     LogoModule,
-    NavigationMenuModule,
-    ThemeSwitcherModule,
+    DynamicNavigationMenuComponent,
+    ThemeSwitcherComponent,
     LocaleSelectorComponent,
     IconModule,
     RouterOutlet,

@@ -1,4 +1,3 @@
-export * from './lib/transactions-journey-shell.module';
 export {
   TransactionsCommunicationService,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
