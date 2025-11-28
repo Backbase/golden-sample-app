@@ -5,6 +5,7 @@
     "@angular/common": "^20.3.12",
     "@angular/core": "^20.3.12",
     "@angular/router": "^20.3.12",
+    "@backbase/foundation-ang": "^13.0.4",
     "@backbase/ui-ang": "^14.1.24"
   },
   "dependencies": {
