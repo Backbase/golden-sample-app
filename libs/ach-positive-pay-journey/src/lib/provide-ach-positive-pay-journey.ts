@@ -1,27 +1,34 @@
-import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core';
-import { provideRoutes, Routes } from '@angular/router';
-import { achPositivePayDefaultRoutes } from './ach-positive-pay-journey.routes';
+import { journeyFactory } from '@backbase/foundation-ang/core';
+import defaultRoutes from './ach-positive-pay-journey.routes';
 
 /**
- * Provides the ACH Positive Pay Journey configuration in a standalone context.
+ * Creates and configures the ACH Positive Pay Journey using the journey factory pattern.
  *
- * @param routes - Optional custom routes. If not provided, uses default routes.
- * @returns Environment providers for ACH Positive Pay Journey
+ * The journey factory provides a flexible, type-safe way to configure and extend the journey.
+ * It allows consumers to:
+ * - Override default routes
+ * - Add custom providers
+ * - Customize behavior through configuration tokens
  *
  * @example
  * ```typescript
- * import { ApplicationConfig } from '@angular/core';
- * import { provideAchPositivePayJourney } from '@backbase/ach-positive-pay-journey';
+ * // In app/journeys/ach-positive-pay.ts
+ * import { achPositivePayJourney } from '@backbase/ach-positive-pay-journey';
+ * import type { Routes } from '@angular/router';
  *
- * export const appConfig: ApplicationConfig = {
- *   providers: [
- *     provideAchPositivePayJourney(),
- *   ],
- * };
+ * export default achPositivePayJourney();
+ *
+ * // Then in app routing:
+ * const routes: Routes = [
+ *   {
+ *     path: 'ach-positive-pay',
+ *     loadChildren: () => import('./journeys/ach-positive-pay'),
+ *   },
+ * ];
  * ```
  */
-export function provideAchPositivePayJourney(
-  routes: Routes = achPositivePayDefaultRoutes
-): EnvironmentProviders {
-  return makeEnvironmentProviders([provideRoutes(routes)]);
-}
+export const { achPositivePayJourney } = journeyFactory({
+  journeyName: 'achPositivePayJourney',
+  defaultRoutes,
+  tokens: {},
+});
