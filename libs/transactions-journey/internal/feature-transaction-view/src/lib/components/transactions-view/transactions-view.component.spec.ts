@@ -6,11 +6,10 @@ import {
   Router,
 } from '@angular/router';
 import { TransactionItem } from '@backbase/transactions-http-ang';
-import { BehaviorSubject, delay, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, delay, of, Subject } from 'rxjs';
 import {
   TransactionsCommunicationService,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
-  TransactionsJourneyConfiguration,
 } from '@backbase/transactions-journey/internal/data-access';
 import {
   debitMockTransaction,
@@ -136,13 +135,6 @@ describe('TransactionsViewComponent', () => {
         {
           provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
           useValue: mockTransactionsCommunicationService,
-        },
-        {
-          provide: TransactionsJourneyConfiguration,
-          useValue: {
-            pageSize: 20,
-            slimMode: true,
-          },
         },
         {
           provide: Tracker,
