@@ -32,4 +32,3 @@ export const defaultMakeTransferJourneyConfig: MakeTransferJourneyConfig = {
  */
 export const MAKE_TRANSFER_JOURNEY_CONFIG =
   new InjectionToken<MakeTransferJourneyConfig>('make-transfer-journey-config');
-

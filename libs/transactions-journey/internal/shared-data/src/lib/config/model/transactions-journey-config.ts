@@ -27,4 +27,3 @@ export const defaultTransactionsJourneyConfig: TransactionsJourneyConfig = {
  */
 export const TRANSACTIONS_JOURNEY_CONFIG =
   new InjectionToken<TransactionsJourneyConfig>('transactions-journey-config');
-
