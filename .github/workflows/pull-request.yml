@@ -47,10 +47,10 @@ jobs:
         env:
           NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
+          NPM_EMAIL: ${{ secrets.NODE_EMAIL }}
         with:
           npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
-          npm-email: ${{ secrets.NPM_EMAIL }}
+          npm-email: ${{ secrets.NODE_EMAIL }}
 
       - name: Cache npm dependencies
         uses: actions/cache@v4
