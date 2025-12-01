@@ -9,8 +9,9 @@ export {
   TransactionAdditionalDetailsContext,
 } from '@backbase/transactions-journey/internal/feature-transaction-view';
 export {
-  TransactionsJourneyConfiguration,
   ArrangementsService,
+  TransactionsRouteTitleResolverService,
+  TransactionsHttpService,
 } from '@backbase/transactions-journey/internal/data-access';
 
 // Export new standalone APIs

@@ -1,4 +1,4 @@
-import { InjectionToken, Type } from '@angular/core';
+import { Type } from '@angular/core';
 import { journeyFactory, withDefaults } from '@backbase/foundation-ang/core';
 import { Routes } from '@angular/router';
 import {
@@ -7,7 +7,12 @@ import {
   MakeTransferPermissionsService,
   MakeTransferAccountHttpService,
 } from '@backbase/transfer-journey/internal/data-access';
-import { TRANSLATIONS } from '@backbase/transfer-journey/internal/shared-data';
+import {
+  TRANSLATIONS,
+  MAKE_TRANSFER_JOURNEY_CONFIG,
+  MakeTransferJourneyConfig,
+  defaultMakeTransferJourneyConfig,
+} from '@backbase/transfer-journey/internal/shared-data';
 import { provideJourneyTracker } from '@backbase/foundation-ang/observability';
 
 // Components are directly imported since the entire journey is lazy-loaded via loadChildren
@@ -19,29 +24,8 @@ import {
 } from '@backbase/transfer-journey/internal/feature';
 import { MakeTransferJourneyStoreGuard } from './make-transfer-journey-store-guard';
 
-// Configuration Interface
-export interface MakeTransferJourneyConfig {
-  maskIndicator: boolean;
-  maxTransactionAmount: number;
-  slimMode: boolean;
-}
-
-// Default Configuration
-const defaultConfig: MakeTransferJourneyConfig = {
-  maskIndicator: true,
-  maxTransactionAmount: 100,
-  slimMode: true,
-};
-
-// Configuration Token
-export const MAKE_TRANSFER_JOURNEY_CONFIG =
-  new InjectionToken<MakeTransferJourneyConfig>('MAKE_TRANSFER_JOURNEY_CONFIG');
-
-// Communication Service Token
-export const MAKE_TRANSFER_JOURNEY_COMMUNICATION_SERVICE =
-  new InjectionToken<MakeTransferCommunicationService>(
-    'MAKE_TRANSFER_JOURNEY_COMMUNICATION_SERVICE'
-  );
+// Re-export config interface and token for consumers
+export { MakeTransferJourneyConfig, MAKE_TRANSFER_JOURNEY_CONFIG };
 
 const defaultRoutes: Routes = [
   {
@@ -109,8 +93,11 @@ export const {
   defaultRoutes,
   providers: journeyProviders,
   tokens: {
-    config: withDefaults(MAKE_TRANSFER_JOURNEY_CONFIG, defaultConfig),
-    communicationService: MAKE_TRANSFER_JOURNEY_COMMUNICATION_SERVICE,
+    config: withDefaults(
+      MAKE_TRANSFER_JOURNEY_CONFIG,
+      defaultMakeTransferJourneyConfig
+    ),
+    communicationService: MakeTransferCommunicationService,
   },
 });
 

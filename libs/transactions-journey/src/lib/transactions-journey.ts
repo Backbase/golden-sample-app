@@ -1,8 +1,13 @@
-import { InjectionToken, Type } from '@angular/core';
+import { Type } from '@angular/core';
 import { journeyFactory, withDefaults } from '@backbase/foundation-ang/core';
 import { Routes } from '@angular/router';
 import { TransactionsRouteTitleResolverService } from '@backbase/transactions-journey/internal/data-access';
-import { TRANSLATIONS } from '@backbase/transactions-journey/internal/shared-data';
+import {
+  TRANSLATIONS,
+  TRANSACTIONS_JOURNEY_CONFIG,
+  TransactionsJourneyConfig,
+  defaultTransactionsJourneyConfig,
+} from '@backbase/transactions-journey/internal/shared-data';
 import {
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
   TransactionsCommunicationService,
@@ -10,34 +15,18 @@ import {
 import {
   TRANSACTION_EXTENSIONS_CONFIG,
   TransactionsJourneyExtensionsConfig,
-} from './transactions-journey-shell.config';
+} from '@backbase/transactions-journey/internal/feature-transaction-view';
 
 // Default Routes
 // Components are directly imported since the entire journey is lazy-loaded via loadChildren
 import { TransactionsViewComponent } from '@backbase/transactions-journey/internal/feature-transaction-view';
 import { TransactionDetailsComponent } from '@backbase/transactions-journey/internal/feature-transaction-details-view';
 
-// Configuration Interface
-export interface TransactionsJourneyConfig {
-  pageSize: number;
-  slimMode: boolean;
-}
-
-// Default Configuration
-const defaultConfig: TransactionsJourneyConfig = {
-  pageSize: 20,
-  slimMode: true,
-};
+// Re-export config types for public API
+export { TransactionsJourneyConfig, TRANSACTIONS_JOURNEY_CONFIG };
 
 // Default Extensions Configuration
 const defaultExtensionsConfig: TransactionsJourneyExtensionsConfig = {};
-
-// Configuration Token
-export const TRANSACTIONS_JOURNEY_CONFIG =
-  new InjectionToken<TransactionsJourneyConfig>('TRANSACTIONS_JOURNEY_CONFIG', {
-    providedIn: 'root',
-    factory: () => defaultConfig,
-  });
 
 const defaultRoutes: Routes = [
   {
@@ -72,7 +61,10 @@ export const {
   journeyName: 'transactionsJourney',
   defaultRoutes,
   tokens: {
-    config: withDefaults(TRANSACTIONS_JOURNEY_CONFIG, defaultConfig),
+    config: withDefaults(
+      TRANSACTIONS_JOURNEY_CONFIG,
+      defaultTransactionsJourneyConfig
+    ),
     communicationService: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
     extensions: TRANSACTION_EXTENSIONS_CONFIG,
   },

@@ -42,7 +42,6 @@ import { TransactionItemComponent } from '../transaction-item/transaction-item.c
     TextFilterComponent,
     TransactionItemComponent,
   ],
-  providers: [TransactionsHttpService],
 })
 export class TransactionsViewComponent {
   private readonly route: ActivatedRoute = inject(ActivatedRoute);

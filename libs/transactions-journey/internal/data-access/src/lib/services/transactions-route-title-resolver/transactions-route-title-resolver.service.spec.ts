@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TestBed } from '@angular/core/testing';
-import { TransactionsJourneyConfiguration } from '../transactions-journey-config/transactions-journey-config.service';
+import {
+  TRANSACTIONS_JOURNEY_CONFIG,
+  TransactionsJourneyConfig,
+} from '@backbase/transactions-journey/internal/shared-data';
 import { TransactionsRouteTitleResolverService } from './transactions-route-title-resolver.service';
 
 describe('MakeTransferRouteTitleResolverService', () => {
-  function setup(config: Partial<TransactionsJourneyConfiguration>) {
+  function setup(config: Partial<TransactionsJourneyConfig>) {
     TestBed.configureTestingModule({
       providers: [
         TransactionsRouteTitleResolverService,
         {
-          provide: TransactionsJourneyConfiguration,
+          provide: TRANSACTIONS_JOURNEY_CONFIG,
           useValue: config,
         },
       ],
