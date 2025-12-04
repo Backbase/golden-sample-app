@@ -6,6 +6,28 @@ This playbook guides you through implementing JIRA-001 using Cursor's LLM-assist
 
 ---
 
+## What This POC Demonstrates
+
+This playbook validates the methodology from `docs/llm-code-generation-playbook.md`:
+
+| Core Principle | How It's Demonstrated |
+|----------------|----------------------|
+| **Human-in-the-loop** | 8 explicit human gates (🚦) requiring approval |
+| **Ask before assuming** | Step 1-2 forces LLM to ask questions first |
+| **Plan before code** | Steps 3-6 complete before any implementation |
+| **Tests before code (TDD)** | Step 7-8 generates tests before Step 9 implements |
+| **One step at a time** | Steps 7-13 repeat for each decomposed step |
+| **Keep it small** | 24-line limit enforced with `extract-methods` remediation |
+| **Review everything** | Self-critique (Step 11) + formal review (Step 12) |
+| **Agent switching** | 3 agents used: `angular-typescript`, `unit-tests`, `code-review` |
+
+**Expected ROI Metrics:**
+- Planning improves pass rates by 11-25% (Steps 3-6)
+- TDD improves accuracy by 12-38% (Steps 7-8)
+- Self-critique reduces review iterations (Step 11)
+
+---
+
 ## How to Use This Playbook
 
 1. **Open Cursor Chat** (Cmd+L or Ctrl+L)
@@ -20,11 +42,16 @@ This playbook guides you through implementing JIRA-001 using Cursor's LLM-assist
 
 ## Phase 1: Requirements Clarification
 
-### Step 1: Initialize Session
+### Step 1: Activate Agent & Clarify Requirements
 
 Copy this prompt into Cursor Chat:
 
 ```
+## ACTIVATE AGENT
+@docs/agents/angular-typescript-agent.md
+Act as the Senior Angular/TypeScript Agent defined above.
+
+## TASK
 I'm implementing JIRA-001: View Transactions by Account.
 
 ## Context Files
@@ -49,12 +76,15 @@ ADRs:
 - @docs/architecture/011-ADR-entitlements-access-control-standards.md
 - @docs/architecture/013-ADR-unit-integration-testing-standards.md
 
-Agent: @docs/agents/angular-typescript-agent.md
+## PROJECT CONTEXT (beyond ADRs)
+This project uses these additional conventions:
+- NgRx with actions/reducers/selectors pattern for state management
+- Effects for side effects (API calls, navigation)
+- Cross-module communication via NgRx store
+- Journey feature modules are lazy-loaded and self-contained
 
-## Instructions
-Please act as the Senior Angular/TypeScript Agent defined in the agent file above.
-
-Before creating any plan, I need you to clarify requirements. Read the JIRA ticket and the current component implementation, then ask me questions about anything that's unclear or ambiguous.
+## INSTRUCTIONS
+Before creating any plan, clarify requirements. Read the JIRA ticket and current implementation, then ask questions about anything unclear or ambiguous.
 
 Format your response as:
 ## ASK
@@ -119,6 +149,8 @@ Review the plan carefully. Check:
 
 **If changes needed:** Reply with specific feedback and request updated plan.
 
+> **Loop-back:** If the plan reveals new ambiguities, go back to Step 1 and ask clarifying questions.
+
 ---
 
 ## Phase 3: Task Decomposition
@@ -154,8 +186,11 @@ Review the decomposition:
 - [ ] Are steps small enough? (single responsibility)
 - [ ] Are dependencies clear?
 - [ ] Is the order logical?
+- [ ] Is each step ≤24 lines when implemented?
 
 **If acceptable:** Reply "Decomposition approved. Let's start with Step 1."
+
+> **Loop-back:** If any step is too complex, request re-decomposition before proceeding.
 
 ---
 
@@ -165,7 +200,13 @@ For **each step** in the decomposition, follow this cycle:
 
 ### Step 7: Generate Tests First
 
+> **Agent Switch:** Switching to `unit-tests-agent` for test generation.
+
 ```
+## SWITCH AGENT
+@docs/agents/unit-tests-agent.md
+Act as the Unit Tests Agent defined above.
+
 Generate unit tests for Step [N]: [STEP NAME]
 
 Requirements:
@@ -175,7 +216,8 @@ Requirements:
 - Mock external dependencies (services, HTTP)
 - One assertion per test
 
-Reference ADR-013 for testing patterns.
+Reference ADR-013 for testing patterns:
+@docs/architecture/013-ADR-unit-integration-testing-standards.md
 
 Do NOT implement the code. Output tests only.
 Wait for my review before implementing.
@@ -188,12 +230,21 @@ Review the generated tests:
 - [ ] Do tests cover the acceptance criteria?
 - [ ] Are mocks appropriate?
 - [ ] Is the test naming clear?
+- [ ] Are edge cases covered?
 
 **If acceptable:** Reply "Tests approved. Now implement the code to make these tests pass."
 
+> **Loop-back:** If tests are incomplete, request additional test cases before implementing.
+
 ### Step 9: Implement Step
 
+> **Agent Switch:** Switching back to `angular-typescript-agent` for implementation.
+
 ```
+## SWITCH AGENT
+@docs/agents/angular-typescript-agent.md
+Act as the Senior Angular/TypeScript Agent.
+
 Implement Step [N]: [STEP NAME]
 
 Constraints:
@@ -259,15 +310,58 @@ If issues found, provide corrected code.
 If no issues: state "Self-review passed for Step [N]"
 ```
 
-### Step 12: Repeat for Each Step
+**If method exceeds 24 lines**, use this remediation prompt:
 
-Repeat Steps 7-11 for each step in the decomposition.
+```
+This method exceeds 24 lines. Refactor it:
+1. Extract logical blocks into helper methods
+2. Each helper has single responsibility
+3. Name helpers to describe their purpose
+4. Keep original method as orchestrator
+
+Show the refactored code.
+```
+
+### Step 12: Formal Code Review
+
+> **Agent Switch:** Switching to `self-review-agent` for formal review.
+
+```
+## SWITCH AGENT
+@docs/agents/code-review-agent.md
+Act as the Code Review Agent.
+
+Review the code for Step [N]:
+@[path to changed file]
+
+Check against:
+1. All ADRs in context (violations are blockers)
+2. Null/undefined handling
+3. Error handling completeness
+4. Observable subscription cleanup
+5. Method size (<24 lines)
+6. Single responsibility
+
+Output format:
+[BLOCKER|WARNING|SUGGESTION]: description
+- Corrected code (for blockers)
+
+End with: "Approved" or "Changes required: X blockers"
+```
+
+**If blockers found:** Apply fixes and re-run tests before proceeding.
+
+### Step 13: Repeat for Each Step
+
+Repeat Steps 7-12 for each step in the decomposition.
+
+> **Loop-back:** If during implementation you discover unclear requirements, loop back to Step 1 and ask clarifying questions before continuing.
 
 ---
 
 ## Phase 5: Route Protection (ADR-011)
 
-### Step 13: Add EntitlementsGuard
+### Step 14: Add EntitlementsGuard
 
 After all component steps are complete, update the route:
 
@@ -284,7 +378,7 @@ Requirements:
 Show me the modified route configuration.
 ```
 
-### Step 14: 🚦 HUMAN GATE - Verify Route
+### Step 15: 🚦 HUMAN GATE - Verify Route
 
 Check the route configuration:
 
@@ -296,7 +390,7 @@ Check the route configuration:
 
 ## Phase 6: Final Quality Check
 
-### Step 15: Architecture Compliance Check
+### Step 16: Architecture Compliance Check
 
 ```
 Perform final architecture compliance check on all changes:
@@ -318,11 +412,11 @@ For each check, state:
 End with: "Compliant" or "Changes required: [list]"
 ```
 
-### Step 16: 🚦 HUMAN GATE - Fix Any Violations
+### Step 17: 🚦 HUMAN GATE - Fix Any Violations
 
 If any violations were found, apply the fixes and re-run the compliance check.
 
-### Step 17: Run Full Test Suite
+### Step 18: Run Full Test Suite
 
 In Cursor's terminal:
 
@@ -334,7 +428,7 @@ nx test transactions-journey-internal-data-access --watch=false
 
 All tests must pass before proceeding.
 
-### Step 18: Run E2E Tests (Optional)
+### Step 19: Run E2E Tests (Optional)
 
 ```bash
 nx e2e transactions-journey-e2e
@@ -344,7 +438,7 @@ nx e2e transactions-journey-e2e
 
 ## Phase 7: Final Review
 
-### Step 19: Definition of Done Checklist
+### Step 20: Definition of Done Checklist
 
 Verify all items from JIRA-001:
 
@@ -375,15 +469,21 @@ Verify all items from JIRA-001:
 
 ## Summary: Quick Reference
 
-| Phase | Steps | Human Gates |
-|-------|-------|-------------|
-| 1. Clarification | 1-2 | Answer questions |
-| 2. Planning | 3-4 | Approve plan |
-| 3. Decomposition | 5-6 | Approve steps |
-| 4. Implementation | 7-12 (per step) | Approve tests |
-| 5. Route Protection | 13-14 | Verify route |
-| 6. Quality Check | 15-17 | Fix violations |
-| 7. Final Review | 18-19 | DoD checklist |
+| Phase | Steps | Human Gates | Loop-back |
+|-------|-------|-------------|-----------|
+| 1. Clarification | 1-2 | Answer questions | — |
+| 2. Planning | 3-4 | Approve plan | → Step 1 if ambiguous |
+| 3. Decomposition | 5-6 | Approve steps | → Step 3 if too complex |
+| 4. Implementation | 7-13 (per step) | Approve tests, review code | → Step 7 if tests incomplete |
+| 5. Route Protection | 14-15 | Verify route | — |
+| 6. Quality Check | 16-18 | Fix violations | → Phase 4 if rework needed |
+| 7. Final Review | 19-20 | DoD checklist | — |
+
+**Agent Rotation:**
+- Steps 1-6: `angular-typescript-agent` (planning & decomposition)
+- Step 7-8: `unit-tests-agent` (test generation)
+- Step 9-11: `angular-typescript-agent` (implementation)
+- Step 12: `code-review-agent` (formal review)
 
 ---
 
