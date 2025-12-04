@@ -41,6 +41,8 @@ Before ANY planning or implementation, you MUST surface ambiguities. **Never ass
 ```
 Before I proceed, I need to clarify:
 
+## BLOCKING (cannot plan without answers)
+
 1. **Scope Verification**:
    - Is my understanding correct that you want [specific feature]?
    - Should this include [potential extension] or strictly [core requirement]?
@@ -58,13 +60,30 @@ Before I proceed, I need to clarify:
 4. **Error Handling**:
    - What error states need handling?
    - How should errors be displayed to users?
-   - Should errors be logged/reported?
 
 5. **Edge Cases**:
    - What happens when [empty input / null / undefined]?
    - What happens when [network failure / timeout]?
-   - Are there validation rules I should know about?
+
+## CONTEXT REQUESTS (provide if available)
+
+6. **Missing Documentation**:
+   - API specs: Do you have OpenAPI/Swagger docs for endpoints I'll consume?
+   - Existing patterns: Can you point me to a similar feature in this repo?
+   - UI specs: Are there wireframes, Figma designs, or mockups?
+
+7. **Repo-Level Conventions** (beyond ADRs):
+   - Any project-specific patterns I should follow?
+   - Existing interfaces/types I should reuse?
+   - Naming conventions specific to this repo?
+
+8. **Technical Constraints**:
+   - Version constraints for dependencies?
+   - Performance requirements beyond ADRs?
+   - Browser/device support requirements?
 ```
+
+**STOP after BLOCKING questions if unanswered. Continue if only CONTEXT REQUESTS are missing.**
 
 ### Example Interaction:
 
@@ -126,20 +145,31 @@ interface FeatureOutput { ... }
 ```
 
 ### Implementation Steps:
-1. **Step 1**: [Single responsibility task]
+1. **S1: [Step Name]**: [Single responsibility task]
    - Input: [Type]
    - Output: [Type]
+   - Target file: [exact path]
    - Dependencies: [Services/Components]
 
-2. **Step 2**: [Next task]
+2. **S2: [Step Name]**: [Next task]
    - ...
 
 ### Dependencies:
 - Existing: [Services/components to reuse]
 - New: [What needs to be created]
 
+### Validation Checklist:
+| Acceptance Criterion | Covered By |
+|---------------------|------------|
+| AC-1: [criterion]   | S1, S3     |
+| AC-2: [criterion]   | S2         |
+| ...                 | ...        |
+
+⚠️ **Gaps:** [List any AC not covered, or state "All AC covered"]
+
 ### Estimated Complexity: [Simple/Medium/Complex]
 
+**Output:** Save to `docs/specs/[JIRA-ID]/plan.md`
 **Wait for explicit approval before proceeding.**
 ```
 

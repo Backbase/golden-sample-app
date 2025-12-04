@@ -2,211 +2,267 @@
 
 ## View Transactions by Account - Step-by-Step Guide
 
-This playbook guides you through implementing JIRA-001 using Cursor's LLM-assisted development.
+This playbook guides you through implementing JIRA-001 using the V-model methodology.
+
+---
+
+## V-Model Overview
+
+```
+    Part 1: SPECS                              Part 3: VALIDATION
+    (Left side)                                (Right side)
+    
+1.1 Select ADRs ──────────────────────────► 3.4 Product Review
+       │                                           ▲
+1.2 Select repo specs ────────────────────► 3.3 Architecture Review
+       │                                           ▲
+1.3 Disambiguate story ───────────────────► 3.2 Code Review
+       │                                           ▲
+1.4 Solution design ──────────────────────► 3.1 Run all tests
+       │                                           ▲
+       ▼                                           │
+    ════════════════════════════════════════════════
+                Part 2: CODING (Bottom)
+                
+                2.1 Generate tests (TDD)
+                2.2 Generate code
+                2.3 Run step tests + commit
+                (repeat per step)
+```
 
 ---
 
 ## What This POC Demonstrates
 
-This playbook validates the methodology from `docs/llm-code-generation-playbook.md`:
-
-| Core Principle | How It's Demonstrated |
-|----------------|----------------------|
-| **Human-in-the-loop** | 8 explicit human gates (🚦) requiring approval |
-| **Ask before assuming** | Step 1-2 forces LLM to ask questions first |
-| **Plan before code** | Steps 3-6 complete before any implementation |
-| **Tests before code (TDD)** | Step 7-8 generates tests before Step 9 implements |
-| **One step at a time** | Steps 7-13 repeat for each decomposed step |
-| **Keep it small** | 24-line limit enforced with `extract-methods` remediation |
-| **Review everything** | Self-critique (Step 11) + formal review (Step 12) |
-| **Agent switching** | 3 agents used: `angular-typescript`, `unit-tests`, `code-review` |
+| V-Model Phase | What's Validated |
+|---------------|------------------|
+| **Part 1: Specs** | ADR selection, repo context, disambiguation, solution design |
+| **Part 1 Sign-off** | Engineer commits artifacts, accountable for specs |
+| **Part 2: Coding** | TDD, step-by-step implementation, trunk-based dev |
+| **Part 3.1** | All tests (unit + e2e) pass |
+| **Part 3.2** | Code Review - HOW (quality, patterns) |
+| **Part 3.3** | Architecture Review - WHAT (ADRs, structure) |
+| **Part 3.4** | Product Review - WHETHER (AC completeness) |
 
 **Expected ROI Metrics:**
-- Planning improves pass rates by 11-25% (Steps 3-6)
-- TDD improves accuracy by 12-38% (Steps 7-8)
-- Self-critique reduces review iterations (Step 11)
+- Planning improves pass rates by 11-25%
+- TDD improves accuracy by 12-38%
+- Structured validation catches issues early
 
 ---
 
 ## How to Use This Playbook
 
-1. **Open Cursor Chat** (Cmd+L or Ctrl+L)
-2. **Copy prompts** from this playbook into the chat
-3. **Wait for responses** - never skip human gates (🚦)
-4. **Apply generated code** - click "Apply" button or use Cmd+Enter on code blocks
-5. **Run terminal commands** in Cursor's integrated terminal
+1. **Create artifact folder**: `mkdir -p docs/specs/JIRA-001`
+2. **Open Cursor Chat** (Cmd+L or Ctrl+L)
+3. **Copy prompts** from this playbook into the chat
+4. **Wait for responses** - never skip human gates (🚦)
+5. **Apply generated code** - click "Apply" button
+6. **Run terminal commands** in Cursor's integrated terminal
 
-> **Tip:** The `@file` references in prompts automatically include files in context. You don't need to open them manually.
+**Artifacts produced:**
+- `docs/specs/JIRA-001/task.md` - Disambiguated user story
+- `docs/specs/JIRA-001/solution-design.md` - Solution design with ADR compliance
+- `docs/specs/JIRA-001/execution-plan.md` - Step-by-step breakdown
 
 ---
 
-## Phase 1: Requirements Clarification
+# Part 1: SPECS (V-model left side)
 
-### Step 1: Activate Agent & Clarify Requirements
+## Step 1.1: Select Relevant ADRs
 
 Copy this prompt into Cursor Chat:
 
 ```
-## ACTIVATE AGENT
-@docs/agents/angular-typescript-agent.md
-Act as the Senior Angular/TypeScript Agent defined above.
-
 ## TASK
 I'm implementing JIRA-001: View Transactions by Account.
+User story: @docs/JIRA-001.md
 
-## Context Files
-JIRA Ticket: @docs/JIRA-001.md
+## SELECT RELEVANT ADRs
+Review available ADRs and confirm which apply to this feature:
+
+| ADR | Applies? | Reason |
+|-----|----------|--------|
+| @docs/architecture/001-ADR-accessibility-standards.md | Yes | UI component needs a11y |
+| @docs/architecture/003-ADR-translation-internationalization-standards.md | Yes | User-facing text |
+| @docs/architecture/006-ADR-design-system-component-standards.md | Yes | Account selector component |
+| @docs/architecture/011-ADR-entitlements-access-control-standards.md | Yes | Route protection |
+| @docs/architecture/013-ADR-unit-integration-testing-standards.md | Yes | Test coverage required |
+
+Confirm this selection or suggest additions/removals.
+```
+
+---
+
+## Step 1.2: Select Repo-Wide Specs
+
+```
+## REPO CONTEXT for JIRA-001
+
+Review repo architecture and identify relevant conventions:
 
 Target Files (to be modified):
 - @libs/transactions-journey/internal/feature-transaction-view/src/lib/components/transactions-view/transactions-view.component.ts
 - @libs/transactions-journey/internal/feature-transaction-view/src/lib/components/transactions-view/transactions-view.component.html
-- @libs/transactions-journey/internal/feature-transaction-view/src/lib/components/transactions-view/transactions-view.component.scss
 - @libs/transactions-journey/internal/feature-transaction-view/src/lib/components/transactions-view/transactions-view.module.ts
 - @libs/transactions-journey/internal/feature-transaction-view/src/lib/components/transactions-view/transactions-view.component.spec.ts
 - @libs/transactions-journey/src/lib/transactions-journey-shell.module.ts
 
-Reference Files (read-only context):
+Reference Files (existing patterns):
 - @libs/transactions-journey/internal/data-access/src/lib/services/arrangements/arrangements.service.ts
 - @libs/transactions-journey/e2e-tests/mocks/product-summary-arrangements.json
 
-ADRs:
-- @docs/architecture/001-ADR-accessibility-standards.md
-- @docs/architecture/003-ADR-translation-internationalization-standards.md
-- @docs/architecture/006-ADR-design-system-component-standards.md
-- @docs/architecture/011-ADR-entitlements-access-control-standards.md
-- @docs/architecture/013-ADR-unit-integration-testing-standards.md
-
-## PROJECT CONTEXT (beyond ADRs)
-This project uses these additional conventions:
+PROJECT CONVENTIONS:
 - NgRx with actions/reducers/selectors pattern for state management
 - Effects for side effects (API calls, navigation)
 - Cross-module communication via NgRx store
 - Journey feature modules are lazy-loaded and self-contained
 
-## INSTRUCTIONS
-Before creating any plan, clarify requirements. Read the JIRA ticket and current implementation, then ask questions about anything unclear or ambiguous.
-
-Format your response as:
-## ASK
-[Your questions here]
-
-Do NOT proceed to planning until I answer all questions.
+Identify any existing patterns in this repo I should follow for this feature.
 ```
 
-### Step 2: 🚦 HUMAN GATE - Answer Clarification Questions
+---
 
-The LLM will output questions. **You must answer ALL questions before proceeding.**
+## Step 1.3: Disambiguate User Story
 
-Example questions you might receive:
+```
+## ACTIVATE AGENT
+@docs/agents/angular-typescript-agent.md
+Act as the Senior Angular/TypeScript Agent.
+
+## DISAMBIGUATE USER STORY
+User story: @docs/JIRA-001.md
+Selected ADRs: ADR-001, ADR-003, ADR-006, ADR-011, ADR-013
+
+Before creating a solution design, clarify the requirements:
+
+## BLOCKING Questions (cannot proceed without answers)
+Identify ambiguities in the requirements:
+1. Edge cases not specified
+2. Error conditions to handle
+3. Missing acceptance criteria details
+
+## CONTEXT Requests (provide if available)
+4. API contracts / OpenAPI specs for arrangements endpoint
+5. UI mockups or wireframes
+6. Existing types/interfaces to reuse
+
+## Decomposition
+Break this user story into discrete, testable parts:
+| Part | Description | Acceptance Criteria |
+|------|-------------|---------------------|
+| P1   | ...         | AC: ...             |
+| P2   | ...         | AC: ...             |
+
+## Output
+Save disambiguated task to: docs/specs/JIRA-001/task.md
+
+STOP and wait for answers to BLOCKING questions.
+```
+
+### 🚦 HUMAN GATE - Answer Clarification Questions
+
+**BLOCKING questions** - must answer before proceeding:
 - "Should the account selector show all accounts or only active ones?"
-- "What should happen when no account is selected - show all transactions or show empty?"
-- "Should the account selector be positioned above or below the search filter?"
+- "What should happen when no account is selected?"
 
-**Write your answers and send them to the LLM.**
-
----
-
-## Phase 2: Solution Planning
-
-### Step 3: Request Implementation Plan
-
-After answering all clarification questions, send this prompt:
-
-```
-Now please create an implementation plan.
-
-Requirements:
-1. Implementation steps (numbered, sequential)
-2. Files to create or modify (with paths)
-3. Interfaces/types required
-4. Dependencies on existing services or components
-5. How each ADR requirement will be addressed:
-   - ADR-001: Accessibility approach
-   - ADR-003: i18n approach  
-   - ADR-006: Which design system components to use
-   - ADR-011: Entitlements triplet for route protection
-   - ADR-013: Test coverage approach
-
-Format your response as:
-## PLAN
-[Your plan here]
-
-Do NOT generate any implementation code yet. Wait for my approval.
-```
-
-### Step 4: 🚦 HUMAN GATE - Review and Approve Plan
-
-Review the plan carefully. Check:
-
-- [ ] Does the plan address ALL acceptance criteria from JIRA-001?
-- [ ] Does the plan use `@backbase/ui-ang` AccountSelector component? (ADR-006)
-- [ ] Does the plan include EntitlementsGuard with `Transactions.View.view`? (ADR-011)
-- [ ] Does the plan include i18n for all new text? (ADR-003)
-- [ ] Does the plan include accessibility attributes? (ADR-001)
-- [ ] Does the plan include unit tests? (ADR-013)
-
-**If the plan is acceptable:** Reply "Plan approved. Proceed to decomposition."
-
-**If changes needed:** Reply with specific feedback and request updated plan.
-
-> **Loop-back:** If the plan reveals new ambiguities, go back to Step 1 and ask clarifying questions.
+**CONTEXT REQUESTS** - provide if available, or state "not available":
+- "Do you have OpenAPI specs for the arrangements endpoint?"
+- "Are there UI mockups or wireframes?"
 
 ---
 
-## Phase 3: Task Decomposition
+## Step 1.4: Create Solution Design
 
-### Step 5: Request Step Decomposition
+After answering all questions:
 
 ```
-Break down the approved plan into discrete implementation steps.
+Based on the approved spec, create solution design.
 
-For each step provide:
-- Step number and name
-- Single responsibility (what this step does)
-- Input types
-- Output types
-- Dependencies (services, components)
+## INPUTS
+- Disambiguated task: @docs/specs/JIRA-001/task.md
+- Selected ADRs: ADR-001, ADR-003, ADR-006, ADR-011, ADR-013
+- Repo conventions: NgRx patterns, lazy-loaded journeys
 
-Requirements:
-- Maximum 10 steps
-- Each step should be implementable as ONE method or ONE small template change
-- Each method must be ≤24 lines
+## SOLUTION DESIGN
 
-Format as:
-## DECOMPOSITION
-[Steps here]
+### Implementation Steps
+For each step:
+- Step ID (S1, S2, ...)
+- Description
+- Target file(s): exact paths
+- Interfaces/types required
+- Dependencies
 
-Wait for my approval before proceeding.
+### Validation Checklist
+| Acceptance Criterion | Covered By Step |
+|---------------------|-----------------|
+| AC: Account selector displays | S1 |
+| AC: Shows all accounts | S2 |
+| ... | ... |
+
+⚠️ **Gaps:** [List any AC not covered, or "All AC covered"]
+
+### ADR Compliance
+| ADR | How Addressed |
+|-----|---------------|
+| ADR-001 | Accessibility attributes on selector |
+| ADR-003 | i18n for all labels |
+| ADR-006 | Use bb-account-selector-ui |
+| ADR-011 | EntitlementsGuard on route |
+| ADR-013 | Unit tests for each step |
+
+## Output
+Save to: docs/specs/JIRA-001/solution-design.md and docs/specs/JIRA-001/execution-plan.md
+
+Do NOT generate code. Wait for approval.
 ```
 
-### Step 6: 🚦 HUMAN GATE - Approve Decomposition
+### 🚦 HUMAN GATE - Review Solution Design
 
-Review the decomposition:
+Review the plan:
 
-- [ ] Are steps small enough? (single responsibility)
-- [ ] Are dependencies clear?
-- [ ] Is the order logical?
-- [ ] Is each step ≤24 lines when implemented?
+**Validation Checklist:**
+- [ ] Does every AC map to at least one step?
+- [ ] Are there orphan steps (scope creep)?
+- [ ] Are file paths correct?
 
-**If acceptable:** Reply "Decomposition approved. Let's start with Step 1."
+**ADR Compliance:**
+- [ ] ADR-001: Accessibility approach defined?
+- [ ] ADR-003: i18n approach defined?
+- [ ] ADR-006: Uses `@backbase/ui-ang` components?
+- [ ] ADR-011: EntitlementsGuard specified?
+- [ ] ADR-013: Test coverage approach?
 
-> **Loop-back:** If any step is too complex, request re-decomposition before proceeding.
+**If acceptable:** "Plan approved. Save to docs/specs/JIRA-001/solution-design.md and execution-plan.md"
 
 ---
 
-## Phase 4: Test-Driven Implementation
+## Step 1.5: 🚦 SIGN-OFF GATE
 
-For **each step** in the decomposition, follow this cycle:
+Commit all Part 1 artifacts:
 
-### Step 7: Generate Tests First
+```bash
+git add docs/specs/JIRA-001/
+git commit -m "specs(JIRA-001): approved spec and plan"
+```
 
-> **Agent Switch:** Switching to `unit-tests-agent` for test generation.
+**This commit marks engineer sign-off.** Engineer is accountable for these specifications.
+
+---
+
+# Part 2: CODING (V-model bottom)
+
+For **each step** in the solution design, follow this TDD cycle:
+
+## Step 2.1: Generate Tests (TDD)
 
 ```
-## SWITCH AGENT
-@docs/agents/unit-tests-agent.md
-Act as the Unit Tests Agent defined above.
+## AGENT
+@docs/agents/angular-typescript-agent.md (or unit-tests-agent if available)
 
+## GENERATE TESTS
+Based on: @docs/specs/JIRA-001/execution-plan.md
 Generate unit tests for Step [N]: [STEP NAME]
 
 Requirements:
@@ -216,35 +272,30 @@ Requirements:
 - Mock external dependencies (services, HTTP)
 - One assertion per test
 
-Reference ADR-013 for testing patterns:
-@docs/architecture/013-ADR-unit-integration-testing-standards.md
+Reference: @docs/architecture/013-ADR-unit-integration-testing-standards.md
 
 Do NOT implement the code. Output tests only.
 Wait for my review before implementing.
 ```
 
-### Step 8: 🚦 HUMAN GATE - Review Tests
+### 🚦 HUMAN GATE - Review Tests
 
-Review the generated tests:
-
-- [ ] Do tests cover the acceptance criteria?
+- [ ] Do tests cover the step's acceptance criteria?
 - [ ] Are mocks appropriate?
-- [ ] Is the test naming clear?
 - [ ] Are edge cases covered?
 
-**If acceptable:** Reply "Tests approved. Now implement the code to make these tests pass."
+**If acceptable:** "Tests approved. Now implement the code."
 
-> **Loop-back:** If tests are incomplete, request additional test cases before implementing.
+---
 
-### Step 9: Implement Step
-
-> **Agent Switch:** Switching back to `angular-typescript-agent` for implementation.
+## Step 2.2: Generate Code
 
 ```
-## SWITCH AGENT
+## AGENT
 @docs/agents/angular-typescript-agent.md
-Act as the Senior Angular/TypeScript Agent.
 
+## IMPLEMENT STEP
+Based on: @docs/specs/JIRA-001/execution-plan.md
 Implement Step [N]: [STEP NAME]
 
 Constraints:
@@ -252,7 +303,7 @@ Constraints:
 - Maximum 24 lines per method
 - Include JSDoc for public methods
 - Use OnPush change detection
-- Include i18n for any user-facing text (ADR-003 pattern)
+- Include i18n for user-facing text (ADR-003)
 - Include accessibility attributes (ADR-001)
 
 Add inline comments:
@@ -262,228 +313,238 @@ Add inline comments:
 Output the implementation code.
 ```
 
-> **Cursor Tip:** When the LLM generates code, click the **"Apply"** button on each code block to apply changes to the file. Review the diff before accepting.
+> **Cursor Tip:** Click **"Apply"** button on code blocks to apply changes.
 
-### Step 10: Run Tests Locally
+---
 
-In Cursor's terminal (Ctrl+`), run:
+## Step 2.3: Run Step Tests + Commit
 
 ```bash
+# Run tests for this step
 nx test transactions-journey-internal-feature-transaction-view --watch=false
 ```
 
-**If tests pass:** Proceed to Step 11.
+**If tests pass:**
+```bash
+git add .
+git commit -m "feat(JIRA-001): step [N] - [description]"
+```
 
-**If tests fail:** Send this prompt:
-
+**If tests fail:**
 ```
 Test failed:
 
 TEST: [test name]
 ERROR: [error message]
-STACK: [relevant stack trace]
+STACK: [stack trace]
 
 Rules:
-1. Analyze the failure
-2. Fix the IMPLEMENTATION, not the test
-3. Only modify the test if it contains an obvious bug
-4. Explain what was wrong
+1. Fix the IMPLEMENTATION, not the test
+2. Only modify test if it has obvious bug
+3. Explain what was wrong
 
-Output the corrected code.
+Output corrected code.
 ```
-
-### Step 11: Self-Critique
-
-```
-Review the code you just generated for Step [N].
-
-Check for:
-1. Missing null/undefined checks
-2. Unhandled Observable errors (missing catchError)
-3. Memory leaks (subscriptions without takeUntilDestroyed)
-4. ADR violations (check all open ADRs)
-5. Methods exceeding 24 lines
-6. Missing accessibility attributes
-7. Missing i18n markers
-
-If issues found, provide corrected code.
-If no issues: state "Self-review passed for Step [N]"
-```
-
-**If method exceeds 24 lines**, use this remediation prompt:
-
-```
-This method exceeds 24 lines. Refactor it:
-1. Extract logical blocks into helper methods
-2. Each helper has single responsibility
-3. Name helpers to describe their purpose
-4. Keep original method as orchestrator
-
-Show the refactored code.
-```
-
-### Step 12: Formal Code Review
-
-> **Agent Switch:** Switching to `self-review-agent` for formal review.
-
-```
-## SWITCH AGENT
-@docs/agents/code-review-agent.md
-Act as the Code Review Agent.
-
-Review the code for Step [N]:
-@[path to changed file]
-
-Check against:
-1. All ADRs in context (violations are blockers)
-2. Null/undefined handling
-3. Error handling completeness
-4. Observable subscription cleanup
-5. Method size (<24 lines)
-6. Single responsibility
-
-Output format:
-[BLOCKER|WARNING|SUGGESTION]: description
-- Corrected code (for blockers)
-
-End with: "Approved" or "Changes required: X blockers"
-```
-
-**If blockers found:** Apply fixes and re-run tests before proceeding.
-
-### Step 13: Repeat for Each Step
-
-Repeat Steps 7-12 for each step in the decomposition.
-
-> **Loop-back:** If during implementation you discover unclear requirements, loop back to Step 1 and ask clarifying questions before continuing.
 
 ---
 
-## Phase 5: Route Protection (ADR-011)
+## Repeat for Each Step
 
-### Step 14: Add EntitlementsGuard
+Repeat Steps 2.1-2.3 for each step in the solution design.
 
-After all component steps are complete, update the route:
-
-```
-Now update the transactions route to add EntitlementsGuard per ADR-011.
-
-File: libs/transactions-journey/src/lib/transactions-journey-shell.module.ts
-
-Requirements:
-- Add EntitlementsGuard to canActivate
-- Use triplet: 'Transactions.Transactions.view'
-- Add redirectTo for unauthorized access
-
-Show me the modified route configuration.
-```
-
-### Step 15: 🚦 HUMAN GATE - Verify Route
-
-Check the route configuration:
-
-- [ ] EntitlementsGuard added to canActivate?
-- [ ] Correct triplet format (Resource.Function.permission)?
-- [ ] redirectTo specified?
+**Trunk-based development:** Each step = one commit. If step fails, revert and retry.
 
 ---
 
-## Phase 6: Final Quality Check
+# Part 3: VALIDATION (V-model right side)
 
-### Step 16: Architecture Compliance Check
+After all steps are implemented, run full validation.
 
-```
-Perform final architecture compliance check on all changes:
-
-1. Does any class have >10 public methods?
-2. Does any method exceed 24 lines?
-3. Are there direct HttpClient imports outside of services?
-4. Are all subscriptions properly cleaned up?
-5. Is OnPush change detection used?
-6. Are all user-facing strings translated (i18n)?
-7. Do all interactive elements have accessibility attributes?
-8. Is EntitlementsGuard on the route?
-9. Do unit tests exist for new/changed code?
-
-For each check, state:
-- ✅ PASS: [what was verified]
-- ❌ FAIL: [what needs fixing] + corrected code
-
-End with: "Compliant" or "Changes required: [list]"
-```
-
-### Step 17: 🚦 HUMAN GATE - Fix Any Violations
-
-If any violations were found, apply the fixes and re-run the compliance check.
-
-### Step 18: Run Full Test Suite
-
-In Cursor's terminal:
+## Step 3.1: Run All Tests
 
 ```bash
+# Unit tests
 nx test transactions-journey --watch=false
 nx test transactions-journey-internal-feature-transaction-view --watch=false
 nx test transactions-journey-internal-data-access --watch=false
+
+# E2E tests (with real backend if available)
+nx e2e transactions-journey-e2e
 ```
 
 All tests must pass before proceeding.
 
-### Step 19: Run E2E Tests (Optional)
+---
 
-```bash
-nx e2e transactions-journey-e2e
+## Step 3.2: LLM Code Review
+
+**Focus:** HOW the code is written (quality, patterns, readability)
+
 ```
+## CODE REVIEW
+@docs/agents/code-review-agent.md (or angular-typescript-agent)
+
+Review all code changes for JIRA-001:
+@libs/transactions-journey/internal/feature-transaction-view/src/lib/components/transactions-view/
+
+Check coding standards:
+1. Null/undefined handling
+2. Error handling completeness (catchError on Observables)
+3. Observable subscription cleanup (takeUntilDestroyed)
+4. Method size (<24 lines)
+5. Single responsibility principle
+6. Naming conventions
+7. JSDoc on public methods
+8. No `any` types
+
+Output format:
+[BLOCKER|WARNING|SUGGESTION]: description
+- File: [path]
+- Line: [number]
+- Fix: [corrected code for blockers]
+
+End with: "Approved" or "Changes required: X blockers"
+```
+
+### 🚦 HUMAN GATE - Fix Blockers
+
+Apply fixes for any blockers, re-run tests.
 
 ---
 
-## Phase 7: Final Review
+## Step 3.3: LLM Architecture Review
 
-### Step 20: Definition of Done Checklist
+**Focus:** WHAT was built (structure, ADR compliance, follows solution design)
 
-Verify all items from JIRA-001:
+```
+## ARCHITECTURE REVIEW
 
-**Acceptance Criteria:**
-- [ ] Account selector dropdown displays on transactions page
-- [ ] Dropdown shows all accounts from arrangements API
-- [ ] Each account shows name and account number
-- [ ] Selecting an account updates the selector display
-- [ ] Transaction list filters by selected account
-- [ ] Default account shows transactions on page load
-- [ ] Each transaction shows: recipient, date (Mon D, YYYY), amount, account number
+Review implementation against:
+- Solution design: @docs/specs/JIRA-001/solution-design.md
+- Selected ADRs: ADR-001, ADR-003, ADR-006, ADR-011, ADR-013
 
-**Non-Functional Requirements:**
-- [ ] ADR-001: Keyboard navigation, ARIA attributes, screen reader support
-- [ ] ADR-003: All text translatable, dates/amounts locale-aware
-- [ ] ADR-006: Uses @backbase/ui-ang AccountSelector component
-- [ ] ADR-011: Route protected with EntitlementsGuard
-- [ ] ADR-013: ≥80% unit test coverage
+Check architecture compliance:
+1. Does implementation follow the approved plan structure?
+2. ADR-001: Accessibility attributes present on all interactive elements?
+3. ADR-003: All user-facing text has i18n markers?
+4. ADR-006: Uses @backbase/ui-ang components (bb-account-selector-ui)?
+5. ADR-011: EntitlementsGuard on route with correct triplet?
+6. ADR-013: Unit tests exist for new code?
+7. Layer violations? (Components importing HttpClient directly?)
+8. Classes with >10 public methods?
 
-**Code Quality:**
-- [ ] All methods ≤24 lines
-- [ ] JSDoc on public methods
-- [ ] OnPush change detection
-- [ ] No linting errors
-- [ ] Self-review passed
+Output format:
+[BLOCKER|WARNING]: description
+- ADR/Plan violation: [which rule]
+- File: [path]
+- Fix: [corrected code for blockers]
+
+End with: "Architecture Compliant" or "Violations found: X blockers"
+```
+
+### 🚦 HUMAN GATE - Fix Architecture Violations
+
+Apply fixes for any blockers, re-run tests.
+
+---
+
+## Step 3.4: LLM Product Review
+
+**Focus:** WHETHER the right thing was built (AC completeness)
+
+```
+## PRODUCT REVIEW
+
+User story: @docs/JIRA-001.md
+Task spec: @docs/specs/JIRA-001/task.md
+
+Validate each acceptance criterion is implemented:
+
+| AC | Description | Status | Evidence |
+|----|-------------|--------|----------|
+| AC-1 | Account selector dropdown displays | ✅/❌ | [file:line] |
+| AC-2 | Dropdown shows all accounts from API | ✅/❌ | [file:line] |
+| AC-3 | Each account shows name and number | ✅/❌ | [file:line] |
+| AC-4 | Selecting account updates display | ✅/❌ | [file:line] |
+| AC-5 | Transaction list filters by account | ✅/❌ | [file:line] |
+| AC-6 | Default account on page load | ✅/❌ | [file:line] |
+| AC-7 | Transaction shows recipient, date, amount, account | ✅/❌ | [file:line] |
+
+## NFR Compliance
+| NFR | Status | Evidence |
+|-----|--------|----------|
+| ADR-001: Keyboard nav, ARIA, screen reader | ✅/❌ | [file:line] |
+| ADR-003: All text translatable | ✅/❌ | [file:line] |
+| ADR-006: Uses bb-account-selector-ui | ✅/❌ | [file:line] |
+| ADR-011: EntitlementsGuard on route | ✅/❌ | [file:line] |
+| ADR-013: ≥80% test coverage | ✅/❌ | [coverage report] |
+
+## Summary
+- Total AC: 7
+- Implemented: [N]
+- Missing: [N]
+
+End with: "All AC Implemented" or "Missing: X acceptance criteria"
+```
+
+### 🚦 HUMAN GATE - Address Missing AC
+
+If any AC missing, loop back to Part 2 and implement.
+
+---
+
+## 🚦 FINAL GATE - Merge
+
+All validation must pass:
+- [ ] 3.1: All tests green (unit + e2e)
+- [ ] 3.2: Code review approved (0 blockers)
+- [ ] 3.3: Architecture review compliant (0 blockers)
+- [ ] 3.4: Product review complete (all AC ✅)
+
+```bash
+git push origin feature/JIRA-001
+# Create PR and merge to main
+```
 
 ---
 
 ## Summary: Quick Reference
 
-| Phase | Steps | Human Gates | Loop-back |
-|-------|-------|-------------|-----------|
-| 1. Clarification | 1-2 | Answer questions | — |
-| 2. Planning | 3-4 | Approve plan | → Step 1 if ambiguous |
-| 3. Decomposition | 5-6 | Approve steps | → Step 3 if too complex |
-| 4. Implementation | 7-13 (per step) | Approve tests, review code | → Step 7 if tests incomplete |
-| 5. Route Protection | 14-15 | Verify route | — |
-| 6. Quality Check | 16-18 | Fix violations | → Phase 4 if rework needed |
-| 7. Final Review | 19-20 | DoD checklist | — |
+### Part 1: Specs (before coding)
 
-**Agent Rotation:**
-- Steps 1-6: `angular-typescript-agent` (planning & decomposition)
-- Step 7-8: `unit-tests-agent` (test generation)
-- Step 9-11: `angular-typescript-agent` (implementation)
-- Step 12: `code-review-agent` (formal review)
+| Step | What | Output | Gate |
+|------|------|--------|------|
+| 1.1 | Select ADRs | ADR list | — |
+| 1.2 | Select repo specs | Repo context | — |
+| 1.3 | Disambiguate story | `task.md` | Answer BLOCKING |
+| 1.4 | Solution design | `solution-design.md`, `execution-plan.md` | Approve plan |
+| 1.5 | **SIGN-OFF** | `git commit` | Engineer accountable |
+
+### Part 2: Coding (per step)
+
+| Step | What | Gate |
+|------|------|------|
+| 2.1 | Generate tests | Review tests |
+| 2.2 | Generate code | — |
+| 2.3 | Run tests + commit | Tests pass |
+
+### Part 3: Validation (after all coding)
+
+| Step | Focus | Gate |
+|------|-------|------|
+| 3.1 | Run all tests (unit + e2e) | All green |
+| 3.2 | Code Review (HOW) | 0 blockers |
+| 3.3 | Architecture Review (WHAT) | 0 blockers |
+| 3.4 | Product Review (WHETHER) | All AC ✅ |
+| **MERGE** | — | All pass |
+
+**Artifacts:** `docs/specs/JIRA-001/`
+
+**Agent Usage:**
+- Part 1: `angular-typescript-agent`
+- Part 2: `angular-typescript-agent` (tests + code)
+- Part 3.2: `code-review-agent`
+- Part 3.3-3.4: `angular-typescript-agent`
 
 ---
 
