@@ -41,7 +41,7 @@ The ones I found relevant are:
 Confirm this selection or suggest additions/removals.
 ```
 
-**After LLM response:** Save selected ADRs to `docs/specs/JIRA-001/task.md`:
+**After LLM response:** Save selected ADRs to `docs/specs/JIRA-001/task.md`, e.g.:
 
 ```markdown
 # JIRA-001: View Transactions by Account
@@ -50,11 +50,6 @@ Confirm this selection or suggest additions/removals.
 - ADR-001: Accessibility
 - ADR-003: i18n
 - ADR-004: Responsiveness
-- ADR-005: Performance
-- ADR-006: Design System
-- ADR-011: Entitlements
-- ADR-012: State Management
-- ADR-013: Testing
 ```
 
 ## Step 1.2: Select Repo-Wide Specs
@@ -64,28 +59,26 @@ Confirm this selection or suggest additions/removals.
 ```
 ## REPO CONTEXT for JIRA-001
 
-Review repo architecture and identify relevant conventions:
+Identify repo-specific conventions that sit ON TOP OF ADRs. Do NOT solution — only gather context.
 
-Target Files (to be modified):
-- @libs/transactions-journey/internal/feature-transaction-view/src/lib/components/transactions-view/transactions-view.component.ts
-- @libs/transactions-journey/internal/feature-transaction-view/src/lib/components/transactions-view/transactions-view.component.html
-- @libs/transactions-journey/internal/feature-transaction-view/src/lib/components/transactions-view/transactions-view.module.ts
-- @libs/transactions-journey/internal/feature-transaction-view/src/lib/components/transactions-view/transactions-view.component.spec.ts
-- @libs/transactions-journey/src/lib/transactions-journey-shell.module.ts
+### 1. Similar Implementations to Reference
+List 1-2 existing features in this repo that solve a similar problem.
+Format: `[Feature name]: [file path]`
+Do NOT copy code — just provide paths for later reference.
 
-Reference Files (existing patterns):
-- @libs/transactions-journey/internal/data-access/src/lib/services/arrangements/arrangements.service.ts
-- @libs/transactions-journey/e2e-tests/mocks/product-summary-arrangements.json
+### 2. API Contracts
+Which endpoints are relevant? List paths only.
 
-PROJECT CONVENTIONS:
-- NgRx with actions/reducers/selectors pattern for state management
-- Effects for side effects (API calls, navigation)
-- Cross-module communication via NgRx store
-- Journey feature modules are lazy-loaded and self-contained
+### 3. Existing Types/Interfaces to Reuse
+List interfaces or types from this repo that could be reused (with file paths).
 
-Identify any existing patterns in this repo I should follow for this feature.
+⚠️ DO NOT include:
+- Files to create or modify — that's solution design (Step 1.4)
+- Explanations of patterns — ADRs cover these
+- Code examples — reference files instead
+- Implementation decisions
 
-Append repo context to: docs/specs/JIRA-001/task.md
+Append to: docs/specs/JIRA-001/task.md
 ```
 
 ---
@@ -94,46 +87,52 @@ Append repo context to: docs/specs/JIRA-001/task.md
 
 **Prompt:** `disambiguate-story`
 
-**Output:** Complete `docs/specs/JIRA-001/task.md`
+**Output:** Append to `docs/specs/JIRA-001/task.md`
 
 ```
-## ACTIVATE AGENT
-@docs/agents/angular-typescript-agent.md
-Act as the Senior Angular/TypeScript Agent.
-
 ## DISAMBIGUATE USER STORY
+
 User story: @docs/JIRA-001.md
 Context: @docs/specs/JIRA-001/task.md (selected ADRs and repo context)
 
-Before creating a solution design, clarify the requirements:
+Identify ambiguities in the acceptance criteria. For each ambiguity:
+- Reference the specific AC
+- Ask a clear question
+- Provide 2-4 options if applicable
 
-## BLOCKING Questions (cannot proceed without answers)
-Identify ambiguities in the requirements:
-1. Edge cases not specified
-2. Error conditions to handle
-3. Missing acceptance criteria details
+### Output format (strict):
 
-## CONTEXT Requests (provide if available)
-4. API contracts / OpenAPI specs for arrangements endpoint
-5. UI mockups or wireframes
-6. Existing types/interfaces to reuse
+## Disambiguation
 
-## Decomposition
-Break this user story into discrete, testable parts:
-| Part | Description | Acceptance Criteria |
-|------|-------------|---------------------|
-| P1   | ...         | AC: ...             |
-| P2   | ...         | AC: ...             |
+### BLOCKING Questions
 
-## Output
-Append disambiguation and decomposition to: docs/specs/JIRA-001/task.md
+**Q1: [Short topic]**
+> AC: "[quote the relevant AC]"
 
-STOP and wait for answers to BLOCKING questions.
+[Question text. Options if applicable.]
+
+---
+
+**Q2: [Short topic]**
+[...]
+
+---
+
+### CONTEXT Requests
+
+**Q[N]: [Short topic]**
+[Question about missing context: mockups, API specs, etc.]
+
+---
+
+⚠️ DO NOT include:
+- Decomposition or task breakdown — that's next steps
+- Implementation suggestions
+- File paths to modify
+- Code snippets
+
+STOP after outputting questions. Wait for human answers before proceeding.
 ```
-
-### 🚦 Answer Clarification Questions
-
-Answer all BLOCKING questions before proceeding. For CONTEXT REQUESTS, provide if available or state "not available".
 
 ---
 
@@ -141,60 +140,110 @@ Answer all BLOCKING questions before proceeding. For CONTEXT REQUESTS, provide i
 
 **Prompt:** `create-solution-design`
 
-**Output:** `docs/specs/JIRA-001/solution-design.md` and `docs/specs/JIRA-001/execution-plan.md`
+**Output:** `docs/specs/JIRA-001/solution-design.md`
 
 After answering all questions:
 
 ```
-Based on the approved spec, create solution design.
+Based on the approved task: @docs/specs/JIRA-001/task.md
 
-## INPUTS
-- Task with selected ADRs: @docs/specs/JIRA-001/task.md
-- Repo conventions: NgRx patterns, lazy-loaded journeys
+Create solution design following this structure:
 
-## SOLUTION DESIGN
+## 1. Context
+- Ticket: [link to JIRA-001.md]
+- Summary: [1-2 sentences of what we're building]
 
-### Implementation Steps
-For each step:
-- Step ID (S1, S2, ...)
-- Description
-- Target file(s): exact paths
-- Interfaces/types required
-- Dependencies
+## 2. Current State
+- What exists today? (files, services, patterns)
+- What can we reuse/reference?
 
-### Validation Checklist
-| Acceptance Criterion | Covered By Step |
-|---------------------|-----------------|
-| AC: Account selector displays | S1 |
-| AC: Shows all accounts | S2 |
-| ... | ... |
+## 3. Approach
+- How are we solving it? (data flow, state management)
+- Why this approach vs alternatives?
+- Diagram if helpful (ASCII is fine)
 
-⚠️ **Gaps:** [List any AC not covered, or "All AC covered"]
+## 4. Data
+- API endpoints: request → response shape
+- New/modified interfaces
+- Where data lives (component state, URL params, store?)
 
-### ADR Compliance
-For each selected ADR, describe how it will be addressed:
-| ADR | How Addressed |
-|-----|---------------|
-| ADR-XXX | ... |
+## 5. Changes
+| File | Change |
+|------|--------|
+| `path/to/file.ts` | What changes |
 
-## Output
-Save to: docs/specs/JIRA-001/solution-design.md and docs/specs/JIRA-001/execution-plan.md
+New dependencies/imports if any.
+
+## 6. Edge Cases
+- Loading states
+- Empty states
+- Error states
+- What happens when X fails?
+
+## 7. Testing Strategy
+- Key scenarios to cover
+- Any tricky test setup?
+
+## 8. Out of Scope
+- What we're NOT doing (prevents scope creep)
+
+
+---
+
+Save to: docs/specs/JIRA-001/solution-design.md
 
 Do NOT generate code. Wait for approval.
 ```
 
-### 🚦 Review Solution Design
+### Review Solution Design
 
-- [ ] Every AC maps to at least one step
-- [ ] No orphan steps (scope creep)
-- [ ] File paths correct
-- [ ] ADR compliance defined
+- [ ] Every AC maps to a change
+- [ ] No orphan changes (scope creep)
+- [ ] Edge cases addressed
+- [ ] Out of scope is clear
 
-**If OK:** "Plan approved. Save to docs/specs/JIRA-001/solution-design.md and execution-plan.md"
+**If OK:** "Approved. Proceed to execution plan."
 
 ---
 
-## Step 1.5: 🚦 SIGN-OFF
+## Step 1.5: Create Execution Plan
+
+**Prompt:** `create-execution-plan`
+
+**Output:** `docs/specs/JIRA-001/execution-plan.md`
+
+```
+Based on: @docs/specs/JIRA-001/solution-design.md
+
+Create a LEAN execution plan. Format:
+
+## Execution Plan
+
+### Steps
+
+- [ ] **S1: [Name]** — [1-line description]
+  - Files: `path/to/file.ts`
+  - Tests: [key test scenarios]
+
+- [ ] **S2: [Name]** — [1-line description]
+  - Files: `path/to/file.ts`
+  - Depends: S1
+
+[...continue for all steps...]
+
+### Order
+S1 → S2 → S3 (parallel: S4, S5) → S6
+
+---
+
+⚠️ Keep it under 50 lines. No code snippets, no detailed specs — solution-design.md has that.
+
+Save to: docs/specs/JIRA-001/execution-plan.md
+```
+
+---
+
+## Step 1.6: SIGN-OFF
 
 Commit all Part 1 artifacts:
 
@@ -460,8 +509,9 @@ git push origin feature/JIRA-001
 | 1.1 `select-adrs` | ADR list |
 | 1.2 `select-repo-specs` | Repo context |
 | 1.3 `disambiguate-story` | `task.md` |
-| 1.4 `create-solution-design` | `solution-design.md`, `execution-plan.md` |
-| 1.5 **SIGN-OFF** | `git commit` |
+| 1.4 `create-solution-design` | `solution-design.md` |
+| 1.5 `create-execution-plan` | `execution-plan.md` |
+| 1.6 **SIGN-OFF** | `git commit` |
 
 | Part 2: Coding (per step) | Gate |
 |---------------------------|------|
