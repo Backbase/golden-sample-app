@@ -1,77 +1,27 @@
 # JIRA-001 Implementation Playbook
 
-## View Transactions by Account - Step-by-Step Guide
-
-This playbook guides you through implementing JIRA-001 using the V-model methodology.
+## View Transactions by Account
 
 ---
 
-## V-Model Overview
+## Setup
 
-```
-    Part 1: SPECS                              Part 3: VALIDATION
-    (Left side)                                (Right side)
-    
-1.1 Select ADRs ──────────────────────────► 3.4 Product Review
-       │                                           ▲
-1.2 Select repo specs ────────────────────► 3.3 Architecture Review
-       │                                           ▲
-1.3 Disambiguate story ───────────────────► 3.2 Code Review
-       │                                           ▲
-1.4 Solution design ──────────────────────► 3.1 Run all tests
-       │                                           ▲
-       ▼                                           │
-    ════════════════════════════════════════════════
-                Part 2: CODING (Bottom)
-                
-                2.1 Generate tests (TDD)
-                2.2 Generate code
-                2.3 Run step tests + commit
-                (repeat per step)
+```bash
+mkdir -p docs/specs/JIRA-001
 ```
 
----
-
-## What This POC Demonstrates
-
-| V-Model Phase | What's Validated |
-|---------------|------------------|
-| **Part 1: Specs** | ADR selection, repo context, disambiguation, solution design |
-| **Part 1 Sign-off** | Engineer commits artifacts, accountable for specs |
-| **Part 2: Coding** | TDD, step-by-step implementation, trunk-based dev |
-| **Part 3.1** | All tests (unit + e2e) pass |
-| **Part 3.2** | Code Review - HOW (quality, patterns) |
-| **Part 3.3** | Architecture Review - WHAT (ADRs, structure) |
-| **Part 3.4** | Product Review - WHETHER (AC completeness) |
-
-**Expected ROI Metrics:**
-- Planning improves pass rates by 11-25%
-- TDD improves accuracy by 12-38%
-- Structured validation catches issues early
+**Artifacts:**
+- `task.md` - Disambiguated user story
+- `solution-design.md` - Solution design
+- `execution-plan.md` - Step breakdown
 
 ---
 
-## How to Use This Playbook
-
-1. **Create artifact folder**: `mkdir -p docs/specs/JIRA-001`
-2. **Open Cursor Chat** (Cmd+L or Ctrl+L)
-3. **Copy prompts** from this playbook into the chat
-4. **Wait for responses** - never skip human gates (🚦)
-5. **Apply generated code** - click "Apply" button
-6. **Run terminal commands** in Cursor's integrated terminal
-
-**Artifacts produced:**
-- `docs/specs/JIRA-001/task.md` - Disambiguated user story
-- `docs/specs/JIRA-001/solution-design.md` - Solution design with ADR compliance
-- `docs/specs/JIRA-001/execution-plan.md` - Step-by-step breakdown
-
----
-
-# Part 1: SPECS (V-model left side)
+# Part 1: SPECS
 
 ## Step 1.1: Select Relevant ADRs
 
-Copy this prompt into Cursor Chat:
+**Prompt:** `select-adrs`
 
 ```
 ## TASK
@@ -95,6 +45,8 @@ Confirm this selection or suggest additions/removals.
 ---
 
 ## Step 1.2: Select Repo-Wide Specs
+
+**Prompt:** `select-repo-specs`
 
 ```
 ## REPO CONTEXT for JIRA-001
@@ -124,6 +76,10 @@ Identify any existing patterns in this repo I should follow for this feature.
 ---
 
 ## Step 1.3: Disambiguate User Story
+
+**Prompt:** `disambiguate-story`
+
+**Output:** `docs/specs/JIRA-001/task.md`
 
 ```
 ## ACTIVATE AGENT
@@ -160,19 +116,17 @@ Save disambiguated task to: docs/specs/JIRA-001/task.md
 STOP and wait for answers to BLOCKING questions.
 ```
 
-### 🚦 HUMAN GATE - Answer Clarification Questions
+### 🚦 Answer Clarification Questions
 
-**BLOCKING questions** - must answer before proceeding:
-- "Should the account selector show all accounts or only active ones?"
-- "What should happen when no account is selected?"
-
-**CONTEXT REQUESTS** - provide if available, or state "not available":
-- "Do you have OpenAPI specs for the arrangements endpoint?"
-- "Are there UI mockups or wireframes?"
+Answer all BLOCKING questions before proceeding. For CONTEXT REQUESTS, provide if available or state "not available".
 
 ---
 
 ## Step 1.4: Create Solution Design
+
+**Prompt:** `create-solution-design`
+
+**Output:** `docs/specs/JIRA-001/solution-design.md` and `docs/specs/JIRA-001/execution-plan.md`
 
 After answering all questions:
 
@@ -218,27 +172,18 @@ Save to: docs/specs/JIRA-001/solution-design.md and docs/specs/JIRA-001/executio
 Do NOT generate code. Wait for approval.
 ```
 
-### 🚦 HUMAN GATE - Review Solution Design
+### 🚦 Review Solution Design
 
-Review the plan:
+- [ ] Every AC maps to at least one step
+- [ ] No orphan steps (scope creep)
+- [ ] File paths correct
+- [ ] ADR compliance defined
 
-**Validation Checklist:**
-- [ ] Does every AC map to at least one step?
-- [ ] Are there orphan steps (scope creep)?
-- [ ] Are file paths correct?
-
-**ADR Compliance:**
-- [ ] ADR-001: Accessibility approach defined?
-- [ ] ADR-003: i18n approach defined?
-- [ ] ADR-006: Uses `@backbase/ui-ang` components?
-- [ ] ADR-011: EntitlementsGuard specified?
-- [ ] ADR-013: Test coverage approach?
-
-**If acceptable:** "Plan approved. Save to docs/specs/JIRA-001/solution-design.md and execution-plan.md"
+**If OK:** "Plan approved. Save to docs/specs/JIRA-001/solution-design.md and execution-plan.md"
 
 ---
 
-## Step 1.5: 🚦 SIGN-OFF GATE
+## Step 1.5: 🚦 SIGN-OFF
 
 Commit all Part 1 artifacts:
 
@@ -247,19 +192,19 @@ git add docs/specs/JIRA-001/
 git commit -m "specs(JIRA-001): approved spec and plan"
 ```
 
-**This commit marks engineer sign-off.** Engineer is accountable for these specifications.
-
 ---
 
-# Part 2: CODING (V-model bottom)
+# Part 2: CODING
 
-For **each step** in the solution design, follow this TDD cycle:
+For **each step** in the execution plan, repeat this cycle:
 
-## Step 2.1: Generate Tests (TDD)
+## Step 2.1: Generate Tests
+
+**Prompt:** `generate-tests`
 
 ```
 ## AGENT
-@docs/agents/angular-typescript-agent.md (or unit-tests-agent if available)
+@docs/agents/angular-typescript-agent.md
 
 ## GENERATE TESTS
 Based on: @docs/specs/JIRA-001/execution-plan.md
@@ -278,17 +223,19 @@ Do NOT implement the code. Output tests only.
 Wait for my review before implementing.
 ```
 
-### 🚦 HUMAN GATE - Review Tests
+### 🚦 Review Tests
 
-- [ ] Do tests cover the step's acceptance criteria?
-- [ ] Are mocks appropriate?
-- [ ] Are edge cases covered?
+- [ ] Tests cover acceptance criteria
+- [ ] Mocks appropriate
+- [ ] Edge cases covered
 
-**If acceptable:** "Tests approved. Now implement the code."
+**If OK:** "Tests approved. Now implement the code."
 
 ---
 
 ## Step 2.2: Generate Code
+
+**Prompt:** `implement-step`
 
 ```
 ## AGENT
@@ -313,21 +260,13 @@ Add inline comments:
 Output the implementation code.
 ```
 
-> **Cursor Tip:** Click **"Apply"** button on code blocks to apply changes.
-
 ---
 
-## Step 2.3: Run Step Tests + Commit
+## Step 2.3: Run Step Tests
 
 ```bash
 # Run tests for this step
 nx test transactions-journey-internal-feature-transaction-view --watch=false
-```
-
-**If tests pass:**
-```bash
-git add .
-git commit -m "feat(JIRA-001): step [N] - [description]"
 ```
 
 **If tests fail:**
@@ -348,17 +287,24 @@ Output corrected code.
 
 ---
 
-## Repeat for Each Step
+## Step 2.4: Commit Step
 
-Repeat Steps 2.1-2.3 for each step in the solution design.
+After tests pass, commit:
 
-**Trunk-based development:** Each step = one commit. If step fails, revert and retry.
+```bash
+git add .
+git commit -m "feat(JIRA-001): step [N] - [description]"
+```
 
 ---
 
-# Part 3: VALIDATION (V-model right side)
+**Repeat Steps 2.1-2.4** for each step in the execution plan.
 
-After all steps are implemented, run full validation.
+---
+
+# Part 3: VALIDATION
+
+After all steps are implemented:
 
 ## Step 3.1: Run All Tests
 
@@ -372,13 +318,11 @@ nx test transactions-journey-internal-data-access --watch=false
 nx e2e transactions-journey-e2e
 ```
 
-All tests must pass before proceeding.
-
 ---
 
-## Step 3.2: LLM Code Review
+## Step 3.2: Code Review
 
-**Focus:** HOW the code is written (quality, patterns, readability)
+**Prompt:** `code-review`
 
 ```
 ## CODE REVIEW
@@ -406,15 +350,15 @@ Output format:
 End with: "Approved" or "Changes required: X blockers"
 ```
 
-### 🚦 HUMAN GATE - Fix Blockers
+### 🚦 Fix Blockers
 
-Apply fixes for any blockers, re-run tests.
+Fix blockers, re-run tests.
 
 ---
 
-## Step 3.3: LLM Architecture Review
+## Step 3.3: Architecture Review
 
-**Focus:** WHAT was built (structure, ADR compliance, follows solution design)
+**Prompt:** `architecture-review`
 
 ```
 ## ARCHITECTURE REVIEW
@@ -442,15 +386,15 @@ Output format:
 End with: "Architecture Compliant" or "Violations found: X blockers"
 ```
 
-### 🚦 HUMAN GATE - Fix Architecture Violations
+### 🚦 Fix Violations
 
-Apply fixes for any blockers, re-run tests.
+Fix blockers, re-run tests.
 
 ---
 
-## Step 3.4: LLM Product Review
+## Step 3.4: Product Review
 
-**Focus:** WHETHER the right thing was built (AC completeness)
+**Prompt:** `product-review`
 
 ```
 ## PRODUCT REVIEW
@@ -487,64 +431,49 @@ Validate each acceptance criterion is implemented:
 End with: "All AC Implemented" or "Missing: X acceptance criteria"
 ```
 
-### 🚦 HUMAN GATE - Address Missing AC
+### 🚦 Address Missing AC
 
-If any AC missing, loop back to Part 2 and implement.
+If any AC missing, loop back to Part 2.
 
 ---
 
-## 🚦 FINAL GATE - Merge
+## 🚦 MERGE
 
-All validation must pass:
-- [ ] 3.1: All tests green (unit + e2e)
-- [ ] 3.2: Code review approved (0 blockers)
-- [ ] 3.3: Architecture review compliant (0 blockers)
-- [ ] 3.4: Product review complete (all AC ✅)
+- [ ] All tests green
+- [ ] Code review: 0 blockers
+- [ ] Architecture review: 0 blockers
+- [ ] Product review: all AC ✅
 
 ```bash
 git push origin feature/JIRA-001
-# Create PR and merge to main
 ```
 
 ---
 
-## Summary: Quick Reference
+## Quick Reference
 
-### Part 1: Specs (before coding)
+| Part 1: Specs | Output |
+|---------------|--------|
+| 1.1 `select-adrs` | ADR list |
+| 1.2 `select-repo-specs` | Repo context |
+| 1.3 `disambiguate-story` | `task.md` |
+| 1.4 `create-solution-design` | `solution-design.md`, `execution-plan.md` |
+| 1.5 **SIGN-OFF** | `git commit` |
 
-| Step | What | Output | Gate |
-|------|------|--------|------|
-| 1.1 | Select ADRs | ADR list | — |
-| 1.2 | Select repo specs | Repo context | — |
-| 1.3 | Disambiguate story | `task.md` | Answer BLOCKING |
-| 1.4 | Solution design | `solution-design.md`, `execution-plan.md` | Approve plan |
-| 1.5 | **SIGN-OFF** | `git commit` | Engineer accountable |
+| Part 2: Coding (per step) | Gate |
+|---------------------------|------|
+| 2.1 `generate-tests` | Review tests |
+| 2.2 `implement-step` | — |
+| 2.3 Run tests | Tests pass |
+| 2.4 `git commit` | — |
 
-### Part 2: Coding (per step)
-
-| Step | What | Gate |
-|------|------|------|
-| 2.1 | Generate tests | Review tests |
-| 2.2 | Generate code | — |
-| 2.3 | Run tests + commit | Tests pass |
-
-### Part 3: Validation (after all coding)
-
-| Step | Focus | Gate |
-|------|-------|------|
-| 3.1 | Run all tests (unit + e2e) | All green |
-| 3.2 | Code Review (HOW) | 0 blockers |
-| 3.3 | Architecture Review (WHAT) | 0 blockers |
-| 3.4 | Product Review (WHETHER) | All AC ✅ |
-| **MERGE** | — | All pass |
-
-**Artifacts:** `docs/specs/JIRA-001/`
-
-**Agent Usage:**
-- Part 1: `angular-typescript-agent`
-- Part 2: `angular-typescript-agent` (tests + code)
-- Part 3.2: `code-review-agent`
-- Part 3.3-3.4: `angular-typescript-agent`
+| Part 3: Validation | Gate |
+|--------------------|------|
+| 3.1 Run all tests | All green |
+| 3.2 `code-review` | 0 blockers |
+| 3.3 `architecture-review` | 0 blockers |
+| 3.4 `product-review` | All AC ✅ |
+| **MERGE** | All pass |
 
 ---
 
@@ -576,9 +505,7 @@ If LLM doesn't seem to see a file, re-add it with `@filename` in your next messa
 
 ---
 
-## Files Changed Summary
-
-After completing this playbook, you should have modified:
+## Expected File Changes
 
 ```
 MODIFIED:
@@ -596,7 +523,7 @@ MODIFIED:
 
 ---
 
-## Appendix: Key Code Patterns
+## Code Patterns Reference
 
 ### Account Selector Pattern (ADR-006)
 
