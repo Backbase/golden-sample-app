@@ -219,6 +219,8 @@ Create a LEAN execution plan. Format:
 
 ## Execution Plan
 
+Each step follows TDD: write tests (2.1) → implement (2.2) → run tests (2.3) → commit (2.4)
+
 ### Steps
 
 - [ ] **S1: [Name]** — [1-line description]
@@ -235,8 +237,9 @@ Create a LEAN execution plan. Format:
 S1 → S2 → S3 (parallel: S4, S5) → S6
 
 ---
-
-⚠️ Keep it under 50 lines. No code snippets, no detailed specs — solution-design.md has that.
+### Warnings:
+- DO NOT list "Unit tests" as a separate step — TDD is handled by the Part 2 cycle.
+- Keep it under 50 lines. No code snippets — solution-design.md has that.
 
 Save to: docs/specs/JIRA-001/execution-plan.md
 ```
