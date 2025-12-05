@@ -263,7 +263,7 @@ For **each step** in the execution plan, repeat this cycle:
 **Prompt:** `generate-tests`
 
 ```
-## GENERATE TESTS for Step [N]: [STEP NAME]
+Act as @docs/agents/angular-typescript-agent.md, Generate unit tests for Step [N]: [STEP NAME]
 
 Based on:
 - @docs/specs/JIRA-001/execution-plan.md
