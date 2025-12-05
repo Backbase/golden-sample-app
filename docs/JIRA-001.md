@@ -32,17 +32,6 @@ Users need the ability to view their transaction history for individual accounts
 
 ## Non-Functional Requirements (NFRs)
 
-This feature must comply with the following ADRs:
-
-- **ADR-001**: Accessibility (WCAG 2.2 AA) - Account selector must support keyboard navigation, screen readers, proper ARIA attributes
-- **ADR-003**: Internationalization - All text must be translatable, dates/amounts must use locale-aware formatting
-- **ADR-004**: Responsiveness - Must work on 360px+ screens, follow Bootstrap breakpoints, mobile-first approach
-- **ADR-005**: Performance - Core Web Vitals thresholds, server-side pagination, request debouncing, caching
-- **ADR-006**: Design System - Use `@backbase/ui-ang` AccountSelector component
-- **ADR-011**: Access Control - Route protected with `EntitlementsGuard` using `Transactions.View.view` permission
-- **ADR-012**: State Management - Reactive patterns with RxJS, OnPush change detection (if applicable)
-- **ADR-013**: Testing - 80% unit test coverage, integration tests, zero flakiness
-
 ## Technical Details
 
 - Account data is retrieved from the arrangements API endpoint (`/productsummary/context/arrangements`)
@@ -50,30 +39,16 @@ This feature must comply with the following ADRs:
 - The account selector component uses the `AccountSelector` UI component from `@backbase/ui-ang`
 - The transactions list uses the `Transactions` component to display transaction items
 
-## Related Files
+## Tests
 
-- `libs/transactions-journey/e2e-tests/specs/transactions-list.spec.ts`
-- `libs/transactions-journey/e2e-tests/page-objects/pages/transactions-list-page.ts`
-- `libs/transactions-journey/e2e-tests/page-objects/ui-components/account-selector.ts`
-- `libs/transactions-journey/internal/feature-transaction-view/src/lib/components/transactions-view/transactions-view.component.ts`
-
-## Test Coverage
-
-### E2E Tests (Existing)
+### E2E Tests
 - [ ] Account selector dropdown functionality
 - [ ] Transaction list filtering by account selection
 - [ ] All transaction fields display correctly
 - [ ] Responsive behavior across breakpoints (360px, 768px, 1200px)
 - [ ] Gherkin feature file: `libs/transactions-journey/e2e-tests/test-cases/transactions-list/transaction-list-display-and-search.fixture`
 
-### Unit Tests (Required per ADR-013)
-- [ ] Component: Account selection state management
-- [ ] Component: Transaction filtering logic
-- [ ] Component: Loading and error states
-- [ ] Service: API calls and error handling
-- [ ] Minimum 80% coverage for new/changed code
-
-### Integration Tests (Required per ADR-013)
+### Integration Tests
 - [ ] API contract validation for arrangements endpoint
 - [ ] API contract validation for transactions endpoint
 - [ ] Permission-based route access
@@ -81,7 +56,6 @@ This feature must comply with the following ADRs:
 ## Definition of Done
 
 - [ ] All Acceptance Criteria verified
-- [ ] All NFRs compliant (ADR-001 through ADR-013)
 - [ ] Unit test coverage ≥ 80%
 - [ ] E2E tests pass
 - [ ] Accessibility audit passed (axe-core + Lighthouse)
