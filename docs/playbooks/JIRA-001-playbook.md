@@ -263,24 +263,25 @@ For **each step** in the execution plan, repeat this cycle:
 **Prompt:** `generate-tests`
 
 ```
-## AGENT
-@docs/agents/angular-typescript-agent.md
+## GENERATE TESTS for Step [N]: [STEP NAME]
 
-## GENERATE TESTS
-Based on: @docs/specs/JIRA-001/execution-plan.md
-Generate unit tests for Step [N]: [STEP NAME]
+Based on:
+- @docs/specs/JIRA-001/execution-plan.md
+- @docs/specs/JIRA-001/solution-design.md
+
+Target file: [path to *.spec.ts file from execution plan]
 
 Requirements:
 - Follow AAA pattern (Arrange-Act-Assert)
-- Use naming: should_[expected]_when_[condition]
+- Naming: should_[expected]_when_[condition]
 - Cover: happy path, error case, edge case
-- Mock external dependencies (services, HTTP)
+- Mock external dependencies
 - One assertion per test
 
 Reference: @docs/architecture/013-ADR-unit-integration-testing-standards.md
 
-Do NOT implement the code. Output tests only.
-Wait for my review before implementing.
+WRITE the tests directly to the target spec file. Do NOT just output code in chat.
+Do NOT implement the production code yet — tests only.
 ```
 
 ### 🚦 Review Tests
