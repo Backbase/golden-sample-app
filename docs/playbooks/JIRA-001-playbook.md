@@ -10,9 +10,9 @@
 mkdir -p docs/specs/JIRA-001
 ```
 
-**Artifacts:**
-- `task.md` - Disambiguated user story
-- `solution-design.md` - Solution design
+**Artifacts:** (`docs/specs/JIRA-001/`)
+- `task.md` - Selected ADRs + repo context + disambiguated story
+- `solution-design.md` - Solution design with ADR compliance
 - `execution-plan.md` - Step breakdown
 
 ---
@@ -24,25 +24,37 @@ mkdir -p docs/specs/JIRA-001
 **Prompt:** `select-adrs`
 
 ```
-## TASK
 I'm implementing JIRA-001: View Transactions by Account.
-User story: @docs/JIRA-001.md
+User story: @docs/JIRA-001.md 
 
 ## SELECT RELEVANT ADRs
-Review available ADRs and confirm which apply to this feature:
+Review available ADRs in @architecture  folder and advise which apply to this feature.
 
-| ADR | Applies? | Reason |
-|-----|----------|--------|
-| @docs/architecture/001-ADR-accessibility-standards.md | Yes | UI component needs a11y |
-| @docs/architecture/003-ADR-translation-internationalization-standards.md | Yes | User-facing text |
-| @docs/architecture/006-ADR-design-system-component-standards.md | Yes | Account selector component |
-| @docs/architecture/011-ADR-entitlements-access-control-standards.md | Yes | Route protection |
-| @docs/architecture/013-ADR-unit-integration-testing-standards.md | Yes | Test coverage required |
+The ones I found relevant are:
+- @docs/architecture/001-ADR-accessibility-standards.md 
+- @docs/architecture/003-ADR-translation-internationalization-standards.md 
+- @docs/architecture/006-ADR-design-system-component-standards.md 
+- @docs/architecture/011-ADR-entitlements-access-control-standards.md 
+- @docs/architecture/013-ADR-unit-integration-testing-standards.md 
 
 Confirm this selection or suggest additions/removals.
 ```
 
----
+**After LLM response:** Save selected ADRs to `docs/specs/JIRA-001/task.md`:
+
+```markdown
+# JIRA-001: View Transactions by Account
+
+## Selected ADRs
+- ADR-001: Accessibility
+- ADR-003: i18n
+- ADR-004: Responsiveness
+- ADR-005: Performance
+- ADR-006: Design System
+- ADR-011: Entitlements
+- ADR-012: State Management
+- ADR-013: Testing
+```
 
 ## Step 1.2: Select Repo-Wide Specs
 
@@ -71,6 +83,8 @@ PROJECT CONVENTIONS:
 - Journey feature modules are lazy-loaded and self-contained
 
 Identify any existing patterns in this repo I should follow for this feature.
+
+Append repo context to: docs/specs/JIRA-001/task.md
 ```
 
 ---
@@ -79,7 +93,7 @@ Identify any existing patterns in this repo I should follow for this feature.
 
 **Prompt:** `disambiguate-story`
 
-**Output:** `docs/specs/JIRA-001/task.md`
+**Output:** Complete `docs/specs/JIRA-001/task.md`
 
 ```
 ## ACTIVATE AGENT
@@ -88,7 +102,7 @@ Act as the Senior Angular/TypeScript Agent.
 
 ## DISAMBIGUATE USER STORY
 User story: @docs/JIRA-001.md
-Selected ADRs: ADR-001, ADR-003, ADR-006, ADR-011, ADR-013
+Context: @docs/specs/JIRA-001/task.md (selected ADRs and repo context)
 
 Before creating a solution design, clarify the requirements:
 
@@ -111,7 +125,7 @@ Break this user story into discrete, testable parts:
 | P2   | ...         | AC: ...             |
 
 ## Output
-Save disambiguated task to: docs/specs/JIRA-001/task.md
+Append disambiguation and decomposition to: docs/specs/JIRA-001/task.md
 
 STOP and wait for answers to BLOCKING questions.
 ```
@@ -134,8 +148,7 @@ After answering all questions:
 Based on the approved spec, create solution design.
 
 ## INPUTS
-- Disambiguated task: @docs/specs/JIRA-001/task.md
-- Selected ADRs: ADR-001, ADR-003, ADR-006, ADR-011, ADR-013
+- Task with selected ADRs: @docs/specs/JIRA-001/task.md
 - Repo conventions: NgRx patterns, lazy-loaded journeys
 
 ## SOLUTION DESIGN
@@ -158,13 +171,10 @@ For each step:
 ⚠️ **Gaps:** [List any AC not covered, or "All AC covered"]
 
 ### ADR Compliance
+For each selected ADR, describe how it will be addressed:
 | ADR | How Addressed |
 |-----|---------------|
-| ADR-001 | Accessibility attributes on selector |
-| ADR-003 | i18n for all labels |
-| ADR-006 | Use bb-account-selector-ui |
-| ADR-011 | EntitlementsGuard on route |
-| ADR-013 | Unit tests for each step |
+| ADR-XXX | ... |
 
 ## Output
 Save to: docs/specs/JIRA-001/solution-design.md and docs/specs/JIRA-001/execution-plan.md
@@ -365,17 +375,13 @@ Fix blockers, re-run tests.
 
 Review implementation against:
 - Solution design: @docs/specs/JIRA-001/solution-design.md
-- Selected ADRs: ADR-001, ADR-003, ADR-006, ADR-011, ADR-013
+- Task with selected ADRs: @docs/specs/JIRA-001/task.md
 
 Check architecture compliance:
 1. Does implementation follow the approved plan structure?
-2. ADR-001: Accessibility attributes present on all interactive elements?
-3. ADR-003: All user-facing text has i18n markers?
-4. ADR-006: Uses @backbase/ui-ang components (bb-account-selector-ui)?
-5. ADR-011: EntitlementsGuard on route with correct triplet?
-6. ADR-013: Unit tests exist for new code?
-7. Layer violations? (Components importing HttpClient directly?)
-8. Classes with >10 public methods?
+2. Are all selected ADR requirements met? (check each ADR from Step 1.1)
+3. Layer violations? (Components importing HttpClient directly?)
+4. Classes with >10 public methods?
 
 Output format:
 [BLOCKER|WARNING]: description
@@ -414,14 +420,10 @@ Validate each acceptance criterion is implemented:
 | AC-6 | Default account on page load | ✅/❌ | [file:line] |
 | AC-7 | Transaction shows recipient, date, amount, account | ✅/❌ | [file:line] |
 
-## NFR Compliance
-| NFR | Status | Evidence |
+## NFR Compliance (from selected ADRs)
+| ADR | Status | Evidence |
 |-----|--------|----------|
-| ADR-001: Keyboard nav, ARIA, screen reader | ✅/❌ | [file:line] |
-| ADR-003: All text translatable | ✅/❌ | [file:line] |
-| ADR-006: Uses bb-account-selector-ui | ✅/❌ | [file:line] |
-| ADR-011: EntitlementsGuard on route | ✅/❌ | [file:line] |
-| ADR-013: ≥80% test coverage | ✅/❌ | [coverage report] |
+| [each selected ADR] | ✅/❌ | [file:line] |
 
 ## Summary
 - Total AC: 7
