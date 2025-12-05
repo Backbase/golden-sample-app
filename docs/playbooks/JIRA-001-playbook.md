@@ -28,6 +28,7 @@ I'm implementing JIRA-001: View Transactions by Account.
 User story: @docs/JIRA-001.md 
 
 ## SELECT RELEVANT ADRs
+
 Review available ADRs in @architecture  folder and advise which apply to this feature.
 
 The ones I found relevant are:
