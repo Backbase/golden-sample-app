@@ -645,4 +645,192 @@ describe('TransactionsViewComponent', () => {
       });
     });
   });
+
+  describe('onAccountSelected method (S4)', () => {
+    const snapshot = {
+      data: {
+        title: 'Transactions',
+      },
+    };
+
+    let mockRouter: { navigate: jest.Mock };
+
+    /**
+     * Setup helper for account selection handler tests.
+     */
+    const setupForAccountSelection = (queryParams: Record<string, string>) => {
+      transactions$$ = new BehaviorSubject<TransactionItem[] | undefined>(
+        undefined
+      );
+      arrangements$$ = new BehaviorSubject<ProductSummaryItem[]>([]);
+      mockTransactionsHttpService = {
+        transactions$: transactions$$.asObservable(),
+      };
+      mockArrangementsService = {
+        arrangements$: arrangements$$.asObservable(),
+      };
+      latestTransactions$$ = new BehaviorSubject<TransactionItem | undefined>(
+        undefined
+      );
+      mockTransactionsCommunicationService = {
+        latestTransaction$: latestTransactions$$.asObservable(),
+      };
+
+      mockRouter = {
+        navigate: jest.fn(),
+      };
+
+      TestBed.configureTestingModule({
+        declarations: [TransactionsViewComponent],
+        imports: [MockTextFilterComponent, FilterTransactionsPipe],
+        providers: [
+          {
+            provide: ActivatedRoute,
+            useValue: {
+              snapshot: snapshot,
+              queryParams: of(queryParams),
+              queryParamMap: of({
+                get: jest.fn((key: string) => queryParams[key] ?? null),
+              }),
+            },
+          },
+          {
+            provide: Router,
+            useValue: mockRouter,
+          },
+          {
+            provide: TransactionsHttpService,
+            useValue: mockTransactionsHttpService,
+          },
+          {
+            provide: ArrangementsService,
+            useValue: mockArrangementsService,
+          },
+          {
+            provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+            useValue: mockTransactionsCommunicationService,
+          },
+        ],
+        schemas: [NO_ERRORS_SCHEMA],
+      });
+
+      fixture = TestBed.createComponent(TransactionsViewComponent);
+      // Don't trigger default selection by not calling detectChanges with empty query params
+    };
+
+    /**
+     * Helper to call onAccountSelected method.
+     * Uses type assertion since method is being added in S4.
+     */
+    const callOnAccountSelected = (account: { id: string; name?: string }) => {
+      (
+        fixture.componentInstance as unknown as {
+          onAccountSelected: (account: { id: string }) => void;
+        }
+      ).onAccountSelected(account);
+    };
+
+    // Happy path: Selecting account updates URL
+    it('should_navigate_to_selected_account_when_onAccountSelected_called', () => {
+      // Arrange
+      setupForAccountSelection({ account: 'account-1' });
+      arrangements$$.next(mockArrangements);
+      fixture.detectChanges();
+      mockRouter.navigate.mockClear(); // Clear any navigation from init
+
+      const selectedAccount = { id: 'account-2', name: 'Savings Account' };
+
+      // Act
+      callOnAccountSelected(selectedAccount);
+
+      // Assert
+      expect(mockRouter.navigate).toHaveBeenCalledWith([], {
+        queryParams: { account: 'account-2' },
+        queryParamsHandling: 'merge',
+      });
+    });
+
+    // Happy path: Uses account ID from the selected account object
+    it('should_use_account_id_from_selected_account_object', () => {
+      // Arrange
+      setupForAccountSelection({ account: 'account-1' });
+      arrangements$$.next(mockArrangements);
+      fixture.detectChanges();
+      mockRouter.navigate.mockClear();
+
+      const selectedAccount = { id: 'custom-account-id', name: 'Custom Account' };
+
+      // Act
+      callOnAccountSelected(selectedAccount);
+
+      // Assert
+      expect(mockRouter.navigate).toHaveBeenCalledWith([], {
+        queryParams: { account: 'custom-account-id' },
+        queryParamsHandling: 'merge',
+      });
+    });
+
+    // Happy path: Preserves other query params when selecting account
+    it('should_preserve_existing_query_params_when_selecting_account', () => {
+      // Arrange
+      setupForAccountSelection({ account: 'account-1', search: 'test-query' });
+      arrangements$$.next(mockArrangements);
+      fixture.detectChanges();
+      mockRouter.navigate.mockClear();
+
+      const selectedAccount = { id: 'account-3', name: 'Business Account' };
+
+      // Act
+      callOnAccountSelected(selectedAccount);
+
+      // Assert - queryParamsHandling: 'merge' preserves other params
+      expect(mockRouter.navigate).toHaveBeenCalledWith([], {
+        queryParams: { account: 'account-3' },
+        queryParamsHandling: 'merge',
+      });
+    });
+
+    // Edge case: Selecting same account should still navigate (allow re-selection)
+    it('should_navigate_even_when_selecting_same_account', () => {
+      // Arrange
+      setupForAccountSelection({ account: 'account-1' });
+      arrangements$$.next(mockArrangements);
+      fixture.detectChanges();
+      mockRouter.navigate.mockClear();
+
+      const selectedAccount = { id: 'account-1', name: 'Checking Account' };
+
+      // Act
+      callOnAccountSelected(selectedAccount);
+
+      // Assert
+      expect(mockRouter.navigate).toHaveBeenCalledWith([], {
+        queryParams: { account: 'account-1' },
+        queryParamsHandling: 'merge',
+      });
+    });
+
+    // Integration: Transactions filter by selected account via URL
+    it('should_filter_transactions_by_selected_account_via_URL', async () => {
+      // Arrange
+      const allTransactions = [
+        { ...transactionsMock[0], arrangementId: 'account-1' },
+        { ...transactionsMock[1], arrangementId: 'account-2' },
+      ] as TransactionItem[];
+
+      setupWithQueryParams(snapshot, { account: 'account-2' });
+      arrangements$$.next(mockArrangements);
+      transactions$$.next(allTransactions);
+      fixture.detectChanges();
+
+      // Act
+      const filteredTransactions = await firstValueFrom(
+        fixture.componentInstance.transactions$
+      );
+
+      // Assert - only transactions matching account-2 should be returned
+      expect(filteredTransactions).toHaveLength(1);
+      expect(filteredTransactions[0].arrangementId).toBe('account-2');
+    });
+  });
 });

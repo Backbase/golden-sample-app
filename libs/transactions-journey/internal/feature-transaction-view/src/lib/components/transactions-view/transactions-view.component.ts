@@ -150,6 +150,18 @@ export class TransactionsViewComponent implements OnInit {
     });
   }
 
+  /**
+   * Handles account selection from the dropdown.
+   * RULE: Updates URL query param to filter transactions by selected account.
+   * @param account - The selected account object with id property
+   */
+  onAccountSelected(account: { id: string }): void {
+    this.router.navigate([], {
+      queryParams: { account: account.id },
+      queryParamsHandling: 'merge',
+    });
+  }
+
   trackNavigation($event: ScreenViewTrackerEventPayload) {
     this.tracker?.publish(new TransactionListTrackerEvent($event));
   }
