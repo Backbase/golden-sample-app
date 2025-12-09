@@ -6,7 +6,19 @@ import {
   Router,
 } from '@angular/router';
 import { TransactionItem } from '@backbase/transactions-http-ang';
-import { BehaviorSubject, delay, of } from 'rxjs';
+import { BehaviorSubject, delay, of, firstValueFrom, Observable } from 'rxjs';
+
+/**
+ * AccountSelectorItem interface matching @backbase/ui-ang/account-selector format.
+ * Defined here for testing S2 until production code is implemented.
+ */
+interface AccountSelectorItem {
+  id: string;
+  balance?: number;
+  currency?: string;
+  name?: string;
+  number?: string;
+}
 import {
   TransactionsCommunicationService,
   TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
@@ -23,6 +35,33 @@ import {
 import { TransactionsViewComponent } from './transactions-view.component';
 import { By } from '@angular/platform-browser';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
+
+/**
+ * Mock ProductSummaryItem data for testing account selector functionality.
+ */
+const mockArrangements: ProductSummaryItem[] = [
+  {
+    id: 'account-1',
+    name: 'Checking Account',
+    bookedBalance: 1500.5,
+    currency: 'USD',
+    BBAN: '123456789',
+  } as ProductSummaryItem,
+  {
+    id: 'account-2',
+    name: 'Savings Account',
+    bookedBalance: 5000.0,
+    currency: 'USD',
+    IBAN: 'US12345678901234',
+  } as ProductSummaryItem,
+  {
+    id: 'account-3',
+    name: 'Business Account',
+    bookedBalance: 10000.0,
+    currency: 'EUR',
+    BBAN: '987654321',
+  } as ProductSummaryItem,
+];
 
 @Component({
   selector: 'bb-text-filter-component',
@@ -83,6 +122,70 @@ describe('TransactionsViewComponent', () => {
             queryParams: of({}),
             queryParamMap: of({
               get: jest.fn(() => ''),
+            }),
+          },
+        },
+        {
+          provide: Router,
+          useValue: {
+            navigate: jest.fn(),
+          },
+        },
+        {
+          provide: TransactionsHttpService,
+          useValue: mockTransactionsHttpService,
+        },
+        {
+          provide: ArrangementsService,
+          useValue: mockArrangementsService,
+        },
+        {
+          provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+          useValue: mockTransactionsCommunicationService,
+        },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    });
+
+    fixture = TestBed.createComponent(TransactionsViewComponent);
+    fixture.detectChanges();
+  };
+
+  /**
+   * Setup helper with configurable query params for testing URL-based account selection.
+   */
+  const setupWithQueryParams = (
+    snapshot: Pick<ActivatedRouteSnapshot, 'data'>,
+    queryParams: Record<string, string>
+  ) => {
+    transactions$$ = new BehaviorSubject<TransactionItem[] | undefined>(
+      undefined
+    );
+    arrangements$$ = new BehaviorSubject<ProductSummaryItem[]>([]);
+    mockTransactionsHttpService = {
+      transactions$: transactions$$.asObservable(),
+    };
+    mockArrangementsService = {
+      arrangements$: arrangements$$.asObservable(),
+    };
+    latestTransactions$$ = new BehaviorSubject<TransactionItem | undefined>(
+      undefined
+    );
+    mockTransactionsCommunicationService = {
+      latestTransaction$: latestTransactions$$.asObservable(),
+    };
+
+    TestBed.configureTestingModule({
+      declarations: [TransactionsViewComponent],
+      imports: [MockTextFilterComponent, FilterTransactionsPipe],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: snapshot as ActivatedRouteSnapshot,
+            queryParams: of(queryParams),
+            queryParamMap: of({
+              get: jest.fn((key: string) => queryParams[key] ?? null),
             }),
           },
         },
@@ -193,6 +296,192 @@ describe('TransactionsViewComponent', () => {
       setup(snapshot);
 
       expect(fixture.debugElement.query(By.css('h1'))).toBeFalsy();
+    });
+  });
+
+  describe('accounts$ observable (S2)', () => {
+    const snapshot = {
+      data: {
+        title: 'Transactions',
+      },
+    };
+
+    /**
+     * Helper to access accounts$ observable.
+     * Uses type assertion since property is being added in S2.
+     */
+    const getAccounts$ = () =>
+      (fixture.componentInstance as unknown as { accounts$: Observable<AccountSelectorItem[]> }).accounts$;
+
+    // Happy path: accounts$ emits mapped arrangement data
+    it('should_emit_mapped_accounts_when_arrangements_are_loaded', async () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next(mockArrangements);
+
+      // Act
+      const accounts = await firstValueFrom(getAccounts$());
+
+      // Assert
+      expect(accounts).toHaveLength(3);
+    });
+
+    // Happy path: accounts$ maps id correctly
+    it('should_map_account_id_when_arrangements_are_loaded', async () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next(mockArrangements);
+
+      // Act
+      const accounts = await firstValueFrom(getAccounts$());
+
+      // Assert
+      expect(accounts[0].id).toBe('account-1');
+    });
+
+    // Happy path: accounts$ maps name correctly
+    it('should_map_account_name_when_arrangements_are_loaded', async () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next(mockArrangements);
+
+      // Act
+      const accounts = await firstValueFrom(getAccounts$());
+
+      // Assert
+      expect(accounts[0].name).toBe('Checking Account');
+    });
+
+    // Happy path: accounts$ maps balance correctly
+    it('should_map_account_balance_when_arrangements_are_loaded', async () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next(mockArrangements);
+
+      // Act
+      const accounts = await firstValueFrom(getAccounts$());
+
+      // Assert
+      expect(accounts[0].balance).toBe(1500.5);
+    });
+
+    // Happy path: accounts$ maps currency correctly
+    it('should_map_account_currency_when_arrangements_are_loaded', async () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next(mockArrangements);
+
+      // Act
+      const accounts = await firstValueFrom(getAccounts$());
+
+      // Assert
+      expect(accounts[0].currency).toBe('USD');
+    });
+
+    // Happy path: accounts$ maps number from BBAN
+    it('should_map_account_number_from_BBAN_when_BBAN_exists', async () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next(mockArrangements);
+
+      // Act
+      const accounts = await firstValueFrom(getAccounts$());
+
+      // Assert
+      expect(accounts[0].number).toBe('123456789');
+    });
+
+    // Edge case: accounts$ maps number from IBAN when no BBAN
+    it('should_map_account_number_from_IBAN_when_BBAN_is_missing', async () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next(mockArrangements);
+
+      // Act
+      const accounts = await firstValueFrom(getAccounts$());
+
+      // Assert
+      expect(accounts[1].number).toBe('US12345678901234');
+    });
+
+    // Edge case: accounts$ handles empty arrangements
+    it('should_emit_empty_array_when_no_arrangements_exist', async () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next([]);
+
+      // Act
+      const accounts = await firstValueFrom(getAccounts$());
+
+      // Assert
+      expect(accounts).toHaveLength(0);
+    });
+  });
+
+  describe('selectedAccount$ observable (S2)', () => {
+    const snapshot = {
+      data: {
+        title: 'Transactions',
+      },
+    };
+
+    /**
+     * Helper to access selectedAccount$ observable.
+     * Uses type assertion since property is being added in S2.
+     */
+    const getSelectedAccount$ = () =>
+      (fixture.componentInstance as unknown as { selectedAccount$: Observable<AccountSelectorItem | undefined> }).selectedAccount$;
+
+    // Happy path: selectedAccount$ emits correct account when URL has account param
+    it('should_emit_selected_account_when_account_id_in_URL', async () => {
+      // Arrange
+      setupWithQueryParams(snapshot, { account: 'account-2' });
+      arrangements$$.next(mockArrangements);
+
+      // Act
+      const selectedAccount = await firstValueFrom(getSelectedAccount$());
+
+      // Assert
+      expect(selectedAccount?.id).toBe('account-2');
+    });
+
+    // Happy path: selectedAccount$ emits account with correct name
+    it('should_emit_account_with_correct_name_when_account_id_matches', async () => {
+      // Arrange
+      setupWithQueryParams(snapshot, { account: 'account-2' });
+      arrangements$$.next(mockArrangements);
+
+      // Act
+      const selectedAccount = await firstValueFrom(getSelectedAccount$());
+
+      // Assert
+      expect(selectedAccount?.name).toBe('Savings Account');
+    });
+
+    // Edge case: selectedAccount$ emits undefined when no account in URL
+    it('should_emit_undefined_when_no_account_id_in_URL', async () => {
+      // Arrange
+      setupWithQueryParams(snapshot, {});
+      arrangements$$.next(mockArrangements);
+
+      // Act
+      const selectedAccount = await firstValueFrom(getSelectedAccount$());
+
+      // Assert
+      expect(selectedAccount).toBeUndefined();
+    });
+
+    // Error case: selectedAccount$ emits undefined when account ID not found
+    it('should_emit_undefined_when_account_id_not_found', async () => {
+      // Arrange
+      setupWithQueryParams(snapshot, { account: 'non-existent-account' });
+      arrangements$$.next(mockArrangements);
+
+      // Act
+      const selectedAccount = await firstValueFrom(getSelectedAccount$());
+
+      // Assert
+      expect(selectedAccount).toBeUndefined();
     });
   });
 });

@@ -31,6 +31,35 @@ export class TransactionsViewComponent {
     map((params) => params.get('account'))
   );
 
+  /**
+   * Maps arrangements to AccountSelector format for dropdown binding.
+   * RULE: Uses BBAN as primary account number, falls back to IBAN.
+   */
+  public accounts$ = this.arrangementsService.arrangements$.pipe(
+    map((arrangements) =>
+      arrangements.map((arrangement) => ({
+        id: arrangement.id,
+        name: arrangement.name,
+        balance: arrangement.bookedBalance,
+        currency: arrangement.currency,
+        number: arrangement.BBAN || arrangement.IBAN,
+      }))
+    )
+  );
+
+  /**
+   * Emits the currently selected account based on URL query param.
+   * RULE: Returns undefined if no account selected or account not found.
+   */
+  public selectedAccount$ = combineLatest({
+    accountId: this.accountId$,
+    accounts: this.accounts$,
+  }).pipe(
+    map(({ accountId, accounts }) =>
+      accounts.find((account) => account.id === accountId)
+    )
+  );
+
   public accountName$ = combineLatest({
     accountId: this.accountId$,
     accounts: this.arrangementsService.arrangements$,
