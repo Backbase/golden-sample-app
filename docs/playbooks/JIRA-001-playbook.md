@@ -280,11 +280,17 @@ Requirements:
 - Cover: happy path, error case, edge case
 - Mock external dependencies
 - One assertion per test
+- Wrap tests in `describe('S[N]: [STEP NAME]', () => { ... })`
 
 Reference: @docs/architecture/013-ADR-unit-integration-testing-standards.md
 
 WRITE the tests directly to the target spec file. Do NOT just output code in chat.
 Do NOT implement the production code yet — tests only.
+
+After writing tests, output the command to run them:
+```
+npx nx test [project-name] --testFile=[spec-file] --testNamePattern="S[N]"
+```
 ```
 
 ### 🚦 Review Tests
@@ -388,11 +394,12 @@ nx e2e transactions-journey-e2e
 
 **Prompt:** `code-review`
 
-```
-## CODE REVIEW
-@docs/agents/code-review-agent.md (or angular-typescript-agent)
+**Output:** `docs/validation/JIRA-001-code-review.md`
 
-Review all code changes for JIRA-001:
+```
+## CODE REVIEW for JIRA-001
+
+Review all code changes:
 @libs/transactions-journey/internal/feature-transaction-view/src/lib/components/transactions-view/
 
 Check coding standards:
@@ -404,14 +411,43 @@ Check coding standards:
 6. Naming conventions
 7. JSDoc on public methods
 8. No `any` types
+9. i18n markers on user-facing text
 
-Output format:
-[BLOCKER|WARNING|SUGGESTION]: description
+WRITE a report to `docs/validation/JIRA-001-code-review.md` with this format:
+
+# JIRA-001: Code Review Summary
+
+**Date:** [today]  
+**Reviewer:** AI Code Review Agent  
+**Status:** ✅ APPROVED | ❌ CHANGES REQUIRED
+
+## Files Reviewed
+- [list files with step numbers]
+
+## Results
+
+| Check | Status |
+|-------|--------|
+| Null/undefined handling | ✅/❌ |
+| Observable cleanup | ✅/❌ |
+| Method size (<24 lines) | ✅/❌ |
+| Single responsibility | ✅/❌ |
+| Naming conventions | ✅/❌ |
+| No `any` types | ✅/❌ |
+| JSDoc on new methods | ✅/❌ |
+| i18n markers | ✅/❌ |
+
+## Blockers (if any)
+[BLOCKER]: description
 - File: [path]
 - Line: [number]
-- Fix: [corrected code for blockers]
+- Fix: [corrected code]
 
-End with: "Approved" or "Changes required: X blockers"
+## Notes
+[Any observations, acceptable exceptions, test counts]
+
+## Verdict
+**[X blockers].** [Summary statement]
 ```
 
 ### 🚦 Fix Blockers
@@ -424,8 +460,10 @@ Fix blockers, re-run tests.
 
 **Prompt:** `architecture-review`
 
+**Output:** `docs/validation/JIRA-001-architecture-review.md`
+
 ```
-## ARCHITECTURE REVIEW
+## ARCHITECTURE REVIEW for JIRA-001
 
 Review implementation against:
 - Solution design: @docs/specs/JIRA-001/solution-design.md
@@ -436,14 +474,17 @@ Check architecture compliance:
 2. Are all selected ADR requirements met? (check each ADR from Step 1.1)
 3. Layer violations? (Components importing HttpClient directly?)
 4. Classes with >10 public methods?
+5. Edge cases from solution-design.md section 6 handled?
 
-Output format:
+For any violations found:
 [BLOCKER|WARNING]: description
 - ADR/Plan violation: [which rule]
 - File: [path]
 - Fix: [corrected code for blockers]
 
 End with: "Architecture Compliant" or "Violations found: X blockers"
+
+After review, WRITE summary report to `docs/validation/JIRA-001-architecture-review.md`
 ```
 
 ### 🚦 Fix Violations
@@ -456,8 +497,10 @@ Fix blockers, re-run tests.
 
 **Prompt:** `product-review`
 
+**Output:** `docs/validation/JIRA-001-product-review.md`
+
 ```
-## PRODUCT REVIEW
+## PRODUCT REVIEW for JIRA-001
 
 User story: @docs/JIRA-001.md
 Task spec: @docs/specs/JIRA-001/task.md
@@ -474,17 +517,19 @@ Validate each acceptance criterion is implemented:
 | AC-6 | Default account on page load | ✅/❌ | [file:line] |
 | AC-7 | Transaction shows recipient, date, amount, account | ✅/❌ | [file:line] |
 
-## NFR Compliance (from selected ADRs)
+NFR Compliance (from selected ADRs):
 | ADR | Status | Evidence |
 |-----|--------|----------|
 | [each selected ADR] | ✅/❌ | [file:line] |
 
-## Summary
+Summary:
 - Total AC: 7
 - Implemented: [N]
 - Missing: [N]
 
 End with: "All AC Implemented" or "Missing: X acceptance criteria"
+
+After review, WRITE summary report to `docs/validation/JIRA-001-product-review.md`
 ```
 
 ### 🚦 Address Missing AC
