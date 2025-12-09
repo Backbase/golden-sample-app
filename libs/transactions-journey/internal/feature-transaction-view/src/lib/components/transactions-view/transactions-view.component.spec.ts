@@ -484,4 +484,165 @@ describe('TransactionsViewComponent', () => {
       expect(selectedAccount).toBeUndefined();
     });
   });
+
+  describe('Default account selection (S3)', () => {
+    const snapshot = {
+      data: {
+        title: 'Transactions',
+      },
+    };
+
+    let mockRouter: { navigate: jest.Mock };
+
+    /**
+     * Setup helper that captures Router mock for verification.
+     */
+    const setupForDefaultSelection = (queryParams: Record<string, string>) => {
+      transactions$$ = new BehaviorSubject<TransactionItem[] | undefined>(
+        undefined
+      );
+      arrangements$$ = new BehaviorSubject<ProductSummaryItem[]>([]);
+      mockTransactionsHttpService = {
+        transactions$: transactions$$.asObservable(),
+      };
+      mockArrangementsService = {
+        arrangements$: arrangements$$.asObservable(),
+      };
+      latestTransactions$$ = new BehaviorSubject<TransactionItem | undefined>(
+        undefined
+      );
+      mockTransactionsCommunicationService = {
+        latestTransaction$: latestTransactions$$.asObservable(),
+      };
+
+      mockRouter = {
+        navigate: jest.fn(),
+      };
+
+      TestBed.configureTestingModule({
+        declarations: [TransactionsViewComponent],
+        imports: [MockTextFilterComponent, FilterTransactionsPipe],
+        providers: [
+          {
+            provide: ActivatedRoute,
+            useValue: {
+              snapshot: snapshot,
+              queryParams: of(queryParams),
+              queryParamMap: of({
+                get: jest.fn((key: string) => queryParams[key] ?? null),
+              }),
+            },
+          },
+          {
+            provide: Router,
+            useValue: mockRouter,
+          },
+          {
+            provide: TransactionsHttpService,
+            useValue: mockTransactionsHttpService,
+          },
+          {
+            provide: ArrangementsService,
+            useValue: mockArrangementsService,
+          },
+          {
+            provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+            useValue: mockTransactionsCommunicationService,
+          },
+        ],
+        schemas: [NO_ERRORS_SCHEMA],
+      });
+
+      fixture = TestBed.createComponent(TransactionsViewComponent);
+      fixture.detectChanges();
+    };
+
+    // Happy path: First account selected when no account in URL
+    it('should_navigate_to_first_account_when_no_account_param_in_URL', () => {
+      // Arrange
+      setupForDefaultSelection({});
+      arrangements$$.next(mockArrangements);
+      fixture.detectChanges();
+
+      // Act - component initialization triggers default selection
+
+      // Assert
+      expect(mockRouter.navigate).toHaveBeenCalledWith([], {
+        queryParams: { account: 'account-1' },
+        queryParamsHandling: 'merge',
+      });
+    });
+
+    // Happy path: URL account is respected when present
+    it('should_not_navigate_when_account_param_already_in_URL', () => {
+      // Arrange
+      setupForDefaultSelection({ account: 'account-2' });
+      arrangements$$.next(mockArrangements);
+      fixture.detectChanges();
+
+      // Act - component initialization should NOT override existing selection
+
+      // Assert
+      expect(mockRouter.navigate).not.toHaveBeenCalled();
+    });
+
+    // Edge case: No navigation when accounts list is empty
+    it('should_not_navigate_when_no_accounts_available', () => {
+      // Arrange
+      setupForDefaultSelection({});
+      arrangements$$.next([]);
+      fixture.detectChanges();
+
+      // Act - component initialization with empty accounts
+
+      // Assert
+      expect(mockRouter.navigate).not.toHaveBeenCalled();
+    });
+
+    // Edge case: Account in URL doesn't exist - should fallback to first account
+    it('should_navigate_to_first_account_when_URL_account_not_found', () => {
+      // Arrange
+      setupForDefaultSelection({ account: 'non-existent-account' });
+      arrangements$$.next(mockArrangements);
+      fixture.detectChanges();
+
+      // Act - component should detect invalid account and fallback
+
+      // Assert
+      expect(mockRouter.navigate).toHaveBeenCalledWith([], {
+        queryParams: { account: 'account-1' },
+        queryParamsHandling: 'merge',
+      });
+    });
+
+    // Happy path: Default selection uses first account ID from accounts list
+    it('should_select_first_account_id_from_accounts_list_when_defaulting', () => {
+      // Arrange
+      const customArrangements: ProductSummaryItem[] = [
+        {
+          id: 'custom-first-account',
+          name: 'Custom First',
+          bookedBalance: 100,
+          currency: 'EUR',
+        } as ProductSummaryItem,
+        {
+          id: 'custom-second-account',
+          name: 'Custom Second',
+          bookedBalance: 200,
+          currency: 'EUR',
+        } as ProductSummaryItem,
+      ];
+      setupForDefaultSelection({});
+      arrangements$$.next(customArrangements);
+      fixture.detectChanges();
+
+      // Act - component initialization
+
+      // Assert - should use the first account's ID
+      expect(mockRouter.navigate).toHaveBeenCalledWith([], {
+        queryParams: { account: 'custom-first-account' },
+        queryParamsHandling: 'merge',
+      });
+    });
+  });
 });
