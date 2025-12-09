@@ -833,4 +833,117 @@ describe('TransactionsViewComponent', () => {
       expect(filteredTransactions[0].arrangementId).toBe('account-2');
     });
   });
+
+  describe('Template updates (S5)', () => {
+    const snapshot = {
+      data: {
+        title: 'Transactions',
+      },
+    };
+
+    const elements = {
+      getAccountSelector: () =>
+        fixture.nativeElement.querySelector(
+          '[data-role="transactions-view__account-selector"]'
+        ),
+      getEmptyState: () =>
+        fixture.nativeElement.querySelector(
+          '[data-role="transactions-view__empty-state"]'
+        ),
+      getTransactionItems: () =>
+        fixture.nativeElement.querySelectorAll(
+          '[data-role="transactions-view__item-container"]'
+        ),
+    };
+
+    // Happy path: Account selector renders in the template
+    it('should_render_account_selector_when_component_loads', () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next(mockArrangements);
+      transactions$$.next(transactionsMock);
+      fixture.detectChanges();
+
+      // Act
+      const accountSelector = elements.getAccountSelector();
+
+      // Assert
+      expect(accountSelector).not.toBeNull();
+    });
+
+    // Happy path: Account selector receives accounts data
+    it('should_bind_accounts_to_account_selector', () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next(mockArrangements);
+      transactions$$.next(transactionsMock);
+      fixture.detectChanges();
+
+      // Act
+      const accountSelector = elements.getAccountSelector();
+
+      // Assert - account selector should be present (binding tested via component)
+      expect(accountSelector).not.toBeNull();
+    });
+
+    // Happy path: Empty state shows when no transactions
+    it('should_show_empty_state_when_no_transactions', () => {
+      // Arrange
+      setupWithQueryParams(snapshot, { account: 'account-1' });
+      arrangements$$.next(mockArrangements);
+      transactions$$.next([]); // Empty transactions
+      fixture.detectChanges();
+
+      // Act
+      const emptyState = elements.getEmptyState();
+
+      // Assert
+      expect(emptyState).not.toBeNull();
+    });
+
+    // Happy path: Transactions list shows when there are transactions
+    it('should_show_transactions_list_when_transactions_exist', () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next(mockArrangements);
+      transactions$$.next(transactionsMock);
+      fixture.detectChanges();
+
+      // Act
+      const transactionItems = elements.getTransactionItems();
+
+      // Assert
+      expect(transactionItems.length).toBeGreaterThan(0);
+    });
+
+    // Edge case: Empty state hidden when transactions exist
+    it('should_hide_empty_state_when_transactions_exist', () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next(mockArrangements);
+      transactions$$.next(transactionsMock);
+      fixture.detectChanges();
+
+      // Act
+      const emptyState = elements.getEmptyState();
+
+      // Assert
+      expect(emptyState).toBeNull();
+    });
+
+    // Edge case: Transactions list hidden when no transactions
+    it('should_hide_transactions_list_when_no_transactions', () => {
+      // Arrange
+      setupWithQueryParams(snapshot, { account: 'account-1' });
+      arrangements$$.next(mockArrangements);
+      transactions$$.next([]);
+      fixture.detectChanges();
+
+      // Act
+      const transactionItems = elements.getTransactionItems();
+
+      // Assert
+      expect(transactionItems.length).toBe(0);
+    });
+  });
 });

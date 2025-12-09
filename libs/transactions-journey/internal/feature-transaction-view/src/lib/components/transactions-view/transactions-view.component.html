@@ -11,6 +11,27 @@
     </div>
 
     <div class="bb-card__body">
+      <!-- Account Selector -->
+      <div class="bb-block bb-block--md">
+        <bb-account-selector-ui
+          data-role="transactions-view__account-selector"
+          [items]="accounts$ | async"
+          [markFirst]="false"
+          [closeOnSelect]="true"
+          [filterItems]="true"
+          [dropdownPosition]="'bottom'"
+          [multiple]="false"
+          placeholder="Select account"
+          i18n-placeholder="
+            Account selector placeholder - 'Select account'|This string is used
+            as the placeholder for the account selector dropdown. It is
+            presented to the user when no account is selected.
+            @@transactions.account-selector.placeholder"
+          (change)="onAccountSelected($any($event))"
+        >
+        </bb-account-selector-ui>
+      </div>
+
       <div class="bb-block bb-block--md">
         <bb-text-filter
           [text]="searchQuery$ | async"
@@ -51,20 +72,46 @@
         </bb-badge-ui>
       </div>
 
-      <ul *ngIf="transactions$ | async as items; else loading" class="bb-list">
-        <li
-          *ngFor="let item of items | filterTransactions : filter"
-          class="bb-list__item"
-          data-role="transactions-view__item-container"
+      <ng-container *ngIf="transactions$ | async as items; else loading">
+        <!-- Empty State -->
+        <div
+          *ngIf="items.length === 0"
+          data-role="transactions-view__empty-state"
+          class="bb-block bb-block--lg"
         >
-          <a class="list-link" [routerLink]="['./', item.id]">
-            <bb-transaction-item
-              [transaction]="item"
-              [categoryName]="item.category"
-            ></bb-transaction-item>
-          </a>
-        </li>
-      </ul>
+          <bb-empty-state-ui
+            title="No transactions"
+            i18n-title="
+              Transactions empty state title - 'No transactions'|This string is
+              used as the title for the empty state when no transactions are
+              available for the selected account.
+              @@transactions.empty-state.title"
+            subtitle="There are no transactions for this account."
+            i18n-subtitle="
+              Transactions empty state subtitle - 'There are no transactions for
+              this account.'|This string is used as the subtitle for the empty
+              state when no transactions are available.
+              @@transactions.empty-state.subtitle"
+          >
+          </bb-empty-state-ui>
+        </div>
+
+        <!-- Transactions List -->
+        <ul *ngIf="items.length > 0" class="bb-list">
+          <li
+            *ngFor="let item of items | filterTransactions : filter"
+            class="bb-list__item"
+            data-role="transactions-view__item-container"
+          >
+            <a class="list-link" [routerLink]="['./', item.id]">
+              <bb-transaction-item
+                [transaction]="item"
+                [categoryName]="item.category"
+              ></bb-transaction-item>
+            </a>
+          </li>
+        </ul>
+      </ng-container>
     </div>
   </div>
 </div>
