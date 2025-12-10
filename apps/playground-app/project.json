@@ -1,0 +1,124 @@
+{
+  "name": "playground-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/playground-app/src",
+  "tags": ["type:app"],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/playground-app",
+        "index": "apps/playground-app/src/index.html",
+        "browser": "apps/playground-app/src/main.ts",
+        "polyfills": ["zone.js", "@angular/localize/init"],
+        "tsConfig": "apps/playground-app/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/playground-app/src/favicon.ico",
+          "apps/playground-app/src/assets"
+        ],
+        "styles": [
+          {
+            "input": "apps/playground-app/src/styles.scss",
+            "bundleName": "theme-default",
+            "inject": true
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "baseHref": "${BASE_HREF::-1}",
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            },
+            "fonts": true
+          },
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "1mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/playground-app/src/environments/environment.ts",
+              "with": "apps/playground-app/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "outputHashing": "media",
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/playground-app/src/environments/environment.ts",
+              "with": "apps/playground-app/src/environments/environment.mocks.ts"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "playground-app:build:production"
+        },
+        "development": {
+          "proxyConfig": "./apps/playground-app/proxy.mocks.conf.js",
+          "buildTarget": "playground-app:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "continuous": true
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "port": 4200,
+        "staticFilePath": "dist/apps/playground-app/browser",
+        "spa": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "playground-app:build:production"
+        },
+        "development": {
+          "buildTarget": "playground-app:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "playground-app:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "apps/playground-app/jest.config.cts"
+      }
+    }
+  }
+}

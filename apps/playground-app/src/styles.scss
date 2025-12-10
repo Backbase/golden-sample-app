@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/cdk';
+
+@import '@backbase/ui-ang/scss/main';
+
+@include cdk.a11y-visually-hidden();
+
+// Global component display styles for Backbase components
+bb-area,
+bb-root,
+bb-chrome,
+bb-panel-container,
+bb-tab-container,
+bb-deck-container,
+bb-column-container {
+  display: block;
+}
+
+body,
+html {
+  height: 100vh;
+}
+

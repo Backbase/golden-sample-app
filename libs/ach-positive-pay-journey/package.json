@@ -1,9 +1,0 @@
-{
-  "name": "@backbase/ach-positive-pay-journey",
-  "version": "0.0.1",
-  "peerDependencies": {
-    "@backbase/foundation-ang": "^13.0.4",
-    "@angular/router": "^20.3.12"
-  },
-  "dependencies": {}
-}
