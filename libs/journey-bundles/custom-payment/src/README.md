@@ -41,6 +41,7 @@ Each configuration group adheres to certain defined types. For example, the out-
 ### Custom Component Structure
 
 The custom component must:
+
 1. **Implement `PaymentFormField` interface** - Required by the journey framework
 2. **Have required properties** - `config`, `group`, `options`
 3. **Manage form controls** - Based on the field interface (e.g., `InitiatorFields`)
@@ -53,12 +54,7 @@ Here's what a custom component needs:
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import {
-  InitiatorFields,
-  PaymentFormField,
-  PaymentFormFieldConfig,
-  PaymentFormFieldOptions,
-} from '@backbase/initiate-payment-journey-ang';
+import { InitiatorFields, PaymentFormField, PaymentFormFieldConfig, PaymentFormFieldOptions } from '@backbase/initiate-payment-journey-ang';
 
 @Component({
   selector: 'bb-payment-initiator',
@@ -85,7 +81,7 @@ export class InitiatorComponent implements OnInit, PaymentFormField {
 
   ngOnInit() {
     // Set up form controls for required fields
-    [InitiatorFields.id, InitiatorFields.name].forEach(field => {
+    [InitiatorFields.id, InitiatorFields.name].forEach((field) => {
       this.group.addControl(field, new FormControl('', this.options.validators));
     });
   }
@@ -109,6 +105,7 @@ For the complete, production-ready example in this application, see:
 - **Model**: `libs/journey-bundles/custom-payment/src/lib/components/initiator/initiator.model.ts`
 
 This implementation includes:
+
 - ✅ Account selector UI with async data loading
 - ✅ Form validation with error messages
 - ✅ Service integration for fetching arrangements
@@ -122,7 +119,7 @@ import { INITIATE_PAYMENT_CONFIG } from '@backbase/initiate-payment-journey-ang'
 import { InitiatorComponent } from './components/initiator/initiator.component';
 
 @NgModule({
-  imports: [InitiatorComponent, /* other imports */],
+  imports: [InitiatorComponent /* other imports */],
   providers: [
     {
       provide: INITIATE_PAYMENT_CONFIG,
