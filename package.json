@@ -70,7 +70,7 @@
     "@ngrx/store-devtools": "~20.1.0",
     "@ngx-formly/core": "^6.3.12",
     "@opentelemetry/api": "^1.6.0",
-    "@opentelemetry/auto-instrumentations-web": "^0.33.1",
+    "@opentelemetry/auto-instrumentations-web": "^0.54.0",
     "@opentelemetry/context-zone": "^1.17.0",
     "@opentelemetry/exporter-trace-otlp-http": "^0.43.0",
     "@opentelemetry/instrumentation": "^0.43.0",
