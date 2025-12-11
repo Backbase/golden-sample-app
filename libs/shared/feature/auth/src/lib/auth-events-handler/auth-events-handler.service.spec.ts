@@ -6,6 +6,7 @@ import { AuthEventsHandlerService } from './auth-events-handler.service';
 import { AuthService } from '@backbase/identity-auth';
 import { LocalesService } from '@backbase/shared/util/app-core';
 import { TestScheduler } from 'rxjs/testing';
+import { TestBed } from '@angular/core/testing';
 
 export type WidePropertyTypes<T> = Partial<Record<keyof T, unknown>>;
 export const mock = <T>(overrides?: WidePropertyTypes<T>) =>
@@ -28,11 +29,15 @@ describe('AuthEventsHandlerService', () => {
       setLocale: jest.fn(),
       currentLocale: 'en',
     });
-    const service = new AuthEventsHandlerService(
-      oAuthService,
-      authService,
-      localeService
-    );
+    TestBed.configureTestingModule({
+      providers: [
+        AuthEventsHandlerService,
+        { provide: OAuthService, useValue: oAuthService },
+        { provide: AuthService, useValue: authService },
+        { provide: LocalesService, useValue: localeService },
+      ],
+    });
+    const service = TestBed.inject(AuthEventsHandlerService);
     const scheduler = new TestScheduler((a, e) => expect(a).toEqual(e));
 
     return {

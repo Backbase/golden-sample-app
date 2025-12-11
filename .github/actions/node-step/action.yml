@@ -12,16 +12,20 @@ inputs:
   npm-auth-token:
     description: ''
     required: true
+  npm-email:
+    description: ''
+    required: true
 
 runs:
   using: 'composite'
   steps:
+
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: 20
         cache: 'npm'
-        registry-url: 'https://repo.backbase.com/api/npm/npm-backbase/'
+        registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
         scope: '@backbase'
         cache-dependency-path: '**/package-lock.json'
 
@@ -30,8 +34,23 @@ runs:
     # Condition: only executed if cache not restored
     ##
     - name: Install Dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
+      # if: steps.cache.outputs.cache-hit != 'true'
       run: npm ci --ignore-scripts
       shell: bash
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm-auth-token }}
+        NODE_EMAIL: ${{ inputs.npm-email }}
+  
+
+    - name: Upload NPM Log
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: npm-log
+        path: /home/runner/.npm/_logs/
+
+    # Fail the workflow if any of the previous steps fail.
+    - name: Fail Action
+      if: failure()
+      run: exit 1
+      shell: bash

@@ -1,7 +1,8 @@
 import { Router } from '@angular/router';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+
 import { Transfer } from '@backbase/transfer-journey';
 import { JourneyCommunicationService } from './journey-communication.service';
+import { TestBed } from '@angular/core/testing';
 
 describe('JourneyCommunicationService', () => {
   let service: JourneyCommunicationService;
@@ -11,7 +12,13 @@ describe('JourneyCommunicationService', () => {
   const mockAmount = 42;
 
   beforeEach(() => {
-    service = new JourneyCommunicationService(mockRouter as Router);
+    TestBed.configureTestingModule({
+      providers: [
+        JourneyCommunicationService,
+        { provide: Router, useValue: mockRouter },
+      ],
+    });
+    service = TestBed.inject(JourneyCommunicationService);
     service.makeTransfer({
       toAccount: mocktoAccount,
       amount: mockAmount,

@@ -1,6 +1,7 @@
 import { ProductSummaryHttpService } from '@backbase/arrangement-manager-http-ang';
 import { of } from 'rxjs';
 import { ArrangementsService } from './arrangements.service';
+import { TestBed } from '@angular/core/testing';
 
 describe('ArrangementsService', () => {
   let service: ArrangementsService;
@@ -17,7 +18,16 @@ describe('ArrangementsService', () => {
   } as unknown as ProductSummaryHttpService;
 
   beforeEach(() => {
-    service = new ArrangementsService(mockProductSummaryService);
+    TestBed.configureTestingModule({
+      providers: [
+        ArrangementsService,
+        {
+          provide: ProductSummaryHttpService,
+          useValue: mockProductSummaryService,
+        },
+      ],
+    });
+    service = TestBed.inject(ArrangementsService);
   });
 
   it('should call product summary service to get arrangements', (done) => {

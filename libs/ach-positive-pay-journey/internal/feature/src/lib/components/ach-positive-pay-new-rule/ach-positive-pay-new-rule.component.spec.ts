@@ -5,39 +5,48 @@ import { of, throwError } from 'rxjs';
 import { AchPositivePayHttpService } from '@backbase/ach-positive-pay-journey/internal/data-access';
 import { AchPositivePayNewRuleComponent } from './ach-positive-pay-new-rule.component';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
+import { TestBed } from '@angular/core/testing';
 
 describe('AchPositivePayNewRuleComponent', () => {
   let component: AchPositivePayNewRuleComponent;
-  const mockRouter: Pick<Router, 'navigate'> = {
-    navigate: jest.fn(),
-  };
-  const mockActivatedRoute = new ActivatedRoute();
-  let mockFormBuilder: Pick<FormBuilder, 'group'> = {
-    group: jest.fn(),
-  };
-  const mockAchPositivePayService: Pick<
+  let mockRouter: Pick<Router, 'navigate'>;
+  let mockActivatedRoute: ActivatedRoute;
+  let mockFormBuilder: FormBuilder;
+  let mockAchPositivePayService: Pick<
     AchPositivePayHttpService,
     'accounts$' | 'submitAchRule'
-  > = {
-    accounts$: of(),
-    submitAchRule: jest.fn(),
-  };
-  const mockNotificationService: Pick<NotificationService, 'showNotification'> =
-    {
+  >;
+  let mockNotificationService: Pick<NotificationService, 'showNotification'>;
+
+  beforeEach(() => {
+    mockRouter = {
+      navigate: jest.fn(),
+    };
+    mockActivatedRoute = new ActivatedRoute();
+    mockFormBuilder = new FormBuilder();
+    jest.spyOn(mockFormBuilder, 'group');
+    mockAchPositivePayService = {
+      accounts$: of(),
+      submitAchRule: jest.fn(),
+    };
+    mockNotificationService = {
       showNotification: jest.fn(),
     };
 
-  const createComponent = () => {
-    component = new AchPositivePayNewRuleComponent(
-      mockRouter as Router,
-      mockActivatedRoute,
-      mockFormBuilder as FormBuilder,
-      mockAchPositivePayService as AchPositivePayHttpService,
-      mockNotificationService as NotificationService
-    );
-  };
-  beforeEach(() => {
-    createComponent();
+    TestBed.configureTestingModule({
+      providers: [
+        AchPositivePayNewRuleComponent,
+        { provide: Router, useValue: mockRouter },
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        { provide: FormBuilder, useValue: mockFormBuilder },
+        {
+          provide: AchPositivePayHttpService,
+          useValue: mockAchPositivePayService,
+        },
+        { provide: NotificationService, useValue: mockNotificationService },
+      ],
+    });
+    component = TestBed.inject(AchPositivePayNewRuleComponent);
   });
 
   it('should create', () => {
@@ -59,7 +68,7 @@ describe('AchPositivePayNewRuleComponent', () => {
   describe('closeModal', () => {
     it('should close the modal and navigate', () => {
       component.closeModal();
-      expect(mockRouter.navigate).toBeCalledWith(['..'], {
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['..'], {
         relativeTo: mockActivatedRoute,
       });
       expect(component.loading).toBeFalsy();
@@ -73,8 +82,6 @@ describe('AchPositivePayNewRuleComponent', () => {
         legalEntityIds: ['ids'],
         debitCards: [{ unmaskableAttributes: ['BBAN'] }],
       };
-      mockFormBuilder = new FormBuilder();
-      createComponent();
       component.ngOnInit();
       component.onSelectAccountId(mockAccount);
       expect(component.achRuleForm.get('arrangement')?.value).toEqual(
@@ -88,12 +95,10 @@ describe('AchPositivePayNewRuleComponent', () => {
       component.loading = true;
       const spy = jest.spyOn(component, 'submitRule');
       component.submitRule();
-      expect(spy).toReturn();
+      expect(spy).toHaveReturned();
     });
     it('should subscribe to positive pay service success', () => {
-      (mockAchPositivePayService.submitAchRule = jest.fn(() => of('stream'))),
-        (mockFormBuilder = new FormBuilder());
-      createComponent();
+      mockAchPositivePayService.submitAchRule = jest.fn(() => of('stream'));
       component.ngOnInit();
       component.loading = false;
       component.submitRule();
@@ -106,8 +111,6 @@ describe('AchPositivePayNewRuleComponent', () => {
           return { message: 'error' };
         })
       );
-      mockFormBuilder = new FormBuilder();
-      createComponent();
       component.ngOnInit();
       component.loading = false;
       component.submitRule();

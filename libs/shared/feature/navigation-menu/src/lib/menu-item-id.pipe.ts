@@ -3,7 +3,7 @@ import { NavigationMenuItem } from '@backbase/shared/util/app-core';
 
 @Pipe({
   name: 'menuItemId',
-  standalone: false,
+  standalone: true,
 })
 export class MenuItemIdPipe implements PipeTransform {
   transform(menuItem: NavigationMenuItem) {
