@@ -29,6 +29,7 @@ export default defineConfig<ProjectTestArgs>({
     url: baseURL,
     reuseExistingServer: true,
     cwd: workspaceRoot,
+    timeout: 120000, // 2 minutes - allows more time for dev server startup in CI
   },
   projects: withDevices([
     {
