@@ -53,7 +53,7 @@ jobs:
           npm-email: ${{ secrets.NODE_EMAIL }}
 
       - name: Cache npm dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.npm
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
@@ -97,7 +97,7 @@ jobs:
           npm-email: ${{ secrets.NPM_EMAIL }}
 
       - name: Cache Playwright browsers
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ needs.get-playwright-version.outputs.version }}
