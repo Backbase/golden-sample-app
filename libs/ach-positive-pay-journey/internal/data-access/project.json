@@ -6,22 +6,6 @@
   "prefix": "bb",
   "tags": ["scope:ach-positive-pay-journey", "type:data-access"],
   "targets": {
-    "build": {
-      "executor": "@nx/angular:package",
-      "outputs": ["{workspaceRoot}/dist/internal/{projectRoot}"],
-      "options": {
-        "project": "libs/ach-positive-pay-journey/internal/data-access/ng-package.internal.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/ach-positive-pay-journey/internal/data-access/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "libs/ach-positive-pay-journey/internal/data-access/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": [
@@ -30,9 +14,6 @@
       "options": {
         "jestConfig": "libs/ach-positive-pay-journey/internal/data-access/jest.config.ts"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

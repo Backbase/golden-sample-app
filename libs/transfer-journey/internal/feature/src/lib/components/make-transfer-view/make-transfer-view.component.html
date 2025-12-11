@@ -16,7 +16,7 @@
     <bb-make-transfer-form
       *ngIf="!isLoading(data.loadingStatus); else loadingIndicator"
       [account]="data.account"
-      [showMaskIndicator]="config.maskIndicator"
+      [showMaskIndicator]="config.maskIndicator ?? true"
       (submitTransfer)="submitTransfer($event)"
       [maxLimit]="limit"
     ></bb-make-transfer-form>

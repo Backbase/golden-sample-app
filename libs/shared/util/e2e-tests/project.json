@@ -1,0 +1,7 @@
+{
+  "name": "shared-e2e-tests",
+  "projectType": "library",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/util/e2e-tests/src",
+  "tags": ["scope:shared", "type:util", "region:agnostic"]
+}

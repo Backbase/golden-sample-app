@@ -1,4 +1,4 @@
-import { inject, inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   GetTransactionsWithPostRequestParams,
   TransactionClientHttpService,
@@ -7,12 +7,16 @@ import {
 import { combineLatest, Observable, of } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
 import { ArrangementsService } from '../arrangements/arrangements.service';
-import { TransactionsJourneyConfiguration } from '../transactions-journey-config/transactions-journey-config.service';
+import {
+  TRANSACTIONS_JOURNEY_CONFIG,
+  TransactionsJourneyConfig,
+} from '@backbase/transactions-journey/internal/shared-data';
 
 @Injectable()
 export class TransactionsHttpService {
-  private readonly configurationService: TransactionsJourneyConfiguration =
-    inject(TransactionsJourneyConfiguration);
+  private readonly configurationService: TransactionsJourneyConfig = inject(
+    TRANSACTIONS_JOURNEY_CONFIG
+  );
   private readonly transactionsHttpService: TransactionClientHttpService =
     inject(TransactionClientHttpService);
   private readonly arrangementsService: ArrangementsService =

@@ -1,15 +1,25 @@
 import { Component, inject, Optional } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { ArrangementsService } from '@backbase/transactions-journey';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 import { Tracker } from '@backbase/foundation-ang/observability';
+import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
+import { ProductItemBasicAccountModule } from '@backbase/ui-ang/product-item-basic-account';
 import {
   AddToFavoritesTrackerEvent,
   RemoveFromFavoritesTrackerEvent,
 } from '../model/tracker-events';
 @Component({
-  selector: 'app-user-accounts-view',
+  selector: 'bb-user-accounts-view',
   templateUrl: './user-accounts-view.component.html',
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    LoadingIndicatorModule,
+    ProductItemBasicAccountModule,
+  ],
 })
 export class UserAccountsViewComponent {
   private readonly arrangementsService: ArrangementsService =

@@ -1,4 +1,4 @@
-<bb-activity-monitor></bb-activity-monitor>
+<bb-activity-monitor />
 
 <div
   class="bb-layout bb-layout--horizontal-nav"
@@ -55,9 +55,7 @@
     </div>
 
     <!-- Navigation Items-->
-    @if (isAuthenticated) {
-    <app-navigation-menu />
-    }
+    <bb-dynamic-navigation-menu />
 
     <!-- Topbar Content Area (a.k.a. Right Topbar Area) -->
     <div class="bb-layout__topbar-content-area">

@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'ach-positive-pay-journey-data-access',
   preset: '../../../../jest.preset.js',

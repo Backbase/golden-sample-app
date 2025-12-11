@@ -1,10 +1,10 @@
 import { Component, inject, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 
 @Component({
   templateUrl: './view-wrapper.component.html',
   styles: [],
-  standalone: false,
+  imports: [RouterOutlet],
 })
 export class ViewWrapperComponent {
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
