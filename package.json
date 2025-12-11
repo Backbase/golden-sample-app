@@ -107,7 +107,7 @@
     "@nx/jest": "22.0.3",
     "@nx/js": "22.0.3",
     "@nx/playwright": "22.0.3",
-    "@nx/workspace": "22.0.3",
+    "@nx/workspace": "22.2.1",
     "@playwright/test": "1.52.0",
     "@schematics/angular": "~20.3.0",
     "@types/jest": "^30.0.0",
