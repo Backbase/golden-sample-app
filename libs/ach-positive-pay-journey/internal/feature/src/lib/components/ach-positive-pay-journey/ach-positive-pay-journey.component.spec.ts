@@ -1,5 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { AchPositivePayJourneyComponent } from './ach-positive-pay-journey.component';
+import { TestBed } from '@angular/core/testing';
 
 describe('AchPositivePayJourneyComponent', () => {
   let component: AchPositivePayJourneyComponent;
@@ -9,10 +10,14 @@ describe('AchPositivePayJourneyComponent', () => {
   const mockActivatedRoute = new ActivatedRoute();
 
   beforeEach(() => {
-    component = new AchPositivePayJourneyComponent(
-      mockRouter as Router,
-      mockActivatedRoute
-    );
+    TestBed.configureTestingModule({
+      providers: [
+        AchPositivePayJourneyComponent,
+        { provide: Router, useValue: mockRouter },
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+      ],
+    });
+    component = TestBed.inject(AchPositivePayJourneyComponent);
   });
 
   it('should create', () => {

@@ -1,16 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TransactionsJourneyConfiguration } from '../transactions-journey-config/transactions-journey-config.service';
+import { TestBed } from '@angular/core/testing';
+import {
+  TRANSACTIONS_JOURNEY_CONFIG,
+  TransactionsJourneyConfig,
+} from '@backbase/transactions-journey/internal/shared-data';
 import { TransactionsRouteTitleResolverService } from './transactions-route-title-resolver.service';
 
 describe('MakeTransferRouteTitleResolverService', () => {
-  function createInstance(config: Partial<TransactionsJourneyConfiguration>) {
-    return new TransactionsRouteTitleResolverService(
-      config as TransactionsJourneyConfiguration
-    );
+  function setup(config: Partial<TransactionsJourneyConfig>) {
+    TestBed.configureTestingModule({
+      providers: [
+        TransactionsRouteTitleResolverService,
+        {
+          provide: TRANSACTIONS_JOURNEY_CONFIG,
+          useValue: config,
+        },
+      ],
+    });
+    return TestBed.inject(TransactionsRouteTitleResolverService);
   }
 
   it('should resolve route with the title data if the `slimMode` configuration is set as false', () => {
-    const service = createInstance({ slimMode: false });
+    const service = setup({ slimMode: false });
     const result = service.resolve({
       data: {
         title: 'hello',
@@ -21,7 +32,7 @@ describe('MakeTransferRouteTitleResolverService', () => {
   });
 
   it('should resolve route without the title data if the `slimMode` configuration is set as true', () => {
-    const service = createInstance({ slimMode: true });
+    const service = setup({ slimMode: true });
     const result = service.resolve({
       data: {
         title: 'hello',
