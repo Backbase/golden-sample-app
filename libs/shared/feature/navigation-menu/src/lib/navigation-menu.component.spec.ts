@@ -65,8 +65,12 @@ describe('DynamicNavigationMenuComponent', () => {
 
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [NgbDropdownModule, RouterModule.forRoot([])],
-      declarations: [DynamicNavigationMenuComponent, MenuItemIdPipe],
+      imports: [
+        NgbDropdownModule,
+        RouterModule.forRoot([]),
+        DynamicNavigationMenuComponent,
+        MenuItemIdPipe,
+      ],
       providers: [
         {
           provide: NAVIGATION_MENU_CONFIG,

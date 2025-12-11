@@ -8,5 +8,9 @@ export interface TransactionsJourneyExtensionsConfig {
 
 export const TRANSACTION_EXTENSIONS_CONFIG =
   new InjectionToken<TransactionsJourneyExtensionsConfig>(
-    'TRANSACTION_EXTENSIONS_CONFIG'
+    'TRANSACTION_EXTENSIONS_CONFIG',
+    {
+      providedIn: 'root',
+      factory: () => ({}),
+    }
   );
