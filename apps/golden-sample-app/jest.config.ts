@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'golden-sample-app',
   preset: '../../jest.preset.js',

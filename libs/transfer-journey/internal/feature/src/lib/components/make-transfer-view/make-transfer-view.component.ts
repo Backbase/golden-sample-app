@@ -1,15 +1,18 @@
-import { Component, inject, Optional } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertModule } from '@backbase/ui-ang/alert';
 import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
 import { NgIf, NgSwitchCase, AsyncPipe, NgSwitch } from '@angular/common';
 import {
-  MakeTransferJourneyConfiguration,
   ErrorStatus,
   MakeTransferJourneyState,
   TransferLoadingStatus,
   MakeTransferPermissionsService,
 } from '@backbase/transfer-journey/internal/data-access';
+import {
+  MAKE_TRANSFER_JOURNEY_CONFIG,
+  MakeTransferJourneyConfig,
+} from '@backbase/transfer-journey/internal/shared-data';
 import {
   Transfer,
   TransferSubmitEvent,
@@ -41,8 +44,8 @@ export class MakeTransferViewComponent {
   private readonly permissions: MakeTransferPermissionsService = inject(
     MakeTransferPermissionsService
   );
-  readonly config: MakeTransferJourneyConfiguration = inject(
-    MakeTransferJourneyConfiguration
+  readonly config: MakeTransferJourneyConfig = inject(
+    MAKE_TRANSFER_JOURNEY_CONFIG
   );
   private readonly tracker: Tracker | null = inject(Tracker, {
     optional: true,
