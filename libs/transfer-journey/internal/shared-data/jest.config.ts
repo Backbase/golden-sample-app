@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'transfer-journey-shared-data',
   preset: '../../../../jest.preset.js',

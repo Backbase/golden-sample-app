@@ -68,7 +68,7 @@ describe('AchPositivePayNewRuleComponent', () => {
   describe('closeModal', () => {
     it('should close the modal and navigate', () => {
       component.closeModal();
-      expect(mockRouter.navigate).toBeCalledWith(['..'], {
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['..'], {
         relativeTo: mockActivatedRoute,
       });
       expect(component.loading).toBeFalsy();
@@ -95,7 +95,7 @@ describe('AchPositivePayNewRuleComponent', () => {
       component.loading = true;
       const spy = jest.spyOn(component, 'submitRule');
       component.submitRule();
-      expect(spy).toReturn();
+      expect(spy).toHaveReturned();
     });
     it('should subscribe to positive pay service success', () => {
       mockAchPositivePayService.submitAchRule = jest.fn(() => of('stream'));

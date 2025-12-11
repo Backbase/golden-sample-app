@@ -21,7 +21,7 @@ jobs:
     outputs:
       version: ${{ steps.get-version.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       
       - name: Get Playwright version
         id: get-version
@@ -33,7 +33,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 #v5.0.0
         with:
           fetch-depth: 0
 
@@ -47,10 +47,10 @@ jobs:
         env:
           NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
+          NPM_EMAIL: ${{ secrets.NODE_EMAIL }}
         with:
           npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
-          npm-email: ${{ secrets.NPM_EMAIL }}
+          npm-email: ${{ secrets.NODE_EMAIL }}
 
       - name: Cache npm dependencies
         uses: actions/cache@v4
@@ -75,7 +75,6 @@ jobs:
   playwright:
     name: "Playwright Tests"
     runs-on: ubuntu-latest
-    continue-on-error: true
     needs: get-playwright-version
     container:
       image: mcr.microsoft.com/playwright:v${{ needs.get-playwright-version.outputs.version }}
@@ -85,7 +84,7 @@ jobs:
       matrix:
         test: ['sndbx-ci', 'mocks', 'responsive', 'a11y']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup Node.js
         uses: ./.github/actions/node-step
@@ -114,15 +113,13 @@ jobs:
         run: |
           apt-get update
           apt-get install -y default-jre
-        continue-on-error: true
 
       - name: Generate Allure Report
         run: npm run report-generate
-        continue-on-error: true 
 
       - name: Upload Playwright Report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: playwright-report-${{ matrix.test }}
           path: dist/.playwright/apps/golden-sample-app-e2e/reports/html/
@@ -130,7 +127,7 @@ jobs:
 
       - name: Upload Allure Report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: allure-report-${{ matrix.test }}
           path: allure-report/
@@ -138,7 +135,7 @@ jobs:
 
       - name: Upload Accessibility Reports
         if: ${{ matrix.test == 'a11y' && !cancelled() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: accessibility-report
           path: reports/accessibility-reports/

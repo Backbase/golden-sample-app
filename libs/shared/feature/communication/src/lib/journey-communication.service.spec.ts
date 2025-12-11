@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+
 import { Transfer } from '@backbase/transfer-journey';
 import { JourneyCommunicationService } from './journey-communication.service';
 import { TestBed } from '@angular/core/testing';

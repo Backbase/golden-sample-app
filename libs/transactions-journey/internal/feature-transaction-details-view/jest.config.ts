@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'transactions-journey-feature-transaction-details-view',
   preset: '../../../../jest.preset.js',
