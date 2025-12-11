@@ -14,7 +14,12 @@ export default [
         'error',
         {
           enforceBuildableLibDependency: false,
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
+          allow: [
+            '^.*/eslint(\\.base)?\\.config\\.[cm]?js$',
+            // Allow static imports of internal feature libraries within the same journey
+            // when the journey itself is already lazy-loaded via loadChildren
+            '^@backbase/.*/internal/.*',
+          ],
           depConstraints: [
             {
               sourceTag: '*',

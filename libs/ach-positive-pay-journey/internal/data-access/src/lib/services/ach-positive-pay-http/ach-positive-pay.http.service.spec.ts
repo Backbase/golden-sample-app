@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { AchRule } from '../../models/ach-rule';
 import { AchPositivePayHttpService } from './ach-positive-pay.http.service';
+import { TestBed } from '@angular/core/testing';
 
 describe('AchPositivePayJourneyService', () => {
   let service: AchPositivePayHttpService;
@@ -10,7 +11,13 @@ describe('AchPositivePayJourneyService', () => {
   };
 
   beforeEach(() => {
-    service = new AchPositivePayHttpService(mockHttpClient as HttpClient);
+    TestBed.configureTestingModule({
+      providers: [
+        AchPositivePayHttpService,
+        { provide: HttpClient, useValue: mockHttpClient },
+      ],
+    });
+    service = TestBed.inject(AchPositivePayHttpService);
   });
 
   it('should be created and make a get', () => {

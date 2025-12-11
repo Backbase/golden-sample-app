@@ -26,10 +26,19 @@ export class SharedUserContextInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const context = this.#userContextService.getServiceAgreementId();
-    if (context && req.url.startsWith(this.#apiRoot)) {
+    if (context && this.#shouldAddHeader(req.url)) {
       const headers = req.headers.set('X-USER-CONTEXT', context);
       req = req.clone({ headers });
     }
     return next.handle(req);
+  }
+
+  #shouldAddHeader(url: string): boolean {
+    // If API root ends with slash, check if URL starts with API root
+    if (this.#apiRoot.endsWith('/')) {
+      return url.startsWith(this.#apiRoot);
+    }
+    // If API root doesn't end with slash, check if URL starts with API root followed by slash
+    return url.startsWith(this.#apiRoot + '/');
   }
 }
