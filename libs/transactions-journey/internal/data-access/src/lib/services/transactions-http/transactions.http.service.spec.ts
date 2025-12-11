@@ -4,7 +4,10 @@ import {
 } from '@backbase/transactions-http-ang';
 import { of } from 'rxjs';
 import { ArrangementsService } from '../arrangements/arrangements.service';
-import { TransactionsJourneyConfiguration } from '../transactions-journey-config/transactions-journey-config.service';
+import {
+  TRANSACTIONS_JOURNEY_CONFIG,
+  TransactionsJourneyConfig,
+} from '@backbase/transactions-journey/internal/shared-data';
 import { TransactionsHttpService } from './transactions.http.service';
 import { TestBed } from '@angular/core/testing';
 
@@ -14,9 +17,10 @@ describe('TransactionsHttpService', () => {
   const mockPageSize = 10;
   const mockTransactionItems = [{}, {}] as TransactionItem[];
 
-  const mockConfigurationService = {
+  const mockConfigurationService: TransactionsJourneyConfig = {
     pageSize: mockPageSize,
-  } as TransactionsJourneyConfiguration;
+    slimMode: false,
+  };
   const mockTransactionsClientHttpService = {
     getTransactionsWithPost: jest.fn(() => of(mockTransactionItems)),
   } as unknown as TransactionClientHttpService;
@@ -29,7 +33,7 @@ describe('TransactionsHttpService', () => {
       providers: [
         TransactionsHttpService,
         {
-          provide: TransactionsJourneyConfiguration,
+          provide: TRANSACTIONS_JOURNEY_CONFIG,
           useValue: mockConfigurationService,
         },
         {

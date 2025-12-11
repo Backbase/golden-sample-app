@@ -9,7 +9,6 @@ import {
   TransactionAdditionalDetailsContext,
   TRANSACTION_EXTENSIONS_CONFIG,
 } from '../../extensions';
-import { TransactionsJourneyConfiguration } from '@backbase/transactions-journey/internal/data-access';
 
 @Component({
   selector: 'bb-transaction-item-test-component',
@@ -65,7 +64,6 @@ describe('TransactionItemComponent', () => {
         TransactionItemComponent,
       ],
       providers: [
-        { provide: TransactionsJourneyConfiguration, useValue: mockConfig },
         {
           provide: TRANSACTION_EXTENSIONS_CONFIG,
           useValue: mockInjectionToken,
