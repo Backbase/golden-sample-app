@@ -6,11 +6,15 @@ import {
 import { of } from 'rxjs';
 import { Transfer } from '@backbase/transfer-journey/internal/shared-data';
 import {
-  MakeTransferJourneyConfiguration,
   MakeTransferJourneyState,
   MakeTransferPermissionsService,
 } from '@backbase/transfer-journey/internal/data-access';
+import {
+  MAKE_TRANSFER_JOURNEY_CONFIG,
+  MakeTransferJourneyConfig,
+} from '@backbase/transfer-journey/internal/shared-data';
 import { MakeTransferViewComponent } from './make-transfer-view.component';
+import { TestBed } from '@angular/core/testing';
 
 describe('MakeTransferViewComponent', () => {
   let component: MakeTransferViewComponent;
@@ -40,10 +44,7 @@ describe('MakeTransferViewComponent', () => {
     unlimitedAmountPerTransaction$: of(true),
   };
 
-  const mockConfig: Pick<
-    MakeTransferJourneyConfiguration,
-    'maxTransactionAmount'
-  > = {
+  const mockConfig: Pick<MakeTransferJourneyConfig, 'maxTransactionAmount'> = {
     maxTransactionAmount: 12,
   };
   const mockTransfer: Transfer = {
@@ -53,13 +54,17 @@ describe('MakeTransferViewComponent', () => {
   };
 
   beforeEach(() => {
-    component = new MakeTransferViewComponent(
-      mockActivatedRoute as ActivatedRoute,
-      mockRouter as Router,
-      mockTransferState as MakeTransferJourneyState,
-      mockPermissions as MakeTransferPermissionsService,
-      mockConfig as MakeTransferJourneyConfiguration
-    );
+    TestBed.configureTestingModule({
+      providers: [
+        MakeTransferViewComponent,
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        { provide: Router, useValue: mockRouter },
+        { provide: MakeTransferJourneyState, useValue: mockTransferState },
+        { provide: MakeTransferPermissionsService, useValue: mockPermissions },
+        { provide: MAKE_TRANSFER_JOURNEY_CONFIG, useValue: mockConfig },
+      ],
+    });
+    component = TestBed.inject(MakeTransferViewComponent);
   });
 
   it('should create', () => {

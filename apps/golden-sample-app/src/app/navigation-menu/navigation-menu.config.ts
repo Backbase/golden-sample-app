@@ -47,7 +47,7 @@ export const NAVIGATION_BUNDLE: Array<
   NavigationLink | NavigationDynamicComponent
 > = [
   TRANSFER_NAVIGATION,
-  ...entitlementsTests,
+  // ...entitlementsTests,
   TRANSACTIONS_NAVIGATION,
   ACH_POSITIVE_PAY_NAVIGATION,
   CUSTOM_PAYMENT_NAVIGATION,
