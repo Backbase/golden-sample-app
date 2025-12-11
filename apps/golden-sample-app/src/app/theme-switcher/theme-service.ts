@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ThemeManagerService {
   public static THEMES = ['theme-default', 'theme-premium'];
 
