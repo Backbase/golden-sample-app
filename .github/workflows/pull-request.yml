@@ -44,8 +44,13 @@ jobs:
 
       - name: Setup Node.js
         uses: ./.github/actions/node-step
+        env:
+          NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_EMAIL: ${{ secrets.NODE_EMAIL }}
         with:
-          npm-auth-token: ${{ secrets.NPM_TOKEN }}
+          npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
+          npm-email: ${{ secrets.NODE_EMAIL }}
 
       - name: Cache npm dependencies
         uses: actions/cache@v4
@@ -83,8 +88,13 @@ jobs:
 
       - name: Setup Node.js
         uses: ./.github/actions/node-step
+        env:
+          NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
         with:
-          npm-auth-token: ${{ secrets.NPM_TOKEN }}
+          npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
+          npm-email: ${{ secrets.NPM_EMAIL }}
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4
@@ -99,6 +109,11 @@ jobs:
       - name: Run Playwright e2e tests ${{ matrix.test }}
         run: npm run e2e-test-${{ matrix.test }}
 
+      - name: Install Java for Allure
+        run: |
+          apt-get update
+          apt-get install -y default-jre
+
       - name: Generate Allure Report
         run: npm run report-generate
 
@@ -107,7 +122,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report-${{ matrix.test }}
-          path: reports/html-report/
+          path: dist/.playwright/apps/golden-sample-app-e2e/reports/html/
           retention-days: ${{ env.RETENTION_DAYS }}
 
       - name: Upload Allure Report

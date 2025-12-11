@@ -9,39 +9,35 @@ import {
 import { AccountSelectorModule } from '@backbase/ui-ang/account-selector';
 import { Router } from '@angular/router';
 import { InitiatorComponent } from './components/initiator/initiator.component';
-import { customPaymentConfig, setRouter } from './custom-payment.config';
+import { createCustomPaymentConfig } from './custom-payment.config';
 import { PaymentsCommunicationService } from '@backbase/shared/feature/communication';
+import { reviewServiceFactory } from './provide-custom-payment-journey';
 
-// Create a provider for the review service
-export function reviewServiceFactory(router: Router) {
-  return {
-    navigateFromSuccess: () => {
-      router.navigate(['/transactions']);
-    },
-    navigateFromCancel: () => {
-      router.navigate(['/transactions']);
-    },
-    navigateFromError: () => {
-      router.navigate(['/error']);
-    },
-    isInModal: () => false,
-  };
-}
-
+/**
+ * Custom Payment Journey Bundle Module
+ *
+ * This module wraps @backbase/initiate-payment-journey-ang with custom configuration.
+ *
+ * Note: This module approach is required because @backbase/initiate-payment-journey-ang
+ * does not yet provide a standalone API. Once a standalone API is available from
+ * the library, this module can be migrated to use `provideCustomPaymentJourney()`
+ * with a route bundle file approach.
+ */
 @NgModule({
   /**
-   * Declare the custom component here for journey to be able to add it to the form dynamically
+   * Import the standalone component here for journey to be able to add it to the form dynamically
    */
-  declarations: [InitiatorComponent],
   imports: [
     AccountSelectorModule,
     CommonModule,
     InitiatePaymentJourneyModule.forRoot(),
+    InitiatorComponent,
   ],
   providers: [
     {
       provide: INITIATE_PAYMENT_CONFIG,
-      useValue: customPaymentConfig,
+      useFactory: createCustomPaymentConfig,
+      deps: [Router],
     },
     {
       provide: ӨReviewPaymentService,
@@ -55,9 +51,4 @@ export function reviewServiceFactory(router: Router) {
     },
   ],
 })
-export class CustomPaymentJourneyBundleModule {
-  constructor(router: Router) {
-    // Inject router into the config for hooks
-    setRouter(router);
-  }
-}
+export class CustomPaymentJourneyBundleModule {}

@@ -180,41 +180,42 @@ export const INTERNAL_TRANSFERS: PaymentTypeConfig = {
   },
 };
 
-// Get reference to the Router
-let router: Router;
-export function setRouter(r: Router) {
-  router = r;
-}
-
-export const customPaymentConfig: InitiatePaymentConfig = {
-  paymentTypes: [INTERNAL_TRANSFERS],
-  businessFunctions: [INTERNAL_TRANSFERS.businessFunction || ''],
-  options: {
-    enablePaymentTemplateSelector: false,
-    enableSavePaymentAsTemplate: false,
-    reviewScreenType: ReviewScreens.ADAPTED,
-    isModalView: false,
-    header: () =>
-      $localize`:Make a Payment Link - 'Make internal payment (custom)'|This string is used as the header text for the custom payment form. It is presented to the user when they are making an internal payment using the custom payment form. This header is located at the top of the custom payment form layout.@@main.make-a-payment.link.text:Make internal payment (custom)`,
-  },
-  /**
-   * Use hooks to perform additional logic at different stages of Payments journey.
-   */
-  hooks: {
-    onSave: (({ doneFn }: PaymentHooksParams) => {
-      doneFn();
-    }) as PaymentHooksCallbackFn,
-    onSubmit: (({ doneFn }: PaymentHooksParams) => {
-      // After submitting payment, navigate to transactions
-      if (router) {
+/**
+ * Creates the payment config with route navigation hooks
+ * @param router Angular Router service for navigation
+ * @returns Configured InitiatePaymentConfig with hooks
+ */
+export function createCustomPaymentConfig(
+  router: Router
+): InitiatePaymentConfig {
+  return {
+    paymentTypes: [INTERNAL_TRANSFERS],
+    businessFunctions: [INTERNAL_TRANSFERS.businessFunction || ''],
+    options: {
+      enablePaymentTemplateSelector: false,
+      enableSavePaymentAsTemplate: false,
+      reviewScreenType: ReviewScreens.ADAPTED,
+      isModalView: false,
+      header: () =>
+        $localize`:Make a Payment Link - 'Make internal payment (custom)'|This string is used as the header text for the custom payment form. It is presented to the user when they are making an internal payment using the custom payment form. This header is located at the top of the custom payment form layout.@@main.make-a-payment.link.text:Make internal payment (custom)`,
+    },
+    /**
+     * Use hooks to perform additional logic at different stages of Payments journey.
+     */
+    hooks: {
+      onSave: (({ doneFn }: PaymentHooksParams) => {
+        doneFn();
+      }) as PaymentHooksCallbackFn,
+      onSubmit: (({ doneFn }: PaymentHooksParams) => {
+        // After submitting payment, navigate to transactions
         setTimeout(() => {
           router.navigate(['/transactions']);
         }, 500);
-      }
-      doneFn();
-    }) as PaymentHooksCallbackFn,
-  },
-  customFields: {
-    customInitiator: InitiatorComponent,
-  },
-};
+        doneFn();
+      }) as PaymentHooksCallbackFn,
+    },
+    customFields: {
+      customInitiator: InitiatorComponent,
+    },
+  };
+}

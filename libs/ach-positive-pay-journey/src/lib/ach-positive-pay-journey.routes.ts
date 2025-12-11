@@ -7,7 +7,7 @@ import { AchPositivePayRulesComponent } from '@backbase/ach-positive-pay-journey
 import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
 import { PERMISSIONS } from '@backbase/ach-positive-pay-journey/internal/shared-data';
 
-export const achPositivePayDefaultRoutes: Routes = [
+const achPositivePayDefaultRoutes: Routes = [
   {
     path: 'rules',
     component: AchPositivePayJourneyComponent,
@@ -31,3 +31,5 @@ export const achPositivePayDefaultRoutes: Routes = [
   },
   { path: '', pathMatch: 'full', redirectTo: 'rules' },
 ];
+
+export default achPositivePayDefaultRoutes;
