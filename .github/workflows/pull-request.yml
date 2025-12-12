@@ -119,7 +119,7 @@ jobs:
 
       - name: Upload Playwright Report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: playwright-report-${{ matrix.test }}
           path: dist/.playwright/apps/golden-sample-app-e2e/reports/html/
@@ -127,7 +127,7 @@ jobs:
 
       - name: Upload Allure Report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: allure-report-${{ matrix.test }}
           path: allure-report/
@@ -135,7 +135,7 @@ jobs:
 
       - name: Upload Accessibility Reports
         if: ${{ matrix.test == 'a11y' && !cancelled() }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: accessibility-report
           path: reports/accessibility-reports/
