@@ -42,13 +42,13 @@ docs/specs/{JIRA-ID}/
         Part 1: SPECS                          Part 3: VALIDATION
         (Left side)                            (Right side)
         
-    1.1 Select ADRs ─────────────────────────► 3.4 Product review
+    1.1 Select ADRs                            3.4 Product review
            │                                         ▲
-    1.2 Select repo specs ───────────────────► 3.3 Architecture review
+    1.2 Select repo specs                      3.3 Architecture review
            │                                         ▲
-    1.3 Disambiguate story ──────────────────► 3.2 Code review
+    1.3 Disambiguate story                     3.2 Code review
            │                                         ▲
-    1.4 Solution design ─────────────────────► 3.1 Run all tests
+    1.4 Solution design                        3.1 Run all tests
            │                                         ▲
            ▼                                         │
         ═══════════════════════════════════════════════

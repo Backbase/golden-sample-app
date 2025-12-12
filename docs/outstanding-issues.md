@@ -17,3 +17,4 @@
 3. ADR for accessibility is missing instruction: "(role-based) selectors in our tests over data-role attributes, with data-testid only as a fallback when a role-based selector is too cumbersome."
 4. ADRs take prio over repo specs (always) - as a part of SA, Dev, QA agents.
 5. "We should prefer inject over constructor injection" Angular stylegude? Another ADR?
+6. What about figma designs? It's needed for large amount of user-stories.
