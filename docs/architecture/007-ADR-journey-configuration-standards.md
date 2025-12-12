@@ -1,178 +1,125 @@
 # ADR-007: Journey Configuration Standards
 
+## 1. Summary
+
+<!-- LLM: Always load this section first -->
+
+### TL;DR
+
+> Journeys must use typed configuration interfaces with injection tokens, provided in bundle modules (not app.module) to maintain lazy loading. Build-time configuration uses DI tokens; run-time configuration uses Remote Config service. Configuration services must merge project overrides with sensible defaults.
+
+### Rules
+
+**MUST DO ✅**
+
+1. Define typed configuration interface with JSDoc comments for each journey
+2. Create injection token typed as `Partial<Configuration>` for flexible overrides
+3. Provide configuration in bundle modules using `useValue` or `useFactory`
+4. Use `@Optional() @Inject(token)` in configuration service constructor
+5. Expose configuration via getter methods (not public properties)
+6. Merge overrides with defaults: `{ ...configDefaults, ...configOverrides }`
+7. Wrap localizable router strings in functions: `() => $localize\`text\``
+
+**MUST NOT ❌**
+
+1. Provide journey configuration tokens in app.module (causes eager loading)
+2. Use `@Injectable({ providedIn: 'root' })` for configuration services
+3. Use `any` type for configuration interfaces or tokens
+4. Expose configuration object directly (no encapsulation)
+5. Allow configuration mutation after construction (no setters)
+6. Use string-based keys without typed interface (e.g., `'page-size'`)
+7. Skip default values (forcing projects to provide all configuration)
+
 ---
 
-## Decision summary
+## 2. Patterns
 
-Journeys in Backbase must use a standardized configuration approach distinguishing between build-time configuration (via Dependency Injection tokens in bundle modules) and run-time configuration (via Remote Config service). Configuration must be defined through typed interfaces with injection tokens, implemented via configuration services with default values, and provided in bundle modules to maintain lazy loading. This approach eliminates ItemModel-based configuration, provides type safety, and gives projects flexibility to determine configuration sources while maintaining separation of concerns between compile-time and runtime configuration needs.
+<!-- LLM: Load for code generation tasks -->
 
-## Context and problem statement
+### Pattern Index
 
-### Business context
-- **Configuration Flexibility:** Projects need ability to customize journey behavior without modifying source code
-- **Multiple Personas:** Configuration is consumed by both business users (runtime toggles) and extension engineers (compile-time setup)
-- **Environment Management:** Different environments (dev, staging, production) require different configurations without rebuilding
-- **Feature Toggles:** A/B testing and feature flags require runtime configuration changes
-- **Success Criteria:**
-  - Type-safe configuration with IDE autocomplete
-  - Clear separation between compile-time and runtime configuration
-  - No increase in main bundle size from configuration
-  - Configuration discoverable and documented
+| Keywords | Pattern |
+|----------|---------|
+| configuration, interface, token, defaults | [Configuration Definition](#pattern-1-configuration-definition) |
+| bundle, provider, useValue, useFactory | [Configuration Provision](#pattern-2-configuration-provision) |
+| service, inject, getter, merge | [Configuration Service](#pattern-3-configuration-service) |
+| remote config, runtime, feature flag | [Runtime Configuration](#pattern-4-runtime-configuration) |
+| router, localize, i18n, tabs | [Localizable Router Config](#pattern-5-localizable-router-config) |
 
-### Technical context
-- **Existing Landscape:** Angular applications using journey architecture with lazy-loaded bundles
-- **Affected Systems:**
-  - Journey modules and their configuration services
-  - Bundle modules where configuration is provided
-  - App module where remote config is initialized
-  - Journey view components consuming configuration
-  - Build process and compilation pipeline
-- **Technical Challenges:**
-  - Widget Architecture 3 previously used ItemModel for configuration
-  - Configuration in app.module causes eager loading of journeys
-  - No type safety with object-based configuration
-  - Unclear where configuration should be provided
-  - Difficulty discovering available configuration options
+---
 
-### Constraints and assumptions
+### Pattern 1: Configuration Definition
 
-**Technical Constraints:**
-- Must maintain lazy loading of journey bundles (configuration cannot eagerly load journeys)
-- Must support Angular Dependency Injection patterns
-- Must work with both View Engine and Ivy compilation (requires function wrappers for $localize in router config)
-- Configuration must be serializable for remote config (no functions in runtime config)
-- Type safety required at compile time
+**Use when:** Creating a new journey that requires customizable behavior
 
-**Business Constraints:**
-- Business users should not need technical knowledge to change runtime configuration
-- Extension engineers need flexibility to configure at build time
-- Configuration changes should not always require application recompilation
-- Projects must have freedom to determine configuration source (environment files, remote config, etc.)
+**Don't use when:** Configuration is truly static and never varies between projects
 
-**Environmental Constraints:**
-- Must work within Nx monorepo workspace structure
-- Must support immutable build principles (build once, deploy many)
-- Must integrate with existing Remote Config infrastructure
-
-**Assumptions Made:**
-- Projects will adopt Remote Config for runtime configuration needs
-- Extension engineers understand TypeScript and Angular DI patterns
-- Configuration services will be maintained alongside journey code
-- Default configuration values are sensible for most projects
-
-### Affected architecture description elements
-
-**Components:**
-- Journey configuration services (define configuration interface and defaults)
-- Journey configuration injection tokens
-- Bundle modules (provide configuration via DI)
-- App module (initialize remote config and provide runtime-dependent config)
-- Journey view components (consume configuration via service)
-- Environment files (hold compile-time configuration values)
-- Remote Config service and infrastructure
-
-**Views:**
-- **Development View:** Configuration service structure, injection token patterns, provider hierarchy
-- **Logical View:** Configuration flow from source to consumption, service encapsulation
-- **Process View:** Build-time vs runtime configuration provision
-- **Physical View:** Bundle size impact, lazy loading boundaries
-
-**Stakeholders:**
-- **Extension Engineers/Project Developers:** Implement and maintain project-specific configuration
-- **Business Users/Analysts:** Configure runtime behavior via remote config dashboard
-- **Journey Developers:** Define configuration interfaces and defaults
-- **Project Teams:** Consume journeys and provide configuration in bundles
-
-## Decision
-
-### What we decided
-
-**1. Configuration Types:**
-
-Distinguish two types of configuration:
-
-**Build-Time Configuration:**
-- Configured in code (bundle module providers, environment files)
-- Leverages TypeScript type safety
-- Requires application compilation to change
-- Configured once during initial project setup
-- Can support multiple build flavors
-- Can include environment variable placeholders for immutable builds
-
-**Run-Time Configuration:**
-- Configured via Remote Config service
-- Can change without recompiling application
-- Used for feature toggles, A/B testing, environment-specific behavior
-- Accessible to business users via remote config dashboard
-- Values cannot be derived statically at build time
-
-**2. Configuration Interface Pattern:**
-
-Every journey must define:
+✅ **Good**
 
 ```typescript
-// Configuration interface with typed properties
+// CONTEXT: Defining journey configuration interface, token, and defaults
+// RULE: Use typed interface, Partial token, and exported defaults
+
+import { InjectionToken } from '@angular/core';
+
+/** Configuration for Batches Journey */
 export interface BatchesJourneyConfiguration {
-  enableManualBatches: boolean;
+  /** Number of items to display per page in batch lists */
   pageSize: number;
+  /** Whether manual batch creation is enabled */
+  enableManualBatches: boolean;
+  /** Maximum file upload size in bytes */
   maxUploadSize: number;
 }
 
-// Injection token for DI
-export const BatchesJourneyConfigurationToken = new InjectionToken<Partial<BatchesJourneyConfiguration>>(
-  'BatchesJourneyConfiguration injection token',
-);
+export const BatchesJourneyConfigurationToken = 
+  new InjectionToken<Partial<BatchesJourneyConfiguration>>(
+    'BatchesJourneyConfiguration injection token',
+  );
 
-// Default values object
 export const configDefaults: BatchesJourneyConfiguration = {
   pageSize: 50,
   enableManualBatches: true,
-  maxUploadSize: 10485760, // 10MB in bytes
+  maxUploadSize: 10485760, // 10MB
 };
 ```
 
-**3. Configuration Service Pattern:**
+❌ **Bad**
 
 ```typescript
-@Injectable()
-export class BatchesJourneyConfigurationService {
-  private config: BatchesJourneyConfiguration;
+// PROBLEM: Using 'any' type, no defaults, string-based keys
 
-  constructor(
-    @Optional() 
-    @Inject(BatchesJourneyConfigurationToken) 
-    configOverrides: Partial<BatchesJourneyConfiguration>
-  ) {
-    this.config = { ...configDefaults, ...configOverrides };
-  }
+export const ConfigToken = new InjectionToken<any>('Config');
 
-  get pageSize(): number {
-    return this.config.pageSize;
-  }
-
-  get enableManualBatches(): boolean {
-    return this.config.enableManualBatches;
-  }
-
-  get maxUploadSize(): number {
-    return this.config.maxUploadSize;
-  }
+// No interface, no defaults, no type safety
+useValue: {
+  'page-size': 20,
+  'enableManualBatches': false
 }
 ```
 
-Key requirements:
-- Configuration service is `@Injectable()` (not `providedIn: 'root'`)
-- Constructor accepts `@Optional() @Inject(token)` for overrides
-- Merges overrides with defaults using spread operator
-- Provides getter methods for each configuration property
-- All configuration options exposed via getters (for use as component inputs)
+**Why it's wrong:** Without typed interfaces, configuration typos aren't caught at compile time. String-based keys provide no IDE autocomplete or refactoring support.
 
-**4. Configuration Provision Location:**
+**Verify:**
+- [ ] Interface has explicit types for all properties (no `any`)
+- [ ] JSDoc comments document each property
+- [ ] Token is typed as `Partial<Interface>`
+- [ ] Default values provided for all properties
 
-**MUST: Provide in Bundle Module (Not App Module)**
+---
+
+### Pattern 2: Configuration Provision
+
+**Use when:** Providing journey configuration in a project
+
+**Don't use when:** Never provide configuration in app.module
+
+✅ **Good**
 
 ```typescript
-// ✅ CORRECT: In bundle module (maintains lazy loading)
+// CONTEXT: Bundle module providing journey configuration
+// RULE: Provide in bundle module to maintain lazy loading
+
 import { NgModule } from '@angular/core';
 import { 
   BatchesJourneyModule,
@@ -194,8 +141,11 @@ import {
 export class BatchesJourneyBundleModule {}
 ```
 
+❌ **Bad**
+
 ```typescript
-// ❌ INCORRECT: In app.module (causes eager loading)
+// PROBLEM: Configuration in app.module causes journey to load eagerly
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -206,7 +156,7 @@ export class BatchesJourneyBundleModule {}
     }),
   ],
   providers: [
-    // This eagerly loads the journey, increasing main bundle size
+    // This eagerly loads the journey, increasing main bundle size!
     {
       provide: BatchesJourneyConfigurationToken,
       useValue: { pageSize: 20 },
@@ -216,221 +166,27 @@ export class BatchesJourneyBundleModule {}
 export class AppModule {}
 ```
 
-**Rationale:** Providing configuration in app.module forces Angular to eagerly load the journey to resolve the injection token, increasing main bundle size. Bundle modules are lazy-loaded, so configuration provided there doesn't impact initial load.
+**Why it's wrong:** Providing configuration in app.module forces Angular to resolve the injection token eagerly, loading the journey code into the main bundle and increasing initial load time.
 
-**5. Journey Module forRoot Pattern:**
+**Verify:**
+- [ ] Configuration token provided in bundle module (not app.module)
+- [ ] Only non-default values are specified
+- [ ] Values match interface types
 
-Journey modules must provide `forRoot()` static method:
+---
 
-```typescript
-export class BatchesJourneyModule {
-  static forRoot(data: { route: Route; [key: string]: any } = { route: defaultRoute }) {
-    return {
-      ngModule: BatchesJourneyModule,
-      providers: [provideRoutes([data.route])],
-    };
-  }
-}
-```
+### Pattern 3: Configuration Service
 
-This allows:
-- Custom route configuration per project
-- Future extensibility via additional properties
-- Consistent journey initialization pattern
+**Use when:** Consuming configuration in a journey
 
-**6. Localizable Router Configuration:**
+**Don't use when:** N/A - always use this pattern for configuration access
 
-When router config requires localizable strings, use function wrappers for View Engine compatibility:
+✅ **Good**
 
 ```typescript
-// Define localized text as functions
-export const tabs = {
-  firstTab: () => $localize`First tab`,
-  secondTab: () => $localize`Second tab`
-};
+// CONTEXT: Configuration service with constructor injection and getters
+// RULE: Use @Optional() @Inject(), merge with defaults, expose via getters
 
-// Use function references in router config
-export const routes: Routes = [
-  {
-    path: 'tabs',
-    component: TabWrapperComponent,
-    children: [
-      {
-        path: 'first',
-        component: FirstTabComponent,
-        data: { titleFn: tabs.firstTab },
-      },
-      {
-        path: 'second',
-        component: SecondTabComponent,
-        data: { titleFn: tabs.secondTab },
-      }
-    ],
-  },
-];
-
-// In component, invoke function to get localized string
-const title = this.route.snapshot.data['titleFn']();
-```
-
-**7. Run-Time Configuration with Remote Config:**
-
-```typescript
-import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { RemoteConfigModule, RemoteConfigService } from '@backbase/remote-config-ang';
-
-export function applicationInitializer(
-  remoteConfig: RemoteConfigService<RetailAppRemoteConfig>
-) {
-  return () => remoteConfig.fetchAndActivate();
-}
-
-export function configureMegaMenuPagesRendering(
-  remoteConfig: RemoteConfigService<RetailAppRemoteConfig>,
-): Partial<MegaMenuContainerConfig> {
-  return {
-    linksMap: (links: any[]) => {
-      const hiddenPages: { [key: string]: boolean } = {
-        'billpay,manage-payees': true,
-        'self-service,manage-contacts': !remoteConfig.getValue('show_contacts'),
-      };
-      
-      links.forEach((link) =>
-        link.children?.forEach((child: any, index: number) => {
-          if (hiddenPages[child.id]) link.children.splice(index, 1);
-        }),
-      );
-      
-      return links;
-    },
-  };
-}
-
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    RemoteConfigModule.forRoot({
-      appName: 'bb-retail-app-ang',
-      appVersion: '2021.10-beta',
-      defaults: remoteConfigDefaults,
-      disabled: false,
-      projectName: 'backbase-retail-prototypes',
-      serviceRoot: '/api/remote-config',
-    }),
-  ],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: applicationInitializer,
-      multi: true,
-      deps: [RemoteConfigService],
-    },
-    {
-      provide: MEGA_MENU_CONTAINER_CONFIG,
-      useFactory: configureMegaMenuPagesRendering,
-      deps: [RemoteConfigService],
-    },
-  ],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
-```
-
-**8. Configuration Documentation Requirements:**
-
-Every configuration option must be documented with:
-- Property in configuration interface with type annotation
-- JSDoc comment describing purpose and valid values
-- Default value in configDefaults object
-- Getter method in configuration service
-- Entry in journey README documenting the option
-
-### Rationale
-
-**Type Safety Over ItemModel:**
-- Configuration interfaces provide compile-time type checking and IDE autocomplete
-- Eliminates runtime errors from configuration typos or wrong types
-- Makes configuration options discoverable via TypeScript definitions
-- Refactoring-friendly (renames propagate automatically)
-
-**Injection Token Pattern:**
-- Standard Angular pattern for providing configuration
-- Allows projects flexibility in how they provide values (useValue, useFactory)
-- Supports partial overrides (only specify what differs from defaults)
-- Works seamlessly with Angular DI hierarchy
-
-**Bundle Module Provision:**
-- Maintains lazy loading and optimal bundle sizes
-- Configuration co-located with journey initialization
-- Clear separation: app.module for app concerns, bundle for journey concerns
-- Prevents accidental eager loading of journeys
-
-**Separation of Build-Time and Run-Time:**
-- Build-time config for static project setup (rarely changes)
-- Run-time config for dynamic behavior (feature flags, environment differences)
-- Avoids rebuilding application for business-driven configuration changes
-- Supports immutable build principles (build once, configure per environment)
-
-**Getter Methods Pattern:**
-- Encapsulates configuration access
-- Allows future logic additions (validation, transformation, caching)
-- Provides single source of truth for configuration consumption
-- Simplifies passing configuration to child components as inputs
-
-## Implementation details
-
-### Technical approach
-
-**Configuration Flow:**
-
-1. **Journey Developer** defines configuration interface, token, defaults, and service
-2. **Extension Engineer** provides configuration in bundle module
-3. **Angular DI** injects configuration into journey's configuration service
-4. **Configuration Service** merges overrides with defaults
-5. **View Components** inject configuration service and use getters
-6. **(Optional) Business User** changes runtime config via Remote Config dashboard
-
-**File Structure:**
-
-```
-libs/batch-journey/
-├── src/
-│   ├── batches-journey.module.ts
-│   ├── batches-journey-config.service.ts    // Configuration service
-│   ├── batches-journey-config.interface.ts  // Interface, token, defaults
-│   └── views/
-│       └── batches-manager-list-view.component.ts
-```
-
-**Configuration Service Structure:**
-
-```typescript
-// batches-journey-config.interface.ts
-export interface BatchesJourneyConfiguration {
-  /** Number of items to display per page in batch lists */
-  pageSize: number;
-  
-  /** Whether manual batch creation is enabled */
-  enableManualBatches: boolean;
-  
-  /** Maximum file upload size in bytes */
-  maxUploadSize: number;
-}
-
-export const BatchesJourneyConfigurationToken = 
-  new InjectionToken<Partial<BatchesJourneyConfiguration>>(
-    'BatchesJourneyConfiguration injection token',
-  );
-
-export const configDefaults: BatchesJourneyConfiguration = {
-  pageSize: 50,
-  enableManualBatches: true,
-  maxUploadSize: 10485760, // 10MB
-};
-```
-
-```typescript
-// batches-journey-config.service.ts
 import { Injectable, Optional, Inject } from '@angular/core';
 import { 
   BatchesJourneyConfiguration,
@@ -464,60 +220,54 @@ export class BatchesJourneyConfigurationService {
 }
 ```
 
-**Usage in View Components:**
+❌ **Bad**
 
 ```typescript
-@Component({
-  selector: 'bb-batches-list-view',
-  templateUrl: './batches-list-view.component.html',
-})
-export class BatchesListViewComponent {
-  pageSize$ = this.config.pageSize;
-  
-  constructor(
-    private config: BatchesJourneyConfigurationService
-  ) {}
+// PROBLEM: providedIn root, direct property access, no defaults, mutable
+
+@Injectable({ providedIn: 'root' })
+export class ConfigService {
+  config: BatchesJourneyConfiguration; // Public - no encapsulation!
+
+  constructor(@Inject(ConfigToken) config: BatchesJourneyConfiguration) {
+    this.config = config; // No defaults!
+  }
+
+  set pageSize(value: number) {
+    this.config.pageSize = value; // Mutation allowed!
+  }
 }
 ```
 
-**Bundle Module Configuration:**
+**Why it's wrong:** `providedIn: 'root'` creates a singleton that can't be overridden per bundle. Direct property access breaks encapsulation. Missing defaults forces all projects to provide complete configuration. Setters allow runtime mutation.
+
+**Verify:**
+- [ ] Service uses `@Injectable()` (not `providedIn: 'root'`)
+- [ ] Constructor uses `@Optional() @Inject(token)`
+- [ ] Defaults merged with spread operator
+- [ ] All properties exposed via getters only (no setters)
+
+---
+
+### Pattern 4: Runtime Configuration
+
+**Use when:** Configuration needs to change without recompiling (feature flags, A/B tests)
+
+**Don't use when:** Configuration is static per project/environment
+
+✅ **Good**
 
 ```typescript
-// apps/business-universal/src/bundles/batches-journey-bundle.module.ts
+// CONTEXT: Bundle module with runtime configuration from Remote Config
+// RULE: Use useFactory with RemoteConfigService for runtime-dependent values
+
 import { NgModule } from '@angular/core';
+import { RemoteConfigService } from '@backbase/remote-config-ang';
 import { 
   BatchesJourneyModule,
   BatchesJourneyConfigurationToken 
 } from '@backbase/batch-journey';
 
-@NgModule({
-  imports: [
-    BatchesJourneyModule.forRoot({
-      route: {
-        path: 'batches',
-        loadChildren: () => import('./views/batches-views.module')
-          .then(m => m.BatchesViewsModule),
-      },
-    }),
-  ],
-  providers: [
-    {
-      provide: BatchesJourneyConfigurationToken,
-      useValue: {
-        pageSize: 20,
-        enableManualBatches: false,
-        maxUploadSize: 5242880, // 5MB
-      },
-    },
-  ],
-})
-export class BatchesJourneyBundleModule {}
-```
-
-**Runtime Configuration with Factory:**
-
-```typescript
-// Bundle module with runtime configuration
 @NgModule({
   imports: [BatchesJourneyModule.forRoot()],
   providers: [
@@ -535,270 +285,315 @@ export class BatchesJourneyBundleModule {}
 export class BatchesJourneyBundleModule {}
 ```
 
-### Standards compliance
+❌ **Bad**
 
-- [x] Configuration uses TypeScript interfaces for type safety
-- [x] Configuration provided in bundle modules (not app.module)
-- [x] Injection tokens follow Angular DI best practices
-- [x] Configuration services use getter methods for encapsulation
-- [x] Default values provided for all configuration options
-- [x] JSDoc documentation for all configuration properties
-- [x] Partial overrides supported via `Partial<T>` type
-- [x] `@Optional()` decorator used to prevent injection errors
-- [x] Remote Config used for runtime configuration needs
-- [x] Localizable strings wrapped in functions for View Engine compatibility
-
-### Quality attributes addressed
-
-| Quality Attribute | Requirement | How Decision Addresses It |
-|-------------------|-------------|---------------------------|
-| Type Safety | Compile-time validation of configuration | TypeScript interfaces with strict typing; no `any` types |
-| Maintainability | Clear configuration structure | Standard pattern across all journeys; single service per journey |
-| Performance | No bundle size increase | Configuration provided in bundle modules (lazy loaded) |
-| Flexibility | Support multiple configuration sources | Injection token allows useValue, useFactory, or useExisting |
-| Discoverability | Easy to find configuration options | Typed interfaces in public API; IDE autocomplete |
-| Testability | Configuration mockable in tests | Injectable service easily mocked; overrides via providers |
-| Extensibility | Projects can add custom config | Partial overrides allow extending defaults |
-| Documentation | Self-documenting configuration | JSDoc comments; TypeScript types serve as documentation |
-
-## Consequences
-
-### Positive consequences
-- **Type Safety:** Configuration errors caught at compile time, not runtime
-- **IDE Support:** Autocomplete and refactoring work for configuration properties
-- **Bundle Size:** Lazy loading maintained; no impact on main bundle
-- **Flexibility:** Projects choose configuration source (environment files, remote config, factory)
-- **Consistency:** Standard pattern across all journeys
-- **Encapsulation:** Configuration service provides single access point
-- **Defaults:** Sensible defaults reduce configuration burden for standard cases
-- **Partial Overrides:** Only specify what differs from defaults
-- **Testability:** Configuration easily mocked for unit tests
-- **Documentation:** Interface serves as configuration documentation
-
-### Negative consequences
-- **Learning Curve:** Extension engineers must understand Angular DI patterns
-- **Boilerplate:** Each journey requires interface, token, defaults, service, getters
-- **Migration:** Existing ItemModel-based configuration requires migration
-- **Getter Verbosity:** Must create getter for each configuration property
-- **No Runtime Inspection:** Cannot easily view all configuration at runtime (unlike object)
-- **Factory Complexity:** Runtime-dependent config requires factory functions
-
-## Code review checklist
-
-### Journey Configuration Structure
-
-#### Configuration Interface
-- [ ] **Interface Defined:** Journey has configuration interface (e.g., `XxxJourneyConfiguration`)
-- [ ] **Typed Properties:** All properties have explicit types (no `any`)
-- [ ] **JSDoc Comments:** Each property documented with purpose and valid values
-- [ ] **Meaningful Names:** Property names are clear and self-explanatory
-- [ ] **No Functions:** Interface contains data only (no methods or functions)
-- [ ] **Optional Properties:** Only required properties are mandatory; others marked optional with `?`
-
-#### Injection Token
-- [ ] **Token Exported:** Injection token is exported from public API
-- [ ] **Partial Type:** Token type is `Partial<XxxJourneyConfiguration>` for flexible overrides
-- [ ] **Descriptive Name:** Token name ends with "Token" (e.g., `BatchesJourneyConfigurationToken`)
-- [ ] **Generic Parameter:** InjectionToken uses configuration interface as generic parameter
-- [ ] **Token Description:** InjectionToken constructor includes descriptive string
-
-#### Default Configuration
-- [ ] **Defaults Object:** `configDefaults` constant exported with all properties
-- [ ] **All Properties Set:** Every interface property has a default value
-- [ ] **No Magic Numbers:** Numeric defaults explained with comments if not obvious
-- [ ] **Sensible Defaults:** Default values work for most common use cases
-- [ ] **Constants Named:** Magic numbers extracted to named constants with explanations
-
-#### Configuration Service
-- [ ] **Injectable Decorator:** Service uses `@Injectable()` (not `providedIn: 'root'`)
-- [ ] **Constructor Injection:** Accepts `@Optional() @Inject(token)` configuration overrides
-- [ ] **Partial Override Type:** Constructor parameter typed as `Partial<XxxJourneyConfiguration>`
-- [ ] **Merge Pattern:** Uses spread operator: `{ ...configDefaults, ...configOverrides }`
-- [ ] **Private Config:** Configuration object stored as private property
-- [ ] **Getter Methods:** All configuration properties exposed via public getters
-- [ ] **No Setters:** Configuration is read-only (no setter methods)
-- [ ] **Return Types:** Getter methods have explicit return type annotations
-- [ ] **No Business Logic:** Service only stores and retrieves configuration (no complex logic)
-
-### Configuration Provision
-
-#### Bundle Module Provision
-- [ ] **In Bundle Module:** Configuration provided in bundle module (NOT app.module)
-- [ ] **Correct Token:** Uses journey's exported configuration token
-- [ ] **Valid Values:** Provided values match interface types
-- [ ] **Partial Override:** Only non-default values specified (don't repeat defaults)
-- [ ] **UseValue or UseFactory:** Uses `useValue` for static config or `useFactory` for runtime-dependent
-- [ ] **Factory Dependencies:** If `useFactory`, all dependencies listed in `deps` array
-- [ ] **No Eager Loading:** Configuration provision doesn't cause journey to load eagerly
-
-#### Remote Config Integration (if applicable)
-- [ ] **APP_INITIALIZER:** Remote config fetched in APP_INITIALIZER before app starts
-- [ ] **Factory Pattern:** Runtime config uses `useFactory` with RemoteConfigService dependency
-- [ ] **Default Values:** Remote config values have sensible defaults if not set
-- [ ] **Type Safety:** Remote config values cast to correct types
-- [ ] **Boolean Handling:** Boolean flags handled correctly (not string 'true'/'false')
-
-### Journey Module Pattern
-
-#### forRoot Static Method
-- [ ] **forRoot Exists:** Journey module has `static forRoot()` method
-- [ ] **Route Parameter:** Accepts `route: Route` parameter with default value
-- [ ] **Extensible Signature:** Parameter type is `{ route: Route; [key: string]: any }`
-- [ ] **Returns ModuleWithProviders:** Return type is `ModuleWithProviders<XxxJourneyModule>`
-- [ ] **Provides Routes:** Uses `provideRoutes([data.route])` in providers array
-- [ ] **Returns Module:** Returns object with `ngModule` and `providers` properties
-
-#### Localizable Router Config (if applicable)
-- [ ] **Function Wrappers:** Localizable strings wrapped in functions: `() => $localize\`text\``
-- [ ] **Function References:** Router data uses function references, not invocations
-- [ ] **Invoked in Component:** Component invokes function to get localized string
-- [ ] **Exported Constants:** Localized function wrappers exported as constants for reuse
-
-### Configuration Usage in Components
-
-#### View Component Consumption
-- [ ] **Service Injection:** Configuration service injected via constructor
-- [ ] **Getter Usage:** Uses configuration service getters (not accessing private properties)
-- [ ] **No Direct Access:** Doesn't access configuration object directly
-- [ ] **Template Binding:** Configuration values bound to template via properties or getters
-- [ ] **Input Properties:** Configuration passed to child components as `@Input()` properties
-
-### Configuration Documentation
-
-#### Public API Documentation
-- [ ] **Interface Exported:** Configuration interface exported from journey's public API
-- [ ] **Token Exported:** Injection token exported from journey's public API
-- [ ] **README Updated:** Journey README documents all configuration options
-- [ ] **Examples Provided:** README includes configuration examples
-- [ ] **Default Values Listed:** Documentation lists default value for each option
-- [ ] **Migration Guide:** If changing config, migration guide provided for consumers
-
-### TypeScript Best Practices
-
-#### Type Safety
-- [ ] **No Any Type:** No `any` types in configuration interface or service
-- [ ] **Explicit Types:** All properties, parameters, and return values explicitly typed
-- [ ] **Strict Null Checks:** Handles null/undefined appropriately
-- [ ] **Enum Usage:** Uses enums for fixed sets of values (not string unions)
-- [ ] **Type Guards:** Uses type guards if configuration has union types
-
-#### Code Quality
-- [ ] **Single Responsibility:** Configuration service only handles configuration
-- [ ] **Immutability:** Configuration object not mutated after construction
-- [ ] **No Side Effects:** Getter methods are pure (no side effects)
-- [ ] **Consistent Naming:** Follows journey naming conventions
-- [ ] **No Code Duplication:** Configuration pattern consistent with other journeys
-
-### Testing
-
-#### Configuration Service Tests
-- [ ] **Default Values Test:** Test that defaults are used when no overrides provided
-- [ ] **Override Test:** Test that overrides replace defaults
-- [ ] **Partial Override Test:** Test that partial overrides merge with defaults
-- [ ] **Getter Tests:** Test all getter methods return correct values
-- [ ] **Null Override Test:** Test that `null` or `undefined` override uses default
-
-#### Integration Tests
-- [ ] **Bundle Module Test:** Test configuration provided correctly in bundle module
-- [ ] **Component Test:** Test view components receive configuration via service
-- [ ] **Mock Configuration:** Test components with mocked configuration service
-
-### Common Anti-Patterns to Avoid
-
-#### ❌ Configuration Provided in App Module
 ```typescript
-// WRONG: Causes eager loading
+// PROBLEM: Using useFactory without listing dependencies
+
 @NgModule({
-  imports: [BrowserModule],
+  providers: [
+    {
+      provide: ConfigToken,
+      useFactory: (remoteConfig: RemoteConfigService) => ({
+        flag: remoteConfig.getValue('key'),
+      }),
+      // deps array missing! Will throw runtime error
+    },
+  ],
+})
+```
+
+**Why it's wrong:** Factory functions require explicit `deps` array to receive injected dependencies. Missing deps causes Angular injection to fail at runtime.
+
+**Verify:**
+- [ ] APP_INITIALIZER fetches remote config before app starts
+- [ ] Factory uses `deps` array for all dependencies
+- [ ] Remote config values have sensible defaults
+
+---
+
+### Pattern 5: Localizable Router Config
+
+**Use when:** Router configuration needs localized tab titles or labels
+
+**Don't use when:** Text is static and never translated
+
+✅ **Good**
+
+```typescript
+// CONTEXT: Localizable strings in router configuration
+// RULE: Wrap $localize in functions for View Engine compatibility
+
+export const tabs = {
+  firstTab: () => $localize`First tab`,
+  secondTab: () => $localize`Second tab`
+};
+
+export const routes: Routes = [
+  {
+    path: 'tabs',
+    component: TabWrapperComponent,
+    children: [
+      {
+        path: 'first',
+        component: FirstTabComponent,
+        data: { titleFn: tabs.firstTab },
+      },
+      {
+        path: 'second',
+        component: SecondTabComponent,
+        data: { titleFn: tabs.secondTab },
+      }
+    ],
+  },
+];
+
+// In component - invoke function to get localized string
+const title = this.route.snapshot.data['titleFn']();
+```
+
+❌ **Bad**
+
+```typescript
+// PROBLEM: Direct $localize in route config fails with View Engine
+
+export const routes: Routes = [
+  {
+    path: 'first',
+    component: FirstTabComponent,
+    data: { title: $localize`First tab` }, // Fails at build time!
+  },
+];
+```
+
+**Why it's wrong:** View Engine evaluates route configuration at compile time before `$localize` is available. Wrapping in a function defers evaluation to runtime.
+
+**Verify:**
+- [ ] Localizable strings wrapped in arrow functions
+- [ ] Route data stores function reference (not invocation result)
+- [ ] Component invokes function to get localized string
+
+---
+
+## 3. Validation
+
+<!-- LLM: Load for code review tasks -->
+
+### Automated Checks
+
+| ID | Check | Severity | How to Detect |
+|----|-------|----------|---------------|
+| `JC-001` | Configuration token in app.module | 🔴 BLOCKER | `grep -r "ConfigurationToken" apps/*/src/app/app.module.ts` |
+| `JC-002` | Configuration service with providedIn root | 🔴 BLOCKER | `grep -B2 "ConfigurationService" \| grep "providedIn: 'root'"` |
+| `JC-003` | InjectionToken without Partial type | 🟡 WARNING | `grep "InjectionToken<[^P]" libs/**/config*.ts` |
+| `JC-004` | Public config property (no encapsulation) | 🟡 WARNING | `grep "public config:" libs/**/*config*.service.ts` |
+| `JC-005` | Missing @Optional on config injection | 🔴 BLOCKER | `grep "@Inject(.*ConfigurationToken)" \| grep -v "@Optional"` |
+| `JC-006` | useFactory without deps array | 🔴 BLOCKER | `grep -A3 "useFactory" \| grep -v "deps:"` |
+
+### Review Checklist
+
+| ID | Check | Severity |
+|----|-------|----------|
+| `JC-R01` | Configuration interface has JSDoc for all properties | 🟡 WARNING |
+| `JC-R02` | All interface properties have explicit types (no `any`) | 🔴 BLOCKER |
+| `JC-R03` | Default values provided for all configuration properties | 🔴 BLOCKER |
+| `JC-R04` | Getter methods exist for all configuration properties | 🔴 BLOCKER |
+| `JC-R05` | Configuration service has no setter methods | 🟡 WARNING |
+| `JC-R06` | Bundle module only specifies non-default values | 🟡 WARNING |
+| `JC-R07` | Journey README documents all configuration options | 🟡 WARNING |
+| `JC-R08` | Localized router strings wrapped in functions | 🔴 BLOCKER |
+
+### Required Tests
+
+| Scenario | Type | Required |
+|----------|------|----------|
+| Default values used when no overrides provided | Unit | ✅ Yes |
+| Overrides correctly replace defaults | Unit | ✅ Yes |
+| Partial overrides merge with defaults | Unit | ✅ Yes |
+| All getter methods return correct values | Unit | ✅ Yes |
+| Configuration provided in bundle module | Integration | ✅ Yes |
+| View components receive configuration via service | Integration | ⚪ Optional |
+
+---
+
+## 4. Context
+
+<!-- 
+LLM: SKIP this section unless user asks "why" questions about the decision.
+This section is for human readers understanding the historical context.
+-->
+
+### Problem
+
+Widget Architecture 3 used ItemModel (no type safety, hard to discover options). Configuration in app.module caused eager loading, harming performance.
+
+### Business Drivers
+
+- Configuration flexibility without modifying source code
+- Dev/staging/production configs without rebuilding
+- Runtime feature toggles and A/B testing support
+
+### Technical Constraints
+
+- Must maintain lazy loading (configuration cannot eagerly load journeys)
+- Angular DI patterns with type safety
+- Immutable build principles (build once, deploy many)
+
+---
+
+## 5. Decision
+
+<!-- 
+LLM: SKIP this section unless user asks "why" questions about the decision.
+This section is for human readers understanding decision rationale.
+-->
+
+### What We Decided
+
+Typed configuration interfaces with injection tokens (`Partial<Config>`). Configuration services with defaults merged via spread operator. Provide in bundle modules (not app.module) to maintain lazy loading. Use Remote Config for runtime values.
+
+### Rationale
+
+| Choice | Why |
+|--------|-----|
+| Typed interfaces | Compile-time checking, IDE autocomplete |
+| Injection tokens in bundles | Maintains lazy loading, co-located config |
+| Defaults + spread merge | Projects override only what they need |
+| Getter methods | Encapsulation, single source of truth |
+
+---
+
+## 6. Implementation
+
+### Affected Components
+
+| Component | Impact | Files |
+|-----------|--------|-------|
+| Configuration Interface | CREATE | `libs/*/src/*-journey-config.interface.ts` |
+| Configuration Service | CREATE | `libs/*/src/*-journey-config.service.ts` |
+| Journey Module | MODIFY | `libs/*/src/*-journey.module.ts` |
+| Bundle Module | MODIFY | `libs/journey-bundles/*/src/*-bundle.module.ts` |
+| View Components | MODIFY | `libs/*/src/views/*.component.ts` |
+
+### Related ADRs
+
+| ADR | Relationship |
+|-----|--------------|
+| ADR-003: Translation/Internationalization | Related: Localizable router config pattern |
+
+### Migration Notes
+
+If migrating from ItemModel-based configuration:
+
+1. Create typed interface with all existing configuration properties
+2. Create injection token with `Partial<Interface>` type
+3. Define default values in configDefaults constant
+4. Create configuration service with constructor injection and getters
+5. Move configuration provision from app.module to bundle modules
+6. Update view components to inject configuration service
+7. Update journey README with configuration documentation
+
+---
+
+## 7. Examples
+
+### Complete Example
+
+<!-- 
+NOTE: For interface, token, and service patterns, see Patterns 1-3 above.
+This example shows the file organization structure only.
+-->
+
+**Scenario:** File organization for journey configuration
+
+```
+libs/batch-journey/
+├── src/
+│   ├── batches-journey-config.interface.ts   # Interface + Token + Defaults (Pattern 1)
+│   ├── batches-journey-config.service.ts     # Service with getters (Pattern 3)
+│   └── batches-journey.module.ts
+│
+libs/journey-bundles/batches/
+└── src/
+    └── batches-bundle.module.ts              # Provider with overrides (Pattern 2)
+```
+
+**Key Files Summary:**
+
+| File | Contains | Pattern |
+|------|----------|---------|
+| `*-config.interface.ts` | Interface, `InjectionToken<Partial<T>>`, `configDefaults` | Pattern 1 |
+| `*-config.service.ts` | `@Optional() @Inject()`, spread merge, getter methods | Pattern 3 |
+| `*-bundle.module.ts` | `useValue` provider with only non-default values | Pattern 2 |
+
+### Common Mistakes
+
+**Mistake 1: Configuration in App Module**
+
+```typescript
+// ❌ Wrong - causes eager loading
+@NgModule({
   providers: [
     { provide: JourneyConfigToken, useValue: { ... } }
   ],
 })
 export class AppModule {}
+
+// ✅ Fix - provide in bundle module
+@NgModule({
+  imports: [JourneyModule.forRoot()],
+  providers: [
+    { provide: JourneyConfigToken, useValue: { ... } }
+  ],
+})
+export class JourneyBundleModule {}
 ```
 
-#### ❌ No Default Values
+**Mistake 2: No Default Values**
+
 ```typescript
-// WRONG: Every project must provide all values
+// ❌ Wrong - requires all projects to provide complete config
+constructor(@Inject(ConfigToken) config: JourneyConfiguration) {
+  this.config = config;
+}
+
+// ✅ Fix - merge with defaults
 constructor(
-  @Inject(ConfigToken) config: JourneyConfiguration
+  @Optional() @Inject(ConfigToken) overrides: Partial<JourneyConfiguration>
 ) {
-  this.config = config; // No defaults!
+  this.config = { ...configDefaults, ...overrides };
 }
 ```
 
-#### ❌ Direct Property Access
+**Mistake 3: Direct Property Access**
+
 ```typescript
-// WRONG: No encapsulation
+// ❌ Wrong - no encapsulation
 export class ConfigService {
   config: JourneyConfiguration; // Public!
 }
+// Usage: this.configService.config.pageSize
 
-// Component
-this.config.config.pageSize // Direct access
-```
-
-#### ❌ Mutable Configuration
-```typescript
-// WRONG: Configuration can be changed
+// ✅ Fix - use getters
 export class ConfigService {
-  set pageSize(value: number) {
-    this.config.pageSize = value; // Mutation!
-  }
+  private config: JourneyConfiguration;
+  get pageSize(): number { return this.config.pageSize; }
 }
+// Usage: this.configService.pageSize
 ```
 
-#### ❌ Configuration in providedIn Root
-```typescript
-// WRONG: Eagerly loaded, can't be overridden per bundle
-@Injectable({ providedIn: 'root' })
-export class ConfigService {}
-```
+---
 
-#### ❌ No Type Safety
-```typescript
-// WRONG: No type checking
-export const ConfigToken = new InjectionToken<any>('Config');
-```
+## 8. References
 
-#### ❌ String-Based Config (No Interface)
-```typescript
-// WRONG: No type safety, no IDE support
-useValue: {
-  'page-size': 20, // Typos not caught
-  'enableManualBatches': false
-}
-```
+- [Developing a Journey - Backbase Docs](https://community.backbase.com/documentation/foundation_angular/latest/develop_journey) — Journey development patterns
+- [Remote Config Documentation](https://community.backbase.com/documentation/foundation_angular/latest/remote_config) — Runtime configuration
+- [Web Apps Configuration](https://community.backbase.com/documentation/foundation_angular/latest/web_apps_configuration) — Configuration approaches
+- [Angular Dependency Injection](https://angular.io/guide/dependency-injection) — DI patterns and InjectionToken
+- [InjectionToken API](https://angular.io/api/core/InjectionToken) — InjectionToken usage
+- [ModuleWithProviders](https://angular.io/api/core/ModuleWithProviders) — forRoot pattern
+- [Angular Localization](https://angular.io/guide/i18n-common-prepare) — $localize usage
+- [TypeScript Partial Type](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype) — Partial utility type
+- [Angular Style Guide](https://angular.io/guide/styleguide) — Configuration service patterns
 
-### Performance Considerations
-
-#### Bundle Size
-- [ ] **No Eager Loading:** Configuration doesn't cause journey to load in main bundle
-- [ ] **Tree-shakeable:** Unused configuration options don't increase bundle size
-- [ ] **No Large Defaults:** Default values don't include large objects or arrays
-
-#### Runtime Performance
-- [ ] **No Heavy Computation:** Getter methods don't perform expensive operations
-- [ ] **Cached Values:** If expensive transformation needed, value cached after first access
-- [ ] **No External Calls:** Getters don't make HTTP requests or async operations
-
-## References
-
-### Authoritative sources
-- [Developing a Journey - Backbase Docs](https://community.backbase.com/documentation/foundation_angular/latest/develop_journey) - Journey development patterns
-- [Remote Config Documentation](https://community.backbase.com/documentation/foundation_angular/latest/remote_config) - Runtime configuration
-- [Web Apps Configuration](https://community.backbase.com/documentation/foundation_angular/latest/web_apps_configuration) - Configuration approaches
-
-### Technical references
-- [Angular Dependency Injection](https://angular.io/guide/dependency-injection) - DI patterns and InjectionToken
-- [InjectionToken API](https://angular.io/api/core/InjectionToken) - InjectionToken usage
-- [ModuleWithProviders](https://angular.io/api/core/ModuleWithProviders) - forRoot pattern
-- [Angular Localization](https://angular.io/guide/i18n-common-prepare) - $localize usage
-- [TypeScript Partial Type](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype) - Partial utility type
-- [Immutable Web Apps](https://github.com/ImmutableWebApps/ng-immutable-example) - Immutable build principles
-
-### Standards compliance
-- [Angular Style Guide](https://angular.io/guide/styleguide) - Configuration service patterns
-- [TypeScript Best Practices](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html) - Interface design
-
-
+---

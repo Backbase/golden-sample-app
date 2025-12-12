@@ -1,348 +1,85 @@
 # ADR-010: View Replacement Standards for Journey Customization
 
----
+## 1. Summary
 
-## Decision summary
+<!-- LLM: Always load this section first -->
 
-View replacement enables app developers to provide custom routing configurations with entirely new view components for one or more journey routes. This approach provides maximum customization flexibility but creates tight coupling to journey internals, making upgrades difficult. View replacement should only be used when View Extension mechanisms are insufficient for the required customization. This decision defines the standards, requirements, and implementation patterns for view replacement to minimize upgrade friction while maintaining necessary customization capabilities.
+### TL;DR
 
-## Context and problem statement
+> View replacement enables app developers to provide custom routing configurations with entirely new view components for journey routes. This approach creates tight coupling to journey internals and should only be used when View Extension mechanisms are insufficient. Journeys must export all view components, services, guards, and resolvers as public API to support this pattern.
 
-### Business context
-- **Complete Customization Need:** Some customer requirements cannot be satisfied by predefined extension points; they require fundamentally different view structures, workflows, or data presentations
-- **Market-Specific Requirements:** Regional or vertical-specific regulations may mandate UI structures incompatible with out-of-the-box journey views
-- **Competitive Differentiation:** Customers need ability to create distinctive user experiences that significantly diverge from standard journeys
-- **Migration Path:** Legacy applications being migrated may have existing UIs that need preservation during transition
-- **Success Criteria:**
-  - Customers can completely override journey views when necessary
-  - Journey teams understand what must be exposed to enable view replacement
-  - App developers understand maintenance implications of view replacement
-  - Clear decision criteria guide when to use view replacement vs. view extension
-  - Journey updates that impact replaced views are discoverable and documentable
+### Rules
 
-### Technical context
-- **Existing Landscape:** Angular-based journey bundles using Angular Router's lazy loading and `forRoot()` configuration pattern in Nx monorepo
-- **Current Challenge:** Journey routing configuration is internal to journeys; no standardized way to override views while maintaining access to journey services, guards, resolvers
-- **Affected Systems:**
-  - Journey bundle libraries (transactions, payments, accounts, etc.)
-  - Journey routing configuration (`journey.routes.ts`)
-  - Journey public API (component exports, service exports)
-  - Application bundle modules (retail-universal, business-universal)
-  - Angular Router lazy loading mechanism
-  - Build-time type checking and compilation
-- **Technical Challenges:**
-  - Exposing sufficient journey internals for custom views without creating maintenance nightmares
-  - Maintaining type safety for routable components, services, guards, resolvers
-  - Documenting stable public API surface for view components
-  - Version compatibility when journey routing structure changes
-  - Testing custom views against journey updates
-  - Managing complexity of duplicated routing configuration
+**MUST DO ✅**
 
-### Constraints and assumptions
+1. Evaluate View Extension pattern first before using view replacement
+2. Export all routable view components in journey's public API (`src/index.ts`)
+3. Export all UI components used in view templates in journey module's `exports` array
+4. Export all services, guards, and resolvers used by view components
+5. Document complete routing structure in journey README
+6. Create bundle module wrapper when implementing custom routing
+7. Maintain journey's route guards unless explicitly overriding with justification
 
-**Technical Constraints:**
-- Must work with Angular Router's configuration structure (`Route[]`)
-- Custom views must have access to journey services, state management, guards, resolvers
-- Journey view components must be exported as part of journey's public API
-- All components used in view templates must be available for re-use
-- Routing changes in journeys are not guaranteed to be breaking changes from journey's perspective
-- Custom routing must support lazy loading pattern
-- Must maintain TypeScript type safety for all imported journey artifacts
+**MUST NOT ❌**
 
-**Business Constraints:**
-- View replacement understood to incur maintenance cost for app developers
-- Journey teams not responsible for breaking changes to routing structure within major versions
-- App developers accept responsibility for merging routing changes during journey upgrades
-- View Extension pattern must be documented and considered first
-- Documentation must clearly communicate maintenance implications
-
-**Environmental Constraints:**
-- Must work within Nx monorepo architecture
-- Must integrate with journey module `forRoot()` pattern
-- Custom components created in app-level directories, not journey libraries
-- Node modules directory contains compiled JavaScript of journey routes (not TypeScript source)
-- Journey routing configuration may evolve without being considered breaking changes
-
-**Assumptions Made:**
-- App developers have sufficient Angular and TypeScript expertise to implement custom views
-- App developers can access journey route structure via documentation or node_modules inspection
-- View replacement used sparingly for cases where View Extension insufficient
-- Journey teams commit to exporting view components, services, guards, resolvers as public API
-- App developers understand and accept upgrade maintenance burden
-- Custom views will potentially use journey's internal services and state management
-
-## Decision
-
-### What we decided
-
-**We will support view replacement as an advanced customization mechanism** with the following characteristics:
-
-1. **View Extension Takes Priority:**
-   - View Extension must be evaluated first for all customization requests
-   - View replacement only used when View Extension insufficient or inappropriate
-   - Decision criteria documented: structural changes, workflow changes, data model changes justify view replacement
-
-2. **Journey Requirements for Supporting View Replacement:**
-   
-   **A. Export All Routable View Components:**
-   - Every view component representing a route must be exported in journey's public API (`src/index.ts`)
-   - Each route represented by single view component (not multiple components or dynamic resolution)
-   - Exported components considered stable within major version (semver conventions apply)
-   
-   **B. Export All UI Components Used in Views:**
-   - All components rendered within view components must be exported in journey module's `exports` array
-   - Enables custom views to re-use journey components "as is" or compose new structures
-   - Allows partial view replacement (keep some original components, replace others)
-   - Component selectors, inputs, outputs considered public API (stable within major version)
-   - Not required to re-export in `index.ts` (module-level exports sufficient)
-   
-   **C. Export Services and Injectables:**
-   - All services, state management, and other injectables used by view components must be exported in public API
-   - Enables custom view developers to inject same services as original views
-   - Service public methods and properties considered stable API
-   
-   **D. Document Routing Configuration:**
-   - Complete routing structure documented at http://developer.backbase.com/angular/
-   - Documentation includes routes, view components, guards, resolvers, route data
-   - Changes to routing structure communicated in changelog (even if not technically breaking)
-   - Routing documentation updated with each journey release
-
-3. **App Developer Implementation Pattern:**
-   
-   **Step 1: Create Bundle Module** (if not exists)
-   - Wrap journey in app-level bundle module
-   - Bundle module imports journey module with `forRoot()`
-   - Bundle module provides journey configuration
-   - App routing lazy loads bundle module
-   
-   **Step 2: Copy Routing Configuration**
-   - Copy journey's routing from documentation or node_modules compiled JavaScript
-   - Create `<journey>-custom-routes.ts` in app bundle directory
-   - Import view components, guards, resolvers from `@backbase/<journey>`
-   - Maintain original routing structure initially (validate no breaks)
-   
-   **Step 3: Provide Custom Routing**
-   - Pass custom routes to journey's `forRoot({ route: customRoute })`
-   - Verify application functions identically (no changes yet)
-   
-   **Step 4: Create Custom View Component**
-   - Implement custom component in app directory
-   - Inject necessary journey services (exported from journey public API)
-   - Implement view logic (can be from scratch or extend journey patterns)
-   - Create template using journey UI components or custom markup
-   
-   **Step 5: Replace View in Routing**
-   - Update custom routing configuration to use custom component
-   - Update any dependent route configuration (titles, guards, etc.)
-   - Test thoroughly including edge cases and error scenarios
-
-4. **Extending OOTB Components (Advanced Pattern):**
-   - TypeScript extension of journey view components is technically possible but **NOT RECOMMENDED**
-   - **Concerns:**
-     - Non-public properties/methods used in custom template are fragile
-     - Journey developers unaware of extended usage patterns
-     - Template duplication leads to "component not declared" errors
-     - Higher upgrade risk than full custom implementation
-   - **If Used:** App developer accepts full responsibility for maintenance
-   - **Alternative:** Contact journey team to request View Extension slot
-
-5. **Documentation and Communication:**
-   - Journey README includes "View Replacement Support" section
-   - Lists all exported view components with route paths
-   - Documents exported services and their purposes
-   - Provides example of copying and overriding routing
-   - Changelog explicitly calls out routing structure changes
-   - Migration guides provided when routing changes significantly
-
-### Rationale
-
-**Why this decision addresses the problem:**
-
-1. **Maximum Flexibility:** Enables complete UI overhaul when business requirements demand it; no artificial limitations on customization scope
-2. **Explicit Trade-offs:** Clear documentation of maintenance cost ensures informed decisions; app developers know what they're accepting
-3. **Public API Boundaries:** Explicit exports create contract between journey and app; TypeScript compilation enforces compatibility
-4. **Fallback Option:** Ensures view extension pattern doesn't become bottleneck; customers not blocked when extension insufficient
-5. **Journey Team Clarity:** Clear requirements (exports, documentation) guide journey development; no ambiguity about responsibilities
-6. **Upgrade Discoverability:** Documented routing changes enable app developers to plan and execute updates; not surprised by breaks
-7. **Service Reuse:** Exported services enable custom views to maintain journey's business logic; don't have to reimplement everything
-8. **Component Reuse:** Exported components allow partial customization; replace view but keep complex components (tables, forms, etc.)
-
-**Key evaluation criteria:**
-- ✅ **Customization Completeness:** No limitations on UI structure or workflow changes
-- ⚠️ **Maintainability:** Lower than view extension; explicitly documented trade-off
-- ⚠️ **Upgrade Safety:** Custom routing may break; requires manual merge of changes
-- ✅ **Type Safety:** TypeScript enforces valid imports and usage
-- ✅ **Service Reuse:** Custom views can leverage journey business logic
-- ⚠️ **Component Reuse:** Possible but requires careful dependency management
-- ✅ **Documentation:** Routing structure documented per requirement
-
-**Factors influencing choice:**
-- View Extension cannot cover all possible customization scenarios
-- Some customers have requirements that fundamentally change view structure
-- Angular Router provides natural override mechanism via route configuration
-- TypeScript compilation provides safety net for public API usage
-- Journey module `forRoot()` already accepts custom route configuration
-- Market demands balance between product standardization and customer flexibility
-- Similar patterns exist in other frameworks (React Router configuration, Vue Router overrides)
-
-## Implementation details
-
-### Technical approach
-
-**1. Journey-Side Implementation**
-
-**Requirement A: Export All Routable View Components**
-
-Location: `<journey>/src/index.ts`
-
-```typescript
-// Export all view components that represent routes
-export { SomeViewComponent } from './lib/components/some-view/some-view.component';
-export { AnotherViewComponent } from './lib/components/another-view/another-view.component';
-export { DetailViewComponent } from './lib/components/detail-view/detail-view.component';
-// ... all routable view components
-```
-
-**Design principle:** Each route in journey's routing configuration must be represented by a single exported component. App developers need access to these to recreate routing configuration.
-
-**Requirement B: Export All UI Components in Journey Module**
-
-Location: `<journey>/src/lib/journey.module.ts`
-
-```typescript
-import { NgModule } from '@angular/core';
-import { SomeViewComponent } from './components/some-view/some-view.component';
-import { SomeFormComponent } from './components/some-form/some-form.component';
-import { SomeTableComponent } from './components/some-table/some-table.component';
-import { SomeHeaderComponent } from './components/some-header/some-header.component';
-
-@NgModule({
-  declarations: [
-    SomeViewComponent,
-    SomeFormComponent,
-    SomeTableComponent,
-    SomeHeaderComponent,
-    // ... all components
-  ],
-  exports: [
-    // Export ALL components used in view templates
-    // This enables custom views to use them "as is"
-    SomeViewComponent,
-    SomeFormComponent,
-    SomeTableComponent,
-    SomeHeaderComponent,
-    // ... all components
-  ],
-  imports: [/* ... */],
-})
-export class JourneyModule {
-  static forRoot(config: JourneyModuleConfig = {}): ModuleWithProviders<JourneyModule> {
-    return {
-      ngModule: JourneyModule,
-      providers: [
-        provideRoutes([config.route || defaultRoute]),
-        // ... other providers
-      ],
-    };
-  }
-}
-```
-
-**Note:** Components must be in module's `exports` array to be usable in custom view templates. Component selectors, @Input() properties, and @Output() events are considered public API.
-
-**Requirement C: Export Services and Injectables**
-
-Location: `<journey>/src/index.ts`
-
-```typescript
-// Export services used by view components
-export { SomeJourneyState } from './lib/state/some-journey.state';
-export { SomeJourneyService } from './lib/services/some-journey.service';
-export { SomeDataService } from './lib/services/some-data.service';
-
-// Export guards and resolvers used in routing
-export { SomeGuard } from './lib/guards/some.guard';
-export { SomeResolverService } from './lib/resolvers/some-resolver.service';
-
-// Export types/interfaces that custom views might need
-export { SomeDataModel } from './lib/models/some-data.model';
-export { JourneyConfiguration } from './lib/config/journey-configuration';
-```
-
-**Design principle:** Export anything that original view components use which custom view developers might need. Public methods and properties of exported services are considered stable API.
-
-**Requirement D: Document Routing Configuration**
-
-Location: `<journey>/README.md` section "Routing Structure"
-
-```markdown
-## Routing Structure
-
-### Routes
-
-The journey defines the following routing structure:
-
-#### Root Route
-- **Path:** `''` (empty)
-- **Component:** None (parent route)
-- **Children:** [see below]
-
-#### List View
-- **Path:** `'list'`
-- **Component:** `ListViewComponent`
-- **Resolve:** `{ title: TitleResolverService }`
-- **Description:** Displays paginated list of items
-
-#### Detail View
-- **Path:** `'detail/:id'`
-- **Component:** `DetailViewComponent`
-- **Resolve:** `{ title: TitleResolverService, data: DataResolverService }`
-- **CanActivate:** `[DetailGuard]`
-- **Description:** Displays detailed information for specific item
-
-#### Create View
-- **Path:** `'create'`
-- **Component:** `CreateViewComponent`
-- **Resolve:** `{ title: TitleResolverService }`
-- **CanActivate:** `[CreateGuard]`
-- **Description:** Form for creating new item
-
-### View Replacement Support
-
-This journey supports view replacement. To replace views:
-
-1. All view components listed above are exported in public API
-2. All components, guards, and resolvers are importable from `@backbase/<journey>`
-3. Example routing configuration available in `docs/routing-example.ts`
-
-**Note:** Routing structure may change in minor versions. Check changelog for routing updates.
-```
-
-**Note:** Documentation should be comprehensive enough that app developers can recreate routing without inspecting node_modules.
+1. Do not extend OOTB view components via TypeScript inheritance (fragile pattern)
+2. Do not remove `canActivate`/`canDeactivate` guards without security review
+3. Do not access journey internals beyond the public API
+4. Do not use `innerHTML` with unsanitized user data in custom views
+5. Do not create custom views without thorough testing including error scenarios
+6. Do not bypass journey guards without valid reason and security approval
+7. Do not assume routing changes in journeys are breaking changes from journey's perspective
 
 ---
 
-**2. App-Side Implementation**
+## 2. Patterns
 
-**Step 1: Create Bundle Module**
+<!-- LLM: Load for code generation tasks -->
 
-Location: `apps/<app>/src/app/<journey>/<journey>-bundle.module.ts`
+<!-- 
+Cross-reference: For subscription cleanup (takeUntil) pattern, see ADR-000 Pattern 1.
+-->
+
+### Pattern Index
+
+| Keywords | Pattern |
+|----------|---------|
+| bundle, module, wrapper, forRoot | [Pattern 1: Bundle Module Wrapper](#pattern-1-bundle-module-wrapper) |
+| routing, routes, custom, override | [Pattern 2: Custom Routing Configuration](#pattern-2-custom-routing-configuration) |
+| view, component, custom, replace | [Pattern 3: Custom View Component](#pattern-3-custom-view-component) |
+| export, public API, index | [Pattern 4: Journey Public API Exports](#pattern-4-journey-public-api-exports) |
+| extend, inheritance, OOTB | [Pattern 5: Component Composition vs Extension](#pattern-5-component-composition-vs-extension) |
+
+---
+
+### Pattern 1: Bundle Module Wrapper
+
+**Use when:** You need to customize routing or configuration for a journey
+
+**Don't use when:** Using journey with default configuration and no view replacement needed
+
+✅ **Good**
 
 ```typescript
+// CONTEXT: Creating bundle module to wrap journey with custom routing
+// RULE: Bundle module imports journey with forRoot() and provides custom configuration
+
+// File: apps/my-app/src/app/some-journey/some-journey-bundle.module.ts
 import { NgModule } from '@angular/core';
-import { SomeJourneyModule } from '@backbase/some-journey';
+import { SomeJourneyModule, SomeJourneyConfiguration } from '@backbase/some-journey';
+import { customRoute } from './some-journey-custom-routes';
 
 @NgModule({
   imports: [
     SomeJourneyModule.forRoot({
-      // Configuration will be added here
+      route: customRoute,
     }),
   ],
   providers: [
     {
       provide: SomeJourneyConfiguration,
       useValue: {
-        // ... journey-specific configuration
+        // journey-specific configuration
       } as SomeJourneyConfiguration,
     },
   ],
@@ -350,675 +87,543 @@ import { SomeJourneyModule } from '@backbase/some-journey';
 export class SomeJourneyBundleModule {}
 ```
 
-Location: `apps/<app>/src/app/app-routing.module.ts`
+❌ **Bad**
 
 ```typescript
+// PROBLEM: Directly importing journey module without bundle wrapper loses customization point
+
+// File: apps/my-app/src/app/app-routing.module.ts
 {
   path: 'some-path',
   loadChildren: () =>
-    import('./some-journey/some-journey-bundle.module').then(
-      (m) => m.SomeJourneyBundleModule
-    ),
+    import('@backbase/some-journey').then(m => m.SomeJourneyModule),
 }
 ```
 
-**Note:** Bundle module wraps journey module, providing app-level configuration and customization point.
+**Why it's wrong:** Without a bundle module wrapper, you cannot provide custom routing configuration or journey-specific settings. The journey loads with defaults only.
 
-**Step 2: Copy Routing Configuration**
+**Verify:**
+- [ ] Bundle module exists in app directory
+- [ ] Bundle module imports journey with `forRoot()`
+- [ ] App routing lazy loads the bundle module, not the journey directly
 
-Location: `apps/<app>/src/app/<journey>/<journey>-custom-routes.ts`
+---
+
+### Pattern 2: Custom Routing Configuration
+
+**Use when:** Replacing one or more views in a journey with custom components
+
+**Don't use when:** View Extension slots are sufficient for the customization
+
+✅ **Good**
 
 ```typescript
+// CONTEXT: Creating custom routing that replaces list view while keeping detail view
+// RULE: Import components, guards, resolvers from journey public API; replace only needed views
+
+// File: apps/my-app/src/app/some-journey/some-journey-custom-routes.ts
 import { Route } from '@angular/router';
 import {
-  SomeViewComponent,
-  AnotherViewComponent,
-  DetailViewComponent,
+  DetailViewComponent,       // Keep original
   SomeResolverService,
   SomeGuard,
 } from '@backbase/some-journey';
+import { CustomListComponent } from './custom-list/custom-list.component';
 
 export const customRoute: Route = {
   path: '',
   children: [
     {
       path: 'list',
-      component: SomeViewComponent,
+      component: CustomListComponent,  // REPLACED with custom component
       resolve: {
-        title: SomeResolverService,
+        title: SomeResolverService,    // KEEP original resolver
       },
     },
     {
       path: 'detail/:id',
-      component: DetailViewComponent,
+      component: DetailViewComponent,  // KEEP original
       resolve: {
         title: SomeResolverService,
       },
-      canActivate: [SomeGuard],
-    },
-    {
-      path: 'create',
-      component: AnotherViewComponent,
-      resolve: {
-        title: SomeResolverService,
-      },
+      canActivate: [SomeGuard],        // KEEP original guard
     },
   ],
 };
 ```
 
-**Source of routing structure:**
-1. **Preferred:** Journey documentation (README or developer.backbase.com)
-2. **Fallback:** Inspect `node_modules/@backbase/<journey>/esm2015/src/<journey>.routes.js` (compiled JavaScript)
-
-**Note:** At this stage, routing is identical to journey's original routing. This validates the copy before making changes.
-
-**Step 3: Provide Custom Routing Configuration**
-
-Location: `apps/<app>/src/app/<journey>/<journey>-bundle.module.ts`
+❌ **Bad**
 
 ```typescript
-import { NgModule } from '@angular/core';
-import { SomeJourneyModule } from '@backbase/some-journey';
-import { customRoute } from './<journey>-custom-routes';
+// PROBLEM: Removing guards and resolvers without understanding implications
 
-@NgModule({
-  imports: [
-    SomeJourneyModule.forRoot({
-      route: customRoute, // Provide custom routing
-    }),
+import { Route } from '@angular/router';
+import { CustomListComponent } from './custom-list/custom-list.component';
+import { CustomDetailComponent } from './custom-detail/custom-detail.component';
+
+export const customRoute: Route = {
+  path: '',
+  children: [
+    {
+      path: 'list',
+      component: CustomListComponent,
+      // Missing resolver - breaks title functionality
+    },
+    {
+      path: 'detail/:id',
+      component: CustomDetailComponent,
+      // Missing canActivate - bypasses authorization!
+    },
   ],
-  providers: [/* ... */],
-})
-export class SomeJourneyBundleModule {}
+};
 ```
 
-**Validation:** Run application and verify it works identically to before. If there are differences, routing copy is incorrect.
+**Why it's wrong:** Removing guards bypasses authorization checks, creating security vulnerabilities. Removing resolvers breaks functionality that views depend on.
 
-**Step 4: Create Custom View Component**
+**Verify:**
+- [ ] All original guards are maintained (or removal is justified and approved)
+- [ ] All original resolvers are maintained (or custom view handles data differently)
+- [ ] Imports use `@backbase/<journey>` package, not relative paths
+- [ ] Route structure matches journey's documented structure initially
 
-Location: `apps/<app>/src/app/<journey>/<custom-view>/<custom-view>.component.ts`
+---
+
+### Pattern 3: Custom View Component
+
+**Use when:** Implementing the replacement view component
+
+**Don't use when:** Minor UI tweaks possible via View Extension slots
+
+✅ **Good**
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+// CONTEXT: Custom view component that uses journey services and state
+// RULE: Inject journey services from public API; reuse journey UI components when possible
+
+// File: apps/my-app/src/app/some-journey/custom-list/custom-list.component.ts
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { 
   SomeJourneyState, 
   SomeJourneyService 
 } from '@backbase/some-journey';
 
 @Component({
-  selector: 'app-custom-view',
-  templateUrl: './custom-view.component.html',
-  styleUrls: ['./custom-view.component.scss'],
+  selector: 'app-custom-list',
+  templateUrl: './custom-list.component.html',
+  styleUrls: ['./custom-list.component.scss'],
 })
-export class CustomViewComponent implements OnInit {
+export class CustomListComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
+  
   constructor(
-    public readonly journeyState: SomeJourneyState,
+    public readonly journeyState: SomeJourneyState,  // Public for template access
     private journeyService: SomeJourneyService,
   ) {}
 
   ngOnInit(): void {
-    // Initialize component
-    // Can call journey services, access journey state
+    this.journeyState.items$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(items => {
+        // React to state changes
+      });
   }
 
-  someAction(): void {
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  onAction(): void {
     this.journeyService.someMethod();
   }
 }
 ```
 
-**Template Options:**
-
-**Option A: Completely Custom Template**
-```html
-<!-- Fully custom HTML structure -->
-<div class="custom-container">
-  <h1>Custom View</h1>
-  <p>{{ journeyState.someData$ | async }}</p>
-  <button (click)="someAction()">Custom Action</button>
-</div>
-```
-
-**Option B: Re-use Journey Components**
-```html
-<!-- Use journey's exported components within custom structure -->
-<div class="custom-container">
-  <app-custom-header></app-custom-header>
-  
-  <!-- Journey's original table component -->
-  <bb-some-table [data]="journeyState.data$ | async"></bb-some-table>
-  
-  <app-custom-footer></app-custom-footer>
-</div>
-```
-
-**Note:** Journey components can be used via their selectors if exported in journey module's `exports` array.
-
-**Step 5: Replace View in Routing**
-
-Location: `apps/<app>/src/app/<journey>/<journey>-custom-routes.ts`
+❌ **Bad**
 
 ```typescript
-import { Route } from '@angular/router';
-import {
-  SomeViewComponent,
-  DetailViewComponent,  // Keep original
-  SomeResolverService,
-  SomeGuard,
-} from '@backbase/some-journey';
-import { CustomViewComponent } from './custom-view/custom-view.component';
+// PROBLEM: Accessing journey internals, not cleaning up subscriptions
 
-export const customRoute: Route = {
-  path: '',
-  children: [
-    {
-      path: 'list',
-      component: CustomViewComponent,  // REPLACED with custom component
-      resolve: {
-        title: SomeResolverService,
-      },
-    },
-    {
-      path: 'detail/:id',
-      component: DetailViewComponent,  // Kept original
-      resolve: {
-        title: SomeResolverService,
-      },
-      canActivate: [SomeGuard],
-    },
-  ],
-};
-```
-
-Location: `apps/<app>/src/app/<journey>/<journey>-bundle.module.ts`
-
-```typescript
-import { NgModule } from '@angular/core';
-import { SomeJourneyModule } from '@backbase/some-journey';
-import { customRoute } from './<journey>-custom-routes';
-import { CustomViewComponent } from './custom-view/custom-view.component';
-
-@NgModule({
-  declarations: [
-    CustomViewComponent,  // Declare custom component
-  ],
-  imports: [
-    SomeJourneyModule.forRoot({
-      route: customRoute,
-    }),
-    // ... other imports
-  ],
-  providers: [/* ... */],
-})
-export class SomeJourneyBundleModule {}
-```
-
-**Testing:** Thoroughly test custom view including:
-- All data loads correctly
-- All actions function as expected
-- Error scenarios handled appropriately
-- Responsive behavior works
-- Accessibility requirements met
-- Performance acceptable
-
----
-
-**3. Advanced Pattern: Extending OOTB Components (NOT RECOMMENDED)**
-
-**Pattern Description:**
-
-TypeScript class extension of journey view components to reuse logic while providing custom template.
-
-```typescript
-import { Component } from '@angular/core';
-import { SomeViewComponent } from '@backbase/some-journey';
+import { Component, OnInit } from '@angular/core';
+import { SomeInternalService } from '@backbase/some-journey/lib/internal/some.service';
 
 @Component({
-  selector: 'app-extended-view',
-  templateUrl: './extended-view.component.html',  // Custom template
-  styleUrls: ['./extended-view.component.scss'],
+  selector: 'app-custom-list',
+  templateUrl: './custom-list.component.html',
 })
-export class ExtendedViewComponent extends SomeViewComponent {
-  // Inherits all properties and methods from SomeViewComponent
-  // Can override methods if needed
-  
-  additionalProperty: string = 'custom value';
-  
-  customMethod(): void {
-    // Custom logic
-    // Can call super.someMethod() if overriding
-  }
-}
-```
-
-**Challenges with this pattern:**
-
-1. **Fragile Template Dependencies:**
-   - Custom template uses properties/methods not guaranteed to be public API
-   - Journey team may refactor component internals breaking custom template
-   - No compile-time safety for template expressions referencing internal members
-
-2. **Component Declaration Errors:**
-   - Journey's internal components used in custom template may not be declared/exported
-   - Results in "component is not known" Angular compilation errors
-   - Requires importing additional journey modules, increasing coupling
-
-3. **Property Visibility:**
-   - `private` and `protected` members not accessible in template
-   - Journey may change property visibility in non-breaking releases
-   - Workarounds (accessing via `any` cast) defeat type safety
-
-4. **Lifecycle Complexity:**
-   - Must call `super.ngOnInit()`, `super.ngOnDestroy()`, etc. if overriding
-   - Easy to forget, leading to memory leaks or broken functionality
-   - Journey may add lifecycle logic in minor versions
-
-**When this pattern might be acceptable:**
-
-- Journey component explicitly documented as "extendable"
-- Only public methods/properties used in custom template
-- App developer commits to frequent testing against journey updates
-- Custom template very similar to original (minimal changes)
-
-**Recommendation:** Create fully custom component instead. Copy necessary logic rather than extending. Journey services are designed to be reused; components are not.
-
----
-
-**4. Key Integration Patterns**
-
-**Pattern 1: Partial View Replacement**
-```typescript
-// Replace only one view, keep others original
-export const customRoute: Route = {
-  path: '',
-  children: [
-    {
-      path: 'list',
-      component: CustomListComponent,  // CUSTOM
-    },
-    {
-      path: 'detail/:id',
-      component: OriginalDetailComponent,  // ORIGINAL from journey
-    },
-    {
-      path: 'create',
-      component: OriginalCreateComponent,  // ORIGINAL from journey
-    },
-  ],
-};
-```
-
-**Pattern 2: Re-using Journey Components in Custom View**
-```html
-<!-- Custom view template using journey's exported components -->
-<div class="custom-layout">
-  <div class="custom-sidebar">
-    <!-- Custom navigation -->
-  </div>
-  
-  <div class="custom-main">
-    <!-- Journey's original form component -->
-    <bb-some-form 
-      [formData]="data$ | async"
-      (formSubmit)="onSubmit($event)">
-    </bb-some-form>
-  </div>
-</div>
-```
-
-**Pattern 3: Maintaining Custom Routes Across Journey Updates**
-
-**When journey updates, compare:**
-```typescript
-// Journey's NEW routing (from changelog or docs)
-{
-  path: 'list',
-  component: ListViewComponent,
-  resolve: { title: TitleResolver, newResolver: NewDataResolver },  // Added resolver
-  data: { breadcrumb: 'List' },  // Added data
-}
-
-// Your CUSTOM routing (update to match)
-{
-  path: 'list',
-  component: CustomListComponent,  // Keep custom component
-  resolve: { title: TitleResolver, newResolver: NewDataResolver },  // ADD new resolver
-  data: { breadcrumb: 'List' },  // ADD new data
-}
-```
-
-**Process:**
-1. Read journey changelog for routing changes
-2. Compare journey's new routing with your custom routing
-3. Update custom routing to include new guards, resolvers, data
-4. Test thoroughly to ensure new routing configuration works with custom component
-5. Update custom component to handle any new resolved data or route params
-
-**Pattern 4: Accessing Journey State in Custom Component**
-```typescript
-@Component({/* ... */})
-export class CustomViewComponent implements OnInit {
-  // Inject journey state management
+export class CustomListComponent implements OnInit {
   constructor(
-    public readonly journeyState: SomeJourneyState,
+    private internalService: SomeInternalService,  // NOT public API!
   ) {}
-  
-  // Use in template
-  // <div>{{ journeyState.items$ | async }}</div>
-  
-  // Or subscribe in component
+
   ngOnInit(): void {
-    this.journeyState.items$.subscribe(items => {
-      // React to state changes
+    this.internalService.internalData$.subscribe(data => {
+      // Memory leak - no unsubscribe!
     });
   }
 }
 ```
 
+**Why it's wrong:** Importing from internal paths bypasses public API stability guarantees. Missing unsubscribe causes memory leaks. Internal services may change in minor versions.
+
+**Verify:**
+- [ ] All journey imports use public API (`@backbase/<journey>`)
+- [ ] Observables are unsubscribed in `ngOnDestroy`
+- [ ] Services used in template are `public readonly`
+- [ ] Component is declared in bundle module
+
 ---
 
-**5. Security and Compliance Measures**
+### Pattern 4: Journey Public API Exports
 
-- **Authorization:** Custom views must respect journey's guards; do not remove `canActivate`, `canDeactivate` guards without understanding implications
-- **Data Access:** Custom views accessing journey services receive same permission-checked data as original views
-- **XSS Prevention:** Use Angular's built-in sanitization; avoid `innerHTML` with user data; use `DomSanitizer` when dynamic HTML necessary
-- **Route Guards:** Maintain journey's route guards unless explicitly overriding for valid reason; guards often enforce business rules and permissions
-- **Service Usage:** Journey services may have preconditions; review service documentation before calling from custom views
-- **Type Safety:** Maintain TypeScript strict mode; type checking prevents many security issues from incorrect API usage
+**Use when:** Developing a journey that should support view replacement
 
-### Standards compliance
+**Don't use when:** Journey explicitly does not support view replacement
 
-Document compliance with Design Authority standards:
-- [x] Platform API standards followed (Angular public API patterns)
-- [x] TypeScript strict mode compilation enforced
-- [x] Journey public API exports documented and versioned
-- [x] Semver conventions applied to view component exports
-- [x] Routing changes documented in changelog
-- [x] Security considerations addressed (guards, sanitization)
-- [x] Accessibility requirements delegated to custom view developers
-- [x] Performance considerations documented (lazy loading maintained)
+✅ **Good**
 
-### Quality attributes addressed
+```typescript
+// CONTEXT: Journey index.ts exporting public API for view replacement support
+// RULE: Export all routable components, services, guards, resolvers, and models
 
-| Quality Attribute | Requirement | How Decision Addresses It |
-|-------------------|-------------|---------------------------|
-| Customization Flexibility | Complete UI override capability | Full routing replacement enables any UI structure |
-| Type Safety | Compile-time verification of imports | TypeScript enforces valid usage of journey exports |
-| Maintainability | Clear upgrade path despite coupling | Documented routing, exported APIs, changelog process |
-| Performance | No degradation vs. original journey | Lazy loading maintained; custom views control performance |
-| Security | Consistent authorization and data access | Journey guards and services enforce permissions |
-| Testability | Custom views can be unit tested | Standard Angular component testing applies |
-| Discoverability | Developers understand what's replaceable | Comprehensive documentation of exports and routing |
-| Backward Compatibility | Journey exports remain stable within major versions | Semver conventions; breaking changes only in major releases |
+// File: libs/some-journey/src/index.ts
 
-## Consequences
+// View components (each route = one exported component)
+export { ListViewComponent } from './lib/components/list-view/list-view.component';
+export { DetailViewComponent } from './lib/components/detail-view/detail-view.component';
+export { CreateViewComponent } from './lib/components/create-view/create-view.component';
 
-### Positive consequences
-- **Unblocked Customization:** Customers with requirements beyond View Extension capabilities have supported path forward
-- **Documented Process:** Clear steps reduce ambiguity and support burden; app developers know what to do
-- **Type Safety:** Compile-time checking catches many integration issues early; TypeScript provides safety net
-- **Service Reuse:** Custom views can leverage journey business logic; don't need to reimplement everything
-- **Component Reuse:** Ability to use journey's components enables partial customization; replace view but keep complex components
-- **Clear Ownership:** Journey team knows what must be exported; app team knows they own maintenance of custom views
-- **Fallback Option:** View Extension pattern can evolve without pressure to handle every edge case
-- **Upgrade Discoverability:** Documented routing changes allow app developers to plan updates
+// Services used by views
+export { SomeJourneyState } from './lib/state/some-journey.state';
+export { SomeJourneyService } from './lib/services/some-journey.service';
 
-### Negative consequences
-- **Tight Coupling:** Custom routing couples app to journey's routing structure; increases upgrade friction
-- **Maintenance Burden:** App developers must merge routing changes during journey updates; ongoing effort required
-- **Journey Complexity:** Journey public API surface area increases; more to document and maintain
-- **Non-Breaking Changes Can Break:** Journey routing changes not considered breaking from journey perspective may break custom routing
-- **Testing Burden:** Custom views require thorough testing; app team responsible for quality
-- **Support Complexity:** Support must diagnose whether issues in journey or custom view; requires more context
-- **Export Discipline:** Journey teams must remember to export components, services, maintain public API stability
-- **Documentation Overhead:** Journey teams must maintain routing documentation; update with each change
+// Guards and resolvers
+export { SomeGuard } from './lib/guards/some.guard';
+export { TitleResolverService } from './lib/resolvers/title-resolver.service';
 
-### Risks and mitigation
+// Types and configuration
+export { SomeDataModel } from './lib/models/some-data.model';
+export { JourneyConfiguration } from './lib/config/journey-configuration';
 
-| Risk | Probability | Impact | Mitigation Strategy | Owner |
-|------|-------------|---------|---------------------|-------|
-| Journey routing changes break custom routing | High | Medium | Document routing changes in changelog; provide migration guide | Journey Teams |
-| App developers unaware of routing changes | Medium | High | Automated detection in CI (compare route structure); release notes highlighting routing changes | Platform Team |
-| Journey forgets to export necessary components | Medium | Medium | Code review checklist for journey PRs; automated linting rule to check exports | Journey Teams |
-| Custom views break journey functionality | Low | High | Comprehensive testing guidelines; journey provides integration test suite app can run | App Teams |
-| Custom views have security vulnerabilities | Low | Critical | Security review checklist; automated scanning; require same standards as journey views | App Teams |
-| Support cannot diagnose custom view issues | Medium | Medium | Clear logging boundaries; custom view logs tagged differently; runbook for support | Support + App Teams |
-| Documentation becomes outdated | Medium | High | Automated generation of routing docs from code; validation in CI that docs match code | Journey Teams + Platform |
-| App developers extend components unsafely | Medium | Medium | Explicitly document pattern as NOT RECOMMENDED; guide toward full custom components | Documentation Team |
+// Module
+export { SomeJourneyModule } from './lib/some-journey.module';
+```
 
-## Success metrics
+❌ **Bad**
 
-### Technical success criteria
-- **Public API Compliance:** 100% of journeys supporting view replacement export all required components, services, guards, resolvers
-- **Documentation Coverage:** 100% of journeys document complete routing structure with all routes, components, guards, resolvers
-- **Type Safety:** All view replacement implementations pass TypeScript strict mode compilation with zero type errors
-- **Routing Parity:** Custom routing configurations can replicate all journey functionality (guards, resolvers, lazy loading)
-- **Upgrade Success:** 80%+ of apps with custom views successfully upgrade journeys within one sprint of release
+```typescript
+// PROBLEM: Only exporting module, not supporting view replacement
 
-### Business success criteria
-- **Customization Enablement:** Zero deals lost due to inability to customize beyond View Extension capabilities
-- **Decision Clarity:** 100% of customization requests evaluated against View Extension first, with documented decision rationale
-- **Implementation Time:** Custom view implementation time < 2 weeks for typical view replacement
-- **Support Efficiency:** < 20% increase in support tickets related to customizations (view extension + view replacement combined)
-- **Customer Satisfaction:** Positive feedback from app developer teams on view replacement pattern clarity and documentation
+// File: libs/some-journey/src/index.ts
+export { SomeJourneyModule } from './lib/some-journey.module';
+// Missing: view components, services, guards, resolvers
+```
 
-## References
+**Why it's wrong:** Without exported view components, guards, resolvers, and services, app developers cannot create custom routing that maintains journey functionality.
 
-### Authoritative sources
-- **Angular Documentation** - [Routing & Navigation](https://angular.io/guide/router) - Core routing concepts and configuration
-- **Angular Documentation** - [NgModule FAQs](https://angular.io/guide/ngmodule-faq) - Module exports and public API patterns
-- **Angular Documentation** - [Dependency Injection](https://angular.io/guide/dependency-injection) - Service injection in custom views
-- **TypeScript Documentation** - [Modules](https://www.typescriptlang.org/docs/handbook/modules.html) - Public API export patterns
-- **Semantic Versioning 2.0.0** - [semver.org](https://semver.org/) - Versioning conventions for journey public API
+**Verify:**
+- [ ] All routable view components exported in `index.ts`
+- [ ] All services used by views exported
+- [ ] All guards and resolvers exported
+- [ ] Journey module `exports` array includes all UI components
 
-### Technical references
-- **Angular Router** - [Route Configuration](https://angular.io/api/router/Route) - `Route` interface documentation
-- **Angular Style Guide** - [Angular Style Guide](https://angular.io/guide/styleguide) - Component and service patterns
-- **Nx Documentation** - [Library Types](https://nx.dev/concepts/more-concepts/library-types) - Patterns for library public APIs in monorepos
+---
 
-### Related decisions and concerns
-- **View Extension vs. View Replacement Decision Tree** - Criteria for choosing between patterns
-- **Journey Public API Guidelines** - What should be exported from journey libraries
-- **RFF Process** - When View Extension slot should be requested vs. using view replacement
+### Pattern 5: Component Composition vs Extension
 
-### Standards compliance
-- **ISO/IEC/IEEE 42010:2022** - Systems and software engineering — Architecture description
-- **Semantic Versioning 2.0.0** - Journey exports follow semver for breaking changes
-- **TypeScript Strict Mode** - Type safety enforced per platform standards
-- **Angular Public API Conventions** - Barrel exports, module exports, component selectors as public API
+**Use when:** Deciding how to create a custom view
 
-## Code review checklist
+**Don't use when:** N/A - always prefer composition
 
-Use this checklist when reviewing implementations of view replacements:
+✅ **Good**
 
-### Journey-Side Implementation Review
+```typescript
+// CONTEXT: Creating custom view that reuses journey components via composition
+// RULE: Compose using journey's exported UI components, don't extend view components
 
-**Public API Exports (index.ts):**
-- [ ] All routable view components exported in `src/index.ts`
-- [ ] All services used in view components exported
-- [ ] All guards used in routing exported
-- [ ] All resolvers used in routing exported
-- [ ] Data models/interfaces used by views exported
-- [ ] Journey configuration interface exported
-- [ ] Exports follow barrel export pattern (clean public API)
-- [ ] No internal implementation details leaked in exports
+// File: apps/my-app/src/app/some-journey/custom-list/custom-list.component.ts
+import { Component } from '@angular/core';
+import { SomeJourneyState } from '@backbase/some-journey';
 
-**Module Configuration (journey.module.ts):**
-- [ ] All view components declared in module
-- [ ] All UI components used in view templates declared in module
-- [ ] **All components added to module `exports` array** (enables reuse in custom views)
-- [ ] Module `forRoot()` accepts `route?: Route` parameter
-- [ ] Module provides custom route if supplied: `provideRoutes([config.route || defaultRoute])`
-- [ ] Module works correctly when route not provided (uses default)
-- [ ] Lazy loading pattern maintained (ModuleWithProviders returned)
+@Component({
+  selector: 'app-custom-list',
+  template: `
+    <div class="custom-layout">
+      <app-custom-header></app-custom-header>
+      
+      <!-- Reuse journey's table component -->
+      <bb-some-table 
+        [data]="journeyState.items$ | async"
+        (rowClick)="onRowClick($event)">
+      </bb-some-table>
+      
+      <app-custom-footer></app-custom-footer>
+    </div>
+  `,
+})
+export class CustomListComponent {
+  constructor(public readonly journeyState: SomeJourneyState) {}
+  
+  onRowClick(item: any): void { /* custom logic */ }
+}
+```
 
-**Component Exports:**
-- [ ] Component selectors considered stable public API (not changed without major version bump)
-- [ ] Component `@Input()` properties considered public API (documented and stable)
-- [ ] Component `@Output()` events considered public API (documented and stable)
-- [ ] Internal/private components not exported unless necessary for custom views
-- [ ] Component dependencies (other components used in template) also exported
+❌ **Bad**
 
-**Service Exports:**
-- [ ] Public methods documented with JSDoc comments
-- [ ] Public properties have clear purpose
-- [ ] Private methods marked as `private` or prefixed with underscore
-- [ ] Service considered stable within major version (semver)
-- [ ] Service dependencies injectable by custom views (no hidden requirements)
+```typescript
+// PROBLEM: Extending OOTB component - fragile and not recommended
 
-**Routing Documentation:**
-- [ ] Complete routing structure documented in README or docs folder
-- [ ] Each route documented with: path, component, guards, resolvers, data
-- [ ] Route parameters documented (e.g., `:id` in `detail/:id`)
-- [ ] Route data objects documented (purpose of each property)
-- [ ] Lazy-loaded child routes documented
-- [ ] Example of copying and customizing routing provided
-- [ ] Routing changes noted in CHANGELOG.md (even if not breaking)
+import { Component } from '@angular/core';
+import { ListViewComponent } from '@backbase/some-journey';
 
-**Guards and Resolvers:**
-- [ ] All guards exported in public API
-- [ ] Guard logic documented (what permission/condition they check)
-- [ ] All resolvers exported in public API
-- [ ] Resolver return types documented
-- [ ] Resolver data keys documented (used in `resolve: { key: ResolverService }`)
+@Component({
+  selector: 'app-extended-list',
+  templateUrl: './extended-list.component.html',  // Must duplicate template
+})
+export class ExtendedListComponent extends ListViewComponent {
+  // Inherits non-public members that may change
+  // Template references internal properties - fragile!
+  
+  additionalMethod(): void {
+    // May call internal methods that change
+    super.someInternalMethod();  // NOT guaranteed stable!
+  }
+}
+```
 
-**Change Management:**
-- [ ] Routing structure changes documented in CHANGELOG.md
-- [ ] Breaking changes to exports noted with migration guide
-- [ ] New routes/guards/resolvers added to documentation
-- [ ] Deprecated exports marked with `@deprecated` JSDoc tag
+**Why it's wrong:** TypeScript extension couples to component internals. Template must be duplicated and references non-public properties. Internal component logic may change in minor versions, breaking extensions.
 
-**Testing:**
-- [ ] Journey functions correctly with default routing
-- [ ] Journey functions correctly with custom routing (minimal example tested)
-- [ ] Exports validated (can be imported from package)
-- [ ] Module exports validated (components usable in external templates)
+**Verify:**
+- [ ] Custom view does NOT extend journey view components
+- [ ] Journey UI components used via selector composition
+- [ ] Only public API services injected
+- [ ] Template uses only `@Input()`/`@Output()` of journey components
 
-### App-Side Implementation Review
+---
 
-**Bundle Module Structure:**
-- [ ] Journey wrapped in app-level bundle module (if customization needed)
-- [ ] Bundle module imports journey module with `forRoot()`
-- [ ] App routing lazy loads bundle module
-- [ ] Bundle module provides journey configuration if needed
+## 3. Validation
 
-**Custom Routing Configuration:**
-- [ ] Custom routing file created (e.g., `<journey>-custom-routes.ts`)
-- [ ] Routing imports components from `@backbase/<journey>` (not relative paths)
-- [ ] Routing imports guards from `@backbase/<journey>`
-- [ ] Routing imports resolvers from `@backbase/<journey>`
-- [ ] Routing structure matches journey's documented structure (initially)
-- [ ] Route paths match original (unless intentionally changed)
-- [ ] Guards maintained unless intentionally removed (with justification)
-- [ ] Resolvers maintained unless intentionally removed (with justification)
-- [ ] Custom routing provided to journey `forRoot({ route: customRoute })`
+<!-- LLM: Load for code review tasks -->
 
-**Custom View Component:**
-- [ ] Component created in app directory (not journey library)
-- [ ] Component selector follows app naming convention (e.g., `app-*`)
-- [ ] Component injects necessary journey services (from journey public API)
-- [ ] Component does not access journey internals beyond public API
-- [ ] Component handles all required functionality of replaced view
-- [ ] Component declares injected services as `public readonly` if used in template
-- [ ] Lifecycle methods implemented correctly (OnInit, OnDestroy if needed)
-- [ ] Observables unsubscribed in `ngOnDestroy` if manually subscribed
+### Automated Checks
 
-**Template:**
-- [ ] Template uses journey components via selectors (if reusing components)
-- [ ] Journey components used have correct `@Input()` bindings
-- [ ] No direct manipulation of journey internals
-- [ ] Accessibility requirements met (semantic HTML, ARIA attributes)
-- [ ] Design system components used where appropriate
-- [ ] Responsive design considered (mobile, tablet, desktop)
-- [ ] XSS prevention: no unsafe `innerHTML` with user data
-- [ ] Safe navigation operator used: `data?.property`
+| ID | Check | Severity | How to Detect |
+|----|-------|----------|---------------|
+| `VR-001` | Journey imports use public API path | 🔴 BLOCKER | `grep -r "from '@backbase/.*/(lib\|internal)" apps/` |
+| `VR-002` | Custom components not extending journey views | 🔴 BLOCKER | `grep -r "extends.*Component.*from '@backbase" apps/` |
+| `VR-003` | Custom views declared in bundle module | 🟡 WARNING | Check bundle module `declarations` array |
+| `VR-004` | Journey exports all view components | 🟡 WARNING | Verify `index.ts` exports match routing components |
+| `VR-005` | No innerHTML with user data | 🔴 BLOCKER | `grep -r "\[innerHTML\]" apps/` |
 
-**Styling:**
-- [ ] Styles scoped to component (not global)
-- [ ] Styles follow app/design system conventions
-- [ ] No styles that break journey layout or other views
-- [ ] Responsive breakpoints consistent with design system
-- [ ] Does not override journey component styles aggressively
+### Review Checklist
 
-**Module Declaration:**
-- [ ] Custom view component declared in bundle module `declarations`
-- [ ] Custom view component NOT exported (internal to bundle)
-- [ ] Required dependencies imported (CommonModule, ReactiveFormsModule, etc.)
-- [ ] Journey module imported with custom routing configuration
+| ID | Check | Severity |
+|----|-------|----------|
+| `VR-R01` | View Extension evaluated first with documented rationale | 🔴 BLOCKER |
+| `VR-R02` | Route guards maintained or removal approved by security | 🔴 BLOCKER |
+| `VR-R03` | Custom routing imports from public API only | 🔴 BLOCKER |
+| `VR-R04` | Observable subscriptions cleaned up in ngOnDestroy | 🔴 BLOCKER |
+| `VR-R05` | Journey routing documentation updated (journey side) | 🟡 WARNING |
+| `VR-R06` | Upgrade strategy documented for custom routing | 🟡 WARNING |
+| `VR-R07` | Custom view handles error scenarios appropriately | 🟡 WARNING |
+| `VR-R08` | Accessibility requirements met in custom view | 🔴 BLOCKER |
 
-**Routing Integration:**
-- [ ] Custom component replaces correct view in routing configuration
-- [ ] Route path unchanged unless intentionally modified
-- [ ] Route guards maintained unless intentionally removed
-- [ ] Route resolvers maintained unless intentionally removed
-- [ ] Custom routing exported as `const` for type safety
+### Required Tests
 
-**Security:**
-- [ ] Journey guards not bypassed without valid reason and security review
-- [ ] User data properly sanitized before display
-- [ ] External URLs validated before use in `href` or `src`
-- [ ] No sensitive data logged to console
-- [ ] Same authorization checks as original view (if custom logic added)
+| Scenario | Type | Required |
+|----------|------|----------|
+| Custom view component renders correctly | Unit | ✅ Yes |
+| Custom view integrates with journey services | Unit | ✅ Yes |
+| Custom routing configuration loads views | Integration | ✅ Yes |
+| Error scenarios handled gracefully | Unit | ✅ Yes |
+| Custom view works in journey routing | E2E | ✅ Yes |
+| Data flows correctly from journey services | Integration | ✅ Yes |
+| Journey upgrade doesn't break custom routing | Regression | ⚪ Recommended |
 
-**Testing:**
-- [ ] Custom view component has unit tests
-- [ ] Unit tests cover all component methods
-- [ ] Unit tests mock journey services appropriately
-- [ ] Integration test verifies custom view renders in journey routing
-- [ ] E2E tests cover critical user flows through custom view
-- [ ] Tests validate data flows correctly from journey services
-- [ ] Error scenarios tested (service failures, missing data, etc.)
+---
 
-**Documentation:**
-- [ ] Decision to use view replacement documented (why view extension insufficient)
-- [ ] Custom view purpose documented in component JSDoc
-- [ ] Any deviations from original view behavior documented
-- [ ] Maintenance notes added (what to check during journey upgrades)
-- [ ] README or docs updated with custom routing information
+## 4. Context
 
-**Upgrade Strategy:**
-- [ ] Process documented for checking journey routing changes during upgrades
-- [ ] Responsibility assigned for maintaining custom routing
-- [ ] Testing plan defined for journey upgrades
-- [ ] Rollback plan defined if upgrade breaks custom view
+<!-- 
+LLM: SKIP this section unless user asks "why" questions about the decision.
+This section is for human readers understanding the historical context.
+-->
 
-### General Review Points
+### Problem
 
-**Decision Validation:**
-- [ ] View Extension evaluated first and determined insufficient
-- [ ] Rationale documented for why view replacement necessary
-- [ ] Product Owner or tech lead approval obtained
+Some requirements cannot be satisfied by View Extension—they require fundamentally different view structures or workflows. No standardized way to override views while maintaining access to journey services.
 
-**Type Safety:**
-- [ ] TypeScript strict mode compilation passes with zero errors
-- [ ] No use of `any` types (or justified and documented)
-- [ ] All journey imports correctly typed
-- [ ] IDE provides autocomplete for journey exports (validates public API)
+### Business Drivers
 
-**Performance:**
-- [ ] Lazy loading maintained (bundle size not significantly increased)
-- [ ] No unnecessary change detection triggers
-- [ ] Observables not over-subscribed
-- [ ] Component uses `OnPush` change detection if applicable
+- Complete customization when View Extension insufficient
+- Regional/vertical regulations may mandate different UI
+- Competitive differentiation with distinctive experiences
 
-**Maintainability:**
-- [ ] Code follows clean code guidelines (meaningful names, single responsibility)
-- [ ] No magic numbers or strings (use constants)
-- [ ] Complex logic extracted into methods with clear names
-- [ ] Comments explain "why" not "what"
-- [ ] Code is DRY (duplicated logic extracted)
+### Technical Constraints
 
-**Backward Compatibility (Journey Changes):**
-- [ ] Journey routing changes noted in CHANGELOG reviewed
-- [ ] Custom routing updated to match new journey routing structure
-- [ ] New guards/resolvers added to custom routing if required
-- [ ] Deprecated components replaced if journey deprecated them
-- [ ] Migration guide followed if journey provided one
+- Angular Router `Route[]` structure
+- Custom views must access journey services/guards/resolvers
+- Journey routing changes are not guaranteed breaking changes
 
-**Compliance:**
-- [ ] Follows platform web standards
-- [ ] Meets accessibility requirements (WCAG 2.1 AA minimum)
-- [ ] Meets security requirements (no vulnerabilities introduced)
-- [ ] Design system components used appropriately
-- [ ] Responsive design requirements met
+---
+
+## 5. Decision
+
+<!-- 
+LLM: SKIP this section unless user asks "why" questions about the decision.
+This section is for human readers understanding decision rationale.
+-->
+
+### What We Decided
+
+View Extension takes priority; view replacement available when needed. Journeys export all view components, services, guards, resolvers as public API. Custom routing via bundle modules with `forRoot()`. Composition over inheritance.
+
+### Rationale
+
+| Choice | Why |
+|--------|-----|
+| Export full public API | Custom views can access journey services/logic |
+| Bundle module pattern | Maintains lazy loading, co-located configuration |
+| Composition over inheritance | Component inheritance is fragile, breaks on internal changes |
+| View Extension first | Explicit trade-off documentation for informed decisions |
+
+---
+
+## 6. Implementation
+
+### Affected Components
+
+| Component | Impact | Files |
+|-----------|--------|-------|
+| Journey public API | MODIFY | `libs/<journey>/src/index.ts` |
+| Journey module | MODIFY | `libs/<journey>/src/lib/*.module.ts` |
+| App bundle module | CREATE | `apps/<app>/src/app/<journey>/*-bundle.module.ts` |
+| Custom routes | CREATE | `apps/<app>/src/app/<journey>/*-custom-routes.ts` |
+| Custom view components | CREATE | `apps/<app>/src/app/<journey>/<view>/*.component.ts` |
+| Journey documentation | MODIFY | `libs/<journey>/README.md` |
+
+### Related ADRs
+
+| ADR | Relationship |
+|-----|--------------|
+| ADR-009 View Extension Standards | Evaluate first before view replacement |
+| ADR-007 Journey Configuration Standards | Bundle module configuration pattern |
+| ADR-013 Unit/Integration Testing Standards | Testing requirements for custom views |
+
+### Migration Notes
+
+N/A - This is a new customization standard. Existing view replacements should be reviewed against this ADR for compliance with public API usage and security requirements.
+
+---
+
+## 7. Examples
+
+### Complete Example
+
+<!-- 
+NOTE: For bundle module, custom routing, and custom view patterns,
+see Patterns 1-3 above. This example shows file organization only.
+-->
+
+**Scenario:** Replace list view in transactions journey, keep detail view original
+
+**File Organization:**
+
+```
+apps/my-app/src/app/transactions/
+├── transactions-custom-routes.ts       # Custom Route[] (Pattern 2)
+├── transactions-bundle.module.ts       # Bundle with forRoot() (Pattern 1)
+└── custom-list/
+    └── custom-list.component.ts        # Custom view using journey services (Pattern 3)
+```
+
+**Key Integration Points:**
+
+| Step | What | How |
+|------|------|-----|
+| 1. Custom routes | Replace only list, keep detail | Import `DetailViewComponent`, guards, resolvers from journey |
+| 2. Bundle module | Wrap journey | `JourneyModule.forRoot({ route: customRoute })` |
+| 3. Custom view | Use journey services | Inject from public API (`@backbase/journey`), use composition |
+
+**Critical Rules:**
+- Keep original guards (`canActivate: [OriginalGuard]`) unless security-reviewed
+- Import ONLY from journey's public API (not `/lib/internal/`)
+- Use composition, never `extends OriginalComponent`
+
+### Common Mistakes
+
+**Mistake 1: Importing from internal paths**
+
+```typescript
+// ❌ Wrong
+import { SomeService } from '@backbase/some-journey/lib/internal/some.service';
+
+// ✅ Fix
+import { SomeService } from '@backbase/some-journey';
+```
+
+**Mistake 2: Removing security guards**
+
+```typescript
+// ❌ Wrong
+{
+  path: 'admin',
+  component: AdminViewComponent,
+  // Missing canActivate - security bypass!
+}
+
+// ✅ Fix
+{
+  path: 'admin',
+  component: AdminViewComponent,
+  canActivate: [AdminGuard],  // Keep original guard
+}
+```
+
+**Mistake 3: Extending journey components**
+
+```typescript
+// ❌ Wrong
+export class CustomListComponent extends JourneyListComponent {
+  // Fragile - depends on internal implementation
+}
+
+// ✅ Fix
+export class CustomListComponent {
+  constructor(public readonly state: JourneyState) {}
+  // Compose, don't extend
+}
+```
+
+**Mistake 4: Not declaring custom component in bundle**
+
+```typescript
+// ❌ Wrong
+@NgModule({
+  imports: [JourneyModule.forRoot({ route: customRoute })],
+  // Missing declarations!
+})
+
+// ✅ Fix
+@NgModule({
+  declarations: [CustomViewComponent],
+  imports: [JourneyModule.forRoot({ route: customRoute })],
+})
+```
+
+---
+
+## 8. References
+
+- [Angular Router Documentation](https://angular.io/guide/router) — Core routing concepts and configuration
+- [Angular NgModule FAQs](https://angular.io/guide/ngmodule-faq) — Module exports and public API patterns
+- [Angular Dependency Injection](https://angular.io/guide/dependency-injection) — Service injection in custom views
+- [Angular Route Interface](https://angular.io/api/router/Route) — Route configuration API
+- [TypeScript Modules](https://www.typescriptlang.org/docs/handbook/modules.html) — Public API export patterns
+- [Semantic Versioning 2.0.0](https://semver.org/) — Versioning conventions for journey public API
+- [Nx Library Types](https://nx.dev/concepts/more-concepts/library-types) — Library public APIs in monorepos
+- [Backbase Developer Portal](http://developer.backbase.com/angular/) — Journey routing documentation
+
+---

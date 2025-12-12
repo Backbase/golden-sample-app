@@ -1,746 +1,614 @@
-# ADR-009: View Extension Standards for Journey Customization
+# ADR-009: View Extension Standards
+
+## 1. Summary
+
+<!-- LLM: Always load this section first -->
+
+### TL;DR
+
+> View extensions provide a controlled, type-safe mechanism for adding custom components to predefined extension slots within journey views. Extension slots are empty by default and serve exclusively for adding content—never for modifying or removing existing journey components. Product Owner approval via RFF process is required for each new extension slot.
+
+### Rules
+
+**MUST DO ✅**
+
+1. Define extension context types using `Pick<>` to limit exposed data to necessary fields only
+2. Export both `Component` and `Context` types in journey's public API (`src/index.ts`)
+3. Get Product Owner approval via RFF process before creating new extension slots
+4. Use `*ngIf="extensionComponent"` to prevent rendering when extension not provided
+5. Handle undefined context with optional chaining (`context?.field`) in templates
+6. Create one directive per extension slot extending `ViewExtensionDirective<Context>`
+7. Document extension slots in journey README with context properties and usage examples
+
+**MUST NOT ❌**
+
+1. Export `InjectionToken` or extensions config interface in public API (internal only)
+2. Add default content to extension slots—slots must be empty by default
+3. Modify or remove existing journey components via extensions (only add content)
+4. Use `any` types—maintain strict TypeScript type safety throughout
+5. Access journey internals beyond the provided context object
+6. Use `innerHTML` with untrusted `additions` data (XSS risk)
+7. Create extension slots without PO approval via RFF process
 
 ---
 
-## Decision summary
+## 2. Patterns
 
-View extensions provide a controlled, type-safe mechanism for adding custom components to predefined extension slots within journey views. Extension slots are empty by default and serve exclusively for adding content—never for modifying or removing existing journey components. This approach enables implementers to extend journey functionality while maintaining journey integrity, type safety, and upgradability.
+<!-- LLM: Load for code generation tasks -->
 
-## Context and problem statement
+### Pattern Index
 
-### Business context
-- **Customization Demand:** Customers implementing journeys require the ability to add custom fields, controls, or UI elements (e.g., custom "print" button, additional fields from API `additions` property) without forking journey source code
-- **Product Flexibility vs. Maintainability:** Need to balance customer-specific requirements with maintaining a core product that can be upgraded and supported
-- **Request-Driven Development:** Multiple customers requesting similar extensions indicate common needs that should be supported generically
-- **Implementation Cost:** Complete view replacement is heavyweight for minor additions; need lightweight extension mechanism
-- **Success Criteria:**
-  - Customers can add custom content to journeys without modifying journey source
-  - Type-safe extension API prevents runtime errors
-  - Journey upgrades don't break customer extensions
-  - Clear decision process for which extensions to support
-  - Zero impact on customers not using extensions
+| Keywords | Pattern |
+|----------|---------|
+| extension type, context, component, definition | [Pattern 1: Extension Type Definition](#pattern-1-extension-type-definition) |
+| render, template, directive, slot | [Pattern 2: Extension Slot Rendering](#pattern-2-extension-slot-rendering) |
+| implement, app-side, configure, consume | [Pattern 3: App-Side Implementation](#pattern-3-app-side-implementation) |
+| multiple, conditional, advanced | [Pattern 4: Advanced Extension Patterns](#pattern-4-advanced-extension-patterns) |
 
-### Technical context
-- **Existing Landscape:** Angular-based journey bundles (transactions, payments, etc.) in Nx monorepo consuming `@backbase/ui-ang` design system
-- **Current Solution:** Full view replacement—customers override entire view components to add small customizations, creating maintenance burden
-- **Affected Systems:**
-  - Journey bundle libraries (transactions, payments, accounts, etc.)
-  - `@backbase/ui-ang` - provides `ViewExtensionComponent` and `ViewExtensionDirective`
-  - Application bundles (retail-universal, business-universal)
-  - Journey module configuration and dependency injection system
-  - TypeScript type system for compile-time safety
-- **Technical Challenges:**
-  - Ensuring type safety between journey and consumer
-  - Preventing breaking changes when journey internal data structures evolve
-  - Limiting surface area of exposed data to minimize coupling
-  - Maintaining clear ownership of extension slot content
-  - Documenting available extension points without exposing internal implementation
+---
 
-### Constraints and assumptions
+### Pattern 1: Extension Type Definition
 
-**Technical Constraints:**
-- Must maintain full TypeScript type safety at compile time
-- Cannot expose journey internal implementation details
-- Must work with Angular's dependency injection system
-- Extension components must follow Angular lifecycle (OnInit, OnChanges, OnDestroy)
-- Must not impact journey performance when extensions aren't used
-- Journey must remain functional without any extensions provided
-- Extension context must be versioned with journey public API
+**Use when:** Creating a new extension slot in a journey library
 
-**Business Constraints:**
-- Product Owner approval required for each new extension slot (prevents unbounded complexity)
-- Extension requests must come through RFF (Request for Feature) process
-- Decision to support or reject extension must be timely (don't block customers indefinitely)
-- Very specific requests may be rejected in favor of view replacement approach
-- Extension slots cannot contain default content (simplifies documentation and ownership)
+**Don't use when:** You need to modify existing journey content (use full view replacement instead)
 
-**Environmental Constraints:**
-- Must work within existing Nx monorepo architecture
-- Must integrate with journey module `forRoot()` configuration pattern
-- Must be documented for external implementers without revealing internal code
-- Must support multiple extensions per journey
-- Extensions must be lazily instantiated (only when provided)
-
-**Assumptions Made:**
-- Product Owners will use RFF tickets and previous experience to decide which extensions to support
-- Developers implementing journeys understand Angular dependency injection and component lifecycle
-- Extension consumers will use TypeScript (not JavaScript) for type safety benefits
-- Journey teams will maintain backward compatibility of extension context types
-- `@backbase/ui-ang` will continue providing `ViewExtensionComponent` and `ViewExtensionDirective` base classes
-- Extensions will primarily be used for rendering additional data, not for complex interactions
-
-### Affected architecture description elements
-
-**Components:**
-- Journey bundle modules (e.g., `TransactionsJourneyModule`, `PaymentsJourneyModule`)
-- Journey public API exports (extension component and context types)
-- Journey internal extension configuration system (`InjectionToken` based)
-- Journey view components (parent components rendering extensions)
-- Journey extension directives (type-safe rendering directives)
-- Application bundle modules (consumer configuration)
-- Application extension components (consumer implementations)
-- `@backbase/ui-ang` view extension infrastructure
-
-**Views:**
-- **Development View:** Journey library structure, extension type definitions, directive patterns, barrel exports
-- **Logical View:** Extension component composition, context data flow, dependency injection hierarchy
-- **Process View:** RFF approval workflow, extension request evaluation, implementation guidelines
-- **Physical View:** NPM package distribution, type definition exports, runtime component instantiation
-
-**Stakeholders:**
-- **Product Owners:** Decide which extension requests to support based on demand and alignment
-- **Journey Developers:** Implement extension slots in journey views with proper typing
-- **Application Developers:** Create extension components and configure journeys
-- **Customers:** Request extensions via RFF process for specific use cases
-- **Design Authority:** Ensure pattern consistency across journeys and platform
-
-## Decision
-
-### What we decided
-
-**We will implement a standardized view extension mechanism** with the following characteristics:
-
-1. **Extension Slots Are Empty by Default:**
-   - No default content in extension slots
-   - Slots serve exclusively for adding content, never removing/modifying existing content
-   - Journeys function fully without any extensions provided
-
-2. **Type-Safe Extension API:**
-   - Each extension defines a `Context` type (subset of journey data)
-   - Each extension defines a `Component` type extending `ViewExtensionComponent<Context>`
-   - Journey exports these types in its public API
-   - Applications implement the component type with compile-time type checking
-
-3. **Controlled Extension Point Creation:**
-   - Product Owner approval required for each new extension slot
-   - Requests come through RFF (Request for Feature) process
-   - Common requests → generic solution provided
-   - Very specific requests → rejected, customer uses view replacement
-
-4. **Journey-Side Implementation Pattern:**
-   ```typescript
-   // 1. Define extension types
-   export type ExtensionContext = Pick<DataModel, 'field1' | 'field2'>;
-   export type ExtensionComponent = ViewExtensionComponent<ExtensionContext>;
-   
-   // 2. Add to journey configuration
-   interface JourneyExtensionsConfig {
-     extensionSlotName?: Type<ExtensionComponent>;
-   }
-   const EXTENSIONS_CONFIG = new InjectionToken<JourneyExtensionsConfig>('...');
-   
-   // 3. Accept in forRoot()
-   static forRoot({ extensionSlots }: Config): ModuleWithProviders {
-     providers: [
-       { provide: EXTENSIONS_CONFIG, useValue: extensionSlots || {} }
-     ]
-   }
-   
-   // 4. Render in template using directive
-   <ng-container *ngIf="extensionComponent"
-                 bbExtensionDirective
-                 [componentType]="extensionComponent"
-                 [context]="(context$ | async) || undefined">
-   </ng-container>
-   ```
-
-5. **App-Side Implementation Pattern:**
-   ```typescript
-   // 1. Create component implementing journey's type
-   @Component({...})
-   export class MyExtensionComponent implements ExtensionComponent {
-     @Input() context: ExtensionContext | undefined;
-     // Lifecycle methods: OnInit, OnChanges, OnDestroy available
-   }
-   
-   // 2. Configure in forRoot()
-   JourneyModule.forRoot({
-     extensionSlots: {
-       extensionSlotName: MyExtensionComponent
-     }
-   })
-   ```
-
-6. **Documentation Requirements:**
-   - Journey README documents available extension slots
-   - Each extension documents its Context type properties
-   - Examples provided for implementing extensions
-   - No internal implementation details exposed
-
-### Rationale
-
-**Why this decision addresses the problem:**
-
-1. **Type Safety:** Compile-time checking prevents runtime errors from mismatched data structures; breaking changes in context types are caught at build time
-2. **Limited Coupling:** Context types expose only necessary data subset (often just `additions` field); journey can refactor internals without breaking extensions
-3. **Controlled Complexity:** PO approval process ensures only valuable, reusable extensions are added; prevents journey templates from becoming Swiss cheese
-4. **Clear Ownership:** Journey owns slot placement and context; consumer owns slot content; no ambiguity about responsibilities
-5. **Lightweight:** Significantly less code than view replacement; no need to copy/maintain entire view template
-6. **Backward Compatible:** Extensions optional; existing journeys and apps unaffected
-7. **Self-Documenting:** TypeScript types serve as documentation; IDEs provide autocomplete and type checking
-8. **Feedback Loop:** RFF process creates data on what customers need; informs future journey design decisions
-
-**Key evaluation criteria:**
-- ✅ **Developer Experience:** Type-safe API with IDE support
-- ✅ **Maintainability:** Clear boundaries between journey and consumer
-- ✅ **Upgrade Safety:** Extensions survive journey version updates
-- ✅ **Performance:** Zero overhead when extensions not used
-- ✅ **Scalability:** Pattern works for any number of extensions
-- ✅ **Documentation:** Self-documenting through types
-
-**Factors influencing choice:**
-- Angular's dependency injection system provides natural configuration mechanism
-- TypeScript generics enable type-safe yet flexible extension API
-- Existing `@backbase/ui-ang` infrastructure provides foundation
-- RFF process already exists for feature requests
-- View replacement is too heavyweight for minor additions
-- Similar patterns successfully used in other frameworks (React render props, Vue slots)
-
-## Implementation details
-
-### Technical approach
-
-**1. Journey-Side Implementation**
-
-**Step 1: Define Extension Types**
-
-Location: `<journey>/src/lib/extensions/<extension-name>.ts`
+✅ **Good**
 
 ```typescript
-import { ViewExtensionComponent } from '@backbase/ui-ang/view-extensions';
-import { DataModel } from '../models';
+// CONTEXT: Defining extension types in journey library
+// RULE: Use Pick<> to expose only necessary fields, export types in public API
 
-// Define context: subset of data available to extension
-export type ExtensionNameContext = Pick<DataModel, 
-  'additions' | 'relevantField1' | 'relevantField2'
+// File: <journey>/src/lib/extensions/transaction-details-extension.ts
+import { ViewExtensionComponent } from '@backbase/ui-ang/view-extensions';
+import { TransactionItem } from '../models';
+
+// Context exposes only necessary subset of data
+export type TransactionDetailsExtensionContext = Pick<TransactionItem, 
+  'additions' | 'amount' | 'description'
 >;
 
-// Define component type
-export type ExtensionNameComponent = ViewExtensionComponent<ExtensionNameContext>;
-```
+// Component type for type-safe implementation
+export type TransactionDetailsExtensionComponent = ViewExtensionComponent<TransactionDetailsExtensionContext>;
 
-**Design principle:** Context should include only necessary data. Commonly includes `additions` property from API spec. Limiting exposed data reduces coupling and impact of future changes.
-
-**Step 2: Create Extensions Configuration**
-
-Location: `<journey>/src/lib/extensions/config.ts`
-
-```typescript
+// File: <journey>/src/lib/extensions/config.ts (internal, NOT exported)
 import { InjectionToken, Type } from '@angular/core';
 
 export interface JourneyExtensionsConfig {
-  extensionSlotName1?: Type<ExtensionName1Component>;
-  extensionSlotName2?: Type<ExtensionName2Component>;
-  // ... other extensions
+  transactionDetails?: Type<TransactionDetailsExtensionComponent>;
 }
 
 export const JOURNEY_EXTENSIONS_CONFIG = new InjectionToken<JourneyExtensionsConfig>(
   'JOURNEY_EXTENSIONS_CONFIG'
 );
-```
 
-**Note:** `InjectionToken` is internal to journey; not exported in public API. This ensures type safety by forcing consumers to use typed `forRoot()` method.
-
-**Step 3: Create Extensions Barrel Export**
-
-Location: `<journey>/src/lib/extensions/index.ts`
-
-```typescript
-// Internal barrel file for journey's use
-export * from './extension-name1';
-export * from './extension-name2';
-export * from './config';
-```
-
-**Step 4: Export Extension Types in Public API**
-
-Location: `<journey>/src/index.ts`
-
-```typescript
-// Public API: export only component and context types
+// File: <journey>/src/index.ts (public API)
 export {
-  ExtensionName1Component,
-  ExtensionName1Context,
-  ExtensionName2Component,
-  ExtensionName2Context,
+  TransactionDetailsExtensionComponent,
+  TransactionDetailsExtensionContext,
 } from './lib/extensions';
-
 // Do NOT export InjectionToken or config interface
 ```
 
-**Step 5: Accept Configuration in Module**
-
-Location: `<journey>/src/lib/journey.module.ts`
+❌ **Bad**
 
 ```typescript
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { JourneyExtensionsConfig, JOURNEY_EXTENSIONS_CONFIG } from './extensions';
+// PROBLEM: Exporting internal InjectionToken and exposing all data model fields
 
-export interface JourneyModuleConfig {
-  route?: Route;
-  extensionSlots?: JourneyExtensionsConfig;
-}
+// File: <journey>/src/index.ts
+export {
+  TransactionDetailsExtensionComponent,
+  TransactionDetailsExtensionContext,
+  JOURNEY_EXTENSIONS_CONFIG,  // ❌ Internal token exposed
+  JourneyExtensionsConfig,    // ❌ Internal config exposed
+} from './lib/extensions';
 
-@NgModule({
-  declarations: [/* components */],
-  imports: [/* modules */],
-})
-export class JourneyModule {
-  static forRoot(config: JourneyModuleConfig = {}): ModuleWithProviders<JourneyModule> {
-    return {
-      ngModule: JourneyModule,
-      providers: [
-        provideRoutes([config.route || defaultRoute]),
-        {
-          provide: JOURNEY_EXTENSIONS_CONFIG,
-          useValue: config.extensionSlots || {}
-        }
-      ],
-    };
-  }
-}
+// File: <journey>/src/lib/extensions/transaction-details-extension.ts
+// ❌ Exposing entire data model instead of necessary subset
+export type TransactionDetailsExtensionContext = TransactionItem;
 ```
 
-**Step 6: Create Extension Directive**
+**Why it's wrong:** Exporting the `InjectionToken` bypasses the type-safe `forRoot()` configuration. Exposing the entire data model creates tight coupling—any internal field change becomes a breaking change.
 
-Location: `<journey>/src/lib/components/<parent>/<parent>.component.ts` (after component class)
+**Verify:**
+- [ ] Context type uses `Pick<>` or explicit interface limiting fields
+- [ ] Only `Component` and `Context` types exported in `src/index.ts`
+- [ ] `InjectionToken` and config interface remain internal
 
-```typescript
-import { Directive } from '@angular/core';
-import { ViewExtensionDirective } from '@backbase/ui-ang/view-extensions';
-import { ExtensionNameContext } from '../../extensions';
+---
 
-@Directive({
-  selector: '[bbJourneyExtensionName]'
-})
-export class JourneyExtensionNameDirective extends ViewExtensionDirective<ExtensionNameContext> {}
-```
+### Pattern 2: Extension Slot Rendering
 
-**Note:** One directive per extension. Directive provides type-safe rendering mechanism.
+**Use when:** Rendering an extension slot in a journey view template
 
-**Step 7: Declare Directive in Module**
+**Don't use when:** Adding default content to extension slot (slots must be empty by default)
+
+✅ **Good**
 
 ```typescript
-@NgModule({
-  declarations: [
-    // ... other declarations
-    JourneyExtensionNameDirective,
-  ],
-  // ...
-})
-export class JourneyModule { /* ... */ }
-```
+// CONTEXT: Parent component rendering extension slot in journey
+// RULE: Use ngIf guard, type-safe directive, and async pipe with fallback
 
-**Step 8: Inject and Prepare in Parent Component**
-
-```typescript
+// File: <journey>/src/lib/components/transaction-details/transaction-details.component.ts
 import { Component, Inject, Type } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { 
-  ExtensionNameComponent, 
-  ExtensionNameContext,
+  TransactionDetailsExtensionComponent, 
+  TransactionDetailsExtensionContext,
   JourneyExtensionsConfig,
   JOURNEY_EXTENSIONS_CONFIG 
 } from '../../extensions';
 
 @Component({
-  selector: 'bb-parent-component',
-  templateUrl: './parent.component.html',
+  selector: 'bb-transaction-details',
+  templateUrl: './transaction-details.component.html',
 })
-export class ParentComponent {
-  // Store extension component type (if provided)
-  public extensionComponent?: Type<ExtensionNameComponent>;
+export class TransactionDetailsComponent {
+  public extensionComponent?: Type<TransactionDetailsExtensionComponent>;
   
-  // Prepare context observable (or getter)
-  public extensionContext$: Observable<ExtensionNameContext> = this.data$.pipe(
+  public extensionContext$: Observable<TransactionDetailsExtensionContext> = this.data$.pipe(
     map(data => ({
       additions: data.additions,
-      relevantField1: data.relevantField1,
-      relevantField2: data.relevantField2,
+      amount: data.amount,
+      description: data.description,
     }))
   );
   
   constructor(
     @Inject(JOURNEY_EXTENSIONS_CONFIG) extensionsConfig: JourneyExtensionsConfig,
-    // ... other dependencies
   ) {
-    this.extensionComponent = extensionsConfig.extensionSlotName;
+    this.extensionComponent = extensionsConfig.transactionDetails;
   }
 }
+
+// Directive: one per extension slot
+@Directive({ selector: '[bbTransactionDetailsExtension]' })
+export class TransactionDetailsExtensionDirective 
+  extends ViewExtensionDirective<TransactionDetailsExtensionContext> {}
 ```
-
-**Step 9: Render in Template**
-
-Location: `<journey>/src/lib/components/<parent>/<parent>.component.html`
 
 ```html
-<!-- Existing content -->
+<!-- File: transaction-details.component.html -->
+<!-- RULE: Extension slot with ngIf guard and proper async handling -->
 
-<!-- Extension slot -->
-<ng-container
-  *ngIf="extensionComponent"
-  bbJourneyExtensionName
-  [componentType]="extensionComponent"
-  [context]="(extensionContext$ | async) || undefined">
-</ng-container>
-
-<!-- More existing content -->
-```
-
-**Key points:**
-- `*ngIf` ensures slot only renders if extension provided
-- Directive selector must match directive created in step 6
-- `componentType` receives the component class
-- `context` receives the typed context data (handles async with `|| undefined`)
-
----
-
-**2. App-Side Implementation**
-
-**Step 1: Create Extension Component**
-
-Location: `apps/<app>/src/app/<journey>/<extension-name>.component.ts`
-
-```typescript
-import { Component, Input } from '@angular/core';
-import { 
-  ExtensionNameComponent, 
-  ExtensionNameContext 
-} from '@libs/<journey>';
-
-@Component({
-  selector: 'app-extension-name',
-  templateUrl: './extension-name.component.html',
-  styleUrls: ['./extension-name.component.scss'],
-})
-export class MyExtensionComponent implements ExtensionNameComponent {
-  @Input() context: ExtensionNameContext | undefined;
+<div class="transaction-details">
+  <!-- Existing journey content -->
+  <h2>{{ transaction.description }}</h2>
   
-  // Optional: implement lifecycle methods
-  ngOnInit(): void {
-    // Initialization logic
-  }
+  <!-- Extension slot: empty by default, renders only if extension provided -->
+  <ng-container
+    *ngIf="extensionComponent"
+    bbTransactionDetailsExtension
+    [componentType]="extensionComponent"
+    [context]="(extensionContext$ | async) || undefined">
+  </ng-container>
   
-  ngOnChanges(): void {
-    // React to context changes
-  }
-  
-  ngOnDestroy(): void {
-    // Cleanup logic
-  }
-}
-```
-
-**Note:** Component implements journey's exported type, ensuring compile-time compatibility. Lifecycle methods (OnInit, OnChanges, OnDestroy) available without explicit interface implementation.
-
-**Step 2: Create Template**
-
-Location: `apps/<app>/src/app/<journey>/<extension-name>.component.html`
-
-```html
-<!-- Access context properties in type-safe way -->
-<div class="extension-container">
-  <span class="field">{{ context?.relevantField1 }}</span>
-  
-  <!-- Access additions -->
-  <span class="custom-field" *ngIf="context?.additions?.['myCustomField']">
-    {{ context?.additions?.['myCustomField'] }}
-  </span>
+  <!-- More existing content -->
 </div>
 ```
 
-**Step 3: Configure Journey Module**
+❌ **Bad**
 
-Location: `apps/<app>/src/app/<journey>/<journey>-bundle.module.ts`
+```html
+<!-- PROBLEM: Missing ngIf guard, wrong async handling, default content -->
+
+<div class="transaction-details">
+  <!-- ❌ No ngIf guard - will error when extension not provided -->
+  <ng-container
+    bbTransactionDetailsExtension
+    [componentType]="extensionComponent"
+    [context]="extensionContext$ | async">
+  </ng-container>
+  
+  <!-- ❌ Default content in extension slot -->
+  <div *ngIf="!extensionComponent" class="default-extension">
+    Default extension content here
+  </div>
+</div>
+```
+
+**Why it's wrong:** Without `*ngIf` guard, the directive throws when `componentType` is undefined. Extension slots must never have default content—this complicates ownership and documentation.
+
+**Verify:**
+- [ ] `*ngIf="extensionComponent"` guards the `ng-container`
+- [ ] Context uses `(observable$ | async) || undefined` pattern
+- [ ] No default content in extension slot
+- [ ] Directive selector matches the directive definition
+
+---
+
+### Pattern 3: App-Side Implementation
+
+**Use when:** Creating an extension component in your application to plug into a journey
+
+**Don't use when:** You need access to journey internal services or data not in context
+
+✅ **Good**
 
 ```typescript
-import { NgModule } from '@angular/core';
-import { JourneyModule } from '@libs/<journey>';
-import { MyExtensionComponent } from './<extension-name>.component';
+// CONTEXT: Application implementing a journey extension
+// RULE: Implement journey's exported type, use optional chaining for context
 
+// File: apps/retail-app/src/app/transactions/print-button.component.ts
+import { Component, Input } from '@angular/core';
+import { 
+  TransactionDetailsExtensionComponent, 
+  TransactionDetailsExtensionContext 
+} from '@backbase/transactions-journey';
+
+@Component({
+  selector: 'app-transaction-print-button',
+  template: `
+    <button 
+      *ngIf="context?.additions?.['printEnabled']"
+      (click)="onPrint()"
+      class="print-button">
+      Print: {{ context?.description }}
+    </button>
+  `,
+})
+export class TransactionPrintButtonComponent implements TransactionDetailsExtensionComponent {
+  @Input() context: TransactionDetailsExtensionContext | undefined;
+  
+  onPrint(): void {
+    if (this.context) {
+      window.print();
+    }
+  }
+}
+
+// File: apps/retail-app/src/app/transactions/transactions-bundle.module.ts
 @NgModule({
-  declarations: [MyExtensionComponent],
+  declarations: [TransactionPrintButtonComponent],
   imports: [
-    // ... other imports
-    JourneyModule.forRoot({
+    TransactionsJourneyModule.forRoot({
       extensionSlots: {
-        extensionSlotName: MyExtensionComponent,
+        transactionDetails: TransactionPrintButtonComponent,
       },
     }),
   ],
 })
-export class JourneyBundleModule {}
+export class TransactionsBundleModule {}
 ```
 
-**Type safety:** TypeScript enforces that `MyExtensionComponent` implements `ExtensionNameComponent` interface, and that key `extensionSlotName` matches configuration interface.
+❌ **Bad**
 
----
-
-**3. Key Integration Patterns**
-
-**Pattern 1: Multiple Extensions in One Journey**
 ```typescript
-// Journey exports multiple extension types
-export {
-  Extension1Component, Extension1Context,
-  Extension2Component, Extension2Context,
-  Extension3Component, Extension3Context,
-} from './lib/extensions';
+// PROBLEM: Using any types, not implementing interface, unsafe access
 
-// App configures multiple extensions
+// ❌ No type implementation
+@Component({
+  selector: 'app-transaction-print-button',
+  template: `
+    <!-- ❌ No null checks, will throw on undefined -->
+    <button (click)="onPrint()">
+      Print: {{ context.description }}
+    </button>
+  `,
+})
+export class TransactionPrintButtonComponent {
+  // ❌ Using 'any' - loses all type safety
+  @Input() context: any;
+  
+  onPrint(): void {
+    // ❌ Using innerHTML with additions (XSS risk)
+    document.body.innerHTML += this.context.additions['customHtml'];
+  }
+}
+
+// ❌ Wrong key name - won't match journey config
 JourneyModule.forRoot({
   extensionSlots: {
-    extension1: MyExtension1Component,
-    extension2: MyExtension2Component,
-    // extension3 not provided - slot remains empty
+    wrongSlotName: TransactionPrintButtonComponent,
   },
 })
 ```
 
-**Pattern 2: Conditional Rendering in Extension**
+**Why it's wrong:** Using `any` defeats type safety—context changes won't cause compile errors. Missing optional chaining causes runtime crashes. Using `innerHTML` with untrusted `additions` creates XSS vulnerabilities.
+
+**Verify:**
+- [ ] Component `implements` journey's exported component type
+- [ ] Context type is `ExtensionContext | undefined`
+- [ ] Template uses optional chaining: `context?.field`
+- [ ] `extensionSlots` key matches journey's config interface
+
+---
+
+### Pattern 4: Advanced Extension Patterns
+
+**Use when:** Implementing multiple extensions per journey or conditional rendering logic
+
+**Don't use when:** Simple single extension scenarios where basic pattern suffices
+
+✅ **Good**
+
 ```typescript
-// Extension component with conditional logic
-export class MyExtensionComponent implements ExtensionNameComponent {
-  @Input() context: ExtensionNameContext | undefined;
+// CONTEXT: Multiple extensions and conditional rendering
+// RULE: Configure multiple slots, use computed properties for conditions
+
+// Multiple extensions in forRoot()
+JourneyModule.forRoot({
+  extensionSlots: {
+    headerExtension: CustomHeaderComponent,
+    footerExtension: CustomFooterComponent,
+    // sidebarExtension not provided - slot remains empty
+  },
+})
+
+// Conditional rendering in extension component
+@Component({
+  selector: 'app-conditional-extension',
+  template: `
+    <div *ngIf="shouldRender" class="extension-content">
+      <span>{{ formattedData }}</span>
+    </div>
+  `,
+})
+export class ConditionalExtensionComponent implements ExtensionComponent {
+  @Input() context: ExtensionContext | undefined;
   
   get shouldRender(): boolean {
-    return !!this.context?.additions?.['specificField'];
+    return !!this.context?.additions?.['featureEnabled'];
   }
-}
-```
-```html
-<div *ngIf="shouldRender">
-  <!-- Render only when specific data present -->
-</div>
-```
-
-**Pattern 3: Complex Data Transformations**
-```typescript
-export class MyExtensionComponent implements ExtensionNameComponent {
-  @Input() context: ExtensionNameContext | undefined;
   
-  get transformedData(): CustomType | null {
-    if (!this.context?.additions) return null;
-    // Transform additions data
-    return {
-      field1: this.context.additions['rawField1'],
-      field2: this.processField(this.context.additions['rawField2']),
-    };
+  get formattedData(): string {
+    if (!this.context?.additions) return '';
+    return this.transformData(this.context.additions['rawField']);
+  }
+  
+  private transformData(raw: unknown): string {
+    // Transform logic here
+    return String(raw ?? '');
   }
 }
 ```
 
----
+❌ **Bad**
 
-**4. Security and Compliance Measures**
+```typescript
+// PROBLEM: Heavy computation in template, direct DOM manipulation
 
-- **Input Sanitization:** Extension components responsible for sanitizing any user-generated content from `additions` before rendering
-- **Access Control:** Extensions receive only pre-filtered data from journey; journey enforces permissions before populating context
-- **XSS Prevention:** Use Angular's built-in sanitization; avoid `innerHTML` with untrusted `additions` data
-- **Type Safety:** TypeScript prevents accidental access to non-exposed journey internals
-- **Encapsulation:** Extension cannot access journey component private members or services not explicitly provided
+@Component({
+  selector: 'app-bad-extension',
+  template: `
+    <!-- ❌ Heavy computation directly in template -->
+    <div *ngFor="let item of context?.additions?.['items'] | complexTransformPipe">
+      {{ calculateExpensiveValue(item) }}
+    </div>
+  `,
+})
+export class BadExtensionComponent implements ExtensionComponent {
+  @Input() context: ExtensionContext | undefined;
+  
+  // ❌ Called on every change detection cycle
+  calculateExpensiveValue(item: any): string {
+    return expensiveOperation(item);
+  }
+  
+  ngOnInit(): void {
+    // ❌ Direct DOM manipulation
+    document.querySelector('.journey-header')?.classList.add('custom-style');
+  }
+}
+```
 
-## Success metrics
+**Why it's wrong:** Template expressions run on every change detection—expensive computations cause performance issues. Direct DOM manipulation breaks encapsulation and may break on journey updates.
 
-### Technical success criteria
-- **Type Safety:** 100% of extension implementations pass TypeScript strict mode compilation with zero type errors
-- **Performance:** < 5ms overhead per extension render measured via Angular DevTools profiler
-- **Test Coverage:** Extension examples achieve 80%+ test coverage (journey teams maintain existing coverage SLAs)
-- **API Stability:** Zero breaking changes to extension context types within major versions
-- **Documentation:** 100% of public extension slots documented with context type explanation and usage example
-
-### Business success criteria
-- **Adoption:** 50% reduction in view replacement usage for minor customizations within 6 months
-- **Customer Satisfaction:** Positive feedback on customization DX from 3+ application developer teams
-- **RFF Process:** < 2 week turnaround for extension request approval/rejection decision
-- **Support Reduction:** 30% decrease in support tickets related to broken view overrides after journey upgrades
-- **Time to Market:** 50% reduction in development time for adding custom fields vs. view replacement approach
-
-### Monitoring and measurement
-- **Metrics to Track:**
-  - Number of extension slots per journey (complexity metric)
-  - Extension usage analytics (how many apps use which extensions)
-  - Time from RFF submission to implementation (process efficiency)
-  - Build failures due to extension type mismatches (type safety effectiveness)
-  - Performance benchmarks for extension rendering
-  - Support ticket trends related to customizations
-
-- **Monitoring Tools:**
-  - TypeScript compilation errors tracked in CI/CD
-  - Bundle size impact measured per journey
-  - Usage analytics via telemetry (if available)
-  - RFF Jira board metrics
-  - Developer surveys quarterly
-
-- **Review Schedule:**
-  - Monthly: Review new RFF requests and approve/reject
-  - Quarterly: Analyze extension usage metrics and performance
-  - Bi-annually: Comprehensive review of pattern effectiveness
-  - Annually: Evaluate if extensions should be deprecated or enhanced based on usage data
-
-## References
-
-### Authoritative sources
-- **Angular Documentation** - [Dependency Injection](https://angular.io/guide/dependency-injection) - Core pattern for extension configuration
-- **Angular Documentation** - [Dynamic Component Loader](https://angular.io/guide/dynamic-component-loader) - Conceptual foundation for extension rendering
-- **TypeScript Documentation** - [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) - Type-safe extension component pattern
-- **Backbase UI-ANG** - `@backbase/ui-ang/view-extensions` - `ViewExtensionComponent`, `ViewExtensionDirective` base classes
-
-### Technical references
-- **Golden Sample App** - [Transactions Journey](https://github.com/Backbase/golden-sample-app) - Reference implementation of view extensions
-- **Angular Style Guide** - [Angular Style Guide](https://angular.io/guide/styleguide) - Component and directive naming conventions
-- **RxJS Documentation** - [Observable](https://rxjs.dev/guide/observable) - Context data streaming pattern
-
-### Related decisions and concerns
-- **RFF Process** - [RFF Jira Board](https://backbase.atlassian.net/jira/software/c/projects/RFF/boards/1631) - Approval workflow for extension requests
-- **Frontend Guild** - Component library governance and standards approval
-
-### Standards compliance
-- **ISO/IEC/IEEE 42010:2022** - Systems and software engineering — Architecture description
-- **Semantic Versioning 2.0.0** - Extension context types follow semver for breaking changes
-- **TypeScript Strict Mode** - Type safety enforced per platform standards
-- **Angular Component API Guidelines** - Lifecycle methods, input/output patterns
+**Verify:**
+- [ ] Computed values use getters or memoization, not template methods
+- [ ] Component uses `OnPush` change detection when possible
+- [ ] No direct DOM manipulation outside component's own template
+- [ ] Unused extension slots are simply not configured (not set to `null`)
 
 ---
 
-## Code review checklist
+## 3. Validation
 
-Use this checklist when reviewing implementations of view extensions:
+<!-- LLM: Load for code review tasks -->
 
-### Journey-Side Implementation Review
+### Automated Checks
 
-**Type Definitions:**
-- [ ] Context type uses `Pick<>` or explicit interface to limit exposed data
-- [ ] Context includes only necessary fields (commonly `additions` + specific fields)
-- [ ] Component type correctly extends `ViewExtensionComponent<Context>`
-- [ ] Both context and component types exported in public API (`src/index.ts`)
-- [ ] Type names follow naming convention: `<DescriptiveName>Context`, `<DescriptiveName>Component`
+| ID | Check | Severity | How to Detect |
+|----|-------|----------|---------------|
+| `VEX-001` | Extension types exported in public API | 🔴 BLOCKER | `grep -L "export.*ExtensionContext" src/index.ts` |
+| `VEX-002` | InjectionToken not in public API | 🔴 BLOCKER | `grep "export.*InjectionToken\|export.*EXTENSIONS_CONFIG" src/index.ts` |
+| `VEX-003` | Extension slot has ngIf guard | 🔴 BLOCKER | `grep -B1 "bbExtension\|componentType.*extension" *.html \| grep -v "ngIf"` |
+| `VEX-004` | Context uses optional chaining | 🟡 WARNING | `grep "context\.[^?]" *.html` (should use `context?.`) |
+| `VEX-005` | No innerHTML with additions | 🔴 BLOCKER | `grep "innerHTML.*additions\|additions.*innerHTML" *.ts *.html` |
+| `VEX-006` | Context type uses Pick or limited interface | 🟡 WARNING | Manual review of extension type definitions |
+| `VEX-007` | Directive extends ViewExtensionDirective | 🔴 BLOCKER | `grep "extends ViewExtensionDirective" *.ts` |
 
-**Configuration:**
-- [ ] `InjectionToken` created with descriptive name
-- [ ] Extensions config interface has optional (`?`) properties for each extension
-- [ ] Config interface uses `Type<ExtensionComponent>` (not component instance)
-- [ ] `InjectionToken` is **NOT** exported in public API (internal only)
-- [ ] Config interface is **NOT** exported in public API (internal only)
-- [ ] Extensions barrel file (`extensions/index.ts`) exports config for internal use
+### Review Checklist
 
-**Module Configuration:**
-- [ ] Journey module config interface includes `extensionSlots?: ExtensionsConfig`
-- [ ] `forRoot()` provides `EXTENSIONS_CONFIG` token with `useValue: config.extensionSlots || {}`
-- [ ] Module works correctly when `extensionSlots` not provided (default `{}`)
+| ID | Check | Severity |
+|----|-------|----------|
+| `VEX-R01` | Context exposes only necessary fields (not entire data model) | 🔴 BLOCKER |
+| `VEX-R02` | Extension slot has PO approval via RFF process | 🔴 BLOCKER |
+| `VEX-R03` | Extension slot documented in journey README | 🔴 BLOCKER |
+| `VEX-R04` | No default content in extension slot | 🔴 BLOCKER |
+| `VEX-R05` | Extension component handles undefined context gracefully | 🟡 WARNING |
+| `VEX-R06` | Component uses OnPush change detection if applicable | 🟡 WARNING |
+| `VEX-R07` | Additions data sanitized before rendering | 🔴 BLOCKER |
+| `VEX-R08` | Extension does not break journey layout | 🟡 WARNING |
 
-**Directive Implementation:**
-- [ ] One directive per extension slot created
-- [ ] Directive extends `ViewExtensionDirective<ContextType>` with correct context type
-- [ ] Directive selector follows naming convention: `[bb<Journey><ExtensionName>]`
-- [ ] Directive declared in journey module's `declarations` array
-- [ ] Directive is standalone=false (declared, not imported)
+### Required Tests
 
-**Parent Component:**
-- [ ] Injects `EXTENSIONS_CONFIG` token with `@Inject()`
-- [ ] Stores extension component in public property (e.g., `extensionComponent`)
-- [ ] Creates context observable/getter with correct type: `Observable<Context>` or `() => Context`
-- [ ] Context includes exactly the fields defined in context type
-- [ ] Context observable properly handles async data (uses `async` pipe in template)
-- [ ] Component imports are from `'../../extensions'` (internal barrel)
+| Scenario | Type | Required |
+|----------|------|----------|
+| Parent component renders with extension provided | Unit | ✅ Yes |
+| Parent component renders without extension (slot empty) | Unit | ✅ Yes |
+| Extension component handles undefined context | Unit | ✅ Yes |
+| Extension component handles context with/without additions | Unit | ✅ Yes |
+| Extension renders correctly in journey | Integration | ✅ Yes |
+| Extension directive imported in test declarations | Unit | ✅ Yes |
 
-**Template Rendering:**
-- [ ] `<ng-container>` used (not template element introducing extra DOM)
-- [ ] `*ngIf="extensionComponent"` prevents rendering when extension not provided
-- [ ] Directive attribute matches directive selector (e.g., `bbJourneyExtensionName`)
-- [ ] `[componentType]="extensionComponent"` passes component class
-- [ ] `[context]="(context$ | async) || undefined"` handles async and undefined case
-- [ ] Extension slot placed in appropriate location in template
-- [ ] No default content in extension slot (slot is empty by default)
+---
 
-**Documentation:**
-- [ ] Extension documented in journey README with:
-  - Extension slot name
-  - Context type properties explained
-  - Use case description
-  - Example of implementing the extension
-- [ ] JSDoc comments on context and component types
-- [ ] Public API exports documented
+## 4. Context
 
-**Testing:**
-- [ ] Parent component unit test includes test case with mock extension component
-- [ ] Parent component unit test includes test case without extension (slot empty)
-- [ ] Context data correctly provided to extension in test
-- [ ] Extension directive is imported in test's TestBed declarations
+<!-- 
+LLM: SKIP this section unless user asks "why" questions about the decision.
+This section is for human readers understanding the historical context.
+-->
 
-### App-Side Implementation Review
+### Problem
 
-**Extension Component:**
-- [ ] Component implements journey's exported component type: `implements ExtensionComponent`
-- [ ] `@Input() context: ExtensionContext | undefined;` declared with correct types
-- [ ] Context property handles `undefined` case (optional chaining in template)
-- [ ] Component selector follows app naming convention
-- [ ] Template file uses context properties in type-safe way: `context?.propertyName`
-- [ ] Additions accessed safely: `context?.additions?.['key']`
-- [ ] Lifecycle methods implemented if needed: `ngOnInit()`, `ngOnChanges()`, `ngOnDestroy()`
-- [ ] No direct access to journey internals beyond provided context
+Customers need to add custom fields/controls without forking source code. Full view replacement is too heavyweight for minor additions, creating maintenance burden and breaking upgradability.
 
-**Template:**
-- [ ] Uses optional chaining: `context?.field`
-- [ ] Checks for existence before rendering: `*ngIf="context?.additions?.['field']"`
-- [ ] No unsafe innerHTML with untrusted additions data
-- [ ] Accessible HTML structure (semantic elements, ARIA attributes if needed)
-- [ ] Design system components used (not raw HTML for controls)
+### Business Drivers
 
-**Module Configuration:**
-- [ ] Extension component declared in app bundle module
-- [ ] Journey module imported with `forRoot()` configuration
-- [ ] `extensionSlots` object includes extension with correct key name
-- [ ] Extension component class passed (not instance): `slotName: MyComponent`
-- [ ] TypeScript compilation passes with strict mode (validates type compatibility)
+- Extend journeys without modifying source
+- View replacement heavyweight for minor additions
+- Fast custom field additions (not weeks-long projects)
 
-**Security:**
-- [ ] User-generated content from `additions` properly sanitized
-- [ ] No use of `innerHTML` with untrusted data
-- [ ] External URLs from additions validated before use in `href` or `src`
-- [ ] Sensitive data not logged to console from context
+### Technical Constraints
 
-**Styling:**
-- [ ] Styles scoped to component (not global)
-- [ ] Follows app/design system styling conventions
-- [ ] Responsive design considered
-- [ ] Does not break journey layout (e.g., excessive width/height)
+- Full TypeScript type safety required
+- Cannot expose journey internals
+- Journey functional without extensions provided
 
-**Testing:**
-- [ ] Extension component has unit tests
-- [ ] Tests cover context variations (with/without additions)
-- [ ] Tests handle `undefined` context gracefully
-- [ ] Integration test verifies extension renders in journey
+---
 
-### General Review Points
+## 5. Decision
 
-**Type Safety:**
-- [ ] No use of `any` types
-- [ ] TypeScript strict mode compilation passes
-- [ ] IDE provides autocomplete for context properties
-- [ ] Breaking changes to context type trigger compile errors
+<!-- 
+LLM: SKIP this section unless user asks "why" questions about the decision.
+This section is for human readers understanding decision rationale.
+-->
 
-**Performance:**
-- [ ] Extension component uses `OnPush` change detection if possible
-- [ ] No heavy computation in template expressions
-- [ ] Observables properly unsubscribed in `ngOnDestroy()` if manually subscribed
-- [ ] Extension doesn't cause excessive change detection cycles
+### What We Decided
 
-**Backward Compatibility:**
-- [ ] Adding new context fields is non-breaking (optional fields)
-- [ ] Removing/renaming context fields noted as breaking change
-- [ ] Migration guide provided for breaking changes
-- [ ] Deprecated extensions documented with removal timeline
+Type-safe extension slots: empty by default, add-only (never modify/remove existing content). Export `Context` and `Component` types in public API. PO approval required for new slots via RFF process.
 
-**Code Quality:**
-- [ ] Follows clean code guidelines (meaningful names, single responsibility)
-- [ ] No magic numbers or strings (use constants)
-- [ ] Comments explain "why", not "what"
-- [ ] Code is DRY (no unnecessary duplication)
+### Rationale
 
-**Process Compliance:**
-- [ ] Extension request approved via RFF process (for journey-side)
-- [ ] PO approval documented (for journey-side)
-- [ ] Extension documented in changelog
-- [ ] Related ADR or documentation updated if pattern changes
+| Choice | Why |
+|--------|-----|
+| Type-safe API | Compile-time checking, breaking changes caught at build |
+| Empty by default | Clear ownership, no default content ambiguity |
+| Context with Pick<> | Limited coupling, journey can refactor internals |
+| PO approval | Prevents template Swiss cheese, ensures valuable slots only |
+
+---
+
+## 6. Implementation
+
+### Affected Components
+
+| Component | Impact | Files |
+|-----------|--------|-------|
+| Journey Extension Types | CREATE | `<journey>/src/lib/extensions/*.ts` |
+| Journey Public API | MODIFY | `<journey>/src/index.ts` |
+| Journey Module | MODIFY | `<journey>/src/lib/*.module.ts` |
+| Journey View Components | MODIFY | `<journey>/src/lib/components/**/*.ts` |
+| Journey View Templates | MODIFY | `<journey>/src/lib/components/**/*.html` |
+| Extension Directives | CREATE | `<journey>/src/lib/components/**/*-extension.directive.ts` |
+| App Extension Components | CREATE | `apps/<app>/src/app/**/*-extension.component.ts` |
+| App Bundle Modules | MODIFY | `apps/<app>/src/app/**/*-bundle.module.ts` |
+
+### Related ADRs
+
+| ADR | Relationship |
+|-----|--------------|
+| ADR-007: Journey Configuration Standards | Related to - extensions use `forRoot()` pattern |
+
+### Migration Notes
+
+N/A - new standard. Extensions are additive and optional. Existing journeys and applications continue to work without changes.
+
+---
+
+## 7. Examples
+
+### Complete Example
+
+<!-- 
+NOTE: For extension type definitions, slot rendering, and app-side implementation,
+see Patterns 1-3 above. This example shows file organization only.
+-->
+
+**Scenario:** Print button extension for transaction details
+
+**File Organization:**
+
+```
+libs/transactions-journey/
+├── src/
+│   ├── lib/extensions/
+│   │   ├── transaction-details-extension.ts  # Context + Component types (Pattern 1)
+│   │   └── config.ts                         # InjectionToken (internal, NOT exported)
+│   ├── index.ts                              # Export ONLY types, not token
+│   └── transactions.module.ts                # forRoot() with extensionSlots
+│
+apps/retail-app/
+└── src/app/transactions/
+    ├── print-button.component.ts             # implements ExtensionComponent (Pattern 3)
+    └── transactions-bundle.module.ts         # forRoot({ extensionSlots: {...} })
+```
+
+**Key Integration Points:**
+
+| Step | File | Code |
+|------|------|------|
+| 1. Export types | `index.ts` | `export { Context, Component }` (NOT token) |
+| 2. Implement | `print-button.component.ts` | `@Input() context: Context \| undefined` |
+| 3. Configure | `bundle.module.ts` | `forRoot({ extensionSlots: { slotName: Component } })` |
+
+### Common Mistakes
+
+**Mistake 1: Exporting InjectionToken in Public API**
+
+```typescript
+// ❌ Wrong - exposes internal implementation
+// File: src/index.ts
+export { EXTENSIONS_CONFIG } from './lib/extensions';
+
+// ✅ Fix - only export types
+// File: src/index.ts
+export { ExtensionComponent, ExtensionContext } from './lib/extensions';
+// InjectionToken stays internal in ./lib/extensions/config.ts
+```
+
+**Mistake 2: Missing ngIf Guard on Extension Slot**
+
+```html
+<!-- ❌ Wrong - throws error when extension not provided -->
+<ng-container
+  bbExtension
+  [componentType]="extensionComponent"
+  [context]="context">
+</ng-container>
+
+<!-- ✅ Fix - guard with ngIf -->
+<ng-container
+  *ngIf="extensionComponent"
+  bbExtension
+  [componentType]="extensionComponent"
+  [context]="(context$ | async) || undefined">
+</ng-container>
+```
+
+**Mistake 3: Using `any` Type for Context**
+
+```typescript
+// ❌ Wrong - loses type safety, won't catch breaking changes
+@Input() context: any;
+
+// ✅ Fix - use journey's exported type
+@Input() context: TransactionDetailsExtensionContext | undefined;
+```
+
+---
+
+## 8. References
+
+- [Angular Dependency Injection](https://angular.io/guide/dependency-injection) — Core pattern for extension configuration
+- [Angular Dynamic Component Loader](https://angular.io/guide/dynamic-component-loader) — Conceptual foundation for extension rendering
+- [TypeScript Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) — Type-safe extension component pattern
+- [@backbase/ui-ang View Extensions](https://community.backbase.com/documentation/Retail-Apps/latest/view_extensions) — `ViewExtensionComponent`, `ViewExtensionDirective` base classes
+- [RFF Process (Jira)](https://backbase.atlassian.net/jira/software/c/projects/RFF/boards/1631) — Approval workflow for extension requests
+- [Angular Style Guide](https://angular.io/guide/styleguide) — Component and directive naming conventions
+- [Semantic Versioning 2.0.0](https://semver.org/) — Extension context types follow semver for breaking changes
+
+---

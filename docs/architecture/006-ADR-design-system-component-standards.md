@@ -1,335 +1,690 @@
 # ADR-006: Design System and Component Library Standards
 
+## 1. Summary
+
+<!-- LLM: Always load this section first -->
+
+### TL;DR
+
+> Backbase maintains a unified design system (`@backbase/ui-ang`) for shared components, with each capability team publishing their own capability-specific component library. All components must follow strict quality gates including 80%+ test coverage, accessibility compliance, and mandatory code review by component owners. Third-party dependencies must be approved by Frontend Guild and exposed as peer dependencies.
+
+### Rules
+
+**MUST DO ✅**
+
+1. Use `@backbase/ui-ang` components as building blocks for capability-specific components
+2. Maintain 80%+ unit test coverage for all components
+3. Get component owner approval before merging PRs to component libraries
+4. Expose third-party dependencies as peer dependencies (not bundled)
+5. Use `OnPush` change detection strategy for presentational components
+6. Document all public `@Input()` and `@Output()` properties with JSDoc
+7. Include accessibility tests (axe-core) for all component variations
+
+**MUST NOT ❌**
+
+1. Create direct DBS service connections in presentational/dumb components
+2. Depend on other capability UI libraries (no cross-capability dependencies)
+3. Bundle or hide third-party vendor libraries
+4. Add third-party dependencies without Frontend Guild approval
+5. Introduce breaking changes without major version bump
+6. Skip visual regression tests for UI changes
+7. Use `any` type in component public APIs
+
 ---
 
-## Decision summary
+## 2. Patterns
 
-Backbase will maintain a unified design system component library (`@backbase/ui-ang`) for shared components across all capabilities, with each capability team publishing their own capability-specific component library. Component ownership will be clearly defined and governed by the Frontend Guild. All components must follow strict quality gates including 80%+ test coverage, accessibility compliance, visual regression testing, and mandatory code review by component owners before merging. Third-party library dependencies must be approved by the Frontend Guild and exposed as peer dependencies to customers.
+<!-- LLM: Load for code generation tasks -->
 
-## Context and problem statement
+<!-- 
+Cross-references: 
+- Subscription cleanup (takeUntil): See ADR-000 Pattern 1
+- OnPush change detection: See ADR-000 Pattern 2
+- Type safety (no 'any'): See ADR-000 Pattern 3
+-->
 
-### Business context
-- **Product Consistency:** Banking applications across multiple capabilities (Retail, Business, Wealth) need consistent UI/UX to maintain brand identity and user trust
-- **Development Efficiency:** Component reuse reduces development time, maintenance burden, and ensures quality across products
-- **Scalability:** Multiple teams developing widgets and journeys need clear boundaries and ownership to prevent conflicts and bottlenecks
-- **Customer Customization:** Customers must be able to build custom widgets using public component APIs without being locked into Backbase state management
-- **Quality Assurance:** Component quality directly impacts all consuming applications; poor quality components cascade issues across the platform
-- **Success Criteria:**
-  - Single source of truth for design system components
-  - Clear ownership model preventing orphaned components
-  - 80%+ test coverage across all components
-  - Zero breaking changes without major version bump
-  - Capability teams unblocked by ability to create capability-specific components
+### Pattern Index
 
-### Technical context
-- **Existing Landscape:** Multiple Angular-based applications (retail-universal, business-universal) consuming shared UI components from `@backbase/ui-ang`
-- **Affected Systems:**
-  - `@backbase/ui-ang` - Design System Component Library
-  - Capability-specific UI libraries (per capability)
-  - All journey bundles and widgets
-  - Theme and styling system
-  - Component documentation and Storybook
-  - CI/CD pipelines and release processes
-- **Technical Challenges:**
-  - Component ownership unclear leading to stale/broken components
-  - No enforced quality gates causing regressions
-  - Capability teams blocked waiting for design system updates
-  - Unclear boundaries between design system and capability components
-  - Version conflicts and breaking changes causing production issues
-  - Inconsistent testing and documentation standards
+| Keywords | Pattern |
+|----------|---------|
+| smart, dumb, presentational, container | [Pattern 1: Smart/Dumb Component Separation](#pattern-1-smartdumb-component-separation) |
+| capability, library, design system, composition | [Pattern 2: Capability Component Composition](#pattern-2-capability-component-composition) |
+| third-party, dependency, peer, external | [Pattern 3: Third-Party Dependency Management](#pattern-3-third-party-dependency-management) |
+| rxjs, subscription, observable, cleanup | [Pattern 4: Observable Subscription Management](#pattern-4-observable-subscription-management) |
+| input, output, api, documentation | [Pattern 5: Component API Design](#pattern-5-component-api-design) |
 
-### Constraints and assumptions
+---
 
-**Technical Constraints:**
-- Must maintain Angular version compatibility across all consuming applications
-- Cannot introduce breaking changes without major version increments
-- All third-party dependencies must be peer dependencies (not bundled/hidden)
-- Must support theming and customization by customers
-- Component APIs must be stable and well-documented
-- Test coverage minimum of 80% enforced at build time
-- Must work across all supported browsers and accessibility requirements
+### Pattern 1: Smart/Dumb Component Separation
 
-**Business Constraints:**
-- Component ownership must not create single points of failure
-- Capability teams cannot be blocked indefinitely waiting for design system components
-- Release schedule must align with widget collection releases
-- Cannot require complete application rewrites for version upgrades
-- Design system team capacity is limited and must be protected
-- Must balance consistency with capability team autonomy
+**Use when:** Building any component that could potentially be reused or needs clear separation between data and presentation
 
-**Environmental Constraints:**
-- Must integrate with existing Nx monorepo workspace
-- Must work within current CI/CD pipeline infrastructure
-- Design system itself must be approved by designers before implementation
-- Must support both on-premise and cloud deployment models
-- Documentation must be co-located with code and version-controlled
+**Don't use when:** Building one-off page layouts or route components that only orchestrate other components
 
-**Assumptions Made:**
-- Frontend Guild has authority to approve/reject third-party library additions
-- Component owners will maintain their components and respond to PRs
-- Designers will provide design system specifications before Angular implementation
-- Backend teams will not be affected by component library structure decisions
-- Automated testing will reach sufficient quality to skip manual regression testing
-- Teams will adopt latest stable ui-ang versions without extensive delays
+✅ **Good**
 
-### Affected architecture description elements
+```typescript
+// CONTEXT: Capability-specific transaction list component
+// RULE: Presentational components don't inject services (except utility services)
 
-**Components:**
-- `@backbase/ui-ang` NPM package (Design System Component Library)
-- Capability UI libraries (one per capability: Retail, Business, Wealth, etc.)
-- Theme system and component styling
-- Component documentation (Storybook, API docs)
-- Widget implementations (smart components)
-- Journey bundles consuming components
-- CI/CD pipeline for component library releases
-- Version management and changelog systems
+@Component({
+  selector: 'bb-transaction-list',
+  template: `
+    <bb-empty-state *ngIf="transactions.length === 0" [message]="emptyMessage"></bb-empty-state>
+    <ul *ngFor="let tx of transactions; trackBy: trackById">
+      <bb-transaction-item [transaction]="tx" (select)="onSelect.emit(tx)"></bb-transaction-item>
+    </ul>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class TransactionListComponent {
+  /** List of transactions to display */
+  @Input() transactions: Transaction[] = [];
+  
+  /** Message shown when no transactions exist */
+  @Input() emptyMessage = 'No transactions found';
+  
+  /** Emits when user selects a transaction */
+  @Output() onSelect = new EventEmitter<Transaction>();
 
-**Views:**
-- **Development View:** Module structure, component boundaries, ownership mapping, testing requirements
-- **Logical View:** Component composition patterns, smart/dumb component separation, design system hierarchy
-- **Process View:** PR approval workflow, release process, MAINT ticket routing, quality gates
-- **Physical View:** NPM package distribution, versioning strategy, peer dependency management
+  trackById(index: number, tx: Transaction): string {
+    return tx.id;
+  }
+}
+```
 
-**Stakeholders:**
-- **Frontend Guild:** Governs third-party library approvals and overall standards
-- **Design System Team:** Maintains `@backbase/ui-ang` and theme
-- **Capability Teams:** Own capability-specific components and consume design system
-- **Widget Developers:** Compose components into smart widgets
-- **Customers:** Customize and extend components for their implementations
-- **Designers:** Define design system specifications and approve visual changes
-- **QA Teams:** Validate component quality and regressions
-- **Platform Team:** Maintains release pipeline and versioning
+❌ **Bad**
 
-## Decision
+```typescript
+// PROBLEM: Presentational component directly injects and uses DBS service
 
-### What we decided
+@Component({
+  selector: 'bb-transaction-list',
+  template: `<ul *ngFor="let tx of transactions$ | async">...</ul>`
+})
+export class TransactionListComponent implements OnInit {
+  transactions$: Observable<Transaction[]>;
 
-**1. Component Library Structure:**
-- **Single Design System Library:** `@backbase/ui-ang` contains all shared components across capabilities (e.g., ButtonModule, EmptyStateModule)
-- **Capability-Specific Libraries:** Each capability maintains their own UI library for capability-specific components (e.g., Retail UI library, Business UI library)
-- **Composition Pattern:** Capability components are compositions of design system components
-- **Presentational Components:** Capability components must be dumb/presentational (no direct DBS service connections)
-- **Cross-Capability Prohibition:** Capabilities cannot depend on other capability UI libraries
+  constructor(private transactionService: TransactionService) {} // ❌ Service injection
 
-**2. Ownership Model:**
-Component ownership assigned to Backbase teams with frontend engineers responsible for:
-- Quality maintenance and consistency
-- Design system alignment
-- Accessibility and non-functional requirements
-- Use case coverage and documentation
-- Theme styling for owned components
+  ngOnInit() {
+    this.transactions$ = this.transactionService.getTransactions(); // ❌ Direct service call
+  }
+}
+```
 
-Ownership determined by:
-- Capability with highest component utilization
-- Team with most contribution history and knowledge
-- Developer Enablement VS for universal components (buttons, loading indicators)
-- Volunteer teams claiming ownership
+**Why it's wrong:** Presentational components with service dependencies cannot be reused across different data sources, make testing harder (require service mocking), and break the smart/dumb separation pattern that enables flexible composition.
 
-**3. Third-Party Library Policy:**
-- All third-party dependencies must be approved by Frontend Guild
-- Dependencies must be peer dependencies (explicitly exposed to customers)
-- No vendor library abstraction/hiding allowed
-- Customers can use third-party libraries directly
+**Verify:**
+- [ ] Component constructor only has utility services (Router, i18n, etc.)
+- [ ] All data comes through `@Input()` properties
+- [ ] All actions emit through `@Output()` events
+- [ ] Uses `OnPush` change detection strategy
 
-**4. Quality Gates (Mandatory for all PRs):**
-- ✅ Successful pipeline build
-- ✅ Accessibility tests covering changes
-- ✅ Unit tests updated and covering changes
-- ✅ Unit test coverage ≥ 80% (no decrease from baseline)
-- ✅ SonarQube validation passed
-- ✅ 2+ approvals from FE engineers (including at least one component owner)
-- ✅ API documentation updated
-- ✅ Changelog updated with JIRA ticket reference
-- ✅ QA approval after testing
-- ✅ Visual regression tests updated and passed
-- ✅ Designer approval (if visual changes)
+---
 
-**5. Release Process:**
-- Platform team manages release, versioning, and distribution of `@backbase/ui-ang`
-- Incremental releases created automatically on each PR merge (semantic versioning)
-- Teams develop against latest stable version
-- Release schedule controlled by delivery manager of Platform VS
-- Documentation published with each promoted release
+### Pattern 2: Capability Component Composition
 
-**6. MAINT Ticket Handling:**
-- No MAINT tickets initiated within R&D (affected team fixes immediately)
-- External MAINT tickets land in backlog of owning team
-- Component owners analyze and delegate fix responsibility
-- All fixes must follow contribution rules
+**Use when:** Building capability-specific UI that combines design system components
+
+**Don't use when:** The component would be useful across multiple capabilities (should go to `@backbase/ui-ang`)
+
+✅ **Good**
+
+```typescript
+// CONTEXT: Retail-specific account summary card
+// RULE: Capability components compose design system components, no cross-capability deps
+
+import { ButtonModule, CardModule, IconModule } from '@backbase/ui-ang';
+
+@Component({
+  selector: 'retail-account-summary',
+  template: `
+    <bb-card>
+      <bb-card-header>
+        <bb-icon [name]="accountIcon"></bb-icon>
+        <span>{{ account.name }}</span>
+      </bb-card-header>
+      <bb-card-body>
+        <span class="balance">{{ account.balance | currency }}</span>
+      </bb-card-body>
+      <bb-card-footer>
+        <bb-button (click)="viewDetails.emit()">View Details</bb-button>
+      </bb-card-footer>
+    </bb-card>
+  `
+})
+export class RetailAccountSummaryComponent {
+  @Input() account: RetailAccount;
+  @Output() viewDetails = new EventEmitter<void>();
+  
+  get accountIcon(): string {
+    return this.account.type === 'savings' ? 'piggy-bank' : 'wallet';
+  }
+}
+```
+
+❌ **Bad**
+
+```typescript
+// PROBLEM: Capability component imports from another capability library
+
+import { BusinessAccountCardModule } from '@business/ui-lib'; // ❌ Cross-capability import
+import { CardModule } from '@backbase/ui-ang';
+
+@Component({
+  selector: 'retail-account-summary',
+  template: `
+    <business-account-card [account]="account"></business-account-card> <!-- ❌ -->
+  `
+})
+export class RetailAccountSummaryComponent {
+  @Input() account: RetailAccount;
+}
+```
+
+**Why it's wrong:** Cross-capability dependencies create tight coupling between capability teams, prevent independent releases, and lead to version conflicts. If a component is needed by multiple capabilities, it should be promoted to `@backbase/ui-ang`.
+
+**Verify:**
+- [ ] Only imports from `@backbase/ui-ang` for design system components
+- [ ] No imports from other capability libraries (`@business/*`, `@wealth/*`, etc.)
+- [ ] Component is purely presentational (no DBS service calls)
+- [ ] Composes design system components rather than duplicating them
+
+---
+
+### Pattern 3: Third-Party Dependency Management
+
+**Use when:** Adding external libraries for specialized functionality (charts, date pickers, etc.)
+
+**Don't use when:** Functionality can be achieved with existing design system components
+
+✅ **Good**
+
+```json
+// CONTEXT: package.json for a component library using Chart.js
+// RULE: Third-party libraries exposed as peer dependencies
+
+{
+  "name": "@backbase/charts-widget",
+  "peerDependencies": {
+    "chart.js": "^4.0.0",
+    "@angular/core": "^15.0.0"
+  },
+  "devDependencies": {
+    "chart.js": "^4.4.0"
+  }
+}
+```
+
+```typescript
+// CONTEXT: Component using approved third-party library
+// RULE: Frontend Guild approved, peer dependency exposed
+
+import { Chart } from 'chart.js'; // ✅ Direct import, customer knows about it
+
+@Component({
+  selector: 'bb-analytics-chart',
+  template: '<canvas #chartCanvas></canvas>'
+})
+export class AnalyticsChartComponent {
+  @ViewChild('chartCanvas') canvas: ElementRef<HTMLCanvasElement>;
+  @Input() data: ChartData;
+}
+```
+
+❌ **Bad**
+
+```json
+// PROBLEM: Third-party library hidden as regular dependency
+
+{
+  "name": "@backbase/charts-widget",
+  "dependencies": {
+    "chart.js": "^4.0.0"  // ❌ Bundled, hidden from customer
+  }
+}
+```
+
+```typescript
+// PROBLEM: Library wrapped/abstracted hiding the dependency
+
+// internal/chart-wrapper.ts - ❌ Abstraction layer hiding vendor
+export class ChartWrapper {
+  private chart: any; // ❌ Hides Chart.js completely
+  
+  render(data: unknown) {
+    this.chart = new (require('chart.js').Chart)(/*...*/);
+  }
+}
+```
+
+**Why it's wrong:** Hiding dependencies prevents customers from understanding their application's dependency tree, causes hidden version conflicts, and blocks customers from upgrading libraries independently. Customers should use third-party libraries directly in their code.
+
+**Verify:**
+- [ ] Third-party library approved by Frontend Guild before implementation
+- [ ] Library added to `peerDependencies` in package.json
+- [ ] No abstraction layer hiding the library from consumers
+- [ ] Documentation mentions the external dependency requirement
+
+---
+
+### Pattern 4: Observable Subscription Management
+
+<!-- See ADR-000 Pattern 1: Subscription Cleanup (takeUntil) for complete pattern -->
+
+**Rule:** Smart components must clean up subscriptions. Use `takeUntil(destroy$)` or prefer `async` pipe.
+
+**Key Points:**
+- **Use when:** Smart/container components subscribe to observables
+- **Don't use when:** Dumb components—prefer `@Input()` over observables
+- **Prefer:** `async` pipe in templates over manual subscription
+- **Avoid:** Nested `.subscribe()` calls (use RxJS operators instead)
+
+For full code examples and the `takeUntil` pattern, see **ADR-000 Pattern 1: Subscription Cleanup**.
+
+---
+
+### Pattern 5: Component API Design
+
+**Use when:** Creating any component with inputs and outputs
+
+**Don't use when:** Internal helper classes that are not part of public API
+
+✅ **Good**
+
+```typescript
+// CONTEXT: Reusable pagination component
+// RULE: All inputs/outputs typed and documented, no 'any'
+
+@Component({
+  selector: 'bb-pagination',
+  template: `...`,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class PaginationComponent {
+  /**
+   * Current page number (1-indexed)
+   * @default 1
+   */
+  @Input() currentPage = 1;
+  
+  /**
+   * Total number of items across all pages
+   */
+  @Input() totalItems: number;
+  
+  /**
+   * Number of items displayed per page
+   * @default 10
+   */
+  @Input() pageSize = 10;
+  
+  /**
+   * Emits when user navigates to a different page
+   * @emits PageChangeEvent with newPage and previousPage
+   */
+  @Output() pageChange = new EventEmitter<PageChangeEvent>();
+  
+  /**
+   * Calculated total pages based on totalItems and pageSize
+   */
+  get totalPages(): number {
+    return Math.ceil(this.totalItems / this.pageSize);
+  }
+}
+
+export interface PageChangeEvent {
+  newPage: number;
+  previousPage: number;
+}
+```
+
+❌ **Bad**
+
+```typescript
+// PROBLEM: No types, no documentation, using 'any'
+
+@Component({
+  selector: 'bb-pagination',
+  template: `...`
+})
+export class PaginationComponent {
+  @Input() page; // ❌ No type
+  @Input() total: any; // ❌ Using any
+  @Input() size; // ❌ No default, no type
+  @Output() change = new EventEmitter(); // ❌ No generic type, vague name
+}
+```
+
+**Why it's wrong:** Untyped and undocumented APIs make components difficult to use correctly, impossible to validate at compile time, and provide poor developer experience. Customers cannot understand component capabilities without reading source code.
+
+**Verify:**
+- [ ] All `@Input()` have explicit types (no implicit `any`)
+- [ ] All `@Input()` have JSDoc descriptions
+- [ ] All `@Output()` use typed `EventEmitter<T>`
+- [ ] Output events have descriptive names (onSelect, pageChange, not just "change")
+
+---
+
+## 3. Validation
+
+<!-- LLM: Load for code review tasks -->
+
+### Automated Checks
+
+| ID | Check | Severity | How to Detect |
+|----|-------|----------|---------------|
+| `DS-001` | No `any` type in component inputs/outputs | 🔴 BLOCKER | `grep -r "@Input().*: any" --include="*.ts"` |
+| `DS-002` | Components use OnPush change detection | 🟡 WARNING | `grep -rL "ChangeDetectionStrategy.OnPush" --include="*.component.ts"` |
+| `DS-003` | No cross-capability imports | 🔴 BLOCKER | `grep -r "from '@retail\|@business\|@wealth'" libs/*/internal` |
+| `DS-004` | TrackBy function in ngFor | 🟡 WARNING | `grep -r "\*ngFor" --include="*.html" \| grep -v "trackBy"` |
+| `DS-005` | Test coverage threshold | 🔴 BLOCKER | Jest coverage report < 80% |
+| `DS-006` | No direct DOM manipulation | 🟡 WARNING | `grep -r "document\.\|getElementById\|querySelector" --include="*.ts"` |
+| `DS-007` | Third-party in peerDependencies | 🔴 BLOCKER | Check package.json dependencies vs peerDependencies |
+
+### Review Checklist
+
+| ID | Check | Severity |
+|----|-------|----------|
+| `DS-R01` | Component owner approved PR | 🔴 BLOCKER |
+| `DS-R02` | Presentational components have no DBS service injections | 🔴 BLOCKER |
+| `DS-R03` | New third-party dependencies approved by Frontend Guild | 🔴 BLOCKER |
+| `DS-R04` | Breaking changes include migration guide | 🔴 BLOCKER |
+| `DS-R05` | Visual changes approved by designer | 🔴 BLOCKER |
+| `DS-R06` | API documentation updated for public interfaces | 🟡 WARNING |
+| `DS-R07` | Changelog updated with JIRA ticket reference | 🟡 WARNING |
+| `DS-R08` | Uses design system components instead of custom implementations | 🟡 WARNING |
+
+### Required Tests
+
+| Scenario | Type | Required |
+|----------|------|----------|
+| All component inputs/outputs combinations | Unit | ✅ Yes |
+| Accessibility for all component states | Unit (axe-core) | ✅ Yes |
+| Visual regression for UI components | Visual | ✅ Yes |
+| Service mocking in smart components | Unit | ✅ Yes |
+| Async operations with fakeAsync | Unit | ✅ Yes |
+| Error states and edge cases | Unit | ✅ Yes |
+| Manual cross-browser testing | Manual | ⚪ Optional |
+
+---
+
+## 4. Context
+
+<!-- 
+LLM: SKIP this section unless user asks "why" questions about the decision.
+This section is for human readers understanding the historical context.
+-->
+
+### Problem
+
+Teams duplicate common components, leading to inconsistent UI/UX. Component ownership unclear, causing stale components. Third-party library management inconsistent (bundled vs peer dependencies).
+
+### Business Drivers
+
+- Consistent UI/UX across banking products
+- Component reuse reduces maintenance burden
+- Customers need public APIs for custom widgets
+
+### Technical Constraints
+
+- Angular version compatibility required
+- Third-party deps must be peer dependencies
+- 80% test coverage enforced
+
+---
+
+## 5. Decision
+
+<!-- 
+LLM: SKIP this section unless user asks "why" questions about the decision.
+This section is for human readers understanding decision rationale.
+-->
+
+### What We Decided
+
+Unified design system (`@backbase/ui-ang`) for shared components. Capability-specific libraries for domain components. Component owner approval required for PRs. Third-party deps as peer dependencies (Frontend Guild approved).
 
 ### Rationale
 
-**Unified Design System:**
-- Ensures UI consistency across all Backbase products
-- Prevents duplication of common components (buttons, inputs, modals)
-- Single version of truth for designers and developers
-- Reduces maintenance burden by avoiding component proliferation
+| Choice | Why |
+|--------|-----|
+| Unified design system | Prevents duplication, ensures UI consistency |
+| Capability libraries | Unblocks teams, clear escalation path to design system |
+| Ownership model | Eliminates orphaned components, ensures quality reviews |
+| Peer dependencies | Transparent deps, no hidden version conflicts |
 
-**Capability-Specific Libraries:**
-- Prevents blocking capability teams waiting for design system approvals
-- Allows teams to move quickly with domain-specific components
-- Clear escalation path: capability component → design system component (if proven valuable)
-- Maintains capability team autonomy while ensuring consistency
+---
 
-**Strict Ownership Model:**
-- Eliminates orphaned/unmaintained components
-- Ensures knowledgeable reviews preventing quality degradation
-- Creates accountability for component quality and documentation
-- Prevents merge conflicts and unclear decision-making
+## 6. Implementation
 
-**Peer Dependencies for Third-Party:**
-- Transparency to customers about external dependencies
-- Customers can upgrade libraries independently if needed
-- Prevents hidden version conflicts
-- Allows customers to use same libraries directly in their code
+### Affected Components
 
-**Extensive Quality Gates:**
-- 80%+ coverage catches regressions before production
-- Accessibility tests ensure WCAG compliance
-- Visual regression tests catch unintended styling changes
-- Owner approval prevents architectural inconsistencies
-- Automated testing reduces need for manual regression testing
+| Component | Impact | Files |
+|-----------|--------|-------|
+| Design System Library | MODIFY | `libs/ui-ang/**/*` |
+| Capability UI Libraries | CREATE/MODIFY | `libs/{capability}-ui/**/*` |
+| Widget Implementations | MODIFY | `libs/*-widget/**/*.component.ts` |
+| Journey Bundles | MODIFY | `libs/journey-bundles/**/*` |
+| Package Configuration | MODIFY | `**/package.json` |
+| Test Configuration | MODIFY | `**/jest.config.ts` |
 
-## Code review checklist
+### Related ADRs
 
-### Angular-Specific Standards
+| ADR | Relationship |
+|-----|--------------|
+| ADR-001: Accessibility Standards | Depends on: Components must follow a11y patterns |
+| ADR-013: Unit/Integration Testing Standards | Depends on: Testing requirements |
+| ADR-004: Responsiveness Standards | Related to: Component responsive behavior |
 
-#### Component Architecture
-- [ ] **Smart/Dumb Separation:** Presentational components don't inject services (except utility services like Router, i18n)
-- [ ] **Component Inputs:** All `@Input()` properties have type annotations and JSDoc descriptions
-- [ ] **Component Outputs:** All `@Output()` events use `EventEmitter<T>` with specific types (not `any`)
-- [ ] **Change Detection:** `OnPush` strategy used where possible for performance
-- [ ] **Lifecycle Hooks:** Only implemented interfaces for used hooks (e.g., `implements OnInit`)
-- [ ] **Template Syntax:** No complex logic in templates; use component methods or pipes
-- [ ] **Standalone Components:** Consider standalone components (Angular 14+) for better tree-shaking
+### Migration Notes
 
-#### Component Design
-- [ ] **Single Responsibility:** Component has one clear purpose
-- [ ] **Reusability:** Component is configurable via inputs rather than hard-coded
-- [ ] **Encapsulation:** Component styles use `:host` and don't leak globally
-- [ ] **View Encapsulation:** Appropriate encapsulation strategy (default: Emulated)
-- [ ] **Host Binding:** Use `@HostBinding` and `@HostListener` appropriately for host element interaction
+For existing components not following these standards:
 
-#### Template Best Practices
-- [ ] **Async Pipe:** Use `async` pipe for observables to prevent memory leaks
-- [ ] **TrackBy Function:** `*ngFor` includes `trackBy` function for performance
-- [ ] **Null Safety:** Templates handle null/undefined cases with safe navigation (`?.`) or `*ngIf`
-- [ ] **Minimal Logic:** Complex logic extracted to component methods or pipes
-- [ ] **No DOM Manipulation:** No direct DOM manipulation; use Angular directives/renderers
+1. **Identify ownership:** Map components to owning teams based on usage and contribution history
+2. **Add missing tests:** Increase coverage to 80% minimum, add axe-core accessibility tests
+3. **Fix service injections:** Refactor presentational components to use inputs/outputs only
+4. **Update peer dependencies:** Move third-party libraries from dependencies to peerDependencies
+5. **Add documentation:** Add JSDoc comments to all public inputs and outputs
 
-#### RxJS & State Management
-- [ ] **Observable Cleanup:** Subscriptions unsubscribed in `ngOnDestroy` (or use `async` pipe)
-- [ ] **Subject Usage:** `Subject`/`BehaviorSubject` properly typed and private when internal
-- [ ] **Error Handling:** Observable streams include error handling (`catchError`)
-- [ ] **Subscription Management:** Consider `takeUntil` pattern for automatic unsubscription
-- [ ] **No Nested Subscriptions:** Avoid nested subscriptions; use RxJS operators (`switchMap`, `mergeMap`, etc.)
+---
 
-#### Forms
-- [ ] **Form Validation:** Reactive forms with typed form controls (Angular 14+)
-- [ ] **Form State:** Form state accessible for UI feedback (touched, dirty, valid)
-- [ ] **Custom Validators:** Custom validators are pure functions and testable
-- [ ] **ControlValueAccessor:** Custom form controls implement `ControlValueAccessor`
-- [ ] **Form Arrays:** Dynamic forms use `FormArray` with proper type safety
+## 7. Examples
 
-#### Dependency Injection
-- [ ] **Constructor Injection:** Dependencies injected via constructor
-- [ ] **Provider Scope:** Services provided at appropriate level (`root`, module, component)
-- [ ] **Tree-shakeable Services:** Services use `providedIn: 'root'` when appropriate
-- [ ] **Interface Injection:** Prefer interfaces with `InjectionToken` for flexibility
+### Complete Example
 
-#### Performance
-- [ ] **Lazy Loading:** Large modules lazy loaded at route level
-- [ ] **Pure Pipes:** Pipes are pure unless absolutely necessary
-- [ ] **OnPush Strategy:** Components use `OnPush` when state is immutable
-- [ ] **Large Lists:** Virtual scrolling (`cdk-virtual-scroll`) used for large lists
-- [ ] **No Heavy Computations:** Heavy computations in `ngDoCheck` or getters avoided
+**Scenario:** Creating a capability-specific component that composes design system components
 
-#### Testing
-- [ ] **Unit Tests:** All public methods tested with positive and negative cases
-- [ ] **Component Testing:** Component inputs/outputs tested with all variations
-- [ ] **Mock Services:** Services mocked appropriately in component tests
-- [ ] **Async Testing:** Async operations tested with `fakeAsync`/`async`/`flush`
-- [ ] **Test Isolation:** Tests don't depend on execution order
-- [ ] **Accessibility Tests:** Automated axe-core tests for component variations
-- [ ] **Visual Tests:** Visual regression tests updated for UI changes
+```typescript
+// File: libs/retail-ui/src/lib/account-card/account-card.component.ts
 
-#### Accessibility (WCAG 2.1 AA)
-- [ ] **Semantic HTML:** Use semantic elements (`<button>`, `<nav>`, `<main>`)
-- [ ] **ARIA Attributes:** Proper ARIA labels, roles, and states where semantic HTML insufficient
-- [ ] **Keyboard Navigation:** All interactive elements keyboard accessible (tab order, Enter/Space)
-- [ ] **Focus Management:** Visible focus indicators; focus managed for modals/dynamic content
-- [ ] **Color Contrast:** Text meets WCAG AA contrast ratios (4.5:1 normal, 3:1 large)
-- [ ] **Screen Reader:** Component announces state changes to screen readers
-- [ ] **Form Labels:** All form inputs have associated labels (explicit or `aria-label`)
-- [ ] **Automated A11y Tests:** axe-core tests pass for all component states
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { CardModule, ButtonModule, IconModule, BadgeModule } from '@backbase/ui-ang';
 
-#### Documentation
-- [ ] **JSDoc Comments:** Public API documented with JSDoc (inputs, outputs, methods)
-- [ ] **Usage Examples:** Complex components include usage examples in comments
-- [ ] **Component README:** Capability components include README with use cases
-- [ ] **Migration Guide:** Breaking changes include migration guide
-- [ ] **Storybook Stories:** Component has Storybook story showing all variations
+/**
+ * Displays a retail banking account with balance and quick actions.
+ * 
+ * @example
+ * <retail-account-card 
+ *   [account]="savingsAccount"
+ *   (viewTransactions)="onViewTransactions($event)">
+ * </retail-account-card>
+ */
+@Component({
+  selector: 'retail-account-card',
+  templateUrl: './account-card.component.html',
+  styleUrls: ['./account-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class AccountCardComponent {
+  /**
+   * The retail account to display
+   */
+  @Input() account: RetailAccount;
+  
+  /**
+   * Whether to show the quick actions footer
+   * @default true
+   */
+  @Input() showActions = true;
+  
+  /**
+   * Emits when user clicks view transactions button
+   */
+  @Output() viewTransactions = new EventEmitter<RetailAccount>();
+  
+  /**
+   * Emits when user clicks transfer button
+   */
+  @Output() initiateTransfer = new EventEmitter<RetailAccount>();
+  
+  /**
+   * Returns appropriate icon based on account type
+   */
+  get accountIcon(): string {
+    switch (this.account.type) {
+      case 'savings': return 'piggy-bank';
+      case 'checking': return 'wallet';
+      case 'credit': return 'credit-card';
+      default: return 'bank';
+    }
+  }
+  
+  /**
+   * Returns badge color based on account status
+   */
+  get statusBadgeColor(): string {
+    return this.account.status === 'active' ? 'success' : 'warning';
+  }
+}
 
-#### Dependencies & Imports
-- [ ] **Peer Dependencies:** Third-party libraries added as peer dependencies
-- [ ] **Guild Approval:** New third-party libraries approved by Frontend Guild
-- [ ] **Tree-shakeable Imports:** Import specific items, not entire libraries (`import { map } from 'rxjs/operators'`)
-- [ ] **Circular Dependencies:** No circular dependencies between modules
-- [ ] **Barrel Imports:** Use barrel imports (`index.ts`) for public APIs only
+export interface RetailAccount {
+  id: string;
+  name: string;
+  type: 'savings' | 'checking' | 'credit';
+  balance: number;
+  currency: string;
+  status: 'active' | 'frozen' | 'closed';
+}
+```
 
-#### Type Safety
-- [ ] **No `any` Type:** Avoid `any`; use proper types or `unknown`
-- [ ] **Strict Mode:** Code compatible with TypeScript strict mode
-- [ ] **Type Inference:** Let TypeScript infer types when obvious
-- [ ] **Generic Types:** Use generics for reusable type-safe components
-- [ ] **Null Checks:** Handle `null`/`undefined` explicitly with strict null checks
+```html
+<!-- File: libs/retail-ui/src/lib/account-card/account-card.component.html -->
 
-#### Styling & Theming
-- [ ] **Component Styles:** Styles scoped to component (no global style pollution)
-- [ ] **Theme Variables:** Use CSS custom properties from theme, not hard-coded colors
-- [ ] **Responsive:** Component responsive using theme breakpoints
-- [ ] **No Magic Numbers:** Use theme spacing/sizing variables
-- [ ] **BEM or Similar:** Consistent class naming convention
+<bb-card class="retail-account-card">
+  <bb-card-header>
+    <bb-icon [name]="accountIcon" size="lg"></bb-icon>
+    <div class="account-info">
+      <h3 class="account-name">{{ account.name }}</h3>
+      <bb-badge [color]="statusBadgeColor">{{ account.status }}</bb-badge>
+    </div>
+  </bb-card-header>
+  
+  <bb-card-body>
+    <span class="balance" aria-label="Account balance">
+      {{ account.balance | currency:account.currency }}
+    </span>
+  </bb-card-body>
+  
+  <bb-card-footer *ngIf="showActions">
+    <bb-button 
+      variant="secondary" 
+      (click)="viewTransactions.emit(account)"
+      aria-label="View transactions for {{ account.name }}">
+      Transactions
+    </bb-button>
+    <bb-button 
+      variant="primary" 
+      (click)="initiateTransfer.emit(account)"
+      aria-label="Transfer from {{ account.name }}">
+      Transfer
+    </bb-button>
+  </bb-card-footer>
+</bb-card>
+```
 
-#### Design System Alignment
-- [ ] **Design System Components:** Use design system components instead of creating custom ones
-- [ ] **Design Approval:** Visual changes approved by designer
-- [ ] **Capability Boundary:** Capability-specific logic not in design system components
-- [ ] **Composition:** Capability components compose design system components
-- [ ] **No Cross-Capability:** Capability libraries don't depend on each other
+### Common Mistakes
 
-### Quality Assurance
-- [ ] **QA Testing:** QA has tested the change in appropriate environment
-- [ ] **Manual Testing:** Component manually tested in multiple browsers
-- [ ] **Regression Testing:** Existing functionality not broken
-- [ ] **Visual Regression:** Visual regression tests pass or updated appropriately
-- [ ] **Edge Cases:** Edge cases tested (empty states, errors, loading)
+**Mistake 1: Service injection in presentational component**
 
-### Release Readiness
-- [ ] **Semantic Versioning:** Change categorized correctly (major/minor/patch)
-- [ ] **Breaking Changes:** Breaking changes documented and justified
-- [ ] **Migration Path:** Breaking changes include migration path for consumers
-- [ ] **Backward Compatibility:** Deprecation warnings added for breaking changes in next major
+```typescript
+// ❌ Wrong
+@Component({ selector: 'retail-account-card' })
+export class AccountCardComponent {
+  @Input() accountId: string;
+  account$: Observable<Account>;
+  
+  constructor(private accountService: AccountService) {
+    this.account$ = this.accountService.getAccount(this.accountId);
+  }
+}
 
-## References
+// ✅ Fix
+@Component({ selector: 'retail-account-card' })
+export class AccountCardComponent {
+  @Input() account: Account; // Data passed in, not fetched
+}
+```
 
-### Authoritative sources
-- [Frontend Guild Decision](https://backbase.atlassian.net/wiki/spaces/GUIL/pages/1838973010) - Component library structure
-- [Contribution Rules](https://backbase.atlassian.net/wiki/spaces/GUIL/pages/2020934329) - PR requirements
-- [Ownership Model](https://backbase.atlassian.net/wiki/spaces/GUIL/pages/2019264332) - Component ownership
-- [Release Process](https://backbase.atlassian.net/wiki/spaces/GUIL/pages/2020967202) - ui-ang releases
-- [MAINT Process](https://backbase.atlassian.net/wiki/spaces/GUIL/pages/2041774628) - Issue handling
+**Mistake 2: Cross-capability import**
 
-### Technical references
-- [Angular Style Guide](https://angular.io/guide/styleguide) - Official Angular coding standards
-- [Angular Component API](https://angular.io/api/core/Component) - Component API reference
-- [RxJS Best Practices](https://rxjs.dev/guide/overview) - Observable patterns
-- [Semantic Versioning](https://semver.org/) - Version numbering standard
-- [Conventional Commits](https://www.conventionalcommits.org/) - Commit message standard
-- [NPM Peer Dependencies](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#peerdependencies) - Peer dependency specification
+```typescript
+// ❌ Wrong
+import { BusinessAccountBadge } from '@business/ui-lib';
 
-### Standards compliance
-- [WCAG 2.1 AA](https://www.w3.org/WAI/WCAG21/quickref/?versions=2.1&levels=aa) - Accessibility standard
-- [Angular Best Practices](https://angular.io/guide/styleguide) - Framework conventions
-- [TypeScript Strict Mode](https://www.typescriptlang.org/tsconfig#strict) - Type safety
-- [Jest Testing Framework](https://jestjs.io/docs/getting-started) - Unit testing
+@Component({ selector: 'retail-account-card' })
+export class AccountCardComponent {
+  // Uses component from another capability
+}
+
+// ✅ Fix
+import { BadgeModule } from '@backbase/ui-ang';
+
+@Component({ selector: 'retail-account-card' })
+export class AccountCardComponent {
+  // Uses shared design system component
+}
+```
+
+**Mistake 3: Hidden third-party dependency**
+
+```json
+// ❌ Wrong - package.json
+{
+  "dependencies": {
+    "chart.js": "^4.0.0"
+  }
+}
+
+// ✅ Fix - package.json
+{
+  "peerDependencies": {
+    "chart.js": "^4.0.0"
+  },
+  "devDependencies": {
+    "chart.js": "^4.0.0"
+  }
+}
+```
+
+---
+
+## 8. References
+
+- [Frontend Guild Decision](https://backbase.atlassian.net/wiki/spaces/GUIL/pages/1838973010) — Component library structure
+- [Contribution Rules](https://backbase.atlassian.net/wiki/spaces/GUIL/pages/2020934329) — PR requirements
+- [Ownership Model](https://backbase.atlassian.net/wiki/spaces/GUIL/pages/2019264332) — Component ownership
+- [Release Process](https://backbase.atlassian.net/wiki/spaces/GUIL/pages/2020967202) — ui-ang releases
+- [MAINT Process](https://backbase.atlassian.net/wiki/spaces/GUIL/pages/2041774628) — Issue handling
+- [Angular Style Guide](https://angular.io/guide/styleguide) — Official Angular coding standards
+- [Angular Component API](https://angular.io/api/core/Component) — Component API reference
+- [RxJS Best Practices](https://rxjs.dev/guide/overview) — Observable patterns
+- [Semantic Versioning](https://semver.org/) — Version numbering standard
+- [Conventional Commits](https://www.conventionalcommits.org/) — Commit message standard
+- [NPM Peer Dependencies](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#peerdependencies) — Peer dependency specification
+- [WCAG 2.1 AA](https://www.w3.org/WAI/WCAG21/quickref/?versions=2.1&levels=aa) — Accessibility standard
+- [TypeScript Strict Mode](https://www.typescriptlang.org/tsconfig#strict) — Type safety
+- [Jest Testing Framework](https://jestjs.io/docs/getting-started) — Unit testing
+
+---

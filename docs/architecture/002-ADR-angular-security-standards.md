@@ -1,293 +1,154 @@
 # ADR-002: Angular Security Standards and Best Practices
 
-## Decision summary
+## 1. Summary
 
-This ADR establishes comprehensive security standards for Angular applications within our organization. We mandate the use of Angular's built-in security features, enforce strict Content Security Policy (CSP), implement XSS and CSRF protection mechanisms, and define secure coding practices for DOM manipulation, data sanitization, API communication, and third-party library usage. All Angular applications must follow these security standards to protect against common web vulnerabilities and ensure the integrity and confidentiality of user data.
+<!-- LLM: Always load this section first -->
 
-## Context and problem statement
+### TL;DR
 
-### Business context
-- Modern web applications face increasing security threats including Cross-Site Scripting (XSS), Cross-Site Request Forgery (CSRF), injection attacks, and data breaches
-- Security vulnerabilities can lead to significant financial losses, reputational damage, legal liabilities, and loss of customer trust
-- Regulatory requirements (GDPR, SOC2, PCI-DSS) mandate robust security controls and data protection measures
-- Angular is our core frontend technology stack, requiring standardized security practices across all development teams
+> Use Angular's built-in security features (automatic sanitization, HttpClient with CSRF protection, route guards) for all applications. Never bypass security mechanisms like DomSanitizer without security team review, and never use direct DOM manipulation with untrusted data. Store sensitive tokens in HTTP-only cookies, not localStorage.
 
-### Technical context
-- Angular framework provides built-in security features that must be properly utilized
-- Current landscape shows inconsistent security implementations across different projects
-- Developer knowledge of Angular security features varies across teams
-- Third-party libraries and dependencies introduce potential security vulnerabilities
-- Direct DOM manipulation and improper use of Angular APIs can bypass security protections
-- API communication patterns need standardization for secure data exchange
+### Rules
 
-### Constraints and assumptions
+**MUST DO ✅**
 
-**Technical Constraints**:
-- Must maintain compatibility with Angular v17+ and future versions
-- Cannot significantly impact application performance (< 5% overhead for security measures)
-- Must integrate with existing CI/CD pipelines and development workflows
-- CSP implementation must not break existing legitimate functionality
-- Security measures must be enforceable through automated linting and code review
+1. Use Angular templates for all HTML rendering (automatic sanitization)
+2. Use `DomSanitizer` service when dynamic HTML is absolutely necessary
+3. Use `Renderer2` API for all DOM manipulations
+4. Use Angular `HttpClient` module with CSRF token configuration
+5. Implement route guards (`CanActivate`, `CanActivateChild`, `CanLoad`) for protected routes
+6. Validate all user inputs on both client and server side using reactive forms
+7. Run automated security scans (`npm audit`, `snyk`) in CI/CD pipeline
 
-**Business Constraints**:  
-- Limited budget for security training and tooling implementation
-- Timeline requirement: Full implementation within 6 months
-- Must maintain backward compatibility with existing applications during migration
-- Cannot require complete rewrite of existing codebases
+**MUST NOT ❌**
 
-**Environmental Constraints**:
-- Must work across all supported browsers (Chrome, Firefox, Safari, Edge)
-- Integration with existing authentication/authorization infrastructure required
-- Security measures must be compatible with current hosting environment
-- Must support both server-side rendering (SSR) and client-side rendering patterns
+1. Never use `innerHTML`, `outerHTML`, or direct DOM manipulation with untrusted data
+2. Never use `bypassSecurityTrust*` methods without security team review
+3. Never use `eval()`, `Function()` constructor, or dynamic code execution
+4. Never store sensitive data (passwords, tokens, PII) in localStorage/sessionStorage
+5. Never expose API keys, secrets, or tokens in frontend code
+6. Never use `document.querySelector`, `document.getElementById`, or direct DOM queries
+7. Never use `ElementRef.nativeElement` for DOM manipulation
 
-**Assumptions Made**:
-- Development teams have basic Angular knowledge
-- HTTPS is enforced at infrastructure level
-- Backend APIs implement proper security controls
-- Regular security audits and penetration testing will be conducted
-- Security patches and updates will be applied promptly
-- Development teams will receive adequate security training
+---
 
-### Affected architecture description elements
+## 2. Patterns
 
-**Components**:
-- All Angular components and directives
-- HTTP interceptors for API communication
-- Route guards for authentication and authorization
-- Custom pipes and validators
-- DOM sanitization services
-- Authentication/authorization modules
-- Form validation components
-- Third-party library integrations
+<!-- LLM: Load for code generation tasks -->
 
-**Views**:
-- Logical view: Security service layer architecture
-- Development view: Coding standards and linting rules
-- Process view: Security validation in CI/CD pipeline
-- Physical view: CSP headers and HTTPS enforcement
+<!-- 
+Cross-reference: For safe DOM manipulation patterns (Renderer2 vs direct DOM access), 
+see ADR-000 Pattern 4: Safe DOM Manipulation.
+-->
 
-**Stakeholders**:
-- Frontend development teams: Must implement and maintain security standards
-- Security team: Responsible for audits and compliance validation
-- DevOps team: Implements security measures in deployment pipeline
-- QA team: Tests security controls and validates implementation
-- Product owners: Balance security requirements with feature delivery
-- End users: Benefit from enhanced security and data protection
+### Pattern Index
 
-## Decision
+| Keywords | Pattern |
+|----------|---------|
+| innerHTML, dynamic HTML, user content, sanitize | [Pattern 1: Safe HTML Rendering](#pattern-1-safe-html-rendering) |
+| DOM, element, addClass, style, manipulation | [Pattern 2: Safe DOM Manipulation](#pattern-2-safe-dom-manipulation) |
+| auth, guard, route, protected, login | [Pattern 3: Route Protection](#pattern-3-route-protection) |
+| form, input, validation, user data | [Pattern 4: Secure Form Handling](#pattern-4-secure-form-handling) |
+| http, api, csrf, request, interceptor | [Pattern 5: Secure HTTP Communication](#pattern-5-secure-http-communication) |
 
-### What we decided
+---
 
-We have decided to implement and enforce the following Angular security standards across all web applications:
+### Pattern 1: Safe HTML Rendering
 
-#### 1. Cross-Site Scripting (XSS) Prevention
-- **Mandatory**: Use Angular templates for all HTML rendering (automatic sanitization)
-- **Mandatory**: Never use `innerHTML`, `outerHTML`, or direct DOM manipulation with untrusted data
-- **Mandatory**: Use `DomSanitizer` service when dynamic HTML is absolutely necessary
-- **Mandatory**: Avoid template interpolation with user-generated content in unsafe contexts
-- **Mandatory**: Use Angular's property binding `[property]` instead of attribute interpolation for dynamic values
+**Use when:** You need to render dynamic HTML content from external sources or user input
 
-#### 2. Content Security Policy (CSP)
-- **Mandatory**: Implement strict CSP headers for all applications
-- **Mandatory**: Use nonce-based or hash-based CSP for inline scripts and styles
-- **Mandatory**: Disable `unsafe-eval` and `unsafe-inline` in production
-- **Mandatory**: Whitelist only trusted domains for external resources
-- **Recommended**: Use CSP reporting to monitor violations
+**Don't use when:** You're rendering static templates or using Angular's template syntax with property binding
 
-#### 3. Cross-Site Request Forgery (CSRF) Protection
-- **Mandatory**: Use Angular `HttpClient` module (includes built-in CSRF protection)
-- **Mandatory**: Configure CSRF token handling with backend services
-- **Mandatory**: Implement `HttpXsrfTokenExtractor` for custom token extraction if needed
-- **Recommended**: Use `SameSite` cookie attribute for additional protection
+✅ **Good**
 
-#### 4. DOM Sanitization and Trusted Types
-- **Mandatory**: Leverage Angular's automatic sanitization for HTML, styles, URLs, and resource URLs
-- **Mandatory**: Use `DomSanitizer` methods explicitly:
-  - `sanitize()` for automatic context-based sanitization
-  - `sanitizeHtml()` for HTML content
-  - `sanitizeStyle()` for CSS styles
-  - `sanitizeUrl()` for URLs
-  - `sanitizeResourceUrl()` for resource URLs
-- **Prohibited**: Never use `bypassSecurityTrust*` methods without security team review
-- **Mandatory**: Document all uses of `bypassSecurityTrust*` with justification
-- **Recommended**: Enable Trusted Types API in modern browsers
-
-#### 5. Safe DOM Manipulation
-- **Prohibited**: Direct use of `ElementRef.nativeElement` for DOM manipulation
-- **Mandatory**: Use `Renderer2` API for all DOM manipulations
-- **Prohibited**: Use of `document.querySelector`, `document.getElementById`, etc.
-- **Mandatory**: Use Angular template references (`@ViewChild`, `@ViewChildren`) instead
-- **Prohibited**: Use of `eval()`, `Function()` constructor, or similar dynamic code execution
-
-#### 6. HTTP and API Security
-- **Mandatory**: Always use HTTPS for all API communications
-- **Mandatory**: Implement authentication tokens via HTTP-only cookies or secure headers
-- **Mandatory**: Use HTTP interceptors for centralized authentication and error handling
-- **Mandatory**: Validate SSL/TLS certificates (disable certificate bypass in production)
-- **Mandatory**: Implement proper timeout and retry logic for HTTP requests
-- **Prohibited**: Expose API keys, secrets, or tokens in frontend code
-- **Mandatory**: Use environment variables for configuration management
-- **Recommended**: Implement rate limiting and request throttling
-
-#### 7. Authentication and Authorization
-- **Mandatory**: Implement route guards (`CanActivate`, `CanActivateChild`, `CanLoad`) for protected routes
-- **Mandatory**: Validate user permissions on both client and server side
-- **Mandatory**: Implement proper session timeout and idle detection
-- **Mandatory**: Clear sensitive data from memory on logout
-- **Prohibited**: Store sensitive data in localStorage or sessionStorage
-- **Recommended**: Use secure, HTTP-only cookies for authentication tokens
-- **Recommended**: Implement JWT with appropriate expiration times
-
-#### 8. Third-Party Libraries and Dependencies
-- **Mandatory**: Conduct security review before adding new dependencies
-- **Mandatory**: Run automated security scans (`npm audit`, `snyk`) in CI/CD pipeline
-- **Mandatory**: Keep all dependencies up to date with latest security patches
-- **Mandatory**: Remove unused dependencies to reduce attack surface
-- **Mandatory**: Pin dependency versions in package.json
-- **Recommended**: Use lock files (package-lock.json) and verify integrity
-- **Recommended**: Limit use of libraries with poor security track records
-
-#### 9. Input Validation and Sanitization
-- **Mandatory**: Validate all user inputs on both client and server side
-- **Mandatory**: Use Angular reactive forms with built-in validators
-- **Mandatory**: Implement custom validators for business-specific validation rules
-- **Mandatory**: Sanitize user input before processing or displaying
-- **Mandatory**: Implement proper error handling without exposing sensitive information
-- **Prohibited**: Trust client-side validation alone
-
-#### 10. Secure Data Storage
-- **Prohibited**: Store sensitive data (passwords, tokens, PII) in localStorage/sessionStorage
-- **Mandatory**: Use secure, HTTP-only cookies with Secure and SameSite flags for sensitive data
-- **Mandatory**: Encrypt sensitive data before storage if client-side storage is necessary
-- **Mandatory**: Clear sensitive data from browser memory after use
-- **Recommended**: Implement proper data retention policies
-
-#### 11. Angular Security Configuration
-- **Mandatory**: Enable production mode in production builds (`enableProdMode()`)
-- **Mandatory**: Disable debug information in production
-- **Mandatory**: Use Angular CLI build optimizations (`ng build --configuration=production`)
-- **Mandatory**: Enable strict TypeScript compiler options
-- **Recommended**: Use Angular's strict template type checking
-
-#### 12. Server-Side Rendering (SSR) Security
-- **Mandatory**: Sanitize all server-rendered content
-- **Mandatory**: Implement proper state transfer security
-- **Mandatory**: Avoid exposing server-side secrets in SSR output
-- **Recommended**: Use separate security configurations for SSR vs client-side rendering
-
-### Rationale
-
-**Why Angular's Built-in Security Features**:
-- Angular provides automatic context-aware sanitization that prevents most XSS attacks
-- Built-in CSRF protection through HttpClient reduces implementation complexity
-- Framework-level security is tested and maintained by Angular team
-
-**Why Strict CSP**:
-- CSP is the most effective defense-in-depth measure against XSS attacks
-- Modern browsers provide excellent CSP support
-- CSP reporting helps identify security violations and potential attacks
-
-**Why Renderer2 over Direct DOM Access**:
-- Renderer2 works across different platforms (browser, server, web workers)
-- Provides abstraction layer that can enforce security policies
-- Prevents bypass of Angular's sanitization mechanisms
-
-**Why HTTP-only Cookies over localStorage**:
-- HTTP-only cookies cannot be accessed via JavaScript, preventing XSS-based token theft
-- localStorage is vulnerable to XSS attacks
-- Cookies can be configured with Secure and SameSite flags for additional protection
-
-**Why Strict Dependency Management**:
-- Third-party vulnerabilities are a leading cause of security breaches
-- Automated scanning catches known vulnerabilities early
-- Regular updates ensure latest security patches are applied
-
-## Implementation details
-
-### Technical approach
-
-#### 1. Code Structure and Organization
-
-**Security Service Layer**:
 ```typescript
-// src/app/core/security/dom-sanitizer.service.ts
-import { Injectable } from '@angular/core';
-import { DomSanitizer, SafeHtml, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
+// CONTEXT: Rendering user-generated content in a component
+// RULE: Always use DomSanitizer to sanitize HTML before rendering
 
-@Injectable({
-  providedIn: 'root'
+import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeHtml, SecurityContext } from '@angular/platform-browser';
+
+@Component({
+  selector: 'app-secure-content',
+  template: `<div [innerHTML]="sanitizedContent"></div>`
 })
-export class SecureDomSanitizerService {
+export class SecureContentComponent implements OnInit {
+  sanitizedContent: SafeHtml = '';
+
   constructor(private sanitizer: DomSanitizer) {}
 
-  /**
-   * Sanitizes HTML content to prevent XSS attacks
-   * Use only when dynamic HTML from trusted sources is required
-   * @param html - The HTML content to sanitize
-   * @returns SafeHtml - Sanitized HTML safe for rendering
-   */
-  sanitizeHtml(html: string): SafeHtml {
-    return this.sanitizer.sanitize(SecurityContext.HTML, html) || '';
-  }
-
-  /**
-   * Sanitizes URLs to prevent javascript: and data: URL attacks
-   * @param url - The URL to sanitize
-   * @returns SafeUrl - Sanitized URL safe for use
-   */
-  sanitizeUrl(url: string): SafeUrl {
-    return this.sanitizer.sanitize(SecurityContext.URL, url) || '';
-  }
-
-  /**
-   * Sanitizes resource URLs (for iframes, scripts, etc.)
-   * Use with extreme caution and only for trusted sources
-   * @param url - The resource URL to sanitize
-   * @returns SafeResourceUrl - Sanitized resource URL
-   */
-  sanitizeResourceUrl(url: string): SafeResourceUrl {
-    return this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, url) || '';
+  ngOnInit(): void {
+    const userContent = '<script>alert("XSS")</script><p>Safe content</p>';
+    this.sanitizedContent = this.sanitizer.sanitize(
+      SecurityContext.HTML, 
+      userContent
+    ) || '';
   }
 }
 ```
 
-**HTTP Interceptor for Security Headers**:
+❌ **Bad**
+
 ```typescript
-// src/app/core/interceptors/security.interceptor.ts
-import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
+// PROBLEM: Direct innerHTML assignment bypasses Angular's sanitization
 
-@Injectable()
-export class SecurityInterceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Clone request and add security headers
-    const secureReq = req.clone({
-      withCredentials: true, // Include cookies for CSRF protection
-      setHeaders: {
-        'X-Requested-With': 'XMLHttpRequest', // CSRF protection
-        'X-Content-Type-Options': 'nosniff', // Prevent MIME sniffing
-      }
-    });
+export class UnsafeContentComponent {
+  constructor(private el: ElementRef) {}
 
-    return next.handle(secureReq);
+  ngOnInit(): void {
+    const userContent = '<script>alert("XSS")</script><p>Content</p>';
+    this.el.nativeElement.innerHTML = userContent; // XSS vulnerability!
   }
 }
 ```
 
-**Route Guard for Authentication**:
+**Why it's wrong:** Direct innerHTML manipulation bypasses Angular's automatic sanitization, allowing malicious scripts to execute and enabling XSS attacks.
+
+**Verify:**
+- [ ] No direct `innerHTML` or `outerHTML` assignments in code
+- [ ] All dynamic HTML uses `DomSanitizer.sanitize()` with appropriate SecurityContext
+- [ ] No use of `bypassSecurityTrust*` methods without documented justification
+
+---
+
+### Pattern 2: Safe DOM Manipulation
+
+<!-- LLM: See ADR-000 Pattern 4 for full implementation details -->
+
+**Use when:** Programmatically modifying DOM elements (add classes, set styles, create elements)
+
+**Don't use when:** Angular template bindings (`[class]`, `[style]`, `*ngIf`) can achieve the same result
+
+**Quick Reference:** Use `Renderer2` for all DOM manipulations. See **ADR-000 Pattern 4** for complete examples.
+
+**Security Context:** Direct DOM access (`document.querySelector`, `innerHTML`) bypasses Angular's sanitization, enabling XSS vulnerabilities and breaking SSR compatibility.
+
+**Verify:**
+- [ ] No `document.querySelector`, `document.getElementById`, or similar methods
+- [ ] No direct `ElementRef.nativeElement` property access for modifications
+- [ ] All DOM manipulations use `Renderer2` API
+
+---
+
+### Pattern 3: Route Protection
+
+**Use when:** You have routes that require authentication or specific permissions
+
+**Don't use when:** Routes are publicly accessible with no authorization requirements
+
+✅ **Good**
+
 ```typescript
-// src/app/core/guards/auth.guard.ts
+// CONTEXT: Protecting admin routes from unauthorized access
+// RULE: Use CanActivate guards for authentication checks
+
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { map } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
   constructor(
     private authService: AuthService,
@@ -311,165 +172,49 @@ export class AuthGuard implements CanActivate {
     );
   }
 }
+
+// Route configuration
+const routes: Routes = [
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] }
+];
 ```
 
-**Safe Component Implementation Example**:
-```typescript
-// Example of secure component implementation
-import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+❌ **Bad**
 
+```typescript
+// PROBLEM: No route protection - any user can access admin routes
+
+const routes: Routes = [
+  { path: 'admin', component: AdminComponent } // No guard - accessible to everyone!
+];
+
+// Or hiding routes in template only
 @Component({
-  selector: 'app-secure-content',
-  template: `
-    <div [innerHTML]="sanitizedContent"></div>
-    <a [href]="sanitizedUrl">Safe Link</a>
-  `
+  template: `<a *ngIf="isAdmin" routerLink="/admin">Admin</a>` // UI-only check, route still accessible
 })
-export class SecureContentComponent implements OnInit {
-  sanitizedContent: SafeHtml = '';
-  sanitizedUrl: SafeUrl = '';
-
-  constructor(
-    private sanitizer: DomSanitizer,
-    private renderer: Renderer2,
-    private el: ElementRef
-  ) {}
-
-  ngOnInit(): void {
-    // CORRECT: Sanitize before rendering
-    const userContent = '<script>alert("XSS")</script><p>Safe content</p>';
-    this.sanitizedContent = this.sanitizer.sanitize(
-      SecurityContext.HTML, 
-      userContent
-    ) || '';
-
-    // CORRECT: Sanitize URLs
-    const userUrl = 'javascript:alert("XSS")';
-    this.sanitizedUrl = this.sanitizer.sanitize(
-      SecurityContext.URL, 
-      userUrl
-    ) || 'about:blank';
-  }
-
-  // CORRECT: Use Renderer2 for DOM manipulation
-  addClass(): void {
-    this.renderer.addClass(this.el.nativeElement, 'active');
-  }
-
-  // INCORRECT: Never do this
-  // dangerousMethod(): void {
-  //   this.el.nativeElement.innerHTML = userContent; // XSS vulnerability!
-  //   document.querySelector('.target').innerHTML = userContent; // XSS vulnerability!
-  // }
-}
 ```
 
-#### 2. Content Security Policy Configuration
+**Why it's wrong:** Without route guards, any user can directly navigate to protected URLs. Template-based hiding only prevents navigation UI but not direct URL access.
 
-**CSP Header Configuration (to be implemented on server)**:
-```typescript
-// Example CSP configuration for Angular application
-const cspDirectives = {
-  'default-src': ["'self'"],
-  'script-src': [
-    "'self'",
-    "'nonce-{RANDOM_NONCE}'", // Generated per request
-    // For production, avoid 'unsafe-inline' and 'unsafe-eval'
-  ],
-  'style-src': [
-    "'self'",
-    "'nonce-{RANDOM_NONCE}'",
-    'https://fonts.googleapis.com',
-  ],
-  'font-src': [
-    "'self'",
-    'https://fonts.gstatic.com',
-  ],
-  'img-src': [
-    "'self'",
-    'data:', // For inline images
-    'https:', // For external images
-  ],
-  'connect-src': [
-    "'self'",
-    'https://api.yourdomain.com', // Your API endpoints
-  ],
-  'frame-ancestors': ["'none'"], // Prevent clickjacking
-  'base-uri': ["'self'"],
-  'form-action': ["'self'"],
-  'upgrade-insecure-requests': [], // Upgrade HTTP to HTTPS
-  'block-all-mixed-content': [], // Block mixed content
-};
+**Verify:**
+- [ ] All protected routes have appropriate `canActivate` or `canLoad` guards
+- [ ] Guards validate permissions on both client and server side
+- [ ] Unauthorized access redirects to login with return URL
 
-// Generate CSP header string
-const cspHeader = Object.entries(cspDirectives)
-  .map(([key, values]) => `${key} ${values.join(' ')}`)
-  .join('; ');
-```
+---
 
-**Angular Configuration for CSP**:
-```typescript
-// angular.json - Add CSP meta tag in index.html
-{
-  "projects": {
-    "your-app": {
-      "architect": {
-        "build": {
-          "options": {
-            "index": {
-              "input": "src/index.html",
-              "output": "index.html"
-            }
-          }
-        }
-      }
-    }
-  }
-}
-```
+### Pattern 4: Secure Form Handling
 
-```html
-<!-- src/index.html -->
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Secure Angular App</title>
-  <meta http-equiv="Content-Security-Policy" 
-        content="default-src 'self'; script-src 'self' 'nonce-{NONCE}'; style-src 'self' 'nonce-{NONCE}'">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <base href="/">
-</head>
-<body>
-  <app-root></app-root>
-</body>
-</html>
-```
+**Use when:** Collecting any user input through forms
 
-#### 3. CSRF Protection Configuration
+**Don't use when:** Displaying read-only data without user interaction
+
+✅ **Good**
 
 ```typescript
-// app.config.ts or app.module.ts
-import { provideHttpClient, withInterceptors, withXsrfConfiguration } from '@angular/common/http';
+// CONTEXT: User registration form with validation
+// RULE: Use reactive forms with built-in validators and custom patterns
 
-export const appConfig: ApplicationConfig = {
-  providers: [
-    provideHttpClient(
-      withXsrfConfiguration({
-        cookieName: 'XSRF-TOKEN', // Backend must set this cookie
-        headerName: 'X-XSRF-TOKEN', // Angular will send token in this header
-      }),
-      withInterceptors([securityInterceptor])
-    )
-  ]
-};
-```
-
-#### 4. Validation and Form Security
-
-```typescript
-// Secure form implementation example
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -477,20 +222,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   selector: 'app-secure-form',
   template: `
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-      <input type="text" formControlName="username" 
-             [attr.aria-invalid]="username.invalid && username.touched">
+      <input type="text" formControlName="username">
       <div *ngIf="username.invalid && username.touched" role="alert">
-        <span *ngIf="username.errors?.['required']">Username is required</span>
         <span *ngIf="username.errors?.['pattern']">Invalid username format</span>
       </div>
-      
-      <input type="email" formControlName="email"
-             [attr.aria-invalid]="email.invalid && email.touched">
-      <div *ngIf="email.invalid && email.touched" role="alert">
-        <span *ngIf="email.errors?.['required']">Email is required</span>
-        <span *ngIf="email.errors?.['email']">Invalid email format</span>
-      </div>
-      
+      <input type="email" formControlName="email">
       <button type="submit" [disabled]="userForm.invalid">Submit</button>
     </form>
   `
@@ -506,241 +242,384 @@ export class SecureFormComponent {
         Validators.maxLength(50),
         Validators.pattern(/^[a-zA-Z0-9_-]+$/) // Alphanumeric, underscore, hyphen only
       ]],
-      email: ['', [
-        Validators.required,
-        Validators.email
-      ]]
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
   get username() { return this.userForm.get('username')!; }
-  get email() { return this.userForm.get('email')!; }
 
   onSubmit(): void {
     if (this.userForm.valid) {
-      // Form values are already validated
-      const formData = this.userForm.value;
-      // Send to backend - backend must also validate!
+      // Backend must also validate!
     }
   }
 }
 ```
 
-#### 5. Secure Configuration Management
+❌ **Bad**
 
 ```typescript
-// src/environments/environment.ts
-export const environment = {
-  production: false,
-  apiUrl: 'https://dev-api.yourdomain.com',
-  // NEVER commit sensitive data like API keys to version control
-  // Use environment variables or secret management instead
-};
+// PROBLEM: Template-driven forms without validation, trusting client-side only
 
-// src/environments/environment.prod.ts
-export const environment = {
-  production: true,
-  apiUrl: 'https://api.yourdomain.com',
-};
+@Component({
+  template: `
+    <form (ngSubmit)="onSubmit()">
+      <input [(ngModel)]="username" name="username">
+      <button type="submit">Submit</button>
+    </form>
+  `
+})
+export class UnsafeFormComponent {
+  username = '';
+
+  onSubmit(): void {
+    this.api.submit(this.username); // No validation - accepts any input
+  }
+}
 ```
 
-### Standards compliance
+**Why it's wrong:** Without proper validation, malicious or malformed data can be submitted. Client-side validation alone is insufficient as it can be bypassed; server-side validation is always required.
 
-Document compliance with Design Authority standards:
-- [x] Platform API standards followed (HTTPS, authentication, authorization)
-- [x] Data model patterns implemented (secure data transfer, sanitization)
-- [x] Security requirements met (XSS, CSRF, CSP, input validation)
-- [x] Monitoring and logging implemented (security event logging, CSP reporting)
-- [x] Integration patterns from approved catalogue used (HTTP interceptors, route guards)
-
-### Quality attributes addressed
-
-| Quality Attribute | Requirement | How Decision Addresses It |
-|-------------------|-------------|---------------------------|
-| Security | Protection against XSS, CSRF, injection attacks | Angular's automatic sanitization, CSP headers, CSRF tokens, input validation |
-| Reliability | 99.9% uptime without security incidents | Proactive security measures prevent exploitation and downtime |
-| Maintainability | < 2 day security patch deployment | Standardized security patterns enable rapid updates across codebase |
-| Compliance | Meet GDPR, SOC2, PCI-DSS requirements | Secure data handling, encryption, access controls, audit trails |
-| Performance | < 5% overhead for security measures | Efficient built-in Angular security features with minimal performance impact |
-| Usability | Transparent security without UX degradation | Security measures implemented without impacting user experience |
-| Testability | 100% security controls covered by tests | Unit tests for validators, interceptors, guards, and sanitization logic |
-
-## Success metrics
-
-### Technical success criteria
-- **Zero critical security vulnerabilities** in automated scans (npm audit, Snyk)
-- **100% of applications** implement CSP in blocking mode
-- **100% of applications** use HttpClient with CSRF protection
-- **Zero usage** of prohibited patterns (innerHTML with untrusted data, direct DOM access)
-- **All new code** passes security linting rules without warnings
-- **< 5% performance overhead** from security measures
-- **100% test coverage** for security-critical code (guards, interceptors, validators)
-
-### Business success criteria  
-- **Zero security breaches** related to frontend vulnerabilities
-- **Successful compliance audits** (SOC2, GDPR, PCI-DSS)
-- **< 24 hour** response time for critical security patches
-- **80% developer satisfaction** with security tooling and guidelines (measured via survey)
-- **50% reduction** in security-related code review issues within 6 months
-- **Zero customer data breaches** attributable to frontend vulnerabilities
-
-### Monitoring and measurement
-**Key metrics to track**:
-- Number of security vulnerabilities detected and resolved (by severity)
-- Code coverage for security-critical components
-- CSP violation reports (frequency and types)
-- Time to patch critical security vulnerabilities
-- Percentage of applications compliant with security standards
-- Developer training completion rates
-- Security incident frequency and severity
-
-**Monitoring tools and dashboards**:
-- CSP reporting dashboard for violation monitoring
-- Dependency vulnerability dashboard (Snyk/npm audit)
-- CI/CD pipeline security gates (pass/fail metrics)
-- Application security monitoring (failed authentication attempts, suspicious patterns)
-- Security incident tracking system
-
-**Review schedule and checkpoints**:
-- **Weekly**: Review CSP violation reports and dependency scan results
-- **Monthly**: Security working group meeting to review progress and issues
-- **Quarterly**: Comprehensive security audit and penetration testing
-- **Quarterly**: Review and update security documentation and standards
-- **Annual**: Full security program review and ADR update
-
-## References
-
-### Authoritative sources
-- [Angular Security Guide (v17)](https://v17.angular.io/guide/security) - Official Angular security documentation
-- [Angular API Security Context](https://v17.angular.io/api/core/SecurityContext) - Angular sanitization contexts
-- [Angular DomSanitizer](https://v17.angular.io/api/platform-browser/DomSanitizer) - Sanitization service documentation
-- [Angular HttpClient](https://v17.angular.io/api/common/http/HttpClient) - HTTP client with CSRF support
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/) - Common web application security risks
-- [OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
-- [OWASP CSRF Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
-- [Content Security Policy (CSP) Reference](https://content-security-policy.com/)
-- [MDN Web Security](https://developer.mozilla.org/en-US/docs/Web/Security)
-
-### Technical references
-- [Angular Official Documentation](https://angular.dev/best-practices/security) - Latest Angular security best practices
-- [Trusted Types API](https://w3c.github.io/trusted-types/dist/spec/) - Browser API for preventing DOM XSS
-- [SameSite Cookie Specification](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-05) - CSRF protection via cookies
-- [HTTP Strict Transport Security (HSTS)](https://tools.ietf.org/html/rfc6797) - Enforce HTTPS
-- [Subresource Integrity (SRI)](https://www.w3.org/TR/SRI/) - Verify integrity of external resources
-- [Web Crypto API](https://www.w3.org/TR/WebCryptoAPI/) - Cryptographic operations in web applications
-
-### Standards compliance
-- [ISO/IEC/IEEE 42010:2022] - Systems and software engineering — Architecture description
-- [OWASP ASVS (Application Security Verification Standard)](https://owasp.org/www-project-application-security-verification-standard/) - Security requirements framework
-- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework) - Cybersecurity standards
-- [PCI DSS (Payment Card Industry Data Security Standard)](https://www.pcisecuritystandards.org/) - Payment data security
-- [GDPR (General Data Protection Regulation)](https://gdpr.eu/) - Data protection and privacy
-- [SOC 2 (Service Organization Control)](https://www.aicpa.org/interestareas/frc/assuranceadvisoryservices/sorhome.html) - Security and availability standards
-
-### Industry best practices
-- [Google Web Security Best Practices](https://developers.google.com/web/fundamentals/security)
-- [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security)
-- [OWASP Secure Coding Practices](https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/)
-- [Angular Security Best Practices (Community)](https://dev.to/kristiyanvelkov/angular-security-best-practices-guide-in3)
-- [Web Application Security Consortium (WASC)](http://www.webappsec.org/)
-
-### Security testing tools
-- [OWASP ZAP (Zed Attack Proxy)](https://www.zaproxy.org/) - Automated security testing
-- [Burp Suite](https://portswigger.net/burp) - Web vulnerability scanner
-- [npm audit](https://docs.npmjs.com/cli/v8/commands/npm-audit) - Dependency vulnerability scanner
-- [Snyk](https://snyk.io/) - Security platform for developers
-- [Dependabot](https://github.com/dependabot) - Automated dependency updates
-- [ESLint Security Plugin](https://github.com/eslint-community/eslint-plugin-security) - Security-focused linting
-
-### Training resources
-- [OWASP WebGoat](https://owasp.org/www-project-webgoat/) - Hands-on security training
-- [PortSwigger Web Security Academy](https://portswigger.net/web-security) - Free online security training
-- [Secure Code Warrior](https://www.securecodewarrior.com/) - Security skills platform
-- [Angular Security Course](https://angular-university.io/) - Angular-specific security training
+**Verify:**
+- [ ] All forms use reactive forms with explicit validators
+- [ ] Input patterns restrict characters appropriately for field type
+- [ ] Backend always re-validates all input (never trust client-side only)
 
 ---
 
-## Appendix: Quick Reference Guide
+### Pattern 5: Secure HTTP Communication
 
-### Prohibited Patterns ❌
+**Use when:** Making any HTTP requests to APIs
+
+**Don't use when:** Never - always use secure HTTP patterns
+
+✅ **Good**
 
 ```typescript
-// ❌ NEVER: Direct innerHTML manipulation
-element.innerHTML = userInput;
-this.el.nativeElement.innerHTML = data;
+// CONTEXT: Configuring Angular app for secure HTTP with CSRF protection
+// RULE: Use HttpClient with XSRF configuration and security interceptors
 
-// ❌ NEVER: Direct DOM queries
-document.querySelector('.target').innerHTML = content;
-document.getElementById('myId').style.color = userColor;
+import { provideHttpClient, withInterceptors, withXsrfConfiguration } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 
-// ❌ NEVER: Bypassing security without review
-this.sanitizer.bypassSecurityTrustHtml(userInput); // Requires security review
+// Security interceptor
+@Injectable()
+export class SecurityInterceptor implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const secureReq = req.clone({
+      withCredentials: true, // Include cookies for CSRF protection
+      setHeaders: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-Content-Type-Options': 'nosniff',
+      }
+    });
+    return next.handle(secureReq);
+  }
+}
 
-// ❌ NEVER: Using eval or Function constructor
-eval(userCode);
-new Function(userCode)();
-
-// ❌ NEVER: Storing sensitive data in localStorage
-localStorage.setItem('authToken', token);
-sessionStorage.setItem('password', password);
-
-// ❌ NEVER: Exposing secrets in frontend
-const API_KEY = 'hardcoded-secret-key';
+// App configuration
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideHttpClient(
+      withXsrfConfiguration({
+        cookieName: 'XSRF-TOKEN',
+        headerName: 'X-XSRF-TOKEN',
+      }),
+      withInterceptors([securityInterceptor])
+    )
+  ]
+};
 ```
 
-### Approved Patterns ✅
+❌ **Bad**
 
 ```typescript
-// ✅ CORRECT: Use Angular templates with property binding
+// PROBLEM: Hardcoded secrets and no CSRF protection
+
+@Injectable()
+export class UnsafeApiService {
+  private apiKey = 'hardcoded-secret-key'; // Exposed in frontend bundle!
+
+  constructor(private http: HttpClient) {}
+
+  getData(): Observable<any> {
+    return this.http.get('/api/data', {
+      headers: { 'X-API-Key': this.apiKey } // Secret exposed to anyone
+    });
+  }
+}
+```
+
+**Why it's wrong:** API keys in frontend code are exposed in the browser's dev tools and bundled JavaScript. CSRF protection is required to prevent cross-site request forgery attacks.
+
+**Verify:**
+- [ ] No hardcoded secrets, API keys, or tokens in frontend code
+- [ ] HttpClient uses `withXsrfConfiguration` for CSRF protection
+- [ ] `withCredentials: true` is set for requests requiring authentication
+
+---
+
+## 3. Validation
+
+<!-- LLM: Load for code review tasks -->
+
+### Automated Checks
+
+| ID | Check | Severity | How to Detect |
+|----|-------|----------|---------------|
+| `SEC-001` | No direct innerHTML assignment | 🔴 BLOCKER | `grep -r "\.innerHTML\s*=" --include="*.ts"` |
+| `SEC-002` | No direct outerHTML assignment | 🔴 BLOCKER | `grep -r "\.outerHTML\s*=" --include="*.ts"` |
+| `SEC-003` | No document.querySelector usage | 🔴 BLOCKER | `grep -r "document\.querySelector" --include="*.ts"` |
+| `SEC-004` | No document.getElementById usage | 🔴 BLOCKER | `grep -r "document\.getElementById" --include="*.ts"` |
+| `SEC-005` | No eval() usage | 🔴 BLOCKER | `grep -r "eval\(" --include="*.ts"` |
+| `SEC-006` | No new Function() usage | 🔴 BLOCKER | `grep -r "new Function\(" --include="*.ts"` |
+| `SEC-007` | No localStorage for tokens | 🔴 BLOCKER | `grep -r "localStorage\.setItem.*[Tt]oken" --include="*.ts"` |
+| `SEC-008` | No bypassSecurityTrust without review | 🔴 BLOCKER | `grep -r "bypassSecurityTrust" --include="*.ts"` |
+| `SEC-009` | No hardcoded API keys | 🔴 BLOCKER | `grep -rE "(apiKey|API_KEY|secret)\s*[:=]\s*['\"]" --include="*.ts"` |
+| `SEC-010` | npm audit clean | 🔴 BLOCKER | `npm audit --audit-level=high` |
+
+### Review Checklist
+
+| ID | Check | Severity |
+|----|-------|----------|
+| `SEC-R01` | All dynamic HTML uses DomSanitizer with appropriate SecurityContext | 🔴 BLOCKER |
+| `SEC-R02` | All protected routes have authentication/authorization guards | 🔴 BLOCKER |
+| `SEC-R03` | All forms use reactive forms with proper validators | 🔴 BLOCKER |
+| `SEC-R04` | HttpClient is configured with CSRF protection | 🔴 BLOCKER |
+| `SEC-R05` | No sensitive data exposed in error messages | 🟡 WARNING |
+| `SEC-R06` | All bypassSecurityTrust* usage has documented justification | 🔴 BLOCKER |
+| `SEC-R07` | Session timeout and idle detection implemented | 🟡 WARNING |
+| `SEC-R08` | Sensitive data cleared from memory on logout | 🟡 WARNING |
+
+### Required Tests
+
+| Scenario | Type | Required |
+|----------|------|----------|
+| Route guard authentication logic | Unit | ✅ Yes |
+| HTTP interceptor security headers | Unit | ✅ Yes |
+| Form validators (custom patterns) | Unit | ✅ Yes |
+| DOM sanitization service | Unit | ✅ Yes |
+| Protected route access control | Integration | ✅ Yes |
+| CSRF token handling | Integration | ✅ Yes |
+| XSS attack prevention | E2E | ⚪ Optional |
+
+---
+
+## 4. Context
+
+<!-- 
+LLM: SKIP this section unless user asks "why" questions about the decision.
+This section is for human readers understanding the historical context.
+-->
+
+### Problem
+
+Web applications face XSS, CSRF, injection attacks, and data breaches. Inconsistent security implementations and varying developer knowledge create vulnerabilities. Regulatory requirements (GDPR, SOC2, PCI-DSS) mandate standardized security controls.
+
+### Business Drivers
+
+- Regulatory compliance (GDPR, SOC2, PCI-DSS)
+- Financial/reputational risk from breaches
+- Customer trust in data handling
+
+### Technical Constraints
+
+- Angular v17+ compatibility
+- Performance overhead < 5%
+- Cross-browser support (Chrome, Firefox, Safari, Edge)
+
+---
+
+## 5. Decision
+
+<!-- 
+LLM: SKIP this section unless user asks "why" questions about the decision.
+This section is for human readers understanding decision rationale.
+-->
+
+### What We Decided
+
+Enforce Angular's built-in security features (automatic sanitization, HttpClient CSRF, route guards), strict CSP, and secure coding practices (Renderer2 for DOM, HTTP-only cookies for tokens).
+
+### Rationale
+
+| Choice | Why |
+|--------|-----|
+| Angular built-in security | Framework-maintained XSS/CSRF protection |
+| Renderer2 over direct DOM | Platform-agnostic, enforces security policies |
+| HTTP-only cookies over localStorage | Not accessible via JavaScript, prevents XSS token theft |
+| Strict CSP | Most effective XSS defense-in-depth |
+
+---
+
+## 6. Implementation
+
+### Affected Components
+
+| Component | Impact | Files |
+|-----------|--------|-------|
+| Angular components | MODIFY | `**/*.component.ts` |
+| HTTP interceptors | CREATE/MODIFY | `**/interceptors/*.ts` |
+| Route guards | CREATE/MODIFY | `**/guards/*.ts` |
+| Security services | CREATE | `**/services/*sanitizer*.ts` |
+| Form components | MODIFY | `**/*form*.component.ts` |
+| App configuration | MODIFY | `app.config.ts`, `app.module.ts` |
+| Index HTML | MODIFY | `src/index.html` (CSP meta tag) |
+
+### Related ADRs
+
+| ADR | Relationship |
+|-----|--------------|
+| ADR-001: Accessibility Standards | Related to - Form validation patterns overlap |
+| ADR-013: Unit/Integration Testing | Depends on - Security components require test coverage |
+
+### Migration Notes
+
+For existing applications:
+1. Audit all uses of `innerHTML`, `outerHTML`, and direct DOM access
+2. Replace direct DOM manipulation with Renderer2
+3. Add DomSanitizer for any necessary dynamic HTML
+4. Configure HttpClient with XSRF protection
+5. Migrate auth token storage from localStorage to HTTP-only cookies
+6. Add route guards to all protected routes
+7. Run `npm audit` and resolve all high/critical vulnerabilities
+8. Add CSP headers or meta tag to index.html
+
+---
+
+## 7. Examples
+
+### Complete Example
+
+**Scenario:** Secure component that renders user-generated content, manipulates DOM safely, and communicates with an API
+
+```typescript
+// File: src/app/features/user-content/user-content.component.ts
+
+import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
+import { DomSanitizer, SafeHtml, SecurityContext } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
+  selector: 'app-user-content',
   template: `
     <div [innerHTML]="sanitizedContent"></div>
-    <a [href]="sanitizedUrl">Link</a>
+    <a [href]="sanitizedUrl">User Link</a>
+    
+    <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+      <textarea formControlName="comment"></textarea>
+      <div *ngIf="comment.invalid && comment.touched" role="alert">
+        <span *ngIf="comment.errors?.['maxlength']">Comment too long</span>
+      </div>
+      <button type="submit" [disabled]="commentForm.invalid">Submit</button>
+    </form>
   `
 })
+export class UserContentComponent implements OnInit {
+  sanitizedContent: SafeHtml = '';
+  sanitizedUrl: string = '';
+  commentForm: FormGroup;
 
-// ✅ CORRECT: Use DomSanitizer for necessary dynamic content
-this.sanitizedContent = this.sanitizer.sanitize(SecurityContext.HTML, userInput);
+  constructor(
+    private sanitizer: DomSanitizer,
+    private renderer: Renderer2,
+    private el: ElementRef,
+    private http: HttpClient,
+    private fb: FormBuilder
+  ) {
+    this.commentForm = this.fb.group({
+      comment: ['', [Validators.required, Validators.maxLength(500)]]
+    });
+  }
 
-// ✅ CORRECT: Use Renderer2 for DOM manipulation
-this.renderer.addClass(this.el.nativeElement, 'active');
-this.renderer.setStyle(this.el.nativeElement, 'color', 'blue');
+  get comment() { return this.commentForm.get('comment')!; }
 
-// ✅ CORRECT: Use HttpClient with CSRF protection
-this.http.post('/api/data', payload).subscribe();
+  ngOnInit(): void {
+    // CORRECT: Sanitize user HTML content
+    const userHtml = '<script>alert("XSS")</script><p>User content</p>';
+    this.sanitizedContent = this.sanitizer.sanitize(
+      SecurityContext.HTML, 
+      userHtml
+    ) || '';
 
-// ✅ CORRECT: Use route guards
-{ path: 'admin', component: AdminComponent, canActivate: [AuthGuard] }
+    // CORRECT: Sanitize user URL
+    const userUrl = 'javascript:alert("XSS")';
+    this.sanitizedUrl = this.sanitizer.sanitize(
+      SecurityContext.URL, 
+      userUrl
+    ) || 'about:blank';
+  }
 
-// ✅ CORRECT: Validate user input with reactive forms
-this.form = this.fb.group({
-  email: ['', [Validators.required, Validators.email]],
-  username: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]+$/)]]
-});
+  // CORRECT: Use Renderer2 for DOM manipulation
+  highlightContent(): void {
+    this.renderer.addClass(this.el.nativeElement, 'highlighted');
+    this.renderer.setStyle(this.el.nativeElement, 'border', '2px solid blue');
+  }
 
-// ✅ CORRECT: Use secure HTTP-only cookies for auth tokens (configured on backend)
-// Frontend: cookies are automatically included with withCredentials: true
-
-// ✅ CORRECT: Use environment variables for configuration
-constructor(@Inject('API_URL') private apiUrl: string) {}
+  onSubmit(): void {
+    if (this.commentForm.valid) {
+      // HttpClient automatically includes CSRF token
+      this.http.post('/api/comments', this.commentForm.value).subscribe();
+    }
+  }
+}
 ```
 
-### Security Checklist for Code Review
+### Common Mistakes
 
-**Before merging code, verify**:
-- [ ] No direct innerHTML manipulation with untrusted data
-- [ ] No direct DOM access via ElementRef or document methods
-- [ ] All dynamic content is sanitized using DomSanitizer
-- [ ] No use of bypassSecurityTrust* methods (or documented with justification)
-- [ ] HttpClient is used for all HTTP requests (CSRF protection)
-- [ ] Route guards implemented for protected routes
-- [ ] User input is validated with reactive forms
-- [ ] No sensitive data stored in localStorage/sessionStorage
-- [ ] No hardcoded secrets or API keys
-- [ ] No use of eval() or Function() constructor
-- [ ] All dependencies are up to date (no high/critical vulnerabilities)
-- [ ] CSP compliance verified (no inline scripts/styles without nonces)
-- [ ] Security tests written for authentication/authorization logic
-- [ ] Error messages don't expose sensitive information
+**Mistake 1: Direct innerHTML with User Content**
 
+```typescript
+// ❌ Wrong
+this.el.nativeElement.innerHTML = userContent;
 
+// ✅ Fix
+this.sanitizedContent = this.sanitizer.sanitize(SecurityContext.HTML, userContent) || '';
+// In template: <div [innerHTML]="sanitizedContent"></div>
+```
+
+**Mistake 2: Storing Tokens in localStorage**
+
+```typescript
+// ❌ Wrong
+localStorage.setItem('authToken', token);
+const token = localStorage.getItem('authToken');
+
+// ✅ Fix
+// Configure backend to set HTTP-only cookie
+// Configure HttpClient with withCredentials: true
+this.http.post('/api/login', credentials, { withCredentials: true }).subscribe();
+```
+
+**Mistake 3: Unprotected Routes**
+
+```typescript
+// ❌ Wrong
+const routes: Routes = [
+  { path: 'admin', component: AdminComponent }
+];
+
+// ✅ Fix
+const routes: Routes = [
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] }
+];
+```
+
+---
+
+## 8. References
+
+### Angular (Primary)
+
+- [Angular Security Guide (v17)](https://v17.angular.io/guide/security) — Official security documentation
+- [Angular DomSanitizer](https://v17.angular.io/api/platform-browser/DomSanitizer) — Sanitization service
+- [Angular HttpClient CSRF](https://v17.angular.io/api/common/http/HttpClient) — CSRF protection
+
+### Security Standards (When Deep-Diving)
+
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/) — Common web security risks
+- [OWASP XSS Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) — XSS mitigation
+- [Content Security Policy](https://content-security-policy.com/) — CSP reference
+
+---

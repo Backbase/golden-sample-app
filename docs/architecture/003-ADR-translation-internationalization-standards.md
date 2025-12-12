@@ -1,317 +1,172 @@
-# ADR-003: Translation and Internationalization Standards for Angular Applications
+# ADR-003: Translation and Internationalization Standards
 
-## Decision summary
+## 1. Summary
 
-All Angular applications at Backbase must implement internationalization (i18n) and localization (l10n) using Angular's official `@angular/localize` package with standardized naming conventions, structured translation IDs, and configuration-based extensibility patterns. This decision establishes mandatory guidelines for marking translatable content, managing translation IDs, handling dynamic translations, and ensuring code quality through automated checks and comprehensive code reviews.
+<!-- LLM: Always load this section first -->
 
-## Context and problem statement
+### TL;DR
 
-### Business context
-- **Global Reach:** Banking applications serve multi-national markets requiring support for multiple languages and locales
-- **Regulatory Compliance:** Financial services must provide information in local languages per regional regulations
-- **User Experience:** Users expect banking interfaces in their preferred language with culturally appropriate formatting (dates, numbers, currency)
-- **Market Expansion:** New market entry requires efficient localization without code changes
-- **Maintenance Cost:** Inconsistent i18n practices lead to translation errors, duplicated strings, and costly remediation
-- **Success Criteria:**
-  - Support for multiple locales without code changes
-  - Consistent translation management across all journeys
-  - Efficient translation workflow for localization teams
-  - Zero ambiguous or missing translations in production
+> All Angular applications must implement internationalization using Angular's `@angular/localize` package with structured translation IDs following the format `<library>.<component>.<element>[-attribute].name`. Backend enumerated values require configuration-based translation mappings with pipes for template usage, allowing customer extensibility.
 
-### Technical context
-- **Existing Landscape:** Angular monorepo with multiple applications and shared journey libraries
-- **Affected Systems:** 
-  - All Angular applications (business-universal, retail-universal)
-  - 50+ journey bundles with shared components
-  - Configuration services across journeys
-  - Shared component library (ui-ang)
-- **Technical Gaps:**
-  - Inconsistent translation ID naming conventions
-  - Mixed usage of template i18n and $localize
-  - No standardized approach for backend enumeration translations
-  - Lack of validation for translation ID uniqueness
-  - Missing guidelines for dynamic/runtime translations
-  - No automated checks for i18n compliance
+### Rules
 
-### Constraints and assumptions
+**MUST DO ✅**
 
-**Technical Constraints:**
-- Must use Angular's native `@angular/localize` package (Angular 10.1+)
-- All translations must be extractable at build time
-- Cannot use runtime translation libraries (e.g., ngx-translate) for consistency
-- Must support both Ahead-of-Time (AOT) and Just-in-Time (JIT) compilation
-- Must work with Nx monorepo build system
-- RTL (Right-to-Left) language support required for Arabic, Hebrew
+1. Use `@angular/localize` package exclusively for all translations
+2. Follow translation ID format: `<library>.<component>.<element>[-attribute].name`
+3. Include meaning and description in every translation: `:meaning|description@@id:text`
+4. Use `i18n` attribute for static template content, `$localize` for TypeScript logic
+5. Use configuration-based translation mappings for backend enumerated values
+6. Provide translation pipes that delegate to configuration services
+7. Translate all accessibility attributes (aria-label, title, alt)
 
-**Business Constraints:**
-- Implementation must not break existing translations
-- Migration path required for legacy journeys
-- Translation workflow must integrate with existing localization vendors
-- No additional licensing costs for translation management tools
-- Must support both product-wide and journey-specific translations
+**MUST NOT ❌**
 
-**Environmental Constraints:**
-- Build process must extract translations to XLF/XLIFF format
-- Must support multiple locale builds in CI/CD pipeline
-- Translation files must be version-controlled
-- Must work with existing Angular CLI and Nx workspace configuration
+1. Do NOT use runtime translation libraries (e.g., ngx-translate)
+2. Do NOT create TypeScript variables solely to translate static template text
+3. Do NOT compose translation IDs dynamically at runtime (it won't work)
+4. Do NOT leave user-facing strings without translation IDs
+5. Do NOT omit meaning/description context for translators
+6. Do NOT display raw backend enumeration codes to users without translation
 
-**Assumptions Made:**
-- Translators have access to context (meaning/description) for each string
-- Design system components (ui-ang) provide localized labels through configuration
-- Backend APIs return locale-agnostic identifiers (not localized strings)
-- Translation IDs remain stable across versions for translation memory
-- Localization teams prefer XLIFF format for translation tools
+---
 
-### Affected architecture description elements
+## 2. Patterns
 
-**Components:**
-- All Angular journey components and templates
-- Configuration services providing default journey configurations
-- Pipes for runtime value transformations
-- Shared utility functions for translation helpers
-- Backend API response mapping layers
+<!-- LLM: Load for code generation tasks -->
 
-**Views:**
-- **Development View:** Translation extraction pipeline, build configuration, i18n tooling
-- **Logical View:** Translation ID structure, configuration service patterns, pipe architecture
-- **Process View:** Build-time extraction, translation workflow, quality gates
-- **Deployment View:** Multi-locale build artifacts, locale-specific deployments
+### Pattern Index
 
-**Stakeholders:**
-- **Development Teams:** Implement i18n standards in components and configurations
-- **Localization Teams:** Translate extracted strings using translation memory tools
-- **Product Owners:** Ensure feature parity across all supported locales
-- **End Users:** Experience application in their preferred language
-- **DevOps:** Manage multi-locale build and deployment processes
+| Keywords | Pattern |
+|----------|---------|
+| i18n, template, static text, heading | [Pattern 1: Template Translation](#pattern-1-template-translation) |
+| $localize, typescript, config, service | [Pattern 2: TypeScript Translation](#pattern-2-typescript-translation) |
+| backend, enum, mapping, pipe | [Pattern 3: Backend Enumeration Translation](#pattern-3-backend-enumeration-translation) |
+| plural, ICU, count, select | [Pattern 4: Pluralization and ICU Expressions](#pattern-4-pluralization-and-icu-expressions) |
 
-## Decision
+---
 
-### What we decided
+### Pattern 1: Template Translation
 
-**We will adopt Angular's native `@angular/localize` package as the exclusive internationalization solution** with the following mandatory requirements:
+**Use when:** Translating static content directly in HTML templates
 
-1. **Standard Translation ID Format**
-   - All custom translation IDs must follow: `<library>.<component>.<element>[-attribute].name`
-   - IDs must be unique across the entire application
-   - IDs must include meaningful descriptions and context (meaning)
+**Don't use when:** String requires TypeScript logic or is part of a configuration object
 
-2. **Template vs. TypeScript Guidelines**
-   - Use `i18n` attribute for static template content
-   - Use `i18n-<attribute>` for translatable HTML attributes
-   - Use `$localize` for TypeScript variables, configuration objects, and computed strings
-   - Never create variables solely for translating static template text
+✅ **Good**
 
-3. **Backend Enumeration Pattern**
-   - Backend enumerated values require configuration-based translation mappings
-   - Use object literals with $localize for known enumeration values
-   - Provide extensibility through journey configuration for custom values
-   - Implement translation pipes for consistent template usage
+```html
+<!-- CONTEXT: Translating a page heading and input placeholder -->
+<!-- RULE: Use i18n attribute with meaning|description@@id format -->
 
-4. **Dynamic Translation Pattern**
-   - Provide configuration-based extensibility for runtime value mapping
-   - Use pipes that delegate to configuration services
-   - Include default translations for known/standard values
-   - Allow customer override through configuration injection
-
-5. **Mandatory Code Review Checklist**
-   - All translation IDs follow naming convention
-   - Meaningful descriptions provided for translator context
-   - No hardcoded user-facing strings
-   - Backend enumerations use translation mapping pattern
-   - Configuration provides extensibility where needed
-
-### Rationale
-
-**Angular Native Approach:**
-- Build-time extraction ensures all translations are present before deployment
-- No runtime performance overhead from translation library
-- Leverages Angular CLI tooling and compiler optimizations
-- Industry standard for Angular applications
-- Better tree-shaking and smaller bundle sizes
-
-**Structured ID Convention:**
-- Prevents duplicate translation IDs across large codebases
-- Enables developers to locate source code from translation files
-- Provides meaningful context for translators
-- Supports translation memory tools effectively
-- Facilitates automated validation and linting
-
-**Configuration-Based Extensibility:**
-- Allows customers to extend translations for custom backend values
-- Maintains build-time extraction for default translations
-- Separates concerns between journey logic and translation mappings
-- Enables journey reusability across different backend implementations
-
-## Implementation details
-
-### Technical approach
-
-#### 1. Translation ID Naming Convention
-
-**Format:** `<library>.<component>.<element>[-attribute].name`
-
-**Components:**
-- `<library>`: Journey or library name (e.g., `transactions-list`, `accounts-journey`)
-- `<component>`: Component file name without `.component.ts` suffix
-- `<element>`: HTML element type or semantic identifier (e.g., `input`, `button`, `heading`, `message`)
-- `[-attribute]`: Optional attribute name when translating HTML attributes (e.g., `-placeholder`, `-title`, `-aria-label`)
-- `name`: Semantic identifier for the specific translation (e.g., `submit`, `cancel`, `error-message`)
-
-**Separators:**
-- Use `.` (dot) between major components
-- Use `-` (hyphen) within multi-word elements and for attribute prefix
-- Use `-` (hyphen) for multi-word names
-
-**Examples:**
-
-```typescript
-// Template translation with description and custom ID
 <h1 i18n="Account list heading|Main heading for account list page@@accounts-journey.accounts-list.heading.title">
   My Accounts
 </h1>
 
-// Attribute translation
 <input 
   type="text"
   placeholder="Search accounts"
   i18n-placeholder="Account search placeholder|Placeholder text for account search input@@accounts-journey.accounts-list.input-placeholder.search"
 />
 
-// TypeScript translation
-export class AccountsListComponent {
-  readonly title = $localize`:Account list heading|Main heading for account list page@@accounts-journey.accounts-list.heading.title:My Accounts`;
-  
-  readonly searchPlaceholder = $localize`:Account search placeholder|Placeholder text for account search input@@accounts-journey.accounts-list.message.search-placeholder:Search accounts`;
-}
-```
-
-#### 2. Template i18n Patterns
-
-**Basic template translation:**
-
-```html
-<!-- Good: Includes meaning, description, and custom ID -->
-<span i18n="Welcome message|Greeting shown to logged-in users@@dashboard.header.message.welcome">
-  Welcome back
-</span>
-
-<!-- Bad: No context or ID -->
-<span i18n>Welcome back</span>
-```
-
-**Attribute translation:**
-
-```html
-<!-- Good: Translate accessibility attributes -->
 <button 
   aria-label="Close dialog"
   i18n-aria-label="Close button label|ARIA label for dialog close button@@payment-dialog.button-aria-label.close"
 >
   <i class="icon-close"></i>
 </button>
-
-<!-- Good: Translate placeholder, title, alt attributes -->
-<input 
-  type="email"
-  placeholder="Enter your email"
-  title="Email address for notifications"
-  i18n-placeholder="Email input placeholder|Placeholder for email notification input@@profile.input-placeholder.email"
-  i18n-title="Email input title|Tooltip for email notification input@@profile.input-title.email"
-/>
 ```
 
-**Pluralization and ICU expressions:**
+❌ **Bad**
 
 ```html
-<!-- Pluralization -->
-<span i18n="Transaction count|Number of transactions found@@transactions.message.count">
-  {count, plural, 
-    =0 {No transactions found}
-    =1 {One transaction found}
-    other {{{count}} transactions found}
-  }
-</span>
+<!-- PROBLEM: Missing translation ID, meaning, and description -->
 
-<!-- Select expression -->
-<span i18n="Account status|Current status of account@@accounts.message.status">
-  {status, select,
-    active {Your account is active}
-    pending {Your account is pending approval}
-    suspended {Your account is temporarily suspended}
-    other {Unknown account status}
-  }
-</span>
+<span i18n>Welcome back</span>
+
+<input placeholder="Search" i18n-placeholder />
 ```
 
-#### 3. TypeScript $localize Patterns
+**Why it's wrong:** Without a custom ID, Angular generates a hash-based ID that changes when the text changes, breaking translation memory. Without meaning/description, translators lack context.
 
-**Component properties:**
+**Verify:**
+- [ ] Every `i18n` has format: `meaning|description@@library.component.element.name`
+- [ ] All user-facing attributes (placeholder, title, aria-label) have `i18n-<attr>`
+- [ ] Translation ID follows naming convention
 
-```typescript
-@Component({
-  selector: 'bb-payment-review',
-  templateUrl: './payment-review.component.html'
-})
-export class PaymentReviewComponent {
-  // Good: Translation with full context
-  readonly confirmLabel = $localize`:Confirm button|Label for payment confirmation button@@payment-review.button.confirm:Confirm Payment`;
-  
-  readonly cancelLabel = $localize`:Cancel button|Label for payment cancellation button@@payment-review.button.cancel:Cancel`;
-  
-  // Good: Error messages
-  readonly errorInsufficientFunds = $localize`:Error message|Shown when account has insufficient funds@@payment-review.error.insufficient-funds:Insufficient funds in your account`;
-}
-```
+---
 
-**Configuration objects:**
+### Pattern 2: TypeScript Translation
+
+**Use when:** Translations needed in configuration objects, validation messages, or logic-dependent strings
+
+**Don't use when:** String is static template content that could use `i18n` attribute instead
+
+✅ **Good**
 
 ```typescript
-// Good: Translatable configuration with extensibility
-export interface PaymentJourneyConfig {
-  statusLabels: { [key: string]: string };
-}
+// CONTEXT: Configuration object with translatable status labels
+// RULE: Use $localize with full context format in TypeScript
 
 export const DEFAULT_PAYMENT_CONFIG: PaymentJourneyConfig = {
   statusLabels: {
     'PENDING': $localize`:Payment status|Payment awaiting approval@@payment-journey.status.pending:Pending Approval`,
     'APPROVED': $localize`:Payment status|Payment has been approved@@payment-journey.status.approved:Approved`,
     'REJECTED': $localize`:Payment status|Payment has been rejected@@payment-journey.status.rejected:Rejected`,
-    'PROCESSING': $localize`:Payment status|Payment is being processed@@payment-journey.status.processing:Processing`,
   }
 };
-```
 
-**Static messages and constants:**
-
-```typescript
-// Good: Translatable constants
+// Validation messages
 export const VALIDATION_MESSAGES = {
   required: $localize`:Validation error|Field is required@@validation.error.required:This field is required`,
   email: $localize`:Validation error|Invalid email format@@validation.error.email:Please enter a valid email address`,
-  minLength: $localize`:Validation error|Input too short@@validation.error.min-length:Please enter at least {minLength} characters`,
 };
 ```
 
-#### 4. Backend Enumeration Translation Pattern
-
-**Problem:** Backend returns enumerated values (e.g., transaction types, account statuses) that need localization, but values may be extensible or project-specific.
-
-**Solution:** Configuration-based translation mapping with pipes
+❌ **Bad**
 
 ```typescript
+// PROBLEM: Creating variables just to translate static template text
+
+@Component({
+  template: `<h1>{{ pageTitle }}</h1>`
+})
+export class BadComponent {
+  pageTitle = $localize`:@@page.title:My Page Title`; // Unnecessary variable
+}
+```
+
+**Why it's wrong:** Static template text should use `i18n` directly in the template. Creating TypeScript variables adds unnecessary indirection and code.
+
+**Verify:**
+- [ ] `$localize` only used when TypeScript logic requires it
+- [ ] All `$localize` include `:meaning|description@@id:text` format
+- [ ] No variables created solely for template translation
+
+---
+
+### Pattern 3: Backend Enumeration Translation
+
+**Use when:** Backend returns enumerated values (transaction types, statuses) that need localization
+
+**Don't use when:** Values are already localized by the backend
+
+✅ **Good**
+
+```typescript
+// CONTEXT: Translating backend transaction type codes
+// RULE: Use configuration-based mapping with pipe delegation
+
 // 1. Define configuration interface
 export interface TransactionsJourneyConfig {
   transactionTypeLabels: { [key: string]: string };
 }
 
-// 2. Provide default translations for known values
+// 2. Provide default translations
 export const DEFAULT_TRANSACTIONS_CONFIG: TransactionsJourneyConfig = {
   transactionTypeLabels: {
     'CARD_PAYMENT': $localize`:Transaction type|Credit or debit card payment@@transactions-journey.transaction-type.card-payment:Card Payment`,
     'WIRE_TRANSFER': $localize`:Transaction type|Wire transfer between accounts@@transactions-journey.transaction-type.wire-transfer:Wire Transfer`,
     'DIRECT_DEBIT': $localize`:Transaction type|Direct debit transaction@@transactions-journey.transaction-type.direct-debit:Direct Debit`,
-    'ATM_WITHDRAWAL': $localize`:Transaction type|ATM cash withdrawal@@transactions-journey.transaction-type.atm-withdrawal:ATM Withdrawal`,
   }
 };
 
@@ -334,48 +189,231 @@ export class TransactionTypePipe implements PipeTransform {
   constructor(private readonly config: TransactionsJourneyConfigService) {}
   
   transform(typeCode: string): string {
-    // Return translated label if configured, otherwise return the code itself
     return this.config.transactionTypeLabels[typeCode] || typeCode;
   }
 }
 
-// 5. Usage in template
+// 5. Use in template
 @Component({
-  template: `
-    <div class="transaction-type">
-      {{ transaction.type | transactionType }}
-    </div>
-  `
+  template: `<div class="transaction-type">{{ transaction.type | transactionType }}</div>`
 })
 export class TransactionItemComponent {
   @Input() transaction!: Transaction;
 }
 ```
 
-**Customer Extension Example:**
+❌ **Bad**
 
 ```typescript
-// Customer provides additional translations for custom transaction types
-const customConfig: Partial<TransactionsJourneyConfig> = {
-  transactionTypeLabels: {
-    'CUSTOM_CRYPTO_TRANSFER': $localize`:Transaction type|Cryptocurrency transfer@@custom.transaction-type.crypto:Crypto Transfer`,
-    'CUSTOM_STOCK_PURCHASE': $localize`:Transaction type|Stock purchase transaction@@custom.transaction-type.stock:Stock Purchase`,
-  }
-};
+// PROBLEM: Displaying raw backend code without translation
 
-// These merge with defaults, extending the available translations
+@Component({
+  template: `<span>{{ transaction.type }}</span>`
+})
+export class BadComponent {
+  @Input() transaction!: Transaction;
+}
+
+// PROBLEM: Trying to compose translation IDs dynamically
+getLabel(type: string): string {
+  return $localize`:@@cards.type.${type}:${type}`; // ❌ DOES NOT WORK
+}
 ```
 
-#### 5. Dynamic/Runtime Translation Pattern
+**Why it's wrong:** Raw backend codes are not user-friendly. Dynamic ID composition fails because `$localize` requires literal template strings known at build time.
 
-**Problem:** Need to display different localized strings based on data that isn't fully known at build time.
+**Verify:**
+- [ ] Configuration provides default translations for known values
+- [ ] Configuration service merges defaults with custom config
+- [ ] Pipe returns original value as fallback if no translation
+- [ ] Template uses pipe, not raw backend value
 
-**Key Principle:** All possible translation strings must be defined at build time. Runtime logic selects which string to use.
+---
 
-**Pattern:**
+### Pattern 4: Pluralization and ICU Expressions
+
+**Use when:** Text varies based on count or selection from a set of values
+
+**Don't use when:** Simple static text without variation
+
+✅ **Good**
+
+```html
+<!-- CONTEXT: Displaying transaction count with proper pluralization -->
+<!-- RULE: Use ICU plural/select expressions -->
+
+<span i18n="Transaction count|Number of transactions found@@transactions.message.count">
+  {count, plural, 
+    =0 {No transactions found}
+    =1 {One transaction found}
+    other {{{count}} transactions found}
+  }
+</span>
+
+<!-- Select expression for status -->
+<span i18n="Account status|Current status of account@@accounts.message.status">
+  {status, select,
+    active {Your account is active}
+    pending {Your account is pending approval}
+    suspended {Your account is temporarily suspended}
+    other {Unknown account status}
+  }
+</span>
+```
+
+❌ **Bad**
 
 ```typescript
-// 1. Define all possible translations in configuration
+// PROBLEM: Using TypeScript conditionals instead of ICU expressions
+
+@Component({
+  template: `<span>{{ getCountMessage() }}</span>`
+})
+export class BadComponent {
+  getCountMessage(): string {
+    if (this.count === 0) return $localize`:@@count.zero:No items`;
+    if (this.count === 1) return $localize`:@@count.one:One item`;
+    return $localize`:@@count.other:${this.count} items`;
+  }
+}
+```
+
+**Why it's wrong:** ICU expressions are the standard way to handle pluralization in Angular i18n. They keep all variations together for translators and handle locale-specific plural rules.
+
+**Verify:**
+- [ ] Pluralization uses ICU `plural` expression
+- [ ] Selection from values uses ICU `select` expression
+- [ ] All branches have translation context
+
+---
+
+<!-- 
+NOTE: For guidance on choosing between i18n and $localize, see Pattern 1 (template) 
+and Pattern 2 (TypeScript) - use i18n for static template text, $localize only 
+when TypeScript logic requires it.
+-->
+
+## 3. Validation
+
+<!-- LLM: Load for code review tasks -->
+
+### Automated Checks
+
+| ID | Check | Severity | How to Detect |
+|----|-------|----------|---------------|
+| `I18N-001` | Translation has custom ID | 🔴 BLOCKER | `grep -E 'i18n[^=]*="[^@]*"' --include="*.html"` (missing @@) |
+| `I18N-002` | $localize has full format | 🔴 BLOCKER | `grep -E '\$localize\`[^:]*:' --include="*.ts"` (missing meaning\|desc) |
+| `I18N-003` | No hardcoded user-facing strings | 🔴 BLOCKER | Manual review of template strings |
+| `I18N-004` | Translation ID follows naming convention | 🟡 WARNING | `grep -E '@@[a-z]+-[a-z]+\.[a-z]' --include="*.html"` |
+| `I18N-005` | Backend enum uses translation pipe | 🔴 BLOCKER | Review `{{ expression }}` without pipe for known enums |
+| `I18N-006` | Accessibility attributes translated | 🟡 WARNING | `grep -E 'aria-label="[^"]*"' --include="*.html"` without i18n-aria-label |
+
+### Review Checklist
+
+| ID | Check | Severity |
+|----|-------|----------|
+| `I18N-R01` | All translation IDs follow format: `<library>.<component>.<element>[-attribute].name` | 🔴 BLOCKER |
+| `I18N-R02` | Every i18n/\$localize includes meaningful description for translators | 🔴 BLOCKER |
+| `I18N-R03` | Backend enumerated values use configuration-based translation pattern | 🔴 BLOCKER |
+| `I18N-R04` | Configuration provides extensibility for customer-specific values | 🟡 WARNING |
+| `I18N-R05` | No TypeScript variables created solely for template translation | 🟡 WARNING |
+| `I18N-R06` | Pluralization uses ICU expressions, not TypeScript conditionals | 🟡 WARNING |
+| `I18N-R07` | ARIA labels and accessibility attributes are translated | 🔴 BLOCKER |
+
+### Required Tests
+
+| Scenario | Type | Required |
+|----------|------|----------|
+| Translation extraction runs without errors | Build | ✅ Yes |
+| Configuration service merges custom translations | Unit | ✅ Yes |
+| Translation pipe returns fallback for unknown values | Unit | ✅ Yes |
+| All user-facing text has translation ID | Build | ✅ Yes |
+
+---
+
+## 4. Context
+
+<!-- 
+LLM: SKIP this section unless user asks "why" questions about the decision.
+This section is for human readers understanding the historical context.
+-->
+
+### Problem
+
+Banking applications serve multi-national markets requiring consistent translation patterns. Existing monorepo had inconsistent translation ID naming, mixed template i18n/$localize usage, and no backend enumeration translation standards.
+
+### Business Drivers
+
+- Multi-locale support without code changes
+- Regulatory compliance for local language requirements
+- Consistent translation patterns across journeys
+
+### Technical Constraints
+
+- Angular `@angular/localize` (build-time extraction)
+- XLIFF format output, Nx monorepo compatible
+- RTL language support (Arabic, Hebrew)
+
+---
+
+## 5. Decision
+
+<!-- 
+LLM: SKIP this section unless user asks "why" questions about the decision.
+This section is for human readers understanding decision rationale.
+-->
+
+### What We Decided
+
+Use Angular `@angular/localize` exclusively with structured translation IDs (`<library>.<component>.<element>.name`), mandatory translator context (meaning|description), and configuration-based backend enumeration translation.
+
+### Rationale
+
+| Choice | Why |
+|--------|-----|
+| @angular/localize | Build-time extraction, CLI integration, tree-shaking |
+| Structured IDs | Prevents duplicates, supports translation memory |
+| Config-based enums | Customer extensibility without source code changes |
+
+---
+
+## 6. Implementation
+
+### Affected Components
+
+| Component | Impact | Files |
+|-----------|--------|-------|
+| Angular templates | MODIFY | `*.html` |
+| Component classes | MODIFY | `*.component.ts` |
+| Configuration services | MODIFY | `*-config.service.ts` |
+| Translation pipes | CREATE | `*-translation.pipe.ts` |
+| Journey configuration | MODIFY | `*-journey.config.ts` |
+
+### Related ADRs
+
+| ADR | Relationship |
+|-----|--------------|
+| ADR-001: Accessibility Standards | Related to - ARIA labels require translation |
+| ADR-007: Journey Configuration Standards | Related to - Configuration provides translation extensibility |
+
+### Migration Notes
+
+- Implementation must not break existing translations
+- Migration path required for legacy journeys using non-standard patterns
+- Existing translation IDs should be preserved for translation memory
+- New patterns apply to new code; legacy code migrated incrementally
+
+---
+
+## 7. Examples
+
+### Complete Example
+
+**Scenario:** Creating a card management component with translatable card types and statuses
+
+```typescript
+// File: libs/cards-journey/src/lib/config/cards-journey.config.ts
+
 export interface CardManagementConfig {
   cardTypeLabels: { [key: string]: string };
   cardStatusLabels: { [key: string]: string };
@@ -394,7 +432,8 @@ export const DEFAULT_CARD_CONFIG: CardManagementConfig = {
   }
 };
 
-// 2. Create typed pipes for each mapping
+// File: libs/cards-journey/src/lib/pipes/card-type.pipe.ts
+
 @Pipe({ name: 'cardType' })
 export class CardTypePipe implements PipeTransform {
   constructor(private readonly config: CardManagementConfigService) {}
@@ -405,266 +444,63 @@ export class CardTypePipe implements PipeTransform {
   }
 }
 
-@Pipe({ name: 'cardStatus' })
-export class CardStatusPipe implements PipeTransform {
-  constructor(private readonly config: CardManagementConfigService) {}
+// File: libs/cards-journey/src/lib/components/card-details.component.html
+
+<div class="card-details">
+  <h2 i18n="Card details heading|Heading for card details section@@cards.card-details.heading.title">
+    Card Details
+  </h2>
   
-  transform(card: Card | string): string {
-    const statusCode = typeof card === 'string' ? card : card.status;
-    return this.config.cardStatusLabels[statusCode] || statusCode;
-  }
-}
-
-// 3. Use in templates
-@Component({
-  template: `
-    <div class="card-info">
-      <span class="card-type">{{ card | cardType }}</span>
-      <span class="card-status" [class.blocked]="card.status === 'BLOCKED'">
-        {{ card | cardStatus }}
-      </span>
-    </div>
-  `
-})
-export class CardDetailsComponent {
-  @Input() card!: Card;
-}
+  <div class="card-info">
+    <span class="card-type">{{ card | cardType }}</span>
+    <span class="card-status" [class.blocked]="card.status === 'BLOCKED'">
+      {{ card | cardStatus }}
+    </span>
+  </div>
+  
+  <button 
+    aria-label="Block this card"
+    i18n-aria-label="Block card button|ARIA label for card blocking action@@cards.card-details.button-aria-label.block"
+    (click)="blockCard()"
+  >
+    <span i18n="Block button|Button text to block card@@cards.card-details.button.block">Block Card</span>
+  </button>
+</div>
 ```
 
-**Anti-pattern - DO NOT DO THIS:**
+### Common Mistakes
+
+**Mistake 1: Missing Translation ID**
 
 ```typescript
-// BAD: Trying to compose translation keys dynamically
-// This will NOT work - translations must be known at build time
-getLabel(type: string): string {
-  return $localize`:@@cards.type.${type}:${type}`; // ❌ DOES NOT WORK
-}
-
-// BAD: Trying to select translations at runtime from dynamic keys
-// This will NOT work - $localize needs literal template strings
-const key = `cards.type.${dynamicValue}`;
-return $localize`:@@${key}:Label`; // ❌ DOES NOT WORK
-```
-
-#### 6. When to Use i18n vs $localize
-
-**Decision Tree:**
-
-```
-Is this a static string in a template?
-├─ YES: Is it element content?
-│   └─ YES → Use i18n attribute
-│       Example: <h1 i18n="...">Title</h1>
-│
-├─ YES: Is it an HTML attribute?
-│   └─ YES → Use i18n-attribute
-│       Example: <input i18n-placeholder="..." placeholder="..." />
-│
-├─ NO: Is it in TypeScript?
-│   ├─ Is it only needed for a template binding?
-│   │   └─ YES: Consider using i18n in template instead
-│   │       (Don't create variables just for translation)
-│   │
-│   └─ NO: Does it need to be in TypeScript?
-│       └─ YES → Use $localize
-│           Examples:
-│           - Configuration objects
-│           - Validation messages
-│           - Dynamic logic requiring translated strings
-│           - Service layer messages
-```
-
-**Examples:**
-
-```typescript
-// ❌ BAD: Creating variable just to translate template text
-@Component({
-  template: `<h1>{{ pageTitle }}</h1>`
-})
-export class BadComponent {
-  pageTitle = $localize`:@@page.title:My Page Title`; // Unnecessary
-}
-
-// ✅ GOOD: Use i18n directly in template
-@Component({
-  template: `<h1 i18n="Page title@@page.title">My Page Title</h1>`
-})
-export class GoodComponent {
-  // No unnecessary variable
-}
-
-// ✅ GOOD: Use $localize when TypeScript logic needs it
-@Component({
-  template: `<div>{{ statusMessage }}</div>`
-})
-export class GoodComponent {
-  get statusMessage(): string {
-    // Logic requires TypeScript - appropriate use of $localize
-    return this.isValid 
-      ? $localize`:@@status.valid:All checks passed`
-      : $localize`:@@status.error:Validation failed`;
-  }
-}
-```
-
-### Standards compliance
-
-- [x] Angular @angular/localize package (v10.1+) used exclusively
-- [x] Translation ID naming convention enforced via code review
-- [x] XLIFF format for translation file interchange
-- [x] Build-time translation extraction integrated in CI/CD
-- [x] Configuration-based extensibility for custom translations
-- [x] RTL language support considerations documented
-- [x] Pluralization and ICU expression patterns defined
-
-### Quality attributes addressed
-
-| Quality Attribute | Requirement | How Decision Addresses It |
-|-------------------|-------------|---------------------------|
-| **Maintainability** | Easy to locate and update translations | Structured ID convention maps directly to source files |
-| **Scalability** | Support 20+ languages without code changes | Build-time extraction with configuration-based extensibility |
-| **Performance** | Zero runtime translation overhead | Build-time compilation with tree-shaking optimization |
-| **Usability** | Contextual translations for better UX | Meaning and description provide translator context |
-| **Extensibility** | Customers can add custom translations | Configuration service pattern allows injection of custom mappings |
-| **Quality** | Zero missing or duplicate translations | Unique IDs with build-time validation |
-| **Developer Experience** | Clear guidelines reduce decision fatigue | Comprehensive patterns and decision trees |
-
-## Success metrics
-
-### Technical success criteria
-- **100%** of new code follows translation ID naming convention
-- **Zero** translation ID collisions detected in CI/CD
-- **< 10%** increase in build time for multi-locale builds
-- **100%** of user-facing strings have translation IDs and descriptions
-- **Zero** hardcoded user-facing strings in production code
-- **All** journeys provide configuration-based extensibility for dynamic translations
-
-### Business success criteria
-- **90%+** translation quality score from localization vendor
-- **< 1%** user-reported translation issues per release
-- **Support for 5+ locales** within 6 months
-- **30%** reduction in translation rework costs
-- **100%** of new markets launched with day-1 localization support
-
-### Monitoring and measurement
-- **Weekly:** i18n compliance dashboard showing percentage per journey
-- **Per PR:** Automated checks for translation ID format and uniqueness
-- **Monthly:** Translation quality metrics from localization vendor
-- **Quarterly:** Review of translation costs and efficiency gains
-- **Annually:** Standards review and update based on Angular evolution
-
-## Code review checklist
-
-### Translation Implementation Review
-
-Use this checklist during code reviews to ensure i18n compliance:
-
-#### ✅ Translation ID Format
-- [ ] All custom translation IDs follow format: `<library>.<component>.<element>[-attribute].name`
-- [ ] Translation IDs are unique (no duplicates)
-- [ ] Multi-word elements use hyphens within segments (e.g., `input-placeholder`)
-- [ ] Components use dots to separate major sections (e.g., `journey.component.element`)
-
-#### ✅ Translation Context
-- [ ] Every i18n or $localize includes meaning (first part before `|`)
-- [ ] Every i18n or $localize includes description (second part after `|`)
-- [ ] Descriptions provide sufficient context for translators
-- [ ] Descriptions are not just duplicates of the default text
-
-#### ✅ Template Translations
-- [ ] Static template text uses `i18n` attribute (not `$localize` in TypeScript)
-- [ ] HTML attributes use `i18n-<attribute>` prefix (e.g., `i18n-placeholder`, `i18n-title`, `i18n-aria-label`)
-- [ ] Pluralization uses ICU plural expressions where applicable
-- [ ] No hardcoded user-facing strings in templates
-
-#### ✅ TypeScript Translations
-- [ ] `$localize` is used for configuration objects, validation messages, and logic-dependent strings
-- [ ] Variables are NOT created solely to translate static template text
-- [ ] Validation messages use descriptive IDs (e.g., `validation.error.required`)
-- [ ] All `$localize` strings include full format: `:meaning|description@@id:default text`
-
-#### ✅ Backend Enumeration Pattern
-- [ ] Backend enumerated values use configuration-based translation mapping
-- [ ] Default configuration provides translations for standard/known values
-- [ ] Configuration interface allows customer extension
-- [ ] Configuration service merges defaults with custom config
-- [ ] Translation pipe delegates to configuration service
-- [ ] Pipe returns original value as fallback if no translation configured
-
-#### ✅ Dynamic Translation Pattern
-- [ ] All possible translation values defined at build time (not composed at runtime)
-- [ ] Configuration provides extensibility for customer-specific values
-- [ ] Pipes used for consistent template transformation
-- [ ] Fallback behavior defined (return code if no translation available)
-- [ ] No attempt to compose translation IDs dynamically (won't work)
-
-#### ✅ i18n vs $localize Decision
-- [ ] Template static content uses `i18n`, not unnecessary TypeScript variables
-- [ ] TypeScript `$localize` only used when logic requires it
-- [ ] No duplication between template i18n and TypeScript $localize for same string
-
-#### ✅ Code Quality
-- [ ] No TODO comments about "add i18n later"
-- [ ] No commented-out hardcoded strings
-- [ ] Imports include `$localize` type declaration if used: `declare const $localize: any;` (TypeScript files only)
-- [ ] Translation extraction tested (run extraction to verify all strings extracted)
-
-#### ✅ Configuration Services
-- [ ] Configuration interface documents all translatable properties
-- [ ] Default configuration uses $localize for all user-facing strings
-- [ ] Configuration service merges defaults with custom config correctly
-- [ ] Configuration provides JSDoc comments explaining extensibility
-
-#### ✅ Accessibility Translations
-- [ ] ARIA labels, descriptions, and live regions are translated
-- [ ] Error messages announced to screen readers are translated
-- [ ] Dynamic status updates include translated text
-
-#### ✅ Documentation
-- [ ] Journey README documents custom configuration for translations
-- [ ] Complex translation patterns include code comments explaining approach
-- [ ] Any exceptions to standards are documented with rationale
-
-### Common Anti-patterns to Reject
-
-❌ **Missing Translation ID:**
-```typescript
-// BAD
+// ❌ Wrong
 <span i18n>Welcome</span>
 
-// GOOD
+// ✅ Fix
 <span i18n="Welcome message|Greeting for logged-in user@@dashboard.message.welcome">Welcome</span>
 ```
 
-❌ **Creating variables just for template translation:**
+**Mistake 2: Creating variables just for template translation**
+
 ```typescript
-// BAD
+// ❌ Wrong
 export class Component {
   title = $localize`:@@page.title:Page Title`;
   // Template: {{ title }}
 }
 
-// GOOD - use i18n directly in template
+// ✅ Fix - use i18n directly in template
 // Template: <h1 i18n="Page title@@page.title">Page Title</h1>
 ```
 
-❌ **Hardcoded user-facing strings:**
-```typescript
-// BAD
-showError('An error occurred');
+**Mistake 3: Dynamic translation ID composition**
 
-// GOOD
-readonly errorMessage = $localize`:Error message|Generic error notification@@component.error.generic:An error occurred`;
-showError(this.errorMessage);
-```
-
-❌ **Dynamic translation ID composition:**
 ```typescript
-// BAD - This does NOT work
+// ❌ Wrong - This does NOT work
 const key = `cards.status.${status}`;
 return $localize`:@@${key}:Status`;
 
-// GOOD - Define all translations upfront
+// ✅ Fix - Define all translations upfront
 const statusLabels = {
   'ACTIVE': $localize`:@@cards.status.active:Active`,
   'BLOCKED': $localize`:@@cards.status.blocked:Blocked`,
@@ -672,42 +508,25 @@ const statusLabels = {
 return statusLabels[status] || status;
 ```
 
-❌ **Backend values without translation mapping:**
+**Mistake 4: Backend values without translation**
+
 ```typescript
-// BAD
+// ❌ Wrong
 <span>{{ transaction.type }}</span>
 
-// GOOD
+// ✅ Fix
 <span>{{ transaction.type | transactionType }}</span>
-// Where transactionType pipe uses configuration-based mapping
 ```
 
-❌ **Poor translation IDs:**
-```typescript
-// BAD - Not following convention
-i18n="@@msg1:Message"
-i18n="@@myComponent_button_1:Label"
+---
 
-// GOOD
-i18n="Button label|Submit button for payment form@@payment-review.button.submit:Submit Payment"
-```
+## 8. References
 
-## References
+- [Angular i18n Official Guide](https://angular.io/guide/i18n-overview) — Angular documentation
+- [Angular Localize Package](https://angular.io/api/localize) — Official API documentation
+- [XLIFF 2.1 Specification](http://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html) — Translation file format
+- [ICU MessageFormat](https://unicode-org.github.io/icu/userguide/format_parse/messages/) — Pluralization syntax
+- [RTL Language Support](https://material.angular.io/cdk/bidi/overview) — Bidirectional text support
+- **WCAG 2.2** — Language of page and parts (Success Criteria 3.1.1, 3.1.2)
 
-### Authoritative sources
-- [Angular i18n Official Guide](https://angular.io/guide/i18n-overview) - Angular documentation
-- [Angular Localize Package](https://angular.io/api/localize) - Official API documentation
-- [XLIFF 2.1 Specification](http://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html) - Translation file format
-- [ICU MessageFormat](https://unicode-org.github.io/icu/userguide/format_parse/messages/) - Pluralization syntax
-
-### Technical references
-- [Maintaining Multi-language Angular Applications](https://medium.com/dailyjs/maintaining-multi-language-angular-applications-26b74df8d085) - Best practices article
-- [Angular i18n: A Complete Translation Guide](https://phrase.com/blog/posts/angular-i18n-complete-translation-guide/) - Comprehensive guide
-- [Internationalization with @angular/localize](https://www.digitalocean.com/community/tutorials/angular-internationalization) - Tutorial
-- [RTL Language Support in Angular](https://material.angular.io/cdk/bidi/overview) - Bidirectional text support
-
-### Standards compliance
-- **ISO/IEC/IEEE 42010:2022** - Systems and software engineering — Architecture description
-- **Angular Style Guide** - Internationalization best practices
-- **WCAG 2.2** - Language of page and parts (Success Criteria 3.1.1, 3.1.2)
-- **XLIFF Standard** - Localization file interchange format
+---
