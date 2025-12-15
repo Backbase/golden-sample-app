@@ -76,36 +76,20 @@
         </bb-badge-ui>
       </div>
 
-      <ng-container *ngIf="transactions$ | async as items; else loading">
-        <!-- ADR-003: Empty state with i18n marker -->
-        <div
-          *ngIf="items.length === 0"
-          class="bb-block bb-block--lg text-center"
-          data-role="transactions-view__empty-state"
+      <ul *ngIf="transactions$ | async as items; else loading" class="bb-list">
+        <li
+          *ngFor="let item of items | filterTransactions : filter"
+          class="bb-list__item"
+          data-role="transactions-view__item-container"
         >
-          <p
-            class="text-muted"
-            i18n="Empty transactions message|Message shown when no transactions exist for selected account@@transactions.empty-state.message"
-          >
-            No transactions found for this account.
-          </p>
-        </div>
-
-        <ul *ngIf="items.length > 0" class="bb-list">
-          <li
-            *ngFor="let item of items | filterTransactions : filter"
-            class="bb-list__item"
-            data-role="transactions-view__item-container"
-          >
-            <a class="list-link" [routerLink]="['./', item.id]">
-              <bb-transaction-item
-                [transaction]="item"
-                [categoryName]="item.category"
-              ></bb-transaction-item>
-            </a>
-          </li>
-        </ul>
-      </ng-container>
+          <a class="list-link" [routerLink]="['./', item.id]">
+            <bb-transaction-item
+              [transaction]="item"
+              [categoryName]="item.category"
+            ></bb-transaction-item>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
