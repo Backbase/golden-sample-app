@@ -286,4 +286,126 @@ describe('TransactionsViewComponent', () => {
       );
     });
   });
+
+  describe('S4: Transaction Filtering by Account', () => {
+    const snapshot = {
+      data: {
+        title: 'Transactions',
+      },
+    };
+
+    const mockTransactionsWithAccounts: Partial<TransactionItem>[] = [
+      { id: 'tx-1', arrangementId: 'account-1', counterPartyName: 'Store A' },
+      { id: 'tx-2', arrangementId: 'account-1', counterPartyName: 'Store B' },
+      { id: 'tx-3', arrangementId: 'account-2', counterPartyName: 'Store C' },
+      { id: 'tx-4', arrangementId: 'account-2', counterPartyName: 'Store D' },
+    ];
+
+    const setupWithAccountFilter = (accountId: string | null) => {
+      transactions$$ = new BehaviorSubject<TransactionItem[] | undefined>(
+        undefined
+      );
+      arrangements$$ = new BehaviorSubject<ProductSummaryItem[]>([]);
+      const mockTransactionsHttpService = {
+        transactions$: transactions$$.asObservable(),
+      };
+      const mockArrangementsService = {
+        arrangements$: arrangements$$.asObservable(),
+      };
+      const latestTransactions$$ = new BehaviorSubject<
+        TransactionItem | undefined
+      >(undefined);
+      const mockTransactionsCommunicationService = {
+        latestTransaction$: latestTransactions$$.asObservable(),
+      };
+
+      TestBed.configureTestingModule({
+        declarations: [TransactionsViewComponent],
+        imports: [MockTextFilterComponent, FilterTransactionsPipe],
+        providers: [
+          {
+            provide: ActivatedRoute,
+            useValue: {
+              snapshot: { data: snapshot.data },
+              queryParams: of({}),
+              queryParamMap: of({
+                get: jest.fn((key: string) =>
+                  key === 'account' ? accountId : ''
+                ),
+              }),
+            },
+          },
+          {
+            provide: Router,
+            useValue: { navigate: jest.fn() },
+          },
+          {
+            provide: TransactionsHttpService,
+            useValue: mockTransactionsHttpService,
+          },
+          {
+            provide: ArrangementsService,
+            useValue: mockArrangementsService,
+          },
+          {
+            provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+            useValue: mockTransactionsCommunicationService,
+          },
+        ],
+        schemas: [NO_ERRORS_SCHEMA],
+      });
+
+      fixture = TestBed.createComponent(TransactionsViewComponent);
+      fixture.detectChanges();
+    };
+
+    afterEach(() => {
+      TestBed.resetTestingModule();
+    });
+
+    it('should filter transactions by account-1 when query param is set', (done) => {
+      // Arrange
+      setupWithAccountFilter('account-1');
+      transactions$$.next(mockTransactionsWithAccounts as TransactionItem[]);
+      fixture.detectChanges();
+
+      // Act & Assert
+      fixture.componentInstance.transactions$.subscribe((filtered) => {
+        expect(filtered.length).toBe(2);
+        expect(filtered.every((tx) => tx.arrangementId === 'account-1')).toBe(
+          true
+        );
+        done();
+      });
+    });
+
+    it('should filter transactions by account-2 when query param is set', (done) => {
+      // Arrange
+      setupWithAccountFilter('account-2');
+      transactions$$.next(mockTransactionsWithAccounts as TransactionItem[]);
+      fixture.detectChanges();
+
+      // Act & Assert
+      fixture.componentInstance.transactions$.subscribe((filtered) => {
+        expect(filtered.length).toBe(2);
+        expect(filtered.every((tx) => tx.arrangementId === 'account-2')).toBe(
+          true
+        );
+        done();
+      });
+    });
+
+    it('should show all transactions when no account filter is set', (done) => {
+      // Arrange
+      setupWithAccountFilter(null);
+      transactions$$.next(mockTransactionsWithAccounts as TransactionItem[]);
+      fixture.detectChanges();
+
+      // Act & Assert
+      fixture.componentInstance.transactions$.subscribe((filtered) => {
+        expect(filtered.length).toBe(4);
+        done();
+      });
+    });
+  });
 });
