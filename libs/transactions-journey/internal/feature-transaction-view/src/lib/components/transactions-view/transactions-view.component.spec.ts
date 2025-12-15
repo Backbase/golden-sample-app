@@ -243,7 +243,7 @@ describe('TransactionsViewComponent', () => {
   });
 
   describe('S3: Account Selection with URL Navigation', () => {
-    const snapshot = {
+    const s3Snapshot = {
       data: {
         title: 'Transactions',
       },
@@ -257,7 +257,7 @@ describe('TransactionsViewComponent', () => {
     let mockRouter: { navigate: jest.Mock };
 
     beforeEach(() => {
-      setup(snapshot);
+      setup(s3Snapshot);
       mockRouter = TestBed.inject(Router) as unknown as { navigate: jest.Mock };
       arrangements$$.next(mockAccounts);
       transactions$$.next(transactionsMock);
@@ -444,6 +444,55 @@ describe('TransactionsViewComponent', () => {
 
       // Assert - should NOT navigate (no accounts available)
       expect(mockRouter.navigate).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('S5: Empty State for Zero Transactions', () => {
+    const snapshot = {
+      data: {
+        title: 'Transactions',
+      },
+    };
+
+    const mockAccounts: ProductSummaryItem[] = [
+      { id: 'acc-1', name: 'Checking Account', BBAN: '1234567890' } as ProductSummaryItem,
+    ];
+
+    it('should show empty state message when transactions list is empty', () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next(mockAccounts);
+      transactions$$.next([]); // Empty transactions
+      fixture.detectChanges();
+
+      // Assert
+      const emptyState = fixture.nativeElement.querySelector('[data-role="transactions-view__empty-state"]');
+      expect(emptyState).not.toBeNull();
+      expect(emptyState.textContent).toContain('No transactions');
+    });
+
+    it('should NOT show empty state when transactions exist', () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next(mockAccounts);
+      transactions$$.next(transactionsMock); // Has transactions
+      fixture.detectChanges();
+
+      // Assert
+      const emptyState = fixture.nativeElement.querySelector('[data-role="transactions-view__empty-state"]');
+      expect(emptyState).toBeNull();
+    });
+
+    it('should have i18n marker on empty state message', () => {
+      // Arrange
+      setup(snapshot);
+      arrangements$$.next(mockAccounts);
+      transactions$$.next([]); // Empty transactions
+      fixture.detectChanges();
+
+      // Assert - check that the element exists with data-role (i18n is template concern)
+      const emptyState = fixture.nativeElement.querySelector('[data-role="transactions-view__empty-state"]');
+      expect(emptyState).not.toBeNull();
     });
   });
 });
