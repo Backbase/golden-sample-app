@@ -9,6 +9,7 @@ import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
 import { ButtonModule } from '@backbase/ui-ang/button';
 import { IconModule } from '@backbase/ui-ang/icon';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
+import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
 
 import { TextFilterComponent } from '@backbase-gsa/transactions-journey/internal/ui';
 
@@ -27,23 +28,33 @@ import {
 const defaultRoutes: Routes = [
   {
     path: '',
-    component: TransactionsViewComponent,
+    canActivate: [EntitlementsGuard],
     data: {
-      title: TRANSLATIONS.transactionsTitle,
+      entitlements: 'Transactions.Transactions.view',
+      redirectTo: '/error/403',
     },
-    resolve: {
-      title: TransactionsRouteTitleResolverService,
-    },
-  },
-  {
-    path: ':id',
-    component: TransactionDetailsComponent,
-    data: {
-      title: TRANSLATIONS.transactionDetailsTitle,
-    },
-    resolve: {
-      title: TransactionsRouteTitleResolverService,
-    },
+    children: [
+      {
+        path: '',
+        component: TransactionsViewComponent,
+        data: {
+          title: TRANSLATIONS.transactionsTitle,
+        },
+        resolve: {
+          title: TransactionsRouteTitleResolverService,
+        },
+      },
+      {
+        path: ':id',
+        component: TransactionDetailsComponent,
+        data: {
+          title: TRANSLATIONS.transactionDetailsTitle,
+        },
+        resolve: {
+          title: TransactionsRouteTitleResolverService,
+        },
+      },
+    ],
   },
 ];
 
