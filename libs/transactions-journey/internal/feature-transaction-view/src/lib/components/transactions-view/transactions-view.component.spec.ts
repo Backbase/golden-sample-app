@@ -195,4 +195,50 @@ describe('TransactionsViewComponent', () => {
       expect(fixture.debugElement.query(By.css('h1'))).toBeFalsy();
     });
   });
+
+  describe('S2: Account Selector', () => {
+    const snapshot = {
+      data: {
+        title: 'Transactions',
+      },
+    };
+
+    const mockAccounts: ProductSummaryItem[] = [
+      { id: 'acc-1', name: 'Checking Account', BBAN: '1234567890' } as ProductSummaryItem,
+      { id: 'acc-2', name: 'Savings Account', BBAN: '0987654321' } as ProductSummaryItem,
+    ];
+
+    beforeEach(() => {
+      setup(snapshot);
+      arrangements$$.next(mockAccounts);
+      transactions$$.next(transactionsMock);
+      fixture.detectChanges();
+    });
+
+    it('should display account selector dropdown', () => {
+      // Arrange & Act - done in beforeEach
+      // Assert
+      const accountSelector = fixture.nativeElement.querySelector('bb-account-selector-ui');
+      expect(accountSelector).not.toBeNull();
+    });
+
+    it('should pass all accounts from arrangements service to account selector', () => {
+      // Arrange & Act - done in beforeEach
+      // Assert
+      const component = fixture.componentInstance;
+      let receivedAccounts: ProductSummaryItem[] | undefined;
+      component.accounts$.subscribe((accounts) => {
+        receivedAccounts = accounts;
+      });
+      expect(receivedAccounts).toEqual(mockAccounts);
+    });
+
+    it('should have accessible label for account selector', () => {
+      // Arrange & Act - done in beforeEach
+      // Assert
+      const label = fixture.nativeElement.querySelector('#account-selector-label');
+      expect(label).not.toBeNull();
+      expect(label.textContent).toContain('Account');
+    });
+  });
 });

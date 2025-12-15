@@ -11,6 +11,30 @@
     </div>
 
     <div class="bb-card__body">
+      <!-- ADR-001: Accessible account selector with proper labeling -->
+      <div class="bb-block bb-block--md">
+        <label
+          id="account-selector-label"
+          for="account-selector"
+          class="form-label"
+          i18n="Account selector label|Label for account selection dropdown@@transactions.account-selector.label"
+        >
+          Select Account
+        </label>
+        <bb-account-selector-ui
+          id="account-selector"
+          [items]="accounts$ | async"
+          [markFirst]="true"
+          [dropdownPosition]="'bottom'"
+          [closeOnSelect]="true"
+          [filterItems]="true"
+          placeholder="Select an account"
+          i18n-placeholder="Account selector placeholder|Placeholder for account dropdown@@transactions.account-selector.placeholder"
+          ariaLabelledby="account-selector-label"
+          data-role="transactions-view__account-selector"
+        ></bb-account-selector-ui>
+      </div>
+
       <div class="bb-block bb-block--md">
         <bb-text-filter
           [text]="searchQuery$ | async"
