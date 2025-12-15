@@ -38,6 +38,7 @@
             the transactions view. It is presented to the user when no account
             is selected. This placeholder is located in the transactions view
             component.@@transactions.account-selector.placeholder"
+          (change)="onAccountChange($any($event))"
         ></bb-account-selector-ui>
       </div>
 

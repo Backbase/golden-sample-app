@@ -88,6 +88,19 @@ export class TransactionsViewComponent {
     });
   }
 
+  /**
+   * Handles account selection from the account selector dropdown.
+   * Updates the URL query parameter to filter transactions by the selected account.
+   * @param account The selected account or empty object if cleared
+   */
+  onAccountChange(account: { id?: string }): void {
+    // RULE: Sync selected account with URL query param for deep linking
+    this.router.navigate([], {
+      queryParams: { account: account.id || undefined },
+      queryParamsHandling: 'merge',
+    });
+  }
+
   trackNavigation($event: ScreenViewTrackerEventPayload) {
     this.tracker?.publish(new TransactionListTrackerEvent($event));
   }

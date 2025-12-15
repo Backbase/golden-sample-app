@@ -261,4 +261,65 @@ describe('TransactionsViewComponent', () => {
       expect(accountSelector.getAttribute('arialabelledby')).toBe('account-selector-label');
     });
   });
+
+  describe('S4: Account Selection Handler', () => {
+    const snapshot = {
+      data: {
+        title: 'Transactions',
+      },
+    };
+
+    const mockAccounts = [
+      { id: 'acc-1', name: 'Current Account', bankAlias: 'Current Account', BBAN: '****0025' },
+      { id: 'acc-2', name: 'Savings Account', bankAlias: 'Savings Account', BBAN: '****0026' },
+    ] as ProductSummaryItem[];
+
+    let router: Router;
+
+    beforeEach(() => {
+      setup(snapshot);
+      arrangements$$.next(mockAccounts);
+      transactions$$.next(transactionsMock);
+      router = TestBed.inject(Router);
+      fixture.detectChanges();
+    });
+
+    it('should navigate with account query param when account is selected', () => {
+      // Arrange
+      const component = fixture.componentInstance;
+      const selectedAccount = mockAccounts[1];
+
+      // Act
+      component.onAccountChange(selectedAccount);
+
+      // Assert
+      expect(router.navigate).toHaveBeenCalledWith([], {
+        queryParams: { account: 'acc-2' },
+        queryParamsHandling: 'merge',
+      });
+    });
+
+    it('should clear account query param when empty object is passed', () => {
+      // Arrange
+      const component = fixture.componentInstance;
+
+      // Act
+      component.onAccountChange({});
+
+      // Assert
+      expect(router.navigate).toHaveBeenCalledWith([], {
+        queryParams: { account: undefined },
+        queryParamsHandling: 'merge',
+      });
+    });
+
+    it('should have onAccountChange method defined', () => {
+      // Arrange & Act
+      const component = fixture.componentInstance;
+
+      // Assert
+      expect(component.onAccountChange).toBeDefined();
+      expect(typeof component.onAccountChange).toBe('function');
+    });
+  });
 });
