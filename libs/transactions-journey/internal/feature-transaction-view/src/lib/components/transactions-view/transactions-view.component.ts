@@ -1,7 +1,7 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 
 import {
   ScreenViewTrackerEventPayload,
@@ -22,7 +22,7 @@ import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/
   selector: 'bb-transactions-view',
   standalone: false,
 })
-export class TransactionsViewComponent {
+export class TransactionsViewComponent implements OnInit {
   public title = this.route.snapshot.data['title'];
 
   public filter = '';
@@ -33,6 +33,34 @@ export class TransactionsViewComponent {
   private readonly accountId$ = this.route.queryParamMap.pipe(
     map((params) => params.get('account'))
   );
+
+  ngOnInit(): void {
+    // RULE: Auto-select first account when no account is specified in URL
+    this.setDefaultAccountIfNeeded();
+  }
+
+  /**
+   * Sets the default account to the first available account
+   * if no account is currently selected in the URL.
+   */
+  private setDefaultAccountIfNeeded(): void {
+    combineLatest({
+      accountId: this.accountId$,
+      accounts: this.accounts$,
+    })
+      .pipe(
+        take(1),
+        filter(({ accountId, accounts }) => !accountId && accounts.length > 0)
+      )
+      .subscribe(({ accounts }) => {
+        // RULE: Navigate with replaceUrl to avoid adding to browser history
+        this.router.navigate([], {
+          queryParams: { account: accounts[0].id },
+          queryParamsHandling: 'merge',
+          replaceUrl: true,
+        });
+      });
+  }
 
   public accountName$ = combineLatest({
     accountId: this.accountId$,

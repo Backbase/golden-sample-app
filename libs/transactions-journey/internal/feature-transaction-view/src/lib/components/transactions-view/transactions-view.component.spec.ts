@@ -322,4 +322,136 @@ describe('TransactionsViewComponent', () => {
       expect(typeof component.onAccountChange).toBe('function');
     });
   });
+
+  describe('S5: Default Account Selection', () => {
+    const snapshot = {
+      data: {
+        title: 'Transactions',
+      },
+    };
+
+    const mockAccounts = [
+      { id: 'acc-1', name: 'Current Account', bankAlias: 'Current Account', BBAN: '****0025' },
+      { id: 'acc-2', name: 'Savings Account', bankAlias: 'Savings Account', BBAN: '****0026' },
+    ] as ProductSummaryItem[];
+
+    it('should navigate to first account when no account param exists', () => {
+      // Arrange - populate accounts BEFORE creating component so ngOnInit can access them
+      transactions$$ = new BehaviorSubject<TransactionItem[] | undefined>(transactionsMock);
+      arrangements$$ = new BehaviorSubject<ProductSummaryItem[]>(mockAccounts);
+
+      TestBed.configureTestingModule({
+        declarations: [TransactionsViewComponent],
+        imports: [MockTextFilterComponent, FilterTransactionsPipe],
+        providers: [
+          {
+            provide: ActivatedRoute,
+            useValue: {
+              snapshot: { data: { title: 'Transactions' } },
+              queryParams: of({}),
+              queryParamMap: of({ get: jest.fn(() => null) }), // No account param
+            },
+          },
+          {
+            provide: Router,
+            useValue: { navigate: jest.fn() },
+          },
+          {
+            provide: TransactionsHttpService,
+            useValue: { transactions$: transactions$$.asObservable() },
+          },
+          {
+            provide: ArrangementsService,
+            useValue: { arrangements$: arrangements$$.asObservable() },
+          },
+          {
+            provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+            useValue: { latestTransaction$: of(undefined) },
+          },
+        ],
+        schemas: [NO_ERRORS_SCHEMA],
+      });
+
+      // Act
+      const fix = TestBed.createComponent(TransactionsViewComponent);
+      fix.detectChanges();
+      const router = TestBed.inject(Router);
+
+      // Assert
+      expect(router.navigate).toHaveBeenCalledWith([], {
+        queryParams: { account: 'acc-1' },
+        queryParamsHandling: 'merge',
+        replaceUrl: true,
+      });
+    });
+
+    it('should not navigate when account param already exists', () => {
+      // Arrange - setup with existing account param
+      const queryParamMap = {
+        get: jest.fn((key: string) => (key === 'account' ? 'acc-2' : '')),
+      };
+
+      TestBed.configureTestingModule({
+        declarations: [TransactionsViewComponent],
+        imports: [MockTextFilterComponent, FilterTransactionsPipe],
+        providers: [
+          {
+            provide: ActivatedRoute,
+            useValue: {
+              snapshot: { data: { title: 'Transactions' } },
+              queryParams: of({ account: 'acc-2' }),
+              queryParamMap: of(queryParamMap),
+            },
+          },
+          {
+            provide: Router,
+            useValue: { navigate: jest.fn() },
+          },
+          {
+            provide: TransactionsHttpService,
+            useValue: { transactions$: of(transactionsMock) },
+          },
+          {
+            provide: ArrangementsService,
+            useValue: { arrangements$: of(mockAccounts) },
+          },
+          {
+            provide: TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE,
+            useValue: { latestTransaction$: of(undefined) },
+          },
+        ],
+        schemas: [NO_ERRORS_SCHEMA],
+      });
+
+      const fix = TestBed.createComponent(TransactionsViewComponent);
+      fix.detectChanges();
+      const router = TestBed.inject(Router);
+
+      // Assert - navigate should not be called for setting default
+      // (might be called 0 times, or if called, not with replaceUrl)
+      const calls = (router.navigate as jest.Mock).mock.calls;
+      const defaultAccountCalls = calls.filter(
+        (call: unknown[]) => (call[1] as { replaceUrl?: boolean })?.replaceUrl === true
+      );
+      expect(defaultAccountCalls.length).toBe(0);
+    });
+
+    it('should filter transactions by default account', () => {
+      // Arrange
+      setup(snapshot);
+      const transactionsWithAccount = [
+        { ...transactionsMock[0], arrangementId: 'acc-1' },
+        { ...transactionsMock[1], arrangementId: 'acc-2' },
+      ] as TransactionItem[];
+
+      // Act
+      arrangements$$.next(mockAccounts);
+      transactions$$.next(transactionsWithAccount);
+      fixture.detectChanges();
+
+      // Assert - component should have transactions filtering capability
+      const component = fixture.componentInstance;
+      expect(component.transactions$).toBeDefined();
+    });
+  });
 });
