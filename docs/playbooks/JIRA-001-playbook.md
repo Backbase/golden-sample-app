@@ -24,32 +24,23 @@ mkdir -p docs/specs/JIRA-001
 **Prompt:** `select-adrs`
 
 ```
-I'm implementing JIRA-001: View Transactions by Account.
-User story: @docs/JIRA-001.md 
+Act as the Product Agent from @docs/agents/product-agent.md in CREATE mode.
 
-## SELECT RELEVANT ADRs
+## TASK: Select ADRs for JIRA-001
 
-Review available ADRs in @architecture  folder and advise which apply to this feature.
+**User Story:** @docs/JIRA-001.md
+**Available ADRs:** @docs/architecture/
 
-The ones I found relevant are:
-- @docs/architecture/001-ADR-accessibility-standards.md 
-- @docs/architecture/003-ADR-translation-internationalization-standards.md 
-- @docs/architecture/006-ADR-design-system-component-standards.md 
-- @docs/architecture/011-ADR-entitlements-access-control-standards.md 
-- @docs/architecture/013-ADR-unit-integration-testing-standards.md 
+Execute PHASE 1: SELECT ADRs from your response protocol.
 
-Confirm this selection or suggest additions/removals.
-```
+Output format:
+| ADR | Applies | Rationale |
+|-----|---------|-----------|
+| ADR-XXX | Yes/No | [1 line why] |
 
-**After LLM response:** Save selected ADRs to `docs/specs/JIRA-001/task.md`, e.g.:
+⛔ STOP after outputting ADR selection. Wait for confirmation from the user.
 
-```markdown
-# JIRA-001: View Transactions by Account
-
-## Selected ADRs
-- ADR-001: Accessibility
-- ADR-003: i18n
-- ADR-004: Responsiveness
+After user response save selected ADRs in docs/specs/JIRA-001/task.md
 ```
 
 ## Step 1.2: Select Repo-Wide Specs
@@ -57,28 +48,32 @@ Confirm this selection or suggest additions/removals.
 **Prompt:** `select-repo-specs`
 
 ```
-## REPO CONTEXT for JIRA-001
+Act as the Product Agent from @docs/agents/product-agent.md in CREATE mode.
+
+## TASK: Gather Repo Context for JIRA-001
+
+**Context:** @docs/specs/JIRA-001/task.md (ADRs selected in previous step)
+
+Execute PHASE 2: REPO CONTEXT from your response protocol.
 
 Identify repo-specific conventions that sit ON TOP OF ADRs. Do NOT solution — only gather context.
 
+Output format:
 ### 1. Similar Implementations to Reference
-List 1-2 existing features in this repo that solve a similar problem.
-Format: `[Feature name]: [file path]`
-Do NOT copy code — just provide paths for later reference.
+`[Feature name]: [file path]` — do NOT copy code, just paths
 
 ### 2. API Contracts
 Which endpoints are relevant? List paths only.
 
 ### 3. Existing Types/Interfaces to Reuse
-List interfaces or types from this repo that could be reused (with file paths).
+List interfaces or types with file paths.
 
 ⚠️ DO NOT include:
-- Files to create or modify — that's solution design (Step 1.4)
-- Explanations of patterns — ADRs cover these
-- Code examples — reference files instead
+- Files to create or modify
 - Implementation decisions
+- Code snippets
 
-Append to: docs/specs/JIRA-001/task.md
+⛔ STOP after outputting repo context. Wait for confirmation before disambiguation.
 ```
 
 ---
@@ -90,48 +85,35 @@ Append to: docs/specs/JIRA-001/task.md
 **Output:** Append to `docs/specs/JIRA-001/task.md`
 
 ```
-## DISAMBIGUATE USER STORY
+Act as the Product Agent from @docs/agents/product-agent.md in CREATE mode.
 
-User story: @docs/JIRA-001.md
-Context: @docs/specs/JIRA-001/task.md (selected ADRs and repo context)
+## TASK: Disambiguate User Story for JIRA-001
 
-Identify ambiguities in the acceptance criteria. For each ambiguity:
+**User Story:** @docs/JIRA-001.md
+**Context:** @docs/specs/JIRA-001/task.md (selected ADRs and repo context)
+
+Execute PHASE 3: DISAMBIGUATION from your response protocol.
+
+For each ambiguity in the acceptance criteria:
 - Reference the specific AC
 - Ask a clear question
 - Provide 2-4 options if applicable
 
-### Output format (strict):
-
-## Disambiguation
-
+Output format:
 ### BLOCKING Questions
-
-**Q1: [Short topic]**
-> AC: "[quote the relevant AC]"
-
-[Question text. Options if applicable.]
+**Q1: [Topic]**
+> AC: "[quote ambiguous part]"
+[Question + options]
 
 ---
 
-**Q2: [Short topic]**
-[...]
+### CONTEXT Questions
+**Q[N]: [Topic]**
+[Question about missing context]
 
 ---
 
-### CONTEXT Requests
-
-**Q[N]: [Short topic]**
-[Question about missing context: mockups, API specs, etc.]
-
----
-
-⚠️ DO NOT include:
-- Decomposition or task breakdown — that's next steps
-- Implementation suggestions
-- File paths to modify
-- Code snippets
-
-STOP after outputting questions. Wait for human answers before proceeding.
+⛔ STOP after outputting questions. Wait for human answers before doing anything else.
 ```
 
 ---
@@ -145,54 +127,27 @@ STOP after outputting questions. Wait for human answers before proceeding.
 After answering all questions:
 
 ```
-Based on the approved task: @docs/specs/JIRA-001/task.md
+Act as the Architect Agent from @docs/agents/architect-agent.md in CREATE mode.
 
-Create solution design following this structure:
+## TASK: Create Solution Design for JIRA-001
 
-## 1. Context
-- Ticket: [link to JIRA-001.md]
-- Summary: [1-2 sentences of what we're building]
+**Input:** @docs/specs/JIRA-001/task.md (approved with answered questions)
 
-## 2. Current State
-- What exists today? (files, services, patterns)
-- What can we reuse/reference?
+Execute your full response protocol:
+1. PHASE 1: UNDERSTAND — Confirm context loaded, flag any remaining questions
+2. PHASE 2: APPROACH SELECTION — Present 2-3 options with trade-offs, recommend one
+3. PHASE 3: SOLUTION DESIGN — Full design per your template
 
-## 3. Approach
-- How are we solving it? (data flow, state management)
-- Why this approach vs alternatives?
-- Diagram if helpful (ASCII is fine)
+⛔ STOP after PHASE 2 (approach selection). Wait for explicit approach approval before detailed design.
 
-## 4. Data
-- API endpoints: request → response shape
-- New/modified interfaces
-- Where data lives (component state, URL params, store?)
+Output artifact: `docs/specs/JIRA-001/solution-design.md`
 
-## 5. Changes
-| File | Change |
-|------|--------|
-| `path/to/file.ts` | What changes |
+Include your Self-Check section:
+- [ ] All selected ADRs addressed
+- [ ] No scope creep beyond ticket
+- [ ] Edge cases documented
+- [ ] Changes list complete
 
-New dependencies/imports if any.
-
-## 6. Edge Cases
-- Loading states
-- Empty states
-- Error states
-- What happens when X fails?
-
-## 7. Testing Strategy
-- Key scenarios to cover
-- Any tricky test setup?
-
-## 8. Out of Scope
-- What we're NOT doing (prevents scope creep)
-
-
----
-
-Save to: docs/specs/JIRA-001/solution-design.md
-
-Do NOT generate code. Wait for approval.
 ```
 
 ### Review Solution Design
@@ -213,35 +168,34 @@ Do NOT generate code. Wait for approval.
 **Output:** `docs/specs/JIRA-001/execution-plan.md`
 
 ```
-Based on: @docs/specs/JIRA-001/solution-design.md
+Act as the Architect Agent from @docs/agents/architect-agent.md in CREATE mode.
 
-Create a LEAN execution plan. Format:
+## TASK: Create Execution Plan for JIRA-001
 
-## Execution Plan
+**Input:** @docs/specs/JIRA-001/solution-design.md (APPROVED)
 
-Each step follows TDD: write tests (2.1) → implement (2.2) → run tests (2.3) → commit (2.4)
+Execute PHASE 4: EXECUTION PLAN from your response protocol.
 
+Format per your template:
 ### Steps
+Each step follows TDD: tests (2.1) → code (2.2) → run tests (2.3) → commit (2.4)
 
-- [ ] **S1: [Name]** — [1-line description]
-  - Files: `path/to/file.ts`
-  - Tests: [key test scenarios]
+### Step [N]: [Name]
+- **Description:** [1 line]
+- **Files:** `path/to/file.ts`
+- **Tests:** [key scenarios to cover]
+- **Depends:** [prior steps]
 
-- [ ] **S2: [Name]** — [1-line description]
-  - Files: `path/to/file.ts`
-  - Depends: S1
+### Execution Order
+[Diagram showing dependencies]
 
-[...continue for all steps...]
+### Commit Strategy
+Each step = 1 commit: `feat(JIRA-001): step [N] - [description]`
 
-### Order
-S1 → S2 → S3 (parallel: S4, S5) → S6
+⛔ STOP: Execution plan complete. Ready for SIGN-OFF gate.
 
----
-### Warnings:
-- DO NOT list "Unit tests" as a separate step — TDD is handled by the Part 2 cycle.
-- Keep it under 50 lines. No code snippets — solution-design.md has that.
+Output artifact: `docs/specs/JIRA-001/execution-plan.md`
 
-Save to: docs/specs/JIRA-001/execution-plan.md
 ```
 
 ---
@@ -266,31 +220,40 @@ For **each step** in the execution plan, repeat this cycle:
 **Prompt:** `generate-tests`
 
 ```
-Act as @docs/agents/angular-typescript-agent.md, Generate unit tests for Step [N]: [STEP NAME]
+Act as the Implementation Agent from @docs/agents/implementation-agent.md in CREATE mode.
 
-Based on:
+## TASK: Generate Tests for Step [N]: [STEP NAME]
+
+**Inputs:**
 - @docs/specs/JIRA-001/execution-plan.md
 - @docs/specs/JIRA-001/solution-design.md
 
-Target file: [path to *.spec.ts file from execution plan]
+**Target file:** [path to *.spec.ts from execution plan]
+
+Apply your TDD methodology skill. Generate tests BEFORE implementation.
+
+### Tests for Step [N]: [Name]
+**Target:** `path/to/file.spec.ts`
+**Scenarios from plan:** [list]
 
 Requirements:
-- Follow AAA pattern (Arrange-Act-Assert)
-- Naming: should_[expected]_when_[condition]
-- Cover: happy path, error case, edge case
-- Mock external dependencies
-- One assertion per test
-- Wrap tests in `describe('S[N]: [STEP NAME]', () => { ... })`
+- AAA pattern (Arrange-Act-Assert)
+- Naming: `should_[expected]_when_[condition]`
+- Grouping: `describe('S[N]: [Step Name]', ...)`
+- 1 assertion per test
+- Cover: happy path, error case, edge cases
+- Mock external dependencies only
 
-Reference: @docs/architecture/013-ADR-unit-integration-testing-standards.md
+### Coverage Check
+- [ ] Happy path: [scenario]
+- [ ] Error case: [scenario]
+- [ ] Edge cases: [list]
+- [ ] Mocks: [external deps only]
 
-WRITE the tests directly to the target spec file. Do NOT just output code in chat.
-Do NOT implement the production code yet — tests only.
+### Run Command
+npx nx test [project] --testFile=[spec-file] --testNamePattern="S[N]"WRITE tests directly to target spec file.
 
-After writing tests, output the command to run them:
-```
-npx nx test [project-name] --testFile=[spec-file] --testNamePattern="S[N]"
-```
+⛔ STOP: Tests ready. Approve before implementation.
 ```
 
 ### 🚦 Review Tests
@@ -308,26 +271,36 @@ npx nx test [project-name] --testFile=[spec-file] --testNamePattern="S[N]"
 **Prompt:** `implement-step`
 
 ```
-## AGENT
-@docs/agents/angular-typescript-agent.md
+Act as the Implementation Agent from @docs/agents/implementation-agent.md in CREATE mode.
 
-## IMPLEMENT STEP
-Based on: @docs/specs/JIRA-001/execution-plan.md
-Implement Step [N]: [STEP NAME]
+## TASK: Implement Step [N]: [STEP NAME]
 
-Constraints:
-- Must pass the tests generated above
-- Maximum 24 lines per method
-- Include JSDoc for public methods
-- Use OnPush change detection
-- Include i18n for user-facing text (ADR-003)
-- Include accessibility attributes (ADR-001)
+**Inputs:**
+- @docs/specs/JIRA-001/execution-plan.md
+- @docs/specs/JIRA-001/solution-design.md
+- Tests from Step 2.1 (must pass)
 
-Add inline comments:
-- RULE: for business rules
-- ASSUMPTION: for assumptions made
+Execute your response protocol:
 
-Output the implementation code.
+## Step [N]: [Name]
+**Target:** `path/to/file.ts`
+**Must pass:** [test scenarios from Testing Agent]
+
+### Implementation
+[Code with inline RULE:/ASSUMPTION:/ADR-XXX: comments]
+
+### Self-Check
+- [ ] Tests pass
+- [ ] ≤24 lines per method
+- [ ] No `any`
+- [ ] JSDoc on public methods
+- [ ] Subscription cleanup (takeUntilDestroyed)
+- [ ] OnPush (if component)
+- [ ] catchError (if Observable)
+
+✓ Step [N] complete.
+
+⛔ STOP: Ask human if you can continue to Tests (2.1) with step [N+1] from the execution plan?
 ```
 
 ---
@@ -341,6 +314,8 @@ nx test transactions-journey-internal-feature-transaction-view --watch=false
 
 **If tests fail:**
 ```
+Act as the Implementation Agent from @docs/agents/implementation-agent.md in CREATE mode.
+
 Test failed:
 
 TEST: [test name]
