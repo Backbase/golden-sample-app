@@ -27,6 +27,9 @@ export class TransactionsViewComponent {
 
   public filter = '';
 
+  /** Observable of available accounts for the account selector */
+  public accounts$ = this.arrangementsService.arrangements$;
+
   private readonly accountId$ = this.route.queryParamMap.pipe(
     map((params) => params.get('account'))
   );

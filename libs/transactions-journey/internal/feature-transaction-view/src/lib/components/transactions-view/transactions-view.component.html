@@ -12,6 +12,36 @@
 
     <div class="bb-card__body">
       <div class="bb-block bb-block--md">
+        <label
+          id="account-selector-label"
+          data-role="transactions-view__account-selector-label"
+          class="form-label"
+          i18n="
+            Account selector label - 'Select Account'|This string is used as the
+            label for the account selector dropdown in the transactions view. It
+            is presented to the user to indicate they should select an account to
+            filter transactions. This label is located in the transactions view
+            component.@@transactions.account-selector.label"
+        >
+          Select Account
+        </label>
+        <bb-account-selector-ui
+          data-role="transactions-view__account-selector"
+          [items]="accounts$ | async"
+          [markFirst]="true"
+          [closeOnSelect]="true"
+          ariaLabelledby="account-selector-label"
+          placeholder="Select an account"
+          i18n-placeholder="
+            Account selector placeholder - 'Select an account'|This string is
+            used as the placeholder text for the account selector dropdown in
+            the transactions view. It is presented to the user when no account
+            is selected. This placeholder is located in the transactions view
+            component.@@transactions.account-selector.placeholder"
+        ></bb-account-selector-ui>
+      </div>
+
+      <div class="bb-block bb-block--md">
         <bb-text-filter
           [text]="searchQuery$ | async"
           (textChange)="search($event)"
