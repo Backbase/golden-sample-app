@@ -92,9 +92,16 @@ export class TransactionsViewComponent {
     this.tracker?.publish(new TransactionListTrackerEvent($event));
   }
 
-  // JIRA-001: Account selector - handle account selection
-  // RULE: Full implementation in Step 3
-  onAccountSelected(_account: { id: string }): void {
-    // Stub - full implementation in Step 3
+  /**
+   * JIRA-001: Handle account selection from dropdown
+   * RULE: Updates URL query param for deep linking support
+   * ADR-006: Uses router navigation pattern from existing search() method
+   */
+  onAccountSelected(account: { id: string }): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { account: account.id },
+      queryParamsHandling: 'merge',
+    });
   }
 }

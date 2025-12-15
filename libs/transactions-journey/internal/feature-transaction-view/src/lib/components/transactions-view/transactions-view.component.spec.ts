@@ -221,4 +221,69 @@ describe('TransactionsViewComponent', () => {
       expect(accountSelector).toBeTruthy();
     });
   });
+
+  describe('S3: Account Selection Logic', () => {
+    const snapshot = {
+      data: {
+        title: 'Transactions',
+      },
+    };
+
+    const mockAccounts: Partial<ProductSummaryItem>[] = [
+      { id: 'account-1', name: 'Checking Account', bankAlias: 'Checking' },
+      { id: 'account-2', name: 'Savings Account', bankAlias: 'Savings' },
+    ];
+
+    let mockRouter: { navigate: jest.Mock };
+
+    beforeEach(() => {
+      setup(snapshot);
+      mockRouter = TestBed.inject(Router) as unknown as { navigate: jest.Mock };
+      arrangements$$.next(mockAccounts as ProductSummaryItem[]);
+      fixture.detectChanges();
+    });
+
+    it('should expose accounts$ observable from ArrangementsService', (done) => {
+      // Arrange - accounts already set in beforeEach
+
+      // Act
+      fixture.componentInstance.accounts$.subscribe((accounts) => {
+        // Assert
+        expect(accounts).toEqual(mockAccounts);
+        done();
+      });
+    });
+
+    it('should navigate with query param when account selected', () => {
+      // Arrange
+      const selectedAccount = { id: 'account-2' };
+
+      // Act
+      fixture.componentInstance.onAccountSelected(selectedAccount);
+
+      // Assert
+      expect(mockRouter.navigate).toHaveBeenCalledWith([], {
+        relativeTo: expect.anything(),
+        queryParams: { account: 'account-2' },
+        queryParamsHandling: 'merge',
+      });
+    });
+
+    it('should call router.navigate with correct account id', () => {
+      // Arrange
+      const selectedAccount = { id: 'account-1' };
+
+      // Act
+      fixture.componentInstance.onAccountSelected(selectedAccount);
+
+      // Assert
+      expect(mockRouter.navigate).toHaveBeenCalledTimes(1);
+      expect(mockRouter.navigate).toHaveBeenCalledWith(
+        [],
+        expect.objectContaining({
+          queryParams: { account: 'account-1' },
+        })
+      );
+    });
+  });
 });
