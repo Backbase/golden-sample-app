@@ -86,25 +86,20 @@
         </bb-badge-ui>
       </div>
 
-      <!-- ADR-006: Transaction list with empty state handling -->
-      <ng-container *ngIf="transactions$ | async as items; else loading">
-        <ng-container *ngIf="(items | filterTransactions : filter).length > 0; else emptyState">
-          <ul class="bb-list">
-            <li
-              *ngFor="let item of items | filterTransactions : filter"
-              class="bb-list__item"
-              data-role="transactions-view__item-container"
-            >
-              <a class="list-link" [routerLink]="['./', item.id]">
-                <bb-transaction-item
-                  [transaction]="item"
-                  [categoryName]="item.category"
-                ></bb-transaction-item>
-              </a>
-            </li>
-          </ul>
-        </ng-container>
-      </ng-container>
+      <ul *ngIf="transactions$ | async as items; else loading" class="bb-list">
+        <li
+          *ngFor="let item of items | filterTransactions : filter"
+          class="bb-list__item"
+          data-role="transactions-view__item-container"
+        >
+          <a class="list-link" [routerLink]="['./', item.id]">
+            <bb-transaction-item
+              [transaction]="item"
+              [categoryName]="item.category"
+            ></bb-transaction-item>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
@@ -113,29 +108,6 @@
   <div data-role="transactions-view__loading-state-container">
     <bb-loading-indicator-ui loaderSize="lg"></bb-loading-indicator-ui>
   </div>
-</ng-template>
-
-<!-- ADR-006: Empty state from design system for no transactions -->
-<ng-template #emptyState>
-  <bb-empty-state-ui
-    data-role="transactions-view__empty-state"
-    iconName="list"
-    title="No transactions"
-    i18n-title="
-      No transactions empty state title - 'No transactions'|This string is used
-      as the title for the empty state when no transactions are available for
-      the selected account. It is presented to the user when the transaction
-      list is empty. This title is located in the transactions view
-      component.@@transactions-journey.empty-state.title"
-    subtitle="There are no transactions for the selected account."
-    i18n-subtitle="
-      No transactions empty state subtitle - 'There are no transactions for the
-      selected account.'|This string is used as the subtitle for the empty state
-      when no transactions are available for the selected account. It is
-      presented to the user when the transaction list is empty. This subtitle is
-      located in the transactions view
-      component.@@transactions-journey.empty-state.subtitle"
-  ></bb-empty-state-ui>
 </ng-template>
 
 <router-outlet></router-outlet>
