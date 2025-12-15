@@ -1,8 +1,7 @@
-import { Component, DestroyRef, Inject, OnInit, Optional } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, Inject, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import {
   ScreenViewTrackerEventPayload,
@@ -23,7 +22,7 @@ import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/
   selector: 'bb-transactions-view',
   standalone: false,
 })
-export class TransactionsViewComponent implements OnInit {
+export class TransactionsViewComponent {
   public title = this.route.snapshot.data['title'];
 
   public filter = '';
@@ -101,46 +100,11 @@ export class TransactionsViewComponent implements OnInit {
     private readonly router: Router,
     private readonly transactionsService: TransactionsHttpService,
     private readonly arrangementsService: ArrangementsService,
-    private readonly destroyRef: DestroyRef,
     @Optional()
     @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE)
     private externalCommunicationService: TransactionsCommunicationService,
     @Optional() private tracker?: Tracker
   ) {}
-
-  /**
-   * Initializes default account selection on page load.
-   * RULE: Selects first account when no valid account in URL.
-   */
-  ngOnInit(): void {
-    this.initDefaultAccountSelection();
-  }
-
-  /**
-   * Sets up default account selection logic.
-   * RULE: Navigates to first account if no account or invalid account in URL.
-   */
-  private initDefaultAccountSelection(): void {
-    combineLatest({
-      selectedAccount: this.selectedAccount$,
-      accounts: this.accounts$,
-    })
-      .pipe(
-        // RULE: Only process once when accounts are loaded
-        filter(({ accounts }) => accounts.length > 0),
-        take(1),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe(({ selectedAccount, accounts }) => {
-        // RULE: Navigate to first account if no valid selection
-        if (!selectedAccount) {
-          this.router.navigate([], {
-            queryParams: { account: accounts[0].id },
-            queryParamsHandling: 'merge',
-          });
-        }
-      });
-  }
 
   search(ev: string) {
     this.filter = ev || '';
