@@ -20,5 +20,5 @@ export default {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
-  testMatch: ["src/**/+(*.)+(spec|test).+(ts|js)?(x)'"],
+  testMatch: ['<rootDir>/src/**/*.spec.ts'],
 };
