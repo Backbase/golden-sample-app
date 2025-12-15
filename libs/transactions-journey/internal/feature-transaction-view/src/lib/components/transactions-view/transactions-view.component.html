@@ -12,43 +12,36 @@
 
     <div class="bb-card__body">
       <div class="bb-block bb-block--md">
+        <label
+          id="account-selector-label"
+          i18n="
+            Account selector label - 'Select Account'|This string is used as
+            the label for the account selector dropdown in the transactions
+            view. It helps users identify the purpose of the dropdown control.
+            @@transactions.account-selector.label"
+          class="form-label"
+        >
+          Select Account
+        </label>
+        <bb-account-selector-ui
+          data-role="transactions-view__account-selector"
+          ariaLabelledby="account-selector-label"
+          placeholder="Select an account"
+          i18n-placeholder="
+            Account selector placeholder - 'Select an account'|This string is
+            used as placeholder text for the account selector dropdown when no
+            account is selected.@@transactions.account-selector.placeholder"
+          [items]="accounts$ | async"
+          [markFirst]="true"
+          (change)="onAccountSelected($any($event))"
+        ></bb-account-selector-ui>
+      </div>
+
+      <div class="bb-block bb-block--md">
         <bb-text-filter
           [text]="searchQuery$ | async"
           (textChange)="search($event)"
         ></bb-text-filter>
-      </div>
-
-      <div
-        class="bb-block bb-block--md"
-        *ngIf="accountName$ | async as accountName"
-      >
-        <span
-          i18n="
-            Label for filtered by - 'filtered by:'|This string is used as the
-            label for the filter section in the transactions view. It is
-            presented to the user to indicate the criteria by which the
-            transactions are filtered. This label is located in the transactions
-            view component.@@transactions.filters.label"
-          >filtered by:</span
-        >
-
-        <bb-badge-ui
-          [text]="accountName + ' ✕'"
-          title="Remove account filter"
-          i18n-title="
-            Remove account label for Account Badge - 'Remove account
-            filter'|This string is used as the title for the remove account
-            filter button in the transactions view. It is presented to the user
-            as a tooltip when they hover over the button to remove the account
-            filter. This title is located in the transactions view
-            component.@@transactions.account-filter.remove"
-          class="filters-badge"
-          color="success"
-          routerLink="/transactions"
-          queryParamsHandling="merge"
-          [queryParams]="{ account: null }"
-        >
-        </bb-badge-ui>
       </div>
 
       <ul *ngIf="transactions$ | async as items; else loading" class="bb-list">

@@ -66,6 +66,9 @@ export class TransactionsViewComponent {
     map((params) => params.get('search') ?? '')
   );
 
+  // JIRA-001: Account selector - accounts list from ArrangementsService
+  public accounts$ = this.arrangementsService.arrangements$;
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
@@ -87,5 +90,11 @@ export class TransactionsViewComponent {
 
   trackNavigation($event: ScreenViewTrackerEventPayload) {
     this.tracker?.publish(new TransactionListTrackerEvent($event));
+  }
+
+  // JIRA-001: Account selector - handle account selection
+  // RULE: Full implementation in Step 3
+  onAccountSelected(_account: { id: string }): void {
+    // Stub - full implementation in Step 3
   }
 }

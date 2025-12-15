@@ -195,4 +195,30 @@ describe('TransactionsViewComponent', () => {
       expect(fixture.debugElement.query(By.css('h1'))).toBeFalsy();
     });
   });
+
+  describe('S2: Account Selector', () => {
+    const snapshot = {
+      data: {
+        title: 'Transactions',
+      },
+    };
+
+    beforeEach(() => {
+      setup(snapshot);
+    });
+
+    it('should render account selector element', () => {
+      const accountSelector = fixture.nativeElement.querySelector(
+        'bb-account-selector-ui'
+      );
+      expect(accountSelector).toBeTruthy();
+    });
+
+    it('should render account selector with data-role attribute', () => {
+      const accountSelector = fixture.nativeElement.querySelector(
+        '[data-role="transactions-view__account-selector"]'
+      );
+      expect(accountSelector).toBeTruthy();
+    });
+  });
 });
