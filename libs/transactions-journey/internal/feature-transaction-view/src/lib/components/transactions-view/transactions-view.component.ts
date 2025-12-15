@@ -2,6 +2,7 @@ import { Component, Inject, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 
 import {
   ScreenViewTrackerEventPayload,
@@ -32,6 +33,16 @@ export class TransactionsViewComponent {
 
   private readonly accountId$ = this.route.queryParamMap.pipe(
     map((params) => params.get('account'))
+  );
+
+  /** Currently selected account derived from URL query param */
+  public selectedAccount$ = combineLatest({
+    accountId: this.accountId$,
+    accounts: this.accounts$,
+  }).pipe(
+    map(({ accountId, accounts }) =>
+      accounts.find((account) => account.id === accountId)
+    )
   );
 
   public accountName$ = combineLatest({
@@ -84,6 +95,18 @@ export class TransactionsViewComponent {
     this.filter = ev || '';
     this.router.navigate([], {
       queryParams: { search: this.filter || undefined },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  /**
+   * Handles account selection from dropdown.
+   * Updates URL query param to persist selection.
+   * @param account The selected account from account selector
+   */
+  onAccountSelect(account: ProductSummaryItem): void {
+    this.router.navigate([], {
+      queryParams: { account: account.id },
       queryParamsHandling: 'merge',
     });
   }

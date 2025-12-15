@@ -32,6 +32,7 @@
           i18n-placeholder="Account selector placeholder|Placeholder for account dropdown@@transactions.account-selector.placeholder"
           ariaLabelledby="account-selector-label"
           data-role="transactions-view__account-selector"
+          (change)="onAccountSelect($any($event))"
         ></bb-account-selector-ui>
       </div>
 
