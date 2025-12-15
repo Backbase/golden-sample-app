@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { BadgeModule } from '@backbase/ui-ang/badge';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
+import { AccountSelectorModule } from '@backbase/ui-ang/account-selector';
 
 import { TransactionsHttpService } from '@backbase-gsa/transactions-journey/internal/data-access';
 import { TextFilterComponent } from '@backbase-gsa/transactions-journey/internal/ui';
@@ -23,6 +24,7 @@ import { AmountModule } from '@backbase/ui-ang/amount';
     BadgeModule,
     AmountModule,
     TrackerModule,
+    AccountSelectorModule,
     FilterTransactionsPipe,
     TextFilterComponent,
     TransactionItemComponent,
