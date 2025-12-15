@@ -27,9 +27,6 @@ export class TransactionsViewComponent {
 
   public filter = '';
 
-  /** All accounts available for selection from arrangements service */
-  public accounts$ = this.arrangementsService.arrangements$;
-
   private readonly accountId$ = this.route.queryParamMap.pipe(
     map((params) => params.get('account'))
   );
