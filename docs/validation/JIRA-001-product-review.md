@@ -1,47 +1,71 @@
-# JIRA-001: Product Review Summary
+# Product Review: JIRA-001
 
-**Date:** 2025-12-09  
-**Reviewer:** AI Product Review Agent  
-**Status:** ✅ ALL AC IMPLEMENTED
+**Agent:** product  
+**Mode:** JUDGE  
+**Date:** 2025-12-15  
+**Verdict:** ✅ ALL ACs IMPLEMENTED
 
-## Acceptance Criteria
+---
 
-### Account Selector
-| AC | Description | Status |
-|----|-------------|--------|
-| AC-1 | Account selector dropdown displays | ✅ |
-| AC-2 | Shows all accounts from API | ✅ |
-| AC-3 | Shows name and account number | ✅ |
-| AC-4 | Selection updates display | ✅ |
+## AC Validation
 
-### Transaction List Display
-| AC | Description | Status |
-|----|-------------|--------|
-| AC-5 | Default account on page load | ✅ |
-| AC-6 | List filters by account | ✅ |
-| AC-7 | All transactions match account | ✅ |
+| AC | Description | Status | Evidence |
+|----|-------------|--------|----------|
+| AC-1 | The transactions page displays an account selector dropdown | ✅ | `transactions-view.component.html:24-36` - `bb-account-selector-ui` |
+| AC-2 | The account selector displays all accounts returned from the arrangements API | ✅ | `component.ts:33` - `accounts$ = this.arrangementsService.arrangements$` |
+| AC-3 | Each account in the dropdown displays its name and account number | ✅ | Uses `bb-account-selector-ui` default display (verified in repo context) |
+| AC-4 | When a user selects an account, the selector displays the selected account name | ✅ | `bb-account-selector-ui` handles internally with `[markFirst]="true"` |
+| AC-5 | When the page loads, it displays transactions for the default account | ✅ | `component.ts:100-114` - ngOnInit auto-selects first account |
+| AC-6 | When a user selects a different account, the transaction list updates | ✅ | `component.ts:129-134` - onAccountSelect updates URL, transactions$ filters |
+| AC-7 | Each transaction displays: recipient, date, amount, account number | ✅ | Pre-existing `bb-transaction-item` component (unchanged) |
 
-### Transaction Item Details
-| AC | Description | Status |
-|----|-------------|--------|
-| AC-8 | Displays recipient | ⏭️ Out of scope |
-| AC-9 | Displays date format | ⏭️ Out of scope |
-| AC-10 | Displays amount | ⏭️ Out of scope |
-| AC-11 | Displays account number | ⏭️ Out of scope |
+---
 
-## NFR Compliance
-| ADR | Status |
-|-----|--------|
-| ADR-001 Accessibility | ✅ |
-| ADR-003 i18n | ✅ |
-| ADR-006 Design System | ✅ |
-| ADR-013 Testing | ✅ |
+## NFR Compliance (Selected ADRs)
+
+| ADR | Requirement | Status | Evidence |
+|-----|-------------|--------|----------|
+| ADR-000 | Subscription cleanup | ✅ | `takeUntilDestroyed` in ngOnInit |
+| ADR-001 | Accessibility | ✅ | ARIA labels, proper label-input association |
+| ADR-003 | i18n | ✅ | 3 new translation markers with proper format |
+| ADR-006 | Design system | ✅ | Uses `bb-account-selector-ui` |
+| ADR-011 | Entitlements | ⚠️ Out of scope | Existing route structure |
+| ADR-013 | Testing | ✅ | 11 new tests, AAA pattern |
+
+---
+
+## Clarifications Verified
+
+| Clarification | Implementation | Status |
+|---------------|----------------|--------|
+| Q1: Default = first account | ngOnInit auto-selects first when no param | ✅ |
+| Q2: Selector above search filter | HTML lines 15-37 (above text filter) | ✅ |
+| Q3: Empty state message | "No transactions found for this account" | ✅ |
+| Q4: Account name display | Uses bb-account-selector-ui default | ✅ |
+| Q5: URL persistence | Updates `?account=` query param | ✅ |
+
+---
+
+## Test Coverage
+
+| Test Category | Count | Status |
+|---------------|-------|--------|
+| Account selector display | 3 | ✅ |
+| Account selection with URL | 2 | ✅ |
+| Auto-select first account | 3 | ✅ |
+| Empty state | 3 | ✅ |
+| **Total New Tests** | **11** | ✅ |
+
+---
 
 ## Summary
-- **In Scope:** 7 AC → 7 implemented
-- **Out of Scope:** 4 AC (pre-existing, per solution design)
+
+- **Total ACs:** 7
+- **Implemented:** 7
 - **Missing:** 0
 
-## Verdict
-**All acceptance criteria implemented.** Ready for merge.
+---
 
+## Verdict
+
+**All AC Implemented.** The implementation satisfies all 7 acceptance criteria from the user story. Ready for merge.
