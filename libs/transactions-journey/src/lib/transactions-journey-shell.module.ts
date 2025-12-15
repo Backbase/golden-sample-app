@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { provideRoutes, RouterModule, Routes } from '@angular/router';
+import { EntitlementsGuard } from '@backbase/foundation-ang/entitlements';
 import { AmountModule } from '@backbase/ui-ang/amount';
 import { BadgeModule } from '@backbase/ui-ang/badge';
 
@@ -28,8 +29,11 @@ const defaultRoutes: Routes = [
   {
     path: '',
     component: TransactionsViewComponent,
+    canActivate: [EntitlementsGuard],
     data: {
       title: TRANSLATIONS.transactionsTitle,
+      entitlements: 'Transactions.Transactions.view',
+      redirectTo: '/unauthorized',
     },
     resolve: {
       title: TransactionsRouteTitleResolverService,
@@ -38,8 +42,11 @@ const defaultRoutes: Routes = [
   {
     path: ':id',
     component: TransactionDetailsComponent,
+    canActivate: [EntitlementsGuard],
     data: {
       title: TRANSLATIONS.transactionDetailsTitle,
+      entitlements: 'Transactions.Transactions.view',
+      redirectTo: '/unauthorized',
     },
     resolve: {
       title: TransactionsRouteTitleResolverService,
