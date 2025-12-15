@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AccountSelectorModule } from '@backbase/ui-ang/account-selector';
 import { BadgeModule } from '@backbase/ui-ang/badge';
 import { TrackerModule } from '@backbase/foundation-ang/observability';
 import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
@@ -20,7 +19,6 @@ import { AmountModule } from '@backbase/ui-ang/amount';
   imports: [
     CommonModule,
     RouterModule,
-    AccountSelectorModule,
     LoadingIndicatorModule,
     BadgeModule,
     AmountModule,
