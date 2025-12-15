@@ -60,3 +60,4 @@ accessibility-reports/
 .allure
 *darwin.png
 reports
+/.specstory
