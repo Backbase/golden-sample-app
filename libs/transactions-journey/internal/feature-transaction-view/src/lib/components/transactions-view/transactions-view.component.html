@@ -1,3 +1,4 @@
+<!-- ADR-001: ARIA landmark for page region -->
 <div class="row" (bbTrackNavigation)="trackNavigation($event)">
   <div class="bb-card col-lg-6">
     <div class="bb-card__header">
@@ -11,6 +12,40 @@
     </div>
 
     <div class="bb-card__body">
+      <!-- ADR-006: Account Selector from design system -->
+      <div class="bb-block bb-block--md" *ngIf="accounts$ | async as accounts">
+        <label
+          id="transactions-account-selector-label"
+          for="transactions-account-selector"
+          i18n="
+            Select Account label - 'Select Account'|This string is used as the
+            label for the Account selector dropdown in the transactions view. It
+            is presented to the user when they need to select an account to
+            filter transactions. This label is located in the transactions view
+            component.@@transactions-journey.account-selector.label"
+          class="form-label"
+        >
+          Select Account
+        </label>
+
+        <bb-account-selector-ui
+          id="transactions-account-selector"
+          dropdownPosition="bottom"
+          placeholder="Select an account"
+          i18n-placeholder="
+            Select account placeholder - 'Select an account'|This string is
+            used as the placeholder text for the Account Selector dropdown in
+            the transactions view. It is presented to the user when no account
+            is selected. This placeholder is located in the transactions view
+            component.@@transactions-journey.account-selector.placeholder"
+          [items]="accounts"
+          [selectedItem]="selectedAccount$ | async"
+          (accountSelected)="onAccountSelected($event)"
+          ariaLabelledby="transactions-account-selector-label"
+          data-role="transactions-view__account-selector"
+        ></bb-account-selector-ui>
+      </div>
+
       <div class="bb-block bb-block--md">
         <bb-text-filter
           [text]="searchQuery$ | async"
