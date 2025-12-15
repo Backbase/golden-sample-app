@@ -1,8 +1,7 @@
-import { Component, DestroyRef, Inject, OnInit, Optional } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, Inject, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ProductSummaryItem } from '@backbase/arrangement-manager-http-ang';
 
 import {
@@ -24,7 +23,7 @@ import { TransactionListTrackerEvent } from '@backbase-gsa/transactions-journey/
   selector: 'bb-transactions-view',
   standalone: false,
 })
-export class TransactionsViewComponent implements OnInit {
+export class TransactionsViewComponent {
   public title = this.route.snapshot.data['title'];
 
   public filter = '';
@@ -86,32 +85,11 @@ export class TransactionsViewComponent implements OnInit {
     private readonly router: Router,
     private readonly transactionsService: TransactionsHttpService,
     private readonly arrangementsService: ArrangementsService,
-    private readonly destroyRef: DestroyRef,
     @Optional()
     @Inject(TRANSACTIONS_JOURNEY_COMMUNICATION_SERIVCE)
     private externalCommunicationService: TransactionsCommunicationService,
     @Optional() private tracker?: Tracker
   ) {}
-
-  /**
-   * ADR-000: Initialization with proper subscription cleanup.
-   * Auto-selects first account if no account is specified in URL.
-   */
-  ngOnInit(): void {
-    combineLatest({
-      accountId: this.accountId$,
-      accounts: this.accounts$,
-    })
-      .pipe(
-        take(1), // RULE: Only check on initial load
-        filter(({ accountId, accounts }) => !accountId && accounts.length > 0),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe(({ accounts }) => {
-        // RULE: Auto-select first account when no account param in URL
-        this.onAccountSelect(accounts[0]);
-      });
-  }
 
   search(ev: string) {
     this.filter = ev || '';
