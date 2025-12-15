@@ -39,10 +39,8 @@
             is selected. This placeholder is located in the transactions view
             component.@@transactions-journey.account-selector.placeholder"
           [items]="accounts"
-          [markFirst]="true"
-          [closeOnSelect]="true"
-          [filterItems]="true"
-          (change)="onAccountSelected($any($event))"
+          [selectedItem]="selectedAccount$ | async"
+          (accountSelected)="onAccountSelected($event)"
           ariaLabelledby="transactions-account-selector-label"
           data-role="transactions-view__account-selector"
         ></bb-account-selector-ui>
