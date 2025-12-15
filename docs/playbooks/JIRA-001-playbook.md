@@ -68,6 +68,16 @@ Which endpoints are relevant? List paths only.
 ### 3. Existing Types/Interfaces to Reuse
 List interfaces or types with file paths.
 
+### 4. UI Component API Verification
+For each design system component to be used (e.g., `bb-account-selector-ui`):
+- Find an existing usage in the codebase
+- List the **actual** Input properties being used (e.g., `[items]`, `[markFirst]`)
+- List the **actual** Output events being used (e.g., `(change)`, `(blur)`)
+- Note any type casting required (e.g., `$any($event)`)
+
+⚠️ IMPORTANT: Do NOT assume component APIs from naming conventions.
+Always verify against existing codebase usage or component source.
+
 ⚠️ DO NOT include:
 - Files to create or modify
 - Implementation decisions
@@ -147,6 +157,7 @@ Include your Self-Check section:
 - [ ] No scope creep beyond ticket
 - [ ] Edge cases documented
 - [ ] Changes list complete
+- [ ] UI component APIs verified against existing usage
 
 ```
 
@@ -156,6 +167,7 @@ Include your Self-Check section:
 - [ ] No orphan changes (scope creep)
 - [ ] Edge cases addressed
 - [ ] Out of scope is clear
+- [ ] All UI component bindings verified against actual API (not assumed)
 
 **If OK:** "Approved. Proceed to execution plan."
 

@@ -222,6 +222,16 @@ Which endpoints are relevant? List paths only.
 ### 3. Existing Types/Interfaces to Reuse
 List interfaces or types from this repo that could be reused (with file paths).
 
+### 4. UI Component API Verification
+For each design system component to be used:
+- Find an existing usage in the codebase
+- List the **actual** Input properties being used (e.g., `[items]`, `[markFirst]`)
+- List the **actual** Output events being used (e.g., `(change)`, `(blur)`)
+- Note any type casting required (e.g., `$any($event)`)
+
+⚠️ IMPORTANT: Do NOT assume component APIs from naming conventions.
+Always verify against existing codebase usage or component source.
+
 ⚠️ DO NOT include:
 - Files to create or modify — that's solution design (Step 1.4)
 - Explanations of patterns — ADRs cover these
