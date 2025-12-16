@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Great Southern Bank</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            /* Great Southern Bank Color Palette */
+            --primary: #003D7A;        /* Deep professional blue */
+            --primary-dark: #002A54;    /* Darker blue for gradients */
+            --primary-light: #0056B3;   /* Lighter blue for accents */
+            --secondary: #00A651;       /* Green for positive/credits */
+            --accent: #FF6B35;         /* Orange accent color */
+            --accent-light: #FF8C5A;    /* Lighter orange */
+            --danger: #D32F2F;         /* Red for errors/debits */
+            --background: #F8F9FA;      /* Light gray background */
+            --surface: #FFFFFF;         /* White cards/surfaces */
+            --text-primary: #1A1D29;    /* Dark text */
+            --text-secondary: #6B7280;  /* Secondary text */
+            --border: #E5E7EB;         /* Light borders */
+            --shadow: 0 2px 8px rgba(0,61,122,0.08);
+            --shadow-lg: 0 4px 16px rgba(0,61,122,0.12);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 80px;
+            letter-spacing: -0.01em;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 50px 20px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,61,122,0.15);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .icon-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .icon-btn .material-icons {
+            font-size: 20px;
+        }
+
+        .icon-btn:active {
+            background: rgba(255,255,255,0.3);
+            transform: scale(0.95);
+        }
+
+        /* Balance Card */
+        .balance-card {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 28px 24px;
+            margin: 20px;
+            box-shadow: 0 4px 20px rgba(0,61,122,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .balance-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .balance-amount {
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            letter-spacing: -0.03em;
+        }
+
+        .balance-currency {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        .account-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .account-item {
+            text-align: center;
+        }
+
+        .account-item-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .account-item-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .action-btn {
+            background: var(--surface);
+            border: none;
+            border-radius: 14px;
+            padding: 18px 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0,61,122,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .action-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 1px 4px rgba(0,61,122,0.1);
+            background: #FAFBFC;
+        }
+
+        .action-icon {
+            font-size: 28px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-icon .material-icons {
+            font-size: 28px;
+        }
+
+        .action-label {
+            font-size: 12px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Transactions Section */
+        .section {
+            margin: 20px 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .section-link {
+            font-size: 14px;
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Transaction List */
+        .transaction-list {
+            background: var(--surface);
+            border-radius: 20px;
+            margin: 0 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,61,122,0.06);
+            border: 1px solid var(--border);
+        }
+
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-item:active {
+            background: var(--background);
+        }
+
+        .transaction-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .transaction-icon .material-icons {
+            font-size: 24px;
+        }
+
+        .transaction-icon.credit {
+            background: #E8F5E9;
+            color: var(--secondary);
+        }
+
+        .transaction-icon.debit {
+            background: #FFF4F2;
+            color: var(--accent);
+        }
+
+        .transaction-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .transaction-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .transaction-meta {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .transaction-amount {
+            font-size: 18px;
+            font-weight: 600;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .transaction-amount.credit {
+            color: var(--secondary);
+        }
+
+        .transaction-amount.debit {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Error State */
+        .error {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--danger);
+        }
+
+        .error-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .error-icon .material-icons {
+            font-size: 48px;
+        }
+
+        /* Transaction Detail Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            animation: fadeIn 0.2s;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            border-radius: 24px 24px 0 0;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--surface);
+            z-index: 10;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .modal-close .material-icons {
+            font-size: 24px;
+        }
+
+        .modal-close:active {
+            background: var(--background);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .detail-value {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-align: right;
+            max-width: 60%;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+            z-index: 100;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.2s;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item.active .nav-icon {
+            transform: scale(1.1);
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-icon .material-icons {
+            font-size: 24px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .empty-icon .material-icons {
+            font-size: 64px;
+        }
+
+        /* Pull to refresh */
+        .refresh-indicator {
+            text-align: center;
+            padding: 10px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            display: none;
+        }
+
+        .refresh-indicator.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <h1>Great Southern Bank</h1>
+            <div class="header-actions">
+                <button class="icon-btn" onclick="refreshData()"><span class="material-icons">refresh</span></button>
+                <button class="icon-btn" onclick="showNotifications()"><span class="material-icons">notifications</span></button>
+            </div>
+        </div>
+        <div class="balance-card">
+            <div class="balance-label">Total Balance</div>
+            <div class="balance-amount" id="totalBalance">$0.00</div>
+            <div class="account-info">
+                <div class="account-item">
+                    <div class="account-item-label">Available</div>
+                    <div class="account-item-value" id="availableBalance">$0.00</div>
+                </div>
+                <div class="account-item">
+                    <div class="account-item-label">Account</div>
+                    <div class="account-item-value" id="accountNumber">****0025</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+        <button class="action-btn" onclick="showAction('transfer')">
+            <div class="action-icon"><span class="material-icons">account_balance_wallet</span></div>
+            <div class="action-label">Transfer</div>
+        </button>
+        <button class="action-btn" onclick="showAction('pay')">
+            <div class="action-icon"><span class="material-icons">payment</span></div>
+            <div class="action-label">Pay</div>
+        </button>
+        <button class="action-btn" onclick="showAction('deposit')">
+            <div class="action-icon"><span class="material-icons">account_balance</span></div>
+            <div class="action-label">Deposit</div>
+        </button>
+        <button class="action-btn" onclick="showAction('more')">
+            <div class="action-icon"><span class="material-icons">more_vert</span></div>
+            <div class="action-label">More</div>
+        </button>
+    </div>
+
+    <!-- Transactions Section -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">Recent Transactions</h2>
+            <a href="#" class="section-link" onclick="showAllTransactions(); return false;">View All</a>
+        </div>
+        <div id="transactionsContainer">
+            <div class="loading">
+                <div class="spinner"></div>
+                <div>Loading transactions...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transaction Detail Modal -->
+    <div class="modal" id="transactionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Transaction Details</h3>
+                <button class="modal-close" onclick="closeModal()"><span class="material-icons">close</span></button>
+            </div>
+            <div class="modal-body" id="transactionDetails">
+                <!-- Details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active" onclick="showView('home'); return false;">
+            <div class="nav-icon"><span class="material-icons">home</span></div>
+            <div>Home</div>
+        </a>
+        <a href="#" class="nav-item" onclick="showView('transactions'); return false;">
+            <div class="nav-icon"><span class="material-icons">assessment</span></div>
+            <div>Transactions</div>
+        </a>
+        <a href="#" class="nav-item" onclick="showView('accounts'); return false;">
+            <div class="nav-icon"><span class="material-icons">account_balance</span></div>
+            <div>Accounts</div>
+        </a>
+        <a href="#" class="nav-item" onclick="showView('more'); return false;">
+            <div class="nav-icon"><span class="material-icons">settings</span></div>
+            <div>More</div>
+        </a>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:9999';
+        let transactions = [];
+        let accountData = null;
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+        });
+
+        // Load all data
+        async function loadData() {
+            try {
+                await Promise.all([
+                    loadBalance(),
+                    loadTransactions()
+                ]);
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showError('Failed to load data. Make sure the mock server is running on port 9999.');
+            }
+        }
+
+        // Load balance information
+        async function loadBalance() {
+            try {
+                const response = await fetch(`${API_BASE}/api/arrangement-manager/client-api/v2/balances/aggregations`);
+                const data = await response.json();
+                
+                if (data && data.length > 0 && data[0].aggregatedBalances) {
+                    const balance = data[0].aggregatedBalances[0];
+                    const amount = parseFloat(balance.amount).toFixed(2);
+                    document.getElementById('totalBalance').textContent = `$${amount}`;
+                    document.getElementById('availableBalance').textContent = `$${amount}`;
+                }
+
+                // Also try to get account details
+                const accountResponse = await fetch(`${API_BASE}/api/arrangement-manager/client-api/v2/arrangements/jb007-007-1010a-nkit12`);
+                if (accountResponse.ok) {
+                    accountData = await accountResponse.json();
+                    if (accountData) {
+                        document.getElementById('availableBalance').textContent = 
+                            `$${parseFloat(accountData.availableBalance || 0).toFixed(2)}`;
+                        document.getElementById('accountNumber').textContent = 
+                            accountData.BBAN || '****0025';
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading balance:', error);
+            }
+        }
+
+        // Load transactions
+        async function loadTransactions() {
+            const container = document.getElementById('transactionsContainer');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div><div>Loading transactions...</div></div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/transaction-manager/client-api/v2/transactions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        arrangementIds: [],
+                        size: 20,
+                        from: 0
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Transaction API Response:', data);
+                
+                // Handle both direct array response and nested data property
+                transactions = Array.isArray(data) ? data : (data.data && Array.isArray(data.data) ? data.data : []);
+
+                console.log('Parsed transactions:', transactions.length);
+
+                if (transactions.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon"><span class="material-icons">inbox</span></div>
+                            <div>No transactions found</div>
+                            <div style="margin-top: 8px; font-size: 12px; color: var(--text-secondary);">Response: ${JSON.stringify(data).substring(0, 100)}...</div>
+                        </div>
+                    `;
+                } else {
+                    renderTransactions(transactions.slice(0, 10));
+                }
+            } catch (error) {
+                console.error('Error loading transactions:', error);
+                container.innerHTML = `
+                    <div class="error">
+                        <div class="error-icon"><span class="material-icons">warning</span></div>
+                        <div>Failed to load transactions</div>
+                        <div style="margin-top: 8px; font-size: 12px;">${error.message}</div>
+                    </div>
+                `;
+            }
+        }
+
+        // Render transactions
+        function renderTransactions(txList) {
+            const container = document.getElementById('transactionsContainer');
+            container.innerHTML = '<div class="transaction-list">' +
+                txList.map(tx => {
+                    const isCredit = tx.creditDebitIndicator === 'CRDT';
+                    const amount = parseFloat(tx.transactionAmountCurrency.amount).toFixed(2);
+                    const date = new Date(tx.bookingDate).toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric' 
+                    });
+                    const icon = getTransactionIcon(tx.category);
+                    
+                    return `
+                        <div class="transaction-item" onclick="showTransactionDetails('${tx.id}')">
+                            <div class="transaction-icon ${isCredit ? 'credit' : 'debit'}">
+                                ${icon}
+                            </div>
+                            <div class="transaction-details">
+                                <div class="transaction-name">${tx.description || 'Transaction'}</div>
+                                <div class="transaction-meta">${date} • ${tx.category || 'Other'}</div>
+                            </div>
+                            <div class="transaction-amount ${isCredit ? 'credit' : 'debit'}">
+                                ${isCredit ? '+' : '-'}$${amount}
+                            </div>
+                        </div>
+                    `;
+                }).join('') +
+                '</div>';
+        }
+
+        // Get transaction icon based on category
+        function getTransactionIcon(category) {
+            const icons = {
+                'Travel': 'flight',
+                'Alcohol & Bars': 'local_bar',
+                'Food': 'restaurant',
+                'Shopping': 'shopping_bag',
+                'Entertainment': 'movie',
+                'Bills': 'description',
+                'Transport': 'directions_car'
+            };
+            const iconName = icons[category] || 'credit_card';
+            return `<span class="material-icons">${iconName}</span>`;
+        }
+
+        // Show transaction details
+        function showTransactionDetails(txId) {
+            const tx = transactions.find(t => t.id === txId);
+            if (!tx) return;
+
+            const modal = document.getElementById('transactionModal');
+            const details = document.getElementById('transactionDetails');
+            
+            const isCredit = tx.creditDebitIndicator === 'CRDT';
+            const amount = parseFloat(tx.transactionAmountCurrency.amount).toFixed(2);
+            const date = new Date(tx.bookingDate).toLocaleDateString('en-US', { 
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            details.innerHTML = `
+                <div class="detail-row">
+                    <div class="detail-label">Amount</div>
+                    <div class="detail-value" style="color: ${isCredit ? 'var(--secondary)' : 'var(--primary)'}; font-size: 24px; font-weight: 700;">
+                        ${isCredit ? '+' : '-'}$${amount} ${tx.transactionAmountCurrency.currencyCode}
+                    </div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Description</div>
+                    <div class="detail-value">${tx.description || 'N/A'}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Category</div>
+                    <div class="detail-value">${tx.category || 'N/A'}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Date</div>
+                    <div class="detail-value">${date}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Type</div>
+                    <div class="detail-value">${tx.type || 'N/A'}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Status</div>
+                    <div class="detail-value">${tx.state || 'N/A'}</div>
+                </div>
+                ${tx.counterPartyName ? `
+                <div class="detail-row">
+                    <div class="detail-label">Counter Party</div>
+                    <div class="detail-value">${tx.counterPartyName}</div>
+                </div>
+                ` : ''}
+                ${tx.reference ? `
+                <div class="detail-row">
+                    <div class="detail-label">Reference</div>
+                    <div class="detail-value" style="font-size: 12px;">${tx.reference}</div>
+                </div>
+                ` : ''}
+            `;
+
+            modal.classList.add('active');
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('transactionModal').classList.remove('active');
+        }
+
+        // Close modal on outside click
+        document.getElementById('transactionModal').addEventListener('click', (e) => {
+            if (e.target.id === 'transactionModal') {
+                closeModal();
+            }
+        });
+
+        // Refresh data
+        function refreshData() {
+            loadData();
+        }
+
+        // Show notifications
+        function showNotifications() {
+            alert('Notifications feature coming soon!');
+        }
+
+        // Show action
+        function showAction(action) {
+            alert(`${action.charAt(0).toUpperCase() + action.slice(1)} feature coming soon!`);
+        }
+
+        // Show all transactions
+        function showAllTransactions() {
+            const container = document.getElementById('transactionsContainer');
+            if (transactions.length > 0) {
+                renderTransactions(transactions);
+            } else {
+                loadTransactions();
+            }
+        }
+
+        // Navigation
+        function showView(view) {
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.nav-item').classList.add('active');
+
+            // Handle different views
+            switch(view) {
+                case 'home':
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    break;
+                case 'transactions':
+                    showAllTransactions();
+                    window.scrollTo({ 
+                        top: document.querySelector('.section').offsetTop - 20, 
+                        behavior: 'smooth' 
+                    });
+                    break;
+                case 'accounts':
+                    alert('Accounts view coming soon!');
+                    break;
+                case 'more':
+                    alert('More options coming soon!');
+                    break;
+            }
+        }
+
+        // Pull to refresh (simple implementation)
+        let touchStartY = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndY = e.changedTouches[0].clientY;
+            const diff = touchStartY - touchEndY;
+            
+            if (diff < -100 && window.scrollY === 0) {
+                refreshData();
+            }
+        });
+    </script>
+</body>
+</html>
+

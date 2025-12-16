@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Journeys - Mock Server Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            opacity: 0.9;
+        }
+        .content {
+            padding: 30px;
+        }
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .link-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .link-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        .link-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            display: block;
+        }
+        .link-card a:hover {
+            text-decoration: underline;
+        }
+        .api-section {
+            margin-top: 30px;
+        }
+        .api-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        .test-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 10px 10px 10px 0;
+            transition: all 0.3s;
+        }
+        .test-button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .test-button:active {
+            transform: translateY(0);
+        }
+        .response {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .response pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .transaction-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .transaction-item h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        .transaction-item p {
+            margin: 4px 0;
+            color: #666;
+        }
+        .amount {
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        .amount.credit {
+            color: #28a745;
+        }
+        .amount.debit {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Transaction Journeys Mock Server</h1>
+            <p>Test and explore transaction APIs without the full app</p>
+        </div>
+        <div class="content">
+            <div class="links">
+                <div class="link-card">
+                    <h3>📊 Dev Interface</h3>
+                    <a href="http://localhost:9999/dev-interface" target="_blank">Open Mock Server UI</a>
+                    <p style="margin-top: 10px; font-size: 12px; color: #666;">Manage mocks and scenarios</p>
+                </div>
+                <div class="link-card">
+                    <h3>🔧 API Endpoint</h3>
+                    <a href="http://localhost:9999/api" target="_blank">View API Base</a>
+                    <p style="margin-top: 10px; font-size: 12px; color: #666;">Mock server API root</p>
+                </div>
+                <div class="link-card">
+                    <h3>📝 Mock Files</h3>
+                    <p style="font-size: 12px; color: #666;">Located in mock-server/mocks/</p>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h2>Test Transaction API</h2>
+                <p style="margin-bottom: 15px; color: #666;">
+                    Click the button below to fetch transactions from the mock server.
+                </p>
+                <button class="test-button" onclick="fetchTransactions()">
+                    📥 Fetch Transactions
+                </button>
+                <button class="test-button" onclick="fetchArrangements()">
+                    🏦 Fetch Arrangements
+                </button>
+                <button class="test-button" onclick="fetchBalances()">
+                    💰 Fetch Balances
+                </button>
+                <span id="status"></span>
+                
+                <div id="response" class="response" style="display: none;">
+                    <h3>Response:</h3>
+                    <pre id="response-content"></pre>
+                </div>
+
+                <div id="transactions-list" style="display: none; margin-top: 20px;">
+                    <h3>Transactions:</h3>
+                    <div id="transactions-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:9999';
+        
+        async function fetchTransactions() {
+            const statusEl = document.getElementById('status');
+            const responseEl = document.getElementById('response');
+            const responseContent = document.getElementById('response-content');
+            const transactionsList = document.getElementById('transactions-list');
+            const transactionsContent = document.getElementById('transactions-content');
+            
+            statusEl.innerHTML = '<span class="loading"></span> Loading...';
+            responseEl.style.display = 'none';
+            transactionsList.style.display = 'none';
+            
+            try {
+                const response = await fetch(`${API_BASE}/transaction-manager/client-api/v2/transactions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        arrangementIds: [],
+                        size: 10,
+                        from: 0
+                    })
+                });
+                
+                const data = await response.json();
+                
+                statusEl.innerHTML = `<span class="status success">✓ Success (${response.status})</span>`;
+                responseEl.style.display = 'block';
+                responseContent.textContent = JSON.stringify(data, null, 2);
+                
+                if (data && Array.isArray(data) && data.length > 0) {
+                    transactionsList.style.display = 'block';
+                    transactionsContent.innerHTML = data.map(tx => `
+                        <div class="transaction-item">
+                            <h4>${tx.description || 'N/A'}</h4>
+                            <p><strong>Amount:</strong> 
+                                <span class="amount ${tx.creditDebitIndicator === 'CRDT' ? 'credit' : 'debit'}">
+                                    ${tx.creditDebitIndicator === 'CRDT' ? '+' : '-'}${tx.transactionAmountCurrency.amount} ${tx.transactionAmountCurrency.currencyCode}
+                                </span>
+                            </p>
+                            <p><strong>Date:</strong> ${tx.bookingDate}</p>
+                            <p><strong>Category:</strong> ${tx.category || 'N/A'}</p>
+                            <p><strong>Counter Party:</strong> ${tx.counterPartyName || 'N/A'}</p>
+                            <p><strong>State:</strong> ${tx.state}</p>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                statusEl.innerHTML = `<span class="status error">✗ Error</span>`;
+                responseEl.style.display = 'block';
+                responseContent.textContent = `Error: ${error.message}`;
+            }
+        }
+        
+        async function fetchArrangements() {
+            const statusEl = document.getElementById('status');
+            const responseEl = document.getElementById('response');
+            const responseContent = document.getElementById('response-content');
+            const transactionsList = document.getElementById('transactions-list');
+            
+            statusEl.innerHTML = '<span class="loading"></span> Loading...';
+            responseEl.style.display = 'none';
+            transactionsList.style.display = 'none';
+            
+            try {
+                const response = await fetch(`${API_BASE}/arrangement-manager/client-api/v2/arrangements`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                const data = await response.json();
+                
+                statusEl.innerHTML = `<span class="status success">✓ Success (${response.status})</span>`;
+                responseEl.style.display = 'block';
+                responseContent.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                statusEl.innerHTML = `<span class="status error">✗ Error</span>`;
+                responseEl.style.display = 'block';
+                responseContent.textContent = `Error: ${error.message}`;
+            }
+        }
+        
+        async function fetchBalances() {
+            const statusEl = document.getElementById('status');
+            const responseEl = document.getElementById('response');
+            const responseContent = document.getElementById('response-content');
+            const transactionsList = document.getElementById('transactions-list');
+            
+            statusEl.innerHTML = '<span class="loading"></span> Loading...';
+            responseEl.style.display = 'none';
+            transactionsList.style.display = 'none';
+            
+            try {
+                const response = await fetch(`${API_BASE}/arrangement-manager/client-api/v2/balances/aggregations`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                const data = await response.json();
+                
+                statusEl.innerHTML = `<span class="status success">✓ Success (${response.status})</span>`;
+                responseEl.style.display = 'block';
+                responseContent.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                statusEl.innerHTML = `<span class="status error">✗ Error</span>`;
+                responseEl.style.display = 'block';
+                responseContent.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
+
