@@ -482,11 +482,11 @@ Review implementation against:
 - Task with selected ADRs: @docs/specs/JIRA-001/task.md
 
 Check architecture compliance:
-1. Does implementation follow the approved plan structure?
-2. Are all selected ADR requirements met? (check each ADR from Step 1.1)
-3. Layer violations? (Components importing HttpClient directly?)
-4. Classes with >10 public methods?
-5. Edge cases from solution-design.md section 5 handled?
+1. Does implementation follow the approved design structure (§2)?
+2. Are all selected ADR requirements met? (check each ADR from §1)
+3. Were ALL file changes from §4 implemented correctly?
+4. Layer violations? (Components importing HttpClient directly?)
+5. Edge cases from §5 handled?
 
 For any violations found:
 [BLOCKER|WARNING]: description
