@@ -10,15 +10,16 @@ There are interconnected components process stands on:
 |-----------|---------|--------|
 | **ADRs** | Org-wide architectural rules, auto-injected to each session | GH repo via MCP |
 | **Repo-level specs** | Project-specific conventions, patterns, API specs | `docs/` folder in repo |
-| **Agents** | Role-specific agents with embedded principles | GH repo via MCP |
-| **Prompts** | Templates for common tasks | This doc + MCP |
+| **Agents** | Role-specific agents with embedded principles | `docs/agents/` |
+| **Prompts** | Templates for common tasks | `docs/prompts/` |
+| **Templates** | Output format templates | `docs/templates/` |
 | **Artifacts** | Persistent specs, plans, tasks per feature | `docs/specs/{JIRA-ID}/` |
 
 **How it works:**
 1. Engineer starts a session in IDE with access to LLM and ability to use project as context.
 2. MCP server automatically injects all ADRs into system context
 3. Engineer selects agent appropriate for their task
-4. Uses prompts from this playbook to drive the conversation
+4. Uses prompts from `docs/prompts/` to drive the conversation
 5. Artifacts (specs, plans, tasks) are persisted to `docs/specs/{JIRA-ID}/` for auditability
 
 **Artifact Structure:**
@@ -26,7 +27,7 @@ There are interconnected components process stands on:
 docs/specs/{JIRA-ID}/
 ├── task.md              # 1.1-1.3: Selected ADRs, repo context, disambiguated story
 ├── solution-design.md   # 1.4: Solution design with ADR compliance approach
-└── execution-plan.md    # 1.4: Step-by-step breakdown with file targets
+└── execution-plan.md    # 1.5: Step-by-step breakdown with file targets
 ```
 
 **Core Principles (TLDR):**
@@ -50,6 +51,8 @@ docs/specs/{JIRA-ID}/
            │                                         ▲
     1.4 Solution design                        3.1 Run all tests
            │                                         ▲
+    1.5 Execution plan                               │
+           │                                         │
            ▼                                         │
         ═══════════════════════════════════════════════
                     Part 2: CODING (Bottom)
@@ -93,84 +96,33 @@ The MCP server loads all ADRs from the Git repository and includes them in the (
 
 ## Agents
 
-Agents are pre-defined personas stored in Git and loaded via MCP. Each agent establishes the LLM's role, behavioural constraints, and **response format**. Engineer selects the appropriate agent before beginning work.
+Agents are pre-defined personas stored in `docs/agents/` and loaded via MCP. Each agent establishes the LLM's role, behavioural constraints, and **response format**. Engineer selects the appropriate agent before beginning work.
 
-| Component | Purpose |
-|-----------|---------|
-| **angular-typescript** | General purpose implementation support |
-| **unit-tests** | Support with writing tests when doing TDD |
-| **code-review** | Code review and self-check assistant |
-
+| Agent | V-Model Stages | Mode |
+|-------|----------------|------|
+| **Product Agent** | 1.1-1.3 (task.md), 3.4 (Product Review) | CREATE / JUDGE |
+| **Architect Agent** | 1.4-1.5 (solution-design, execution-plan), 3.3 (Architecture Review) | CREATE / JUDGE |
+| **Implementation Agent** | 2.1-2.2 (tests, code), 3.2 (Code Review) | CREATE / JUDGE |
 
 ### Structure of agents
 
 Each agent includes:
 - **Role**: Expertise, seniority, tone
-- **Response format**: Mandatory sections the agent must output (e.g., "ASK, PLAN, CODE, TEST" suquence)
-- **Principles**: Behavioral rules (ask first, no scope creep, etc.)
-- **Required questions template**: Copy-paste template for clarification questions
-- **Technical standards**: Code style, patterns, constraints, ADRs references
-- **GOOD/BAD patterns**: Explicit examples of correct vs incorrect code
-- **Output Rules**: Format and style requirements
+- **Behaviors**: Behavioral modules (ask-before-assume, stop-and-wait, etc.)
+- **Skills**: Technical and methodology skills
+- **Response protocol**: Mandatory sections the agent must output per mode
+- **Technical standards**: Code style, patterns, constraints
+- **Stop conditions**: When to halt and wait for human input
 
 All agents automatically receive ADRs via MCP injection.
 
-### Agent example: `angular-typescript-agent`
-
-Use for: Generating production Angular/TypeScript code.
-
-```
-ROLE:
-You are a senior Angular engineer with 8+ years of experience building 
-enterprise applications.
-
-RESPONSE FORMAT (mandatory sections in order): ASK, then PLAN, then CODE
-
-If information is missing, stop after ASK and wait for answers.
-
-PRINCIPLES:
-1. **ASK before assuming** - Clarify every ambiguity, make no assumptions.
-2. **PLAN before coding** - Plan and explain first
-3. **IMPLEMENT minimally** - Only what's explicitly requested. No scope creep.
-4. **BREAK DOWN methodically** - Small, focused steps.
-
-REQUIRED QUESTIONS (ask before any code):
-- What is the exact input/output contract?
-- Which existing services/components should I reuse?
-- What error states need handling?
-- Are there edge cases I should know about?
-
-TECHNICAL STANDARDS:
-- Strictly typed TypeScript. Never use 'any'.
-- Reactive patterns with RxJS. Prefer declarative over imperative.
-- OnPush change detection for all components.
-- Methods must not exceed 24 lines.
-
-GOOD/BAD PATTERNS:
-
-BAD: Untyped, imperative
-getUserData(id) {
-  let result;
-  this.http.get('/users/' + id).subscribe(data => { result = data; });
-  return result;
-}
-
-GOOD: Typed, reactive, documented
-/** Fetches user by ID. Throws NotFoundError if missing. */
-getUserById(id: UserId): Observable<User> {
-  return this.http.get<User>(`/users/${id}`).pipe(
-    catchError(this.handleNotFound)
-  );
-}
-
-OUTPUT RULES:
-- Include JSDoc for public methods
-- If multiple files needed, list them first, generate one at a time
-```
+---
 
 ## Part 1: Specs (V-model left side)
 
 Before coding, establish specifications that prevent LLM hallucinations and architectural drift.
+
+**Full prompts:** See `docs/prompts/1.*.md`
 
 ### 1.1 Select relevant ADRs
 
@@ -178,22 +130,30 @@ For each user story, explicitly list which ADRs apply.
 
 **When to use:** At the very start of each user story.
 
+**Agent:** Product Agent (CREATE mode)
+
 **Output:** Start `docs/specs/[JIRA-ID]/task.md` with selected ADRs
 
-**Prompt: `select-adrs`**
+**Prompt:** `docs/prompts/1.1-select-adrs.md`
 
 ```
-For user story: [JIRA-ID]: [TITLE]
+Act as the Product Agent from @docs/agents/product-agent.md in CREATE mode.
 
-Review available ADRs and list which ones apply to this feature:
+## TASK: Select ADRs for [JIRA-ID]
 
-| ADR | Applies? | Why |
-|-----|----------|-----|
-| ADR-001: Accessibility | Yes/No | [Reason] |
-| ADR-003: i18n | Yes/No | [Reason] |
-| ... | ... | ... |
+**User Story:** @docs/[JIRA-ID].md
+**Available ADRs:** @docs/architecture/
 
-Save selected ADRs to: docs/specs/[JIRA-ID]/task.md
+Execute PHASE 1: SELECT ADRs from your response protocol.
+
+Output format:
+| ADR | Applies | Rationale |
+|-----|---------|-----------|
+| ADR-XXX | Yes/No | [1 line why] |
+
+⛔ STOP after outputting ADR selection. Wait for confirmation from the user.
+
+After user confirmation, save selected ADRs to docs/specs/[JIRA-ID]/task.md
 ```
 
 ### 1.2 Select repo-wide specs
@@ -202,33 +162,43 @@ Repo-wide specs are project-specific conventions that sit ON TOP OF ADRs. They d
 
 **When to use:** After ADRs selected, to establish project context.
 
+**Agent:** Product Agent (CREATE mode)
+
 **Output:** Append to `docs/specs/[JIRA-ID]/task.md`
 
-**Prompt: `select-repo-specs`**
+**Prompt:** `docs/prompts/1.2-select-repo-specs.md`
 
 ```
-## REPO CONTEXT for [JIRA-ID]
+Act as the Product Agent from @docs/agents/product-agent.md in CREATE mode.
+
+## TASK: Gather Repo Context for [JIRA-ID]
+
+**Context:** @docs/specs/[JIRA-ID]/task.md (ADRs selected in previous step)
+
+Execute PHASE 2: REPO CONTEXT from your response protocol.
 
 Identify repo-specific conventions that sit ON TOP OF ADRs. Do NOT solution — only gather context.
 
+Output format:
+
 ### 1. Similar Implementations to Reference
-List 1-2 existing features in this repo that solve a similar problem.
-Format: `[Feature name]: [file path]`
-Do NOT copy code — just provide paths for later reference.
+`[Feature name]: [file path]` — do NOT copy code, just paths
 
 ### 2. API Contracts
 Which endpoints are relevant? List paths only.
 
 ### 3. Existing Types/Interfaces to Reuse
-List interfaces or types from this repo that could be reused (with file paths).
+List interfaces or types with file paths.
 
-⚠️ DO NOT include:
-- Files to create or modify — that's solution design (Step 1.4)
-- Explanations of patterns — ADRs cover these
-- Code examples — reference files instead
-- Implementation decisions
+### 4. UI Component API Verification
+For each design system component to be used:
+- Find an existing usage in the codebase
+- List the **actual** Input/Output properties being used
+- Note any type casting required
 
-Append to: docs/specs/[JIRA-ID]/task.md
+⚠️ IMPORTANT: Do NOT assume component APIs from naming conventions.
+
+⛔ STOP after outputting repo context. Wait for confirmation before disambiguation.
 ```
 
 ### 1.3 Disambiguate user story
@@ -237,55 +207,47 @@ Ambiguous requirements cause LLMs to make assumptions. Surface ambiguities as qu
 
 **When to use:** After ADRs and repo specs are established.
 
+**Agent:** Product Agent (CREATE mode)
+
 **Human gate:** LLM outputs questions, human answers ALL BLOCKING questions before proceeding.
 
 **Output:** Append to `docs/specs/[JIRA-ID]/task.md`
 
-**Prompt: `disambiguate-story`**
+**Prompt:** `docs/prompts/1.3-disambiguate-story.md`
 
 ```
-## DISAMBIGUATE USER STORY
+Act as the Product Agent from @docs/agents/product-agent.md in CREATE mode.
 
-User story: [JIRA-ID]: [TITLE]
-Context: @docs/specs/[JIRA-ID]/task.md (selected ADRs and repo context)
+## TASK: Disambiguate User Story for [JIRA-ID]
 
-Identify ambiguities in the acceptance criteria. For each ambiguity:
+**User Story:** @docs/[JIRA-ID].md
+**Context:** @docs/specs/[JIRA-ID]/task.md (selected ADRs and repo context)
+
+Execute PHASE 3: DISAMBIGUATION from your response protocol.
+
+For each ambiguity in the acceptance criteria:
 - Reference the specific AC
 - Ask a clear question
 - Provide 2-4 options if applicable
 
-### Output format (strict):
-
-## Disambiguation
+Output format:
 
 ### BLOCKING Questions
 
-**Q1: [Short topic]**
-> AC: "[quote the relevant AC]"
-
-[Question text. Options if applicable.]
-
----
-
-**Q2: [Short topic]**
-[...]
+**Q1: [Topic]**
+> AC: "[quote ambiguous part]"
+[Question + options]
 
 ---
 
-### CONTEXT Requests
+### CONTEXT Questions
 
-**Q[N]: [Short topic]**
-[Question about missing context: mockups, API specs, etc.]
+**Q[N]: [Topic]**
+[Question about missing context]
 
 ---
 
-⚠️ DO NOT include:
-- Decomposition or task breakdown — that's next steps
-- Implementation suggestions
-- File paths to modify
-- Code snippets
-
-STOP after outputting questions. Wait for human answers before proceeding.
+⛔ STOP after outputting questions. Wait for human answers before doing anything else.
 ```
 
 ### 1.4 Create solution design
@@ -294,59 +256,39 @@ Planning before generation improves pass rates by 11-25%. Create a solution desi
 
 **When to use:** After task.md is complete and approved.
 
+**Agent:** Architect Agent (CREATE mode)
+
 **Human gate:** Review for: AC coverage, no scope creep, edge cases addressed.
 
 **Output:** `docs/specs/[JIRA-ID]/solution-design.md`
 
-**Prompt: `create-solution-design`**
+**Template:** `docs/templates/solution-design-template.md`
+
+**Prompt:** `docs/prompts/1.4-create-solution-design.md`
 
 ```
-Based on the approved task: @docs/specs/[JIRA-ID]/task.md
+Act as the Architect Agent from @docs/agents/architect-agent.md in CREATE mode.
 
-Create solution design following this structure:
+## TASK: Create Solution Design for [JIRA-ID]
 
-## 1. Context
-- Ticket: [link]
-- Summary: [1-2 sentences of what we're building]
+**Input:** @docs/specs/[JIRA-ID]/task.md (approved with answered questions)
+**Template:** @docs/templates/solution-design-template.md
 
-## 2. Current State
-- What exists today? (files, services, patterns)
-- What can we reuse/reference?
+Execute your full response protocol:
+1. PHASE 1: UNDERSTAND — Confirm context loaded, flag any remaining questions
+2. PHASE 2: APPROACH SELECTION — Present 2-3 options with trade-offs, recommend one
+3. PHASE 3: SOLUTION DESIGN — Full design per the template
 
-## 3. Approach
-- How are we solving it? (data flow, state management)
-- Why this approach vs alternatives?
-- Diagram if helpful (ASCII is fine)
+⛔ STOP after PHASE 2 (approach selection). Wait for explicit approach approval before detailed design.
 
-## 4. Data
-- API endpoints: request → response shape
-- New/modified interfaces
-- Where data lives (component state, URL params, store?)
+Output artifact: `docs/specs/[JIRA-ID]/solution-design.md`
 
-## 5. Changes
-| File | Change |
-|------|--------|
-| `path/to/file.ts` | What changes |
-
-New dependencies/imports if any.
-
-## 6. Edge Cases
-- Loading states
-- Empty states
-- Error states
-
-## 7. Testing Strategy
-- Key scenarios to cover
-- Any tricky test setup?
-
-## 8. Out of Scope
-- What we're NOT doing (prevents scope creep)
-
----
-
-Save to: docs/specs/[JIRA-ID]/solution-design.md
-
-Do NOT generate code. Wait for approval.
+Include your Self-Check section:
+- [ ] All selected ADRs addressed (template §1 ADR Compliance)
+- [ ] No scope creep beyond ticket
+- [ ] Edge cases documented (template §5)
+- [ ] Changes list complete (template §4)
+- [ ] UI component APIs verified against existing usage
 ```
 
 ### 1.5 Create execution plan
@@ -355,53 +297,42 @@ Convert solution design into a lean, ordered checklist.
 
 **When to use:** After solution design is approved.
 
+**Agent:** Architect Agent (CREATE mode)
+
 **Output:** `docs/specs/[JIRA-ID]/execution-plan.md`
 
-**Prompt: `create-execution-plan`**
+**Prompt:** `docs/prompts/1.5-create-execution-plan.md`
 
 ```
-Based on: @docs/specs/[JIRA-ID]/solution-design.md
+Act as the Architect Agent from @docs/agents/architect-agent.md in CREATE mode.
 
-Create a LEAN execution plan. Format:
+## TASK: Create Execution Plan for [JIRA-ID]
 
-## Execution Plan
+**Input:** @docs/specs/[JIRA-ID]/solution-design.md (APPROVED)
 
-Each step follows TDD: write tests (2.1) → implement (2.2) → run tests (2.3) → commit (2.4)
+Execute PHASE 4: EXECUTION PLAN from your response protocol.
+
+Format per your template:
 
 ### Steps
+Each step follows TDD: tests (2.1) → code (2.2) → run tests (2.3) → commit (2.4)
 
-- [ ] **S1: [Name]** — [1-line description]
-  - Files: `path/to/file.ts`
-  - Tests: [key test scenarios]
+### Step [N]: [Name]
+- **Description:** [1 line]
+- **Files:** `path/to/file.ts`
+- **Tests:** [key scenarios to cover]
+- **Depends:** [prior steps]
 
-- [ ] **S2: [Name]** — [1-line description]
-  - Files: `path/to/file.ts`
-  - Depends: S1
+### Execution Order
+[Diagram showing dependencies]
 
-[...continue for all steps...]
+### Commit Strategy
+Each step = 1 commit: `feat([JIRA-ID]): step [N] - [description]`
 
-### Order
-S1 → S2 → S3 (parallel: S4, S5) → S6
+⛔ STOP: Execution plan complete. Ready for SIGN-OFF gate.
 
----
-
-### Warnings:
-- DO NOT list "Unit tests" as a separate step — TDD is handled by the Part 2 cycle.
--  Keep it under 50 lines. No code snippets — solution-design.md has that.
-
-Save to: docs/specs/[JIRA-ID]/execution-plan.md
+Output artifact: `docs/specs/[JIRA-ID]/execution-plan.md`
 ```
-
-### 1.6 Select agent
-
-Before coding, select the appropriate agent for implementation.
-
-| Task | Agent |
-|------|-------|
-| Implementation | `angular-typescript-agent` |
-| Test generation | `unit-tests-agent` |
-| Code review | `code-review-agent` |
-| Architecture review | `architecture-review-agent` |
 
 ### 🚦 SIGN-OFF GATE
 
@@ -419,42 +350,48 @@ This commit marks engineer sign-off on specifications. Engineer is accountable f
 
 Implement following the approved plan, one step at a time.
 
+**Full prompts:** See `docs/prompts/2.*.md`
+
 ### 2.1 Generate tests (TDD)
 
 TDD improves code generation accuracy by 12-38%. Generate tests BEFORE implementation.
 
 **When to use:** Before implementing each step.
 
-**Agent:** `unit-tests-agent`
+**Agent:** Implementation Agent (CREATE mode)
 
-**Prompt: `generate-tests`**
+**Prompt:** `docs/prompts/2.1-generate-tests.md`
 
 ```
-Act as @docs/agents/angular-typescript-agent.md, Generate unit tests for Step [N]: [STEP NAME]
+Act as the Implementation Agent from @docs/agents/implementation-agent.md in CREATE mode.
 
-Based on:
+## TASK: Generate Tests for Step [N]: [STEP NAME]
+
+**Inputs:**
 - @docs/specs/[JIRA-ID]/execution-plan.md
 - @docs/specs/[JIRA-ID]/solution-design.md
 
-Target file: [path to *.spec.ts file from execution plan]
+**Target file:** [path to *.spec.ts from execution plan]
+
+Apply TDD methodology. Generate tests BEFORE implementation.
 
 Requirements:
-- Follow AAA pattern (Arrange-Act-Assert)
-- Naming: should_[expected]_when_[condition]
-- Cover: happy path, error case, edge case
-- Mock external dependencies
-- One assertion per test
-- Wrap tests in `describe('S[N]: [STEP NAME]', () => { ... })`
+- AAA pattern (Arrange-Act-Assert)
+- Naming: `should_[expected]_when_[condition]`
+- Grouping: `describe('S[N]: [Step Name]', ...)`
+- 1 assertion per test
+- Cover: happy path, error case, edge cases
+- Mock external dependencies only
 
-Reference: @docs/architecture/013-ADR-unit-integration-testing-standards.md
+### Coverage Check
+- [ ] Happy path: [scenario]
+- [ ] Error case: [scenario]
+- [ ] Edge cases: [list]
+- [ ] Mocks: [external deps only]
 
-WRITE the tests directly to the target spec file. Do NOT just output code in chat.
-Do NOT implement the production code yet — tests only.
+WRITE tests directly to target spec file.
 
-After writing tests, output the command to run them:
-```
-npx nx test [project-name] --testFile=[spec-file] --testNamePattern="S[N]"
-```
+⛔ STOP: Tests ready. Approve before implementation.
 ```
 
 ### 2.2 Generate code
@@ -463,7 +400,7 @@ Execute the plan one step at a time.
 
 **When to use:** After tests are approved for a step.
 
-**Agent:** `angular-typescript-agent`
+**Agent:** Implementation Agent (CREATE mode)
 
 **Best practices:**
 - Implement ONLY one step at a time
@@ -471,23 +408,37 @@ Execute the plan one step at a time.
 - Include JSDoc for public methods
 - Add inline comments with `RULE:` and `ASSUMPTION:` markers
 
-**Prompt: `implement-step`**
+**Prompt:** `docs/prompts/2.2-implement-step.md`
 
 ```
-Act as @angular-typescript-agent.
+Act as the Implementation Agent from @docs/agents/implementation-agent.md in CREATE mode.
 
-Based on: @docs/specs/[JIRA-ID]/execution-plan.md
-Implement Step [N]: [STEP DESCRIPTION]
+## TASK: Implement Step [N]: [STEP NAME]
 
-Constraints:
-- Must pass the tests generated earlier
-- Maximum 24 lines per method
-- Include JSDoc for public methods
-- Add inline comments BEFORE each logical block:
-  - RULE: for business rules
-  - ASSUMPTION: for assumptions
+**Inputs:**
+- @docs/specs/[JIRA-ID]/execution-plan.md
+- @docs/specs/[JIRA-ID]/solution-design.md
+- Tests from Step 2.1 (must pass)
 
-Output the code for this step only.
+## Step [N]: [Name]
+**Target:** `path/to/file.ts`
+**Must pass:** [test scenarios from 2.1]
+
+### Implementation
+[Code with inline RULE:/ASSUMPTION:/ADR-XXX: comments]
+
+### Self-Check
+- [ ] Tests pass
+- [ ] ≤24 lines per method
+- [ ] No `any`
+- [ ] JSDoc on public methods
+- [ ] Subscription cleanup (takeUntilDestroyed)
+- [ ] OnPush (if component)
+- [ ] catchError (if Observable)
+
+✓ Step [N] complete.
+
+⛔ STOP: Continue to step [N+1]?
 ```
 
 ### 2.3 Run step tests
@@ -498,9 +449,11 @@ After implementing each step, run tests locally.
 nx test [project] --watch=false
 ```
 
-**If tests fail:**
+**If tests fail:** Use `docs/prompts/2.3-fix-failed-tests.md`
 
 ```
+Act as the Implementation Agent from @docs/agents/implementation-agent.md in CREATE mode.
+
 Test failed:
 
 TEST: [test name]
@@ -531,6 +484,8 @@ git commit -m "feat([JIRA-ID]): step [N] - [description]"
 
 After all steps are implemented, validate the complete solution.
 
+**Full prompts:** See `docs/prompts/3.*.md`
+
 ### 3.1 Run all tests
 
 Run complete test suite including e2e tests.
@@ -545,17 +500,21 @@ nx e2e [project]-e2e
 
 All tests must pass before proceeding.
 
-### 3.2 LLM Code Review
+### 3.2 Code Review
 
 Review code for coding standards and best practices.
 
 **Focus:** HOW the code is written (quality, patterns, readability).
 
+**Agent:** Implementation Agent (JUDGE mode)
+
 **Output:** `docs/validation/[JIRA-ID]-code-review.md`
 
-**Prompt: `code-review`**
+**Prompt:** `docs/prompts/3.2-code-review.md`
 
 ```
+Act as the Implementation Agent from @docs/agents/implementation-agent.md in JUDGE mode.
+
 ## CODE REVIEW for [JIRA-ID]
 
 Review all code changes:
@@ -563,7 +522,7 @@ Review all code changes:
 
 Check coding standards:
 1. Null/undefined handling
-2. Error handling completeness
+2. Error handling completeness (catchError on Observables)
 3. Observable subscription cleanup (takeUntilDestroyed)
 4. Method size (<24 lines)
 5. Single responsibility principle
@@ -572,54 +531,32 @@ Check coding standards:
 8. No `any` types
 9. i18n markers on user-facing text
 
-WRITE a report to `docs/validation/[JIRA-ID]-code-review.md` with this format:
+WRITE a report to `docs/validation/[JIRA-ID]-code-review.md`
 
-# [JIRA-ID]: Code Review Summary
-
-**Date:** [today]  
-**Reviewer:** AI Code Review Agent  
-**Status:** ✅ APPROVED | ❌ CHANGES REQUIRED
-
-## Files Reviewed
-- [list files with step numbers]
-
-## Results
-
-| Check | Status |
-|-------|--------|
-| Null/undefined handling | ✅/❌ |
-| Observable cleanup | ✅/❌ |
-| Method size (<24 lines) | ✅/❌ |
-| Single responsibility | ✅/❌ |
-| Naming conventions | ✅/❌ |
-| No `any` types | ✅/❌ |
-| JSDoc on new methods | ✅/❌ |
-| i18n markers | ✅/❌ |
+**Verdict:** ✅ APPROVED | ❌ CHANGES REQUIRED
 
 ## Blockers (if any)
 [BLOCKER]: description
 - File: [path]
 - Line: [number]
 - Fix: [corrected code]
-
-## Notes
-[Any observations, acceptable exceptions, test counts]
-
-## Verdict
-**[X blockers].** [Summary statement]
 ```
 
-### 3.3 LLM Architecture Review
+### 3.3 Architecture Review
 
 Validate solution matches the approved design and ADRs.
 
 **Focus:** WHAT was built (structure, patterns, ADR compliance).
 
+**Agent:** Architect Agent (JUDGE mode)
+
 **Output:** `docs/validation/[JIRA-ID]-architecture-review.md`
 
-**Prompt: `architecture-review`**
+**Prompt:** `docs/prompts/3.3-architecture-review.md`
 
 ```
+Act as the Architect Agent from @docs/agents/architect-agent.md in JUDGE mode.
+
 ## ARCHITECTURE REVIEW for [JIRA-ID]
 
 Review implementation against:
@@ -631,30 +568,28 @@ Check architecture compliance:
 2. Are all selected ADR requirements met? (check each ADR from Step 1.1)
 3. Layer violations? (Components importing HttpClient directly?)
 4. Classes with >10 public methods?
-5. Edge cases from solution-design.md section 6 handled?
+5. Edge cases from solution-design.md handled?
 
-For any violations found:
-[BLOCKER|WARNING]: description
-- ADR/Plan violation: [which rule]
-- File: [path]
-- Fix: [corrected code for blockers]
+WRITE a report to `docs/validation/[JIRA-ID]-architecture-review.md`
 
-End with: "Architecture Compliant" or "Violations found: X blockers"
-
-After review, WRITE summary report to `docs/validation/[JIRA-ID]-architecture-review.md`
+**Verdict:** ✅ APPROVED | ❌ CHANGES REQUIRED
 ```
 
-### 3.4 LLM Product Review
+### 3.4 Product Review
 
 Validate implemented functionality matches the user story.
 
 **Focus:** WHETHER the right thing was built (completeness, correctness).
 
+**Agent:** Product Agent (JUDGE mode)
+
 **Output:** `docs/validation/[JIRA-ID]-product-review.md`
 
-**Prompt: `product-review`**
+**Prompt:** `docs/prompts/3.4-product-review.md`
 
 ```
+Act as the Product Agent from @docs/agents/product-agent.md in JUDGE mode.
+
 ## PRODUCT REVIEW for [JIRA-ID]
 
 User story: @docs/[JIRA-ID].md
@@ -665,22 +600,15 @@ Validate each acceptance criterion is implemented:
 | AC | Description | Status | Evidence |
 |----|-------------|--------|----------|
 | AC-1 | [criterion] | ✅/❌ | [file:line or "not found"] |
-| AC-2 | [criterion] | ✅/❌ | [file:line or "not found"] |
-| ... | ... | ... | ... |
 
 NFR Compliance (from selected ADRs):
 | ADR | Status | Evidence |
 |-----|--------|----------|
 | [each selected ADR] | ✅/❌ | [file:line] |
 
-Summary:
-- Total AC: [N]
-- Implemented: [N]
-- Missing: [N]
+WRITE a report to `docs/validation/[JIRA-ID]-product-review.md`
 
-End with: "All AC Implemented" or "Missing: X acceptance criteria"
-
-After review, WRITE summary report to `docs/validation/[JIRA-ID]-product-review.md`
+**Verdict:** ✅ ALL ACs IMPLEMENTED | ❌ MISSING: [list]
 ```
 
 ### 🚦 FINAL GATE
@@ -725,36 +653,35 @@ Then merge to main.
 
 ### Part 1: Specs (before coding)
 
-| Step | Prompt | Output | Gate |
-|------|--------|--------|------|
-| 1.1 | `select-adrs` | `task.md` (start) | — |
-| 1.2 | `select-repo-specs` | `task.md` (append) | — |
-| 1.3 | `disambiguate-story` | `task.md` (Q→A) | Answer BLOCKING questions |
-| 1.4 | `create-solution-design` | `solution-design.md` | Review AC coverage |
-| 1.5 | `create-execution-plan` | `execution-plan.md` | Review steps |
-| 1.6 | Select agent | — | — |
-| 🚦 | **SIGN-OFF** | `git commit` | Engineer accountable |
+| Step | Prompt | Agent | Output | Gate |
+|------|--------|-------|--------|------|
+| 1.1 | `1.1-select-adrs.md` | Product (CREATE) | `task.md` (start) | — |
+| 1.2 | `1.2-select-repo-specs.md` | Product (CREATE) | `task.md` (append) | — |
+| 1.3 | `1.3-disambiguate-story.md` | Product (CREATE) | `task.md` (Q→A) | Answer BLOCKING questions |
+| 1.4 | `1.4-create-solution-design.md` | Architect (CREATE) | `solution-design.md` | Review AC coverage |
+| 1.5 | `1.5-create-execution-plan.md` | Architect (CREATE) | `execution-plan.md` | Review steps |
+| 🚦 | **SIGN-OFF** | — | `git commit` | Engineer accountable |
 
 ### Part 2: Coding (per step)
 
 | Step | Prompt | Agent | Gate |
 |------|--------|-------|------|
-| 2.1 | `generate-tests` | `unit-tests-agent` | Review tests |
-| 2.2 | `implement-step` | `angular-typescript-agent` | — |
-| 2.3 | Run tests | — | Tests pass |
+| 2.1 | `2.1-generate-tests.md` | Implementation (CREATE) | Review tests |
+| 2.2 | `2.2-implement-step.md` | Implementation (CREATE) | — |
+| 2.3 | `2.3-fix-failed-tests.md` | Implementation (CREATE) | Tests pass |
 | 2.4 | `git commit` | — | — |
 
 **Development approach:** Trunk-based development. Each step = one commit. If step fails, revert and retry.
 
 ### Part 3: Validation (after all coding)
 
-| Step | Prompt | Focus | Gate |
-|------|--------|-------|------|
-| 3.1 | Run all tests | Unit + E2E | All green |
-| 3.2 | `code-review` | HOW (quality, patterns) | 0 blockers |
-| 3.3 | `architecture-review` | WHAT (structure, ADRs) | 0 blockers |
-| 3.4 | `product-review` | WHETHER (AC complete) | All AC ✅ |
-| 🚦 | **MERGE** | — | All reviews pass |
+| Step | Prompt | Agent | Focus | Gate |
+|------|--------|-------|-------|------|
+| 3.1 | `3.1-run-all-tests.md` | — | Unit + E2E | All green |
+| 3.2 | `3.2-code-review.md` | Implementation (JUDGE) | HOW (quality, patterns) | 0 blockers |
+| 3.3 | `3.3-architecture-review.md` | Architect (JUDGE) | WHAT (structure, ADRs) | 0 blockers |
+| 3.4 | `3.4-product-review.md` | Product (JUDGE) | WHETHER (AC complete) | All AC ✅ |
+| 🚦 | **MERGE** | — | — | All reviews pass |
 
 ## References
 

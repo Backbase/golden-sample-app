@@ -15,13 +15,17 @@ mkdir -p docs/specs/JIRA-001
 - `solution-design.md` - Solution design with ADR compliance
 - `execution-plan.md` - Step breakdown
 
+**Prompts:** `docs/prompts/`
+**Templates:** `docs/templates/`
+
 ---
 
 # Part 1: SPECS
 
 ## Step 1.1: Select Relevant ADRs
 
-**Prompt:** `select-adrs`
+**Agent:** Product Agent (CREATE mode)  
+**Prompt:** `docs/prompts/1.1-select-adrs.md`
 
 ```
 Act as the Product Agent from @docs/agents/product-agent.md in CREATE mode.
@@ -40,12 +44,13 @@ Output format:
 
 ⛔ STOP after outputting ADR selection. Wait for confirmation from the user.
 
-After user response save selected ADRs in docs/specs/JIRA-001/task.md
+After user confirmation, save selected ADRs to docs/specs/JIRA-001/task.md
 ```
 
 ## Step 1.2: Select Repo-Wide Specs
 
-**Prompt:** `select-repo-specs`
+**Agent:** Product Agent (CREATE mode)  
+**Prompt:** `docs/prompts/1.2-select-repo-specs.md`
 
 ```
 Act as the Product Agent from @docs/agents/product-agent.md in CREATE mode.
@@ -90,7 +95,8 @@ Always verify against existing codebase usage or component source.
 
 ## Step 1.3: Disambiguate User Story
 
-**Prompt:** `disambiguate-story`
+**Agent:** Product Agent (CREATE mode)  
+**Prompt:** `docs/prompts/1.3-disambiguate-story.md`
 
 **Output:** Append to `docs/specs/JIRA-001/task.md`
 
@@ -130,7 +136,9 @@ Output format:
 
 ## Step 1.4: Create Solution Design
 
-**Prompt:** `create-solution-design`
+**Agent:** Architect Agent (CREATE mode)  
+**Prompt:** `docs/prompts/1.4-create-solution-design.md`  
+**Template:** `docs/templates/solution-design-template.md`
 
 **Output:** `docs/specs/JIRA-001/solution-design.md`
 
@@ -142,32 +150,32 @@ Act as the Architect Agent from @docs/agents/architect-agent.md in CREATE mode.
 ## TASK: Create Solution Design for JIRA-001
 
 **Input:** @docs/specs/JIRA-001/task.md (approved with answered questions)
+**Template:** @docs/templates/solution-design-template.md
 
 Execute your full response protocol:
 1. PHASE 1: UNDERSTAND — Confirm context loaded, flag any remaining questions
 2. PHASE 2: APPROACH SELECTION — Present 2-3 options with trade-offs, recommend one
-3. PHASE 3: SOLUTION DESIGN — Full design per your template
+3. PHASE 3: SOLUTION DESIGN — Full design per the template
 
 ⛔ STOP after PHASE 2 (approach selection). Wait for explicit approach approval before detailed design.
 
 Output artifact: `docs/specs/JIRA-001/solution-design.md`
 
 Include your Self-Check section:
-- [ ] All selected ADRs addressed
+- [ ] All selected ADRs addressed (template §1 ADR Compliance)
 - [ ] No scope creep beyond ticket
-- [ ] Edge cases documented
-- [ ] Changes list complete
+- [ ] Edge cases documented (template §5)
+- [ ] Changes list complete (template §4)
 - [ ] UI component APIs verified against existing usage
-
 ```
 
 ### Review Solution Design
 
-- [ ] Every AC maps to a change
-- [ ] No orphan changes (scope creep)
-- [ ] Edge cases addressed
-- [ ] Out of scope is clear
-- [ ] All UI component bindings verified against actual API (not assumed)
+Review against template sections:
+- [ ] §1 Approach: HOW we solve each ADR requirement
+- [ ] §4 Changes: Every AC maps to a change, no orphan changes
+- [ ] §5 Edge Cases: Loading, empty, error handled
+- [ ] §7 Open Questions: Empty (or all answered)
 
 **If OK:** "Approved. Proceed to execution plan."
 
@@ -175,7 +183,8 @@ Include your Self-Check section:
 
 ## Step 1.5: Create Execution Plan
 
-**Prompt:** `create-execution-plan`
+**Agent:** Architect Agent (CREATE mode)  
+**Prompt:** `docs/prompts/1.5-create-execution-plan.md`
 
 **Output:** `docs/specs/JIRA-001/execution-plan.md`
 
@@ -207,7 +216,6 @@ Each step = 1 commit: `feat(JIRA-001): step [N] - [description]`
 ⛔ STOP: Execution plan complete. Ready for SIGN-OFF gate.
 
 Output artifact: `docs/specs/JIRA-001/execution-plan.md`
-
 ```
 
 ---
@@ -229,7 +237,8 @@ For **each step** in the execution plan, repeat this cycle:
 
 ## Step 2.1: Generate Tests
 
-**Prompt:** `generate-tests`
+**Agent:** Implementation Agent (CREATE mode)  
+**Prompt:** `docs/prompts/2.1-generate-tests.md`
 
 ```
 Act as the Implementation Agent from @docs/agents/implementation-agent.md in CREATE mode.
@@ -242,7 +251,7 @@ Act as the Implementation Agent from @docs/agents/implementation-agent.md in CRE
 
 **Target file:** [path to *.spec.ts from execution plan]
 
-Apply your TDD methodology skill. Generate tests BEFORE implementation.
+Apply TDD methodology. Generate tests BEFORE implementation.
 
 ### Tests for Step [N]: [Name]
 **Target:** `path/to/file.spec.ts`
@@ -263,7 +272,11 @@ Requirements:
 - [ ] Mocks: [external deps only]
 
 ### Run Command
-npx nx test [project] --testFile=[spec-file] --testNamePattern="S[N]"WRITE tests directly to target spec file.
+```bash
+npx nx test [project] --testFile=[spec-file] --testNamePattern="S[N]"
+```
+
+WRITE tests directly to target spec file.
 
 ⛔ STOP: Tests ready. Approve before implementation.
 ```
@@ -280,7 +293,8 @@ npx nx test [project] --testFile=[spec-file] --testNamePattern="S[N]"WRITE tests
 
 ## Step 2.2: Generate Code
 
-**Prompt:** `implement-step`
+**Agent:** Implementation Agent (CREATE mode)  
+**Prompt:** `docs/prompts/2.2-implement-step.md`
 
 ```
 Act as the Implementation Agent from @docs/agents/implementation-agent.md in CREATE mode.
@@ -296,7 +310,7 @@ Execute your response protocol:
 
 ## Step [N]: [Name]
 **Target:** `path/to/file.ts`
-**Must pass:** [test scenarios from Testing Agent]
+**Must pass:** [test scenarios from 2.1]
 
 ### Implementation
 [Code with inline RULE:/ASSUMPTION:/ADR-XXX: comments]
@@ -318,6 +332,8 @@ Execute your response protocol:
 ---
 
 ## Step 2.3: Run Step Tests
+
+**Prompt:** `docs/prompts/2.3-fix-failed-tests.md`
 
 ```bash
 # Run tests for this step
@@ -365,6 +381,8 @@ After all steps are implemented:
 
 ## Step 3.1: Run All Tests
 
+**Prompt:** `docs/prompts/3.1-run-all-tests.md`
+
 ```bash
 # Unit tests
 nx test transactions-journey --watch=false
@@ -379,11 +397,14 @@ nx e2e transactions-journey-e2e
 
 ## Step 3.2: Code Review
 
-**Prompt:** `code-review`
+**Agent:** Implementation Agent (JUDGE mode)  
+**Prompt:** `docs/prompts/3.2-code-review.md`
 
 **Output:** `docs/validation/JIRA-001-code-review.md`
 
 ```
+Act as the Implementation Agent from @docs/agents/implementation-agent.md in JUDGE mode.
+
 ## CODE REVIEW for JIRA-001
 
 Review all code changes:
@@ -405,8 +426,9 @@ WRITE a report to `docs/validation/JIRA-001-code-review.md` with this format:
 # JIRA-001: Code Review Summary
 
 **Date:** [today]  
-**Reviewer:** AI Code Review Agent  
-**Status:** ✅ APPROVED | ❌ CHANGES REQUIRED
+**Agent:** Implementation Agent  
+**Mode:** JUDGE  
+**Verdict:** ✅ APPROVED | ❌ CHANGES REQUIRED
 
 ## Files Reviewed
 - [list files with step numbers]
@@ -445,11 +467,14 @@ Fix blockers, re-run tests.
 
 ## Step 3.3: Architecture Review
 
-**Prompt:** `architecture-review`
+**Agent:** Architect Agent (JUDGE mode)  
+**Prompt:** `docs/prompts/3.3-architecture-review.md`
 
 **Output:** `docs/validation/JIRA-001-architecture-review.md`
 
 ```
+Act as the Architect Agent from @docs/agents/architect-agent.md in JUDGE mode.
+
 ## ARCHITECTURE REVIEW for JIRA-001
 
 Review implementation against:
@@ -461,7 +486,7 @@ Check architecture compliance:
 2. Are all selected ADR requirements met? (check each ADR from Step 1.1)
 3. Layer violations? (Components importing HttpClient directly?)
 4. Classes with >10 public methods?
-5. Edge cases from solution-design.md section 6 handled?
+5. Edge cases from solution-design.md section 5 handled?
 
 For any violations found:
 [BLOCKER|WARNING]: description
@@ -469,9 +494,9 @@ For any violations found:
 - File: [path]
 - Fix: [corrected code for blockers]
 
-End with: "Architecture Compliant" or "Violations found: X blockers"
+WRITE a report to `docs/validation/JIRA-001-architecture-review.md`
 
-After review, WRITE summary report to `docs/validation/JIRA-001-architecture-review.md`
+**Verdict:** ✅ APPROVED | ❌ CHANGES REQUIRED
 ```
 
 ### 🚦 Fix Violations
@@ -482,11 +507,14 @@ Fix blockers, re-run tests.
 
 ## Step 3.4: Product Review
 
-**Prompt:** `product-review`
+**Agent:** Product Agent (JUDGE mode)  
+**Prompt:** `docs/prompts/3.4-product-review.md`
 
 **Output:** `docs/validation/JIRA-001-product-review.md`
 
 ```
+Act as the Product Agent from @docs/agents/product-agent.md in JUDGE mode.
+
 ## PRODUCT REVIEW for JIRA-001
 
 User story: @docs/JIRA-001.md
@@ -514,9 +542,9 @@ Summary:
 - Implemented: [N]
 - Missing: [N]
 
-End with: "All AC Implemented" or "Missing: X acceptance criteria"
+WRITE a report to `docs/validation/JIRA-001-product-review.md`
 
-After review, WRITE summary report to `docs/validation/JIRA-001-product-review.md`
+**Verdict:** ✅ ALL ACs IMPLEMENTED | ❌ MISSING: [list]
 ```
 
 ### 🚦 Address Missing AC
@@ -540,29 +568,29 @@ git push origin feature/JIRA-001
 
 ## Quick Reference
 
-| Part 1: Specs | Output |
-|---------------|--------|
-| 1.1 `select-adrs` | ADR list |
-| 1.2 `select-repo-specs` | Repo context |
-| 1.3 `disambiguate-story` | `task.md` |
-| 1.4 `create-solution-design` | `solution-design.md` |
-| 1.5 `create-execution-plan` | `execution-plan.md` |
-| 1.6 **SIGN-OFF** | `git commit` |
+| Part 1: Specs | Agent | Output |
+|---------------|-------|--------|
+| 1.1 `select-adrs` | Product (CREATE) | ADR list |
+| 1.2 `select-repo-specs` | Product (CREATE) | Repo context |
+| 1.3 `disambiguate-story` | Product (CREATE) | `task.md` |
+| 1.4 `create-solution-design` | Architect (CREATE) | `solution-design.md` |
+| 1.5 `create-execution-plan` | Architect (CREATE) | `execution-plan.md` |
+| 1.6 **SIGN-OFF** | — | `git commit` |
 
-| Part 2: Coding (per step) | Gate |
-|---------------------------|------|
-| 2.1 `generate-tests` | Review tests |
-| 2.2 `implement-step` | — |
-| 2.3 Run tests | Tests pass |
-| 2.4 `git commit` | — |
+| Part 2: Coding (per step) | Agent | Gate |
+|---------------------------|-------|------|
+| 2.1 `generate-tests` | Implementation (CREATE) | Review tests |
+| 2.2 `implement-step` | Implementation (CREATE) | — |
+| 2.3 Run tests | — | Tests pass |
+| 2.4 `git commit` | — | — |
 
-| Part 3: Validation | Gate |
-|--------------------|------|
-| 3.1 Run all tests | All green |
-| 3.2 `code-review` | 0 blockers |
-| 3.3 `architecture-review` | 0 blockers |
-| 3.4 `product-review` | All AC ✅ |
-| **MERGE** | All pass |
+| Part 3: Validation | Agent | Gate |
+|--------------------|-------|------|
+| 3.1 Run all tests | — | All green |
+| 3.2 `code-review` | Implementation (JUDGE) | 0 blockers |
+| 3.3 `architecture-review` | Architect (JUDGE) | 0 blockers |
+| 3.4 `product-review` | Product (JUDGE) | All AC ✅ |
+| **MERGE** | — | All pass |
 
 ---
 
@@ -662,4 +690,3 @@ export class TransactionsViewComponent {
   Select Account
 </label>
 ```
-
