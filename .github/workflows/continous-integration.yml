@@ -15,14 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: ./.github/actions/node-step
+      - uses: actions/setup-python@v6
         with:
-          npm-auth-token: ${{ secrets.NPM_TOKEN }}
+          python-version: '3.13'
 
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ needs.get-playwright-version.outputs.version }}
+      - run: pip install -r scripts/requirements.txt
 
+      - run: python scripts/llm_as_judge.py
