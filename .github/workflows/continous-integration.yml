@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - feature/BBNC-64-ai-adlc-web
+
+permissions:
+  contents: read
+
+jobs:
+  llm-as-a-judge:
+    name: "LLM-as-a-judge"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: ./.github/actions/node-step
+        with:
+          npm-auth-token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ needs.get-playwright-version.outputs.version }}
+
