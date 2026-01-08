@@ -1,1 +1,2 @@
 deepeval==3.7.9
+markdown==3.10
