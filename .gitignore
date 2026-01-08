@@ -61,3 +61,6 @@ accessibility-reports/
 *darwin.png
 reports
 /.specstory
+
+.deepeval
+__pycache__/
