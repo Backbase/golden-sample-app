@@ -21,4 +21,4 @@ jobs:
 
       - run: pip install -r scripts/requirements.txt
 
-      - run: python scripts/llm_as_judge.py
+      - run: deepeval test run scripts/test_select_adrs.py
