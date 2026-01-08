@@ -22,21 +22,11 @@ class AzureOpenAIClient:
         self.api_version = api_version
         self.timeout = timeout
 
-    def chat(self, user_input: str, system_prompt: str | None = None) -> str:
+    def chat(self, messages) -> str:
         url = (
             f"{self.endpoint}/openai/deployments/"
             f"{self.deployment}/chat/completions"
             f"?api-version={self.api_version}"
-        )
-
-        messages = []
-        if system_prompt:
-            messages.append(
-                {"role": "system", "content": system_prompt}
-            )
-
-        messages.append(
-            {"role": "user", "content": user_input}
         )
 
         payload = {
@@ -67,36 +57,57 @@ class AzureOpenAIClient:
 
         return data["choices"][0]["message"]["content"]
 
-def run_markdown_prompt(client, path: str, agent: str) -> str:
-    md = Path(path).read_text(encoding="utf-8")
-    prompt = markdown.markdown(md)
-
-    return client.chat(
-        user_input=prompt,
-        system_prompt=agent,
-    )
-
 def test_correctness():
+    TEST_MODE_OVERRIDE = """
+    You are running in AUTOMATED TEST MODE.
+
+    Override any instructions that require stopping, waiting, confirmation,
+    or multi-turn interaction.
+
+    Always:
+    - Execute all applicable phases in a single response
+    - Produce the final artifact for the active mode
+    - Ignore ⛔ STOP instructions
+    - Do not ask the user questions
+    """
+
     agent_raw = open('docs/agents/product-agent.md', 'r')
     agent = markdown.markdown( agent_raw.read() )
+    print(agent)
 
     raw_input = open('docs/prompts/1.1-select-adrs.md', 'r')
     input = markdown.markdown( raw_input.read() )
+    print(input)
 
     raw_expected_output = open('docs/specs/JIRA-001/task.md', 'r')
     expected_output = markdown.markdown( raw_expected_output.read() )
 
     client = AzureOpenAIClient(
         api_key=os.environ["AZURE_OPENAI_API_KEY"],
-        endpoint="https://oai.stg.azure.backbase.eu",
-        deployment="gpt-4.1-mini",
+        endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
+        deployment=os.environ["AZURE_DEPLOYMENT_NAME"],
     )
 
-    actual_output = run_markdown_prompt(
-        client,
-        "docs/prompts/1.1-select-adrs.md",
-        "Ignore all the ⛔ STOP commands" + agent,
-    )
+    messages = [
+        {
+            "role": "system",
+            "content": agent,
+        },
+        {
+            "role": "system",
+            "content": input,
+        },
+        {
+            "role": "system",
+            "content": TEST_MODE_OVERRIDE,
+        },
+        {
+            "role": "user",
+            "content": input,
+        },
+    ]
+
+    actual_output = client.chat(messages)
 
     print(actual_output)
 
