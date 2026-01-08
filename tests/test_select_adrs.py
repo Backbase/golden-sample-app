@@ -1,8 +1,6 @@
-import markdown
 import requests
 import os
 
-from pathlib import Path
 from deepeval import assert_test
 from deepeval.test_case import LLMTestCase, LLMTestCaseParams
 from deepeval.metrics import GEval
@@ -58,6 +56,15 @@ class AzureOpenAIClient:
         return data["choices"][0]["message"]["content"]
 
 def test_correctness():
+    MODE_PROMPT = """
+    You are operating in CREATE MODE.
+
+    Follow the CREATE mode rules and response protocol defined in the agent specification.
+    Produce the final task.md artifact.
+
+    Once you're done, reset the generated file to it's initial state
+    """
+
     TEST_MODE_OVERRIDE = """
     You are running in AUTOMATED TEST MODE.
 
@@ -71,16 +78,11 @@ def test_correctness():
     - Do not ask the user questions
     """
 
-    agent_raw = open('docs/agents/product-agent.md', 'r')
-    agent = markdown.markdown( agent_raw.read() )
-    print(agent)
+    agent = open('docs/agents/product-agent.md', 'r').read()
 
-    raw_input = open('docs/prompts/1.1-select-adrs.md', 'r')
-    input = markdown.markdown( raw_input.read() )
-    print(input)
+    input = open('docs/prompts/1.1-select-adrs.md', 'r').read()
 
-    raw_expected_output = open('docs/specs/JIRA-001/task.md', 'r')
-    expected_output = markdown.markdown( raw_expected_output.read() )
+    expected_output = open('docs/specs/JIRA-001/task.md', 'r').read()
 
     client = AzureOpenAIClient(
         api_key=os.environ["AZURE_OPENAI_API_KEY"],
@@ -89,22 +91,10 @@ def test_correctness():
     )
 
     messages = [
-        {
-            "role": "system",
-            "content": agent,
-        },
-        {
-            "role": "system",
-            "content": input,
-        },
-        {
-            "role": "system",
-            "content": TEST_MODE_OVERRIDE,
-        },
-        {
-            "role": "user",
-            "content": input,
-        },
+        {"role": "system", "content": agent},
+        {"role": "system", "content": MODE_PROMPT},
+        {"role": "system", "content": TEST_MODE_OVERRIDE},
+        {"role": "user", "content": input},
     ]
 
     actual_output = client.chat(messages)
