@@ -64,3 +64,4 @@ reports
 
 .deepeval
 __pycache__/
+.env
