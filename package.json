@@ -49,7 +49,7 @@
     "@angular/forms": "~20.3.0",
     "@angular/localize": "~20.3.0",
     "@angular/platform-browser": "~20.3.0",
-    "@angular/platform-browser-dynamic": "~20.3.0",
+    "@angular/platform-browser-dynamic": "~20.3.16",
     "@angular/router": "~20.3.0",
     "@backbase/accesscontrol-v3-http-ang": "4.0.0",
     "@backbase/arrangement-manager-http-ang": "5.2.0",
