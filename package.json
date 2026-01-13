@@ -94,7 +94,7 @@
     "@angular-devkit/schematics": "~20.3.0",
     "@angular/cli": "~20.3.0",
     "@angular/compiler-cli": "~20.3.0",
-    "@angular/language-service": "~20.3.0",
+    "@angular/language-service": "~20.3.16",
     "allure-commandline": "^2.32.0",
     "@axe-core/playwright": "^4.10.1",
     "@backbase/nx-plugin": "^4.0.1",
