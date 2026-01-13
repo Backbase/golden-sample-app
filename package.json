@@ -95,7 +95,7 @@
     "@angular/cli": "~20.3.0",
     "@angular/compiler-cli": "~20.3.0",
     "@angular/language-service": "~20.3.0",
-    "allure-commandline": "^2.32.0",
+    "allure-commandline": "^2.36.0",
     "@axe-core/playwright": "^4.10.1",
     "@backbase/nx-plugin": "^4.0.1",
     "@faker-js/faker": "^9.7.0",
