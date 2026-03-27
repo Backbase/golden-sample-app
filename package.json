@@ -40,6 +40,10 @@
     "kill-app": "lsof -ti:4200 | xargs kill -9"
   },
   "private": true,
+  "engines": {
+    "node": "^22.15.0 || ^24.14.0",
+    "npm": "^11"
+  },
   "dependencies": {
     "@angular/animations": "21.2.6",
     "@angular/cdk": "21.2.4",
@@ -95,7 +99,6 @@
     "@angular/cli": "21.2.5",
     "@angular/compiler-cli": "21.2.6",
     "@angular/language-service": "21.2.6",
-    "allure-commandline": "^2.32.0",
     "@axe-core/playwright": "^4.10.1",
     "@backbase/nx-plugin": "6.0.1",
     "@faker-js/faker": "^9.7.0",
@@ -111,8 +114,9 @@
     "@playwright/test": "1.52.0",
     "@schematics/angular": "21.2.5",
     "@types/jest": "^30.0.0",
-    "@types/node": "^22.17.2",
+    "@types/node": "^24.12.0",
     "@typescript-eslint/utils": "^8.33.1",
+    "allure-commandline": "^2.32.0",
     "allure-js-commons": "3.1.0",
     "allure-playwright": "3.1.0",
     "angular-eslint": "21.3.1",
