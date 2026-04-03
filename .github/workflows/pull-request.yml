@@ -111,6 +111,7 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v5
         with:
+          node-version: 24
           name: playwright-report-${{ matrix.test }}
           path: dist/.playwright/apps/golden-sample-app-e2e/reports/html/
           retention-days: ${{ env.RETENTION_DAYS }}
@@ -119,6 +120,7 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v5
         with:
+          node-version: 24
           name: allure-report-${{ matrix.test }}
           path: allure-report/
           retention-days: ${{ env.RETENTION_DAYS }}
@@ -127,6 +129,7 @@ jobs:
         if: ${{ matrix.test == 'a11y' && !cancelled() }}
         uses: actions/upload-artifact@v5
         with:
+          node-version: 24
           name: accessibility-report
           path: reports/accessibility-reports/
           retention-days: ${{ env.RETENTION_DAYS }}
