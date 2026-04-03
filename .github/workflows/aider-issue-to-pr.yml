@@ -221,5 +221,6 @@ jobs:
       - name: Upload aider chat history
         uses: actions/upload-artifact@v5
         with:
+          node-version: 24
           name: aider-chat-output
           path: ".aider.chat.history.md"
