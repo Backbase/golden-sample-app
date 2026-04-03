@@ -29,6 +29,12 @@ runs:
         scope: '@backbase'
         cache-dependency-path: '**/package-lock.json'
 
+    - name: Sanitize NPM auth token
+      run: |
+        echo "CLEAN_NPM_TOKEN=$(echo "$RAW_TOKEN" | tr -d '\n\r')" >> $GITHUB_ENV
+      shell: bash
+      env:
+        RAW_TOKEN: ${{ inputs.npm-auth-token }}
     ##
     # Install NPM dependencies
     # Condition: only executed if cache not restored
@@ -38,8 +44,7 @@ runs:
       run: npm ci --ignore-scripts
       shell: bash
       env:
-        NODE_AUTH_TOKEN: ${{ inputs.npm-auth-token }}
-        NODE_EMAIL: ${{ inputs.npm-email }}
+        NPM_TOKEN: ${{ env.CLEAN_NPM_TOKEN }}
   
 
     - name: Upload NPM Log
