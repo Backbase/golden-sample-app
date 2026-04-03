@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-          registry-url: 'https://repo.backbase.com/api/npm/npm-backbase/'
+          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
           scope: '@backbase' 
       - name: Setup git user to "GSA Action"
         run: git config user.email "actions@github.com" && git config user.name "GitHub Actions"

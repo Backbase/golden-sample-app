@@ -33,7 +33,7 @@ jobs:
         with:
           node-version: ${{ matrix.node_version || 22 }}
           cache: 'npm'
-          registry-url: 'https://repo.backbase.com/api/npm/npm-backbase/'
+          registry-url: 'https://repo.backbase.com/artifactory/api/npm/npm-backbase/'
           scope: '@backbase'
 
       - name:  Install dependencies
