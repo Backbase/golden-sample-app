@@ -46,7 +46,6 @@ runs:
       if: failure()
       uses: actions/upload-artifact@v5
       with:
-        node-version: 24
         name: npm-log
         path: /home/runner/.npm/_logs/
 
