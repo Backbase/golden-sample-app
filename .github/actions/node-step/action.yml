@@ -12,9 +12,6 @@ inputs:
   npm-auth-token:
     description: ''
     required: true
-  npm-email:
-    description: ''
-    required: true
 
 runs:
   using: 'composite'
