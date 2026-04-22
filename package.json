@@ -59,11 +59,11 @@
     "@backbase/arrangement-manager-http-ang": "5.2.0",
     "@backbase/foundation-ang": "14.0.0",
     "@backbase/identity-auth": "7.0.1",
-    "@backbase/initiate-payment-journey-ang": "8.1.4",
+    "@backbase/initiate-payment-journey-ang": "8.1.6",
     "@backbase/internal-identity-model": "7.1.2",
     "@backbase/select-context": "12.1.6",
     "@backbase/transactions-http-ang": "5.3.0",
-    "@backbase/ui-ang": "14.1.90",
+    "@backbase/ui-ang": "15.0.4",
     "@ng-bootstrap/ng-bootstrap": "20.0.0",
     "@ng-select/ng-select": "21.5.2",
     "@ngrx/component-store": "21.1.0",
@@ -146,8 +146,6 @@
     "webpack-bundle-analyzer": "^4.5.0"
   },
   "overrides": {
-    "@backbase/foundation-ang": "14.0.0",
-    "ngx-quill": "$ngx-quill",
     "ngx-mask": "$ngx-mask"
   }
 }
