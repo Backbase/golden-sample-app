@@ -1,6 +1,6 @@
 <span
   class="transactions-item__color-indication"
-  [ngClass]="{
+  [class]="{
     'transactions-item__color-indication--positive': isAmountPositive,
     'transactions-item__color-indication--negative': !isAmountPositive
   }"
@@ -34,7 +34,7 @@
 </span>
 <span
   class="transactions-item__amount"
-  [ngClass]="{ negative: !isAmountPositive }"
+  [class.negative]="!isAmountPositive"
   data-testid="amount"
 >
   <bb-amount-ui

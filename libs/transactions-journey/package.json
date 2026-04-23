@@ -2,9 +2,9 @@
   "name": "@backbase/transactions-journey",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/core": "^20.3.12",
-    "@angular/router": "^20.3.12",
-    "@backbase/foundation-ang": "^13.0.4"
+    "@angular/core": "21.2.6",
+    "@angular/router": "21.2.6",
+    "@backbase/foundation-ang": "14.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.1"
