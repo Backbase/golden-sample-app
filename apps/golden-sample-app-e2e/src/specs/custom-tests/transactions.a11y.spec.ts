@@ -3,7 +3,7 @@ import { expect } from '@playwright/test';
 
 test.describe(
   'Transaction Page A11y tests',
-  { tag: ['@a11y', '@e2e', '@mocks'] },
+  { tag: ['@a11y', '@e2e', '@mocks', '@axe'] },
   () => {
     test.beforeEach(async ({ transactionsPage }) => {
       await transactionsPage.open();
