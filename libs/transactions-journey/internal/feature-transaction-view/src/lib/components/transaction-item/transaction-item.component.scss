@@ -38,11 +38,11 @@
 
 .transactions-item__transactionType {
   font-size: 0.8rem;
-  color: gray;
+  color: rgb(70, 70, 70);
 }
 
 .transactions-item__amount {
   &.negative {
-    color: rgb(209, 76, 76);
+    color: rgb(202, 73, 73);
   }
 }

@@ -7,6 +7,8 @@ test.describe(
   () => {
     test.beforeEach(async ({ transactionsPage }) => {
       await transactionsPage.open();
+      await expect(transactionsPage.pageHeader).toBeVisible();
+      await expect(transactionsPage.transactions.element.first()).toBeVisible();
     });
 
     test('Validate Transactions page accessibility with disabled rules', async ({
@@ -33,7 +35,7 @@ test.describe(
       await test.step('Validate Transaction element accessibility', async () => {
         await expect({ page, testInfo }).toBeAccessible({
           include: 'bb-transaction-item',
-          disableRules: ['color-contrast'],
+          // disableRules: ['color-contrast'],
         });
       });
     });
