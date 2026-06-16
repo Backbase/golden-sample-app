@@ -1,7 +1,8 @@
-import { createTransactionDetailsForMock,
+import {
+  createTransactionDetailsForMock,
   TransactionDetailsDataType,
-  TransactionDataType 
-       } from '@backbase/transactions-journey/e2e-tests';
+  TransactionDataType,
+} from '@backbase/transactions-journey/e2e-tests';
 /**
  * Deterministic transaction seed used by integration specs to inject a
  * predictable row into the mocked `/v2/transactions` list via
