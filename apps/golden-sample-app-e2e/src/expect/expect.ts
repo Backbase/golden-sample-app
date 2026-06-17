@@ -3,6 +3,7 @@ import { obscuredExpect } from './to-be-obscured';
 import { textOutsideBoxExpect } from './to-not-have-elements-with-text-outside-the-box';
 import { viewportOverflowExpect } from './to-overflow-viewport';
 import { focusOrderExpect } from './to-have-focus-order';
+import { a11yExpect } from '@backbase/e2e-tests';
 
 export type { ObscuredAnalysis } from './to-be-obscured';
 export type {
@@ -23,6 +24,7 @@ export {
 export { findTextOutsideBoxIssues } from './to-not-have-elements-with-text-outside-the-box';
 
 export const expect = mergeExpects(
+  a11yExpect,
   viewportOverflowExpect,
   focusOrderExpect,
   obscuredExpect,
