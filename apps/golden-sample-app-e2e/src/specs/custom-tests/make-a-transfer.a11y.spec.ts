@@ -67,8 +67,10 @@ test.describe(
           makeTransferPage.submitButton,
         ];
         for (const locator of locators) {
-          await locator.focus();
-          await expect(locator).not.toBeObscured();
+          expect(locator).toBeDefined();
+          await locator?.focus();
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          await expect.soft(locator!).not.toBeObscured();
         }
       }
     );
