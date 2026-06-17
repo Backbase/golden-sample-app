@@ -1,4 +1,4 @@
-import { Page, expect as baseExpect } from '@playwright/test';
+import { Locator, Page, expect as baseExpect } from '@playwright/test';
 
 export type FocusableElement = {
   tagName: string;
@@ -28,13 +28,13 @@ async function getFocusedElement(page: Page): Promise<FocusableElement> {
 }
 
 export const focusOrderExpect = baseExpect.extend({
-  async toHaveFocusOrder(page: Page, expected: FocusableElement[]) {
+  async toHaveFocusOrder(root: Locator, expected: FocusableElement[]) {
+    const page = root.page();
     const actual: FocusableElement[] = [];
-    for (let i = 0; i < expected.length; i++) {
-      await page.keyboard.press('Tab');
-
-      const currentFocus = await getFocusedElement(page);
-      actual.push(currentFocus);
+    actual.push(await getFocusedElement(page));
+    for (let i = 1; i < expected.length; i++) {
+      await root.press('Tab');
+      actual.push(await getFocusedElement(page));
     }
 
     const pass =
