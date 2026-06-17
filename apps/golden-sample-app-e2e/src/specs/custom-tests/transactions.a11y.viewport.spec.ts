@@ -3,7 +3,7 @@ import { expect } from '../../expect/expect';
 
 test.describe(
   'Transaction Page A11y Viewport tests',
-  { tag: ['@a11y', '@e2e', '@mocks', '@viewport'] },
+  { tag: ['@a11y', '@e2e', '@mocks', '@reflow'] },
   () => {
     test.use({ viewport: { width: 320, height: 256 } });
 

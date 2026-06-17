@@ -1,4 +1,5 @@
-import { Page, test, TestInfo, expect } from '@playwright/test';
+import { Page, test, TestInfo } from '@playwright/test';
+import { a11yExpect as expect } from '../utils/custom-assertions/a11y-expect';
 import { VisualValidator, joinUrl } from '../utils';
 import { PageInfo } from './page-info';
 

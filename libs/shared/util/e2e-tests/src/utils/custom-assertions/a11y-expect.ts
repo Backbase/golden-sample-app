@@ -6,17 +6,6 @@ import {
 } from '@playwright/test';
 import { A11yScanner, timeID } from '@backbase/e2e-tests';
 
-declare global {
-  namespace PlaywrightTest {
-    interface Matchers<R> {
-      toBeAccessible(options?: {
-        include?: Locator | string;
-        disableRules?: string[];
-      }): R;
-    }
-  }
-}
-
 export const a11yExpect = baseExpect.extend({
   async toBeAccessible(
     pageObject: { page: Page; testInfo: TestInfo },

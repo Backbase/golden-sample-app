@@ -1,5 +1,5 @@
 import { test } from '../../fixtures/test';
-import { expect } from '@playwright/test';
+import { expect } from '../../expect/expect';
 
 test.describe(
   'Transaction Page A11y tests',
