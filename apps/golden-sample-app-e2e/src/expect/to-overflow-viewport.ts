@@ -165,20 +165,31 @@ function scanOverflowIssues(
       reasons.push('boxOutsideViewport');
     }
 
-    // A horizontal scroll container (overflow-x: auto|scroll) intentionally
-    // holds wider content without forcing the page to reflow, so it is the
-    // recommended WCAG 1.4.10 fix rather than a failure — skip it.
-    const scrollsHorizontally =
-      style.overflowX === 'auto' || style.overflowX === 'scroll';
+    // Content can only spill out of its box and push the viewport wider when
+    // overflow-x is `visible`. Any other value contains the content:
+    //  - `auto`/`scroll` => intentional horizontal scroll container (the
+    //    recommended WCAG 1.4.10 technique), so wider content is by design.
+    //  - `hidden`/`clip`  => content is clipped and never rendered outside the
+    //    box, e.g. Bootstrap `.visually-hidden` screen-reader-only labels
+    //    (position:absolute; width:1px; overflow:hidden; clip:rect(0 0 0 0)),
+    //    which report scrollWidth >> clientWidth but cannot cause overflow.
+    // In all non-visible cases the content cannot reflow the page, so reporting
+    // it as overflow would be a false positive.
+    const overflowXContainsContent = style.overflowX !== 'visible';
+
     if (
-      !scrollsHorizontally &&
+      !overflowXContainsContent &&
       !insideHorizontalScroll &&
       el.scrollWidth > el.clientWidth + tolerance
     ) {
       reasons.push('contentWiderThanBox');
     }
 
-    if (!insideHorizontalScroll && hasDirectTextOutsideViewport(el)) {
+    if (
+      !overflowXContainsContent &&
+      !insideHorizontalScroll &&
+      hasDirectTextOutsideViewport(el)
+    ) {
       reasons.push('textOutsideViewport');
     }
 
