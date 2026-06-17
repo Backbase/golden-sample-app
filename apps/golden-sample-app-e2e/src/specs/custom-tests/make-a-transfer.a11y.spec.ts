@@ -59,8 +59,17 @@ test.describe(
       'Validate focus obscured',
       { tag: ['@focus-obscured'] },
       async ({ makeTransferPage }) => {
-        await makeTransferPage.toAccount.element.focus();
-        await expect(makeTransferPage.toAccount.element).not.toBeObscured();
+        const locators = [
+          makeTransferPage.toAccount.element,
+          makeTransferPage.amount.currencyInput,
+          makeTransferPage.amount.valueInput,
+          makeTransferPage.amount.decimalsInput,
+          makeTransferPage.submitButton,
+        ];
+        for (const locator of locators) {
+          await locator.focus();
+          await expect(locator).not.toBeObscured();
+        }
       }
     );
   }
