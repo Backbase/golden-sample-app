@@ -46,5 +46,13 @@ test.describe(
         await expect(locator).not.toOverflowViewPort();
       }
     );
+
+    test(
+      'Validate Make Transfer Aria Snapshot',
+      { tag: ['@aria-snapshot'] },
+      async ({ makeTransferPage, page }) => {
+        await expect(makeTransferPage.element).toMatchAriaSnapshot();
+      }
+    );
   }
 );
