@@ -26,10 +26,8 @@ test.describe(
       'Validate Make a Transfer tab Order',
       { tag: ['@tab-order'] },
       async ({ makeTransferPage, page }) => {
-        const toAccount = page.getByRole('textbox', { name: 'To Account' });
-        await toAccount.focus();
-        const locator = makeTransferPage.locator('bb-transfer-journey');
-        await expect(locator).toHaveFocusOrder([
+        await makeTransferPage.toAccount.element.focus();
+        await expect(makeTransferPage.element).toHaveFocusOrder([
           { tagName: 'input', textContent: '' }, // To Account
           { tagName: 'select', textContent: 'USD USD EUR' }, // Currency Input
           { tagName: 'input', textContent: '' }, // Integer Input
