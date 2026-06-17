@@ -37,8 +37,6 @@ function scanOverflowIssues(
   // window.innerWidth, which includes the scrollbar gutter).
   const viewportWidth = document.documentElement.clientWidth;
 
-  console.log('scanOverflowIssues', { tag: root.tagName, args, viewportWidth });
-
   const relativeSelector = (el: Element): string => {
     if (el === root) return ':scope';
 
@@ -209,7 +207,7 @@ function scanOverflowIssues(
 }
 
 /** Scan a root locator (e.g. main) and return serializable overflow issues. */
-export async function findOverflowIssues(
+async function findOverflowIssues(
   root: Locator,
   exclusions: ViewportOverflowExclusion[] = [],
   tolerance = DEFAULT_TOLERANCE_PX
@@ -220,14 +218,6 @@ export async function findOverflowIssues(
     tolerance,
     exclusionSelectors,
   });
-}
-
-/** Rebuild a Playwright locator for an issue relative to the same root. */
-export function overflowIssueLocator(
-  root: Locator,
-  issue: OverflowIssue
-): Locator {
-  return root.locator(issue.selector);
 }
 
 function formatIssues(issues: OverflowIssue[]): string {

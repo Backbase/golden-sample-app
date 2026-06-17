@@ -15,15 +15,18 @@ function normalizeText(text: string): string {
 }
 
 async function getFocusedElement(page: Page): Promise<FocusableElement> {
-  const focusedElement = page.locator(':focus');
-  const textContent = await focusedElement.textContent();
-  const innerText = await focusedElement.innerText();
-  // const ariaSnapshot = await focusedElement.ariaSnapshot();
-  const tag = await focusedElement.evaluate((el) => el.tagName.toLowerCase());
+  const { tagName, textContent, innerText } = await page
+    .locator(':focus')
+    .evaluate((el) => ({
+      tagName: el.tagName.toLowerCase(),
+      textContent: el.textContent ?? '',
+      innerText: (el as HTMLElement).innerText ?? '',
+    }));
+
   return {
-    tagName: tag,
-    textContent: normalizeText(textContent ?? ''),
-    innerText: normalizeText(innerText ?? ''),
+    tagName,
+    textContent: normalizeText(textContent),
+    innerText: normalizeText(innerText),
   };
 }
 
@@ -54,10 +57,11 @@ export const focusOrderExpect = baseExpect.extend({
       });
 
     return {
-      pass: this.isNot ? !pass : pass,
+      // Positive result; Playwright inverts automatically for `.not`.
+      pass,
       name: 'toHaveFocusOrder',
       message: () =>
-        `Expected different focus order ${this.utils.printDiffOrStringify(
+        `Expected focus order to match:\n${this.utils.printDiffOrStringify(
           expected,
           actual,
           'expected',

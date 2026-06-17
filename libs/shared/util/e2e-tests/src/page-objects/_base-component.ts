@@ -1,4 +1,5 @@
-import { Locator, Page, test, TestInfo, expect } from '@playwright/test';
+import { Locator, Page, test, TestInfo } from '@playwright/test';
+import { a11yExpect as expect } from '../utils/custom-assertions/a11y-expect';
 import { BasePage } from './_base-page';
 import { VisualValidator, isLocator } from '../utils';
 import { PageInfo } from './page-info';

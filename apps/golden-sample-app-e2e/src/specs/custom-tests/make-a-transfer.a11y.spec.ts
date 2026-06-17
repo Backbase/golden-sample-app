@@ -25,7 +25,7 @@ test.describe(
     test(
       'Validate Make a Transfer tab Order',
       { tag: ['@tab-order'] },
-      async ({ makeTransferPage, page }) => {
+      async ({ makeTransferPage }) => {
         await makeTransferPage.toAccount.element.focus();
         await expect(makeTransferPage.element).toHaveFocusOrder([
           { tagName: 'input', textContent: '' }, // To Account
@@ -50,8 +50,17 @@ test.describe(
     test(
       'Validate Make Transfer Aria Snapshot',
       { tag: ['@aria-snapshot'] },
-      async ({ makeTransferPage, page }) => {
+      async ({ makeTransferPage }) => {
         await expect(makeTransferPage.element).toMatchAriaSnapshot();
+      }
+    );
+
+    test(
+      'Validate focus obscured',
+      { tag: ['@focus-obscured'] },
+      async ({ makeTransferPage }) => {
+        await makeTransferPage.toAccount.element.focus();
+        await expect(makeTransferPage.toAccount.element).not.toBeObscured();
       }
     );
   }

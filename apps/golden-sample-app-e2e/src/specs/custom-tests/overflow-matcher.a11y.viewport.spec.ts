@@ -1,6 +1,6 @@
 /**
  * This file is just to test the toOverflowViewPort matcher.
- * It deoes not test the application
+ * It does not test the application
  */
 import { test } from '@playwright/test';
 import { expect } from '../../expect/expect';

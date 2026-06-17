@@ -83,7 +83,7 @@ function analyzeObscuration(el: Element): ObscuredAnalysis {
 }
 
 /** Returns whether the element is entirely covered by other content. */
-export async function analyzeElementObscured(
+async function analyzeElementObscured(
   locator: Locator
 ): Promise<ObscuredAnalysis> {
   // Bring the element into the viewport so the hit-test points are valid.
@@ -94,18 +94,24 @@ export async function analyzeElementObscured(
 export const obscuredExpect = baseExpect.extend({
   async toBeObscured(locator: Locator, options?: { timeout?: number }) {
     const timeout = options?.timeout ?? this.timeout ?? 5000;
-    const deadline = Date.now() + timeout;
-    const intervals = [100, 250, 500, 1000];
 
-    // Auto-retry like a built-in assertion: re-sample until the (possibly
-    // negated) expectation is satisfied or the timeout elapses. The matcher
-    // fails when `obscured === isNot`, so we keep polling while that holds.
-    let analysis = await analyzeElementObscured(locator);
-    for (let attempt = 0; analysis.obscured === this.isNot; attempt++) {
-      if (Date.now() >= deadline) break;
-      const wait = intervals[Math.min(attempt, intervals.length - 1)];
-      await new Promise((resolve) => setTimeout(resolve, wait));
-      analysis = await analyzeElementObscured(locator);
+    let analysis: ObscuredAnalysis = { obscured: false, blockerLabel: null };
+
+    // Auto-retry like a built-in assertion: poll the obscuration state until it
+    // matches the (possibly negated) expectation or the timeout elapses, then
+    // report the final sample with our own message + screenshot.
+    try {
+      await baseExpect
+        .poll(
+          async () => {
+            analysis = await analyzeElementObscured(locator);
+            return analysis.obscured;
+          },
+          { timeout }
+        )
+        .toBe(!this.isNot);
+    } catch {
+      // Timed out — fall through with the last sampled analysis.
     }
 
     const { obscured, blockerLabel } = analysis;
@@ -123,7 +129,7 @@ export const obscuredExpect = baseExpect.extend({
         const blocker = blockerLabel ? ` (covered by ${blockerLabel})` : '';
 
         return this.isNot
-          ? `Expected ${el} element not to be obscured, but it is covered by other content ${blocker}`
+          ? `Expected ${el} element not to be obscured, but it is covered by other content${blocker}`
           : `Expected ${el} element to be obscured, but it is fully visible`;
       },
       log: blockerLabel ? [`covered by ${blockerLabel}`] : [],
