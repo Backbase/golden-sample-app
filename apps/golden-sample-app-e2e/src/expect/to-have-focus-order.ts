@@ -36,7 +36,7 @@ export const focusOrderExpect = baseExpect.extend({
     const actual: FocusableElement[] = [];
     actual.push(await getFocusedElement(page));
     for (let i = 1; i < expected.length; i++) {
-      await root.press('Tab');
+      await page.keyboard.press('Tab');
       actual.push(await getFocusedElement(page));
     }
 
