@@ -65,7 +65,7 @@
     "@backbase/transactions-http-ang": "5.3.0",
     "@backbase/ui-ang": "15.0.4",
     "@ng-bootstrap/ng-bootstrap": "20.0.0",
-    "@ng-select/ng-select": "21.5.2",
+    "@ng-select/ng-select": "21.8.2",
     "@ngrx/component-store": "21.1.0",
     "@ngrx/effects": "21.1.0",
     "@ngrx/operators": "21.1.0",
