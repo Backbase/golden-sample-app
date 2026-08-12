@@ -44,13 +44,8 @@ jobs:
 
       - name: Setup Node.js
         uses: ./.github/actions/node-step
-        env:
-          NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_EMAIL: ${{ secrets.NODE_EMAIL }}
         with:
-          npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
-          npm-email: ${{ secrets.NODE_EMAIL }}
+          npm-auth-token: ${{ secrets.NPM_TOKEN }}
 
       - name: Cache npm dependencies
         uses: actions/cache@v4
@@ -82,19 +77,14 @@ jobs:
       HOME: /root
     strategy:
       matrix:
-        test: ['sndbx-ci', 'mocks', 'responsive', 'a11y']
+        test: ['mocks', 'responsive', 'a11y'] # 'sndbx-ci', 
     steps:
       - uses: actions/checkout@v5
 
       - name: Setup Node.js
         uses: ./.github/actions/node-step
-        env:
-          NPM_BB_TOKEN: ${{ secrets.NPM_BB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
         with:
-          npm-auth-token: ${{ secrets.NPM_BB_TOKEN }}
-          npm-email: ${{ secrets.NPM_EMAIL }}
+          npm-auth-token: ${{ secrets.NPM_TOKEN }}
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4

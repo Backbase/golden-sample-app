@@ -2,11 +2,10 @@
   "name": "@backbase/transfer-journey",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^20.3.12",
-    "@angular/core": "^20.3.12",
-    "@angular/router": "^20.3.12",
-    "@backbase/foundation-ang": "^13.0.4",
-    "@backbase/ui-ang": "^14.1.24"
+    "@angular/core": "21.2.6",
+    "@angular/router": "21.2.6",
+    "@backbase/foundation-ang": "14.0.0",
+    "@backbase/ui-ang": "^15.0.4"
   },
   "dependencies": {
     "tslib": "^2.3.1"
