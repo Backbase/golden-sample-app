@@ -11,6 +11,6 @@ import { ErrorCommonStateModule } from '@backbase/ui-ang/common-error-state';
 export default class ErrorPageComponent {
   private readonly router: Router = inject(Router);
   public error =
-    this.router.getCurrentNavigation()?.extras.state?.['error'] ??
+    this.router.currentNavigation()?.extras.state?.['error'] ??
     new HttpErrorResponse({ status: 404 });
 }

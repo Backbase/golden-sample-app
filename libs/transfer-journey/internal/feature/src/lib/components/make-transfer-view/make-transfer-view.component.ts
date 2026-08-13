@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertModule } from '@backbase/ui-ang/alert';
 import { LoadingIndicatorModule } from '@backbase/ui-ang/loading-indicator';
-import { NgIf, NgSwitchCase, AsyncPipe, NgSwitch } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ErrorStatus,
   MakeTransferJourneyState,
@@ -26,10 +26,7 @@ import { Observable } from 'rxjs';
 @Component({
   templateUrl: 'make-transfer-view.component.html',
   imports: [
-    NgIf,
-    NgSwitchCase,
     AsyncPipe,
-    NgSwitch,
     AlertModule,
     MakeTransferFormComponent,
     LoadingIndicatorModule,
