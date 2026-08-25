@@ -99,7 +99,7 @@
     "@angular/cli": "21.2.5",
     "@angular/compiler-cli": "21.2.6",
     "@angular/language-service": "21.2.6",
-    "@axe-core/playwright": "^4.10.1",
+    "@axe-core/playwright": "^4.12.1",
     "@backbase/nx-plugin": "6.0.1",
     "@faker-js/faker": "^9.7.0",
     "@ng-apimock/core": "^3.11.0",
