@@ -47,6 +47,7 @@ export const baseConfig: PlaywrightTestConfig<ProjectTestArgs> = {
       'html',
       {
         outputFolder: join(distDir, 'reports/html'),
+        open: 'never',
       },
     ],
   ],

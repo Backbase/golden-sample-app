@@ -5,8 +5,6 @@
   icon="caret-down"
   [options]="localesCatalog"
   (select)="language = $event"
->
-  <ng-template bbDropdownLabel>
-    <span>{{ language?.language }}</span>
-  </ng-template>
-</bb-dropdown-menu-ui>
+  [label]="language?.language ?? ''"
+  [ariaLabel]="language?.language ?? ''"
+/>

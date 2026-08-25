@@ -1,7 +1,10 @@
 import { VisualValidator } from '@backbase/e2e-tests';
 import { IdentityPage } from '../page-objects/pages/identity-page';
 import { User } from '../data/data-types/user';
-import { TransactionsPage } from '@backbase/transactions-journey/e2e-tests';
+import {
+  TransactionsPage,
+  MakeTransferPage,
+} from '@backbase/transactions-journey/e2e-tests';
 import { test as baseTest } from '@playwright/test';
 import { ProjectTestArgs } from './environment';
 
@@ -10,6 +13,7 @@ export interface TestOptions {
   visual: VisualValidator;
   identityPage: IdentityPage;
   transactionsPage: TransactionsPage;
+  makeTransferPage: MakeTransferPage;
   userType: string;
   user: User;
 }
@@ -31,6 +35,13 @@ export const test = baseTest.extend<TestOptions & ProjectTestArgs>({
   },
   transactionsPage: async ({ page, baseURL }, use, testInfo) => {
     await use(new TransactionsPage(page, { baseURL, testInfo }));
+  },
+  makeTransferPage: async ({ page, baseURL }, use) => {
+    await use(
+      new MakeTransferPage(page, {
+        baseURL: `${baseURL}/transfer/make-transfer`,
+      })
+    );
   },
   visual: async ({ page }, use) => {
     await use(new VisualValidator(page));

@@ -5,9 +5,15 @@
       <label
         i18n="from account label@@transfer.form.fromAccount.label"
         class="form-label"
+        for="fromAccount"
         >From account</label
       >
-      <input type="text" class="form-control" formControlName="fromAccount" />
+      <input
+        id="fromAccount"
+        type="text"
+        class="form-control"
+        formControlName="fromAccount"
+      />
     </div>
     <div class="bb-block bb-block--md">
       <label
@@ -18,9 +24,11 @@
           transfer. This label is located in the transfer form
           layout.@@transfer.form.toAccount.label"
         class="form-label"
+        for="toAccount"
         >To Account</label
       >
       <input
+        id="toAccount"
         type="text"
         class="form-control"
         formControlName="toAccount"
@@ -55,13 +63,18 @@
     </div>
 
     <div class="bb-block bb-block--md">
-      <label i18n="amount label@@transfer.form.amount.label" class="form-label"
+      <label
+        id="amount-label"
+        i18n="amount label@@transfer.form.amount.label"
+        class="form-label"
         >Amount</label
       >
       <bb-currency-input-ui
+        id="amount"
         [currencyLabel]="'Amount'"
         formControlName="amount"
         [currencies]="currencies"
+        ariaLabelledby="amount-label"
       >
         <div bbValidationMessage>
           <bb-input-validation-message-ui

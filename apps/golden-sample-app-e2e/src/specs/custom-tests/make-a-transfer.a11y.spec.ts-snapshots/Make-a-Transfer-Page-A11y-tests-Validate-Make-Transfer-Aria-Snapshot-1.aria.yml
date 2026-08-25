@@ -1,0 +1,14 @@
+- heading "Make a transfer" [level=1]
+- text: From account
+- textbox "From account" [disabled]: "/Ankit's Current Account: \\d+/"
+- text: To Account
+- textbox "To Account"
+- text: Amount Currency List Dropdown
+- combobox "Currency":
+  - option "USD" [selected]
+  - option "EUR"
+- text: Integer
+- textbox "Integer"
+- text: . Decimals
+- textbox "Decimals"
+- button "Submit"

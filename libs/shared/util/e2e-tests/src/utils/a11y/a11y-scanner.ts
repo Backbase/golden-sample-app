@@ -28,6 +28,9 @@ export class A11yScanner {
       'wcag2aa',
       'wcag21a',
       'wcag21aa',
+      'wcag22aa',
+      'best-practice',
+      'experimental',
     ]);
     if (options?.disableRules) {
       this.axeBuilder.disableRules(options.disableRules);
