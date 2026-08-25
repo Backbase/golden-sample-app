@@ -114,7 +114,7 @@
     "@playwright/test": "1.52.0",
     "@schematics/angular": "21.2.5",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.12.0",
+    "@types/node": "^24.13.3",
     "@typescript-eslint/utils": "^8.33.1",
     "allure-commandline": "^2.32.0",
     "allure-js-commons": "3.1.0",
