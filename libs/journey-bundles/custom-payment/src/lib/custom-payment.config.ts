@@ -1,5 +1,3 @@
-import '@angular/localize/init';
-
 import {
   CounterPartyFields,
   Frequencies,
